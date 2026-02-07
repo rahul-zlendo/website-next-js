@@ -1,0 +1,9 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*?page=*
+Disallow: /*&page=*
+Disallow: /search
+Disallow: /temp
+
+Sitemap: https://app.zlendorealty.com/sitemap.xml

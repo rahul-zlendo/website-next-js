@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react';
 import { motion } from 'framer-motion';
 import { Quote } from 'lucide-react';
 

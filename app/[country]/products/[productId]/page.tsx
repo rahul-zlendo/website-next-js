@@ -468,7 +468,7 @@ export default function ProductPage() {
                             <div className={`${i % 2 === 1 ? 'lg:order-1' : ''} relative`}>
                                 <div className="absolute inset-0 bg-slate-100 rounded-[3rem] transform rotate-3 scale-95 group-hover:rotate-6 transition-transform duration-500" />
                                 <img
-                                    src={typeof step.image === 'string' ? step.image : step.image.src}
+                                    src={typeof step.image === 'string' ? step.image : (step.image as { src: string }).src}
                                     alt={step.title}
                                     className="relative z-10 w-full rounded-[2rem] shadow-xl"
                                 />
