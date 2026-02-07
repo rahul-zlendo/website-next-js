@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+ 
+  # Force HTTPS (keep as-is)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+ 
+  # ---------------------------------------------------------
+  # EXCLUDE WordPress mount points from React SPA fallback
+  # /blog/* and /in/blog/* must be served directly by Apache
+  # ---------------------------------------------------------
+  RewriteRule ^blog(/|$) - [L]
+  RewriteRule ^in/blog(/|$) - [L]
+ 
+  # Don't rewrite for existing files
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule ^ - [L]
+ 
+  # Route all other requests to index.html (React SPA)
+  RewriteRule . /index.html [L]
+</IfModule>
