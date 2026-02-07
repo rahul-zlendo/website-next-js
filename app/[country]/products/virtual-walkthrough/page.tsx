@@ -26,7 +26,7 @@ import {
 import { SIGNUP_URL } from '@/lib/constants/urls';
 
 // Placeholder image paths - replace with actual images when available
-const VRWalkthroughImg = 'https://images.unsplash.com/photo-1622519407650-3df9883f76a6?auto=format&fit=crop&q=80&w=2000';
+const VRWalkthroughImg = '/assets/vr/vr-walkthrough.jpg';
 const VRImg = 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=2000';
 
 /**
