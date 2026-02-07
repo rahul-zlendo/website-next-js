@@ -1,4 +1,4 @@
-// File: E:\Zlendo Realty Next React\zlendorealtywebsite\app\[country]\products\2d-to-3d\layout.tsx
+// File: E:\ZRealty Website NextJs\website-next-js\app\[country]\products\2d-to-3d\layout.tsx
 import * as entry from '../../../../../../app/[country]/products/2d-to-3d/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
