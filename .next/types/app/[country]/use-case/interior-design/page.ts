@@ -1,4 +1,4 @@
-// File: E:\Zlendo Realty Next React\zlendorealtywebsite\app\[country]\use-case\interior-design\page.tsx
+// File: E:\ZRealty Website NextJs\website-next-js\app\[country]\use-case\interior-design\page.tsx
 import * as entry from '../../../../../../app/[country]/use-case/interior-design/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
