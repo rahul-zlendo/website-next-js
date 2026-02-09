@@ -15,6 +15,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://app.zlendorealty.com/sitemap.xml',
+    sitemap: 'https://zlendorealty.com/sitemap.xml',
   };
 }
+

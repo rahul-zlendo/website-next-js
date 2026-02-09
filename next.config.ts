@@ -2,10 +2,10 @@ import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  
+
   // Exclude old src directory from build
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-  
+
   webpack: (config) => {
     // Exclude src directory from webpack
     config.watchOptions = {
@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
     };
     return config;
   },
-  
+
   // API proxy configuration
   async rewrites() {
     return [
@@ -32,6 +32,22 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'zrealtystoragedev.blob.core.windows.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'zlendorealty.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'zlendorealty.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.zlendorealty.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'secure.gravatar.com',
+      },
     ],
   },
 
@@ -39,7 +55,7 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  
+
   // Allow build with linting warnings
   eslint: {
     ignoreDuringBuilds: true,

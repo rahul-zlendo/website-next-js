@@ -1,9 +1,1 @@
-{
-  "/_not-found/page": "app/_not-found/page.js",
-  "/[country]/viewalltemplates/page": "app/[country]/viewalltemplates/page.js",
-  "/[country]/business/page": "app/[country]/business/page.js",
-  "/[country]/partners/page": "app/[country]/partners/page.js",
-  "/[country]/use-case/interior-design/page": "app/[country]/use-case/interior-design/page.js",
-  "/[country]/use-case/vastu-optimization/page": "app/[country]/use-case/vastu-optimization/page.js",
-  "/[country]/use-case/new-home-building/page": "app/[country]/use-case/new-home-building/page.js"
-}
+{}
