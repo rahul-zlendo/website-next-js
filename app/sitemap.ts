@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next';
+import { getAllPostSlugs, getAllCategorySlugs, getAllTagSlugs } from '@/lib/wordpress/api';
 
 const SUPPORTED_COUNTRIES = ['in', 'us', 'uk', 'eu', 'au'];
-const BASE_URL = 'https://app.zlendorealty.com';
+const BASE_URL = 'https://zlendorealty.com';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = [
     // Core pages
     { path: '', priority: 1.0, changeFrequency: 'daily' as const },
@@ -76,6 +77,51 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: 'daily',
     priority: 1.0,
   });
+
+  // Add blog index page
+  urls.push({
+    url: `${BASE_URL}/blog`,
+    lastModified: new Date(),
+    changeFrequency: 'daily',
+    priority: 0.9,
+  });
+
+  // Fetch blog posts from WordPress
+  try {
+    const postSlugs = await getAllPostSlugs();
+    for (const slug of postSlugs) {
+      urls.push({
+        url: `${BASE_URL}/blog/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      });
+    }
+
+    // Fetch categories
+    const categorySlugs = await getAllCategorySlugs();
+    for (const slug of categorySlugs) {
+      urls.push({
+        url: `${BASE_URL}/blog/category/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.6,
+      });
+    }
+
+    // Fetch tags
+    const tagSlugs = await getAllTagSlugs();
+    for (const slug of tagSlugs) {
+      urls.push({
+        url: `${BASE_URL}/blog/tag/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      });
+    }
+  } catch (error) {
+    console.error('[Sitemap] Failed to fetch blog content:', error);
+  }
 
   return urls;
 }
