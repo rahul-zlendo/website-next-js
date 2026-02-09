@@ -38,7 +38,7 @@ const Footer = () => {
     const resourceLinks = [
         { label: 'Design Library', path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
-        { label: 'Blog', path: 'https://zlendorealty.com/blog', openInNewTab: false },
+        { label: 'Blog', path: '/blog', openInNewTab: false },
         { label: 'Tutorials', path: 'https://www.youtube.com/playlist?list=PLetnELr5c_JVwUtuFKM9wGjGKrKPrGmsa', openInNewTab: true },
         { label: 'Help Center', path: getPath('/help-center') },
         { label: 'Grow with Zlendo', path: getPath('/partners') },
