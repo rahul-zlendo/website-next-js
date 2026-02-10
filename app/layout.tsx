@@ -20,7 +20,7 @@ const nunito = Nunito({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
+    default: 'Zlendo Realty | Free 3D Home Design & Planning Tool',
     template: '%s | Zlendo Realty',
   },
   description:
@@ -41,25 +41,16 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://zlendorealty.com',
-    title: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
+    title: 'Zlendo Realty | Free 3D Home Design & Planning Tool',
     description:
       'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
     siteName: 'Zlendo Realty',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Zlendo Realty',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
+    title: 'Zlendo Realty | Free 3D Home Design & Planning Tool',
     description:
       'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
-    images: ['/og-image.png'],
   },
   robots: {
     index: true,

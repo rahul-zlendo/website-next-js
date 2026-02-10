@@ -11,10 +11,9 @@ interface CategoryPageProps {
     searchParams: Promise<{ page?: string }>;
 }
 
-// Generate static params for all categories
+// Don't pre-render category pages at build time to avoid overwhelming the WordPress API.
 export async function generateStaticParams() {
-    const slugs = await getAllCategorySlugs();
-    return slugs.map((slug) => ({ slug }));
+    return [];
 }
 
 // Generate metadata for the category
