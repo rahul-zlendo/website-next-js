@@ -20,7 +20,11 @@ async function hcFetch<T>(endpoint: string): Promise<{ data: T; headers: Headers
     try {
         const response = await fetch(url, {
             next: { revalidate: REVALIDATE_SECONDS },
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'User-Agent': 'ZlendoRealty/1.0 (NextJS; +https://zlendorealty.com)',
+                'Referer': 'https://zlendorealty.com',
+            },
         });
         if (!response.ok) {
             throw new Error(`HelpCenter API error: ${response.status} ${response.statusText}`);

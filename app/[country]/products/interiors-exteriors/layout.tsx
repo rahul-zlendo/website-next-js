@@ -15,10 +15,22 @@ export const metadata: Metadata = {
     title: 'Elegant Interior & Exterior Home Design',
     description:
       'From façade to floor layout, design homes with cultural and climate alignment. Get expert help with Zlendo Realty.',
+    url: 'https://app.zlendorealty.com/in/products/interiors-exteriors',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Zlendo Realty - Interior & Exterior Design',
+      },
+    ],
   },
   twitter: {
+    card: 'summary_large_image',
     title: 'Interior & Exterior Home Design',
     description: 'Cohesive, culture-ready residential designs. Start your free trial.',
+    images: ['/og-image.png'],
   },
 };
 

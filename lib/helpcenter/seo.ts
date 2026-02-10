@@ -33,11 +33,20 @@ export function generateHelpCenterMetadata(): Metadata {
             siteName: SITE_NAME,
             type: 'website',
             locale: 'en_US',
+            images: [
+                {
+                    url: absoluteUrl('/og-image.png'),
+                    width: 1200,
+                    height: 630,
+                    alt: 'Zlendo Realty Help Center',
+                },
+            ],
         },
         twitter: {
             card: 'summary_large_image',
             title,
             description,
+            images: [absoluteUrl('/og-image.png')],
         },
     };
 }
@@ -60,14 +69,15 @@ export function generateArticleMetadata(article: HelpArticle): Metadata {
             locale: 'en_US',
             publishedTime: article.date,
             modifiedTime: article.modifiedDate,
-            ...(article.featuredImage && {
-                images: [{ url: article.featuredImage.url, width: article.featuredImage.width, height: article.featuredImage.height, alt: article.featuredImage.alt }],
-            }),
+            images: article.featuredImage
+                ? [{ url: article.featuredImage.url, width: article.featuredImage.width, height: article.featuredImage.height, alt: article.featuredImage.alt }]
+                : [{ url: absoluteUrl('/og-image.png'), width: 1200, height: 630, alt: 'Zlendo Realty Help Center' }],
         },
         twitter: {
             card: 'summary_large_image',
             title,
             description,
+            images: [article.featuredImage?.url || absoluteUrl('/og-image.png')],
         },
     };
 }
@@ -88,8 +98,21 @@ export function generateCategoryMetadata(category: HelpCategory): Metadata {
             siteName: SITE_NAME,
             type: 'website',
             locale: 'en_US',
+            images: [
+                {
+                    url: absoluteUrl('/og-image.png'),
+                    width: 1200,
+                    height: 630,
+                    alt: `${category.name} - Zlendo Realty Help Center`,
+                },
+            ],
         },
-        twitter: { card: 'summary', title, description },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            images: [absoluteUrl('/og-image.png')],
+        },
     };
 }
 

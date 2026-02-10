@@ -11,11 +11,14 @@ export async function middleware(request: NextRequest) {
   const req = request as RequestWithGeo;
   const { pathname } = request.nextUrl;
 
-  // Skip middleware for static files, API routes, and Next.js internals
+  // Skip middleware for static files, API routes, Next.js internals,
+  // and standalone sections (blog, help-center) that are not country-segmented.
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/static') ||
+    pathname.startsWith('/blog') ||
+    pathname.startsWith('/help-center') ||
     pathname.includes('.')
   ) {
     return NextResponse.next();
@@ -35,18 +38,18 @@ export async function middleware(request: NextRequest) {
     // Detect country from IP (using edge runtime)
     try {
       const country = req.geo?.country?.toLowerCase() || 'in';
-      const targetCountry = country === 'gb' ? 'uk' : 
-                            SUPPORTED_COUNTRIES.includes(country) ? country : 'in';
+      const targetCountry = country === 'gb' ? 'uk' :
+        SUPPORTED_COUNTRIES.includes(country) ? country : 'in';
 
       const url = request.nextUrl.clone();
       url.pathname = `/${targetCountry}`;
-      
+
       const response = NextResponse.redirect(url);
       response.cookies.set(COUNTRY_COOKIE_NAME, targetCountry, {
         maxAge: 60 * 60 * 24 * 365, // 1 year
         path: '/',
       });
-      
+
       return response;
     } catch (error) {
       console.error('Geo-detection error:', error);
@@ -60,7 +63,7 @@ export async function middleware(request: NextRequest) {
   const countryMatch = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
   if (countryMatch) {
     const [, country] = countryMatch;
-    
+
     if (!SUPPORTED_COUNTRIES.includes(country)) {
       // Invalid country - redirect to default
       const url = request.nextUrl.clone();

@@ -36,11 +36,11 @@ export const metadata: Metadata = {
     'room styler',
   ],
   authors: [{ name: 'Zlendo Realty' }],
-  metadataBase: new URL('https://app.zlendorealty.com'),
+  metadataBase: new URL('https://zlendorealty.com'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://app.zlendorealty.com',
+    url: 'https://zlendorealty.com',
     title: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
     description:
       'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
@@ -89,7 +89,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>
