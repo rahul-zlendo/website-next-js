@@ -4,45 +4,65 @@ import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { useAppDispatch } from '@/lib/store/hooks';
 import { setAuth } from '@/lib/store/slices/authSlice';
-import { customerService } from '@/lib/services/customerService';
+import { getUserDetailsByTokenService } from '@/lib/services/loginService';
 
 const AuthSync = () => {
     const dispatch = useAppDispatch();
 
+    // Helper function to clean token (remove quotes and trim)
+    const cleanToken = (token: string | null): string | null => {
+        if (!token) return null;
+        // Remove leading/trailing quotes and whitespace
+        let cleaned = token.trim();
+        // Remove surrounding quotes if present
+        if ((cleaned.startsWith('"') && cleaned.endsWith('"')) || 
+            (cleaned.startsWith("'") && cleaned.endsWith("'"))) {
+            cleaned = cleaned.slice(1, -1);
+        }
+        // Remove escaped quotes
+        cleaned = cleaned.replace(/\\"/g, '"').replace(/\\'/g, "'");
+        return cleaned.trim();
+    };
+
     useEffect(() => {
         const syncAuth = async () => {
             try {
-                const userDataCookie = Cookies.get('userData');
                 const accessToken = Cookies.get('accessToken');
-                const isAuthenticatedCookie = Cookies.get('isAuthenticated');
+                // const rawToken = localStorage.getItem('accessToken');
+                // const accessToken = cleanToken(rawToken);
+                // console.log('Raw token:', rawToken, 'Cleaned token:', accessToken);
 
-                if (userDataCookie && accessToken && isAuthenticatedCookie === 'true') {
-                    // Cookies are URL encoded, so we need to decode them
-                    const decodedUserData = decodeURIComponent(userDataCookie);
-                    const initialUser = JSON.parse(decodedUserData);
-
-                    // Dispatch initial data from cookie immediately
-                    dispatch(setAuth({
-                        user: initialUser,
-                        accessToken,
-                        isAuthenticated: true
-                    }));
-
-                    // Fetch fresh data from API
+                if (accessToken) {
                     try {
-                        const freshUser = await customerService.getCustomerById(initialUser.userId);
-                        if (freshUser) {
+                        // Call API to verify token and get user details
+                        const userData = await getUserDetailsByTokenService(accessToken);
+                        console.log(userData,"userData",accessToken);
+                        if (userData) {
+                            // Set authenticated state with user data from API
                             dispatch(setAuth({
-                                user: freshUser,
+                                user: userData,
                                 accessToken,
                                 isAuthenticated: true
                             }));
+                        } else {
+                            // No user data returned, set as not authenticated
+                            dispatch(setAuth({
+                                user: null,
+                                accessToken: null,
+                                isAuthenticated: false
+                            }));
                         }
                     } catch (apiError) {
-                        console.error('Error fetching fresh user data:', apiError);
-                        // We still have the cookie data, so we don't logout
+                        console.error('Error verifying token or fetching user data:', apiError);
+                        // Token is invalid or expired, set as not authenticated
+                        dispatch(setAuth({
+                            user: null,
+                            accessToken: null,
+                            isAuthenticated: false
+                        }));
                     }
                 } else {
+                    // No token found, set as not authenticated
                     dispatch(setAuth({
                         user: null,
                         accessToken: null,
@@ -50,7 +70,7 @@ const AuthSync = () => {
                     }));
                 }
             } catch (error) {
-                console.error('Error syncing auth from cookies:', error);
+                console.error('Error syncing auth:', error);
                 dispatch(setAuth({
                     user: null,
                     accessToken: null,

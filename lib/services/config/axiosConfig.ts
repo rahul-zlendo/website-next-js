@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { API_BASE_URL } from '../../config/env';
+import { API_BASE_URL, DEFAULT_API_TOKEN } from '../../config/env';
 import Cookies from 'js-cookie';
 
 interface ErrorResponse {
@@ -21,9 +21,23 @@ export const axiosInstance = axios.create({
 // Request interceptor
 axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const token = Cookies.get('accessToken');
+  
   if (token) {
+    // User is logged in - use Bearer token
     config.headers.Authorization = `Bearer ${token}`;
+  } else {
+    // User is logged out - use ZRealtyServiceApiKey header without Bearer
+    // Remove any existing lowercase version first
+    const headers = config.headers as Record<string, unknown>;
+    delete headers['zrealtyserviceapikey'];
+    delete headers['ZRealtyServiceApiKey'];
+    
+    // Set header with exact camelCase
+    // Note: HTTP headers are case-insensitive per spec, but some servers may require exact case
+    // The browser may display headers as lowercase in network tab, but the value is correct
+    headers['ZRealtyServiceApiKey'] = DEFAULT_API_TOKEN;
   }
+  
   return config;
 });
 

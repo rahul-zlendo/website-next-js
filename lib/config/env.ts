@@ -12,15 +12,15 @@
  */
 
 // Determine environment (dev or prod)
-const env = process.env.NEXT_PUBLIC_ENV || 'prod';
+const env = process.env.NEXT_PUBLIC_ENV || 'dev';
 const isDev = env === 'dev';
 
 // Frontend URLs - Using production URL for both dev and prod
-const FRONTEND_URL_DEV = 'https://app.zlendorealty.com';
+const FRONTEND_URL_DEV = 'https://stagingapp.zlendorealty.com';
 const FRONTEND_URL_PROD = 'https://app.zlendorealty.com';
 
 // Backend URLs - Using production API for both dev and prod
-const BACKEND_URL_DEV = 'https://prodapi.zlendorealty.com';
+const BACKEND_URL_DEV = 'https://api.zlendorealty.com';
 const BACKEND_URL_PROD = 'https://prodapi.zlendorealty.com';
 
 // Blob URL
@@ -55,6 +55,11 @@ export const Plans = `${FRONTEND_URL}/plans?tab=billing&period=monthly`
 export const designLibrary = `${FRONTEND_URL}/design-library`
 // Project Details URL (for 3D Editor)
 export const PROJECT_DETAILS_URL = `${FRONTEND_URL}/project-details`;
+
+// Default API tokens for unauthenticated requests
+export const DEFAULT_API_TOKEN_DEV = 'zrsk_dev_41fbb72c9a0e5f1c8d2a9b6d4e8f3c2';
+export const DEFAULT_API_TOKEN_PROD = 'zrsk_beta_8a1d4c7e6f2b9a5d3c1e0f8b6a4d';
+export const DEFAULT_API_TOKEN = isDev ? DEFAULT_API_TOKEN_DEV : DEFAULT_API_TOKEN_PROD;
 
 // Export environment info
 export const IS_DEV = isDev;
