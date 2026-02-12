@@ -15,7 +15,7 @@
 const env = process.env.NEXT_PUBLIC_ENV || 'dev';
 const isDev = env === 'dev';
 
-// Frontend URLs - Using production URL for both dev and prod
+// Frontend URLs - Using production URL for both dev and prod its
 const FRONTEND_URL_DEV = 'https://stagingapp.zlendorealty.com';
 const FRONTEND_URL_PROD = 'https://app.zlendorealty.com';
 
