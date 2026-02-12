@@ -4,7 +4,7 @@ This document describes the headless WordPress blog integration for the Zlendo R
 
 ## Overview
 
-The blog at `/blog` fetches content from WordPress (at `https://blog.zlendorealty.com`) using the REST API and renders it with Next.js App Router.
+The blog at `/blog` fetches content from WordPress (at `https://zlendorealty.com/blog`) using the REST API and renders it with Next.js App Router.
 
 ## File Structure
 
@@ -48,7 +48,7 @@ Add these to your `.env.local` (and Vercel environment settings):
 
 ```bash
 # WordPress REST API Base URL
-WP_BASE_URL=https://blog.zlendorealty.com
+WP_BASE_URL=https://zlendorealty.com/blog
 
 # ISR Revalidation time in seconds (3600 = 1 hour)
 WP_REVALIDATE_SECONDS=3600
@@ -66,7 +66,7 @@ NEXT_PUBLIC_SITE_URL=https://zlendorealty.com
 
 2. **REST API**: Ensure REST API is publicly accessible
    - Default WordPress installation has REST API enabled
-   - Test by visiting: `https://blog.zlendorealty.com/wp-json/wp/v2/posts`
+   - Test by visiting: `https://zlendorealty.com/blog/wp-json/wp/v2/posts`
 
 3. **Featured Images**: Enable featured images for posts
    - Should be enabled by default in most themes
@@ -126,7 +126,7 @@ In your Vercel project settings:
 
 1. Go to **Settings** → **Environment Variables**
 2. Add the following:
-   - `WP_BASE_URL` = `https://blog.zlendorealty.com`
+   - `WP_BASE_URL` = `https://zlendorealty.com/blog`
    - `WP_REVALIDATE_SECONDS` = `3600`
    - `NEXT_PUBLIC_SITE_URL` = `https://zlendorealty.com`
 

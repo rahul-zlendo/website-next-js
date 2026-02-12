@@ -88,7 +88,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
         { label: 'Design Library', desc: 'Inspiration gallery', icon: Library, path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', desc: 'Built-in layouts for homes, rooms, and interiors.', icon: LayoutTemplate, path: getPath('/viewalltemplates') },
         { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: 'https://www.youtube.com/playlist?list=PLetnELr5c_JVwUtuFKM9wGjGKrKPrGmsa', openInNewTab: true },
-        { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: '/help-center', openInNewTab: false },
+        { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: 'https://helpcenter.zlendorealty.com', openInNewTab: true },
         { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: '/blog', openInNewTab: false },
         ...(isBusinessMode ? [{ label: 'Grow with Zlendo', desc: 'Affiliate & Partners', icon: Share2, path: getPath('/partners') }] : []),
     ];

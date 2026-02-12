@@ -61,7 +61,7 @@ export function generateBlogListMetadata(page: number = 1): Metadata {
             type: 'website',
             images: [
                 {
-                    url: absoluteUrl('/og-image.png'),
+                    url: absoluteUrl('/og-blog.png'),
                     width: 1200,
                     height: 630,
                     alt: 'Zlendo Realty Blog',
@@ -72,7 +72,7 @@ export function generateBlogListMetadata(page: number = 1): Metadata {
             card: 'summary_large_image',
             title,
             description,
-            images: [absoluteUrl('/og-image.png')],
+            images: [absoluteUrl('/og-blog.png')],
         },
         robots: {
             index: true,
@@ -88,7 +88,7 @@ export function generatePostMetadata(post: BlogPost): Metadata {
     const title = `${post.title} | Zlendo Realty Blog`;
     const description = truncateText(post.excerpt, 160);
     const canonicalUrl = absoluteUrl(`/blog/${post.slug}`);
-    const featuredImage = post.featuredImage?.url || absoluteUrl('/og-image.png');
+    const featuredImage = post.featuredImage?.url || absoluteUrl('/og-blog.png');
 
     return {
         title,
@@ -226,7 +226,7 @@ export function generateBlogPostingJsonLd(post: BlogPost): object {
         '@type': 'BlogPosting',
         headline: post.title,
         description: truncateText(post.excerpt, 160),
-        image: post.featuredImage?.url || absoluteUrl('/og-image.png'),
+        image: post.featuredImage?.url || absoluteUrl('/og-blog.png'),
         datePublished: post.date,
         dateModified: post.modifiedDate,
         author: {

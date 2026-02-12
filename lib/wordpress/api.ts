@@ -7,83 +7,39 @@ import {
 } from './types';
 
 // Environment configuration
-const WP_BASE_URL = process.env.WP_BASE_URL || 'https://blog.zlendorealty.com';
+const WP_BASE_URL = process.env.WP_BASE_URL || 'https://zlendorealty.com/blog';
 const WP_API_URL = `${WP_BASE_URL}/wp-json/wp/v2`;
 const REVALIDATE_SECONDS = parseInt(process.env.WP_REVALIDATE_SECONDS || '3600', 10);
 
 /**
- * Helper to wait for a specified duration
- */
-function wait(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-/**
- * Generic fetch helper with error handling, caching, and retry logic
+ * Generic fetch helper with error handling and caching
  */
 async function wpFetch<T>(
     endpoint: string,
     options: RequestInit = {}
 ): Promise<{ data: T; headers: Headers }> {
     const url = `${WP_API_URL}${endpoint}`;
-    const MAX_RETRIES = 5;
-    const BASE_DELAY = 1500; // 1.5 seconds
 
-    for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-        try {
-            const response = await fetch(url, {
-                ...options,
-                next: { revalidate: REVALIDATE_SECONDS },
-                headers: {
-                    'Content-Type': 'application/json',
-                    'User-Agent': 'ZlendoRealty/1.0 (NextJS; +https://zlendorealty.com)',
-                    'Referer': 'https://zlendorealty.com',
-                    ...options.headers,
-                },
-            });
+    try {
+        const response = await fetch(url, {
+            ...options,
+            next: { revalidate: REVALIDATE_SECONDS },
+            headers: {
+                'Content-Type': 'application/json',
+                ...options.headers,
+            },
+        });
 
-            // Retry on rate limit or server errors
-            if (response.status === 429 || response.status >= 500) {
-                const retryAfter = response.headers.get('Retry-After');
-                const delay = retryAfter
-                    ? parseInt(retryAfter, 10) * 1000
-                    : BASE_DELAY * Math.pow(2, attempt) + Math.random() * 1000;
-                console.warn(
-                    `[WP API] ${response.status} for ${endpoint} — retrying in ${Math.round(delay)}ms (attempt ${attempt + 1}/${MAX_RETRIES})`
-                );
-                await wait(delay);
-                continue;
-            }
-
-            if (!response.ok) {
-                throw new Error(`WordPress API error: ${response.status} ${response.statusText}`);
-            }
-
-            const data = await response.json();
-            return { data, headers: response.headers };
-        } catch (error) {
-            // Retry on connection timeouts
-            const isTimeout =
-                error instanceof TypeError &&
-                (error.cause as any)?.code === 'UND_ERR_CONNECT_TIMEOUT';
-            const isNetworkError =
-                error instanceof TypeError && (error.message === 'fetch failed' || (error.cause as any)?.code === 'ECONNRESET');
-
-            if ((isTimeout || isNetworkError) && attempt < MAX_RETRIES - 1) {
-                const delay = BASE_DELAY * Math.pow(2, attempt) + Math.random() * 1000;
-                console.warn(
-                    `[WP API] Network error for ${endpoint} — retrying in ${Math.round(delay)}ms (attempt ${attempt + 1}/${MAX_RETRIES})`
-                );
-                await wait(delay);
-                continue;
-            }
-
-            console.error(`[WP API] Failed to fetch ${url}:`, error);
-            throw error;
+        if (!response.ok) {
+            throw new Error(`WordPress API error: ${response.status} ${response.statusText}`);
         }
-    }
 
-    throw new Error(`[WP API] Max retries (${MAX_RETRIES}) exceeded for ${url}`);
+        const data = await response.json();
+        return { data, headers: response.headers };
+    } catch (error) {
+        console.error(`[WP API] Failed to fetch ${url}:`, error);
+        throw error;
+    }
 }
 
 /**

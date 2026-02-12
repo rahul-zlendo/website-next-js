@@ -11,9 +11,10 @@ interface TagPageProps {
     searchParams: Promise<{ page?: string }>;
 }
 
-// Don't pre-render tag pages at build time to avoid overwhelming the WordPress API.
+// Generate static params for all tags
 export async function generateStaticParams() {
-    return [];
+    const slugs = await getAllTagSlugs();
+    return slugs.map((slug) => ({ slug }));
 }
 
 // Generate metadata for the tag

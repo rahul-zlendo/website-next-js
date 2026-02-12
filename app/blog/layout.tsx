@@ -12,30 +12,6 @@ export const metadata: Metadata = {
         template: '%s | Zlendo Realty Blog',
     },
     description: 'Discover expert tips on home design, interior styling, architecture trends, Vastu, and AI-powered floor planning.',
-    openGraph: {
-        title: 'Zlendo Realty Blog | Home Design Tips & Insights',
-        description: 'Discover expert tips on home design, interior styling, architecture trends, Vastu, and AI-powered floor planning.',
-        url: 'https://zlendorealty.com/blog',
-        type: 'website',
-        images: [
-            {
-                url: '/og-image.png',
-                width: 1200,
-                height: 630,
-                alt: 'Zlendo Realty Blog',
-            },
-        ],
-    },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'Zlendo Realty Blog | Home Design Tips & Insights',
-        description: 'Discover expert tips on home design, interior styling, architecture trends, and AI-powered floor planning.',
-        images: ['/og-image.png'],
-    },
-    robots: {
-        index: true,
-        follow: true,
-    },
 };
 
 // Default country for blog (not country-segmented)

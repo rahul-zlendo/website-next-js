@@ -18,20 +18,11 @@ export const metadata: Metadata = {
     title: 'Accurate Home Construction Cost Estimation',
     description: 'Get real-time cost insights for materials and planning. Ideal for affordable home plan design. Book a free demo.',
     type: 'website',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Zlendo Realty - Cost Estimator',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'AI Cost Estimator for Homes',
     description: 'Plan smarter, spend better. Explore free sample estimates.',
-    images: ['/og-image.png'],
   },
 };
 

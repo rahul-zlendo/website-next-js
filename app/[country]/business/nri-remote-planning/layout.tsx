@@ -21,20 +21,11 @@ export const metadata: Metadata = {
     description:
       'Bridge the distance with transparent design. Manage international and remote projects with absolute clarity, ensuring your NRI clients feel present at every step.',
     url: 'https://app.zlendorealty.com/in/business/nri-remote-planning',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Zlendo Realty - NRI Remote Planning',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'NRI & Remote Home Planning Solutions | Zlendo Realty',
     description: 'Empower your NRI clients with 3D visualization and seamless remote collaboration for home design projects.',
-    images: ['/og-image.png'],
   },
   alternates: {
     canonical: '/business/nri-remote-planning',

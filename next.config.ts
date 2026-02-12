@@ -48,10 +48,6 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'secure.gravatar.com',
       },
-      {
-        protocol: 'https',
-        hostname: 'helpcenter.zlendorealty.com',
-      },
     ],
   },
 

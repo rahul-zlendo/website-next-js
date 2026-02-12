@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Copy, Check, ArrowRight, Maximize2,
     X, Share2, Heart, Eye,
-    Bookmark
+    Bookmark, ThumbsUp, ThumbsDown, Trash2, UserPlus
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -14,9 +14,194 @@ import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { PROJECT_DETAILS_URL } from '@/lib/config/env';
 import { getAllTemplates } from '@/lib/store/slices/templateSlice';
 import { fetchBlobUrl, BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
-import { likeTemplateService, favoriteTemplateService, addTemplateViewService, getUserTemplateInteractionsService } from '@/lib/services/templateService';
+import { likeTemplateService, favoriteTemplateService, addTemplateViewService, getUserTemplateInteractionsService, getTemplateCommentsService, addCommentService, likeCommentService, deleteCommentService, type TemplateComment, type TemplateCommentsResponse } from '@/lib/services/templateService';
+import { followOrUnfollowUserService, getFollowByUserIdService } from '@/lib/services/followService';
 import { LOGIN_URL } from '@/lib/constants/urls';
 import { encryptProjectId, extractProjectIdFromParam } from '@/lib/utils/encryptionUtils';
+
+interface CommentItemProps {
+    comment: TemplateComment;
+    templateId: number;
+    user: any;
+    isAuthenticated: boolean;
+    replyingTo: number | null;
+    setReplyingTo: (id: number | null) => void;
+    replyText: Record<number, string>;
+    setReplyText: (updater: (prev: Record<number, string>) => Record<number, string>) => void;
+    handlePostReply: (parentCommentId: number) => void;
+    handleLikeComment: (templateCommentId: number) => void;
+    handleDeleteComment: (templateCommentId: number) => void;
+    formatDate: (dateString: string) => string;
+    router: any;
+    LOGIN_URL: string;
+}
+
+function CommentItem({
+    comment,
+    templateId,
+    user,
+    isAuthenticated,
+    replyingTo,
+    setReplyingTo,
+    replyText,
+    setReplyText,
+    handlePostReply,
+    handleLikeComment,
+    handleDeleteComment,
+    formatDate,
+    router,
+    LOGIN_URL
+}: CommentItemProps) {
+    const isReplying = replyingTo === comment.templateCommentId;
+    const currentReplyText = replyText[comment.templateCommentId] || '';
+
+    return (
+        <div className="bg-white border border-gray-100 rounded-[24px] p-6 shadow-sm">
+            <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+                    {comment.profileUrl ? (
+                        <img
+                            src={comment.profileUrl}
+                            alt={comment.userName}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                                const target = e.currentTarget;
+                                target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
+                            }}
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
+                            <span className="text-zlendo-teal font-black text-sm">
+                                {comment.userName.charAt(0).toUpperCase()}
+                            </span>
+                        </div>
+                    )}
+                </div>
+                <div className="flex-1">
+                    <div className="mb-2">
+                        <span className="text-sm font-bold text-zlendo-grey-dark">{comment.userName}</span>
+                    </div>
+                    <p className="text-zlendo-grey-medium font-medium mb-3 leading-relaxed">{comment.text}</p>
+                    <div className="flex items-center gap-4 text-xs font-bold text-zlendo-grey-medium opacity-60">
+                        <span>{formatDate(comment.createdOn)}</span>
+                        <div className="flex items-center gap-2">
+                            <button
+                                className={`flex items-center gap-1 transition-all ${
+                                    comment.isLikedByLoggedUser 
+                                        ? 'text-zlendo-teal' 
+                                        : 'text-zlendo-grey-medium hover:text-zlendo-teal'
+                                }`}
+                                onClick={() => handleLikeComment(comment.templateCommentId)}
+                                disabled={!isAuthenticated}
+                                title={comment.isLikedByLoggedUser ? 'Unlike' : 'Like'}
+                            >
+                                <ThumbsUp className={`w-4 h-4 transition-all ${
+                                    comment.isLikedByLoggedUser 
+                                        ? 'fill-current text-zlendo-teal' 
+                                        : ''
+                                }`} />
+                            </button>
+                            <span className={comment.isLikedByLoggedUser ? 'text-zlendo-teal font-bold' : ''}>
+                                {comment.totalLikes}
+                            </span>
+                        </div>
+                        <button
+                            onClick={() => {
+                                if (!isAuthenticated) {
+                                    router.push(LOGIN_URL);
+                                    return;
+                                }
+                                setReplyingTo(isReplying ? null : comment.templateCommentId);
+                            }}
+                            className="text-zlendo-teal hover:underline font-bold"
+                        >
+                            Reply
+                        </button>
+                        {/* Show delete button only for comment owner */}
+                        {isAuthenticated && user && comment.userId === user.userId && (
+                            <button
+                                onClick={() => handleDeleteComment(comment.templateCommentId)}
+                                className="text-red-500 hover:text-red-600 transition-colors flex items-center gap-1"
+                                title="Delete comment"
+                            >
+                                <Trash2 className="w-4 h-4" />
+                            </button>
+                        )}
+                    </div>
+
+                    {/* Reply Form */}
+                    {isReplying && (
+                        <div className="mt-4 pt-4 border-t border-gray-100">
+                            <div className="flex items-start gap-3">
+                                <div className="w-8 h-8 rounded-full bg-zlendo-teal/20 flex items-center justify-center flex-shrink-0">
+                                    {isAuthenticated && user?.userName ? (
+                                        <span className="text-zlendo-teal font-black text-xs">
+                                            {user.userName.charAt(0).toUpperCase()}
+                                        </span>
+                                    ) : (
+                                        <span className="text-zlendo-teal font-black text-xs">U</span>
+                                    )}
+                                </div>
+                                <div className="flex-1">
+                                    <textarea
+                                        value={currentReplyText}
+                                        onChange={(e) => setReplyText((prev) => ({ ...prev, [comment.templateCommentId]: e.target.value }))}
+                                        placeholder="Write a reply..."
+                                        className="w-full min-h-[80px] p-3 border border-gray-200 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark text-sm"
+                                        maxLength={400}
+                                    />
+                                    <div className="flex items-center justify-end gap-3 mt-2">
+                                        <button
+                                            onClick={() => {
+                                                setReplyingTo(null);
+                                                setReplyText((prev) => ({ ...prev, [comment.templateCommentId]: '' }));
+                                            }}
+                                            className="px-4 py-1.5 text-sm font-bold text-zlendo-grey-medium hover:text-zlendo-grey-dark transition-colors"
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button
+                                            onClick={() => handlePostReply(comment.templateCommentId)}
+                                            disabled={!currentReplyText.trim() || currentReplyText.trim().length > 400}
+                                            className="px-4 py-1.5 bg-zlendo-teal text-white rounded-lg font-black text-sm hover:bg-zlendo-teal/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            Post Reply
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Nested Replies */}
+                    {comment.replies && comment.replies.length > 0 && (
+                        <div className="mt-4 pl-6 border-l-2 border-gray-100 space-y-4">
+                            {comment.replies.map((reply) => (
+                                <CommentItem
+                                    key={reply.templateCommentId}
+                                    comment={reply}
+                                    templateId={templateId}
+                                    user={user}
+                                    isAuthenticated={isAuthenticated}
+                                    replyingTo={replyingTo}
+                                    setReplyingTo={setReplyingTo}
+                                    replyText={replyText}
+                                    setReplyText={setReplyText}
+                                    handlePostReply={handlePostReply}
+                                    handleLikeComment={handleLikeComment}
+                                    handleDeleteComment={handleDeleteComment}
+                                    formatDate={formatDate}
+                                    router={router}
+                                    LOGIN_URL={LOGIN_URL}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}
 
 function TemplateDetailContent() {
     const { getPath } = useCountry();
@@ -41,6 +226,18 @@ function TemplateDetailContent() {
     const [isFavoriting, setIsFavoriting] = useState(false);
     const [showShareModal, setShowShareModal] = useState(false);
     const [isCopiedFromModal, setIsCopiedFromModal] = useState(false);
+    const [comments, setComments] = useState<TemplateComment[]>([]);
+    const [loadingComments, setLoadingComments] = useState(false);
+    const [newComment, setNewComment] = useState('');
+    const [isPostingComment, setIsPostingComment] = useState(false);
+    const [replyingTo, setReplyingTo] = useState<number | null>(null);
+    const [replyText, setReplyText] = useState<Record<number, string>>({});
+    const [followers, setFollowers] = useState(0);
+    const [followings, setFollowings] = useState(0);
+    const [isFollowing, setIsFollowing] = useState(false);
+    const [isFollowingLoading, setIsFollowingLoading] = useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [commentToDelete, setCommentToDelete] = useState<number | null>(null);
 
     // Get template ID from URL searchParams
     const templateId = useMemo(() => {
@@ -91,6 +288,47 @@ function TemplateDetailContent() {
 
         checkUserInteractions();
     }, [isAuthenticated, user?.userId, templateId]);
+
+    // Fetch comments when templateId changes
+    useEffect(() => {
+        const fetchComments = async () => {
+            if (!templateId) return;
+
+            setLoadingComments(true);
+            try {
+                const response = await getTemplateCommentsService(Number(templateId));
+                if (response && response.comments) {
+                    setComments(response.comments);
+                }
+            } catch (error) {
+                console.error('Error fetching comments:', error);
+                setComments([]);
+            } finally {
+                setLoadingComments(false);
+            }
+        };
+
+        fetchComments();
+    }, [templateId]);
+
+    // Fetch follow data for template owner
+    useEffect(() => {
+        const fetchFollowData = async () => {
+            if (!selectedTemplate?.userId) return;
+
+            try {
+                const followData = await getFollowByUserIdService(selectedTemplate.userId);
+                setFollowers(followData.followerCount);
+                setFollowings(followData.followingCount);
+            } catch (error) {
+                console.error('Error fetching follow data:', error);
+            }
+        };
+
+        fetchFollowData();
+        // Reset follow state when template changes
+        setIsFollowing(false);
+    }, [selectedTemplate?.userId]);
 
     // Reset selected thumbnail index when template changes
     useEffect(() => {
@@ -391,6 +629,160 @@ function TemplateDetailContent() {
         setTimeout(() => setIsCopiedFromModal(false), 2000);
     };
 
+    const handlePostComment = async () => {
+        if (!isAuthenticated || !user) {
+            router.push(LOGIN_URL);
+            return;
+        }
+
+        if (!templateId || !newComment.trim() || newComment.trim().length < 1 || newComment.trim().length > 400) {
+            return;
+        }
+
+        setIsPostingComment(true);
+        try {
+            // parentCommentId = null for top-level comments
+            await addCommentService(Number(templateId), user.userId, newComment.trim(), null);
+            setNewComment('');
+            // Refresh comments
+            const response = await getTemplateCommentsService(Number(templateId));
+            if (response && response.comments) {
+                setComments(response.comments);
+            }
+        } catch (error) {
+            console.error('Error posting comment:', error);
+        } finally {
+            setIsPostingComment(false);
+        }
+    };
+
+    const handlePostReply = async (parentCommentId: number) => {
+        if (!isAuthenticated || !user) {
+            router.push(LOGIN_URL);
+            return;
+        }
+
+        const reply = replyText[parentCommentId]?.trim();
+        if (!templateId || !reply || reply.length < 1 || reply.length > 400) {
+            return;
+        }
+
+        setIsPostingComment(true);
+        try {
+            await addCommentService(Number(templateId), user.userId, reply, parentCommentId);
+            setReplyText((prev) => ({ ...prev, [parentCommentId]: '' }));
+            setReplyingTo(null);
+            // Refresh comments
+            const response = await getTemplateCommentsService(Number(templateId));
+            if (response && response.comments) {
+                setComments(response.comments);
+            }
+        } catch (error) {
+            console.error('Error posting reply:', error);
+        } finally {
+            setIsPostingComment(false);
+        }
+    };
+
+    const handleLikeComment = async (templateCommentId: number) => {
+        if (!isAuthenticated || !user) {
+            router.push(LOGIN_URL);
+            return;
+        }
+
+        try {
+            await likeCommentService(templateCommentId, user.userId);
+            // Refresh comments to get updated like count
+            const response = await getTemplateCommentsService(Number(templateId));
+            if (response && response.comments) {
+                setComments(response.comments);
+            }
+        } catch (error) {
+            console.error('Error liking comment:', error);
+        }
+    };
+
+    const handleDeleteComment = (templateCommentId: number) => {
+        if (!isAuthenticated || !user) {
+            router.push(LOGIN_URL);
+            return;
+        }
+        // Show confirmation modal
+        setCommentToDelete(templateCommentId);
+        setShowDeleteConfirm(true);
+    };
+
+    const confirmDeleteComment = async () => {
+        if (!commentToDelete || !user) return;
+
+        try {
+            await deleteCommentService(commentToDelete, user.userId);
+            // Refresh comments after deletion
+            const response = await getTemplateCommentsService(Number(templateId));
+            if (response && response.comments) {
+                setComments(response.comments);
+            }
+            setShowDeleteConfirm(false);
+            setCommentToDelete(null);
+        } catch (error) {
+            console.error('Error deleting comment:', error);
+            alert('Failed to delete comment. You can only delete your own comments.');
+            setShowDeleteConfirm(false);
+            setCommentToDelete(null);
+        }
+    };
+
+    const cancelDeleteComment = () => {
+        setShowDeleteConfirm(false);
+        setCommentToDelete(null);
+    };
+
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
+    const getTotalCommentsCount = (comments: TemplateComment[]): number => {
+        let count = comments.length;
+        comments.forEach(comment => {
+            if (comment.replies && comment.replies.length > 0) {
+                count += getTotalCommentsCount(comment.replies);
+            }
+        });
+        return count;
+    };
+
+    const handleFollow = async () => {
+        if (!isAuthenticated || !user) {
+            router.push(LOGIN_URL);
+            return;
+        }
+
+        if (!selectedTemplate?.userId) return;
+
+        setIsFollowingLoading(true);
+        try {
+            await followOrUnfollowUserService({
+                followerUserId: user.userId,
+                followingUserId: selectedTemplate.userId,
+                isActive: !isFollowing
+            });
+            setIsFollowing(!isFollowing);
+            
+            // Refresh follow data
+            const followData = await getFollowByUserIdService(selectedTemplate.userId);
+            setFollowers(followData.followerCount);
+            setFollowings(followData.followingCount);
+        } catch (error) {
+            console.error('Error following/unfollowing user:', error);
+        } finally {
+            setIsFollowingLoading(false);
+        }
+    };
+
     // Show loading state
     if (isLoading) {
         return (
@@ -593,6 +985,61 @@ function TemplateDetailContent() {
                                 </div>
                             </div>
 
+                            {/* User Profile Section */}
+                            {selectedTemplate?.userName && (
+                                <div className="mb-6 pb-6 border-b border-gray-100">
+                                    <div className="flex items-center gap-3 justify-between">
+                                        <Link 
+                                            href={getPath(`/user-profile?userId=${encryptProjectId(selectedTemplate.userId)}`)}
+                                            className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
+                                        >
+                                            <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+                                                {selectedTemplate.profileUrl ? (
+                                                    <img
+                                                        src={selectedTemplate.profileUrl}
+                                                        alt={selectedTemplate.userName}
+                                                        className="w-full h-full object-cover"
+                                                        onError={(e) => {
+                                                            const target = e.currentTarget;
+                                                            target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
+                                                        <span className="text-zlendo-teal font-black text-sm">
+                                                            {selectedTemplate.userName.charAt(0).toUpperCase()}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="flex flex-col">
+                                                <span className="text-sm font-bold text-zlendo-grey-dark">
+                                                    {selectedTemplate.userName}
+                                                </span>
+                                                {/* <div className="flex items-center gap-3 text-xs font-bold text-zlendo-grey-medium opacity-60">
+                                                    <span>{followers} Followers</span>
+                                                    <span>{followings} Followings</span>
+                                                </div> */}
+                                            </div>
+                                        </Link>
+                                        {/* {isAuthenticated && user?.userId !== selectedTemplate.userId && (
+                                            <button
+                                                onClick={handleFollow}
+                                                disabled={isFollowingLoading}
+                                                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-black text-sm transition-all flex-shrink-0 ${
+                                                    isFollowing
+                                                        ? 'bg-gray-100 text-zlendo-grey-dark hover:bg-gray-200'
+                                                        : 'bg-zlendo-teal text-white hover:bg-zlendo-teal/90'
+                                                } disabled:opacity-50 disabled:cursor-not-allowed`}
+                                            >
+                                                <UserPlus className="w-4 h-4" />
+                                                {isFollowing ? 'Following' : 'Follow'}
+                                            </button>
+                                        )} */}
+                                    </div>
+                                </div>
+                            )}
+
                             <h1 className="text-3xl font-black text-zlendo-grey-dark leading-tight mb-4">
                                 {templateData.title}
                             </h1>
@@ -668,6 +1115,88 @@ function TemplateDetailContent() {
                             </div>
                         </motion.div>
                     </div>
+                </div>
+
+                {/* Comments Section */}
+                <div className="mt-20">
+                    <h2 className="text-2xl md:text-3xl font-black text-zlendo-grey-dark mb-8">
+                        Comments {comments.length > 0 ? getTotalCommentsCount(comments) : 0}
+                    </h2>
+
+                    {/* Add Comment Form */}
+                    <div className="bg-white border border-gray-100 rounded-[32px] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] mb-8">
+                        <div className="flex items-start gap-4">
+                            <div className="w-10 h-10 rounded-full bg-zlendo-teal/20 flex items-center justify-center flex-shrink-0">
+                                {isAuthenticated && user?.userName ? (
+                                    <span className="text-zlendo-teal font-black text-sm">
+                                        {user.userName.charAt(0).toUpperCase()}
+                                    </span>
+                                ) : (
+                                    <span className="text-zlendo-teal font-black text-sm">U</span>
+                                )}
+                            </div>
+                            <div className="flex-1">
+                                <div className="mb-2">
+                                    <span className="text-sm font-bold text-zlendo-grey-dark">
+                                        {isAuthenticated && user?.userName ? user.userName : 'Guest'}
+                                    </span>
+                                </div>
+                                <textarea
+                                    value={newComment}
+                                    onChange={(e) => setNewComment(e.target.value)}
+                                    placeholder="Leave a comment in 1 to 400 characters"
+                                    className="w-full min-h-[120px] p-4 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark"
+                                    maxLength={400}
+                                    disabled={!isAuthenticated || isPostingComment}
+                                />
+                                <div className="flex items-center justify-between mt-3">
+                                    <div className="text-xs font-bold text-zlendo-grey-medium opacity-60">
+                                        {newComment.length}/400
+                                    </div>
+                                    <button
+                                        onClick={handlePostComment}
+                                        disabled={!isAuthenticated || isPostingComment || newComment.trim().length < 1 || newComment.trim().length > 400}
+                                        className="px-6 py-2 bg-zlendo-teal text-white rounded-xl font-black text-sm hover:bg-zlendo-teal/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {isPostingComment ? 'Posting...' : 'Post'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Comments List */}
+                    {loadingComments ? (
+                        <div className="flex items-center justify-center py-12">
+                            <div className="w-12 h-12 border-4 border-zlendo-teal border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    ) : comments.length > 0 ? (
+                        <div className="space-y-6">
+                            {comments.map((comment) => (
+                                <CommentItem
+                                    key={comment.templateCommentId}
+                                    comment={comment}
+                                    templateId={Number(templateId)}
+                                    user={user}
+                                    isAuthenticated={isAuthenticated}
+                                    replyingTo={replyingTo}
+                                    setReplyingTo={setReplyingTo}
+                                    replyText={replyText}
+                                    setReplyText={setReplyText}
+                                    handlePostReply={handlePostReply}
+                                    handleLikeComment={handleLikeComment}
+                                    handleDeleteComment={handleDeleteComment}
+                                    formatDate={formatDate}
+                                    router={router}
+                                    LOGIN_URL={LOGIN_URL}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-12 text-zlendo-grey-medium font-medium">
+                            No comments yet. Be the first to comment!
+                        </div>
+                    )}
                 </div>
 
                 {/* Similar Ideas Section */}
@@ -997,6 +1526,58 @@ function TemplateDetailContent() {
                                         </button>
                                         <span className="text-[11px] font-bold text-zlendo-grey-medium">{isCopiedFromModal ? 'Copied!' : 'Copy Link'}</span>
                                     </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Delete Comment Confirmation Modal */}
+            <AnimatePresence>
+                {showDeleteConfirm && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[10000] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+                        onClick={cancelDeleteComment}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, y: 20, opacity: 0 }}
+                            animate={{ scale: 1, y: 0, opacity: 1 }}
+                            exit={{ scale: 0.9, y: 20, opacity: 0 }}
+                            className="bg-white rounded-[32px] overflow-hidden w-full max-w-[400px] shadow-2xl relative"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="p-8">
+                                <div className="flex justify-between items-center mb-6">
+                                    <h2 className="text-[22px] font-black text-zlendo-grey-dark">Delete Comment</h2>
+                                    <button
+                                        onClick={cancelDeleteComment}
+                                        className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                    >
+                                        <X className="w-6 h-6 text-zlendo-grey-medium opacity-40 hover:opacity-100" />
+                                    </button>
+                                </div>
+
+                                <p className="text-zlendo-grey-medium font-medium mb-8">
+                                    Are you sure you want to delete this comment? This action cannot be undone.
+                                </p>
+
+                                <div className="flex items-center gap-4">
+                                    <button
+                                        onClick={cancelDeleteComment}
+                                        className="flex-1 px-6 py-3 bg-gray-100 text-zlendo-grey-dark rounded-xl font-black text-sm hover:bg-gray-200 transition-colors"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={confirmDeleteComment}
+                                        className="flex-1 px-6 py-3 bg-red-500 text-white rounded-xl font-black text-sm hover:bg-red-600 transition-colors"
+                                    >
+                                        Confirm
+                                    </button>
                                 </div>
                             </div>
                         </motion.div>

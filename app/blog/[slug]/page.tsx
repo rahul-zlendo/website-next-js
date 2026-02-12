@@ -11,10 +11,10 @@ interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
 }
 
-// Don't pre-render blog pages at build time to avoid overwhelming the WordPress API.
-// Pages will be generated on-demand (ISR) when first visited, then cached.
+// Generate static params for all posts
 export async function generateStaticParams() {
-    return [];
+    const slugs = await getAllPostSlugs();
+    return slugs.map((slug) => ({ slug }));
 }
 
 // Generate metadata for the post
