@@ -59,7 +59,7 @@ export const PROJECT_DETAILS_URL = `${FRONTEND_URL}/project-details`;
 // Default API tokens for unauthenticated requests
 export const DEFAULT_API_TOKEN_DEV = 'zrsk_dev_41fbb72c9a0e5f1c8d2a9b6d4e8f3c2';
 export const DEFAULT_API_TOKEN_PROD = 'zrsk_beta_8a1d4c7e6f2b9a5d3c1e0f8b6a4d';
-export const DEFAULT_API_TOKEN = isDev ? DEFAULT_API_TOKEN_DEV : DEFAULT_API_TOKEN_PROD;
+export const DEFAULT_API_TOKEN = DEFAULT_API_TOKEN_PROD;
 
 // Export environment info
 export const IS_DEV = isDev;
