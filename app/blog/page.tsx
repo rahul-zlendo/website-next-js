@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { getPosts } from '@/lib/wordpress/api';
+import { getPosts, getTotalPostPages } from '@/lib/wordpress/api';
 import { generateBlogListMetadata, generateBlogJsonLd, generateBreadcrumbJsonLd } from '@/lib/wordpress/seo';
 import { BlogCard, Pagination, BlogHero, BlogBreadcrumb } from '@/components/blog';
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://zlendorealty.com';
 
 interface BlogPageProps {
     searchParams: Promise<{ page?: string }>;
@@ -11,7 +13,40 @@ interface BlogPageProps {
 export async function generateMetadata({ searchParams }: BlogPageProps): Promise<Metadata> {
     const params = await searchParams;
     const page = parseInt(params.page || '1', 10);
-    return generateBlogListMetadata(page);
+    const baseMetadata = await generateBlogListMetadata(page);
+
+    // Get total pages for rel next/prev
+    const { totalPages } = await getTotalPostPages(9);
+
+    // Build canonical and pagination link tags
+    const canonicalUrl = page === 1 ? `${BASE_URL}/blog` : `${BASE_URL}/blog?page=${page}`;
+
+    const alternates: Metadata['alternates'] = {
+        canonical: canonicalUrl,
+    };
+
+    // Build rel prev/next links for crawlers
+    const otherMeta: Array<{ rel: string; href: string }> = [];
+    if (page > 1) {
+        const prevUrl = page === 2 ? `${BASE_URL}/blog` : `${BASE_URL}/blog?page=${page - 1}`;
+        otherMeta.push({ rel: 'prev', href: prevUrl });
+    }
+    if (page < totalPages) {
+        otherMeta.push({ rel: 'next', href: `${BASE_URL}/blog?page=${page + 1}` });
+    }
+
+    return {
+        ...baseMetadata,
+        alternates,
+        other: {
+            ...(baseMetadata as Record<string, unknown>).other as Record<string, string> | undefined,
+            // These will be rendered as <link> tags by Next.js
+            ...(otherMeta.length > 0 ? {
+                'link-prev': page > 1 ? (page === 2 ? `${BASE_URL}/blog` : `${BASE_URL}/blog?page=${page - 1}`) : '',
+                'link-next': page < totalPages ? `${BASE_URL}/blog?page=${page + 1}` : '',
+            } : {}),
+        },
+    };
 }
 
 async function BlogPostsGrid({ page }: { page: number }) {
@@ -83,6 +118,9 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     const params = await searchParams;
     const page = parseInt(params.page || '1', 10);
 
+    // Get total pages for rel prev/next links
+    const { totalPages } = await getTotalPostPages(9);
+
     // JSON-LD Schemas
     const blogJsonLd = generateBlogJsonLd();
     const breadcrumbJsonLd = generateBreadcrumbJsonLd([
@@ -90,8 +128,16 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         { name: 'Blog', url: '/blog' },
     ]);
 
+    // Build rel prev/next URLs
+    const prevUrl = page > 1 ? (page === 2 ? `${BASE_URL}/blog` : `${BASE_URL}/blog?page=${page - 1}`) : null;
+    const nextUrl = page < totalPages ? `${BASE_URL}/blog?page=${page + 1}` : null;
+
     return (
         <>
+            {/* Rel prev/next link tags for search engine pagination */}
+            {prevUrl && <link rel="prev" href={prevUrl} />}
+            {nextUrl && <link rel="next" href={nextUrl} />}
+
             {/* JSON-LD */}
             <script
                 type="application/ld+json"

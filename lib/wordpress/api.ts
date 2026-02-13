@@ -171,29 +171,61 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
 }
 
 /**
+ * Get total number of pages for blog listing
+ * Used by sitemap to generate paginated blog URLs
+ */
+export async function getTotalPostPages(perPage: number = 9): Promise<{ totalPages: number; totalPosts: number }> {
+    try {
+        const { headers } = await wpFetch<WPPost[]>(
+            `/posts?per_page=${perPage}&page=1&_fields=id`
+        );
+
+        const totalPosts = parseInt(headers.get('X-WP-Total') || '0', 10);
+        const totalPages = parseInt(headers.get('X-WP-TotalPages') || '1', 10);
+
+        return { totalPages, totalPosts };
+    } catch (error) {
+        console.error('[WP API] getTotalPostPages failed:', error);
+        return { totalPages: 1, totalPosts: 0 };
+    }
+}
+
+/**
  * Get all post slugs for static generation
+ * Fetches all pages, continuing even if individual pages fail
  */
 export async function getAllPostSlugs(): Promise<string[]> {
     const slugs: string[] = [];
     let page = 1;
-    let hasMore = true;
+    let totalPages = 1;
 
     try {
-        while (hasMore) {
-            const { data, headers } = await wpFetch<WPPost[]>(
-                `/posts?per_page=100&page=${page}&_fields=slug`
-            );
+        // First request to determine total pages
+        const { data: firstPageData, headers } = await wpFetch<WPPost[]>(
+            `/posts?per_page=100&page=1&_fields=slug`
+        );
 
-            slugs.push(...data.map((post) => post.slug));
+        slugs.push(...firstPageData.map((post) => post.slug));
+        totalPages = parseInt(headers.get('X-WP-TotalPages') || '1', 10);
+        console.log(`[WP API] getAllPostSlugs: Found ${headers.get('X-WP-Total')} total posts across ${totalPages} pages`);
 
-            const totalPages = parseInt(headers.get('X-WP-TotalPages') || '1', 10);
-            hasMore = page < totalPages;
-            page++;
+        // Fetch remaining pages
+        for (page = 2; page <= totalPages; page++) {
+            try {
+                const { data } = await wpFetch<WPPost[]>(
+                    `/posts?per_page=100&page=${page}&_fields=slug`
+                );
+                slugs.push(...data.map((post) => post.slug));
+            } catch (pageError) {
+                console.error(`[WP API] getAllPostSlugs failed on page ${page}/${totalPages}, continuing...`, pageError);
+                // Continue to next page instead of aborting entirely
+            }
         }
     } catch (error) {
-        console.error('[WP API] getAllPostSlugs failed:', error);
+        console.error('[WP API] getAllPostSlugs failed on initial request:', error);
     }
 
+    console.log(`[WP API] getAllPostSlugs: Retrieved ${slugs.length} slugs total`);
     return slugs;
 }
 
