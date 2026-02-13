@@ -181,7 +181,8 @@ export default function ViewAllTemplatesPage() {
 
                 const normalizedTemplate = {
                     ...template,
-                    template_StyleName: template.template_StyleName ?? undefined
+                    template_StyleName: template.template_StyleName ?? undefined,
+                    description: template.description ?? undefined
                 };
 
                 if (
