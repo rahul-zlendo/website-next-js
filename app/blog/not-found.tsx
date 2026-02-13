@@ -1,16 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { ArrowLeft, Search } from 'lucide-react';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import { Search } from 'lucide-react';
 import { CountryProvider } from '@/lib/context/CountryContext';
 
 export default function BlogNotFound() {
     return (
         <CountryProvider initialCountry="in">
             <div className="min-h-screen flex flex-col bg-white">
-                <Header />
                 <main className="flex-grow flex items-center justify-center py-20">
                     <div className="container-custom px-6 lg:px-12 text-center">
                         <div className="max-w-lg mx-auto">
@@ -45,7 +42,6 @@ export default function BlogNotFound() {
                         </div>
                     </div>
                 </main>
-                <Footer />
             </div>
         </CountryProvider>
     );

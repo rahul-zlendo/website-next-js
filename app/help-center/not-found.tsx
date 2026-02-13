@@ -1,16 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { FileQuestion, ArrowLeft, Search } from 'lucide-react';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
+import { FileQuestion } from 'lucide-react';
 import { CountryProvider } from '@/lib/context/CountryContext';
 
 export default function HelpCenterNotFound() {
     return (
         <CountryProvider initialCountry="in">
             <div className="min-h-screen flex flex-col bg-[#fafbfc]">
-                <Header />
                 <main className="flex-grow flex items-center justify-center py-20">
                     <div className="text-center max-w-lg mx-auto px-6">
                         <div className="w-20 h-20 rounded-2xl bg-zlendo-teal/10 flex items-center justify-center mx-auto mb-6">
@@ -34,7 +31,6 @@ export default function HelpCenterNotFound() {
                         </div>
                     </div>
                 </main>
-                <Footer />
             </div>
         </CountryProvider>
     );
