@@ -317,7 +317,8 @@ function TemplateDetailContent() {
             if (!selectedTemplate?.userId) return;
 
             try {
-                const followData = await getFollowByUserIdService(selectedTemplate.userId);
+                const userFollowId = isAuthenticated && user?.userId ? user.userId : undefined;
+                const followData = await getFollowByUserIdService(selectedTemplate.userId, userFollowId);
                 setFollowers(followData.followerCount);
                 setFollowings(followData.followingCount);
             } catch (error) {
@@ -328,7 +329,7 @@ function TemplateDetailContent() {
         fetchFollowData();
         // Reset follow state when template changes
         setIsFollowing(false);
-    }, [selectedTemplate?.userId]);
+    }, [selectedTemplate?.userId, isAuthenticated, user?.userId]);
 
     // Reset selected thumbnail index when template changes
     useEffect(() => {
@@ -1124,46 +1125,62 @@ function TemplateDetailContent() {
                     </h2>
 
                     {/* Add Comment Form */}
-                    <div className="bg-white border border-gray-100 rounded-[32px] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] mb-8">
-                        <div className="flex items-start gap-4">
-                            <div className="w-10 h-10 rounded-full bg-zlendo-teal/20 flex items-center justify-center flex-shrink-0">
-                                {isAuthenticated && user?.userName ? (
-                                    <span className="text-zlendo-teal font-black text-sm">
-                                        {user.userName.charAt(0).toUpperCase()}
-                                    </span>
-                                ) : (
-                                    <span className="text-zlendo-teal font-black text-sm">U</span>
-                                )}
+                    {!isAuthenticated ? (
+                        <div className="bg-zlendo-teal rounded-xl p-6 mb-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] max-w-2xl mx-auto">
+                            <div className="flex items-center justify-between">
+                                <span className="text-white font-bold text-sm md:text-base">
+                                    Please log in before leaving your comment.
+                                </span>
+                                <button
+                                    onClick={() => router.push(LOGIN_URL)}
+                                    className="px-6 py-2 bg-black text-white rounded-xl font-black text-sm hover:bg-black/90 transition-colors flex-shrink-0 ml-4"
+                                >
+                                    Log in
+                                </button>
                             </div>
-                            <div className="flex-1">
-                                <div className="mb-2">
-                                    <span className="text-sm font-bold text-zlendo-grey-dark">
-                                        {isAuthenticated && user?.userName ? user.userName : 'Guest'}
-                                    </span>
+                        </div>
+                    ) : (
+                        <div className="bg-white border border-gray-100 rounded-[32px] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] mb-8">
+                            <div className="flex items-start gap-4">
+                                <div className="w-10 h-10 rounded-full bg-zlendo-teal/20 flex items-center justify-center flex-shrink-0">
+                                    {user?.userName ? (
+                                        <span className="text-zlendo-teal font-black text-sm">
+                                            {user.userName.charAt(0).toUpperCase()}
+                                        </span>
+                                    ) : (
+                                        <span className="text-zlendo-teal font-black text-sm">U</span>
+                                    )}
                                 </div>
-                                <textarea
-                                    value={newComment}
-                                    onChange={(e) => setNewComment(e.target.value)}
-                                    placeholder="Leave a comment in 1 to 400 characters"
-                                    className="w-full min-h-[120px] p-4 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark"
-                                    maxLength={400}
-                                    disabled={!isAuthenticated || isPostingComment}
-                                />
-                                <div className="flex items-center justify-between mt-3">
-                                    <div className="text-xs font-bold text-zlendo-grey-medium opacity-60">
-                                        {newComment.length}/400
+                                <div className="flex-1">
+                                    <div className="mb-2">
+                                        <span className="text-sm font-bold text-zlendo-grey-dark">
+                                            {user?.userName || 'Guest'}
+                                        </span>
                                     </div>
-                                    <button
-                                        onClick={handlePostComment}
-                                        disabled={!isAuthenticated || isPostingComment || newComment.trim().length < 1 || newComment.trim().length > 400}
-                                        className="px-6 py-2 bg-zlendo-teal text-white rounded-xl font-black text-sm hover:bg-zlendo-teal/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        {isPostingComment ? 'Posting...' : 'Post'}
-                                    </button>
+                                    <textarea
+                                        value={newComment}
+                                        onChange={(e) => setNewComment(e.target.value)}
+                                        placeholder="Leave a comment in 1 to 400 characters"
+                                        className="w-full min-h-[100px] p-4 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark"
+                                        maxLength={400}
+                                        disabled={isPostingComment}
+                                    />
+                                    <div className="flex items-center justify-between mt-3">
+                                        <div className="text-xs font-bold text-zlendo-grey-medium opacity-60">
+                                            {newComment.length}/400
+                                        </div>
+                                        <button
+                                            onClick={handlePostComment}
+                                            disabled={isPostingComment || newComment.trim().length < 1 || newComment.trim().length > 400}
+                                            className="px-12 py-2 bg-zlendo-teal text-white rounded-xl font-black text-sm hover:bg-zlendo-teal/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {isPostingComment ? 'Posting...' : 'Post'}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* Comments List */}
                     {loadingComments ? (

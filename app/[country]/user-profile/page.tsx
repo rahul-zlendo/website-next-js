@@ -71,7 +71,8 @@ function UserProfileContent() {
             if (!profileUserId) return;
 
             try {
-                const followData = await getFollowByUserIdService(profileUserId);
+                const userFollowId = isAuthenticated && user?.userId ? user.userId : undefined;
+                const followData = await getFollowByUserIdService(profileUserId, userFollowId);
                 setFollowers(followData.followerCount);
                 setFollowings(followData.followingCount);
             } catch (error) {
@@ -82,7 +83,7 @@ function UserProfileContent() {
         fetchFollowData();
         // Reset follow state when profile user changes
         setIsFollowing(false);
-    }, [profileUserId]);
+    }, [profileUserId, isAuthenticated, user?.userId]);
 
     // Load template images
     useEffect(() => {
