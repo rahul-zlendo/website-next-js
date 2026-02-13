@@ -7,7 +7,7 @@ import {
 } from './types';
 
 // Environment configuration
-const WP_BASE_URL = process.env.WP_BASE_URL || 'https://zlendorealty.com/blog';
+const WP_BASE_URL = process.env.WP_BASE_URL || 'https://blog.zlendorealty.com';
 const WP_API_URL = `${WP_BASE_URL}/wp-json/wp/v2`;
 const REVALIDATE_SECONDS = parseInt(process.env.WP_REVALIDATE_SECONDS || '3600', 10);
 
