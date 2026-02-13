@@ -69,31 +69,17 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
             />
 
-            {/* Hero Image */}
-            {post.featuredImage && (
-                <div className="relative w-full h-[40vh] md:h-[50vh] lg:h-[60vh] overflow-hidden">
-                    <Image
-                        src={post.featuredImage.url}
-                        alt={post.featuredImage.alt}
-                        fill
-                        priority
-                        className="object-cover"
-                        sizes="100vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-                    {/* Back Button Overlay */}
-                    <div className="absolute top-6 left-6 z-10">
-                        <Link
-                            href="/blog"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold text-zlendo-grey-dark hover:bg-white transition-all shadow-lg"
-                        >
-                            <ArrowLeft className="w-4 h-4" />
-                            Back to Blog
-                        </Link>
-                    </div>
+            <div className="w-full bg-white pt-12">
+                <div className="container-custom px-6 lg:px-12">
+                    <Link
+                        href="/blog"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 border border-black/5 rounded-full text-sm font-semibold text-zlendo-grey-dark hover:bg-white hover:shadow-md transition-all"
+                    >
+                        <ArrowLeft className="w-4 h-4" />
+                        Back to Blog
+                    </Link>
                 </div>
-            )}
+            </div>
 
             <article className="container-custom px-6 lg:px-12 py-8 lg:py-12">
                 {/* Breadcrumb */}

@@ -15,7 +15,7 @@ export default function ServiceLevelAgreementPage() {
         title: 'SLA - Realty',
         icon: Clock,
         category: 'service' as const,
-        description: 'Service level agreement (SPA) for zlendo realty',
+        description: 'Service level agreement (SLA) for zlendo realty',
         lastUpdated: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
         sections: [
             {
