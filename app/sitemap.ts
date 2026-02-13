@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllPostSlugs, getAllCategorySlugs, getAllTagSlugs, getTotalPostPages } from '@/lib/wordpress/api';
 
-const SUPPORTED_COUNTRIES = ['in', 'us', 'uk', 'eu', 'au'];
+const SUPPORTED_COUNTRIES = ['in'];
 const BASE_URL = 'https://zlendorealty.com';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
