@@ -8,28 +8,28 @@ import CookieConsent from '@/components/common/CookieConsent';
 
 export const metadata: Metadata = {
     title: {
-        default: 'Blog | Home Design Tips & Insights',
-        template: '%s | Zlendo Realty Blog',
+        default: 'Help Center | Zlendo Realty',
+        template: '%s | Zlendo Realty Help Center',
     },
-    description: 'Discover expert tips on home design, interior styling, architecture trends, Vastu, and AI-powered floor planning.',
+    description: 'Find answers, tutorials, and guides for Zlendo Realty\'s AI-powered floor planning, interior design, and home visualization tools.',
     openGraph: {
-        title: 'Zlendo Realty Blog | Home Design Tips & Insights',
-        description: 'Discover expert tips on home design, interior styling, architecture trends, Vastu, and AI-powered floor planning.',
-        url: 'https://zlendorealty.com/blog',
+        title: 'Help Center | Zlendo Realty',
+        description: 'Find answers, tutorials, and guides for Zlendo Realty\'s AI-powered floor planning, interior design, and home visualization tools.',
+        url: 'https://zlendorealty.com/help-center',
         type: 'website',
         images: [
             {
                 url: '/og-image.png',
                 width: 1200,
                 height: 630,
-                alt: 'Zlendo Realty Blog',
+                alt: 'Zlendo Realty Help Center',
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Zlendo Realty Blog | Home Design Tips & Insights',
-        description: 'Discover expert tips on home design, interior styling, architecture trends, and AI-powered floor planning.',
+        title: 'Help Center | Zlendo Realty',
+        description: 'Find answers, tutorials, and guides for Zlendo Realty\'s AI-powered tools.',
         images: ['/og-image.png'],
     },
     robots: {
@@ -38,17 +38,16 @@ export const metadata: Metadata = {
     },
 };
 
-// Default country for blog (not country-segmented)
 const DEFAULT_COUNTRY: CountryCode = 'in';
 
-export default function BlogLayout({
+export default function HelpCenterLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
     return (
         <CountryProvider initialCountry={DEFAULT_COUNTRY}>
-            <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
+            <div className="min-h-screen bg-[#fafbfc] text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
                 <Header />
                 <main>{children}</main>
                 <Footer />

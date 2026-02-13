@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllPostSlugs, getAllCategorySlugs, getAllTagSlugs } from '@/lib/wordpress/api';
+import { getAllDocSlugs, getAllDocCategorySlugs } from '@/lib/helpcenter/api';
 
 const SUPPORTED_COUNTRIES = ['in', 'us', 'uk', 'eu', 'au'];
 const BASE_URL = 'https://zlendorealty.com';
@@ -98,7 +99,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    // Fetch categories
     const categorySlugs = await getAllCategorySlugs();
     for (const slug of categorySlugs) {
       urls.push({
@@ -109,7 +109,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    // Fetch tags
     const tagSlugs = await getAllTagSlugs();
     for (const slug of tagSlugs) {
       urls.push({
@@ -121,6 +120,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (error) {
     console.error('[Sitemap] Failed to fetch blog content:', error);
+  }
+
+  // Fetch help center docs from WordPress (BetterDocs)
+  try {
+    const docSlugs = await getAllDocSlugs();
+    for (const slug of docSlugs) {
+      urls.push({
+        url: `${BASE_URL}/help-center/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.6,
+      });
+    }
+
+    const docCatSlugs = await getAllDocCategorySlugs();
+    for (const slug of docCatSlugs) {
+      urls.push({
+        url: `${BASE_URL}/help-center/category/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      });
+    }
+  } catch (error) {
+    console.error('[Sitemap] Failed to fetch help center content:', error);
   }
 
   return urls;

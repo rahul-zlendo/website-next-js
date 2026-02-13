@@ -10,6 +10,20 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Cookie Policy - Zlendo Realty',
         description: 'Information about how we use cookies and similar technologies.',
+        images: [
+            {
+                url: '/og-image.png',
+                width: 1200,
+                height: 630,
+                alt: 'Zlendo Realty - Cookie Policy',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Cookie Policy - Zlendo Realty',
+        description: 'Information about how we use cookies and similar technologies.',
+        images: ['/og-image.png'],
     },
 };
 
