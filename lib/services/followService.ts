@@ -25,11 +25,11 @@ export const followOrUnfollowUserService = async (payload: FollowUserPayload): P
   }
 };
 
-export const getFollowByUserIdService = async (userId: number, userFollowId?: number): Promise<FollowDataResponse> => {
+export const getFollowByUserIdService = async (userId: number, loggedInUserId?: number): Promise<FollowDataResponse> => {
   try {
-    const params: { UserId: number; UserFollowId?: number } = { UserId: userId };
-    if (userFollowId !== undefined) {
-      params.UserFollowId = userFollowId;
+    const params: { UserId: number; LoggedInUserId?: number } = { UserId: userId };
+    if (loggedInUserId !== undefined) {
+      params.LoggedInUserId = loggedInUserId;
     }
     const response = await axiosInstance.get(ENDPOINTS_FOLLOW.GET_FOLLOW_BY_USER_ID, {
       params

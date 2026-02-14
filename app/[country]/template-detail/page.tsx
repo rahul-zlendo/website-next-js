@@ -774,7 +774,8 @@ function TemplateDetailContent() {
             setIsFollowing(!isFollowing);
             
             // Refresh follow data
-            const followData = await getFollowByUserIdService(selectedTemplate.userId);
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const followData = await getFollowByUserIdService(selectedTemplate.userId, loggedInUserId);
             setFollowers(followData.followerCount);
             setFollowings(followData.followingCount);
         } catch (error) {
@@ -829,7 +830,7 @@ function TemplateDetailContent() {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="relative group rounded-[32px] overflow-hidden bg-gray-100 aspect-[4/3] md:aspect-[16/9] shadow-lg border border-black/5"
+                            className="relative group rounded-[32px] overflow-hidden bg-gray-100 aspect-[4/3] md:aspect-[3/2] shadow-lg border border-black/5"
                         >
                             {loadingMainImage ? (
                                 <div className="w-full h-full flex items-center justify-center">
@@ -903,7 +904,7 @@ function TemplateDetailContent() {
                                     <button
                                         key={idx}
                                         onClick={() => setSelectedThumbnailIndex(idx)}
-                                        className={`relative rounded-2xl overflow-hidden aspect-square border-2 transition-all ${selectedThumbnailIndex === idx
+                                        className={`relative rounded-2xl overflow-hidden aspect-[3/4] border-2 transition-all ${selectedThumbnailIndex === idx
                                             ? 'border-zlendo-teal ring-2 ring-zlendo-teal/30 scale-105'
                                             : 'border-black/5 hover:border-zlendo-teal/50 hover:ring-2 hover:ring-zlendo-teal/20'
                                             }`}
@@ -961,9 +962,9 @@ function TemplateDetailContent() {
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="bg-white border border-gray-100 rounded-[32px] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]"
+                            className="bg-white border border-gray-100 rounded-[32px] p-4 md:p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]"
                         >
-                            <div className="flex items-center gap-4 mb-6 flex-wrap">
+                            <div className="flex items-center gap-4 mb-4 flex-wrap">
                                 {templateData.category && (
                                     <span className="px-3 py-1 bg-zlendo-teal/10 text-zlendo-teal font-black text-xs uppercase tracking-widest rounded-full">
                                         {templateData.category}
@@ -988,7 +989,7 @@ function TemplateDetailContent() {
 
                             {/* User Profile Section */}
                             {selectedTemplate?.userName && (
-                                <div className="mb-6 pb-6 border-b border-gray-100">
+                                <div className="mb-4 pb-4 border-b border-gray-100">
                                     <div className="flex items-center gap-3 justify-between">
                                         <Link 
                                             href={getPath(`/user-profile?userId=${encryptProjectId(selectedTemplate.userId)}`)}
@@ -1041,16 +1042,16 @@ function TemplateDetailContent() {
                                 </div>
                             )}
 
-                            <h1 className="text-3xl font-black text-zlendo-grey-dark leading-tight mb-4">
+                            <h1 className="text-2xl font-black text-zlendo-grey-dark leading-tight mb-3">
                                 {templateData.title}
                             </h1>
 
-                            <p className="text-lg text-zlendo-grey-medium font-medium opacity-80 leading-relaxed mb-8">
+                            <p className="text-base text-zlendo-grey-medium font-medium opacity-80 leading-relaxed mb-4">
                                 {templateData.description}
                             </p>
 
                             {templateData.tags.length > 0 && (
-                                <div className="flex flex-wrap gap-2 mb-8">
+                                <div className="flex flex-wrap gap-2 mb-4">
                                     {templateData.tags.map(tag => (
                                         <span key={tag} className="text-sm font-bold text-zlendo-grey-medium opacity-50 before:content-['#']">
                                             {tag}
@@ -1059,7 +1060,7 @@ function TemplateDetailContent() {
                                 </div>
                             )}
 
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 <button
                                     onClick={() => {
                                         if (templateId) {
@@ -1068,7 +1069,7 @@ function TemplateDetailContent() {
                                         }
                                     }}
                                     disabled={!templateId}
-                                    className="block w-full text-center py-5 bg-zlendo-teal text-white rounded-2xl font-black text-lg shadow-xl shadow-zlendo-teal/20 hover:scale-[1.02] active:scale-98 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                    className="block w-full text-center py-4 bg-zlendo-teal text-white rounded-2xl font-black text-base shadow-xl shadow-zlendo-teal/20 hover:scale-[1.02] active:scale-98 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                                 >
                                     Customize this Design
                                 </button>

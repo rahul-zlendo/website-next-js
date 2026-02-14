@@ -125,7 +125,8 @@ function UserProfileContent() {
             setIsFollowing(!isFollowing);
             
             // Refresh follow data
-            const followData = await getFollowByUserIdService(profileUserId);
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const followData = await getFollowByUserIdService(profileUserId, loggedInUserId);
             setFollowers(followData.followerCount);
             setFollowings(followData.followingCount);
         } catch (error) {
