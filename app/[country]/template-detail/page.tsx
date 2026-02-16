@@ -36,6 +36,50 @@ interface CommentItemProps {
     LOGIN_URL: string;
 }
 
+// Helper function to normalize Google image URLs
+const normalizeGoogleImageUrl = (url: string): string => {
+    if (!url || typeof url !== 'string') return url;
+    // Fix Google profile image URLs - remove size restrictions that cause CORS issues
+    if (url.includes('lh3.googleusercontent.com') || url.includes('googleusercontent.com')) {
+        // Remove size parameter (e.g., =s96-c) and replace with a larger size or remove it
+        return url.replace(/=s\d+-c$/, '=s400').replace(/=s\d+-c\//, '/');
+    }
+    return url;
+};
+
+// Helper function to get valid URL
+const getValidUrl = (url: string | null | undefined): string | null => {
+    if (!url || typeof url !== 'string') return null;
+    const trimmed = url.trim();
+    return trimmed.length > 0 ? trimmed : null;
+};
+
+// Helper function to process profile URL with SAS token
+const processProfileUrl = (profileUrl: string | null | undefined): string | null => {
+    const rawUrl = getValidUrl(profileUrl);
+    if (!rawUrl) return null;
+    
+    const normalizedUrl = normalizeGoogleImageUrl(rawUrl);
+    
+    // If it's already a full HTTP/HTTPS URL (like blob storage URL)
+    if (normalizedUrl.startsWith('http://') || normalizedUrl.startsWith('https://')) {
+        // Check if it's a blob storage URL and needs SAS token
+        if (normalizedUrl.includes('blob.core.windows.net')) {
+            // Add SAS token if not already present
+            if (!normalizedUrl.includes('sig=')) {
+                return `${normalizedUrl}${normalizedUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
+            }
+            return normalizedUrl;
+        }
+        // For other HTTP URLs (like Google images), return as is
+        return normalizedUrl;
+    }
+    
+    // If it's a relative path, construct full URL with SAS token
+    const fullUrl = `${BLOB_BASE_URL}${normalizedUrl}`;
+    return `${fullUrl}${fullUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
+};
+
 function CommentItem({
     comment,
     templateId,
@@ -54,14 +98,15 @@ function CommentItem({
 }: CommentItemProps) {
     const isReplying = replyingTo === comment.templateCommentId;
     const currentReplyText = replyText[comment.templateCommentId] || '';
-
+    const displayProfileUrl = processProfileUrl(comment.profileUrl);
+    
     return (
         <div className="bg-white border border-gray-100 rounded-[24px] p-6 shadow-sm">
             <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
-                    {comment.profileUrl ? (
+                    {displayProfileUrl ? (
                         <img
-                            src={comment.profileUrl}
+                            src={displayProfileUrl}
                             alt={comment.userName}
                             className="w-full h-full object-cover"
                             onError={(e) => {
@@ -133,14 +178,27 @@ function CommentItem({
                     {isReplying && (
                         <div className="mt-4 pt-4 border-t border-gray-100">
                             <div className="flex items-start gap-3">
-                                <div className="w-8 h-8 rounded-full bg-zlendo-teal/20 flex items-center justify-center flex-shrink-0">
-                                    {isAuthenticated && user?.userName ? (
-                                        <span className="text-zlendo-teal font-black text-xs">
-                                            {user.userName.charAt(0).toUpperCase()}
-                                        </span>
-                                    ) : (
-                                        <span className="text-zlendo-teal font-black text-xs">U</span>
-                                    )}
+                                <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+                                    {(() => {
+                                        const displayProfileUrl = user?.profileUrl ? processProfileUrl(user.profileUrl) : null;
+                                        return displayProfileUrl ? (
+                                            <img
+                                                src={displayProfileUrl}
+                                                alt={user?.userName || 'User'}
+                                                className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    const target = e.currentTarget;
+                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Crect fill="%23e2e8f0" width="32" height="32"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="12"%3E%3C/text%3E%3C/svg%3E';
+                                                }}
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
+                                                <span className="text-zlendo-teal font-black text-xs">
+                                                    {isAuthenticated && user?.userName ? user.userName.charAt(0).toUpperCase() : 'U'}
+                                                </span>
+                                            </div>
+                                        );
+                                    })()}
                                 </div>
                                 <div className="flex-1">
                                     <textarea
@@ -296,7 +354,8 @@ function TemplateDetailContent() {
 
             setLoadingComments(true);
             try {
-                const response = await getTemplateCommentsService(Number(templateId));
+                const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+                const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
                 if (response && response.comments) {
                     setComments(response.comments);
                 }
@@ -309,7 +368,7 @@ function TemplateDetailContent() {
         };
 
         fetchComments();
-    }, [templateId]);
+    }, [templateId, isAuthenticated, user?.userId]);
 
     // Fetch follow data for template owner
     useEffect(() => {
@@ -646,7 +705,8 @@ function TemplateDetailContent() {
             await addCommentService(Number(templateId), user.userId, newComment.trim(), null);
             setNewComment('');
             // Refresh comments
-            const response = await getTemplateCommentsService(Number(templateId));
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
             if (response && response.comments) {
                 setComments(response.comments);
             }
@@ -674,7 +734,8 @@ function TemplateDetailContent() {
             setReplyText((prev) => ({ ...prev, [parentCommentId]: '' }));
             setReplyingTo(null);
             // Refresh comments
-            const response = await getTemplateCommentsService(Number(templateId));
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
             if (response && response.comments) {
                 setComments(response.comments);
             }
@@ -694,7 +755,8 @@ function TemplateDetailContent() {
         try {
             await likeCommentService(templateCommentId, user.userId);
             // Refresh comments to get updated like count
-            const response = await getTemplateCommentsService(Number(templateId));
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
             if (response && response.comments) {
                 setComments(response.comments);
             }
@@ -719,7 +781,8 @@ function TemplateDetailContent() {
         try {
             await deleteCommentService(commentToDelete, user.userId);
             // Refresh comments after deletion
-            const response = await getTemplateCommentsService(Number(templateId));
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
             if (response && response.comments) {
                 setComments(response.comments);
             }
@@ -996,23 +1059,26 @@ function TemplateDetailContent() {
                                             className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
                                         >
                                             <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
-                                                {selectedTemplate.profileUrl ? (
-                                                    <img
-                                                        src={selectedTemplate.profileUrl}
-                                                        alt={selectedTemplate.userName}
-                                                        className="w-full h-full object-cover"
-                                                        onError={(e) => {
-                                                            const target = e.currentTarget;
-                                                            target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
-                                                        <span className="text-zlendo-teal font-black text-sm">
-                                                            {selectedTemplate.userName.charAt(0).toUpperCase()}
-                                                        </span>
-                                                    </div>
-                                                )}
+                                                {(() => {
+                                                    const displayProfileUrl = processProfileUrl(selectedTemplate.profileUrl);
+                                                    return displayProfileUrl ? (
+                                                        <img
+                                                            src={displayProfileUrl}
+                                                            alt={selectedTemplate.userName}
+                                                            className="w-full h-full object-cover"
+                                                            onError={(e) => {
+                                                                const target = e.currentTarget;
+                                                                target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
+                                                            <span className="text-zlendo-teal font-black text-sm">
+                                                                {selectedTemplate.userName.charAt(0).toUpperCase()}
+                                                            </span>
+                                                        </div>
+                                                    );
+                                                })()}
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-bold text-zlendo-grey-dark">
@@ -1143,14 +1209,27 @@ function TemplateDetailContent() {
                     ) : (
                         <div className="bg-white border border-gray-100 rounded-[32px] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] mb-8">
                             <div className="flex items-start gap-4">
-                                <div className="w-10 h-10 rounded-full bg-zlendo-teal/20 flex items-center justify-center flex-shrink-0">
-                                    {user?.userName ? (
-                                        <span className="text-zlendo-teal font-black text-sm">
-                                            {user.userName.charAt(0).toUpperCase()}
-                                        </span>
-                                    ) : (
-                                        <span className="text-zlendo-teal font-black text-sm">U</span>
-                                    )}
+                                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+                                    {(() => {
+                                        const displayProfileUrl = user?.profileUrl ? processProfileUrl(user.profileUrl) : null;
+                                        return displayProfileUrl ? (
+                                            <img
+                                                src={displayProfileUrl}
+                                                alt={user?.userName || 'User'}
+                                                className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    const target = e.currentTarget;
+                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
+                                                }}
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
+                                                <span className="text-zlendo-teal font-black text-sm">
+                                                    {user?.userName ? user.userName.charAt(0).toUpperCase() : 'U'}
+                                                </span>
+                                            </div>
+                                        );
+                                    })()}
                                 </div>
                                 <div className="flex-1">
                                     <div className="mb-2">

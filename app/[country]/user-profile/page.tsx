@@ -14,6 +14,50 @@ import { followOrUnfollowUserService, getFollowByUserIdService } from '@/lib/ser
 import { LOGIN_URL } from '@/lib/constants/urls';
 import { encryptProjectId, extractProjectIdFromParam } from '@/lib/utils/encryptionUtils';
 
+// Helper function to normalize Google image URLs
+const normalizeGoogleImageUrl = (url: string): string => {
+    if (!url || typeof url !== 'string') return url;
+    // Fix Google profile image URLs - remove size restrictions that cause CORS issues
+    if (url.includes('lh3.googleusercontent.com') || url.includes('googleusercontent.com')) {
+        // Remove size parameter (e.g., =s96-c) and replace with a larger size or remove it
+        return url.replace(/=s\d+-c$/, '=s400').replace(/=s\d+-c\//, '/');
+    }
+    return url;
+};
+
+// Helper function to get valid URL
+const getValidUrl = (url: string | null | undefined): string | null => {
+    if (!url || typeof url !== 'string') return null;
+    const trimmed = url.trim();
+    return trimmed.length > 0 ? trimmed : null;
+};
+
+// Helper function to process profile URL with SAS token
+const processProfileUrl = (profileUrl: string | null | undefined): string | null => {
+    const rawUrl = getValidUrl(profileUrl);
+    if (!rawUrl) return null;
+    
+    const normalizedUrl = normalizeGoogleImageUrl(rawUrl);
+    
+    // If it's already a full HTTP/HTTPS URL (like blob storage URL)
+    if (normalizedUrl.startsWith('http://') || normalizedUrl.startsWith('https://')) {
+        // Check if it's a blob storage URL and needs SAS token
+        if (normalizedUrl.includes('blob.core.windows.net')) {
+            // Add SAS token if not already present
+            if (!normalizedUrl.includes('sig=')) {
+                return `${normalizedUrl}${normalizedUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
+            }
+            return normalizedUrl;
+        }
+        // For other HTTP URLs (like Google images), return as is
+        return normalizedUrl;
+    }
+    
+    // If it's a relative path, construct full URL with SAS token
+    const fullUrl = `${BLOB_BASE_URL}${normalizedUrl}`;
+    return `${fullUrl}${fullUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
+};
+
 function UserProfileContent() {
     const { getPath } = useCountry();
     const router = useRouter();
@@ -186,23 +230,26 @@ function UserProfileContent() {
                 <div className="bg-white border border-gray-100 rounded-[32px] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] mb-8">
                     <div className="flex items-center gap-4 mb-6">
                         <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
-                            {profileData.profileUrl ? (
-                                <img
-                                    src={profileData.profileUrl}
-                                    alt={profileData.userName}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                        const target = e.currentTarget;
-                                        target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64"%3E%3Crect fill="%23e2e8f0" width="64" height="64"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="20"%3E%3C/text%3E%3C/svg%3E';
-                                    }}
-                                />
-                            ) : (
-                                <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
-                                    <span className="text-zlendo-teal font-black text-xl">
-                                        {profileData.userName?.charAt(0).toUpperCase() || 'U'}
-                                    </span>
-                                </div>
-                            )}
+                            {(() => {
+                                const displayProfileUrl = processProfileUrl(profileData.profileUrl);
+                                return displayProfileUrl ? (
+                                    <img
+                                        src={displayProfileUrl}
+                                        alt={profileData.userName}
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                            const target = e.currentTarget;
+                                            target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64"%3E%3Crect fill="%23e2e8f0" width="64" height="64"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="20"%3E%3C/text%3E%3C/svg%3E';
+                                        }}
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
+                                        <span className="text-zlendo-teal font-black text-xl">
+                                            {profileData.userName?.charAt(0).toUpperCase() || 'U'}
+                                        </span>
+                                    </div>
+                                );
+                            })()}
                         </div>
                         <div className="flex-1">
                             <div className="flex items-center gap-5 mb-2">
