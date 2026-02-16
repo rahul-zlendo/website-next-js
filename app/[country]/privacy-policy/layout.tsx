@@ -8,6 +8,17 @@ export const metadata: Metadata = {
         description: 'Zlendo Technologies Privacy Policy - Learn how we collect, use, and protect your personal information.',
         type: 'website',
     },
+    keywords: [
+        'privacy policy',
+        'zlendo technologies',
+        'products usage',
+        'personal data protection',
+        'zlendo products',
+        'AI home design',
+        'zlendo realty services',
+        'platform',
+        'zlendo website',
+    ],
 };
 
 export default function PrivacyPolicyLayout({

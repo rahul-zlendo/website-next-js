@@ -12,8 +12,8 @@ import {
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { useCountry } from '@/lib/context/CountryContext';
 // Images from public folder are referenced as /assets/... not @/public/assets/...
-const DashboardInterfaceImg = '/assets/dashboard-interface.png';
-const UploadFloorplanImg = '/assets/upload-floorplan.png';
+const DashboardInterfaceImg = '/assets/2d-to-3d/dashboard-interface.png';
+const UploadFloorplanImg = '/assets/2d-to-3d/upload-floorplan.png';
 
 // Extended Product Data to fit the new rich template
 const productData = {
