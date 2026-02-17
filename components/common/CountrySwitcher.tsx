@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useCountry, type CountryCode } from '@/lib/context/CountryContext';
+import { useRouter, usePathname } from 'next/navigation';
 import { ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -17,6 +18,8 @@ const CountrySwitcher = () => {
     const { country, setCountry } = useCountry();
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const router = useRouter();
+    const pathname = usePathname();
 
     const currentCountry = countries.find(c => c.code === country) || countries[0];
 
@@ -29,6 +32,28 @@ const CountrySwitcher = () => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+
+    const handleCountryChange = (newCountryCode: CountryCode) => {
+        // Logic to replace country code in URL
+        const currentPath = pathname;
+        // Assuming path starts with /country-code (e.g. /in/...)
+        // We replace the first segment
+        const segments = currentPath.split('/');
+        // segments[0] is empty, segments[1] is country code
+        if (segments.length >= 2 && countries.some(c => c.code === segments[1])) {
+            segments[1] = newCountryCode;
+            const newPath = segments.join('/');
+            router.push(newPath);
+            // Also update context state although push might trigger context update via useEffect in provider
+            setCountry(newCountryCode);
+        } else {
+            // If path doesn't have country code for some reason (should be caught by middleware but safest to handle)
+            // Just go to /[newCountry]
+            router.push(`/${newCountryCode}`);
+            setCountry(newCountryCode);
+        }
+        setIsOpen(false);
+    }
 
     return (
         <div className="relative" ref={dropdownRef}>
@@ -55,10 +80,7 @@ const CountrySwitcher = () => {
                         {countries.map((c) => (
                             <button
                                 key={c.code}
-                                onClick={() => {
-                                    setCountry(c.code);
-                                    setIsOpen(false);
-                                }}
+                                onClick={() => handleCountryChange(c.code)}
                                 className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl transition-all ${country === c.code ? 'bg-zlendo-teal/10 text-zlendo-teal' : 'hover:bg-slate-50 text-zlendo-grey-dark'}`}
                             >
                                 <div className="flex items-center gap-3">

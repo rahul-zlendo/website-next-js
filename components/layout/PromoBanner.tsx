@@ -5,10 +5,12 @@ import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { getAllOffers } from '@/lib/store/slices/offerSlice';
-import { Plans } from '@/lib/config/env';
+import Link from 'next/link';
+import { useCountry } from '@/lib/context/CountryContext';
 
 const PromoBanner = () => {
     const dispatch = useAppDispatch();
+    const { paths } = useCountry();
     const { activeOffer, isLoading, offers, error } = useAppSelector((state) => state.offer);
 
     useEffect(() => {
@@ -62,12 +64,12 @@ const PromoBanner = () => {
                 <p className="text-center text-[10px] sm:text-sm leading-tight whitespace-nowrap shrink-0">
                     {activeOffer.offerName} - Get <span className="text-yellow-300 font-black">{discountText}</span> on all Plans.
                 </p>
-                <a
-                    href={Plans}
+                <Link
+                    href={`${paths.plans}?tab=billing&period=monthly`}
                     className="flex items-center gap-1 sm:gap-1.5 group hover:text-white/80 transition-all border-b border-white/30 pb-0.5 shrink-0 text-[10px] sm:text-sm whitespace-nowrap"
                 >
                     Claim Deal <ArrowRight className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 group-hover:translate-x-1 transition-transform" />
-                </a>
+                </Link>
             </div>
         </motion.div>
     );

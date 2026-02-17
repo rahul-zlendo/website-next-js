@@ -17,8 +17,16 @@ export default function BlogPostBody({ content }: BlogPostBodyProps) {
         const links = contentRef.current.querySelectorAll('a');
         links.forEach((link) => {
             const href = link.getAttribute('href');
-            if (href && (href.startsWith('http') || href.startsWith('//'))) {
-                if (!href.includes('zlendorealty.com')) {
+            if (href) {
+                // Fix broken link
+                if (href.includes('zlendo.com/ai-design-studios')) {
+                    link.setAttribute('href', '/products/room-styler');
+                    // Remove target blank for internal link
+                    link.removeAttribute('target');
+                    link.removeAttribute('rel');
+                }
+                // Handle external links
+                else if ((href.startsWith('http') || href.startsWith('//')) && !href.includes('zlendorealty.com')) {
                     link.setAttribute('target', '_blank');
                     link.setAttribute('rel', 'noopener noreferrer');
                 }

@@ -206,12 +206,19 @@ const Footer = () => {
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Contact Us</h4>
                         <ul className="space-y-4 text-[15px]">
                             <li>
-                                <a href="mailto:contact@zlendorealty.com" className="flex items-center gap-2.5 group whitespace-nowrap">
+                                <a
+                                    href="#"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.location.href = 'mailto:contact' + '@' + 'zlendorealty.com';
+                                    }}
+                                    className="flex items-center gap-2.5 group whitespace-nowrap"
+                                >
                                     <div className="w-7 h-7 rounded-lg bg-zlendo-teal/5 flex items-center justify-center text-zlendo-teal shrink-0 group-hover:bg-zlendo-teal group-hover:text-white transition-all">
                                         <Mail className="w-3.5 h-3.5" />
                                     </div>
                                     <span className="text-[14px] text-[#666666] font-medium group-hover:text-zlendo-teal transition-colors">
-                                        contact@zlendorealty.com
+                                        contact<span>@</span>zlendorealty.com
                                     </span>
                                 </a>
                             </li>

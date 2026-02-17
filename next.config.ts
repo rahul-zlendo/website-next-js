@@ -25,6 +25,21 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/ai-design-studios',
+        destination: '/products/room-styler',
+        permanent: true,
+      },
+      {
+        source: '/:country/ai-design-studios',
+        destination: '/:country/products/room-styler',
+        permanent: true,
+      },
+    ];
+  },
+
   // Image optimization domains
   images: {
     remotePatterns: [

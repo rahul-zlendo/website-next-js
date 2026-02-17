@@ -35,18 +35,18 @@ export async function middleware(request: NextRequest) {
     // Detect country from IP (using edge runtime)
     try {
       const country = req.geo?.country?.toLowerCase() || 'in';
-      const targetCountry = country === 'gb' ? 'uk' : 
-                            SUPPORTED_COUNTRIES.includes(country) ? country : 'in';
+      const targetCountry = country === 'gb' ? 'uk' :
+        SUPPORTED_COUNTRIES.includes(country) ? country : 'in';
 
       const url = request.nextUrl.clone();
       url.pathname = `/${targetCountry}`;
-      
+
       const response = NextResponse.redirect(url);
       response.cookies.set(COUNTRY_COOKIE_NAME, targetCountry, {
         maxAge: 60 * 60 * 24 * 365, // 1 year
         path: '/',
       });
-      
+
       return response;
     } catch (error) {
       console.error('Geo-detection error:', error);
@@ -60,7 +60,7 @@ export async function middleware(request: NextRequest) {
   const countryMatch = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
   if (countryMatch) {
     const [, country] = countryMatch;
-    
+
     if (!SUPPORTED_COUNTRIES.includes(country)) {
       // Invalid country - redirect to default
       const url = request.nextUrl.clone();
@@ -77,7 +77,31 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  return NextResponse.next();
+  // Handle paths missing country code (e.g. /business/...)
+  const savedCountry = request.cookies.get(COUNTRY_COOKIE_NAME)?.value;
+  let targetCountry = 'in';
+
+  if (savedCountry && SUPPORTED_COUNTRIES.includes(savedCountry)) {
+    targetCountry = savedCountry;
+  } else {
+    const country = req.geo?.country?.toLowerCase() || 'in';
+    targetCountry = country === 'gb' ? 'uk' :
+      SUPPORTED_COUNTRIES.includes(country) ? country : 'in';
+  }
+
+  const url = request.nextUrl.clone();
+  url.pathname = `/${targetCountry}${pathname}`;
+
+  // Set cookie if we determined a new country
+  const response = NextResponse.redirect(url);
+  if (!savedCountry) {
+    response.cookies.set(COUNTRY_COOKIE_NAME, targetCountry, {
+      maxAge: 60 * 60 * 24 * 365,
+      path: '/',
+    });
+  }
+
+  return response;
 }
 
 export const config = {

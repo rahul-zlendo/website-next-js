@@ -1,3 +1,5 @@
+'use client';
+
 import { Calendar } from 'lucide-react';
 import type { PolicySection } from '@/lib/constants/policiesData';
 
@@ -75,8 +77,15 @@ const PolicyContent: React.FC<PolicyContentProps> = ({ title, description, lastU
                 <h2 className="text-2xl font-black mb-4 text-zlendo-teal">Questions?</h2>
                 <p className="text-lg text-zlendo-grey-medium">
                     If you have any questions about this policy, please contact us at{' '}
-                    <a href="mailto:contact@zlendorealty.com" className="text-zlendo-teal font-bold hover:underline">
-                        contact@zlendorealty.com
+                    <a
+                        href="#"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            window.location.href = 'mailto:contact' + '@' + 'zlendorealty.com';
+                        }}
+                        className="text-zlendo-teal font-bold hover:underline"
+                    >
+                        contact<span>@</span>zlendorealty.com
                     </a>
                 </p>
             </div>

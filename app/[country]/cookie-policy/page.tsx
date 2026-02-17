@@ -45,7 +45,7 @@ export default async function CookiePolicyPage(props: CookiePolicyPageProps) {
                 content: (
                     <span className="text-lg text-zlendo-grey-medium font-nunito">
                         A cookie is a small text file placed on Your computer or other internet-connected device to recognise Your browser, enable analytics, and store information such as Your language preferences or login details. Cookies are entirely safe and cannot be used to run programs or transmit viruses to Your device. You can learn more about cookies by clicking{' '}
-                        <a href="https://www.cloudflare.com/en-in/learning/privacy/what-are-cookies/" target="_blank" rel="noopener noreferrer" className="text-zlendo-teal font-bold hover:underline">
+                        <a href="https://allaboutcookies.org/" target="_blank" rel="noopener noreferrer" className="text-zlendo-teal font-bold hover:underline">
                             here
                         </a>.
                     </span>
@@ -142,7 +142,7 @@ export default async function CookiePolicyPage(props: CookiePolicyPageProps) {
                                         Internet Explorer
                                     </a>,{" "}
                                     <a
-                                        href="https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer"
+                                        href="https://allaboutcookies.org/manage-cookies/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-zlendo-teal font-bold hover:underline"
