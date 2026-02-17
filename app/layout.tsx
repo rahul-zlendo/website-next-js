@@ -38,21 +38,22 @@ export const metadata: Metadata = {
     'construction planning software',
   ],
   authors: [{ name: 'Zlendo Realty' }],
-  metadataBase: new URL('https://app.zlendorealty.com'),
+  metadataBase: new URL('https://zlendorealty.com'),
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://app.zlendorealty.com',
+    url: 'https://zlendorealty.com/in',
     title: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
     description:
       'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
     siteName: 'Zlendo Realty',
     images: [
       {
-        url: '/og-image.png',
+        url: 'https://zlendorealty.com/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Zlendo Realty',
+        alt: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
+        type: 'image/png',
       },
     ],
   },
@@ -61,7 +62,12 @@ export const metadata: Metadata = {
     title: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
     description:
       'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
-    images: ['/og-image.png'],
+    images: ['https://zlendorealty.com/og-image.png'],
+  },
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
   },
   robots: {
     index: true,
@@ -74,6 +80,7 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
