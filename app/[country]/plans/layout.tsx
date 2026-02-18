@@ -1,3 +1,4 @@
+
 import { Metadata } from 'next';
 
 interface Props {
@@ -9,6 +10,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (country === 'in') {
         return {
+            keywords: [
+        'zlendo realty pricing',
+        'zlendo realty plans',
+        'zlendo realty software subscription',
+        'zlendo realty free plan',
+        'zlendo realty pro plan',
+        'zlendo realty pro plus plan',
+        'individual subscription',
+        'business subscription',
+        'student subscription',
+    ],
             title: {
                 absolute: 'Zlendo Realty Plans | Solutions for Every Individual',
             },
@@ -21,10 +33,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     return {
+            keywords: [
+        'zlendo realty pricing',
+        'zlendo realty plans',
+        'zlendo realty software subscription',
+        'zlendo realty free plan',
+        'zlendo realty pro plan',
+        'zlendo realty pro plus plan',
+        'individual subscription',
+        'business subscription',
+        'student subscription',
+    ],
         title: 'Subscription Plans | Zlendo Realty',
     };
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+
     return <>{children}</>;
 }

@@ -1,3 +1,4 @@
+
 import { Metadata } from 'next';
 
 interface Props {
@@ -9,6 +10,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (country === 'in') {
         return {
+            keywords: [
+        'service level agreement',
+        'sla software',
+        'sla management tool',
+        'zlendo realty platform',
+        'zlendo software',
+        'customer access portal',
+        'saas sla management',
+        'platform service agreement',
+        'real estate software sla',
+        'business sla solutions',
+    ],
             title: {
                 absolute: 'Zlendo Realty SLA | Service Level Agreement & Performance Standards',
             },
@@ -21,10 +34,23 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     return {
+            keywords: [
+        'service level agreement',
+        'sla software',
+        'sla management tool',
+        'zlendo realty platform',
+        'zlendo software',
+        'customer access portal',
+        'saas sla management',
+        'platform service agreement',
+        'real estate software sla',
+        'business sla solutions',
+    ],
         title: 'Service Level Agreement | Zlendo Realty',
     };
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+
     return <>{children}</>;
 }

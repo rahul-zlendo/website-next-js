@@ -1,3 +1,4 @@
+
 import { Metadata } from 'next';
 
 interface Props {
@@ -9,6 +10,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (country === 'in') {
         return {
+            keywords: [
+        'zlendo technologies nda',
+        'non-disclosure agreement',
+        'nda template',
+        'legal agreement',
+        'vendor partnerships',
+        'Business partnerships',
+        'collaboration agreements',
+        'nda for vendor partnerships',
+        'confidentiality agreement',
+    ],
             title: {
                 absolute: 'Zlendo Technologies Vendor Non-Disclosure Agreement (NDA)',
             },
@@ -21,10 +33,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     return {
+            keywords: [
+        'zlendo technologies nda',
+        'non-disclosure agreement',
+        'nda template',
+        'legal agreement',
+        'vendor partnerships',
+        'Business partnerships',
+        'collaboration agreements',
+        'nda for vendor partnerships',
+        'confidentiality agreement',
+    ],
         title: 'Vendor NDA | Zlendo Realty',
     };
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+
     return <>{children}</>;
 }

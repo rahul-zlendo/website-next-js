@@ -1,3 +1,4 @@
+
 import { Metadata } from 'next';
 
 interface Props {
@@ -9,6 +10,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (country === 'in') {
         return {
+            keywords: [
+        'interior design ideas',
+        'interior design planner',
+        'AI interior design',
+        '3D house modeling',
+        '3D house design',
+        'floor plan templates',
+        'building layout templates',
+        'downloadable floor plan templates',
+    ],
             title: {
                 absolute: 'Zlendo Realty | Professionally Designed Home Plan Templates',
             },
@@ -21,10 +32,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     return {
+            keywords: [
+        'interior design ideas',
+        'interior design planner',
+        'AI interior design',
+        '3D house modeling',
+        '3D house design',
+        'floor plan templates',
+        'building layout templates',
+        'downloadable floor plan templates',
+    ],
         title: 'Home Plan Templates | Zlendo Realty',
     };
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+
     return <>{children}</>;
 }
