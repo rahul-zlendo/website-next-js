@@ -47,7 +47,7 @@ const Footer = () => {
 
     const socialLinks = [
         { icon: Linkedin, href: 'https://www.linkedin.com/showcase/zlendo-realty/?viewAsMember=true', bg: 'hover:bg-[#0A66C2]' },
-        { icon: Facebook, href: 'https://www.facebook.com/profile.php?id=61585610645980', bg: 'hover:bg-[#1877F2]' },
+        { icon: Facebook, href: 'https://www.facebook.com/people/Zlendo-Realty/61585610645980/', bg: 'hover:bg-[#1877F2]' },
         { icon: Instagram, href: 'https://www.instagram.com/zlendorealty/', bg: 'hover:bg-[#E4405F]' },
         { icon: X, href: 'https://x.com/ZlendoRealty', bg: 'hover:bg-black' },
         { icon: Pin, href: 'https://in.pinterest.com/ZlendoRealty/', bg: 'hover:bg-[#E60023]' },
