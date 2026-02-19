@@ -196,8 +196,7 @@ export default function ViewAllTemplatesPage() {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filteredTemplates]);
-    console.log(activeTemplates, "activeTemplates");
-
+    
     const handleTemplateClick = (templateId: number) => {
         // Encrypt ID and navigate immediately for instant feedback
         const encryptedId = encryptProjectId(templateId);

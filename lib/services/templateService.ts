@@ -181,10 +181,14 @@ export const getUserTemplateInteractionsService = async (userId: number, templat
   }
 };
 
-export const getTemplateCommentsService = async (templateId: number): Promise<TemplateCommentsResponse> => {
+export const getTemplateCommentsService = async (templateId: number, loggedInUserId?: number): Promise<TemplateCommentsResponse> => {
   try {
+    const params: { templateId: number; isLoggedUser?: number } = { templateId };
+    if (loggedInUserId !== undefined) {
+      params.isLoggedUser = loggedInUserId;
+    }
     const response = await axiosInstance.get(ENDPOINTS_TEMPLATE.GET_COMMENTS, {
-      params: { templateId }
+      params
     });
     return response.data;
   } catch (error) {
