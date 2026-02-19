@@ -27,7 +27,7 @@ export function generateOrganizationSchema() {
     },
     sameAs: [
       'https://www.linkedin.com/showcase/zlendo-realty',
-      'https://www.facebook.com/profile.php?id=61585610645980',
+      'https://www.facebook.com/people/Zlendo-Realty/61585610645980/',
       'https://www.instagram.com/zlendorealty/',
       'https://x.com/ZlendoRealty',
       'https://www.youtube.com/@zlendorealty',
