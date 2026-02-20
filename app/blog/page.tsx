@@ -80,7 +80,7 @@ async function BlogPostsGrid({ page }: { page: number }) {
                     <BlogCard
                         key={post.id}
                         post={post}
-                        featured={page === 1 && index === 0}
+                        featured={false}
                         index={index}
                     />
                 ))}
