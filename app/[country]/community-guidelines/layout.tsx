@@ -1,6 +1,16 @@
 
-export const metadata = {
-    keywords: [
+import { Metadata } from 'next';
+
+interface Props {
+    params: Promise<{ country: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { country } = await params;
+
+    if (country === 'in') {
+        return {
+            keywords: [
         'zlendo realty',
         'zlendorealty',
         'zlendorealty software',
@@ -12,12 +22,35 @@ export const metadata = {
         'ethical AI applications',
         'zlendorealty rules',
     ],
-};
+            title: {
+                absolute: 'Zlendo Realty Community Guidelines | User Conduct & Platform Rules',
+            },
+            description: 'Read the Zlendo Realty Community Guidelines outlining the rules, standards, and expectations governing user conduct on our platform.',
+            openGraph: {
+                title: 'Zlendo Realty Community Guidelines',
+                description: 'Read the Zlendo Realty Community Guidelines outlining the rules, standards, and expectations governing user conduct on our platform.',
+            },
+        };
+    }
 
-export default function CommunityGuidelinesLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+    return {
+            keywords: [
+        'zlendo realty',
+        'zlendorealty',
+        'zlendorealty software',
+        'zlendorealty tools',
+        'zlendo realty applications',
+        'community guidelines zlendo realty',
+        'zlendoRealty user guidelines',
+        'lawful ai software',
+        'ethical AI applications',
+        'zlendorealty rules',
+    ],
+        title: 'Community Guidelines | Zlendo Realty',
+    };
+}
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+
     return <>{children}</>;
 }

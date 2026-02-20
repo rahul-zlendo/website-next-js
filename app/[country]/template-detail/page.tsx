@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Copy, Check, ArrowRight, Maximize2,
     X, Share2, Heart, Eye,
-    Bookmark, ThumbsUp, ThumbsDown, Trash2, UserPlus
+    Bookmark, ThumbsUp, ThumbsDown, Trash2, UserPlus, LayoutTemplate
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -86,20 +86,18 @@ function CommentItem({
                         <span>{formatDate(comment.createdOn)}</span>
                         <div className="flex items-center gap-2">
                             <button
-                                className={`flex items-center gap-1 transition-all ${
-                                    comment.isLikedByLoggedUser 
-                                        ? 'text-zlendo-teal' 
-                                        : 'text-zlendo-grey-medium hover:text-zlendo-teal'
-                                }`}
+                                className={`flex items-center gap-1 transition-all ${comment.isLikedByLoggedUser
+                                    ? 'text-zlendo-teal'
+                                    : 'text-zlendo-grey-medium hover:text-zlendo-teal'
+                                    }`}
                                 onClick={() => handleLikeComment(comment.templateCommentId)}
                                 disabled={!isAuthenticated}
                                 title={comment.isLikedByLoggedUser ? 'Unlike' : 'Like'}
                             >
-                                <ThumbsUp className={`w-4 h-4 transition-all ${
-                                    comment.isLikedByLoggedUser 
-                                        ? 'fill-current text-zlendo-teal' 
-                                        : ''
-                                }`} />
+                                <ThumbsUp className={`w-4 h-4 transition-all ${comment.isLikedByLoggedUser
+                                    ? 'fill-current text-zlendo-teal'
+                                    : ''
+                                    }`} />
                             </button>
                             <span className={comment.isLikedByLoggedUser ? 'text-zlendo-teal font-bold' : ''}>
                                 {comment.totalLikes}
@@ -238,6 +236,7 @@ function TemplateDetailContent() {
     const [isFollowingLoading, setIsFollowingLoading] = useState(false);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [commentToDelete, setCommentToDelete] = useState<number | null>(null);
+    const [hasImageError, setHasImageError] = useState(false);
 
     // Get template ID from URL searchParams
     const templateId = useMemo(() => {
@@ -333,7 +332,12 @@ function TemplateDetailContent() {
     // Reset selected thumbnail index when template changes
     useEffect(() => {
         setSelectedThumbnailIndex(0);
+        setHasImageError(false);
     }, [templateId]);
+
+    useEffect(() => {
+        setHasImageError(false);
+    }, [selectedThumbnailIndex]);
 
     // Load main thumbnail image
     useEffect(() => {
@@ -771,7 +775,7 @@ function TemplateDetailContent() {
                 isActive: !isFollowing
             });
             setIsFollowing(!isFollowing);
-            
+
             // Refresh follow data
             const followData = await getFollowByUserIdService(selectedTemplate.userId);
             setFollowers(followData.followerCount);
@@ -834,7 +838,7 @@ function TemplateDetailContent() {
                                 <div className="w-full h-full flex items-center justify-center">
                                     <div className="w-12 h-12 border-4 border-zlendo-teal border-t-transparent rounded-full animate-spin"></div>
                                 </div>
-                            ) : templateData.mainImage ? (
+                            ) : (templateData.mainImage && !hasImageError) ? (
                                 <>
                                     <AnimatePresence mode="wait">
                                         <motion.div
@@ -874,7 +878,7 @@ function TemplateDetailContent() {
                                                         }
                                                     }
 
-                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="600"%3E%3Crect fill="%23f1f5f9" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
+                                                    setHasImageError(true);
                                                 }}
                                             />
                                         </motion.div>
@@ -889,8 +893,19 @@ function TemplateDetailContent() {
                                     </button>
                                 </>
                             ) : (
-                                <div className="w-full h-full flex items-center justify-center text-zlendo-grey-medium">
-                                    <p>Image not available</p>
+                                <div className="w-full h-full flex flex-col items-center justify-center p-8 text-center bg-gray-50">
+                                    <div className="w-20 h-20 rounded-3xl bg-zlendo-teal/10 flex items-center justify-center mb-6">
+                                        <LayoutTemplate className="w-10 h-10 text-zlendo-teal" />
+                                    </div>
+                                    <p className="text-lg text-zlendo-grey-medium font-bold mb-8 max-w-sm">
+                                        Select from pre-built templates for customization.
+                                    </p>
+                                    <Link
+                                        href={getPath('/viewalltemplates')}
+                                        className="inline-flex items-center gap-2 px-10 py-4 bg-zlendo-teal text-white font-black rounded-full shadow-xl shadow-zlendo-teal/20 hover:scale-105 active:scale-95 transition-all"
+                                    >
+                                        Choose a Template <ArrowRight className="w-5 h-5" />
+                                    </Link>
                                 </div>
                             )}
                         </motion.div>
@@ -989,7 +1004,7 @@ function TemplateDetailContent() {
                             {selectedTemplate?.userName && (
                                 <div className="mb-6 pb-6 border-b border-gray-100">
                                     <div className="flex items-center gap-3 justify-between">
-                                        <Link 
+                                        <Link
                                             href={getPath(`/user-profile?userId=${encryptProjectId(selectedTemplate.userId)}`)}
                                             className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
                                         >
