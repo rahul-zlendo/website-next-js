@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Smart Vastu Optimized Home Planning',
     description: 'Scientifically mapped vastu principles integrated into modern layouts. Sign up now with Zlendo Realty.',
-    url: 'https://app.zlendorealty.com/in/products/vastu',
+    url: 'https://zlendorealty.com/in/products/vastu',
     siteName: 'Zlendo Realty',
     images: [
       {
@@ -15,6 +15,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Zlendo Realty - Vastu Optimizer',
+        type: 'image/png',
       },
     ],
     locale: 'en_US',

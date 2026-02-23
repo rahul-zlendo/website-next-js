@@ -11,15 +11,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (country === 'in') {
         return {
             keywords: [
-        'interior design ideas',
-        'interior design planner',
-        'AI interior design',
-        '3D house modeling',
-        '3D house design',
-        'floor plan templates',
-        'building layout templates',
-        'downloadable floor plan templates',
-    ],
+                'interior design ideas',
+                'interior design planner',
+                'AI interior design',
+                '3D house modeling',
+                '3D house design',
+                'floor plan templates',
+                'building layout templates',
+                'downloadable floor plan templates',
+            ],
             title: {
                 absolute: 'Zlendo Realty | Professionally Designed Home Plan Templates',
             },
@@ -27,21 +27,34 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             openGraph: {
                 title: 'Zlendo Realty – Complete Collection of Home Plan Templates',
                 description: 'Discover beautifully designed templates for every room in your home with Zlendo Realty. Sign up now and bring your dream spaces to life!',
+                url: 'https://zlendorealty.com/in/viewalltemplates',
+                siteName: 'Zlendo Realty',
+                images: [
+                    {
+                        url: 'https://zlendorealty.com/og-image.png',
+                        width: 1200,
+                        height: 630,
+                        alt: 'Zlendo Realty Home Plan Templates',
+                        type: 'image/png',
+                    },
+                ],
+                locale: 'en_IN',
+                type: 'website',
             },
         };
     }
 
     return {
-            keywords: [
-        'interior design ideas',
-        'interior design planner',
-        'AI interior design',
-        '3D house modeling',
-        '3D house design',
-        'floor plan templates',
-        'building layout templates',
-        'downloadable floor plan templates',
-    ],
+        keywords: [
+            'interior design ideas',
+            'interior design planner',
+            'AI interior design',
+            '3D house modeling',
+            '3D house design',
+            'floor plan templates',
+            'building layout templates',
+            'downloadable floor plan templates',
+        ],
         title: 'Home Plan Templates | Zlendo Realty',
     };
 }

@@ -40,7 +40,7 @@ const Footer = () => {
         { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
         { label: 'Blog', path: '/blog', openInNewTab: false },
         { label: 'Tutorials', path: 'https://www.youtube.com/playlist?list=PLetnELr5c_JVwUtuFKM9wGjGKrKPrGmsa', openInNewTab: true },
-        { label: 'Help Center', path: getPath('/help-center') },
+        { label: 'Help Center', path: '/help-center' },
         { label: 'Grow with Zlendo', path: getPath('/partners') },
         { label: 'Contact Us', path: getPath('/contact') },
     ];

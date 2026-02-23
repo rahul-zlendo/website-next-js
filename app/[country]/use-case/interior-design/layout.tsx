@@ -18,7 +18,19 @@ export const metadata: Metadata = {
     title: 'Interior Design Use Cases | Zlendo Realty',
     description:
       'Transform spatial uncertainty into design confidence with Zlendo Realty. Real stories from first-time homebuyers to remote professionals.',
-    url: 'https://app.zlendorealty.com/in/use-case/interior-design',
+    url: 'https://zlendorealty.com/in/use-case/interior-design',
+    siteName: 'Zlendo Realty',
+    images: [
+      {
+        url: 'https://zlendorealty.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Zlendo Realty - Interior Design',
+        type: 'image/png',
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
