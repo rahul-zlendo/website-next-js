@@ -97,6 +97,8 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
+        {/* Fallback for older social scrapers */}
+        <link rel="image_src" href="https://zlendorealty.com/og-image.png" />
       </head>
       <body>
         <Providers>{children}</Providers>

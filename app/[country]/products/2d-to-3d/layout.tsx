@@ -16,12 +16,25 @@ export const metadata: Metadata = {
     title: 'Instant 2D to 3D House Plan Conversion',
     description:
       'Turn flat drawings into immersive 3D home designs. Ideal for residential planning and client presentations. Start free with Zlendo Realty.',
-    url: 'https://app.zlendorealty.com/in/products/2d-to-3d',
+    url: 'https://zlendorealty.com/in/products/2d-to-3d',
+    siteName: 'Zlendo Realty',
+    images: [
+      {
+        url: 'https://zlendorealty.com/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Zlendo Realty - 2D to 3D Converter',
+        type: 'image/png',
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: '2D to 3D Home Plan Converter',
     description: 'Instantly transform floor plans into lifelike 3D visuals. Start your free trial.',
+    images: ['https://zlendorealty.com/og-image.png'],
   },
   alternates: {
     canonical: '/products/2d-to-3d',
