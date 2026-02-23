@@ -713,7 +713,7 @@ export default function EnterprisePage() {
                                         <p className="text-xl text-zlendo-grey-medium font-medium">Thanks for your interest in Zlendo Realty Business. Our team will reach out to you soon.</p>
                                     </div>
                                 ) : (
-                                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 md:space-y-8 relative z-10">
+                                    <form onSubmit={handleSubmit} autoComplete="off" className="space-y-4 sm:space-y-6 md:space-y-8 relative z-10">
                                         {/* Personal Info */}
                                         <div className="grid md:grid-cols-2 gap-x-4 gap-y-4 sm:gap-x-6 sm:gap-y-5 md:gap-x-8 md:gap-y-6">
                                             <div className="space-y-1.5 sm:space-y-2">
@@ -725,7 +725,8 @@ export default function EnterprisePage() {
                                                     value={formData.name}
                                                     onChange={handleChange}
                                                     className="w-full bg-gray-50 border border-transparent focus:border-gray-200 focus:bg-white rounded-lg sm:rounded-xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-medium text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-gray-100 transition-all shadow-sm"
-                                                    placeholder="Steve Jobs"
+                                                    autoComplete="off"
+                                                    placeholder="Your full name"
                                                 />
                                             </div>
                                             <div className="space-y-1.5 sm:space-y-2">
@@ -770,7 +771,8 @@ export default function EnterprisePage() {
                                                     value={formData.company}
                                                     onChange={handleChange}
                                                     className="w-full bg-gray-50 border border-transparent focus:border-gray-200 focus:bg-white rounded-lg sm:rounded-xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-medium text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-gray-100 transition-all shadow-sm"
-                                                    placeholder="Apple Inc."
+                                                    autoComplete="off"
+                                                    placeholder="Your company name"
                                                 />
                                             </div>
                                         </div>

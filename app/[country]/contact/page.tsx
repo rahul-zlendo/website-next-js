@@ -182,7 +182,7 @@ const ContactPage = () => {
                                 ) : null}
                             </AnimatePresence>
 
-                            <form onSubmit={handleSubmit} className="space-y-8">
+                            <form onSubmit={handleSubmit} autoComplete="off" className="space-y-8">
                                 <div className="space-y-4">
                                     <h3 className="text-2xl font-black text-zlendo-grey-dark">Send us a message</h3>
                                     <div className="flex p-1 bg-[#f9fafb] rounded-2xl w-fit">
@@ -212,7 +212,8 @@ const ContactPage = () => {
                                             value={formState.name}
                                             onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                                             className="w-full px-6 py-4 rounded-2xl bg-[#f9fafb] border border-black/[0.03] focus:border-zlendo-teal focus:bg-white outline-none transition-all font-bold text-zlendo-grey-dark"
-                                            placeholder="John Doe"
+                                            autoComplete="off"
+                                            placeholder="Your full name"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -223,7 +224,8 @@ const ContactPage = () => {
                                             value={formState.email}
                                             onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                                             className="w-full px-6 py-4 rounded-2xl bg-[#f9fafb] border border-black/[0.03] focus:border-zlendo-teal focus:bg-white outline-none transition-all font-bold text-zlendo-grey-dark"
-                                            placeholder="john@example.com"
+                                            autoComplete="off"
+                                            placeholder="Your email address"
                                         />
                                     </div>
                                 </div>
@@ -282,19 +284,24 @@ const ContactPage = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
-                            { title: "Demo Request", desc: "Want to see Zlendo Realty in action? Book a personalized walkthrough.", icon: Building2 },
-                            { title: "Support Docs", desc: "Browse our comprehensive guides and technical documentation.", icon: MessageSquare },
-                            { title: "Partnership", desc: "Learn about our affiliate and builder referral programs.", icon: ArrowRight }
+                            { title: "Demo Request", desc: "Want to see Zlendo Realty in action? Book a personalized walkthrough.", icon: Building2, href: "https://zlendorealty.com/in/business#demo-form" },
+                            { title: "Support Docs", desc: "Browse our comprehensive guides and technical documentation.", icon: MessageSquare, href: "https://helpcenter.zlendorealty.com/" },
+                            { title: "Partnership", desc: "Learn about our affiliate and builder referral programs.", icon: ArrowRight, href: "https://zlendorealty.com/in/partners" }
                         ].map((item, i) => (
                             <div key={i} className="p-10 rounded-[40px] bg-white border border-black/[0.03] hover:shadow-2xl hover:shadow-black/5 transition-all">
                                 <div className="w-16 h-16 rounded-[24px] bg-zlendo-teal/5 flex items-center justify-center text-zlendo-teal mb-8">
-                                    <item.icon className="w-8 h-8" />
+                                    {(() => { const Icon = item.icon; return <Icon className="w-8 h-8" />; })()}
                                 </div>
                                 <h3 className="text-2xl font-black text-zlendo-grey-dark mb-4">{item.title}</h3>
                                 <p className="text-lg text-zlendo-grey-medium font-bold opacity-60 mb-6">{item.desc}</p>
-                                <button className="text-zlendo-teal font-black flex items-center gap-2 group">
+                                <a
+                                    href={item.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-zlendo-teal font-black flex items-center gap-2 group"
+                                >
                                     Explore <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                </button>
+                                </a>
                             </div>
                         ))}
                     </div>

@@ -22,7 +22,7 @@ export default function FloorPlannerPage() {
 
     return (
         <div className="bg-white min-h-screen font-nunito pt-4 selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
-{/* SEOHead removed - metadata handled by layout.tsx */}
+            {/* SEOHead removed - metadata handled by layout.tsx */}
             {/* 1. IMMERSIVE HERO SECTION */}
             <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#fafafa]">
                 {/* Abstract Background Elements */}
@@ -82,7 +82,7 @@ export default function FloorPlannerPage() {
                                 href={paths.enterpriseDemo}
                                 className="px-10 py-5 bg-white text-zlendo-grey-dark border border-black/5 rounded-2xl font-bold text-xl hover:bg-slate-50 hover:border-black/10 transition-all flex items-center gap-2 text-center"
                             >
-                                <Play className="w-5 h-5 fill-current" /> Watch Demo
+                                <Play className="w-5 h-5 fill-current" /> Request Your Demo
                             </Link>
                         </motion.div>
 
@@ -188,8 +188,11 @@ export default function FloorPlannerPage() {
                                 ))}
                             </ul>
 
-                            <a href={SIGNUP_URL} className="text-blue-600 font-black text-lg underline decoration-2 underline-offset-4 hover:text-blue-700">
-                                Try Drafting Now
+                            <a
+                                href={SIGNUP_URL}
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-xl font-black text-lg hover:bg-blue-700 hover:scale-105 transition-all shadow-lg shadow-blue-500/20 group"
+                            >
+                                Try Drafting Now <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </a>
                         </div>
                         <div className="relative">
