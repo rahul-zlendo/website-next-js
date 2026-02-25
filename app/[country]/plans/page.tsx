@@ -327,7 +327,7 @@ const PricingPage = () => {
 
                             <div className="flex flex-wrap gap-4">
                                 <Link
-                                    href={paths.enterpriseDemo}
+                                    href={`${getPath('/contact')}?business=enterprise-grade-custom-solutions`}
                                     className="bg-white text-zlendo-grey-dark px-10 py-4 rounded-full font-black text-lg hover:bg-gray-100 transition-colors flex items-center justify-center"
                                 >
                                     Contact Sales
