@@ -24,6 +24,7 @@ const features = [
         title: '2D to 3D Converter',
         description: 'Zlendo Realty converts simple floor plans into structured, walkable 3D environments without manual modeling.',
         howItWorks: ['Upload Plan', 'Interpret Layout', 'Generate 3D Model', 'Ready for Exploration'],
+        cta: 'Experience the Converter',
         img: Conv2dTo3dImg,
         reverse: false
     },
@@ -33,6 +34,7 @@ const features = [
         title: 'AI Room Inspiration',
         description: 'Inspiration is generated based on actual room context, not generic templates.',
         howItWorks: ['Understand Room Context', 'Generate Relevant Inspirations', 'Preview in Context', 'Apply Selectively'],
+        cta: 'Start Designing with AI',
         img: AiRoomInspirationImg,
         reverse: true
     },
@@ -42,6 +44,7 @@ const features = [
         title: '3D Export Toolkit',
         description: 'Design outputs are prepared for communication and downstream use.',
         howItWorks: ['Select Design Version', 'Choose Export Format', 'Export or Share', 'Reuse Across Workflows'],
+        cta: 'Try It Now',
         img: ExportToolkitImg,
         reverse: false
     }
@@ -570,7 +573,7 @@ export default function HomeClient() {
                         </Link>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-12">
+                    <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-6">
                         <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 flex-1">
                             {Object.keys(designInspirationData).map((item) => (
                                 <button
@@ -600,11 +603,11 @@ export default function HomeClient() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -20 }}
                                         transition={{ duration: 0.4 }}
-                                        className="flex items-center justify-center h-[400px] md:h-[650px]"
+                                        className="flex items-center justify-center py-8"
                                     >
                                         <div className="text-center">
-                                            <p className="text-xl md:text-2xl font-bold text-zlendo-grey-medium opacity-60">
-                                                There is no data available
+                                            <p className="text-base font-bold text-zlendo-grey-medium opacity-50">
+                                                No designs available for this category.
                                             </p>
                                         </div>
                                     </motion.div>
@@ -618,13 +621,12 @@ export default function HomeClient() {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -20 }}
                                     transition={{ duration: 0.4 }}
-                                    className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:gap-6 h-auto md:h-[650px] text-left"
-                                >
+                                    className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-[300px_300px] gap-4 md:gap-6 h-auto text-left">
                                     {currentData.map((item, index: number) => (
                                         <div
                                             key={index}
                                             onClick={() => item.templateId && handleTemplateClick(item.templateId)}
-                                            className={`\${item.colSpan} \${item.rowSpan} relative group rounded-[24px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-lg block h-[260px] md:h-auto`}
+                                            className={`${item.colSpan} ${item.rowSpan} relative group rounded-[24px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-lg block h-[260px] md:h-full`}
                                         >
                                             {item.img ? (
                                                 <img
@@ -633,7 +635,7 @@ export default function HomeClient() {
                                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                     onError={(e) => {
                                                         const target = e.currentTarget;
-                                                        console.error(`[HomePage] Failed to load design inspiration image:`, {
+                                                        console.warn(`[HomePage] Failed to load design inspiration image:`, {
                                                             img: item.img,
                                                             originalUrl: item.originalUrl,
                                                             templateId: item.templateId
@@ -643,16 +645,19 @@ export default function HomeClient() {
                                                         if (item.img?.startsWith('blob:') && item.originalUrl) {
                                                             const directUrl = item.originalUrl.startsWith('http')
                                                                 ? item.originalUrl
-                                                                : `\${BLOB_BASE_URL}\${item.originalUrl}\${item.originalUrl.includes('?') ? '&' : '?'}\${BLOB_SAS_TOKEN}`;
+                                                                : `${BLOB_BASE_URL}${item.originalUrl}${item.originalUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
 
                                                             if (target.src !== directUrl) {
                                                                 console.log(`[HomePage] Falling back to direct URL for design inspiration image`);
+                                                                // Detach handler BEFORE changing src to prevent re-entry loop
+                                                                target.onerror = null;
                                                                 target.src = directUrl;
                                                                 return;
                                                             }
                                                         }
 
                                                         // If already direct URL or no originalUrl, use fallback placeholder
+                                                        target.onerror = null;
                                                         target.src = "https://via.placeholder.com/600x400?text=Template";
                                                     }}
                                                 />
@@ -681,7 +686,7 @@ export default function HomeClient() {
 
                 {/* How to design a home online for free */}
                 <section className="container-custom mb-6 md:mb-10 px-4 text-center">
-                    <div className="max-w-4xl mx-auto mb-16">
+                    <div className="max-w-4xl mx-auto mb-6">
                         <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-6">
                             How to design a home online for free
                         </h2>
@@ -728,7 +733,7 @@ export default function HomeClient() {
                                     href={SIGNUP_URL}
                                     className="inline-flex items-center gap-2 text-zlendo-teal font-black text-lg group hover:gap-4 transition-all"
                                 >
-                                    Learn more <ArrowRight className="w-5 h-5" />
+                                    {feature.cta} <ArrowRight className="w-5 h-5" />
                                 </a>
                             </div>
 
@@ -837,8 +842,8 @@ export default function HomeClient() {
 
                                         <div className="relative z-10 flex flex-col h-full justify-between gap-8">
                                             <div className="flex items-start justify-between">
-                                                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br \${row.img} flex items-center justify-center text-white shadow-lg shrink-0`}>
-                                                    <row.icon className="w-8 h-8" />
+                                                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${row.img} flex items-center justify-center text-white shadow-lg shrink-0`}>
+                                                    {(() => { const Icon = row.icon; return <Icon className="w-8 h-8" />; })()}
                                                 </div>
                                                 <h4 className="text-2xl font-black font-nunito text-zlendo-grey-dark ml-6 md:ml-0">{row.title}</h4>
                                             </div>
