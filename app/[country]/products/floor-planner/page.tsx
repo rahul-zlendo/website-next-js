@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import {
-    Layout, Upload, PenTool, Home, ArrowRight, Play,
+    Layout, Upload, PenTool, Home, ArrowRight,
     CheckCircle2, Sparkles, Zap, Layers, User, Briefcase,
     ChevronDown
 } from 'lucide-react';
@@ -82,7 +82,7 @@ export default function FloorPlannerPage() {
                                 href={paths.enterpriseDemo}
                                 className="px-10 py-5 bg-white text-zlendo-grey-dark border border-black/5 rounded-2xl font-bold text-xl hover:bg-slate-50 hover:border-black/10 transition-all flex items-center gap-2 text-center"
                             >
-                                <Play className="w-5 h-5 fill-current" /> Request Your Demo
+                                Request Your Demo
                             </Link>
                         </motion.div>
 

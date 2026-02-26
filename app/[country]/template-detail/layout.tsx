@@ -11,16 +11,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (country === 'in') {
         return {
             keywords: [
-        'floor plan templates',
-        'house templates',
-        'kitchen templates',
-        'living room templates',
-        'bedroom templates',
-        'bathroom templates',
-        '1bhk house plan',
-        '2bhk house design',
-        'apartment design',
-    ],
+                'floor plan templates',
+                'house templates',
+                'kitchen templates',
+                'living room templates',
+                'bedroom templates',
+                'bathroom templates',
+                '1bhk house plan',
+                '2bhk house design',
+                'apartment design',
+            ],
             title: {
                 absolute: 'Zlendo Realty | Pick Templates and Customize Your Home Plan',
             },
@@ -28,22 +28,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             openGraph: {
                 title: 'Zlendo Realty – Customize Your Dream Home Plan',
                 description: 'Discover Zlendo Realty’s home plan templates and personalize them to fit your lifestyle. Start designing your perfect space today with simple customization tools.',
+                url: 'https://zlendorealty.com/in/template-detail',
+                siteName: 'Zlendo Realty',
+                images: [
+                    {
+                        url: 'https://zlendorealty.com/og-image.png',
+                        width: 1200,
+                        height: 630,
+                        alt: 'Zlendo Realty Template Customization',
+                        type: 'image/png',
+                    },
+                ],
+                locale: 'en_IN',
+                type: 'website',
             },
         };
     }
 
     return {
-            keywords: [
-        'floor plan templates',
-        'house templates',
-        'kitchen templates',
-        'living room templates',
-        'bedroom templates',
-        'bathroom templates',
-        '1bhk house plan',
-        '2bhk house design',
-        'apartment design',
-    ],
+        keywords: [
+            'floor plan templates',
+            'house templates',
+            'kitchen templates',
+            'living room templates',
+            'bedroom templates',
+            'bathroom templates',
+            '1bhk house plan',
+            '2bhk house design',
+            'apartment design',
+        ],
         title: 'Template Details | Zlendo Realty',
     };
 }

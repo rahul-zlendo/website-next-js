@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: 'AI-Powered Home & Office Design Software | Zlendo Realty',
         description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. The all-in-one design software for Architects, Builders, Interior designers, and Vastu Consultants. Start your free trial today!',
-        url: 'https://www.zlendorealty.com/in',
+        url: 'https://zlendorealty.com/in',
         siteName: 'Zlendo Realty',
         images: [
           {
@@ -25,6 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             width: 1200,
             height: 630,
             alt: 'Zlendo Realty AI Design Software',
+            type: 'image/png',
           },
         ],
         locale: 'en_IN',
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         card: 'summary_large_image',
         title: 'AI-Powered Home & Office Design Software | Zlendo Realty',
         description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI.',
-        images: ['/og-image.png'],
+        images: ['https://zlendorealty.com/og-image.png'],
       },
     };
   }

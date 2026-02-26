@@ -6,13 +6,13 @@
  * - Set NEXT_PUBLIC_ENV=prod for production
  * - Or leave unset to use default (prod)
  * 
- * You can also override individual URLs using:
- * - NEXT_PUBLIC_FRONTEND_URL
+ * You can also override individual URLs using:edsf
+ * - NEXT_PUBLIC_FRONTEND_URLn
  * - NEXT_PUBLIC_BACKEND_URL
  */
 
 // Determine environment (dev or prod)
-const env = process.env.NEXT_PUBLIC_ENV || 'pro';
+const env = process.env.NEXT_PUBLIC_ENV || 'dev';
 const isDev = env === 'dev';
 
 // Frontend URLs - Using production URL for both dev and prod its

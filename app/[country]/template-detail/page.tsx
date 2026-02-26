@@ -36,6 +36,50 @@ interface CommentItemProps {
     LOGIN_URL: string;
 }
 
+// Helper function to normalize Google image URLs
+const normalizeGoogleImageUrl = (url: string): string => {
+    if (!url || typeof url !== 'string') return url;
+    // Fix Google profile image URLs - remove size restrictions that cause CORS issues
+    if (url.includes('lh3.googleusercontent.com') || url.includes('googleusercontent.com')) {
+        // Remove size parameter (e.g., =s96-c) and replace with a larger size or remove it
+        return url.replace(/=s\d+-c$/, '=s400').replace(/=s\d+-c\//, '/');
+    }
+    return url;
+};
+
+// Helper function to get valid URL
+const getValidUrl = (url: string | null | undefined): string | null => {
+    if (!url || typeof url !== 'string') return null;
+    const trimmed = url.trim();
+    return trimmed.length > 0 ? trimmed : null;
+};
+
+// Helper function to process profile URL with SAS token
+const processProfileUrl = (profileUrl: string | null | undefined): string | null => {
+    const rawUrl = getValidUrl(profileUrl);
+    if (!rawUrl) return null;
+    
+    const normalizedUrl = normalizeGoogleImageUrl(rawUrl);
+    
+    // If it's already a full HTTP/HTTPS URL (like blob storage URL)
+    if (normalizedUrl.startsWith('http://') || normalizedUrl.startsWith('https://')) {
+        // Check if it's a blob storage URL and needs SAS token
+        if (normalizedUrl.includes('blob.core.windows.net')) {
+            // Add SAS token if not already present
+            if (!normalizedUrl.includes('sig=')) {
+                return `${normalizedUrl}${normalizedUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
+            }
+            return normalizedUrl;
+        }
+        // For other HTTP URLs (like Google images), return as is
+        return normalizedUrl;
+    }
+    
+    // If it's a relative path, construct full URL with SAS token
+    const fullUrl = `${BLOB_BASE_URL}${normalizedUrl}`;
+    return `${fullUrl}${fullUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
+};
+
 function CommentItem({
     comment,
     templateId,
@@ -54,14 +98,15 @@ function CommentItem({
 }: CommentItemProps) {
     const isReplying = replyingTo === comment.templateCommentId;
     const currentReplyText = replyText[comment.templateCommentId] || '';
-
+    const displayProfileUrl = processProfileUrl(comment.profileUrl);
+    
     return (
         <div className="bg-white border border-gray-100 rounded-[24px] p-6 shadow-sm">
             <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
-                    {comment.profileUrl ? (
+                    {displayProfileUrl ? (
                         <img
-                            src={comment.profileUrl}
+                            src={displayProfileUrl}
                             alt={comment.userName}
                             className="w-full h-full object-cover"
                             onError={(e) => {
@@ -131,14 +176,27 @@ function CommentItem({
                     {isReplying && (
                         <div className="mt-4 pt-4 border-t border-gray-100">
                             <div className="flex items-start gap-3">
-                                <div className="w-8 h-8 rounded-full bg-zlendo-teal/20 flex items-center justify-center flex-shrink-0">
-                                    {isAuthenticated && user?.userName ? (
-                                        <span className="text-zlendo-teal font-black text-xs">
-                                            {user.userName.charAt(0).toUpperCase()}
-                                        </span>
-                                    ) : (
-                                        <span className="text-zlendo-teal font-black text-xs">U</span>
-                                    )}
+                                <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+                                    {(() => {
+                                        const displayProfileUrl = user?.profileUrl ? processProfileUrl(user.profileUrl) : null;
+                                        return displayProfileUrl ? (
+                                            <img
+                                                src={displayProfileUrl}
+                                                alt={user?.userName || 'User'}
+                                                className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    const target = e.currentTarget;
+                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Crect fill="%23e2e8f0" width="32" height="32"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="12"%3E%3C/text%3E%3C/svg%3E';
+                                                }}
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
+                                                <span className="text-zlendo-teal font-black text-xs">
+                                                    {isAuthenticated && user?.userName ? user.userName.charAt(0).toUpperCase() : 'U'}
+                                                </span>
+                                            </div>
+                                        );
+                                    })()}
                                 </div>
                                 <div className="flex-1">
                                     <textarea
@@ -295,7 +353,8 @@ function TemplateDetailContent() {
 
             setLoadingComments(true);
             try {
-                const response = await getTemplateCommentsService(Number(templateId));
+                const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+                const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
                 if (response && response.comments) {
                     setComments(response.comments);
                 }
@@ -308,7 +367,7 @@ function TemplateDetailContent() {
         };
 
         fetchComments();
-    }, [templateId]);
+    }, [templateId, isAuthenticated, user?.userId]);
 
     // Fetch follow data for template owner
     useEffect(() => {
@@ -316,7 +375,8 @@ function TemplateDetailContent() {
             if (!selectedTemplate?.userId) return;
 
             try {
-                const followData = await getFollowByUserIdService(selectedTemplate.userId);
+                const userFollowId = isAuthenticated && user?.userId ? user.userId : undefined;
+                const followData = await getFollowByUserIdService(selectedTemplate.userId, userFollowId);
                 setFollowers(followData.followerCount);
                 setFollowings(followData.followingCount);
             } catch (error) {
@@ -327,7 +387,7 @@ function TemplateDetailContent() {
         fetchFollowData();
         // Reset follow state when template changes
         setIsFollowing(false);
-    }, [selectedTemplate?.userId]);
+    }, [selectedTemplate?.userId, isAuthenticated, user?.userId]);
 
     // Reset selected thumbnail index when template changes
     useEffect(() => {
@@ -649,7 +709,8 @@ function TemplateDetailContent() {
             await addCommentService(Number(templateId), user.userId, newComment.trim(), null);
             setNewComment('');
             // Refresh comments
-            const response = await getTemplateCommentsService(Number(templateId));
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
             if (response && response.comments) {
                 setComments(response.comments);
             }
@@ -677,7 +738,8 @@ function TemplateDetailContent() {
             setReplyText((prev) => ({ ...prev, [parentCommentId]: '' }));
             setReplyingTo(null);
             // Refresh comments
-            const response = await getTemplateCommentsService(Number(templateId));
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
             if (response && response.comments) {
                 setComments(response.comments);
             }
@@ -697,7 +759,8 @@ function TemplateDetailContent() {
         try {
             await likeCommentService(templateCommentId, user.userId);
             // Refresh comments to get updated like count
-            const response = await getTemplateCommentsService(Number(templateId));
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
             if (response && response.comments) {
                 setComments(response.comments);
             }
@@ -722,7 +785,8 @@ function TemplateDetailContent() {
         try {
             await deleteCommentService(commentToDelete, user.userId);
             // Refresh comments after deletion
-            const response = await getTemplateCommentsService(Number(templateId));
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const response = await getTemplateCommentsService(Number(templateId), loggedInUserId);
             if (response && response.comments) {
                 setComments(response.comments);
             }
@@ -777,7 +841,8 @@ function TemplateDetailContent() {
             setIsFollowing(!isFollowing);
 
             // Refresh follow data
-            const followData = await getFollowByUserIdService(selectedTemplate.userId);
+            const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
+            const followData = await getFollowByUserIdService(selectedTemplate.userId, loggedInUserId);
             setFollowers(followData.followerCount);
             setFollowings(followData.followingCount);
         } catch (error) {
@@ -832,7 +897,7 @@ function TemplateDetailContent() {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="relative group rounded-[32px] overflow-hidden bg-gray-100 aspect-[4/3] md:aspect-[16/9] shadow-lg border border-black/5"
+                            className="relative group rounded-[32px] overflow-hidden bg-gray-100 aspect-[4/3] md:aspect-[3/2] shadow-lg border border-black/5"
                         >
                             {loadingMainImage ? (
                                 <div className="w-full h-full flex items-center justify-center">
@@ -917,7 +982,7 @@ function TemplateDetailContent() {
                                     <button
                                         key={idx}
                                         onClick={() => setSelectedThumbnailIndex(idx)}
-                                        className={`relative rounded-2xl overflow-hidden aspect-square border-2 transition-all ${selectedThumbnailIndex === idx
+                                        className={`relative rounded-2xl overflow-hidden aspect-[3/4] border-2 transition-all ${selectedThumbnailIndex === idx
                                             ? 'border-zlendo-teal ring-2 ring-zlendo-teal/30 scale-105'
                                             : 'border-black/5 hover:border-zlendo-teal/50 hover:ring-2 hover:ring-zlendo-teal/20'
                                             }`}
@@ -975,9 +1040,9 @@ function TemplateDetailContent() {
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="bg-white border border-gray-100 rounded-[32px] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]"
+                            className="bg-white border border-gray-100 rounded-[32px] p-4 md:p-6 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]"
                         >
-                            <div className="flex items-center gap-4 mb-6 flex-wrap">
+                            <div className="flex items-center gap-4 mb-4 flex-wrap">
                                 {templateData.category && (
                                     <span className="px-3 py-1 bg-zlendo-teal/10 text-zlendo-teal font-black text-xs uppercase tracking-widest rounded-full">
                                         {templateData.category}
@@ -1002,30 +1067,33 @@ function TemplateDetailContent() {
 
                             {/* User Profile Section */}
                             {selectedTemplate?.userName && (
-                                <div className="mb-6 pb-6 border-b border-gray-100">
+                                <div className="mb-4 pb-4 border-b border-gray-100">
                                     <div className="flex items-center gap-3 justify-between">
                                         <Link
                                             href={getPath(`/user-profile?userId=${encryptProjectId(selectedTemplate.userId)}`)}
                                             className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
                                         >
                                             <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
-                                                {selectedTemplate.profileUrl ? (
-                                                    <img
-                                                        src={selectedTemplate.profileUrl}
-                                                        alt={selectedTemplate.userName}
-                                                        className="w-full h-full object-cover"
-                                                        onError={(e) => {
-                                                            const target = e.currentTarget;
-                                                            target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
-                                                        <span className="text-zlendo-teal font-black text-sm">
-                                                            {selectedTemplate.userName.charAt(0).toUpperCase()}
-                                                        </span>
-                                                    </div>
-                                                )}
+                                                {(() => {
+                                                    const displayProfileUrl = processProfileUrl(selectedTemplate.profileUrl);
+                                                    return displayProfileUrl ? (
+                                                        <img
+                                                            src={displayProfileUrl}
+                                                            alt={selectedTemplate.userName}
+                                                            className="w-full h-full object-cover"
+                                                            onError={(e) => {
+                                                                const target = e.currentTarget;
+                                                                target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
+                                                            <span className="text-zlendo-teal font-black text-sm">
+                                                                {selectedTemplate.userName.charAt(0).toUpperCase()}
+                                                            </span>
+                                                        </div>
+                                                    );
+                                                })()}
                                             </div>
                                             <div className="flex flex-col">
                                                 <span className="text-sm font-bold text-zlendo-grey-dark">
@@ -1055,16 +1123,16 @@ function TemplateDetailContent() {
                                 </div>
                             )}
 
-                            <h1 className="text-3xl font-black text-zlendo-grey-dark leading-tight mb-4">
+                            <h1 className="text-2xl font-black text-zlendo-grey-dark leading-tight mb-3">
                                 {templateData.title}
                             </h1>
 
-                            <p className="text-lg text-zlendo-grey-medium font-medium opacity-80 leading-relaxed mb-8">
+                            <p className="text-base text-zlendo-grey-medium font-medium opacity-80 leading-relaxed mb-4">
                                 {templateData.description}
                             </p>
 
                             {templateData.tags.length > 0 && (
-                                <div className="flex flex-wrap gap-2 mb-8">
+                                <div className="flex flex-wrap gap-2 mb-4">
                                     {templateData.tags.map(tag => (
                                         <span key={tag} className="text-sm font-bold text-zlendo-grey-medium opacity-50 before:content-['#']">
                                             {tag}
@@ -1073,7 +1141,7 @@ function TemplateDetailContent() {
                                 </div>
                             )}
 
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 <button
                                     onClick={() => {
                                         if (templateId) {
@@ -1082,7 +1150,7 @@ function TemplateDetailContent() {
                                         }
                                     }}
                                     disabled={!templateId}
-                                    className="block w-full text-center py-5 bg-zlendo-teal text-white rounded-2xl font-black text-lg shadow-xl shadow-zlendo-teal/20 hover:scale-[1.02] active:scale-98 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                    className="block w-full text-center py-4 bg-zlendo-teal text-white rounded-2xl font-black text-base shadow-xl shadow-zlendo-teal/20 hover:scale-[1.02] active:scale-98 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                                 >
                                     Customize this Design
                                 </button>
@@ -1139,46 +1207,75 @@ function TemplateDetailContent() {
                     </h2>
 
                     {/* Add Comment Form */}
-                    <div className="bg-white border border-gray-100 rounded-[32px] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] mb-8">
-                        <div className="flex items-start gap-4">
-                            <div className="w-10 h-10 rounded-full bg-zlendo-teal/20 flex items-center justify-center flex-shrink-0">
-                                {isAuthenticated && user?.userName ? (
-                                    <span className="text-zlendo-teal font-black text-sm">
-                                        {user.userName.charAt(0).toUpperCase()}
-                                    </span>
-                                ) : (
-                                    <span className="text-zlendo-teal font-black text-sm">U</span>
-                                )}
+                    {!isAuthenticated ? (
+                        <div className="bg-zlendo-teal rounded-xl p-6 mb-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] max-w-2xl mx-auto">
+                            <div className="flex items-center justify-between">
+                                <span className="text-white font-bold text-sm md:text-base">
+                                    Please log in before leaving your comment.
+                                </span>
+                                <button
+                                    onClick={() => router.push(LOGIN_URL)}
+                                    className="px-6 py-2 bg-black text-white rounded-xl font-black text-sm hover:bg-black/90 transition-colors flex-shrink-0 ml-4"
+                                >
+                                    Log in
+                                </button>
                             </div>
-                            <div className="flex-1">
-                                <div className="mb-2">
-                                    <span className="text-sm font-bold text-zlendo-grey-dark">
-                                        {isAuthenticated && user?.userName ? user.userName : 'Guest'}
-                                    </span>
+                        </div>
+                    ) : (
+                        <div className="bg-white border border-gray-100 rounded-[32px] p-6 md:p-8 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] mb-8">
+                            <div className="flex items-start gap-4">
+                                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
+                                    {(() => {
+                                        const displayProfileUrl = user?.profileUrl ? processProfileUrl(user.profileUrl) : null;
+                                        return displayProfileUrl ? (
+                                            <img
+                                                src={displayProfileUrl}
+                                                alt={user?.userName || 'User'}
+                                                className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    const target = e.currentTarget;
+                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
+                                                }}
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-zlendo-teal/20 flex items-center justify-center">
+                                                <span className="text-zlendo-teal font-black text-sm">
+                                                    {user?.userName ? user.userName.charAt(0).toUpperCase() : 'U'}
+                                                </span>
+                                            </div>
+                                        );
+                                    })()}
                                 </div>
-                                <textarea
-                                    value={newComment}
-                                    onChange={(e) => setNewComment(e.target.value)}
-                                    placeholder="Leave a comment in 1 to 400 characters"
-                                    className="w-full min-h-[120px] p-4 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark"
-                                    maxLength={400}
-                                    disabled={!isAuthenticated || isPostingComment}
-                                />
-                                <div className="flex items-center justify-between mt-3">
-                                    <div className="text-xs font-bold text-zlendo-grey-medium opacity-60">
-                                        {newComment.length}/400
+                                <div className="flex-1">
+                                    <div className="mb-2">
+                                        <span className="text-sm font-bold text-zlendo-grey-dark">
+                                            {user?.userName || 'Guest'}
+                                        </span>
                                     </div>
-                                    <button
-                                        onClick={handlePostComment}
-                                        disabled={!isAuthenticated || isPostingComment || newComment.trim().length < 1 || newComment.trim().length > 400}
-                                        className="px-6 py-2 bg-zlendo-teal text-white rounded-xl font-black text-sm hover:bg-zlendo-teal/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        {isPostingComment ? 'Posting...' : 'Post'}
-                                    </button>
+                                    <textarea
+                                        value={newComment}
+                                        onChange={(e) => setNewComment(e.target.value)}
+                                        placeholder="Leave a comment in 1 to 400 characters"
+                                        className="w-full min-h-[100px] p-4 border border-gray-200 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark"
+                                        maxLength={400}
+                                        disabled={isPostingComment}
+                                    />
+                                    <div className="flex items-center justify-between mt-3">
+                                        <div className="text-xs font-bold text-zlendo-grey-medium opacity-60">
+                                            {newComment.length}/400
+                                        </div>
+                                        <button
+                                            onClick={handlePostComment}
+                                            disabled={isPostingComment || newComment.trim().length < 1 || newComment.trim().length > 400}
+                                            className="px-12 py-2 bg-zlendo-teal text-white rounded-xl font-black text-sm hover:bg-zlendo-teal/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {isPostingComment ? 'Posting...' : 'Post'}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* Comments List */}
                     {loadingComments ? (
