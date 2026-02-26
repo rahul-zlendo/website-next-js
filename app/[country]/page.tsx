@@ -46,6 +46,73 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+// ── FAQPage JSON-LD Schema ──────────────────────────────────────────────────
+// Injected into <head> for Google Rich Results (expandable FAQ in SERP)
+const faqSchema = {
+  '@context': 'https://schema.org/',
+  '@type': 'FAQPage',
+  'name': 'Zlendo Realty Frequently Asked Questions',
+  'mainEntity': [
+    {
+      '@type': 'Question',
+      'name': 'Who can use Zlendo Realty?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Zlendo Realty can be used by homeowners, architects, students, builders, and real estate professionals. It supports both beginners and experienced users involved in home planning and design.',
+      },
+    },
+    {
+      '@type': 'Question',
+      'name': 'Is it beginner friendly?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Yes. The platform is designed to be easy to use and does not require any technical, architectural, or design background.',
+      },
+    },
+    {
+      '@type': 'Question',
+      'name': 'Does it work on mobile?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Yes. Zlendo Realty works seamlessly across mobile phones, tablets, and desktop devices, allowing access anytime and anywhere.',
+      },
+    },
+    {
+      '@type': 'Question',
+      'name': 'Is my data secure?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Yes. Your designs and project data remain private unless you choose to share them. Strong data security measures are maintained.',
+      },
+    },
+    {
+      '@type': 'Question',
+      'name': 'Can it be used for professional work?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Yes. The platform is suitable for professional projects, client presentations, and real estate planning, and is widely used for architectural design services and project visualization.',
+      },
+    },
+    {
+      '@type': 'Question',
+      'name': 'Is support available?',
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': 'Yes. Dedicated customer support is available to assist users whenever help is needed.',
+      },
+    },
+  ],
+};
+
 export default function Page() {
-  return <HomeClient />;
+  return (
+    <>
+      {/* FAQPage structured data — enables expandable FAQ rich results in Google */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <HomeClient />
+    </>
+  );
 }
