@@ -15,8 +15,8 @@ export function generateOrganizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Zlendo Realty',
-    url: 'https://app.zlendorealty.com',
-    logo: 'https://app.zlendorealty.com/logo.png',
+    url: 'https://zlendorealty.com',
+    logo: 'https://zlendorealty.com/logo.png',
     description:
       'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
     contactPoint: {
@@ -66,7 +66,7 @@ export function generateProductSchema(product: {
     name: product.name,
     description: product.description,
     url: product.url,
-    image: product.image || 'https://app.zlendorealty.com/og-image.png',
+    image: product.image || 'https://zlendorealty.com/og-image.png',
     brand: {
       '@type': 'Brand',
       name: 'Zlendo Realty',
@@ -117,7 +117,7 @@ export function generateWebPageSchema(page: {
       name: 'Zlendo Realty',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://app.zlendorealty.com/logo.png',
+        url: 'https://zlendorealty.com/logo.png',
       },
     },
   };

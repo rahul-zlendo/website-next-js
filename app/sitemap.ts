@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllPostSlugs, getAllCategorySlugs, getAllTagSlugs, getTotalPostPages } from '@/lib/wordpress/api';
+import { getAllHcPostSlugs, getAllHcCategorySlugs, getAllHcTagSlugs, getTotalHcPostPages } from '@/lib/wordpress/helpcenter';
 
 const SUPPORTED_COUNTRIES = ['in'];
 const BASE_URL = 'https://zlendorealty.com';
@@ -36,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Business use cases
     { path: '/business/commercial-spaces', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/business/real-estate-brokers', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/business/builder-and-promoter', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/business/nri-remote-planning', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/business/developer-solutions', priority: 0.7, changeFrequency: 'monthly' as const },
 
@@ -133,6 +134,55 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   } catch (error) {
     console.error('[Sitemap] Failed to fetch blog content:', error);
+  }
+
+  // Fetch help center articles from WordPress
+  try {
+    // Add all paginated HC listing pages
+    const { totalPages: hcTotalPages } = await getTotalHcPostPages(9);
+    for (let page = 2; page <= hcTotalPages; page++) {
+      urls.push({
+        url: `${BASE_URL}/help-center?page=${page}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily',
+        priority: 0.8,
+      });
+    }
+
+    // Add individual HC article URLs
+    const hcPostSlugs = await getAllHcPostSlugs();
+    for (const slug of hcPostSlugs) {
+      urls.push({
+        url: `${BASE_URL}/help-center/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      });
+    }
+
+    // Fetch HC categories
+    const hcCategorySlugs = await getAllHcCategorySlugs();
+    for (const slug of hcCategorySlugs) {
+      urls.push({
+        url: `${BASE_URL}/help-center/category/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.6,
+      });
+    }
+
+    // Fetch HC tags
+    const hcTagSlugs = await getAllHcTagSlugs();
+    for (const slug of hcTagSlugs) {
+      urls.push({
+        url: `${BASE_URL}/help-center/tag/${slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.5,
+      });
+    }
+  } catch (error) {
+    console.error('[Sitemap] Failed to fetch help center content:', error);
   }
 
   return urls;

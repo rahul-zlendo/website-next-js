@@ -29,9 +29,10 @@ export const getAllOffersService = async (): Promise<Offer[]> => {
   try {
     const response = await axiosInstance.get(ENDPOINTS_OFFERS.GET_ALL);
     return response.data;
-  } catch (error) {
-    console.error("Failed to get offers:", error);
-    throw error;
+  } catch {
+    // Offers are non-critical — if the API is unavailable, return empty array
+    // so the PromoBanner simply stays hidden without polluting the console.
+    return [];
   }
 };
 

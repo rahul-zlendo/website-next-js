@@ -87,15 +87,15 @@ const Header = ({ transparent = false }: HeaderProps) => {
     const resourceLinks = [
         { label: 'Design Library', desc: 'Inspiration gallery', icon: Library, path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', desc: 'Built-in layouts for homes, rooms, and interiors.', icon: LayoutTemplate, path: getPath('/viewalltemplates') },
-        { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: 'https://www.youtube.com/playlist?list=PLetnELr5c_JVwUtuFKM9wGjGKrKPrGmsa', openInNewTab: true },
+        { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: getPath('/tutorials') },
         { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: 'https://helpcenter.zlendorealty.com', openInNewTab: true },
         { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: '/blog', openInNewTab: false },
-        ...(isBusinessMode ? [{ label: 'Grow with Zlendo', desc: 'Affiliate & Partners', icon: Share2, path: getPath('/partners') }] : []),
+        ...(isBusinessMode ? [{ label: 'Partnership', desc: 'Affiliate & Partners', icon: Share2, path: getPath('/partners') }] : []),
     ];
 
     const businessUseCases = [
         { label: 'Commercial Spaces', desc: 'Office & Retail design', icon: Layout, path: getPath('/business/commercial-spaces') },
-        { label: 'Real Estate Brokers', desc: 'Accelerate your sales', icon: Briefcase, path: getPath('/business/real-estate-brokers') },
+        { label: 'Builder & Promoter', desc: 'Accelerate your sales', icon: Briefcase, path: getPath('/business/builder-and-promoter') },
         { label: 'NRI & Remote Planning', desc: 'Manage from anywhere', icon: Briefcase, path: getPath('/business/nri-remote-planning') },
         { label: 'Developer Solutions', desc: 'Scalable engine', icon: Cpu, path: getPath('/business/developer-solutions') },
     ];
@@ -110,7 +110,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
     const businessMenuLinks = [
         { label: 'Business Free Trial', desc: 'Try enterprise features', icon: CheckCircle, path: getPath('/business') + '#demo-form' },
         { label: 'Affiliate & Partner Program', desc: 'Collaborate and grow together', icon: Share2, path: getPath('/partners') },
-        { label: 'Zlendo API Suite', desc: 'Grow your Business with Us', icon: Share2, path: getPath('/products/api-suite') },
+        { label: 'Zlendo Realty API Suite', desc: 'Grow your Business with Us', icon: Share2, path: getPath('/products/api-suite') },
 
     ];
 
@@ -121,6 +121,50 @@ const Header = ({ transparent = false }: HeaderProps) => {
 
     const getImageUrl = (url: string) => {
         return url.startsWith('http') ? url : `${REACT_APP_BLOB_URL}${url}?${REACT_APP_BLOB_KEY}`;
+    };
+
+    // Helper function to normalize Google image URLs
+    const normalizeGoogleImageUrl = (url: string): string => {
+        if (!url || typeof url !== 'string') return url;
+        // Fix Google profile image URLs - remove size restrictions that cause CORS issues
+        if (url.includes('lh3.googleusercontent.com') || url.includes('googleusercontent.com')) {
+            // Remove size parameter (e.g., =s96-c) and replace with a larger size or remove it
+            return url.replace(/=s\d+-c$/, '=s400').replace(/=s\d+-c\//, '/');
+        }
+        return url;
+    };
+
+    // Helper function to get valid URL
+    const getValidUrl = (url: string | null | undefined): string | null => {
+        if (!url || typeof url !== 'string') return null;
+        const trimmed = url.trim();
+        return trimmed.length > 0 ? trimmed : null;
+    };
+
+    // Helper function to process profile URL with SAS token
+    const processProfileUrl = (profileUrl: string | null | undefined): string | null => {
+        const rawUrl = getValidUrl(profileUrl);
+        if (!rawUrl) return null;
+        
+        const normalizedUrl = normalizeGoogleImageUrl(rawUrl);
+        
+        // If it's already a full HTTP/HTTPS URL (like blob storage URL)
+        if (normalizedUrl.startsWith('http://') || normalizedUrl.startsWith('https://')) {
+            // Check if it's a blob storage URL and needs SAS token
+            if (normalizedUrl.includes('blob.core.windows.net')) {
+                // Add SAS token if not already present
+                if (!normalizedUrl.includes('sig=')) {
+                    return `${normalizedUrl}${normalizedUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
+                }
+                return normalizedUrl;
+            }
+            // For other HTTP URLs (like Google images), return as is
+            return normalizedUrl;
+        }
+        
+        // If it's a relative path, construct full URL with SAS token
+        const fullUrl = `${BLOB_BASE_URL}${normalizedUrl}`;
+        return `${fullUrl}${fullUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
     };
 
     return (
@@ -297,7 +341,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                     onClick={() => setActiveDropdown(activeDropdown === 'business' ? null : 'business')}
                                     className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'business' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
                                 >
-                                    Grow with Zlendo <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
+                                    Partnership <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
                                 </button>
                                 <AnimatePresence>
                                     {activeDropdown === 'business' && (
@@ -364,31 +408,24 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                     onClick={() => setActiveDropdown(activeDropdown === 'user-profile' ? null : 'user-profile')}
                                 >
                                     <div className="w-8 h-8 rounded-full bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal overflow-hidden">
-                                        {user.profileUrl ? (
-                                            <img
-                                                src={getImageUrl(user.profileUrl)}
-                                                alt={user.userName}
-                                                className="w-full h-full object-cover"
-                                                onError={(e) => {
-                                                    const target = e.currentTarget;
-                                                    const currentUrl = target.src;
-
-                                                    if (currentUrl.startsWith('blob:') && user.profileUrl) {
-                                                        const directUrl = user.profileUrl.startsWith('http')
-                                                            ? user.profileUrl
-                                                            : `${BLOB_BASE_URL}${user.profileUrl}${user.profileUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
-
-                                                        if (target.src !== directUrl) {
-                                                            console.log(`[Header] Falling back to direct URL for desktop profile image`);
-                                                            target.src = directUrl;
-                                                            return;
-                                                        }
-                                                    }
-                                                }}
-                                            />
-                                        ) : (
-                                            <User className="w-4 h-4" />
-                                        )}
+                                        {(() => {
+                                            const displayProfileUrl = user.profileUrl ? processProfileUrl(user.profileUrl) : null;
+                                            return displayProfileUrl ? (
+                                                <img
+                                                    src={displayProfileUrl}
+                                                    alt={user.userName}
+                                                    className="w-full h-full object-cover"
+                                                    onError={(e) => {
+                                                        const target = e.currentTarget;
+                                                        target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Crect fill="%23e2e8f0" width="32" height="32"/%3E%3C/svg%3E';
+                                                    }}
+                                                />
+                                            ) : (
+                                                <span className="text-zlendo-teal font-black text-xs">
+                                                    {user.userName ? user.userName.charAt(0).toUpperCase() : 'U'}
+                                                </span>
+                                            );
+                                        })()}
                                     </div>
                                     <span className="text-[15px] font-semibold text-zlendo-grey-dark">{user.userName}</span>
                                     <ChevronDown className="w-4 h-4 text-zlendo-grey-medium opacity-40" />
@@ -597,7 +634,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                                 onClick={() => setActiveDropdown(activeDropdown === 'business' ? null : 'business')}
                                                 className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
                                             >
-                                                Grow with Zlendo
+                                                Partnership
                                                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
                                             </button>
                                             <AnimatePresence>
@@ -636,31 +673,24 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                     <div className="space-y-4">
                                         <div className="flex items-center gap-4 p-4 rounded-2xl bg-black/[0.02]">
                                             <div className="w-12 h-12 rounded-full bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal overflow-hidden">
-                                                {user.profileUrl ? (
-                                                    <img
-                                                        src={getImageUrl(user.profileUrl)}
-                                                        alt={user.userName}
-                                                        className="w-full h-full object-cover"
-                                                        onError={(e) => {
-                                                            const target = e.currentTarget;
-                                                            const currentUrl = target.src;
-
-                                                            if (currentUrl.startsWith('blob:') && user.profileUrl) {
-                                                                const directUrl = user.profileUrl.startsWith('http')
-                                                                    ? user.profileUrl
-                                                                    : `${BLOB_BASE_URL}${user.profileUrl}${user.profileUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
-
-                                                                if (target.src !== directUrl) {
-                                                                    console.log(`[Header] Falling back to direct URL for mobile profile image`);
-                                                                    target.src = directUrl;
-                                                                    return;
-                                                                }
-                                                            }
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    <User className="w-6 h-6" />
-                                                )}
+                                                {(() => {
+                                                    const displayProfileUrl = user.profileUrl ? processProfileUrl(user.profileUrl) : null;
+                                                    return displayProfileUrl ? (
+                                                        <img
+                                                            src={displayProfileUrl}
+                                                            alt={user.userName}
+                                                            className="w-full h-full object-cover"
+                                                            onError={(e) => {
+                                                                const target = e.currentTarget;
+                                                                target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="48" height="48"%3E%3Crect fill="%23e2e8f0" width="48" height="48"/%3E%3C/svg%3E';
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <span className="text-zlendo-teal font-black text-base">
+                                                            {user.userName ? user.userName.charAt(0).toUpperCase() : 'U'}
+                                                        </span>
+                                                    );
+                                                })()}
                                             </div>
                                             <div>
                                                 <p className="text-base font-bold text-zlendo-grey-dark">{user.userName}</p>
