@@ -27,34 +27,55 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
     const WP_API_URL = `${baseUrl}/wp-json/wp/v2`;
 
     /**
-     * Generic fetch helper with error handling and caching
+     * Generic fetch helper with error handling, retries and caching
      */
     async function wpFetch<T>(
         endpoint: string,
         options: RequestInit = {}
     ): Promise<{ data: T; headers: Headers }> {
         const url = `${WP_API_URL}${endpoint}`;
+        const maxRetries = 3;
+        let attempt = 0;
+        let lastError: Error | null = null;
+        const baseDelay = 1000;
 
-        try {
-            const response = await fetch(url, {
-                ...options,
-                next: { revalidate: revalidateSeconds },
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...options.headers,
-                },
-            });
+        while (attempt <= maxRetries) {
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    next: { revalidate: revalidateSeconds },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers,
+                    },
+                });
 
-            if (!response.ok) {
-                throw new Error(`WordPress API error: ${response.status} ${response.statusText}`);
+                if (!response.ok) {
+                    throw new Error(`WordPress API error: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                return { data, headers: response.headers };
+            } catch (error) {
+                lastError = error instanceof Error ? error : new Error(String(error));
+
+                // Do not retry client errors (4xx) except for rate limits (429)
+                const isClientError = lastError.message.includes('error: 4') && !lastError.message.includes('429');
+                if (isClientError) {
+                    break;
+                }
+
+                if (attempt < maxRetries) {
+                    const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 500;
+                    console.log(`[WP API] Retry ${attempt + 1}/${maxRetries} for ${url} after ${Math.round(delay)}ms`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+                attempt++;
             }
-
-            const data = await response.json();
-            return { data, headers: response.headers };
-        } catch (error) {
-            console.error(`[WP API] Failed to fetch ${url}:`, error);
-            throw error;
         }
+
+        console.error(`[WP API] Failed to fetch ${url} after ${attempt} attempts:`, lastError);
+        throw lastError!;
     }
 
     /**
@@ -158,12 +179,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 };
             } catch (error) {
                 console.error(`[WP API] getPosts failed for ${postType}:`, error);
-                return {
-                    posts: [],
-                    totalPages: 0,
-                    totalPosts: 0,
-                    currentPage: page,
-                };
+                throw error;
             }
         },
 
@@ -172,16 +188,28 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
          */
         getPostBySlug: async (slug: string): Promise<BlogPost | null> => {
             try {
-                const { data } = await wpFetch<WPPost[]>(`/${postType}?_embed&slug=${encodeURIComponent(slug)}`);
+                const normalizedSlug = slug.toLowerCase();
+                let { data } = await wpFetch<WPPost[]>(`/${postType}?_embed&slug=${encodeURIComponent(normalizedSlug)}`);
 
                 if (!data || data.length === 0) {
+                    // Try pages if posts doesn't match?
+                    if (postType === 'posts') {
+                        try {
+                            const pagesResponse = await wpFetch<WPPost[]>(`/pages?_embed&slug=${encodeURIComponent(normalizedSlug)}`);
+                            if (pagesResponse.data && pagesResponse.data.length > 0) {
+                                return transformPost(pagesResponse.data[0]);
+                            }
+                        } catch (pageError) {
+                            // ignore page fetch error and return null below
+                        }
+                    }
                     return null;
                 }
 
                 return transformPost(data[0]);
             } catch (error) {
                 console.error(`[WP API] getPostBySlug failed for ${postType} slug "${slug}":`, error);
-                return null;
+                throw error;
             }
         },
 
@@ -200,7 +228,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 return { totalPages, totalPosts };
             } catch (error) {
                 console.error(`[WP API] getTotalPostPages failed for ${postType}:`, error);
-                return { totalPages: 1, totalPosts: 0 };
+                throw error;
             }
         },
 
@@ -232,6 +260,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 }
             } catch (error) {
                 console.error(`[WP API] getAllPostSlugs failed for ${postType} on initial request:`, error);
+                throw error;
             }
 
             return slugs;
@@ -243,7 +272,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
         getPostsByCategory: async (categorySlug: string, page: number = 1, perPage: number = 9): Promise<PaginatedPosts> => {
             try {
                 const { data: categories } = await wpFetch<WPCategory[]>(
-                    `/${categoryTaxonomy}?slug=${encodeURIComponent(categorySlug)}`
+                    `/${categoryTaxonomy}?slug=${encodeURIComponent(categorySlug.toLowerCase())}`
                 );
 
                 if (!categories || categories.length === 0) {
@@ -266,7 +295,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 };
             } catch (error) {
                 console.error(`[WP API] getPostsByCategory failed for "${categorySlug}" in ${categoryTaxonomy}:`, error);
-                return { posts: [], totalPages: 0, totalPosts: 0, currentPage: page };
+                throw error;
             }
         },
 
@@ -276,7 +305,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
         getPostsByTag: async (tagSlug: string, page: number = 1, perPage: number = 9): Promise<PaginatedPosts> => {
             try {
                 const { data: tags } = await wpFetch<WPTag[]>(
-                    `/${tagTaxonomy}?slug=${encodeURIComponent(tagSlug)}`
+                    `/${tagTaxonomy}?slug=${encodeURIComponent(tagSlug.toLowerCase())}`
                 );
 
                 if (!tags || tags.length === 0) {
@@ -299,7 +328,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 };
             } catch (error) {
                 console.error(`[WP API] getPostsByTag failed for "${tagSlug}" in ${tagTaxonomy}:`, error);
-                return { posts: [], totalPages: 0, totalPosts: 0, currentPage: page };
+                throw error;
             }
         },
 
@@ -312,7 +341,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 return data;
             } catch (error) {
                 console.error(`[WP API] getCategories failed for ${categoryTaxonomy}:`, error);
-                return [];
+                throw error;
             }
         },
 
@@ -321,11 +350,11 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
          */
         getCategoryBySlug: async (slug: string): Promise<WPCategory | null> => {
             try {
-                const { data } = await wpFetch<WPCategory[]>(`/${categoryTaxonomy}?slug=${encodeURIComponent(slug)}`);
+                const { data } = await wpFetch<WPCategory[]>(`/${categoryTaxonomy}?slug=${encodeURIComponent(slug.toLowerCase())}`);
                 return data?.[0] || null;
             } catch (error) {
                 console.error(`[WP API] getCategoryBySlug failed for "${slug}" in ${categoryTaxonomy}:`, error);
-                return null;
+                throw error;
             }
         },
 
@@ -338,7 +367,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 return data.map((cat) => cat.slug).filter((slug) => slug !== 'uncategorized');
             } catch (error) {
                 console.error(`[WP API] getAllCategorySlugs failed for ${categoryTaxonomy}:`, error);
-                return [];
+                throw error;
             }
         },
 
@@ -347,11 +376,11 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
          */
         getTagBySlug: async (slug: string): Promise<WPTag | null> => {
             try {
-                const { data } = await wpFetch<WPTag[]>(`/${tagTaxonomy}?slug=${encodeURIComponent(slug)}`);
+                const { data } = await wpFetch<WPTag[]>(`/${tagTaxonomy}?slug=${encodeURIComponent(slug.toLowerCase())}`);
                 return data?.[0] || null;
             } catch (error) {
                 console.error(`[WP API] getTagBySlug failed for "${slug}" in ${tagTaxonomy}:`, error);
-                return null;
+                throw error;
             }
         },
 
@@ -364,7 +393,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 return data.map((tag) => tag.slug);
             } catch (error) {
                 console.error(`[WP API] getAllTagSlugs failed for ${tagTaxonomy}:`, error);
-                return [];
+                throw error;
             }
         },
 
@@ -388,12 +417,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 };
             } catch (error) {
                 console.error(`[WP API] searchPosts failed for ${postType} query "${query}":`, error);
-                return {
-                    posts: [],
-                    totalPages: 0,
-                    totalPosts: 0,
-                    currentPage: page,
-                };
+                throw error;
             }
         },
 
