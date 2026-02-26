@@ -9,22 +9,11 @@ import { Plans } from '@/lib/config/env';
 
 const PromoBanner = () => {
     const dispatch = useAppDispatch();
-    const { activeOffer, isLoading, offers, error } = useAppSelector((state) => state.offer);
+    const { activeOffer, isLoading } = useAppSelector((state) => state.offer);
 
     useEffect(() => {
         dispatch(getAllOffers());
     }, [dispatch]);
-
-    // Debug logging
-    useEffect(() => {
-        console.log('PromoBanner Debug:', {
-            isLoading,
-            activeOffer,
-            offersCount: offers?.length || 0,
-            offers,
-            error
-        });
-    }, [isLoading, activeOffer, offers, error]);
 
     // Don't render if still loading
     if (isLoading) {

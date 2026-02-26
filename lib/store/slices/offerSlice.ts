@@ -13,17 +13,17 @@ const initialState = {
 const isOfferValid = (offer: Offer): boolean => {
   // Check if offer is active (isActive is true or undefined/null)
   if (offer.isActive === false) return false;
-  
+
   // If dates are not provided, consider it valid
   if (!offer.validFrom || !offer.validTo) {
     return true;
   }
-  
+
   try {
     const now = new Date();
     const validFrom = new Date(offer.validFrom);
     const validTo = new Date(offer.validTo);
-    
+
     return now >= validFrom && now <= validTo;
   } catch (error) {
     console.error('Error parsing offer dates:', error, offer);
@@ -58,32 +58,24 @@ const offerSlice = createSlice({
       .addCase(getAllOffers.fulfilled, (state, action) => {
         state.isLoading = false;
         state.offers = action.payload;
-        
-        console.log('Offers fetched:', action.payload);
-        
+
         // Filter for active offers where isActive === true
         const activeOffers = action.payload.filter(
           (offer: Offer) => offer.isActive === true
         );
-        
-        console.log('Active offers (isActive === true):', activeOffers);
-        
+
         if (activeOffers.length === 0) {
-          console.log('No active offers found');
           state.activeOffer = null;
           state.error = null;
           return;
         }
-        
+
         // First, try to find an offer that is both active AND within date range
         const validOffer = activeOffers.find((offer: Offer) => isOfferValid(offer));
-        
+
         // If no offer is within date range, use the first active offer anyway
         const selectedOffer = validOffer || activeOffers[0];
-        
-        console.log('Selected offer:', selectedOffer);
-        console.log('Is within date range:', validOffer ? true : false);
-        
+
         state.activeOffer = selectedOffer;
         state.error = null;
       })
