@@ -33,4 +33,9 @@ export const ENDPOINTS = {
   LOGIN: {
     GET_USER_DETAILS_BY_TOKEN: "/Login/GetUserDetailsByToken",
   },
+  FORM: {
+    PARTNERSHIP_CREATE: "/Form/CreatePartnershipForm",
+    TRAINING_CREATE: "/Form/CreateTrainingForm",
+    RESOURCE_DOWNLOAD_CREATE: "/Form/CreateResourceDownloadingForm",
+  },
 };
