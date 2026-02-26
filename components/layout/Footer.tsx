@@ -25,7 +25,7 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
         { label: 'Smart Cost Estimator', path: getPath('/products/cost-estimator') },
         { label: 'Vastu Optimizer', path: getPath('/products/vastu') },
         { label: 'Realistic Renders', path: getPath('/products/realistic-renders') },
-        // { label: 'Zlendo API Suite', path: getPath('/products/api-suite') },
+        // { label: 'Zlendo Realty API Suite', path: getPath('/products/api-suite') },
         { label: 'Virtual Walkthrough', path: getPath('/products/virtual-walkthrough') },
     ];
 
@@ -35,19 +35,19 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
         { label: 'Vastu Optimization', path: getPath('/use-case/vastu-optimization') },
         { label: 'New Home Building', path: getPath('/use-case/new-home-building') },
         { label: 'Commercial Spaces', path: getPath('/business/commercial-spaces') },
-        { label: 'Real Estate Brokers', path: getPath('/business/real-estate-brokers') },
+        { label: 'Builder & Promoter', path: getPath('/business/builder-and-promoter') },
         { label: 'NRI & Remote Planning', path: getPath('/business/nri-remote-planning') },
         { label: 'Developer Solutions', path: getPath('/business/developer-solutions') },
-        { label: 'Zlendo API Suite', path: getPath('/products/api-suite') }
+        { label: 'Zlendo Realty API Suite', path: getPath('/products/api-suite') }
     ];
 
     const resourceLinks = [
         { label: 'Design Library', path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
         { label: 'Blog', path: '/blog', openInNewTab: false },
-        { label: 'Tutorials', path: 'https://www.youtube.com/playlist?list=PLetnELr5c_JVwUtuFKM9wGjGKrKPrGmsa', openInNewTab: true },
-        { label: 'Help Center', path: '/help-center' },
-        { label: 'Grow with Zlendo', path: getPath('/partners') },
+        { label: 'Tutorials', path: getPath('/tutorials') },
+        { label: 'Help Center', path: getPath('/help-center') },
+        { label: 'Partnership', path: getPath('/partners') },
         { label: 'Contact Us', path: getPath('/contact') },
     ];
 

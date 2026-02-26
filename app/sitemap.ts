@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Business use cases
     { path: '/business/commercial-spaces', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/business/real-estate-brokers', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/business/builder-and-promoter', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/business/nri-remote-planning', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/business/developer-solutions', priority: 0.7, changeFrequency: 'monthly' as const },
 

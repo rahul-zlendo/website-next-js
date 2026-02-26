@@ -87,15 +87,15 @@ const Header = ({ transparent = false }: HeaderProps) => {
     const resourceLinks = [
         { label: 'Design Library', desc: 'Inspiration gallery', icon: Library, path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', desc: 'Built-in layouts for homes, rooms, and interiors.', icon: LayoutTemplate, path: getPath('/viewalltemplates') },
-        { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: 'https://www.youtube.com/playlist?list=PLetnELr5c_JVwUtuFKM9wGjGKrKPrGmsa', openInNewTab: true },
-        { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: '/help-center', openInNewTab: false },
+        { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: getPath('/tutorials') },
+        { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: 'https://helpcenter.zlendorealty.com', openInNewTab: true },
         { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: '/blog', openInNewTab: false },
-        ...(isBusinessMode ? [{ label: 'Grow with Zlendo', desc: 'Affiliate & Partners', icon: Share2, path: getPath('/partners') }] : []),
+        ...(isBusinessMode ? [{ label: 'Partnership', desc: 'Affiliate & Partners', icon: Share2, path: getPath('/partners') }] : []),
     ];
 
     const businessUseCases = [
         { label: 'Commercial Spaces', desc: 'Office & Retail design', icon: Layout, path: getPath('/business/commercial-spaces') },
-        { label: 'Real Estate Brokers', desc: 'Accelerate your sales', icon: Briefcase, path: getPath('/business/real-estate-brokers') },
+        { label: 'Builder & Promoter', desc: 'Accelerate your sales', icon: Briefcase, path: getPath('/business/builder-and-promoter') },
         { label: 'NRI & Remote Planning', desc: 'Manage from anywhere', icon: Briefcase, path: getPath('/business/nri-remote-planning') },
         { label: 'Developer Solutions', desc: 'Scalable engine', icon: Cpu, path: getPath('/business/developer-solutions') },
     ];
@@ -110,7 +110,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
     const businessMenuLinks = [
         { label: 'Business Free Trial', desc: 'Try enterprise features', icon: CheckCircle, path: getPath('/business') + '#demo-form' },
         { label: 'Affiliate & Partner Program', desc: 'Collaborate and grow together', icon: Share2, path: getPath('/partners') },
-        { label: 'Zlendo API Suite', desc: 'Grow your Business with Us', icon: Share2, path: getPath('/products/api-suite') },
+        { label: 'Zlendo Realty API Suite', desc: 'Grow your Business with Us', icon: Share2, path: getPath('/products/api-suite') },
 
     ];
 
@@ -341,7 +341,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                     onClick={() => setActiveDropdown(activeDropdown === 'business' ? null : 'business')}
                                     className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'business' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
                                 >
-                                    Grow with Zlendo <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
+                                    Partnership <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
                                 </button>
                                 <AnimatePresence>
                                     {activeDropdown === 'business' && (
@@ -634,7 +634,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                                 onClick={() => setActiveDropdown(activeDropdown === 'business' ? null : 'business')}
                                                 className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
                                             >
-                                                Grow with Zlendo
+                                                Partnership
                                                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
                                             </button>
                                             <AnimatePresence>
