@@ -27,17 +27,18 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
     const WP_API_URL = `${baseUrl}/wp-json/wp/v2`;
 
     /**
-     * Generic fetch helper with error handling, retries and caching
+     * Generic fetch helper with error handling, single retry and caching.
+     * Only retries once on server/network errors and 429 rate limits.
+     * Returns quickly on 4xx client errors (no retry).
      */
     async function wpFetch<T>(
         endpoint: string,
         options: RequestInit = {}
     ): Promise<{ data: T; headers: Headers }> {
         const url = `${WP_API_URL}${endpoint}`;
-        const maxRetries = 3;
+        const maxRetries = 1; // Only 1 retry to keep build fast
         let attempt = 0;
         let lastError: Error | null = null;
-        const baseDelay = 1000;
 
         while (attempt <= maxRetries) {
             try {
@@ -59,14 +60,14 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
             } catch (error) {
                 lastError = error instanceof Error ? error : new Error(String(error));
 
-                // Do not retry client errors (4xx) except for rate limits (429)
+                // Do NOT retry on 4xx client errors (except 429 rate-limit)
                 const isClientError = lastError.message.includes('error: 4') && !lastError.message.includes('429');
                 if (isClientError) {
                     break;
                 }
 
                 if (attempt < maxRetries) {
-                    const delay = baseDelay * Math.pow(2, attempt) + Math.random() * 500;
+                    const delay = 500 + Math.random() * 500; // 500-1000ms delay
                     console.log(`[WP API] Retry ${attempt + 1}/${maxRetries} for ${url} after ${Math.round(delay)}ms`);
                     await new Promise(resolve => setTimeout(resolve, delay));
                 }
@@ -179,35 +180,35 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 };
             } catch (error) {
                 console.error(`[WP API] getPosts failed for ${postType}:`, error);
-                throw error;
+                return {
+                    posts: [],
+                    totalPages: 0,
+                    totalPosts: 0,
+                    currentPage: page,
+                };
             }
         },
 
         /**
-         * Get single post by slug
+         * Get single post by slug — this is the runtime function used by ISR.
+         * Returns null if the slug does not exist (genuine 404).
+         * Throws only on network/server errors so Next.js shows an error page
+         * instead of caching a false 404.
          */
         getPostBySlug: async (slug: string): Promise<BlogPost | null> => {
             try {
                 const normalizedSlug = slug.toLowerCase();
-                let { data } = await wpFetch<WPPost[]>(`/${postType}?_embed&slug=${encodeURIComponent(normalizedSlug)}`);
+                const { data } = await wpFetch<WPPost[]>(`/${postType}?_embed&slug=${encodeURIComponent(normalizedSlug)}`);
 
                 if (!data || data.length === 0) {
-                    // Try pages if posts doesn't match?
-                    if (postType === 'posts') {
-                        try {
-                            const pagesResponse = await wpFetch<WPPost[]>(`/pages?_embed&slug=${encodeURIComponent(normalizedSlug)}`);
-                            if (pagesResponse.data && pagesResponse.data.length > 0) {
-                                return transformPost(pagesResponse.data[0]);
-                            }
-                        } catch (pageError) {
-                            // ignore page fetch error and return null below
-                        }
-                    }
+                    // Genuine "not found" — the slug simply doesn't exist in WP
                     return null;
                 }
 
                 return transformPost(data[0]);
             } catch (error) {
+                // Network/server error — throw so Next.js returns 500 (not 404)
+                // This prevents crawlers from indexing a false 404
                 console.error(`[WP API] getPostBySlug failed for ${postType} slug "${slug}":`, error);
                 throw error;
             }
@@ -228,12 +229,13 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 return { totalPages, totalPosts };
             } catch (error) {
                 console.error(`[WP API] getTotalPostPages failed for ${postType}:`, error);
-                throw error;
+                return { totalPages: 1, totalPosts: 0 };
             }
         },
 
         /**
-         * Get all post slugs for static generation
+         * Get all post slugs — used only by sitemap (lightweight _fields=slug).
+         * Gracefully returns whatever slugs were collected.
          */
         getAllPostSlugs: async (): Promise<string[]> => {
             const slugs: string[] = [];
@@ -260,7 +262,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 }
             } catch (error) {
                 console.error(`[WP API] getAllPostSlugs failed for ${postType} on initial request:`, error);
-                throw error;
+                // Return whatever we have (possibly empty) — don't crash the build
             }
 
             return slugs;
@@ -295,7 +297,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 };
             } catch (error) {
                 console.error(`[WP API] getPostsByCategory failed for "${categorySlug}" in ${categoryTaxonomy}:`, error);
-                throw error;
+                return { posts: [], totalPages: 0, totalPosts: 0, currentPage: page };
             }
         },
 
@@ -328,7 +330,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 };
             } catch (error) {
                 console.error(`[WP API] getPostsByTag failed for "${tagSlug}" in ${tagTaxonomy}:`, error);
-                throw error;
+                return { posts: [], totalPages: 0, totalPosts: 0, currentPage: page };
             }
         },
 
@@ -341,7 +343,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 return data;
             } catch (error) {
                 console.error(`[WP API] getCategories failed for ${categoryTaxonomy}:`, error);
-                throw error;
+                return [];
             }
         },
 
@@ -359,7 +361,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
         },
 
         /**
-         * Get all category slugs
+         * Get all category slugs — used by sitemap, graceful fallback
          */
         getAllCategorySlugs: async (): Promise<string[]> => {
             try {
@@ -367,7 +369,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 return data.map((cat) => cat.slug).filter((slug) => slug !== 'uncategorized');
             } catch (error) {
                 console.error(`[WP API] getAllCategorySlugs failed for ${categoryTaxonomy}:`, error);
-                throw error;
+                return [];
             }
         },
 
@@ -385,7 +387,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
         },
 
         /**
-         * Get all tag slugs
+         * Get all tag slugs — used by sitemap, graceful fallback
          */
         getAllTagSlugs: async (): Promise<string[]> => {
             try {
@@ -393,7 +395,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 return data.map((tag) => tag.slug);
             } catch (error) {
                 console.error(`[WP API] getAllTagSlugs failed for ${tagTaxonomy}:`, error);
-                throw error;
+                return [];
             }
         },
 
@@ -417,7 +419,12 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 };
             } catch (error) {
                 console.error(`[WP API] searchPosts failed for ${postType} query "${query}":`, error);
-                throw error;
+                return {
+                    posts: [],
+                    totalPages: 0,
+                    totalPosts: 0,
+                    currentPage: page,
+                };
             }
         },
 

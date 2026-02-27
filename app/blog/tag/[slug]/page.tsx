@@ -11,10 +11,13 @@ interface TagPageProps {
     searchParams: Promise<{ page?: string }>;
 }
 
+// Allow any slug to be rendered on-demand (ISR)
+export const dynamicParams = true;
+export const revalidate = 3600;
+
 // Generate static params for all tags
 export async function generateStaticParams() {
-    const slugs = await getAllTagSlugs();
-    return slugs.map((slug) => ({ slug }));
+    return [];
 }
 
 // Generate metadata for the tag

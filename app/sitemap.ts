@@ -2,6 +2,10 @@ import type { MetadataRoute } from 'next';
 import { getAllPostSlugs, getAllCategorySlugs, getAllTagSlugs, getTotalPostPages } from '@/lib/wordpress/api';
 import { getAllHcPostSlugs, getAllHcCategorySlugs, getAllHcTagSlugs, getTotalHcPostPages } from '@/lib/wordpress/helpcenter';
 
+// Generate sitemap at runtime (not build-time) to avoid overwhelming WP API during deploy
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Cache for 1 hour
+
 const SUPPORTED_COUNTRIES = ['in'];
 const BASE_URL = 'https://zlendorealty.com';
 
