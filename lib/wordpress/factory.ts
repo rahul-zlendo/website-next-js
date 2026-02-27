@@ -27,34 +27,56 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
     const WP_API_URL = `${baseUrl}/wp-json/wp/v2`;
 
     /**
-     * Generic fetch helper with error handling and caching
+     * Generic fetch helper with error handling, single retry and caching.
+     * Only retries once on server/network errors and 429 rate limits.
+     * Returns quickly on 4xx client errors (no retry).
      */
     async function wpFetch<T>(
         endpoint: string,
         options: RequestInit = {}
     ): Promise<{ data: T; headers: Headers }> {
         const url = `${WP_API_URL}${endpoint}`;
+        const maxRetries = 1; // Only 1 retry to keep build fast
+        let attempt = 0;
+        let lastError: Error | null = null;
 
-        try {
-            const response = await fetch(url, {
-                ...options,
-                next: { revalidate: revalidateSeconds },
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...options.headers,
-                },
-            });
+        while (attempt <= maxRetries) {
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    next: { revalidate: revalidateSeconds },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers,
+                    },
+                });
 
-            if (!response.ok) {
-                throw new Error(`WordPress API error: ${response.status} ${response.statusText}`);
+                if (!response.ok) {
+                    throw new Error(`WordPress API error: ${response.status} ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                return { data, headers: response.headers };
+            } catch (error) {
+                lastError = error instanceof Error ? error : new Error(String(error));
+
+                // Do NOT retry on 4xx client errors (except 429 rate-limit)
+                const isClientError = lastError.message.includes('error: 4') && !lastError.message.includes('429');
+                if (isClientError) {
+                    break;
+                }
+
+                if (attempt < maxRetries) {
+                    const delay = 500 + Math.random() * 500; // 500-1000ms delay
+                    console.log(`[WP API] Retry ${attempt + 1}/${maxRetries} for ${url} after ${Math.round(delay)}ms`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+                attempt++;
             }
-
-            const data = await response.json();
-            return { data, headers: response.headers };
-        } catch (error) {
-            console.error(`[WP API] Failed to fetch ${url}:`, error);
-            throw error;
         }
+
+        console.error(`[WP API] Failed to fetch ${url} after ${attempt} attempts:`, lastError);
+        throw lastError!;
     }
 
     /**
@@ -168,20 +190,27 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
         },
 
         /**
-         * Get single post by slug
+         * Get single post by slug — this is the runtime function used by ISR.
+         * Returns null if the slug does not exist (genuine 404).
+         * Throws only on network/server errors so Next.js shows an error page
+         * instead of caching a false 404.
          */
         getPostBySlug: async (slug: string): Promise<BlogPost | null> => {
             try {
-                const { data } = await wpFetch<WPPost[]>(`/${postType}?_embed&slug=${encodeURIComponent(slug)}`);
+                const normalizedSlug = slug.toLowerCase();
+                const { data } = await wpFetch<WPPost[]>(`/${postType}?_embed&slug=${encodeURIComponent(normalizedSlug)}`);
 
                 if (!data || data.length === 0) {
+                    // Genuine "not found" — the slug simply doesn't exist in WP
                     return null;
                 }
 
                 return transformPost(data[0]);
             } catch (error) {
+                // Network/server error — throw so Next.js returns 500 (not 404)
+                // This prevents crawlers from indexing a false 404
                 console.error(`[WP API] getPostBySlug failed for ${postType} slug "${slug}":`, error);
-                return null;
+                throw error;
             }
         },
 
@@ -205,7 +234,8 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
         },
 
         /**
-         * Get all post slugs for static generation
+         * Get all post slugs — used only by sitemap (lightweight _fields=slug).
+         * Gracefully returns whatever slugs were collected.
          */
         getAllPostSlugs: async (): Promise<string[]> => {
             const slugs: string[] = [];
@@ -232,6 +262,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
                 }
             } catch (error) {
                 console.error(`[WP API] getAllPostSlugs failed for ${postType} on initial request:`, error);
+                // Return whatever we have (possibly empty) — don't crash the build
             }
 
             return slugs;
@@ -243,7 +274,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
         getPostsByCategory: async (categorySlug: string, page: number = 1, perPage: number = 9): Promise<PaginatedPosts> => {
             try {
                 const { data: categories } = await wpFetch<WPCategory[]>(
-                    `/${categoryTaxonomy}?slug=${encodeURIComponent(categorySlug)}`
+                    `/${categoryTaxonomy}?slug=${encodeURIComponent(categorySlug.toLowerCase())}`
                 );
 
                 if (!categories || categories.length === 0) {
@@ -276,7 +307,7 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
         getPostsByTag: async (tagSlug: string, page: number = 1, perPage: number = 9): Promise<PaginatedPosts> => {
             try {
                 const { data: tags } = await wpFetch<WPTag[]>(
-                    `/${tagTaxonomy}?slug=${encodeURIComponent(tagSlug)}`
+                    `/${tagTaxonomy}?slug=${encodeURIComponent(tagSlug.toLowerCase())}`
                 );
 
                 if (!tags || tags.length === 0) {
@@ -321,16 +352,16 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
          */
         getCategoryBySlug: async (slug: string): Promise<WPCategory | null> => {
             try {
-                const { data } = await wpFetch<WPCategory[]>(`/${categoryTaxonomy}?slug=${encodeURIComponent(slug)}`);
+                const { data } = await wpFetch<WPCategory[]>(`/${categoryTaxonomy}?slug=${encodeURIComponent(slug.toLowerCase())}`);
                 return data?.[0] || null;
             } catch (error) {
                 console.error(`[WP API] getCategoryBySlug failed for "${slug}" in ${categoryTaxonomy}:`, error);
-                return null;
+                throw error;
             }
         },
 
         /**
-         * Get all category slugs
+         * Get all category slugs — used by sitemap, graceful fallback
          */
         getAllCategorySlugs: async (): Promise<string[]> => {
             try {
@@ -347,16 +378,16 @@ export function createWpClient(baseUrl: string, config: WpClientConfig = {}) {
          */
         getTagBySlug: async (slug: string): Promise<WPTag | null> => {
             try {
-                const { data } = await wpFetch<WPTag[]>(`/${tagTaxonomy}?slug=${encodeURIComponent(slug)}`);
+                const { data } = await wpFetch<WPTag[]>(`/${tagTaxonomy}?slug=${encodeURIComponent(slug.toLowerCase())}`);
                 return data?.[0] || null;
             } catch (error) {
                 console.error(`[WP API] getTagBySlug failed for "${slug}" in ${tagTaxonomy}:`, error);
-                return null;
+                throw error;
             }
         },
 
         /**
-         * Get all tag slugs
+         * Get all tag slugs — used by sitemap, graceful fallback
          */
         getAllTagSlugs: async (): Promise<string[]> => {
             try {

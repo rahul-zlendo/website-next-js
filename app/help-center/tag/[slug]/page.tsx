@@ -11,9 +11,12 @@ interface TagPageProps {
     searchParams: Promise<{ page?: string }>;
 }
 
+// Allow any slug to be rendered on-demand (ISR)
+export const dynamicParams = true;
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
-    const slugs = await getAllHcTagSlugs();
-    return slugs.map((slug) => ({ slug }));
+    return [];
 }
 
 export async function generateMetadata({ params, searchParams }: TagPageProps): Promise<Metadata> {
