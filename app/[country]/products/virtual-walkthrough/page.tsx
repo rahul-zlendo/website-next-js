@@ -76,7 +76,7 @@ export default function VirtualWalkthroughPage() {
                                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-black/5 shadow-sm mb-8"
                             >
                                 <Sparkles className="w-4 h-4 text-zlendo-teal animate-pulse" />
-                                <span className="text-xs font-black uppercase tracking-widest text-zlendo-grey-dark">Next-Gen Real Estate Visualization</span>
+                                <span className="text-xs font-black uppercase tracking-widest text-zlendo-grey-dark">Next-Generation Property Visualization</span>
                             </motion.div>
 
                             <motion.h1
@@ -347,7 +347,7 @@ export default function VirtualWalkthroughPage() {
                             {[
                                 { title: 'Homeowners', desc: 'Gain 100% confidence in your design before a single brick is laid.', icon: Home, highlight: 'Fewer Revisions' },
                                 { title: 'Architects', desc: 'Present concepts that win clients immediately with hyper-realistic clarity.', icon: Layout, highlight: 'Instant Approvals' },
-                                { title: 'Real Estate Builders', desc: 'Sell pre-construction units faster with cinematic marketing assets.', icon: Building2, highlight: 'Faster Conversions' }
+                                { title: 'Builders & Developers', desc: 'Sell pre-construction units faster with cinematic marketing assets.', icon: Building2, highlight: 'Faster Conversions' }
                             ].map((item, i) => (
                                 <motion.div
                                     key={i}

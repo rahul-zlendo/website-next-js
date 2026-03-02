@@ -5,42 +5,42 @@ import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
 
 // ─── Real playlist data from "Beginner Guide | Zlendo Realty 2026" ───────────
-// playlistIndex = 0-based position in the YouTube playlist
-// Update duration/views as needed — titles match your actual playlist
+// videoId = actual YouTube video ID — required for reliable per-video embedding.
+// Using videoseries?index=N is unreliable; YouTube ignores the index after first load.
 const PLAYLIST_ID = 'PLetnELr5c_JVwUtuFKM9wGjGKrKPrGmsa';
 
 interface PlaylistVideo {
     index: number;
+    videoId: string;
     title: string;
     duration: string;
     views: number;
 }
 
 const playlistVideos: PlaylistVideo[] = [
-    { index: 0, title: "Sign In, Dashboard & Getting Started | Beginner Guide | Zlendo Realty 2026", duration: "0:38", views: 47 },
-    { index: 1, title: "Create a New Project | Beginner's Lesson | Zlendo Realty 2026", duration: "1:13", views: 31 },
-    { index: 2, title: "Start From Scratch | Beginner Guide | Zlendo Realty 2026", duration: "0:31", views: 26 },
-    { index: 3, title: "Default Room Shapes | Quick Design Tutorial | Zlendo Realty 2026", duration: "0:17", views: 16 },
-    { index: 4, title: "Set Your Preferences | Beginner's Lesson | Zlendo Realty 2026", duration: "3:12", views: 14 },
-    { index: 5, title: "Draw a Floor Plan | Beginner's Lesson | Zlendo Realty 2026", duration: "5:36", views: 12 },
-    { index: 6, title: "Decorate Interior with AI Templates | Beginner's Lesson | Zlendo Realty 2026", duration: "2:15", views: 10 },
-    { index: 7, title: "Find and Place Models | Beginner's Lesson | Zlendo Realty 2026", duration: "5:00", views: 9 },
-    { index: 8, title: "Get High-Quality Renders | Beginner's Lesson | Zlendo Realty 2026", duration: "6:39", views: 8 },
-    { index: 9, title: "Export Your Projects | Beginner's Lesson | Zlendo Realty 2026", duration: "4:14", views: 7 },
-    { index: 10, title: "Apply Materials & Textures | Floors, Walls & Ceilings | Zlendo Realty 2026", duration: "6:15", views: 6 },
-    { index: 11, title: "AI Inspiration | Beginner Tutorial | Zlendo Realty 2026", duration: "5:45", views: 5 },
-    { index: 12, title: "Smart Floor Planning Made Simple | Zlendo Realty 2026", duration: "4:20", views: 5 },
-    { index: 13, title: "Create Realistic Renders & Walkthroughs | Zlendo Realty 2026", duration: "8:10", views: 4 },
-    { index: 14, title: "Build Your Dream Home | Zlendo Realty 2026", duration: "6:50", views: 3 },
+    { index: 0, videoId: 'saVzirqnut4', title: "Sign In, Dashboard & Getting Started | Beginner Guide | Zlendo Realty 2026", duration: "0:38", views: 47 },
+    { index: 1, videoId: 'vhAb793zJRw', title: "Create a New Project | Beginner's Lesson | Zlendo Realty 2026", duration: "1:13", views: 31 },
+    { index: 2, videoId: 'UWc1_eqLTuQ', title: "Start From Scratch | Beginner Guide | Zlendo Realty 2026", duration: "0:31", views: 26 },
+    { index: 3, videoId: 'zv960dSglN8', title: "Default Room Shapes | Quick Design Tutorial | Zlendo Realty 2026", duration: "0:17", views: 16 },
+    { index: 4, videoId: 'PRYv8BC3ua8', title: "Edit Wall Height & Thickness | Beginner Guide | Zlendo Realty 2026", duration: "3:12", views: 14 },
+    { index: 5, videoId: 'RmHr1Y6XsAM', title: "Add Doors & Windows | Beginner Guide | Zlendo Realty 2026", duration: "5:36", views: 12 },
+    { index: 6, videoId: 'ruDuzBVLWaE', title: "Furniture Placement | Beginner Tutorial | Zlendo Realty 2026", duration: "2:15", views: 10 },
+    { index: 7, videoId: 'UjdX3-VY08o', title: "Generate Vastu Report | Beginner Guide | Zlendo Realty 2026", duration: "5:00", views: 9 },
+    { index: 8, videoId: 'zUdc7DZRdSw', title: "360° Design Walkthrough | 3D Explore Guide | Zlendo Realty 2026", duration: "6:39", views: 8 },
+    { index: 9, videoId: 'UzB6lrn3QNs', title: "AI Inspiration | Beginner Tutorial | Zlendo Realty 2026", duration: "4:14", views: 7 },
+    { index: 10, videoId: 'YPIC4mUya_0', title: "Apply Materials & Textures | Floors, Walls & Ceilings | Zlendo Realty 2026", duration: "6:15", views: 6 },
+    { index: 11, videoId: '0EkPlJWrbrw', title: "Add & Manage Multiple Floors | Beginner Tutorial | Zlendo Realty 2026", duration: "5:45", views: 5 },
+    { index: 12, videoId: 'PC8hoEKoCGA', title: "Cost Estimation | Budget Planning | Zlendo Realty 2026", duration: "4:20", views: 5 },
+    { index: 13, videoId: 'ToEv_rpssXk', title: "Video Render Tutorial | Camera Path & Settings Explained | Zlendo Realty 2026", duration: "8:10", views: 4 },
+    { index: 14, videoId: 'jcPO8u0t81g', title: "Image Rendering Explained | Screenshot & 4K Render | Zlendo Realty 2026", duration: "6:50", views: 3 },
 ];
 
 const PLAYLIST_TITLE = 'Beginner Guide | Zlendo Realty 2026';
 
-// Build embed URL for the selected playlist position
-// autoplay=0 on initial load (user must press play)
-// autoplay=1 only when user explicitly clicks a different video in the sidebar
-const embedSrc = (index: number, autoplay = false) =>
-    `https://www.youtube.com/embed/videoseries?list=${PLAYLIST_ID}&index=${index}&autoplay=${autoplay ? 1 : 0}&rel=0&modestbranding=1`;
+// Build embed URL using each video's own ID + playlist context.
+// This is the only reliable way to jump to a specific video in an embedded player.
+const embedSrc = (videoId: string, autoplay = false) =>
+    `https://www.youtube.com/embed/${videoId}?list=${PLAYLIST_ID}&autoplay=${autoplay ? 1 : 0}&rel=0&modestbranding=1`;
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 export default function TutorialsPage() {
@@ -76,7 +76,7 @@ export default function TutorialsPage() {
             </div>
 
             {/* Breadcrumb */}
-            <div className="container-custom px-6 lg:px-12 py-5">
+            <div className="hidden container-custom px-6 lg:px-12 py-5">
                 <nav className="flex items-center gap-2 text-sm text-zlendo-grey-medium font-semibold flex-wrap">
                     <span>Home</span>
                     <span className="opacity-30">&gt;</span>
@@ -97,14 +97,14 @@ export default function TutorialsPage() {
                     <div className="flex-1 min-w-0">
                         {/* iframe embed */}
                         <motion.div
-                            key={activeIndex}
                             initial={{ opacity: 0, scale: 0.99 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.25 }}
                             className="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl bg-black"
                         >
                             <iframe
-                                src={embedSrc(activeIndex, autoplay)}
+                                key={activeVideo.videoId}
+                                src={embedSrc(activeVideo.videoId, autoplay)}
                                 title={activeVideo.title}
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                 allowFullScreen

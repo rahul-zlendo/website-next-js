@@ -5,6 +5,7 @@ import offerReducer from "./slices/offerSlice";
 import templateReducer from "./slices/templateSlice";
 import roomStyleReducer from "./slices/roomStyleSlice";
 import authReducer from "./slices/authSlice";
+import formReducer from "./slices/formSlice";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   offer: offerReducer,
   template: templateReducer,
   roomStyle: roomStyleReducer,
+  form: formReducer,
 });

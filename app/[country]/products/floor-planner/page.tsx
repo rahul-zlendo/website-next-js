@@ -290,7 +290,7 @@ export default function FloorPlannerPage() {
                                 Ready-made templates for <span className="text-orange-500">Indian Families.</span>
                             </h2>
                             <p className="text-xl text-zlendo-grey-medium font-medium mb-10 leading-relaxed">
-                                Don't start from scratch. Choose from thousands of pre-designed layouts optimized for 2BHK, 3BHK, and Villa configurations standard in Indian real estate.
+                                Don’t start from scratch. Choose from thousands of pre-designed layouts optimized for 2BHK, 3BHK, and villa configurations tailored to modern homes.
                             </p>
                             <div className="flex flex-wrap gap-4 mb-10">
                                 {['3BHK North Facing', '2BHK Compact', 'Luxury Villa', 'Pooja Room Added'].map(tag => (
