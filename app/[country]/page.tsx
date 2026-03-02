@@ -59,7 +59,7 @@ const faqSchema = {
       'name': 'Who can use Zlendo Realty?',
       'acceptedAnswer': {
         '@type': 'Answer',
-        'text': 'Zlendo Realty can be used by homeowners, architects, students, builders, and real estate professionals. It supports both beginners and experienced users involved in home planning and design.',
+        'text': 'Zlendo Realty can be used by homeowners, architects, students, builders, and property professionals. It supports both beginners and experienced users involved in home planning and design.',
       },
     },
     {
@@ -91,7 +91,7 @@ const faqSchema = {
       'name': 'Can it be used for professional work?',
       'acceptedAnswer': {
         '@type': 'Answer',
-        'text': 'Yes. The platform is suitable for professional projects, client presentations, and real estate planning, and is widely used for architectural design services and project visualization.',
+        'text': 'Yes. The platform is suitable for professional projects, client presentations, and property planning, and is widely used for architectural design services and project visualization.',
       },
     },
     {
