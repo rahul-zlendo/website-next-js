@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import formService from "../../services/formService";
-import type { PartnershipFormPayload, TrainingFormPayload, ResourceFormPayload } from "../../services/formService";
+import type { PartnershipFormPayload, TrainingFormPayload, ResourceFormPayload, VastuFormPayload } from "../../services/formService";
 
 const initialState = {
     isSubmitting: false,
@@ -42,6 +42,19 @@ export const createResourceForm = createAsyncThunk(
             return response;
         } catch (e: unknown) {
             const errorData = (e instanceof Error ? e.message : null) || "Failed to submit resource form";
+            return rejectWithValue(errorData);
+        }
+    }
+);
+
+export const createVastuForm = createAsyncThunk(
+    "form/createVastuForm",
+    async (data: VastuFormPayload, { rejectWithValue }) => {
+        try {
+            const response = await formService.createVastuFormService(data);
+            return response;
+        } catch (e: unknown) {
+            const errorData = (e instanceof Error ? e.message : null) || "Failed to submit vastu form";
             return rejectWithValue(errorData);
         }
     }
@@ -98,6 +111,20 @@ const formSlice = createSlice({
                 state.error = null;
             })
             .addCase(createResourceForm.rejected, (state, action) => {
+                state.isSubmitting = false;
+                state.error = action.payload as string;
+            })
+            // Vastu Form
+            .addCase(createVastuForm.pending, (state) => {
+                state.isSubmitting = true;
+                state.error = null;
+            })
+            .addCase(createVastuForm.fulfilled, (state) => {
+                state.isSubmitting = false;
+                state.isSubmitted = true;
+                state.error = null;
+            })
+            .addCase(createVastuForm.rejected, (state, action) => {
                 state.isSubmitting = false;
                 state.error = action.payload as string;
             });

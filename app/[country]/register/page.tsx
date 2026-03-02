@@ -16,15 +16,18 @@ import {
     Cpu,
     Target,
     Users,
-    ChevronDown
+    ChevronDown,
+    Ruler,
+    Sparkles,
+    Upload
 } from 'lucide-react';
 import Image from 'next/image';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { getAllListOfValues } from '@/lib/store/slices/enterpriseSlice';
-import { createPartnershipForm, createTrainingForm, createResourceForm, resetFormStatus } from '@/lib/store/slices/formSlice';
+import { createPartnershipForm, createTrainingForm, createResourceForm, createVastuForm, resetFormStatus } from '@/lib/store/slices/formSlice';
 
 // Types for the form
-type FormType = 'partnership' | 'training' | 'resource';
+type FormType = 'partnership' | 'training' | 'resource' | 'vastu';
 
 interface FormData {
     name: string;
@@ -34,6 +37,7 @@ interface FormData {
     industry: string;
     userType: string;
     comments?: string;
+    floorPlan?: File;
 }
 
 const RegistrationContent = () => {
@@ -46,12 +50,13 @@ const RegistrationContent = () => {
         website: '',
         industry: '',
         userType: '',
-        comments: ''
+        comments: '',
+        floorPlan: undefined
     });
 
     useEffect(() => {
         const t = searchParams.get('type') as FormType;
-        if (t && ['partnership', 'training', 'resource'].includes(t)) {
+        if (t && ['partnership', 'training', 'resource', 'vastu'].includes(t)) {
             setType(t);
         } else if (searchParams.get('referral')) {
             // Logic for referral could go here, defaulting to partnership for now
@@ -127,6 +132,19 @@ const RegistrationContent = () => {
                     formTitle: "Get Your Resources",
                     formSubtitle: "Download instantly after registration."
                 };
+            case 'vastu':
+                return {
+                    title: "Align Your Home with Vastu Shastra.",
+                    subtitle: "Get expert Vastu analysis and layout corrections for your dream home.",
+                    features: [
+                        { icon: Ruler, title: "Energy Mapping", desc: "Visual heatmap of Vastu zones in your floor plan." },
+                        { icon: Sparkles, title: "Remedy Suggestions", desc: "Non-destructive fixes for Vastu defects." },
+                        { icon: Target, title: "Directional Check", desc: "Precise compass alignment using satellite data." },
+                        { icon: CheckCircle2, title: "Vastu Scorecard", desc: "Get a compliance score for every room." }
+                    ],
+                    formTitle: "Get Vastu Analysis",
+                    formSubtitle: "Upload your floor plan to get started."
+                };
             default:
                 return {
                     title: "No Design Skills? No Problem.",
@@ -198,6 +216,21 @@ const RegistrationContent = () => {
                 isActive: true
             };
             dispatch(createResourceForm(payload));
+        } else if (type === 'vastu') {
+            // Find the numeric ID (lov_Value) for the selected user type description
+            const selectedUserType = apiUserTypes.find(item => item.description.toLowerCase() === formState.userType.toLowerCase());
+            const userTypeId = selectedUserType ? selectedUserType.lov_Value : 0;
+
+            const payload = {
+                fullName: formState.name,
+                emailId: formState.email,
+                mobileNumber: parseInt(formState.phone, 10),
+                userType: userTypeId,
+                comments: formState.comments || "",
+                floorPlan: formState.floorPlan,
+                isActive: true
+            };
+            dispatch(createVastuForm(payload));
         }
     };
 
@@ -296,19 +329,37 @@ const RegistrationContent = () => {
                                             {submitError}
                                         </div>
                                     )}
-                                    <div className="space-y-1.5">
-                                        <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Full Name *</label>
-                                        <div className="relative">
-                                            <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
-                                            <input
-                                                type="text"
-                                                required
-                                                className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
-                                                value={formState.name}
-                                                onChange={e => setFormState({ ...formState, name: e.target.value })}
-                                            />
+                                    {type === 'vastu' && (
+                                        <div className="space-y-1.5">
+                                            <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Upload Floor Plan *</label>
+                                            <div className="relative">
+                                                <Upload className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                                <input
+                                                    type="file"
+                                                    required
+                                                    accept=".jpg,.jpeg,.png,.pdf"
+                                                    className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
+                                                    onChange={e => setFormState({ ...formState, floorPlan: e.target.files?.[0] })}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
+
+                                    {type !== 'vastu' && (
+                                        <div className="space-y-1.5">
+                                            <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Full Name *</label>
+                                            <div className="relative">
+                                                <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                                <input
+                                                    type="text"
+                                                    required
+                                                    className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
+                                                    value={formState.name}
+                                                    onChange={e => setFormState({ ...formState, name: e.target.value })}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
 
                                     <div className="space-y-1.5">
                                         <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Email Address *</label>
@@ -376,6 +427,40 @@ const RegistrationContent = () => {
                                                     />
                                                 </div>
                                             </div>
+                                        </>
+                                    ) : type === 'vastu' ? (
+                                        <>
+                                            {/* <div className="space-y-1.5">
+                                                <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Type of User *</label>
+                                                <div className="relative">
+                                                    <Users className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                                    <select
+                                                        required
+                                                        className={`w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal appearance-none ${!formState.userType ? 'text-[#1a1a1a]/50' : 'text-[#1a1a1a]'}`}
+                                                        value={formState.userType}
+                                                        onChange={e => setFormState({ ...formState, userType: e.target.value })}
+                                                    >
+                                                        <option value="" className="text-[#1a1a1a]/50">
+                                                            {isLoadingIndustries ? 'Loading...' : 'Select User Type'}
+                                                        </option>
+                                                        {userTypesList.map(u => (
+                                                            <option key={u} value={u.toLowerCase()} className="text-[#1a1a1a]">{u}</option>
+                                                        ))}
+                                                    </select>
+                                                    <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/70 pointer-events-none" />
+                                                </div>
+                                            </div> */}
+                                            {/* <div className="space-y-1.5">
+                                                <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Comments</label>
+                                                <div className="relative">
+                                                    <MessageSquare className="absolute left-5 top-5 w-4 h-4 text-zlendo-grey-medium/40" />
+                                                    <textarea
+                                                        className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a] h-24 resize-none"
+                                                        value={formState.comments}
+                                                        onChange={e => setFormState({ ...formState, comments: e.target.value })}
+                                                    />
+                                                </div>
+                                            </div> */}
                                         </>
                                     ) : (
                                         <>

@@ -30,6 +30,16 @@ export interface ResourceFormPayload {
     isActive: boolean;
 }
 
+export interface VastuFormPayload {
+    fullName: string;
+    emailId: string;
+    mobileNumber: number;
+    userType: number;
+    comments: string;
+    floorPlan?: File;
+    isActive: boolean;
+}
+
 export const createPartnershipFormService = async (
     data: PartnershipFormPayload
 ): Promise<unknown> => {
@@ -75,10 +85,42 @@ export const createResourceFormService = async (
     }
 };
 
+export const createVastuFormService = async (
+    data: VastuFormPayload
+): Promise<unknown> => {
+    try {
+        const formData = new FormData();
+        formData.append('fullName', data.fullName);
+        formData.append('emailId', data.emailId);
+        formData.append('mobileNumber', data.mobileNumber.toString());
+        formData.append('userType', data.userType.toString());
+        formData.append('comments', data.comments);
+        formData.append('isActive', data.isActive.toString());
+        if (data.floorPlan) {
+            formData.append('floorPlan', data.floorPlan);
+        }
+
+        const response = await axiosInstance.post(
+            ENDPOINTS_FORM.VASTU_CREATE,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Failed to create vastu form:", error);
+        throw error;
+    }
+};
+
 const formService = {
     createPartnershipFormService,
     createTrainingFormService,
     createResourceFormService,
+    createVastuFormService,
 };
 
 export default formService;
