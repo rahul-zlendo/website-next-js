@@ -93,15 +93,25 @@ export default function HomeClient() {
         dispatch(getAllTemplates());
     }, [dispatch]);
 
-    // Helper function to construct full blob URL with SAS token
+    // Helper function to construct full blob URL with SAS token.
+    // Uses BLOB_BASE_URL and BLOB_SAS_TOKEN imported from blobUtils — these have
+    // hardcoded fallback values that work in dev even when env vars are not set.
     const constructFullBlobUrl = (relativeUrl: string): string => {
         if (!relativeUrl) return '';
-        if (relativeUrl.startsWith('http') || relativeUrl.startsWith('blob:')) return relativeUrl;
-
-        const BLOB_BASE = 'https://zrealtystoragedev.blob.core.windows.net/';
-        const SAS = process.env.NEXT_PUBLIC_BLOB_SAS_TOKEN || '';
-        const fullUrl = `${BLOB_BASE}${relativeUrl}`;
-        return SAS && !fullUrl.includes('?') ? `${fullUrl}?${SAS}` : fullUrl;
+        // Already a full URL — append SAS if it's a blob storage URL without one
+        if (relativeUrl.startsWith('http') || relativeUrl.startsWith('blob:')) {
+            if (relativeUrl.includes('blob.core.windows.net') && !relativeUrl.includes('sig=') && BLOB_SAS_TOKEN) {
+                return relativeUrl.includes('?')
+                    ? `${relativeUrl}&${BLOB_SAS_TOKEN}`
+                    : `${relativeUrl}?${BLOB_SAS_TOKEN}`;
+            }
+            return relativeUrl;
+        }
+        // Relative path — build full URL with SAS token
+        const fullUrl = `${BLOB_BASE_URL}${relativeUrl}`;
+        return BLOB_SAS_TOKEN
+            ? (fullUrl.includes('?') ? `${fullUrl}&${BLOB_SAS_TOKEN}` : `${fullUrl}?${BLOB_SAS_TOKEN}`)
+            : fullUrl;
     };
 
     // Load multiple thumbnails for a template
@@ -665,9 +675,10 @@ export default function HomeClient() {
                                                             }
                                                         }
 
-                                                        // If already direct URL or no originalUrl, use fallback placeholder
+                                                        // Final fallback: inline SVG — no external request
+                                                        // (via.placeholder.com is unreachable and causes ERR_NAME_NOT_RESOLVED)
                                                         target.onerror = null;
-                                                        target.src = "https://via.placeholder.com/600x400?text=Template";
+                                                        target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' fill='%2394a3b8'%3EImage unavailable%3C/text%3E%3C/svg%3E`;
                                                     }}
                                                 />
                                             ) : (
