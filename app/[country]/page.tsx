@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: 'AI-Powered Home & Office Design Software | Zlendo Realty',
         description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. The all-in-one design software for Architects, Builders, Interior designers, and Vastu Consultants. Start your free trial today!',
-        url: 'https://zlendorealty.com/in',
+        url: 'https://zlendorealty.com/',
         siteName: 'Zlendo Realty',
         images: [
           {

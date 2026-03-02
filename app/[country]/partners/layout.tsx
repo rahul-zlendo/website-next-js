@@ -11,17 +11,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (country === 'in') {
         return {
             keywords: [
-        'become a partner program',
-        'affiliate program for AI software',
-        'zlendo realty partner program',
-        'real estate software affiliate program',
-        'AI software partnership program',
-        'sales partner program',
-        'solutions partner program',
-        'consultant partner program',
-        'academic partner program',
-        'software reseller program',
-    ],
+                'become a partner program',
+                'affiliate program for AI software',
+                'zlendo realty partner program',
+                'real estate software affiliate program',
+                'AI software partnership program',
+                'sales partner program',
+                'solutions partner program',
+                'consultant partner program',
+                'academic partner program',
+                'software reseller program',
+            ],
             title: {
                 absolute: 'Partnerships with Zlendo Realty Home-Tech Platform',
             },
@@ -34,18 +34,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     return {
-            keywords: [
-        'become a partner program',
-        'affiliate program for AI software',
-        'zlendo realty partner program',
-        'real estate software affiliate program',
-        'AI software partnership program',
-        'sales partner program',
-        'solutions partner program',
-        'consultant partner program',
-        'academic partner program',
-        'software reseller program',
-    ],
+        keywords: [
+            'become a partner program',
+            'affiliate program for AI software',
+            'zlendo realty partner program',
+            'real estate software affiliate program',
+            'AI software partnership program',
+            'sales partner program',
+            'solutions partner program',
+            'consultant partner program',
+            'academic partner program',
+            'software reseller program',
+        ],
         title: 'Partners | Zlendo Realty',
     };
 }
