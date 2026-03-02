@@ -328,6 +328,7 @@ export default function HomeClient() {
             color: 'text-blue-500',
             bg: 'bg-blue-500',
             benefit: 'Zero-Error Planning',
+            cta: 'Create Your Plan',
             action: { type: 'route', value: getPath('/products/floor-planner') }
         },
         {
@@ -339,6 +340,7 @@ export default function HomeClient() {
             color: 'text-indigo-500',
             bg: 'bg-indigo-500',
             benefit: 'Instant Visualization',
+            cta: 'Start Convert to 3D',
             action: { type: 'route', value: getPath('/products/2d-to-3d') }
         },
         {
@@ -350,6 +352,7 @@ export default function HomeClient() {
             color: 'text-zlendo-teal',
             bg: 'bg-zlendo-teal',
             benefit: 'True-to-Life Experience',
+            cta: 'Experience It Live',
             action: { type: 'route', value: getPath('/products/virtual-walkthrough') }
         },
         {
@@ -361,6 +364,7 @@ export default function HomeClient() {
             color: 'text-purple-500',
             bg: 'bg-purple-500',
             benefit: 'Stunning Presentation',
+            cta: 'Start Render Realistic',
             action: { type: 'route', value: getPath('/products/realistic-renders') }
         },
         {
@@ -372,6 +376,7 @@ export default function HomeClient() {
             color: 'text-pink-500',
             bg: 'bg-pink-500',
             benefit: 'Engaging Storytelling',
+            cta: 'Build Video Tour',
             action: { type: 'route', value: getPath('/products/realistic-renders') }
         },
         {
@@ -383,6 +388,7 @@ export default function HomeClient() {
             color: 'text-emerald-600',
             bg: 'bg-emerald-600',
             benefit: 'Budget Certainty',
+            cta: 'Check Project Cost',
             action: { type: 'route', value: getPath('/products/cost-estimator') }
         },
         {
@@ -394,6 +400,7 @@ export default function HomeClient() {
             color: 'text-amber-500',
             bg: 'bg-amber-500',
             benefit: 'Design Freedom',
+            cta: 'Explore Materials',
             action: { type: 'route', value: getPath('/products/material-library') }
         },
         {
@@ -405,6 +412,7 @@ export default function HomeClient() {
             color: 'text-rose-500',
             bg: 'bg-rose-500',
             benefit: 'Instant Creativity',
+            cta: 'Get AI Ideas',
             action: { type: 'route', value: getPath('/products/floor-planner') }
         },
         {
@@ -416,6 +424,7 @@ export default function HomeClient() {
             color: 'text-orange-500',
             bg: 'bg-orange-500',
             benefit: 'Energy Harmony',
+            cta: 'Run Vastu Check',
             action: { type: 'route', value: getPath('/products/vastu') }
         }
     ];
@@ -424,9 +433,9 @@ export default function HomeClient() {
 
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
-            <main className="pt-4 md:pt-6">
+            <main className="pt-8 md:pt-14">
                 {/* Hero */}
-                <section className="container-custom text-center mb-2 md:mb-3 px-4 overflow-visible relative">
+                <section className="container-custom text-center mb-10 md:mb-16 px-4 overflow-visible relative">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-zlendo-teal/10 blur-[120px] rounded-full -z-10" />
 
                     <motion.div
@@ -478,7 +487,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* 9D Intelligence Focus Hub (Horizontal Scroll) */}
-                <section className="py-8 md:py-12 relative bg-white overflow-hidden border-b border-black/[0.03]">
+                <section className="py-16 md:py-24 relative bg-white overflow-hidden border-b border-black/[0.03]">
                     <div className="container-custom px-4 relative z-10">
                         <div className="max-w-4xl mx-auto text-center mb-6 md:mb-8">
                             <motion.div
@@ -527,9 +536,9 @@ export default function HomeClient() {
 
                                     {/* Content Body */}
                                     <div className="p-8 relative">
-                                        <div className={`absolute -top-14 left-8 text-[80px] font-black leading-none opacity-10 select-none ${dim.color}`}>
+                                        {/* <div className={`absolute -top-14 left-8 text-[80px] font-black leading-none opacity-10 select-none ${dim.color}`}>
                                             {dim.id}
-                                        </div>
+                                        </div> */}
 
                                         <div className="relative z-10 mt-2">
                                             <h3 className="text-2xl font-black font-nunito text-zlendo-grey-dark mb-2">{dim.title}</h3>
@@ -540,11 +549,11 @@ export default function HomeClient() {
 
                                             {dim.action?.type === 'route' ? (
                                                 <Link href={dim.action.value} className="w-full py-4 rounded-xl border-2 border-dashed border-black/5 font-bold text-zlendo-grey-medium hover:border-zlendo-teal hover:text-zlendo-teal transition-colors flex items-center justify-center gap-2 group-hover:bg-zlendo-teal/5 text-center">
-                                                    Explore <ArrowRight className="w-4 h-4 ml-2 inline" />
+                                                    {dim.cta} <ArrowRight className="w-4 h-4 ml-2 inline" />
                                                 </Link>
                                             ) : (
                                                 <button onClick={() => console.log('Open modal:', dim.action?.value)} className="w-full py-4 rounded-xl border-2 border-dashed border-black/5 font-bold text-zlendo-grey-medium hover:border-zlendo-teal hover:text-zlendo-teal transition-colors flex items-center justify-center gap-2 group-hover:bg-zlendo-teal/5 text-center">
-                                                    Explore <ArrowRight className="w-4 h-4 ml-2 inline" />
+                                                    {dim.cta} <ArrowRight className="w-4 h-4 ml-2 inline" />
                                                 </button>
                                             )}
                                         </div>
@@ -558,7 +567,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* Design Inspiration Section (New) */}
-                <section className="container-custom mb-8 md:mb-12 px-4 text-center">
+                <section className="container-custom mt-16 mb-16 md:mt-24 md:mb-24 px-4 text-center">
                     <div className="max-w-4xl mx-auto mb-6 md:mb-10">
                         <h2 className="text-3xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-3 md:mb-4 leading-tight">
                             A wide range of home design <br />
@@ -685,7 +694,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* How to design a home online for free */}
-                <section className="container-custom mb-6 md:mb-10 px-4 text-center">
+                <section className="container-custom mb-10 md:mb-16 px-4 text-center">
                     <div className="max-w-4xl mx-auto mb-6">
                         <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-6">
                             How to design a home online for free
@@ -698,7 +707,7 @@ export default function HomeClient() {
 
                 {/* Feature Sections - Redesigned */}
                 {features.map((feature) => (
-                    <section key={feature.section} className="container-custom mb-8 md:mb-12 px-4">
+                    <section key={feature.section} className="container-custom mb-16 md:mb-24 px-4">
                         <motion.div
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -773,7 +782,7 @@ export default function HomeClient() {
                 ))}
 
                 {/* Individual Comparison - Replaces "Wins" with "The Journey" */}
-                <section className="bg-white py-8 md:py-12 relative rounded-[60px] md:rounded-[100px_100px_0_0] overflow-hidden">
+                <section className="bg-white py-16 md:py-28 relative rounded-[60px] md:rounded-[100px_100px_0_0] overflow-hidden">
                     {/* Creative Mesh Gradient Background */}
                     <div className="absolute top-0 inset-x-0 h-full bg-[#FAFFFD]" />
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-zlendo-teal/10 to-blue-200/20 blur-[130px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
@@ -870,7 +879,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* Final High Conversion CTA */}
-                <section className="bg-white pt-4 pb-0 -mb-8 md:mb-0 md:pt-20 md:pb-20 px-4">
+                <section className="bg-white pt-12 pb-8 md:pt-24 md:pb-24 px-4">
                     <div className="container-custom max-w-6xl">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.98 }}
@@ -908,7 +917,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* FAQ Section */}
-                <section className="py-16 md:py-24 bg-white">
+                <section className="py-20 md:py-32 bg-white">
                     <div className="container-custom px-6 max-w-3xl mx-auto">
                         <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-12">Frequently Asked Questions</h2>
                         <div className="space-y-4">

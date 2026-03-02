@@ -49,7 +49,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     // JSON-LD Schemas
     const blogPostingJsonLd = generateBlogPostingJsonLd(post);
     const breadcrumbJsonLd = generateBreadcrumbJsonLd([
-        { name: 'Home', url: '/' },
+        { name: 'Home', url: 'https://zlendorealty.com/' },
         { name: 'Blog', url: '/blog' },
         { name: stripHtml(post.title), url: `/blog/${post.slug}` },
     ]);

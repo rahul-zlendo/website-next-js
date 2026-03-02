@@ -74,10 +74,10 @@ const ContactPage = () => {
                             <span className="text-[11px] font-black uppercase tracking-[0.3em]">Support • Sales • Partnership</span>
                         </motion.div>
                         <h1 className="text-5xl md:text-7xl font-black text-zlendo-grey-dark mb-6 tracking-tight leading-[1.1]">
-                            Let's build something <span className="text-zlendo-teal">extraordinary.</span>
+                            Contact Zlendo <span className="text-zlendo-teal">Realty.</span>
                         </h1>
                         <p className="text-xl text-zlendo-grey-medium font-bold opacity-60 leading-relaxed">
-                            Whether you're building your first home or scaling a real estate empire, we have the tools you need.
+                            Get in touch with our experts for product guidance, support, or partnership opportunities.
                         </p>
                     </div>
                 </div>

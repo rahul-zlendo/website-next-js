@@ -339,7 +339,7 @@ export default function RealisticRendersPage() {
                                         { role: 'Homeowners', desc: 'Secure peace of mind before buying expensive materials.' },
                                         { role: 'Architects', desc: 'Win client approvals faster with undeniable visuals.' },
                                         { role: 'Interior Designers', desc: 'Showcase mood, lighting, and texture accurately.' },
-                                        { role: 'Real Estate Marketing', desc: 'Sell pre-construction properties with 8K visuals.' }
+                                        { role: 'Builders & Developers', desc: 'Sell pre-construction properties with 8K visuals.' }
                                     ].map((user, i) => (
                                         <div key={i} className="flex gap-4">
                                             <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${timeOfDay === 'night' ? 'bg-white/10' : 'bg-white shadow-md'}`}>
