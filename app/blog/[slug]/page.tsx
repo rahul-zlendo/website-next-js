@@ -11,10 +11,16 @@ interface BlogPostPageProps {
     params: Promise<{ slug: string }>;
 }
 
-// Generate static params for all posts
+// Allow any slug to be rendered on-demand (ISR) — do NOT 404 unknown slugs
+export const dynamicParams = true;
+
+// Cache generated pages for 1 hour, then revalidate in background
+export const revalidate = 3600;
+
+// Return empty — all blog posts are generated on-demand via ISR, not at build time.
+// This prevents overwhelming the WordPress API during Vercel builds.
 export async function generateStaticParams() {
-    const slugs = await getAllPostSlugs();
-    return slugs.map((slug) => ({ slug }));
+    return [];
 }
 
 // Generate metadata for the post
