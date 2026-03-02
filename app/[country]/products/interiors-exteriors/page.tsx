@@ -53,7 +53,7 @@ export default function InteriorsExteriorsPage() {
                                     <span className="text-xs font-black uppercase tracking-widest text-zlendo-grey-dark">Region-Aware Design Platform</span>
                                 </motion.div>
 
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-zlendo-grey-dark leading-[1.1]">
+                                <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-zlendo-grey-dark leading-[1.1]">
                                     Indian Homes.<br />
                                     <span className="text-zlendo-teal">Indian Lifestyles.</span><br />
                                     Designed Smarter.

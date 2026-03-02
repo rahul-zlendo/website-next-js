@@ -54,7 +54,7 @@ export default function NewHomeBuildingPage() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-5xl sm:text-7xl font-black font-nunito text-zlendo-grey-dark leading-none tracking-tighter mb-8"
+                            className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-grey-dark leading-none tracking-tighter mb-8"
                         >
                             Build Your Dream from the <br /><span className={`text-${accentColorClass} italic`}>Ground Up.</span>
                         </motion.h1>

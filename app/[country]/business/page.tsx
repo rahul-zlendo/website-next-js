@@ -270,7 +270,7 @@ export default function EnterprisePage() {
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-7xl font-black font-nunito text-zlendo-teal leading-[0.95] mb-6 md:mb-8 max-w-5xl mx-auto tracking-tighter"
+                        className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-teal leading-[0.95] mb-6 md:mb-8 max-w-5xl mx-auto tracking-tighter"
                     >
                         India's Leading <span className="text-zlendo-orange italic">All-in-One Cloud Platform</span> <br />
                         <span className="text-2xl md:text-5xl block mt-2 tracking-normal">for Designers, Architects & Interior Experts</span>
