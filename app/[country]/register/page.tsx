@@ -19,6 +19,9 @@ import {
     ChevronDown
 } from 'lucide-react';
 import Image from 'next/image';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { getAllListOfValues } from '@/lib/store/slices/enterpriseSlice';
+import { createPartnershipForm, createTrainingForm, createResourceForm, resetFormStatus } from '@/lib/store/slices/formSlice';
 
 // Types for the form
 type FormType = 'partnership' | 'training' | 'resource';
@@ -56,16 +59,45 @@ const RegistrationContent = () => {
         }
     }, [searchParams]);
 
-    const industries = [
-        'Architect',
-        'Designer',
-        'Builder',
-        'Developer',
-        'Civil'
-    ];
+    const dispatch = useAppDispatch();
+    const { industries: apiIndustries, userTypes: apiUserTypes, isLoadingIndustries } = useAppSelector((state) => state.enterprise);
+    const { isSubmitting, isSubmitted, error: submitError } = useAppSelector((state) => state.form);
 
-    const trainingUserTypes = ['Student', 'Intern', 'Architect', 'Designer', 'Builder', 'Developer', 'Civil', 'Individual'];
-    const resourceUserTypes = ['Intern', 'Architect', 'Designer', 'Builder', 'Developer', 'Civil', 'Individual'];
+    useEffect(() => {
+        dispatch(getAllListOfValues());
+        return () => {
+            dispatch(resetFormStatus());
+        };
+    }, [dispatch]);
+
+    // Handle success feedback - removed confetti and keep it simple
+    useEffect(() => {
+        if (isSubmitted) {
+            // Success state is handled in the UI below
+            console.log("Form submitted successfully");
+        }
+        if (submitError) {
+            console.error(submitError);
+        }
+    }, [isSubmitted, submitError]);
+
+    // Fallback industries if API fails or is loading
+    const industries = apiIndustries.length > 0
+        ? apiIndustries.map(item => item.description)
+        : [
+            'Architect',
+            'Designer',
+            'Builder',
+            'Developer',
+            'Civil'
+        ];
+
+    const userTypesList = apiUserTypes.length > 0
+        ? apiUserTypes.map(item => item.description)
+        : ['Student', 'Intern', 'Architect', 'Designer', 'Builder', 'Developer', 'Civil', 'Individual'];
+
+    const trainingUserTypes = userTypesList;
+    const resourceUserTypes = userTypesList;
 
     const getPageContent = () => {
         switch (type) {
@@ -113,10 +145,60 @@ const RegistrationContent = () => {
 
     const content = getPageContent();
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form submitted:", { ...formState, type });
-        alert("Registration submitted! (Mock integration)");
+
+        if (type === 'partnership') {
+            // Find the numeric ID (lov_Value) for the selected industry description
+            const selectedIndustry = apiIndustries.find(item => item.description.toLowerCase() === formState.industry.toLowerCase());
+            const industryId = selectedIndustry ? selectedIndustry.lov_Value : 0;
+
+            const payload = {
+                fullName: formState.name,
+                emailId: formState.email,
+                mobileNumber: parseInt(formState.phone, 10),
+                industryType: industryId,
+                comments: formState.comments || "",
+                isActive: true
+            };
+            dispatch(createPartnershipForm(payload));
+        } else if (type === 'training') {
+            // Find the numeric ID (lov_Value) for the selected industry description
+            const selectedIndustry = apiIndustries.find(item => item.description.toLowerCase() === formState.industry.toLowerCase());
+            const industryId = selectedIndustry ? selectedIndustry.lov_Value : 0;
+
+            // Find the numeric ID (lov_Value) for the selected user type description
+            const selectedUserType = apiUserTypes.find(item => item.description.toLowerCase() === formState.userType.toLowerCase());
+            const userTypeId = selectedUserType ? selectedUserType.lov_Value : 0;
+
+            const payload = {
+                fullName: formState.name,
+                emailId: formState.email,
+                mobileNumber: parseInt(formState.phone, 10),
+                industryType: industryId,
+                userType: userTypeId,
+                isActive: true
+            };
+            dispatch(createTrainingForm(payload));
+        } else if (type === 'resource') {
+            // Find the numeric ID (lov_Value) for the selected industry description
+            const selectedIndustry = apiIndustries.find(item => item.description.toLowerCase() === formState.industry.toLowerCase());
+            const industryId = selectedIndustry ? selectedIndustry.lov_Value : 0;
+
+            // Find the numeric ID (lov_Value) for the selected user type description (resource uses same user types)
+            const selectedUserType = apiUserTypes.find(item => item.description.toLowerCase() === formState.userType.toLowerCase());
+            const userTypeId = selectedUserType ? selectedUserType.lov_Value : 0;
+
+            const payload = {
+                fullName: formState.name,
+                emailId: formState.email,
+                mobileNumber: parseInt(formState.phone, 10),
+                industryType: industryId,
+                userType: userTypeId,
+                isActive: true
+            };
+            dispatch(createResourceForm(payload));
+        }
     };
 
     return (
@@ -183,162 +265,181 @@ const RegistrationContent = () => {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="w-full max-w-[540px] bg-white rounded-[40px] shadow-2xl shadow-black/[0.04] p-8 lg:p-12 relative z-10 border border-[#f0f0f0]"
                 >
-                    <div className="text-center mb-10">
-                        <h2 className="text-3xl font-black text-[#1a1a1a] mb-2">{content.formTitle}</h2>
-                        <p className="text-zlendo-grey-medium font-medium">{content.formSubtitle}</p>
-                    </div>
-
-                    <form onSubmit={handleSubmit} className="space-y-5">
-                        <div className="space-y-1.5">
-                            <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Full Name *</label>
-                            <div className="relative">
-                                <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
-                                <input
-                                    type="text"
-                                    required
-                                    className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
-                                    // placeholder="e.g. Rahul Sharma"
-                                    value={formState.name}
-                                    onChange={e => setFormState({ ...formState, name: e.target.value })}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="space-y-1.5">
-                            <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Email Address *</label>
-                            <div className="relative">
-                                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
-                                <input
-                                    type="email"
-                                    required
-                                    className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
-                                    value={formState.email}
-                                    onChange={e => setFormState({ ...formState, email: e.target.value })}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="space-y-1.5">
-                            <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Mobile Number *</label>
-                            <div className="flex gap-2">
-                                <div className="w-24 bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 px-4 font-normal text-sm flex items-center justify-between text-[#1a1a1a]/60">
-                                    +91 <ChevronDown className="w-4 h-4 opacity-50" />
-                                </div>
-                                <div className="relative flex-1">
-                                    <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
-                                    <input
-                                        type="tel"
-                                        required
-                                        pattern="[0-9]{10}"
-                                        maxLength={10}
-                                        className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
-                                        value={formState.phone}
-                                        onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/\D/g, '') })}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {type === 'partnership' ? (
-                            <>
-                                {/* <div className="space-y-1.5">
-                                    <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Website (Optional)</label>
-                                    <div className="relative">
-                                        <Globe className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
-                                        <input
-                                            type="url"
-                                            className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-bold text-[#1a1a1a] placeholder:text-black/20"
-                                            placeholder="https://yourwebsite.com"
-                                            value={formState.website}
-                                            onChange={e => setFormState({ ...formState, website: e.target.value })}
-                                        />
+                    <AnimatePresence mode="wait">
+                        {isSubmitted ? (
+                            <motion.div
+                                key="success"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                            >
+                                <div className="text-center py-10">
+                                    <div className="w-20 h-20 bg-zlendo-teal/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                                        <CheckCircle2 className="w-10 h-10 text-zlendo-teal" />
                                     </div>
-                                </div> */}
-                                <div className="space-y-1.5">
-                                    <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Type of Industry *</label>
-                                    <div className="relative">
-                                        <Building2 className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
-                                        <select
-                                            required
-                                            className={`w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal appearance-none ${!formState.industry ? 'text-[#1a1a1a]/50' : 'text-[#1a1a1a]'}`}
-                                            value={formState.industry}
-                                            onChange={e => setFormState({ ...formState, industry: e.target.value })}
-                                        >
-                                            <option value="" className="text-[#1a1a1a]/50">Select Industry</option>
-                                            {industries.map(ind => <option key={ind} value={ind.toLowerCase()} className="text-[#1a1a1a]">{ind}</option>)}
-                                        </select>
-                                        <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/70 pointer-events-none" />
-                                    </div>
+                                    <h2 className="text-3xl font-black text-[#1a1a1a] mb-4">Request Submitted!</h2>
+                                    <p className="text-zlendo-grey-medium font-medium px-6">
+                                        Thank you for your interest in Zlendo Realty. Our team will review your request and get back to you shortly.
+                                    </p>
                                 </div>
-                                <div className="space-y-1.5">
-                                    <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Comments</label>
-                                    <div className="relative">
-                                        <MessageSquare className="absolute left-5 top-5 w-4 h-4 text-zlendo-grey-medium/40" />
-                                        <textarea
-                                            className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a] h-24 resize-none"
-                                            value={formState.comments}
-                                            onChange={e => setFormState({ ...formState, comments: e.target.value })}
-                                        />
-                                    </div>
-                                </div>
-                            </>
+                            </motion.div>
                         ) : (
-                            <>
-                                <div className="space-y-1.5">
-                                    <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Industries *</label>
-                                    <div className="relative">
-                                        <Building2 className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
-                                        <select
-                                            required
-                                            className={`w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal appearance-none ${!formState.industry ? 'text-[#1a1a1a]/50' : 'text-[#1a1a1a]'}`}
-                                            value={formState.industry}
-                                            onChange={e => setFormState({ ...formState, industry: e.target.value })}
-                                        >
-                                            <option value="" className="text-[#1a1a1a]/50">Select Industry</option>
-                                            {industries.map(ind => <option key={ind} value={ind.toLowerCase()} className="text-[#1a1a1a]">{ind}</option>)}
-                                        </select>
-                                        <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/70 pointer-events-none" />
-                                    </div>
+                            <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                                <div className="text-center mb-10">
+                                    <h2 className="text-3xl font-black text-[#1a1a1a] mb-2">{content.formTitle}</h2>
+                                    <p className="text-zlendo-grey-medium font-medium">{content.formSubtitle}</p>
                                 </div>
-                                <div className="space-y-1.5">
-                                    <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Type of User *</label>
-                                    <div className="relative">
-                                        <Users className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
-                                        <select
-                                            required
-                                            className={`w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal appearance-none ${!formState.userType ? 'text-[#1a1a1a]/50' : 'text-[#1a1a1a]'}`}
-                                            value={formState.userType}
-                                            onChange={e => setFormState({ ...formState, userType: e.target.value })}
-                                        >
-                                            <option value="" className="text-[#1a1a1a]/50">Select User Type</option>
-                                            {(type === 'training' ? trainingUserTypes : resourceUserTypes).map(u => (
-                                                <option key={u} value={u.toLowerCase()} className="text-[#1a1a1a]">{u}</option>
-                                            ))}
-                                        </select>
-                                        <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/70 pointer-events-none" />
+
+                                <form onSubmit={handleSubmit} className="space-y-5">
+                                    {submitError && (
+                                        <div className="bg-red-50 text-red-600 p-4 rounded-2xl text-sm font-bold border border-red-100 flex items-center gap-3">
+                                            <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
+                                            {submitError}
+                                        </div>
+                                    )}
+                                    <div className="space-y-1.5">
+                                        <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Full Name *</label>
+                                        <div className="relative">
+                                            <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                            <input
+                                                type="text"
+                                                required
+                                                className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
+                                                value={formState.name}
+                                                onChange={e => setFormState({ ...formState, name: e.target.value })}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            </>
+
+                                    <div className="space-y-1.5">
+                                        <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Email Address *</label>
+                                        <div className="relative">
+                                            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                            <input
+                                                type="email"
+                                                required
+                                                className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
+                                                value={formState.email}
+                                                onChange={e => setFormState({ ...formState, email: e.target.value })}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-1.5">
+                                        <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Mobile Number *</label>
+                                        <div className="flex gap-2">
+                                            <div className="w-24 bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 px-4 font-normal text-sm flex items-center justify-between text-[#1a1a1a]/60">
+                                                +91 <ChevronDown className="w-4 h-4 opacity-50" />
+                                            </div>
+                                            <div className="relative flex-1">
+                                                <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                                <input
+                                                    type="tel"
+                                                    required
+                                                    pattern="[0-9]{10}"
+                                                    maxLength={10}
+                                                    className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
+                                                    value={formState.phone}
+                                                    onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/\D/g, '') })}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {type === 'partnership' ? (
+                                        <>
+                                            <div className="space-y-1.5">
+                                                <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Type of Industry *</label>
+                                                <div className="relative">
+                                                    <Building2 className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                                    <select
+                                                        required
+                                                        className={`w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal appearance-none ${!formState.industry ? 'text-[#1a1a1a]/50' : 'text-[#1a1a1a]'}`}
+                                                        value={formState.industry}
+                                                        onChange={e => setFormState({ ...formState, industry: e.target.value })}
+                                                    >
+                                                        <option value="" className="text-[#1a1a1a]/50">
+                                                            {isLoadingIndustries ? 'Loading...' : 'Select Industry'}
+                                                        </option>
+                                                        {industries.map(ind => <option key={ind} value={ind.toLowerCase()} className="text-[#1a1a1a]">{ind}</option>)}
+                                                    </select>
+                                                    <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/70 pointer-events-none" />
+                                                </div>
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Comments</label>
+                                                <div className="relative">
+                                                    <MessageSquare className="absolute left-5 top-5 w-4 h-4 text-zlendo-grey-medium/40" />
+                                                    <textarea
+                                                        className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a] h-24 resize-none"
+                                                        value={formState.comments}
+                                                        onChange={e => setFormState({ ...formState, comments: e.target.value })}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className="space-y-1.5">
+                                                <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Industries *</label>
+                                                <div className="relative">
+                                                    <Building2 className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                                    <select
+                                                        required
+                                                        className={`w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal appearance-none ${!formState.industry ? 'text-[#1a1a1a]/50' : 'text-[#1a1a1a]'}`}
+                                                        value={formState.industry}
+                                                        onChange={e => setFormState({ ...formState, industry: e.target.value })}
+                                                    >
+                                                        <option value="" className="text-[#1a1a1a]/50">
+                                                            {isLoadingIndustries ? 'Loading...' : 'Select Industry'}
+                                                        </option>
+                                                        {industries.map(ind => <option key={ind} value={ind.toLowerCase()} className="text-[#1a1a1a]">{ind}</option>)}
+                                                    </select>
+                                                    <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/70 pointer-events-none" />
+                                                </div>
+                                            </div>
+                                            <div className="space-y-1.5">
+                                                <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Type of User *</label>
+                                                <div className="relative">
+                                                    <Users className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                                    <select
+                                                        required
+                                                        className={`w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal appearance-none ${!formState.userType ? 'text-[#1a1a1a]/50' : 'text-[#1a1a1a]'}`}
+                                                        value={formState.userType}
+                                                        onChange={e => setFormState({ ...formState, userType: e.target.value })}
+                                                    >
+                                                        <option value="" className="text-[#1a1a1a]/50">
+                                                            {isLoadingIndustries ? 'Loading...' : 'Select User Type'}
+                                                        </option>
+                                                        {(type === 'training' ? trainingUserTypes : resourceUserTypes).map(u => (
+                                                            <option key={u} value={u.toLowerCase()} className="text-[#1a1a1a]">{u}</option>
+                                                        ))}
+                                                    </select>
+                                                    <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/70 pointer-events-none" />
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+
+                                    <input type="hidden" name="type" value={type} />
+
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className={`w-full bg-zlendo-teal text-white rounded-[20px] py-5 font-black text-xl shadow-xl shadow-zlendo-teal/20 active:scale-95 hover:bg-zlendo-teal/90 transition-all flex items-center justify-center gap-3 mt-4 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                    >
+                                        {isSubmitting ? (
+                                            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                        ) : (
+                                            <>
+                                                Submit
+                                                <ArrowRight className="w-6 h-6" />
+                                            </>
+                                        )}
+                                    </button>
+                                </form>
+                            </motion.div>
                         )}
-
-                        <input type="hidden" name="type" value={type} />
-
-                        <button
-                            type="submit"
-                            className="w-full bg-zlendo-teal text-white rounded-[20px] py-5 font-black text-xl shadow-xl shadow-zlendo-teal/20 active:scale-95 hover:bg-zlendo-teal/90 transition-all flex items-center justify-center gap-3 mt-4"
-                        >
-                            {type === 'resource' ? 'Download for Free' : 'Submit'}
-                            <ArrowRight className="w-6 h-6" />
-                        </button>
-
-                        {/* <div className="mt-8">
-                            <div className="text-center pt-2">
-                                <p className="text-sm font-bold text-zlendo-grey-medium">
-                                    Already have an account? <a href="/signin" className="text-zlendo-teal">Sign In</a>
-                                </p>
-                            </div>
-                        </div> */}
-                    </form>
+                    </AnimatePresence>
                 </motion.div>
             </div>
         </div>
