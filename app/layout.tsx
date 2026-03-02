@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     'architectural design software',
     'building plan design software',
     'professional civil design software',
-    'real estate design software',
+    'property design software',
     'home design software',
     'construction planning software',
   ],
