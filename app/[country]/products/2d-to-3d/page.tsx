@@ -77,8 +77,26 @@ export default function TwoDToThreeDPage() {
         }
     ];
 
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products 2D to 3D Converter - Frequently Asked Questions",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
     return (
         <div className="bg-white min-h-screen font-nunito pt-4">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             {/* 1. HERO SECTION */}
             <section className="bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
                 <div className="container-custom px-6 py-12 lg:py-20">
