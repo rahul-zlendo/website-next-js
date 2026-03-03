@@ -117,7 +117,7 @@ export default function TwoDToThreeDPage() {
                                 <span className="text-xs font-black uppercase tracking-widest text-zlendo-grey-dark">Instant 3D Visualization</span>
                             </motion.div>
 
-                            <h1 className="text-4xl lg:text-6xl font-black font-nunito text-zlendo-grey-dark mb-6 leading-[1.1]">
+                            <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-grey-dark mb-6 leading-[1.1]">
                                 {product.subtitle}
                             </h1>
                             <p className="text-xl text-zlendo-grey-medium font-medium mb-10 leading-relaxed max-w-lg">

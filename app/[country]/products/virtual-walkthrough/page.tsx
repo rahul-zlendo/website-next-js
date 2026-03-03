@@ -101,7 +101,7 @@ export default function VirtualWalkthroughPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.05] font-nunito"
+                                className="text-[28px] md:text-[42px] lg:text-[56px] font-black leading-[1.05] font-nunito"
                             >
                                 People don't buy plans.<br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-400">

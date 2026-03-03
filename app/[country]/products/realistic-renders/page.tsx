@@ -105,7 +105,7 @@ export default function RealisticRendersPage() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="text-4xl md:text-7xl font-black leading-[1.05] tracking-tight mb-8"
+                                className="text-[28px] md:text-[42px] lg:text-[56px] font-black leading-[1.05] tracking-tight mb-8"
                             >
                                 See Your Home<br />
                                 <span className={`text-transparent bg-clip-text bg-gradient-to-r ${timeOfDay === 'night' ? 'from-purple-400 to-blue-400' : 'from-zlendo-teal to-blue-600'}`}>

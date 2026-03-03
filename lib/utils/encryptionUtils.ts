@@ -18,21 +18,42 @@ function xorEncryptDecrypt(input: string, key: string): string {
 }
 
 /**
- * Encrypt a project ID
+ * Encrypt a project ID to a fixed length of 10 characters
  */
 export function encryptProjectId(projectId: string | number): string {
     const id = String(projectId);
-    const encrypted = xorEncryptDecrypt(id, ENCRYPTION_KEY);
-    return btoa(encrypted); // Base64 encode for URL safety
+
+    // To ensure a consistent length of 10 characters after Base64 encoding (without padding),
+    // we pad the input string to exactly 7 characters.
+    // 7 bytes -> 10 Base64 characters (plus 2 padding characters which we strip)
+    const paddedId = id.padStart(7, '0');
+
+    const encrypted = xorEncryptDecrypt(paddedId, ENCRYPTION_KEY);
+
+    // Base64 encode and remove padding to get exactly 10 characters
+    return btoa(encrypted).replace(/=/g, '');
 }
 
 /**
- * Decrypt a project ID
+ * Decrypt a project ID from a 10-character encrypted string
  */
 export function decryptProjectId(encryptedId: string): string {
+    if (!encryptedId) return '';
+
     try {
-        const decoded = atob(encryptedId); // Base64 decode
-        return xorEncryptDecrypt(decoded, ENCRYPTION_KEY);
+        // Add back Base64 padding if it was stripped
+        // For a 10-character string, we need 2 '=' to make it 12 (multiple of 4)
+        let base64 = encryptedId;
+        while (base64.length % 4 !== 0) {
+            base64 += '=';
+        }
+
+        const decoded = atob(base64);
+        const decrypted = xorEncryptDecrypt(decoded, ENCRYPTION_KEY);
+
+        // Remove the '0' padding we added during encryption
+        // If the ID was originally '0', we return '0'
+        return decrypted.replace(/^0+/, '') || '0';
     } catch (error) {
         console.error('Failed to decrypt project ID:', error);
         return '';
@@ -44,11 +65,20 @@ export function decryptProjectId(encryptedId: string): string {
  * Handles both encrypted and plain project IDs
  */
 export function extractProjectIdFromParam(param: string): string {
-    // If it's a number, return as is
-    if (/^\d+$/.test(param)) {
+    if (!param) return '';
+
+    // If it's a numeric string that's not 10 characters, it's likely a plain ID
+    if (/^\d+$/.test(param) && param.length !== 10) {
         return param;
     }
-    
+
     // Otherwise, try to decrypt it
-    return decryptProjectId(param);
+    const decrypted = decryptProjectId(param);
+
+    // If decryption failed or returned empty and the param was numeric, return param as is
+    if (!decrypted && /^\d+$/.test(param)) {
+        return param;
+    }
+
+    return decrypted;
 }

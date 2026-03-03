@@ -68,7 +68,7 @@ export default function FloorPlannerPage() {
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                            className="text-5xl md:text-7xl font-black font-nunito text-zlendo-grey-dark mb-8 leading-[1.05] tracking-tight"
+                            className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-grey-dark mb-8 leading-[1.05] tracking-tight"
                         >
                             Design. Visualize.<br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-600">Experience.</span>

@@ -92,7 +92,7 @@ export default function CostEstimatorClient() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.1 }}
-                            className="text-3xl md:text-5xl lg:text-6xl font-black text-zlendo-grey-dark leading-[1.1]"
+                            className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-zlendo-grey-dark leading-[1.1]"
                         >
                             You don't need to be a <br /> civil engineer to understand <br />
                             <span className="text-zlendo-teal relative inline-block">
