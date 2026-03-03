@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getHcPostsByTag, getHcTagBySlug, getAllHcTagSlugs } from '@/lib/wordpress/helpcenter';
-import { generateTagMetadata, generateBreadcrumbJsonLd } from '@/lib/wordpress';
+import { generateHcTagMetadata, generateBreadcrumbJsonLd } from '@/lib/wordpress/hc-seo';
 import { HcCard } from '@/components/helpcenter';
 import { Pagination, BlogHero, BlogBreadcrumb } from '@/components/blog';
 
@@ -30,7 +30,7 @@ export async function generateMetadata({ params, searchParams }: TagPageProps): 
     }
 
     // Reuse generateTagMetadata but for help-center
-    const metadata = generateTagMetadata(tag.name, tag.slug, page);
+    const metadata = generateHcTagMetadata(tag.name, tag.slug, page);
     return {
         ...metadata,
         alternates: {

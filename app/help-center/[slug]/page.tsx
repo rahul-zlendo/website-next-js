@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, User, Tag, ArrowLeft, Share2, Facebook, Twitter, Linkedin, HelpCircle } from 'lucide-react';
 import { getHcPostBySlug, getAllHcPostSlugs, getHcPosts } from '@/lib/wordpress/helpcenter';
-import { generateHcPostMetadata, generateHcPostJsonLd, generateBreadcrumbJsonLd, absoluteUrl, stripHtml } from '@/lib/wordpress';
+import { generateHcPostMetadata, generateHcPostJsonLd, generateBreadcrumbJsonLd, absoluteUrl, stripHtml } from '@/lib/wordpress/hc-seo';
 import { BlogPostBody, BlogBreadcrumb } from '@/components/blog';
 import { HcCard } from '@/components/helpcenter';
 

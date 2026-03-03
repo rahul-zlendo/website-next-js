@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next';
-import { getAllPostSlugs, getAllCategorySlugs, getAllTagSlugs, getTotalPostPages } from '@/lib/wordpress/api';
 import { getAllHcPostSlugs, getAllHcCategorySlugs, getAllHcTagSlugs, getTotalHcPostPages } from '@/lib/wordpress/helpcenter';
 
 // Generate sitemap at runtime (not build-time) to avoid overwhelming WP API during deploy
@@ -82,63 +81,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'daily',
     priority: 1.0,
   });
-
-  // Add blog index page (page 1)
-  urls.push({
-    url: `${BASE_URL}/blog`,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 0.9,
-  });
-
-  // Fetch blog posts from WordPress
-  try {
-    // Add all paginated blog listing pages so crawlers discover every page
-    const { totalPages: blogTotalPages } = await getTotalPostPages(9);
-    for (let page = 2; page <= blogTotalPages; page++) {
-      urls.push({
-        url: `${BASE_URL}/blog?page=${page}`,
-        lastModified: new Date(),
-        changeFrequency: 'daily',
-        priority: 0.8,
-      });
-    }
-
-    // Add individual blog post URLs
-    const postSlugs = await getAllPostSlugs();
-    for (const slug of postSlugs) {
-      urls.push({
-        url: `${BASE_URL}/blog/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.7,
-      });
-    }
-
-    // Fetch categories
-    const categorySlugs = await getAllCategorySlugs();
-    for (const slug of categorySlugs) {
-      urls.push({
-        url: `${BASE_URL}/blog/category/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.6,
-      });
-    }
-
-    // Fetch tags
-    const tagSlugs = await getAllTagSlugs();
-    for (const slug of tagSlugs) {
-      urls.push({
-        url: `${BASE_URL}/blog/tag/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.5,
-      });
-    }
-  } catch (error) {
-    console.error('[Sitemap] Failed to fetch blog content:', error);
-  }
 
   // Fetch help center articles from WordPress
   try {

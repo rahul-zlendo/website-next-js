@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { CountryProvider, type CountryCode } from '@/lib/context/CountryContext';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -10,7 +10,7 @@ import CookieConsent from '@/components/common/CookieConsent';
 import LaunchOfferPopup from '@/components/common/LaunchOfferPopup';
 import ScrollToTopOnNavigate from '@/components/common/ScrollToTopOnNavigate';
 
-const SUPPORTED_COUNTRIES = ['in', 'us', 'uk', 'eu', 'au'];
+const SUPPORTED_COUNTRIES = ['in'];
 
 export async function generateStaticParams() {
   return SUPPORTED_COUNTRIES.map((country) => ({
@@ -27,9 +27,9 @@ export default async function CountryLayout({
 }) {
   const { country } = await params;
 
-  // Validate country
-  if (!SUPPORTED_COUNTRIES.includes(country)) {
-    notFound();
+  // Force all visitors to /in
+  if (country !== 'in') {
+    redirect('/in');
   }
 
   return (

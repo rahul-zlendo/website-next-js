@@ -12,7 +12,9 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://zlendorealty.com/sitemap.xml',
+    sitemap: [
+      'https://zlendorealty.com/sitemap.xml',           // Main site (dynamic, auto-updated)
+      'https://zlendorealty.com/blog/sitemap.xml',      // WordPress blog sitemap
+    ],
   };
 }
-
