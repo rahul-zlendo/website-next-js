@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../common/Logo';
-import { SIGNUP_URL, LOGIN_URL } from '@/lib/constants/urls';
+import { SIGNUP_URL, LOGIN_URL, DASHBOARD_URL } from '@/lib/constants/urls';
 import { designLibrary, REACT_APP_BLOB_KEY, REACT_APP_BLOB_URL } from '@/lib/config/env';
 import { useCountry } from '@/lib/context/CountryContext';
 import { useAppSelector, useAppDispatch } from '@/lib/store/hooks';
@@ -145,9 +145,9 @@ const Header = ({ transparent = false }: HeaderProps) => {
     const processProfileUrl = (profileUrl: string | null | undefined): string | null => {
         const rawUrl = getValidUrl(profileUrl);
         if (!rawUrl) return null;
-        
+
         const normalizedUrl = normalizeGoogleImageUrl(rawUrl);
-        
+
         // If it's already a full HTTP/HTTPS URL (like blob storage URL)
         if (normalizedUrl.startsWith('http://') || normalizedUrl.startsWith('https://')) {
             // Check if it's a blob storage URL and needs SAS token
@@ -161,7 +161,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
             // For other HTTP URLs (like Google images), return as is
             return normalizedUrl;
         }
-        
+
         // If it's a relative path, construct full URL with SAS token
         const fullUrl = `${BLOB_BASE_URL}${normalizedUrl}`;
         return `${fullUrl}${fullUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
@@ -444,7 +444,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                                 <p className="text-[11px] text-zlendo-grey-medium opacity-60 truncate">{user.emailId}</p>
                                             </div>
                                             <a
-                                                href={LOGIN_URL}
+                                                href={DASHBOARD_URL}
                                                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zlendo-teal/5 text-[14px] font-semibold text-zlendo-grey-dark transition-all"
                                             >
                                                 <Layout className="w-4 h-4 text-zlendo-teal" /> Dashboard
@@ -698,7 +698,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                             </div>
                                         </div>
                                         <a
-                                            href={LOGIN_URL}
+                                            href={DASHBOARD_URL}
                                             className="block text-center bg-zlendo-teal text-white w-full text-base py-3 rounded-xl shadow-xl shadow-zlendo-teal/20"
                                         >
                                             Go to Dashboard
