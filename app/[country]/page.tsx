@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: 'AI-Powered Home & Office Design Software | Zlendo Realty',
         description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. The all-in-one design software for Architects, Builders, Interior designers, and Vastu Consultants. Start your free trial today!',
-        url: 'https://zlendorealty.com/in',
+        url: 'https://zlendorealty.com/',
         siteName: 'Zlendo Realty',
         images: [
           {
@@ -59,7 +59,7 @@ const faqSchema = {
       'name': 'Who can use Zlendo Realty?',
       'acceptedAnswer': {
         '@type': 'Answer',
-        'text': 'Zlendo Realty can be used by homeowners, architects, students, builders, and real estate professionals. It supports both beginners and experienced users involved in home planning and design.',
+        'text': 'Zlendo Realty can be used by homeowners, architects, students, builders, and property professionals. It supports both beginners and experienced users involved in home planning and design.',
       },
     },
     {
@@ -91,7 +91,7 @@ const faqSchema = {
       'name': 'Can it be used for professional work?',
       'acceptedAnswer': {
         '@type': 'Answer',
-        'text': 'Yes. The platform is suitable for professional projects, client presentations, and real estate planning, and is widely used for architectural design services and project visualization.',
+        'text': 'Yes. The platform is suitable for professional projects, client presentations, and property planning, and is widely used for architectural design services and project visualization.',
       },
     },
     {

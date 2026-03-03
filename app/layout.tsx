@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Outfit, Nunito } from 'next/font/google';
+import Script from 'next/script';
+
 import './globals.css';
 import { Providers } from './providers';
 import { generateOrganizationSchema } from '@/lib/utils/structuredData';
@@ -33,7 +35,7 @@ export const metadata: Metadata = {
     'architectural design software',
     'building plan design software',
     'professional civil design software',
-    'real estate design software',
+    'property design software',
     'home design software',
     'construction planning software',
   ],
@@ -42,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://zlendorealty.com/in',
+    url: 'https://zlendorealty.com/',
     title: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
     description:
       'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
@@ -101,6 +103,27 @@ export default function RootLayout({
         <link rel="image_src" href="https://zlendorealty.com/og-image.png" />
       </head>
       <body>
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-PBBNR2XS"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+        <Script
+          id="gtm-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-PBBNR2XS');
+            `,
+          }}
+        />
         <Providers>{children}</Providers>
       </body>
     </html>

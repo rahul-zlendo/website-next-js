@@ -20,8 +20,26 @@ export default function FloorPlannerPage() {
     const opacityY = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products Floor Planer - Frequently Asked Questions",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
     return (
         <div className="bg-white min-h-screen font-nunito pt-4 selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             {/* SEOHead removed - metadata handled by layout.tsx */}
             {/* 1. IMMERSIVE HERO SECTION */}
             <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#fafafa]">
@@ -290,7 +308,7 @@ export default function FloorPlannerPage() {
                                 Ready-made templates for <span className="text-orange-500">Indian Families.</span>
                             </h2>
                             <p className="text-xl text-zlendo-grey-medium font-medium mb-10 leading-relaxed">
-                                Don't start from scratch. Choose from thousands of pre-designed layouts optimized for 2BHK, 3BHK, and Villa configurations standard in Indian real estate.
+                                Don’t start from scratch. Choose from thousands of pre-designed layouts optimized for 2BHK, 3BHK, and villa configurations tailored to modern homes.
                             </p>
                             <div className="flex flex-wrap gap-4 mb-10">
                                 {['3BHK North Facing', '2BHK Compact', 'Luxury Villa', 'Pooja Room Added'].map(tag => (

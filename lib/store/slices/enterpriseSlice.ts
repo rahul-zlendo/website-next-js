@@ -9,12 +9,15 @@ const initialState = {
   isSubmitting: false,
   isSubmitted: false,
   isLoadingIndustries: false,
+  isLoadingUserTypes: false,
   industries: [] as ListOfValue[],
+  userTypes: [] as ListOfValue[],
   error: null as string | null,
   industriesError: null as string | null,
+  userTypesError: null as string | null,
 };
 
-export const createOrUpdateBusinessInfo = createAsyncThunk(
+export const createOrUpdateBusinessInfo = createAsyncThunk<any, any, { rejectValue: string }>(
   "enterprise/createOrUpdateBusinessInfo",
   async (data: CreateOrUpdateBusinessInfoPayload, { rejectWithValue }) => {
     try {
@@ -27,7 +30,7 @@ export const createOrUpdateBusinessInfo = createAsyncThunk(
   }
 );
 
-export const getAllListOfValues = createAsyncThunk(
+export const getAllListOfValues = createAsyncThunk<any, void, { rejectValue: string }>(
   "enterprise/getAllListOfValues",
   async (_, { rejectWithValue }) => {
     try {
@@ -71,20 +74,55 @@ const enterpriseSlice = createSlice({
       // Get All List Of Values
       .addCase(getAllListOfValues.pending, (state) => {
         state.isLoadingIndustries = true;
+        state.isLoadingUserTypes = true;
         state.industriesError = null;
+        state.userTypesError = null;
       })
-      .addCase(getAllListOfValues.fulfilled, (state, action) => {
+      .addCase(getAllListOfValues.fulfilled, (state, action: any) => {
         state.isLoadingIndustries = false;
-        // Filter for BusinessInfo and active items
-        const filtered = action.payload.filter(
-          (item: ListOfValue) => item.lov_Name === "BusinessInfo" && item.isActive
-        );
-        state.industries = filtered;
+        state.isLoadingUserTypes = false;
+
+        const payload = action.payload;
+        const dataArray = Array.isArray(payload)
+          ? payload
+          : (payload?.data || payload?.list || payload?.item || []);
+
+        if (!Array.isArray(dataArray)) {
+          state.error = "Invalid data format from API";
+          return;
+        }
+
+        // Filter for BusinessInfo (Industries) - only active items
+        state.industries = dataArray.filter(
+          (item: any) => {
+            const rawName = item.lov_Name || item.lov_name || item.lovName || item.LOV_Name || "";
+            const name = String(rawName).toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+            const active = item.isActive ?? item.IsActive ?? item.is_active ?? true;
+            return name === "businessinfo" && active === true;
+          }
+        ) as ListOfValue[];
+
+        // Filter for CustomerType (User Types) - only active items
+        state.userTypes = dataArray.filter(
+          (item: any) => {
+            const rawName = item.lov_Name || item.lov_name || item.lovName || item.LOV_Name || "";
+            const name = String(rawName).toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+            const active = item.isActive ?? item.IsActive ?? item.is_active ?? true;
+            return name === "customertype" && active === true;
+          }
+        ) as ListOfValue[];
+
+        console.log("Filtered Industries (BusinessInfo):", state.industries);
+        console.log("Filtered UserTypes (CustomerType):", state.userTypes);
+
         state.industriesError = null;
+        state.userTypesError = null;
       })
       .addCase(getAllListOfValues.rejected, (state, action) => {
         state.isLoadingIndustries = false;
+        state.isLoadingUserTypes = false;
         state.industriesError = action.payload as string;
+        state.userTypesError = action.payload as string;
       });
   },
 });
