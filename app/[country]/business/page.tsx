@@ -471,7 +471,7 @@ export default function EnterprisePage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="text-4xl md:text-7xl font-black font-nunito text-gray-900 leading-[1.2] tracking-tighter"
+                                className="text-3xl md:text-[48px] font-black font-nunito text-gray-900 leading-[1.2] tracking-tighter"
                             >
                                 Everything you need to succeed, <br className="hidden md:block" /> all in one platform
                             </motion.h2>
@@ -636,7 +636,7 @@ export default function EnterprisePage() {
                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-zlendo-teal/10 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
                     <div className="container-custom relative z-10">
                         <div className="text-center mb-10">
-                            <h2 className="text-4xl sm:text-6xl font-black font-nunito text-white leading-tight">
+                            <h2 className="text-3xl md:text-[48px] font-black font-nunito text-white leading-tight">
                                 Built for <span className="text-zlendo-orange">Every Professional.</span>
                             </h2>
                             <p className="text-xl text-white/60 font-medium mt-4 max-w-2xl mx-auto">
@@ -689,7 +689,7 @@ export default function EnterprisePage() {
                                 <div className="flex justify-center gap-2 items-center text-white/80 font-bold uppercase tracking-widest text-sm mb-4 bg-white/5 w-fit mx-auto px-4 py-1.5 rounded-full border border-white/5">
                                     <CheckCircle2 className="w-5 h-5" /> Trusted by 500+ Indian Enterprises
                                 </div>
-                                <h2 className="text-4xl sm:text-6xl font-black font-nunito leading-none mb-4 drop-shadow-sm">
+                                <h2 className="text-3xl md:text-[48px] font-black font-nunito leading-none mb-4 drop-shadow-sm">
                                     See Zlendo Realty in <span className="text-white italic">Action.</span>
                                 </h2>
                                 <p className="text-xl text-white/50 font-medium max-w-2xl mx-auto leading-relaxed">

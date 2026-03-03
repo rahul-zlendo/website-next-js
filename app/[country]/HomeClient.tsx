@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { getAllTemplates } from '@/lib/store/slices/templateSlice';
 import { fetchBlobUrl, BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
 import { addTemplateViewService } from '@/lib/services/templateService';
+import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 
 // Feature images - using high-quality Unsplash placeholders
 const Conv2dTo3dImg = 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200';
@@ -67,7 +68,8 @@ export default function HomeClient() {
 
     const handleTemplateClick = (templateId: number) => {
         // Navigate immediately for instant feedback
-        router.push(getPath(`/template-detail?templateId=${templateId}`));
+        const encryptedId = encryptProjectId(templateId);
+        router.push(getPath(`/template-detail?templateId=${encryptedId}`));
 
         // Fire analytics in background (non-blocking)
         addTemplateViewService(templateId, "Template", "View").catch((error) => {
