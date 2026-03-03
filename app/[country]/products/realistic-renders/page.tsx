@@ -56,8 +56,26 @@ export default function RealisticRendersPage() {
         }
     };
 
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products Realistic Renders - Frequently Asked Questions",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
     return (
         <div className={`font-nunito transition-colors duration-700 ${timeOfDay === 'night' ? 'bg-slate-950 text-white' : 'bg-white text-zlendo-grey-dark'}`}>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             <main>
                 {/* 1. HERO SECTION */}
                 <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
