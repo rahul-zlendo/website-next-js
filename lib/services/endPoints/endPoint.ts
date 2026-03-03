@@ -37,6 +37,6 @@ export const ENDPOINTS = {
     PARTNERSHIP_CREATE: "/Form/CreatePartnershipForm",
     TRAINING_CREATE: "/Form/CreateTrainingForm",
     RESOURCE_DOWNLOAD_CREATE: "/Form/CreateResourceDownloadingForm",
-    VASTU_CREATE: "/Form/CreateVastuForm",
+    VASTU_CREATE: "/Form/CreateCampaignVastuForm",
   },
 };

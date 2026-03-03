@@ -59,7 +59,7 @@ const RegistrationContent = () => {
     useEffect(() => {
         const t = searchParams.get('type') as FormType;
         if (t === 'vastu') {
-            router.push(`/${params.country}/vastu`);
+            router.push(`/${params.country}/vastu-campaign`);
             return;
         }
         if (t && ['partnership', 'training', 'resource'].includes(t)) {
