@@ -29,8 +29,26 @@ export default function InteriorsExteriorsPage() {
     const [selectedState, setSelectedState] = useState('Tamil Nadu');
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products Interiors & Exteriors - Frequently Asked Questions",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             <main className="pt-8 md:pt-12">
 
                 {/* 1. HERO SECTION */}
