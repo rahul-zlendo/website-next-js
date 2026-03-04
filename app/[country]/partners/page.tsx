@@ -64,7 +64,7 @@ export default function PartnersPage() {
                         <motion.h1
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="text-4xl md:text-6xl lg:text-7xl font-black font-nunito text-zlendo-grey-dark leading-[0.9] mb-8 tracking-tighter"
+                            className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-grey-dark leading-[0.9] mb-8 tracking-tighter"
                         >
                             Share. Earn.<br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-600 italic">Grow with Zlendo Realty.</span>

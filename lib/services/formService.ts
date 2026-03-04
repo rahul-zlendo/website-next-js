@@ -31,11 +31,8 @@ export interface ResourceFormPayload {
 }
 
 export interface VastuFormPayload {
-    fullName: string;
     emailId: string;
     mobileNumber: number;
-    userType: number;
-    comments: string;
     floorPlan?: File;
     isActive: boolean;
 }
@@ -90,14 +87,12 @@ export const createVastuFormService = async (
 ): Promise<unknown> => {
     try {
         const formData = new FormData();
-        formData.append('fullName', data.fullName);
-        formData.append('emailId', data.emailId);
-        formData.append('mobileNumber', data.mobileNumber.toString());
-        formData.append('userType', data.userType.toString());
-        formData.append('comments', data.comments);
+        formData.append('EmailId', data.emailId);
+        formData.append('Campaign', "Vastu Campaign");
+        formData.append('PhoneNumber', data.mobileNumber.toString());
         formData.append('isActive', data.isActive.toString());
         if (data.floorPlan) {
-            formData.append('floorPlan', data.floorPlan);
+            formData.append('Image', data.floorPlan);
         }
 
         const response = await axiosInstance.post(

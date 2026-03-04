@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     User,
@@ -42,6 +42,8 @@ interface FormData {
 
 const RegistrationContent = () => {
     const searchParams = useSearchParams();
+    const router = useRouter();
+    const params = useParams();
     const [type, setType] = useState<FormType>('partnership');
     const [formState, setFormState] = useState<FormData>({
         name: '',
@@ -56,7 +58,11 @@ const RegistrationContent = () => {
 
     useEffect(() => {
         const t = searchParams.get('type') as FormType;
-        if (t && ['partnership', 'training', 'resource', 'vastu'].includes(t)) {
+        if (t === 'vastu') {
+            router.push(`/${params.country}/vastu-campaign`);
+            return;
+        }
+        if (t && ['partnership', 'training', 'resource'].includes(t)) {
             setType(t);
         } else if (searchParams.get('referral')) {
             // Logic for referral could go here, defaulting to partnership for now
@@ -134,13 +140,13 @@ const RegistrationContent = () => {
                 };
             case 'vastu':
                 return {
-                    title: "Align Your Home with Vastu Shastra.",
-                    subtitle: "Get expert Vastu analysis and layout corrections for your dream home.",
+                    title: "AI-Powered Vastu Compliance for Modern Homes and Office",
+                    subtitle: "Align your home with ancient Vastu wisdom using intelligent automation.",
                     features: [
-                        { icon: Ruler, title: "Energy Mapping", desc: "Visual heatmap of Vastu zones in your floor plan." },
-                        { icon: Sparkles, title: "Remedy Suggestions", desc: "Non-destructive fixes for Vastu defects." },
-                        { icon: Target, title: "Directional Check", desc: "Precise compass alignment using satellite data." },
-                        { icon: CheckCircle2, title: "Vastu Scorecard", desc: "Get a compliance score for every room." }
+                        { icon: Ruler, title: "Upload Your Floor Plan", desc: "Easily upload your 2D layout to begin AI-based Vastu analysis." },
+                        { icon: Sparkles, title: "AI Analyzes Energy & Directions", desc: "Smart automation evaluates room placement, zones, and alignment." },
+                        { icon: Target, title: "Get Detailed Scorecard & Remedies", desc: "Receive room-wise compliance score and practical corrections." },
+                        { icon: CheckCircle2, title: "Precision Vastu Analysis", desc: "Instant results powered by accurate AI evaluation." }
                     ],
                     formTitle: "Get Vastu Analysis",
                     formSubtitle: "Upload your floor plan to get started."
@@ -249,7 +255,7 @@ const RegistrationContent = () => {
                 >
 
                     <div className="max-w-xl">
-                        <h1 className="text-5xl lg:text-7xl font-black text-[#1a1a1a] leading-[1.05] mb-8 tracking-tight">
+                        <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-[#1a1a1a] leading-[1.05] mb-8 tracking-tight">
                             {content.title.split('.').map((p, i) => (
                                 <span key={i} className={i === 1 ? 'text-zlendo-teal' : ''}>
                                     {p}{i === 0 && '.'}

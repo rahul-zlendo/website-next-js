@@ -29,8 +29,26 @@ export default function InteriorsExteriorsPage() {
     const [selectedState, setSelectedState] = useState('Tamil Nadu');
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products Interiors & Exteriors - Frequently Asked Questions",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             <main className="pt-8 md:pt-12">
 
                 {/* 1. HERO SECTION */}
@@ -53,7 +71,7 @@ export default function InteriorsExteriorsPage() {
                                     <span className="text-xs font-black uppercase tracking-widest text-zlendo-grey-dark">Region-Aware Design Platform</span>
                                 </motion.div>
 
-                                <h1 className="text-3xl md:text-5xl lg:text-6xl font-black text-zlendo-grey-dark leading-[1.1]">
+                                <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-zlendo-grey-dark leading-[1.1]">
                                     Indian Homes.<br />
                                     <span className="text-zlendo-teal">Indian Lifestyles.</span><br />
                                     Designed Smarter.

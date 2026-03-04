@@ -42,7 +42,7 @@ const VRImg = 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto
 export default function VirtualWalkthroughPage() {
     const params = useParams();
     const country = params?.country as string || 'in';
-    
+
     // Build paths based on country
     const paths = {
         enterpriseDemo: `/${country}/business#demo-form`,
@@ -50,10 +50,28 @@ export default function VirtualWalkthroughPage() {
         plans: `/${country}/plans`,
         contact: `/${country}/contact`,
     };
-    
+
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products Virtual Walkthrough - Frequently Asked Questions",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
     return (
         <div className="bg-slate-950 text-white font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             <main>
                 {/* 1. HERO SECTION - CINEMATIC & ASPIRATIONAL */}
                 <section className="relative min-h-screen flex items-center pt-8 overflow-hidden">
@@ -83,7 +101,7 @@ export default function VirtualWalkthroughPage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.05] font-nunito"
+                                className="text-[28px] md:text-[42px] lg:text-[56px] font-black leading-[1.05] font-nunito"
                             >
                                 People don't buy plans.<br />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-400">

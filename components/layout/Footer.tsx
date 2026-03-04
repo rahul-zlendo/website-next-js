@@ -15,7 +15,7 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
     const pathname = usePathname();
 
     // Automatically hide CTA on registration page
-    const shouldHideCTA = hideCTA || pathname?.includes('/register');
+    const shouldHideCTA = hideCTA || pathname?.includes('/register') || (pathname?.includes('/vastu') && !pathname?.includes('/products/'));
 
     const productLinks = [
         { label: 'AI Floor Planner', path: getPath('/products/floor-planner') },
