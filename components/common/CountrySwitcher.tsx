@@ -7,10 +7,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const countries: { code: CountryCode; name: string; flag: string }[] = [
     { code: 'in', name: 'India', flag: '🇮🇳' },
-    { code: 'us', name: 'United States', flag: '🇺🇸' },
-    { code: 'uk', name: 'United Kingdom', flag: '🇬🇧' },
-    { code: 'eu', name: 'Europe', flag: '🇪🇺' },
-    { code: 'au', name: 'Australia', flag: '🇦🇺' },
 ];
 
 const CountrySwitcher = () => {

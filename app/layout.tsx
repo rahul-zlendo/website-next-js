@@ -82,6 +82,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  verification: {
+    google: 'G9MCKLpx7ABNxlkbXgWMQNuI8wOMktCrT89TVv78C-c',
+  },
   manifest: '/site.webmanifest',
 };
 

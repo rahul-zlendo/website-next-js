@@ -23,7 +23,7 @@ export function generateOrganizationSchema() {
       '@type': 'ContactPoint',
       email: 'support@zlendorealty.com',
       contactType: 'Customer Support',
-      areaServed: ['IN', 'US', 'UK', 'AU'],
+      areaServed: ['IN'],
     },
     sameAs: [
       'https://www.linkedin.com/showcase/zlendo-realty',
