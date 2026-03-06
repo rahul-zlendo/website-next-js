@@ -223,6 +223,37 @@ export const deleteCommentService = async (templateCommentId: number, userId: nu
   }
 };
 
+export interface ReportTemplatePayload {
+  templateId: number;
+  userId: number;
+  reason: string;
+}
+
+export const reportTemplateService = async (payload: ReportTemplatePayload): Promise<unknown> => {
+  try {
+    const response = await axiosInstance.post(ENDPOINTS_TEMPLATE.REPORT, payload);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to report template:", error);
+    throw error;
+  }
+};
+
+export const getTemplateReportStatusService = async (
+  userId: number,
+  templateId: number
+): Promise<boolean> => {
+  try {
+    const response = await axiosInstance.get(ENDPOINTS_TEMPLATE.REPORT_STATUS, {
+      params: { UserId: userId, TemplateId: templateId },
+    });
+    return response.data as boolean;
+  } catch (error) {
+    console.error("Failed to get template report status:", error);
+    throw error;
+  }
+};
+
 const templateService = {
   getAllTemplatesService,
   likeTemplateService,
@@ -233,6 +264,8 @@ const templateService = {
   favoriteTemplateService,
   addTemplateViewService,
   getUserTemplateInteractionsService,
+  reportTemplateService,
+  getTemplateReportStatusService,
 };
 
 export default templateService;

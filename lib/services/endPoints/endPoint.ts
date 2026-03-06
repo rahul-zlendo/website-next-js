@@ -22,6 +22,8 @@ export const ENDPOINTS = {
     FAVORITE: "/TemplateMaster/AddorRemoveFavoriteTemplates",
     ADD_VIEW: "/TemplateMaster/AddTemplateViews",
     GET_USER_INTERACTIONS: "/TemplateMaster/GetFavoritesandLikedTemplateByUser",
+    REPORT: "/TemplateMaster/ReportTemplate",
+    REPORT_STATUS: "/TemplateMaster/ReportByUserStatus",
   },
   FOLLOW: {
     FOLLOW_OR_UNFOLLOW: "/Follow/FolloworUnFollowUser",

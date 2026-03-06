@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     Copy, Check, ArrowRight, Maximize2,
     X, Share2, Heart, Eye,
-    Bookmark, ThumbsUp, ThumbsDown, Trash2, UserPlus, LayoutTemplate
+    Bookmark, ThumbsUp, ThumbsDown, Trash2, UserPlus, LayoutTemplate, Flag, ChevronDown
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { PROJECT_DETAILS_URL } from '@/lib/config/env';
 import { getAllTemplates } from '@/lib/store/slices/templateSlice';
 import { fetchBlobUrl, BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
-import { likeTemplateService, favoriteTemplateService, addTemplateViewService, getUserTemplateInteractionsService, getTemplateCommentsService, addCommentService, likeCommentService, deleteCommentService, type TemplateComment, type TemplateCommentsResponse } from '@/lib/services/templateService';
+import { likeTemplateService, favoriteTemplateService, addTemplateViewService, getUserTemplateInteractionsService, getTemplateCommentsService, addCommentService, likeCommentService, deleteCommentService, reportTemplateService, getTemplateReportStatusService, type TemplateComment, type TemplateCommentsResponse } from '@/lib/services/templateService';
 import { followOrUnfollowUserService, getFollowByUserIdService } from '@/lib/services/followService';
 import { LOGIN_URL } from '@/lib/constants/urls';
 import { encryptProjectId, extractProjectIdFromParam } from '@/lib/utils/encryptionUtils';
@@ -295,6 +295,13 @@ function TemplateDetailContent() {
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [commentToDelete, setCommentToDelete] = useState<number | null>(null);
     const [hasImageError, setHasImageError] = useState(false);
+    const [showReportModal, setShowReportModal] = useState(false);
+    const [reportReason, setReportReason] = useState<string>('');
+    const [reportDescription, setReportDescription] = useState<string>('');
+    const [isSubmittingReport, setIsSubmittingReport] = useState(false);
+    const [reportMessage, setReportMessage] = useState<string>('');
+    const [showReportError, setShowReportError] = useState(false);
+    const [hasReportedTemplate, setHasReportedTemplate] = useState(false);
 
     // Get template ID from URL searchParams
     const templateId = useMemo(() => {
@@ -344,6 +351,30 @@ function TemplateDetailContent() {
         };
 
         checkUserInteractions();
+    }, [isAuthenticated, user?.userId, templateId]);
+
+    // Check if user has already reported this template
+    useEffect(() => {
+        const checkReportStatus = async () => {
+            if (!templateId) {
+                setHasReportedTemplate(false);
+                return;
+            }
+
+            const userIdForReport = isAuthenticated && user?.userId ? user.userId : 0;
+
+            try {
+                const status = await getTemplateReportStatusService(userIdForReport, Number(templateId));
+                // API returns true/false: if true, disable the report button
+                setHasReportedTemplate(!!status);
+            } catch (error) {
+                console.error('Error fetching template report status:', error);
+                // On error, allow reporting (button enabled)
+                setHasReportedTemplate(false);
+            }
+        };
+
+        checkReportStatus();
     }, [isAuthenticated, user?.userId, templateId]);
 
     // Fetch comments when templateId changes
@@ -805,6 +836,78 @@ function TemplateDetailContent() {
         setCommentToDelete(null);
     };
 
+    const handleReport = () => {
+        if (!isAuthenticated) {
+            router.push(LOGIN_URL);
+            return;
+        }
+        if (hasReportedTemplate) {
+            return;
+        }
+        setShowReportModal(true);
+    };
+
+    const handleSubmitReport = async () => {
+        if (!isAuthenticated || !user || !templateId) {
+            return;
+        }
+
+        // Check validation
+        if (!reportDescription.trim() || reportDescription.trim().length < 10) {
+            setShowReportError(true);
+            return;
+        }
+
+        setShowReportError(false);
+        setIsSubmittingReport(true);
+        setReportMessage('');
+        try {
+            const response = await reportTemplateService({
+                templateId: Number(templateId),
+                userId: user.userId,
+                reason: reportDescription.trim()
+            }) as any;
+            
+            // Show success message from API response
+            if (response?.message) {
+                setReportMessage(response.message);
+                setHasReportedTemplate(true);
+                // Reset form after showing message
+                setTimeout(() => {
+                    setReportReason('');
+                    setReportDescription('');
+                    setShowReportModal(false);
+                    setReportMessage('');
+                    setShowReportError(false);
+                }, 2000);
+            } else {
+                // Fallback message if API doesn't return message
+                setReportMessage('Report submitted successfully.');
+                setHasReportedTemplate(true);
+                setTimeout(() => {
+                    setReportReason('');
+                    setReportDescription('');
+                    setShowReportModal(false);
+                    setReportMessage('');
+                    setShowReportError(false);
+                }, 2000);
+            }
+        } catch (error) {
+            console.error('Error submitting report:', error);
+            setReportMessage('Failed to submit report. Please try again.');
+        } finally {
+            setIsSubmittingReport(false);
+        }
+    };
+
+    const handleCloseReportModal = () => {
+        setShowReportModal(false);
+        setReportReason('');
+        setReportDescription('');
+        setReportMessage('');
+        setShowReportError(false);
+    };
+
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, '0');
@@ -1171,6 +1274,8 @@ function TemplateDetailContent() {
                                     </button>
                                 </div>
 
+                               
+
                                 <div className="grid grid-cols-2 gap-4">
                                     <button
                                         onClick={handleLike}
@@ -1195,6 +1300,18 @@ function TemplateDetailContent() {
                                         {isFavorite ? 'Favorited' : 'Favorite'}
                                     </button>
                                 </div>
+                                <button
+                                    onClick={handleReport}
+                                    disabled={hasReportedTemplate}
+                                    title={hasReportedTemplate ? 'You have already reported this template.' : 'Report this template'}
+                                    className={`relative flex items-center justify-center gap-2 py-3 border rounded-xl font-bold w-full transition-colors ${
+                                        hasReportedTemplate
+                                            ? 'bg-gray-100 border-gray-200 text-zlendo-grey-medium cursor-not-allowed opacity-70'
+                                            : 'bg-gray-50 border-black/5 text-zlendo-grey-dark hover:bg-gray-100'
+                                    }`}
+                                >
+                                    <Flag className="w-4 h-4" /> {hasReportedTemplate ? 'Reported' : 'Report'}
+                                </button>
                             </div>
                         </motion.div>
                     </div>
@@ -1689,6 +1806,127 @@ function TemplateDetailContent() {
                                         className="flex-1 px-6 py-3 bg-red-500 text-white rounded-xl font-black text-sm hover:bg-red-600 transition-colors"
                                     >
                                         Confirm
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Report Modal */}
+            <AnimatePresence>
+                {showReportModal && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[10000] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+                        onClick={handleCloseReportModal}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, y: 20, opacity: 0 }}
+                            animate={{ scale: 1, y: 0, opacity: 1 }}
+                            exit={{ scale: 0.9, y: 20, opacity: 0 }}
+                            className="bg-white rounded-[32px] overflow-hidden w-full max-w-[500px] shadow-2xl relative"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <div className="p-8">
+                                <div className="flex justify-between items-center mb-6">
+                                    <h2 className="text-[22px] font-black text-zlendo-grey-dark">Report</h2>
+                                    <button
+                                        onClick={handleCloseReportModal}
+                                        className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                    >
+                                        <X className="w-6 h-6 text-zlendo-grey-medium opacity-40 hover:opacity-100" />
+                                    </button>
+                                </div>
+
+                                <p className="text-sm text-zlendo-grey-medium font-medium mb-6">
+                                    Please view our{' '}
+                                    <Link href="/community-guidelines" className="text-zlendo-teal hover:underline font-bold">
+                                        Community Guidelines
+                                    </Link>
+                                    {' '}for more about dos and don'ts on Coohom.
+                                </p>
+
+                                {/* <div className="mb-6">
+                                    <label className="block text-sm font-bold text-zlendo-grey-dark mb-2">
+                                        * What do you want to report?
+                                    </label>
+                                    <div className="relative">
+                                        <select
+                                            value={reportReason}
+                                            onChange={(e) => setReportReason(e.target.value)}
+                                            className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark appearance-none bg-white pr-10"
+                                        >
+                                            <option value="">Choose an option</option>
+                                            <option value="Inappropriate Content">Inappropriate Content</option>
+                                            <option value="Spam">Spam</option>
+                                            <option value="Copyright Violation">Copyright Violation</option>
+                                            <option value="Misleading Information">Misleading Information</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-zlendo-grey-medium pointer-events-none" />
+                                    </div>
+                                </div> */}
+
+                                <div className="mb-6">
+                                    <label className="block text-sm font-bold text-zlendo-grey-dark mb-2">
+                                        Reason for reporting
+                                    </label>
+                                    <textarea
+                                        value={reportDescription}
+                                        onChange={(e) => {
+                                            setReportDescription(e.target.value);
+                                            // Clear error when user starts typing
+                                            if (showReportError) {
+                                                setShowReportError(false);
+                                            }
+                                        }}
+                                        placeholder="Tell us more about what is wrong with this post..."
+                                        className={`w-full min-h-[120px] p-4 border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark ${
+                                            showReportError && reportDescription.trim().length < 10
+                                                ? 'border-red-300 focus:border-red-500'
+                                                : 'border-gray-200'
+                                        }`}
+                                        maxLength={500}
+                                    />
+                                    <div className="flex items-center justify-between mt-2">
+                                        {showReportError && reportDescription.trim().length < 10 && (
+                                            <span className="text-xs font-bold text-red-500">
+                                                Report must be at least 10 characters
+                                            </span>
+                                        )}
+                                        <span className={`text-xs font-bold ml-auto ${
+                                            showReportError && reportDescription.trim().length < 10
+                                                ? 'text-red-500'
+                                                : 'text-zlendo-grey-medium opacity-60'
+                                        }`}>
+                                            {reportDescription.length}/500
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {reportMessage && (
+                                    <div className={`mb-6 p-4 rounded-xl ${reportMessage.includes('successfully') ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+                                        <p className="text-sm font-medium">{reportMessage}</p>
+                                    </div>
+                                )}
+
+                                <div className="flex items-center justify-end gap-4">
+                                    <button
+                                        onClick={handleCloseReportModal}
+                                        className="px-6 py-3 bg-white border border-gray-300 text-zlendo-grey-dark rounded-xl font-black text-sm hover:bg-gray-50 transition-colors"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={handleSubmitReport}
+                                        disabled={!reportDescription.trim() || isSubmittingReport}
+                                        className="px-6 py-3 bg-zlendo-teal text-white rounded-xl font-black text-sm hover:bg-zlendo-teal/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {isSubmittingReport ? 'Submitting...' : 'Submit'}
                                     </button>
                                 </div>
                             </div>
