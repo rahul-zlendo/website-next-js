@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../common/Logo';
-import { SIGNUP_URL, LOGIN_URL } from '@/lib/constants/urls';
+import { SIGNUP_URL, LOGIN_URL, DASHBOARD_URL } from '@/lib/constants/urls';
 import { designLibrary, REACT_APP_BLOB_KEY, REACT_APP_BLOB_URL } from '@/lib/config/env';
 import { useCountry } from '@/lib/context/CountryContext';
 import { useAppSelector, useAppDispatch } from '@/lib/store/hooks';
@@ -87,15 +87,15 @@ const Header = ({ transparent = false }: HeaderProps) => {
     const resourceLinks = [
         { label: 'Design Library', desc: 'Inspiration gallery', icon: Library, path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', desc: 'Built-in layouts for homes, rooms, and interiors.', icon: LayoutTemplate, path: getPath('/viewalltemplates') },
-        { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: 'https://www.youtube.com/playlist?list=PLetnELr5c_JVwUtuFKM9wGjGKrKPrGmsa', openInNewTab: true },
+        { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: getPath('/tutorials') },
         { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: 'https://helpcenter.zlendorealty.com', openInNewTab: true },
         { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: '/blog', openInNewTab: false },
-        ...(isBusinessMode ? [{ label: 'Grow with Zlendo', desc: 'Affiliate & Partners', icon: Share2, path: getPath('/partners') }] : []),
+        ...(isBusinessMode ? [{ label: 'Partnership', desc: 'Affiliate & Partners', icon: Share2, path: getPath('/partners') }] : []),
     ];
 
     const businessUseCases = [
         { label: 'Commercial Spaces', desc: 'Office & Retail design', icon: Layout, path: getPath('/business/commercial-spaces') },
-        { label: 'Real Estate Brokers', desc: 'Accelerate your sales', icon: Briefcase, path: getPath('/business/real-estate-brokers') },
+        { label: 'Builder & Promoter', desc: 'Accelerate your sales', icon: Briefcase, path: getPath('/business/builder-and-promoter') },
         { label: 'NRI & Remote Planning', desc: 'Manage from anywhere', icon: Briefcase, path: getPath('/business/nri-remote-planning') },
         { label: 'Developer Solutions', desc: 'Scalable engine', icon: Cpu, path: getPath('/business/developer-solutions') },
     ];
@@ -110,7 +110,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
     const businessMenuLinks = [
         { label: 'Business Free Trial', desc: 'Try enterprise features', icon: CheckCircle, path: getPath('/business') + '#demo-form' },
         { label: 'Affiliate & Partner Program', desc: 'Collaborate and grow together', icon: Share2, path: getPath('/partners') },
-        { label: 'Zlendo API Suite', desc: 'Grow your Business with Us', icon: Share2, path: getPath('/products/api-suite') },
+        { label: 'Zlendo Realty API Suite', desc: 'Grow your Business with Us', icon: Share2, path: getPath('/products/api-suite') },
 
     ];
 
@@ -145,9 +145,9 @@ const Header = ({ transparent = false }: HeaderProps) => {
     const processProfileUrl = (profileUrl: string | null | undefined): string | null => {
         const rawUrl = getValidUrl(profileUrl);
         if (!rawUrl) return null;
-        
+
         const normalizedUrl = normalizeGoogleImageUrl(rawUrl);
-        
+
         // If it's already a full HTTP/HTTPS URL (like blob storage URL)
         if (normalizedUrl.startsWith('http://') || normalizedUrl.startsWith('https://')) {
             // Check if it's a blob storage URL and needs SAS token
@@ -161,7 +161,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
             // For other HTTP URLs (like Google images), return as is
             return normalizedUrl;
         }
-        
+
         // If it's a relative path, construct full URL with SAS token
         const fullUrl = `${BLOB_BASE_URL}${normalizedUrl}`;
         return `${fullUrl}${fullUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
@@ -341,7 +341,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                     onClick={() => setActiveDropdown(activeDropdown === 'business' ? null : 'business')}
                                     className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'business' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
                                 >
-                                    Grow with Zlendo <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
+                                    Partnership <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
                                 </button>
                                 <AnimatePresence>
                                     {activeDropdown === 'business' && (
@@ -444,7 +444,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                                 <p className="text-[11px] text-zlendo-grey-medium opacity-60 truncate">{user.emailId}</p>
                                             </div>
                                             <a
-                                                href={LOGIN_URL}
+                                                href={DASHBOARD_URL}
                                                 className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-zlendo-teal/5 text-[14px] font-semibold text-zlendo-grey-dark transition-all"
                                             >
                                                 <Layout className="w-4 h-4 text-zlendo-teal" /> Dashboard
@@ -634,7 +634,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                                 onClick={() => setActiveDropdown(activeDropdown === 'business' ? null : 'business')}
                                                 className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
                                             >
-                                                Grow with Zlendo
+                                                Partnership
                                                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
                                             </button>
                                             <AnimatePresence>
@@ -698,7 +698,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                             </div>
                                         </div>
                                         <a
-                                            href={LOGIN_URL}
+                                            href={DASHBOARD_URL}
                                             className="block text-center bg-zlendo-teal text-white w-full text-base py-3 rounded-xl shadow-xl shadow-zlendo-teal/20"
                                         >
                                             Go to Dashboard

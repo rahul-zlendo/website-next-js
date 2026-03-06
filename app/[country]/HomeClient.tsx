@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { getAllTemplates } from '@/lib/store/slices/templateSlice';
 import { fetchBlobUrl, BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
 import { addTemplateViewService } from '@/lib/services/templateService';
+import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 
 // Feature images - using high-quality Unsplash placeholders
 const Conv2dTo3dImg = 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200';
@@ -24,6 +25,7 @@ const features = [
         title: '2D to 3D Converter',
         description: 'Zlendo Realty converts simple floor plans into structured, walkable 3D environments without manual modeling.',
         howItWorks: ['Upload Plan', 'Interpret Layout', 'Generate 3D Model', 'Ready for Exploration'],
+        cta: 'Experience the Converter',
         img: Conv2dTo3dImg,
         reverse: false
     },
@@ -33,6 +35,7 @@ const features = [
         title: 'AI Room Inspiration',
         description: 'Inspiration is generated based on actual room context, not generic templates.',
         howItWorks: ['Understand Room Context', 'Generate Relevant Inspirations', 'Preview in Context', 'Apply Selectively'],
+        cta: 'Start Designing with AI',
         img: AiRoomInspirationImg,
         reverse: true
     },
@@ -42,6 +45,7 @@ const features = [
         title: '3D Export Toolkit',
         description: 'Design outputs are prepared for communication and downstream use.',
         howItWorks: ['Select Design Version', 'Choose Export Format', 'Export or Share', 'Reuse Across Workflows'],
+        cta: 'Try It Now',
         img: ExportToolkitImg,
         reverse: false
     }
@@ -64,7 +68,8 @@ export default function HomeClient() {
 
     const handleTemplateClick = (templateId: number) => {
         // Navigate immediately for instant feedback
-        router.push(getPath(`/template-detail?templateId=${templateId}`));
+        const encryptedId = encryptProjectId(templateId);
+        router.push(getPath(`/template-detail?templateId=${encryptedId}`));
 
         // Fire analytics in background (non-blocking)
         addTemplateViewService(templateId, "Template", "View").catch((error) => {
@@ -90,15 +95,25 @@ export default function HomeClient() {
         dispatch(getAllTemplates());
     }, [dispatch]);
 
-    // Helper function to construct full blob URL with SAS token
+    // Helper function to construct full blob URL with SAS token.
+    // Uses BLOB_BASE_URL and BLOB_SAS_TOKEN imported from blobUtils — these have
+    // hardcoded fallback values that work in dev even when env vars are not set.
     const constructFullBlobUrl = (relativeUrl: string): string => {
         if (!relativeUrl) return '';
-        if (relativeUrl.startsWith('http') || relativeUrl.startsWith('blob:')) return relativeUrl;
-
-        const BLOB_BASE = 'https://zrealtystoragedev.blob.core.windows.net/';
-        const SAS = process.env.NEXT_PUBLIC_BLOB_SAS_TOKEN || '';
-        const fullUrl = `${BLOB_BASE}${relativeUrl}`;
-        return SAS && !fullUrl.includes('?') ? `${fullUrl}?${SAS}` : fullUrl;
+        // Already a full URL — append SAS if it's a blob storage URL without one
+        if (relativeUrl.startsWith('http') || relativeUrl.startsWith('blob:')) {
+            if (relativeUrl.includes('blob.core.windows.net') && !relativeUrl.includes('sig=') && BLOB_SAS_TOKEN) {
+                return relativeUrl.includes('?')
+                    ? `${relativeUrl}&${BLOB_SAS_TOKEN}`
+                    : `${relativeUrl}?${BLOB_SAS_TOKEN}`;
+            }
+            return relativeUrl;
+        }
+        // Relative path — build full URL with SAS token
+        const fullUrl = `${BLOB_BASE_URL}${relativeUrl}`;
+        return BLOB_SAS_TOKEN
+            ? (fullUrl.includes('?') ? `${fullUrl}&${BLOB_SAS_TOKEN}` : `${fullUrl}?${BLOB_SAS_TOKEN}`)
+            : fullUrl;
     };
 
     // Load multiple thumbnails for a template
@@ -325,6 +340,7 @@ export default function HomeClient() {
             color: 'text-blue-500',
             bg: 'bg-blue-500',
             benefit: 'Zero-Error Planning',
+            cta: 'Create Your Plan',
             action: { type: 'route', value: getPath('/products/floor-planner') }
         },
         {
@@ -336,6 +352,7 @@ export default function HomeClient() {
             color: 'text-indigo-500',
             bg: 'bg-indigo-500',
             benefit: 'Instant Visualization',
+            cta: 'Start Convert to 3D',
             action: { type: 'route', value: getPath('/products/2d-to-3d') }
         },
         {
@@ -347,6 +364,7 @@ export default function HomeClient() {
             color: 'text-zlendo-teal',
             bg: 'bg-zlendo-teal',
             benefit: 'True-to-Life Experience',
+            cta: 'Experience It Live',
             action: { type: 'route', value: getPath('/products/virtual-walkthrough') }
         },
         {
@@ -358,6 +376,7 @@ export default function HomeClient() {
             color: 'text-purple-500',
             bg: 'bg-purple-500',
             benefit: 'Stunning Presentation',
+            cta: 'Start Render Realistic',
             action: { type: 'route', value: getPath('/products/realistic-renders') }
         },
         {
@@ -369,6 +388,7 @@ export default function HomeClient() {
             color: 'text-pink-500',
             bg: 'bg-pink-500',
             benefit: 'Engaging Storytelling',
+            cta: 'Build Video Tour',
             action: { type: 'route', value: getPath('/products/realistic-renders') }
         },
         {
@@ -380,6 +400,7 @@ export default function HomeClient() {
             color: 'text-emerald-600',
             bg: 'bg-emerald-600',
             benefit: 'Budget Certainty',
+            cta: 'Check Project Cost',
             action: { type: 'route', value: getPath('/products/cost-estimator') }
         },
         {
@@ -391,6 +412,7 @@ export default function HomeClient() {
             color: 'text-amber-500',
             bg: 'bg-amber-500',
             benefit: 'Design Freedom',
+            cta: 'Explore Materials',
             action: { type: 'route', value: getPath('/products/material-library') }
         },
         {
@@ -402,6 +424,7 @@ export default function HomeClient() {
             color: 'text-rose-500',
             bg: 'bg-rose-500',
             benefit: 'Instant Creativity',
+            cta: 'Get AI Ideas',
             action: { type: 'route', value: getPath('/products/floor-planner') }
         },
         {
@@ -413,6 +436,7 @@ export default function HomeClient() {
             color: 'text-orange-500',
             bg: 'bg-orange-500',
             benefit: 'Energy Harmony',
+            cta: 'Run Vastu Check',
             action: { type: 'route', value: getPath('/products/vastu') }
         }
     ];
@@ -421,9 +445,9 @@ export default function HomeClient() {
 
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
-            <main className="pt-4 md:pt-6">
+            <main className="pt-8 md:pt-14">
                 {/* Hero */}
-                <section className="container-custom text-center mb-2 md:mb-3 px-4 overflow-visible relative">
+                <section className="container-custom text-center mb-10 md:mb-16 px-4 overflow-visible relative">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-zlendo-teal/10 blur-[120px] rounded-full -z-10" />
 
                     <motion.div
@@ -475,7 +499,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* 9D Intelligence Focus Hub (Horizontal Scroll) */}
-                <section className="py-8 md:py-12 relative bg-white overflow-hidden border-b border-black/[0.03]">
+                <section className="py-16 md:py-24 relative bg-white overflow-hidden border-b border-black/[0.03]">
                     <div className="container-custom px-4 relative z-10">
                         <div className="max-w-4xl mx-auto text-center mb-6 md:mb-8">
                             <motion.div
@@ -524,9 +548,9 @@ export default function HomeClient() {
 
                                     {/* Content Body */}
                                     <div className="p-8 relative">
-                                        <div className={`absolute -top-14 left-8 text-[80px] font-black leading-none opacity-10 select-none ${dim.color}`}>
+                                        {/* <div className={`absolute -top-14 left-8 text-[80px] font-black leading-none opacity-10 select-none ${dim.color}`}>
                                             {dim.id}
-                                        </div>
+                                        </div> */}
 
                                         <div className="relative z-10 mt-2">
                                             <h3 className="text-2xl font-black font-nunito text-zlendo-grey-dark mb-2">{dim.title}</h3>
@@ -537,11 +561,11 @@ export default function HomeClient() {
 
                                             {dim.action?.type === 'route' ? (
                                                 <Link href={dim.action.value} className="w-full py-4 rounded-xl border-2 border-dashed border-black/5 font-bold text-zlendo-grey-medium hover:border-zlendo-teal hover:text-zlendo-teal transition-colors flex items-center justify-center gap-2 group-hover:bg-zlendo-teal/5 text-center">
-                                                    Explore <ArrowRight className="w-4 h-4 ml-2 inline" />
+                                                    {dim.cta} <ArrowRight className="w-4 h-4 ml-2 inline" />
                                                 </Link>
                                             ) : (
                                                 <button onClick={() => console.log('Open modal:', dim.action?.value)} className="w-full py-4 rounded-xl border-2 border-dashed border-black/5 font-bold text-zlendo-grey-medium hover:border-zlendo-teal hover:text-zlendo-teal transition-colors flex items-center justify-center gap-2 group-hover:bg-zlendo-teal/5 text-center">
-                                                    Explore <ArrowRight className="w-4 h-4 ml-2 inline" />
+                                                    {dim.cta} <ArrowRight className="w-4 h-4 ml-2 inline" />
                                                 </button>
                                             )}
                                         </div>
@@ -555,7 +579,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* Design Inspiration Section (New) */}
-                <section className="container-custom mb-8 md:mb-12 px-4 text-center">
+                <section className="container-custom mt-16 mb-16 md:mt-24 md:mb-24 px-4 text-center">
                     <div className="max-w-4xl mx-auto mb-6 md:mb-10">
                         <h2 className="text-3xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-3 md:mb-4 leading-tight">
                             A wide range of home design <br />
@@ -570,7 +594,7 @@ export default function HomeClient() {
                         </Link>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-12">
+                    <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-6">
                         <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 flex-1">
                             {Object.keys(designInspirationData).map((item) => (
                                 <button
@@ -600,11 +624,11 @@ export default function HomeClient() {
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -20 }}
                                         transition={{ duration: 0.4 }}
-                                        className="flex items-center justify-center h-[400px] md:h-[650px]"
+                                        className="flex items-center justify-center py-8"
                                     >
                                         <div className="text-center">
-                                            <p className="text-xl md:text-2xl font-bold text-zlendo-grey-medium opacity-60">
-                                                There is no data available
+                                            <p className="text-base font-bold text-zlendo-grey-medium opacity-50">
+                                                No designs available for this category.
                                             </p>
                                         </div>
                                     </motion.div>
@@ -618,13 +642,12 @@ export default function HomeClient() {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -20 }}
                                     transition={{ duration: 0.4 }}
-                                    className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:gap-6 h-auto md:h-[650px] text-left"
-                                >
+                                    className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-[300px_300px] gap-4 md:gap-6 h-auto text-left">
                                     {currentData.map((item, index: number) => (
                                         <div
                                             key={index}
                                             onClick={() => item.templateId && handleTemplateClick(item.templateId)}
-                                            className={`\${item.colSpan} \${item.rowSpan} relative group rounded-[24px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-lg block h-[260px] md:h-auto`}
+                                            className={`${item.colSpan} ${item.rowSpan} relative group rounded-[24px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-lg block h-[260px] md:h-full`}
                                         >
                                             {item.img ? (
                                                 <img
@@ -633,7 +656,7 @@ export default function HomeClient() {
                                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                     onError={(e) => {
                                                         const target = e.currentTarget;
-                                                        console.error(`[HomePage] Failed to load design inspiration image:`, {
+                                                        console.warn(`[HomePage] Failed to load design inspiration image:`, {
                                                             img: item.img,
                                                             originalUrl: item.originalUrl,
                                                             templateId: item.templateId
@@ -643,17 +666,21 @@ export default function HomeClient() {
                                                         if (item.img?.startsWith('blob:') && item.originalUrl) {
                                                             const directUrl = item.originalUrl.startsWith('http')
                                                                 ? item.originalUrl
-                                                                : `\${BLOB_BASE_URL}\${item.originalUrl}\${item.originalUrl.includes('?') ? '&' : '?'}\${BLOB_SAS_TOKEN}`;
+                                                                : `${BLOB_BASE_URL}${item.originalUrl}${item.originalUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
 
                                                             if (target.src !== directUrl) {
                                                                 console.log(`[HomePage] Falling back to direct URL for design inspiration image`);
+                                                                // Detach handler BEFORE changing src to prevent re-entry loop
+                                                                target.onerror = null;
                                                                 target.src = directUrl;
                                                                 return;
                                                             }
                                                         }
 
-                                                        // If already direct URL or no originalUrl, use fallback placeholder
-                                                        target.src = "https://via.placeholder.com/600x400?text=Template";
+                                                        // Final fallback: inline SVG — no external request
+                                                        // (via.placeholder.com is unreachable and causes ERR_NAME_NOT_RESOLVED)
+                                                        target.onerror = null;
+                                                        target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' fill='%2394a3b8'%3EImage unavailable%3C/text%3E%3C/svg%3E`;
                                                     }}
                                                 />
                                             ) : (
@@ -680,8 +707,8 @@ export default function HomeClient() {
                 </section>
 
                 {/* How to design a home online for free */}
-                <section className="container-custom mb-6 md:mb-10 px-4 text-center">
-                    <div className="max-w-4xl mx-auto mb-16">
+                <section className="container-custom mb-10 md:mb-16 px-4 text-center">
+                    <div className="max-w-4xl mx-auto mb-6">
                         <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-6">
                             How to design a home online for free
                         </h2>
@@ -693,7 +720,7 @@ export default function HomeClient() {
 
                 {/* Feature Sections - Redesigned */}
                 {features.map((feature) => (
-                    <section key={feature.section} className="container-custom mb-8 md:mb-12 px-4">
+                    <section key={feature.section} className="container-custom mb-16 md:mb-24 px-4">
                         <motion.div
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -728,7 +755,7 @@ export default function HomeClient() {
                                     href={SIGNUP_URL}
                                     className="inline-flex items-center gap-2 text-zlendo-teal font-black text-lg group hover:gap-4 transition-all"
                                 >
-                                    Learn more <ArrowRight className="w-5 h-5" />
+                                    {feature.cta} <ArrowRight className="w-5 h-5" />
                                 </a>
                             </div>
 
@@ -768,7 +795,7 @@ export default function HomeClient() {
                 ))}
 
                 {/* Individual Comparison - Replaces "Wins" with "The Journey" */}
-                <section className="bg-white py-8 md:py-12 relative rounded-[60px] md:rounded-[100px_100px_0_0] overflow-hidden">
+                <section className="bg-white py-16 md:py-28 relative rounded-[60px] md:rounded-[100px_100px_0_0] overflow-hidden">
                     {/* Creative Mesh Gradient Background */}
                     <div className="absolute top-0 inset-x-0 h-full bg-[#FAFFFD]" />
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-zlendo-teal/10 to-blue-200/20 blur-[130px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
@@ -837,8 +864,8 @@ export default function HomeClient() {
 
                                         <div className="relative z-10 flex flex-col h-full justify-between gap-8">
                                             <div className="flex items-start justify-between">
-                                                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br \${row.img} flex items-center justify-center text-white shadow-lg shrink-0`}>
-                                                    <row.icon className="w-8 h-8" />
+                                                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${row.img} flex items-center justify-center text-white shadow-lg shrink-0`}>
+                                                    {(() => { const Icon = row.icon; return <Icon className="w-8 h-8" />; })()}
                                                 </div>
                                                 <h4 className="text-2xl font-black font-nunito text-zlendo-grey-dark ml-6 md:ml-0">{row.title}</h4>
                                             </div>
@@ -865,7 +892,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* Final High Conversion CTA */}
-                <section className="bg-white pt-4 pb-0 -mb-8 md:mb-0 md:pt-20 md:pb-20 px-4">
+                <section className="bg-white pt-12 pb-8 md:pt-24 md:pb-24 px-4">
                     <div className="container-custom max-w-6xl">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.98 }}
@@ -903,7 +930,7 @@ export default function HomeClient() {
                 </section>
 
                 {/* FAQ Section */}
-                <section className="py-16 md:py-24 bg-white">
+                <section className="py-20 md:py-32 bg-white">
                     <div className="container-custom px-6 max-w-3xl mx-auto">
                         <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-12">Frequently Asked Questions</h2>
                         <div className="space-y-4">

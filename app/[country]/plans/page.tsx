@@ -107,7 +107,7 @@ const PricingPage = () => {
                         <span className="text-xs font-black uppercase tracking-widest text-orange-600">Built In India, Built For India 🇮🇳</span>
                     </div>
 
-                    <h1 className="text-4xl md:text-6xl font-black text-zlendo-grey-dark mb-6">
+                    <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-zlendo-grey-dark mb-6">
                         Plans for every <span className="text-zlendo-teal">individual.</span>
                     </h1>
                     <p className="text-xl text-zlendo-grey-medium font-bold opacity-60 mb-10 max-w-2xl mx-auto">
@@ -327,7 +327,7 @@ const PricingPage = () => {
 
                             <div className="flex flex-wrap gap-4">
                                 <Link
-                                    href={paths.enterpriseDemo}
+                                    href={`${getPath('/contact')}?business=enterprise-grade-custom-solutions`}
                                     className="bg-white text-zlendo-grey-dark px-10 py-4 rounded-full font-black text-lg hover:bg-gray-100 transition-colors flex items-center justify-center"
                                 >
                                     Contact Sales

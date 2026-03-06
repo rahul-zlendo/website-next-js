@@ -12,7 +12,7 @@
  */
 
 // Determine environment (dev or prod)
-const env = process.env.NEXT_PUBLIC_ENV || 'dev';
+const env = process.env.NEXT_PUBLIC_ENV || 'prod';
 const isDev = env === 'dev';
 
 // Frontend URLs - Using production URL for both dev and prod its
@@ -51,6 +51,7 @@ export const getApiUrl = (endpoint: string): string => {
 export const BASE_APP_URL = FRONTEND_URL;
 export const SIGNUP_URL = `${FRONTEND_URL}/signup`;
 export const LOGIN_URL = `${FRONTEND_URL}/signin`;
+export const DASHBOARD_URL = `${FRONTEND_URL}/dashboard`;
 export const Plans = `${FRONTEND_URL}/plans?tab=billing&period=monthly`
 export const designLibrary = `${FRONTEND_URL}/design-library`
 // Project Details URL (for 3D Editor)

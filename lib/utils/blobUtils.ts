@@ -56,10 +56,36 @@ async function getCachedUrl(url: string): Promise<string | null> {
     const request = store.get(url);
 
     return new Promise((resolve) => {
-      request.onsuccess = () => {
+      request.onsuccess = async () => {
         const result = request.result;
         if (result && Date.now() - result.timestamp < CACHE_EXPIRY_MS) {
-          resolve(result.blobUrl);
+          // Validate that the blob URL is still alive (blob URLs are session-scoped)
+          if (result.blobUrl && result.blobUrl.startsWith('blob:')) {
+            try {
+              const testResponse = await fetch(result.blobUrl);
+              if (testResponse.ok) {
+                resolve(result.blobUrl);
+              } else {
+                // Stale blob URL — delete from cache and signal re-fetch
+                try {
+                  const db2 = await initDB();
+                  const tx = db2.transaction(STORE_NAME, 'readwrite');
+                  tx.objectStore(STORE_NAME).delete(url);
+                } catch (_) { /* ignore cleanup errors */ }
+                resolve(null);
+              }
+            } catch (_) {
+              // fetch threw (e.g. network error or revoked blob) — treat as stale
+              try {
+                const db2 = await initDB();
+                const tx = db2.transaction(STORE_NAME, 'readwrite');
+                tx.objectStore(STORE_NAME).delete(url);
+              } catch (_) { /* ignore cleanup errors */ }
+              resolve(null);
+            }
+          } else {
+            resolve(result.blobUrl);
+          }
         } else {
           resolve(null);
         }

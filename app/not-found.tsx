@@ -29,7 +29,7 @@ export default function NotFound() {
 
             <div className="flex justify-center">
               <Link
-                href="/in"
+                href="/"
                 className="px-10 py-4 bg-zlendo-teal text-white font-bold rounded-full shadow-lg shadow-zlendo-teal/30 hover:scale-105 transition-all"
               >
                 Go to Home

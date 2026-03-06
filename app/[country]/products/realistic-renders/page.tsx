@@ -56,8 +56,26 @@ export default function RealisticRendersPage() {
         }
     };
 
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products Realistic Renders - Frequently Asked Questions",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
     return (
         <div className={`font-nunito transition-colors duration-700 ${timeOfDay === 'night' ? 'bg-slate-950 text-white' : 'bg-white text-zlendo-grey-dark'}`}>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             <main>
                 {/* 1. HERO SECTION */}
                 <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden">
@@ -87,7 +105,7 @@ export default function RealisticRendersPage() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="text-4xl md:text-7xl font-black leading-[1.05] tracking-tight mb-8"
+                                className="text-[28px] md:text-[42px] lg:text-[56px] font-black leading-[1.05] tracking-tight mb-8"
                             >
                                 See Your Home<br />
                                 <span className={`text-transparent bg-clip-text bg-gradient-to-r ${timeOfDay === 'night' ? 'from-purple-400 to-blue-400' : 'from-zlendo-teal to-blue-600'}`}>
@@ -339,7 +357,7 @@ export default function RealisticRendersPage() {
                                         { role: 'Homeowners', desc: 'Secure peace of mind before buying expensive materials.' },
                                         { role: 'Architects', desc: 'Win client approvals faster with undeniable visuals.' },
                                         { role: 'Interior Designers', desc: 'Showcase mood, lighting, and texture accurately.' },
-                                        { role: 'Real Estate Marketing', desc: 'Sell pre-construction properties with 8K visuals.' }
+                                        { role: 'Builders & Developers', desc: 'Sell pre-construction properties with 8K visuals.' }
                                     ].map((user, i) => (
                                         <div key={i} className="flex gap-4">
                                             <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${timeOfDay === 'night' ? 'bg-white/10' : 'bg-white shadow-md'}`}>

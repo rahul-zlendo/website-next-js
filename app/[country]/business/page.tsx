@@ -270,7 +270,7 @@ export default function EnterprisePage() {
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-7xl font-black font-nunito text-zlendo-teal leading-[0.95] mb-6 md:mb-8 max-w-5xl mx-auto tracking-tighter"
+                        className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-teal leading-[0.95] mb-6 md:mb-8 max-w-5xl mx-auto tracking-tighter"
                     >
                         India's Leading <span className="text-zlendo-orange italic">All-in-One Cloud Platform</span> <br />
                         <span className="text-2xl md:text-5xl block mt-2 tracking-normal">for Designers, Architects & Interior Experts</span>
@@ -471,7 +471,7 @@ export default function EnterprisePage() {
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="text-4xl md:text-7xl font-black font-nunito text-gray-900 leading-[1.2] tracking-tighter"
+                                className="text-3xl md:text-[48px] font-black font-nunito text-gray-900 leading-[1.2] tracking-tighter"
                             >
                                 Everything you need to succeed, <br className="hidden md:block" /> all in one platform
                             </motion.h2>
@@ -636,7 +636,7 @@ export default function EnterprisePage() {
                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-zlendo-teal/10 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2" />
                     <div className="container-custom relative z-10">
                         <div className="text-center mb-10">
-                            <h2 className="text-4xl sm:text-6xl font-black font-nunito text-white leading-tight">
+                            <h2 className="text-3xl md:text-[48px] font-black font-nunito text-white leading-tight">
                                 Built for <span className="text-zlendo-orange">Every Professional.</span>
                             </h2>
                             <p className="text-xl text-white/60 font-medium mt-4 max-w-2xl mx-auto">
@@ -689,7 +689,7 @@ export default function EnterprisePage() {
                                 <div className="flex justify-center gap-2 items-center text-white/80 font-bold uppercase tracking-widest text-sm mb-4 bg-white/5 w-fit mx-auto px-4 py-1.5 rounded-full border border-white/5">
                                     <CheckCircle2 className="w-5 h-5" /> Trusted by 500+ Indian Enterprises
                                 </div>
-                                <h2 className="text-4xl sm:text-6xl font-black font-nunito leading-none mb-4 drop-shadow-sm">
+                                <h2 className="text-3xl md:text-[48px] font-black font-nunito leading-none mb-4 drop-shadow-sm">
                                     See Zlendo Realty in <span className="text-white italic">Action.</span>
                                 </h2>
                                 <p className="text-xl text-white/50 font-medium max-w-2xl mx-auto leading-relaxed">
@@ -713,7 +713,7 @@ export default function EnterprisePage() {
                                         <p className="text-xl text-zlendo-grey-medium font-medium">Thanks for your interest in Zlendo Realty Business. Our team will reach out to you soon.</p>
                                     </div>
                                 ) : (
-                                    <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6 md:space-y-8 relative z-10">
+                                    <form onSubmit={handleSubmit} autoComplete="off" className="space-y-4 sm:space-y-6 md:space-y-8 relative z-10">
                                         {/* Personal Info */}
                                         <div className="grid md:grid-cols-2 gap-x-4 gap-y-4 sm:gap-x-6 sm:gap-y-5 md:gap-x-8 md:gap-y-6">
                                             <div className="space-y-1.5 sm:space-y-2">
@@ -725,7 +725,8 @@ export default function EnterprisePage() {
                                                     value={formData.name}
                                                     onChange={handleChange}
                                                     className="w-full bg-gray-50 border border-transparent focus:border-gray-200 focus:bg-white rounded-lg sm:rounded-xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-medium text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-gray-100 transition-all shadow-sm"
-                                                    placeholder="Steve Jobs"
+                                                    autoComplete="off"
+                                                    placeholder="Your full name"
                                                 />
                                             </div>
                                             <div className="space-y-1.5 sm:space-y-2">
@@ -770,7 +771,8 @@ export default function EnterprisePage() {
                                                     value={formData.company}
                                                     onChange={handleChange}
                                                     className="w-full bg-gray-50 border border-transparent focus:border-gray-200 focus:bg-white rounded-lg sm:rounded-xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-medium text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-gray-100 transition-all shadow-sm"
-                                                    placeholder="Apple Inc."
+                                                    autoComplete="off"
+                                                    placeholder="Your company name"
                                                 />
                                             </div>
                                         </div>

@@ -5,9 +5,10 @@ import { motion } from 'framer-motion';
 interface BlogHeroProps {
     title: string;
     subtitle?: string;
+    badge?: string | null;
 }
 
-export default function BlogHero({ title, subtitle }: BlogHeroProps) {
+export default function BlogHero({ title, subtitle, badge = 'Our Blog' }: BlogHeroProps) {
     return (
         <section className="relative bg-gradient-to-br from-zlendo-mint/40 via-white to-zlendo-teal/5 py-16 md:py-24 overflow-hidden">
             {/* Background Decorations */}
@@ -27,14 +28,16 @@ export default function BlogHero({ title, subtitle }: BlogHeroProps) {
                     transition={{ duration: 0.6 }}
                     className="text-center max-w-3xl mx-auto"
                 >
-                    <motion.span
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="inline-block px-4 py-1.5 bg-zlendo-teal/10 text-zlendo-teal text-sm font-bold uppercase tracking-wider rounded-full mb-6"
-                    >
-                        Our Blog
-                    </motion.span>
+                    {badge && (
+                        <motion.span
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.1 }}
+                            className="inline-block px-4 py-1.5 bg-zlendo-teal/10 text-zlendo-teal text-sm font-bold uppercase tracking-wider rounded-full mb-6"
+                        >
+                            {badge}
+                        </motion.span>
+                    )}
 
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-nunito font-black text-zlendo-grey-dark mb-6 leading-tight">
                         {title}

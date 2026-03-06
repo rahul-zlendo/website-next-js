@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import {
-    Layout, Upload, PenTool, Home, ArrowRight, Play,
+    Layout, Upload, PenTool, Home, ArrowRight,
     CheckCircle2, Sparkles, Zap, Layers, User, Briefcase,
     ChevronDown
 } from 'lucide-react';
@@ -20,9 +20,27 @@ export default function FloorPlannerPage() {
     const opacityY = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products Floor Planer - Frequently Asked Questions",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
     return (
         <div className="bg-white min-h-screen font-nunito pt-4 selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
-{/* SEOHead removed - metadata handled by layout.tsx */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
+            {/* SEOHead removed - metadata handled by layout.tsx */}
             {/* 1. IMMERSIVE HERO SECTION */}
             <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#fafafa]">
                 {/* Abstract Background Elements */}
@@ -50,7 +68,7 @@ export default function FloorPlannerPage() {
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-                            className="text-5xl md:text-7xl font-black font-nunito text-zlendo-grey-dark mb-8 leading-[1.05] tracking-tight"
+                            className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-grey-dark mb-8 leading-[1.05] tracking-tight"
                         >
                             Design. Visualize.<br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-600">Experience.</span>
@@ -82,7 +100,7 @@ export default function FloorPlannerPage() {
                                 href={paths.enterpriseDemo}
                                 className="px-10 py-5 bg-white text-zlendo-grey-dark border border-black/5 rounded-2xl font-bold text-xl hover:bg-slate-50 hover:border-black/10 transition-all flex items-center gap-2 text-center"
                             >
-                                <Play className="w-5 h-5 fill-current" /> Watch Demo
+                                Request Your Demo
                             </Link>
                         </motion.div>
 
@@ -188,8 +206,11 @@ export default function FloorPlannerPage() {
                                 ))}
                             </ul>
 
-                            <a href={SIGNUP_URL} className="text-blue-600 font-black text-lg underline decoration-2 underline-offset-4 hover:text-blue-700">
-                                Try Drafting Now
+                            <a
+                                href={SIGNUP_URL}
+                                className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-xl font-black text-lg hover:bg-blue-700 hover:scale-105 transition-all shadow-lg shadow-blue-500/20 group"
+                            >
+                                Try Drafting Now <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </a>
                         </div>
                         <div className="relative">
@@ -287,7 +308,7 @@ export default function FloorPlannerPage() {
                                 Ready-made templates for <span className="text-orange-500">Indian Families.</span>
                             </h2>
                             <p className="text-xl text-zlendo-grey-medium font-medium mb-10 leading-relaxed">
-                                Don't start from scratch. Choose from thousands of pre-designed layouts optimized for 2BHK, 3BHK, and Villa configurations standard in Indian real estate.
+                                Don’t start from scratch. Choose from thousands of pre-designed layouts optimized for 2BHK, 3BHK, and villa configurations tailored to modern homes.
                             </p>
                             <div className="flex flex-wrap gap-4 mb-10">
                                 {['3BHK North Facing', '2BHK Compact', 'Luxury Villa', 'Pooja Room Added'].map(tag => (

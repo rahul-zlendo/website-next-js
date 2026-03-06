@@ -33,7 +33,7 @@ export default function BlogNotFound() {
 
                             <div className="flex justify-center">
                                 <Link
-                                    href="/in"
+                                    href="/"
                                     className="inline-flex items-center gap-2 px-10 py-4 bg-zlendo-teal text-white font-bold rounded-full shadow-lg shadow-zlendo-teal/30 hover:scale-105 transition-all"
                                 >
                                     Go to Home

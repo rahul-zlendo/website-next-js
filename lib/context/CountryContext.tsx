@@ -26,9 +26,9 @@ const SUPPORTED_COUNTRIES: CountryCode[] = ['in', 'us', 'uk', 'eu', 'au'];
 
 const CountryContext = createContext<CountryContextType | undefined>(undefined);
 
-export const CountryProvider: React.FC<{ children: React.ReactNode; initialCountry: CountryCode }> = ({ 
-    children, 
-    initialCountry 
+export const CountryProvider: React.FC<{ children: React.ReactNode; initialCountry: CountryCode }> = ({
+    children,
+    initialCountry
 }) => {
     const [country, setCountryState] = useState<CountryCode>(initialCountry);
     const pathname = usePathname();
@@ -56,7 +56,9 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
 
     const getPath = (path: string) => {
         const cleanPath = path.startsWith('/') ? path : `/${path}`;
-        return `/${country}${cleanPath === '/' ? '' : cleanPath}`;
+        // Homepage always uses the canonical non-region URL
+        if (cleanPath === '/') return 'https://zlendorealty.com/';
+        return `/${country}${cleanPath}`;
     };
 
     // Pre-built paths for commonly used routes

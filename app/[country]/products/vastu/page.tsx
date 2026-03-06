@@ -8,10 +8,13 @@ import {
     ChevronDown, Star, ShieldCheck, ThumbsUp, X
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import { useCountry } from '@/lib/context/CountryContext';
+import Link from 'next/link';
 
 export default function VastuPage() {
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
     const [isVideoOpen, setIsVideoOpen] = useState(false);
+    const { getPath } = useCountry();
 
     const product = {
         title: 'Vastu Optimizer',
@@ -61,8 +64,26 @@ export default function VastuPage() {
         }
     ];
 
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products Vastu Optimizer - Frequently Asked Questions",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
     return (
         <div className="bg-white min-h-screen font-nunito pt-4">
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+            />
             {/* 1. HERO SECTION */}
             <section className="bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
                 <div className="container-custom px-6 py-12 lg:py-20">
@@ -83,7 +104,7 @@ export default function VastuPage() {
                                 <span className="text-xs font-black uppercase tracking-widest text-zlendo-grey-dark">Vastu-Compliant Design Logic</span>
                             </motion.div>
 
-                            <h1 className="text-4xl lg:text-6xl font-black font-nunito text-zlendo-grey-dark mb-6 leading-[1.1]">
+                            <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-grey-dark mb-6 leading-[1.1]">
                                 {product.subtitle}
                             </h1>
                             <p className="text-xl text-zlendo-grey-medium font-medium mb-10 leading-relaxed max-w-lg">
@@ -91,12 +112,12 @@ export default function VastuPage() {
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                                <a
-                                    href={SIGNUP_URL}
+                                <Link
+                                    href={getPath('/register?type=vastu')}
                                     className="px-8 py-4 bg-zlendo-teal hover:bg-zlendo-teal-dark text-white rounded-xl font-black text-lg shadow-xl shadow-zlendo-teal/20 transition-all hover:scale-105 flex items-center justify-center"
                                 >
                                     Start for Free
-                                </a>
+                                </Link>
                                 <button
                                     onClick={() => setIsVideoOpen(true)}
                                     className="px-8 py-4 bg-white border-2 border-slate-200 text-zlendo-grey-dark rounded-xl font-bold text-lg hover:border-zlendo-teal/30 hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
@@ -165,7 +186,7 @@ export default function VastuPage() {
                         className="max-w-4xl mx-auto"
                     >
                         <div className="group relative cursor-pointer">
-                            <a href={SIGNUP_URL} className="absolute inset-0 z-20" />
+                            <Link href={getPath('/register?type=vastu')} className="absolute inset-0 z-20" />
                             <div className="absolute -inset-1 bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 rounded-[2.5rem] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500" />
 
                             <div className="relative bg-white rounded-[2rem] border-2 border-dashed border-slate-300 group-hover:border-orange-500 transition-all duration-300 p-10 md:p-16 flex flex-col items-center text-center overflow-hidden">
