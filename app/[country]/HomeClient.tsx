@@ -441,7 +441,9 @@ export default function HomeClient() {
         }
     ];
 
-    if (!mounted) return null;
+    // No longer returning null to enable SSR for better SEO and crawler visibility.
+    // Hydration mismatch warnings (if any) are preferred over blank snapshots.
+
 
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
