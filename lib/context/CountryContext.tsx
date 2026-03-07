@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-export type CountryCode = 'in' | 'us' | 'uk' | 'eu' | 'au';
+export type CountryCode = 'in';
 
 interface CountryPaths {
     enterpriseDemo: string;
@@ -22,7 +22,7 @@ interface CountryContextType {
 }
 
 const COUNTRY_COOKIE_NAME = 'zl_country_pref';
-const SUPPORTED_COUNTRIES: CountryCode[] = ['in', 'us', 'uk', 'eu', 'au'];
+const SUPPORTED_COUNTRIES: CountryCode[] = ['in'];
 
 const CountryContext = createContext<CountryContextType | undefined>(undefined);
 

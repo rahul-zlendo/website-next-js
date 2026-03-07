@@ -44,7 +44,7 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
     const resourceLinks = [
         { label: 'Design Library', path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
-        { label: 'Blog', path: '/blog', openInNewTab: false },
+        { label: 'Blog', path: 'https://zlendorealty.com/blog', openInNewTab: false },
         { label: 'Tutorials', path: getPath('/tutorials') },
         { label: 'Help Center', path: getPath('/help-center') },
         { label: 'Partnership', path: getPath('/partners') },
