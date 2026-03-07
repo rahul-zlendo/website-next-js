@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Check, Star, Zap, Building2, Crown, Sparkles, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useCountry } from '@/lib/context/CountryContext';
-import { LOGIN_URL } from '@/lib/constants/urls';
+import { LOGIN_URL, SIGNUP_URL } from '@/lib/constants/urls';
 
 
 const PricingPage = () => {
@@ -249,7 +249,7 @@ const PricingPage = () => {
                             <div className="mb-8">
                                 {plan.status === 'active' ? (
                                     <a
-                                        href={LOGIN_URL}
+                                        href={SIGNUP_URL}
                                         className={`w-full py-3.5 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center ${plan.ctaStyle === 'solid-teal'
                                             ? 'bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20'
                                             : plan.ctaStyle === 'gradient'
