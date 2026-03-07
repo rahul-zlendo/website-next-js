@@ -349,9 +349,9 @@ export default function PartnersPage() {
                                                     Join as a Partner <Handshake className="w-6 h-6" />
                                                 </Link>
                                             </div>
-                                            <button className="flex items-center gap-2 py-3 px-6 rounded-xl border border-white/10 hover:bg-white/5 transition-colors text-sm font-bold">
+                                            {/* <button className="flex items-center gap-2 py-3 px-6 rounded-xl border border-white/10 hover:bg-white/5 transition-colors text-sm font-bold">
                                                 <Download className="w-4 h-4" /> Download Partner Deck
-                                            </button>
+                                            </button> */}
                                         </div>
                                     </div>
                                 </div>
