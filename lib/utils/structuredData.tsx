@@ -66,7 +66,7 @@ export function generateProductSchema(product: {
     name: product.name,
     description: product.description,
     url: product.url,
-    image: product.image || 'https://zlendorealty.com/og-image.png',
+    image: product.image || 'https://zlendorealty.com/og-image.jpg',
     brand: {
       '@type': 'Brand',
       name: 'Zlendo Realty',

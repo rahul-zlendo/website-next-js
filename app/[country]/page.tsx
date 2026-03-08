@@ -1,6 +1,8 @@
 import { Metadata } from 'next';
 import HomeClient from './HomeClient';
 
+const BASE_URL = 'https://zlendorealty.com';
+
 interface Props {
   params: Promise<{ country: string }>;
 }
@@ -17,15 +19,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: 'AI-Powered Home & Office Design Software | Zlendo Realty',
         description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. The all-in-one design software for Architects, Builders, Interior designers, and Vastu Consultants. Start your free trial today!',
-        url: 'https://zlendorealty.com/',
+        url: `${BASE_URL}/in`,
         siteName: 'Zlendo Realty',
         images: [
           {
-            url: '/og-image.png',
+            url: `${BASE_URL}/og-image.jpg`,
             width: 1200,
             height: 630,
             alt: 'Zlendo Realty AI Design Software',
-            type: 'image/png',
+            type: 'image/jpeg',
           },
         ],
         locale: 'en_IN',
@@ -35,7 +37,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         card: 'summary_large_image',
         title: 'AI-Powered Home & Office Design Software | Zlendo Realty',
         description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI.',
-        images: ['https://zlendorealty.com/og-image.png'],
+        images: [`${BASE_URL}/og-image.jpg`],
+      },
+      alternates: {
+        canonical: `${BASE_URL}/in`,
+        languages: {
+          'en-IN': `${BASE_URL}/in`,
+          'x-default': `${BASE_URL}/in`,
+        },
       },
     };
   }

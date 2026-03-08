@@ -74,13 +74,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  // Add root URL
-  urls.unshift({
-    url: BASE_URL,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 1.0,
-  });
+  // Note: Root URL (/) is deliberately excluded — it rewrites to /in via middleware.
+  // The /in entry (priority 1.0) is the canonical home page URL.
 
   // Fetch help center articles from WordPress
   try {

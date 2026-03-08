@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 siteName: 'Zlendo Realty',
                 images: [
                     {
-                        url: 'https://zlendorealty.com/og-image.png',
+                        url: 'https://zlendorealty.com/og-image.jpg',
                         width: 1200,
                         height: 630,
                         alt: 'Zlendo Realty Template Customization',
