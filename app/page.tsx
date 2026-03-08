@@ -1,9 +1,9 @@
+import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
 
-// Root / is rewritten to /in by middleware (NextResponse.rewrite).
-// This page should never actually render directly, but we export metadata
-// as a safety net — if a crawler somehow lands here without middleware,
-// the canonical and hreflang tags correctly point to /in.
+// Prevent static prerendering — middleware rewrites / → /in at runtime,
+// so this page component never actually executes in production.
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   alternates: {
@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   },
 };
 
-// Re-export the /in home page component.
-// Since middleware rewrites / → /in, this acts as a fallback.
-export { default } from './[country]/page';
+// Safety-net fallback: if middleware rewrite somehow doesn't intercept,
+// redirect to /in. In practice, middleware's rewrite() runs first,
+// so this component never renders.
+export default function RootPage() {
+  redirect('/in');
+}
