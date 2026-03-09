@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'Zlendo Realty',
     images: [
       {
-        url: 'https://zlendorealty.com/og-image.png',
+        url: 'https://zlendorealty.com/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Zlendo Realty Interior & Exterior Design',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Interior & Exterior Home Design',
     description: 'Cohesive, culture-ready residential designs. Start your free trial.',
-    images: ['https://zlendorealty.com/og-image.png'],
+    images: ['https://zlendorealty.com/og-image.jpg'],
   },
 };
 

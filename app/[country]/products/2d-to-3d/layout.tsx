@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     siteName: 'Zlendo Realty',
     images: [
       {
-        url: 'https://zlendorealty.com/og-image.png',
+        url: 'https://zlendorealty.com/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Zlendo Realty - 2D to 3D Converter',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '2D to 3D Home Plan Converter',
     description: 'Instantly transform floor plans into lifelike 3D visuals. Start your free trial.',
-    images: ['https://zlendorealty.com/og-image.png'],
+    images: ['https://zlendorealty.com/og-image.jpg'],
   },
   alternates: {
     canonical: '/products/2d-to-3d',
