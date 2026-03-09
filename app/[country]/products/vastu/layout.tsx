@@ -11,11 +11,11 @@ export const metadata: Metadata = {
     siteName: 'Zlendo Realty',
     images: [
       {
-        url: '/og-image.png',
+        url: 'https://zlendorealty.com/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Zlendo Realty - Vastu Optimizer',
-        type: 'image/png',
+        type: 'image/jpeg',
       },
     ],
     locale: 'en_US',
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Vastu Meets Modern Home Design',
     description: 'Create vastu-compliant layouts easily. Start free today.',
-    images: ['/og-image.png'],
+    images: ['https://zlendorealty.com/og-image.jpg'],
   },
   alternates: {
     canonical: '/in/products/vastu',
