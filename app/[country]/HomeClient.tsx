@@ -441,14 +441,16 @@ export default function HomeClient() {
         }
     ];
 
-    if (!mounted) return null;
+    // No longer returning null to enable SSR for better SEO and crawler visibility.
+    // Hydration mismatch warnings (if any) are preferred over blank snapshots.
+
 
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
             <main className="pt-8 md:pt-14">
                 {/* Hero */}
                 <section className="container-custom text-center mb-10 md:mb-16 px-4 overflow-visible relative">
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-zlendo-teal/10 blur-[120px] rounded-full -z-10" />
+                    <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-zlendo-teal/10 blur-[120px] rounded-full -z-10" />
 
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
