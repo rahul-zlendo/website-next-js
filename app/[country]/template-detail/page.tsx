@@ -303,6 +303,19 @@ function TemplateDetailContent() {
     const [showReportError, setShowReportError] = useState(false);
     const [hasReportedTemplate, setHasReportedTemplate] = useState(false);
 
+    const loginRedirectUrl = useMemo(() => {
+        // Append the current page URL so the sign-in page can navigate back after login.
+        // LOGIN_URL is an absolute URL (from env), so URL() is safe in the browser.
+        try {
+            const url = new URL(LOGIN_URL);
+            url.searchParams.set('redirect', window.location.href);
+            return url.toString();
+        } catch {
+            return LOGIN_URL;
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     // Get template ID from URL searchParams
     const templateId = useMemo(() => {
         const id = searchParams.get('templateId');
@@ -640,7 +653,7 @@ function TemplateDetailContent() {
 
     const handleLike = async () => {
         if (!isAuthenticated || !user) {
-            router.push(LOGIN_URL);
+            router.push(loginRedirectUrl);
             return;
         }
 
@@ -667,7 +680,7 @@ function TemplateDetailContent() {
 
     const handleFavorite = async () => {
         if (!isAuthenticated) {
-            router.push(LOGIN_URL);
+            router.push(loginRedirectUrl);
             return;
         }
 
@@ -726,7 +739,7 @@ function TemplateDetailContent() {
 
     const handlePostComment = async () => {
         if (!isAuthenticated || !user) {
-            router.push(LOGIN_URL);
+            router.push(loginRedirectUrl);
             return;
         }
 
@@ -754,7 +767,7 @@ function TemplateDetailContent() {
 
     const handlePostReply = async (parentCommentId: number) => {
         if (!isAuthenticated || !user) {
-            router.push(LOGIN_URL);
+            router.push(loginRedirectUrl);
             return;
         }
 
@@ -783,7 +796,7 @@ function TemplateDetailContent() {
 
     const handleLikeComment = async (templateCommentId: number) => {
         if (!isAuthenticated || !user) {
-            router.push(LOGIN_URL);
+            router.push(loginRedirectUrl);
             return;
         }
 
@@ -802,7 +815,7 @@ function TemplateDetailContent() {
 
     const handleDeleteComment = (templateCommentId: number) => {
         if (!isAuthenticated || !user) {
-            router.push(LOGIN_URL);
+            router.push(loginRedirectUrl);
             return;
         }
         // Show confirmation modal
@@ -838,7 +851,7 @@ function TemplateDetailContent() {
 
     const handleReport = () => {
         if (!isAuthenticated) {
-            router.push(LOGIN_URL);
+            router.push(loginRedirectUrl);
             return;
         }
         if (hasReportedTemplate) {
@@ -928,7 +941,7 @@ function TemplateDetailContent() {
 
     const handleFollow = async () => {
         if (!isAuthenticated || !user) {
-            router.push(LOGIN_URL);
+            router.push(loginRedirectUrl);
             return;
         }
 
@@ -1331,7 +1344,7 @@ function TemplateDetailContent() {
                                     Please log in before leaving your comment.
                                 </span>
                                 <button
-                                    onClick={() => router.push(LOGIN_URL)}
+                                    onClick={() => router.push(loginRedirectUrl)}
                                     className="px-6 py-2 bg-black text-white rounded-xl font-black text-sm hover:bg-black/90 transition-colors flex-shrink-0 ml-4"
                                 >
                                     Log in
@@ -1417,7 +1430,7 @@ function TemplateDetailContent() {
                                     handleDeleteComment={handleDeleteComment}
                                     formatDate={formatDate}
                                     router={router}
-                                    LOGIN_URL={LOGIN_URL}
+                                    LOGIN_URL={loginRedirectUrl}
                                 />
                             ))}
                         </div>

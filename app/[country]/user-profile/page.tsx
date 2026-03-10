@@ -36,9 +36,9 @@ const getValidUrl = (url: string | null | undefined): string | null => {
 const processProfileUrl = (profileUrl: string | null | undefined): string | null => {
     const rawUrl = getValidUrl(profileUrl);
     if (!rawUrl) return null;
-    
+
     const normalizedUrl = normalizeGoogleImageUrl(rawUrl);
-    
+
     // If it's already a full HTTP/HTTPS URL (like blob storage URL)
     if (normalizedUrl.startsWith('http://') || normalizedUrl.startsWith('https://')) {
         // Check if it's a blob storage URL and needs SAS token
@@ -52,7 +52,7 @@ const processProfileUrl = (profileUrl: string | null | undefined): string | null
         // For other HTTP URLs (like Google images), return as is
         return normalizedUrl;
     }
-    
+
     // If it's a relative path, construct full URL with SAS token
     const fullUrl = `${BLOB_BASE_URL}${normalizedUrl}`;
     return `${fullUrl}${fullUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
@@ -65,6 +65,18 @@ function UserProfileContent() {
     const dispatch = useAppDispatch();
     const { activeTemplates, isLoading } = useAppSelector((state) => state.template);
     const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+
+    const loginRedirectUrl = useMemo(() => {
+        // Append current page URL so sign-in can return back here after login.
+        try {
+            const url = new URL(LOGIN_URL);
+            url.searchParams.set('redirect', window.location.href);
+            return url.toString();
+        } catch {
+            return LOGIN_URL;
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const [profileUserId, setProfileUserId] = useState<number | null>(null);
     const [userTemplates, setUserTemplates] = useState<any[]>([]);
@@ -98,7 +110,7 @@ function UserProfileContent() {
         if (profileUserId && activeTemplates.length > 0) {
             const filtered = activeTemplates.filter(t => t.userId === profileUserId);
             setUserTemplates(filtered);
-            
+
             // Get profile data from first template
             if (filtered.length > 0) {
                 setProfileData({
@@ -119,6 +131,7 @@ function UserProfileContent() {
                 const followData = await getFollowByUserIdService(profileUserId, userFollowId);
                 setFollowers(followData.followerCount);
                 setFollowings(followData.followingCount);
+                setIsFollowing(followData.isFollowing)
             } catch (error) {
                 console.error('Error fetching follow data:', error);
             }
@@ -153,7 +166,7 @@ function UserProfileContent() {
 
     const handleFollow = async () => {
         if (!isAuthenticated || !user) {
-            router.push(LOGIN_URL);
+            router.push(loginRedirectUrl);
             return;
         }
 
@@ -167,7 +180,7 @@ function UserProfileContent() {
                 isActive: !isFollowing
             });
             setIsFollowing(!isFollowing);
-            
+
             // Refresh follow data
             const loggedInUserId = isAuthenticated && user?.userId ? user.userId : undefined;
             const followData = await getFollowByUserIdService(profileUserId, loggedInUserId);
@@ -259,18 +272,19 @@ function UserProfileContent() {
                                 {isAuthenticated && user?.userId === profileUserId ? null : (
                                     <button
                                         onClick={() => {
+                                            console.log(isFollowing, "isFollowing");
+
                                             if (!isAuthenticated) {
-                                                router.push(LOGIN_URL);
+                                                router.push(loginRedirectUrl);
                                                 return;
                                             }
                                             handleFollow();
                                         }}
                                         disabled={isFollowingLoading}
-                                        className={`flex items-center gap-2 px-4 py-2 rounded-xl font-black text-sm transition-all flex-shrink-0 ${
-                                            isFollowing
-                                                ? 'bg-gray-100 text-zlendo-grey-dark hover:bg-gray-200'
-                                                : 'bg-zlendo-teal text-white hover:bg-zlendo-teal/90'
-                                        } disabled:opacity-50 disabled:cursor-not-allowed`}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-xl font-black text-sm transition-all flex-shrink-0 ${isFollowing
+                                            ? 'bg-gray-100 text-zlendo-grey-dark hover:bg-gray-200'
+                                            : 'bg-zlendo-teal text-white hover:bg-zlendo-teal/90'
+                                            } disabled:opacity-50 disabled:cursor-not-allowed`}
                                     >
                                         <UserPlus className="w-4 h-4" />
                                         {isFollowing ? 'Following' : 'Follow'}
@@ -307,18 +321,18 @@ function UserProfileContent() {
                                                 onError={(e) => {
                                                     const target = e.currentTarget;
                                                     const currentUrl = templateImageUrls[template.template_Id] || template.thumbnail_Url;
-                                                    
+
                                                     if (currentUrl?.startsWith('blob:') && template.thumbnail_Url) {
                                                         const directUrl = template.thumbnail_Url.startsWith('http')
                                                             ? template.thumbnail_Url
                                                             : `${BLOB_BASE_URL}${template.thumbnail_Url}${template.thumbnail_Url.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
-                                                        
+
                                                         if (target.src !== directUrl) {
                                                             target.src = directUrl;
                                                             return;
                                                         }
                                                     }
-                                                    
+
                                                     target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23f1f5f9" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
                                                 }}
                                             />
