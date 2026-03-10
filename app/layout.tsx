@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 import './globals.css';
 import { Providers } from './providers';
-import { generateOrganizationSchema } from '@/lib/utils/structuredData';
+import { generateOrganizationSchema, generateWebSiteSchema, generateSoftwareApplicationSchema } from '@/lib/utils/structuredData';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -94,6 +94,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const organizationSchema = generateOrganizationSchema();
+  const webSiteSchema = generateWebSiteSchema();
+  const softwareAppSchema = generateSoftwareApplicationSchema();
 
   return (
     <html lang="en" className={`${outfit.variable} ${nunito.variable}`}>
@@ -101,6 +103,14 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
         />
         {/* Fallback for older social scrapers */}
         <link rel="image_src" href="https://zlendorealty.com/og-image.jpg" />

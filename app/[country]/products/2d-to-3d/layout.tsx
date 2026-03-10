@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: 'Zlendo Realty - 2D to 3D Converter',
-        type: 'image/png',
+        type: 'image/jpeg',
       },
     ],
     locale: 'en_IN',
@@ -37,7 +37,11 @@ export const metadata: Metadata = {
     images: ['https://zlendorealty.com/og-image.jpg'],
   },
   alternates: {
-    canonical: '/products/2d-to-3d',
+    canonical: 'https://zlendorealty.com/in/products/2d-to-3d',
+    languages: {
+      'en-IN': 'https://zlendorealty.com/in/products/2d-to-3d',
+      'x-default': 'https://zlendorealty.com/in/products/2d-to-3d',
+    },
   },
 };
 
