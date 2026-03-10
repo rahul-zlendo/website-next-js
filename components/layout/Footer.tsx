@@ -1,103 +1,69 @@
-'use client';
-
-import { Instagram, Linkedin, Facebook, Youtube, Pin, X, ArrowRight, Mail, MapPin } from 'lucide-react';
 import Link from 'next/link';
+import { Instagram, Linkedin, Facebook, Youtube, Pin, X, Mail, MapPin } from 'lucide-react';
 import Logo from '../common/Logo';
-import { motion } from 'framer-motion';
-import { SIGNUP_URL } from '@/lib/constants/urls';
 import { designLibrary } from '@/lib/config/env';
-import { useCountry } from '@/lib/context/CountryContext';
-import { usePathname } from 'next/navigation';
+import FooterClient from './FooterClient';
 import CountrySwitcher from '../common/CountrySwitcher';
 
+const COUNTRY = 'in';
+function getPath(path: string): string {
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    if (cleanPath === '/') return 'https://zlendorealty.com/';
+    return `/${COUNTRY}${cleanPath}`;
+}
+
+const productLinks = [
+    { label: 'AI Floor Planner', path: getPath('/products/floor-planner') },
+    { label: '2D to 3D Converter', path: getPath('/products/2d-to-3d') },
+    { label: 'Smart Room Styler', path: getPath('/products/room-styler') },
+    { label: 'Interiors & Exteriors', path: getPath('/products/interiors-exteriors') },
+    { label: 'Smart Cost Estimator', path: getPath('/products/cost-estimator') },
+    { label: 'Vastu Optimizer', path: getPath('/products/vastu') },
+    { label: 'Realistic Renders', path: getPath('/products/realistic-renders') },
+    { label: 'Virtual Walkthrough', path: getPath('/products/virtual-walkthrough') },
+];
+
+const useCaseLinks = [
+    { label: 'Home Remodeling', path: getPath('/use-case/home-remodeling') },
+    { label: 'Interior Design', path: getPath('/use-case/interior-design') },
+    { label: 'Vastu Optimization', path: getPath('/use-case/vastu-optimization') },
+    { label: 'New Home Building', path: getPath('/use-case/new-home-building') },
+    { label: 'Commercial Spaces', path: getPath('/business/commercial-spaces') },
+    { label: 'Builder & Promoter', path: getPath('/business/builder-and-promoter') },
+    { label: 'NRI & Remote Planning', path: getPath('/business/nri-remote-planning') },
+    { label: 'Developer Solutions', path: getPath('/business/developer-solutions') },
+    { label: 'Zlendo Realty API Suite', path: getPath('/products/api-suite') }
+];
+
+const resourceLinks = [
+    { label: 'Design Library', path: designLibrary, external: true, newTab: true },
+    { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
+    { label: 'Blog', path: 'https://zlendorealty.com/blog', external: true, newTab: false },
+    { label: 'Tutorials', path: getPath('/tutorials') },
+    { label: 'Help Center', path: getPath('/help-center') },
+    { label: 'Partnership', path: getPath('/partners') },
+    { label: 'Contact Us', path: getPath('/contact') },
+];
+
+const socialLinks = [
+    { icon: Linkedin, href: 'https://www.linkedin.com/showcase/zlendo-realty/?viewAsMember=true', bg: 'hover:bg-[#0A66C2]' },
+    { icon: Facebook, href: 'https://www.facebook.com/people/Zlendo-Realty/61585610645980/', bg: 'hover:bg-[#1877F2]' },
+    { icon: Instagram, href: 'https://www.instagram.com/zlendorealty/', bg: 'hover:bg-[#E4405F]' },
+    { icon: X, href: 'https://x.com/ZlendoRealty', bg: 'hover:bg-black' },
+    { icon: Pin, href: 'https://in.pinterest.com/ZlendoRealty/', bg: 'hover:bg-[#E60023]' },
+    { icon: Youtube, href: 'https://www.youtube.com/@ZlendoRealty', bg: 'hover:bg-[#FF0000]' },
+];
+
 const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
-    const { getPath } = useCountry();
-    const pathname = usePathname();
-
-    // Automatically hide CTA on registration page
-    const shouldHideCTA = hideCTA || pathname?.includes('/register') || (pathname?.includes('/vastu') && !pathname?.includes('/products/'));
-
-    const productLinks = [
-        { label: 'AI Floor Planner', path: getPath('/products/floor-planner') },
-        { label: '2D to 3D Converter', path: getPath('/products/2d-to-3d') },
-        { label: 'Smart Room Styler', path: getPath('/products/room-styler') },
-        { label: 'Interiors & Exteriors', path: getPath('/products/interiors-exteriors') },
-        { label: 'Smart Cost Estimator', path: getPath('/products/cost-estimator') },
-        { label: 'Vastu Optimizer', path: getPath('/products/vastu') },
-        { label: 'Realistic Renders', path: getPath('/products/realistic-renders') },
-        // { label: 'Zlendo Realty API Suite', path: getPath('/products/api-suite') },
-        { label: 'Virtual Walkthrough', path: getPath('/products/virtual-walkthrough') },
-    ];
-
-    const useCaseLinks = [
-        { label: 'Home Remodeling', path: getPath('/use-case/home-remodeling') },
-        { label: 'Interior Design', path: getPath('/use-case/interior-design') },
-        { label: 'Vastu Optimization', path: getPath('/use-case/vastu-optimization') },
-        { label: 'New Home Building', path: getPath('/use-case/new-home-building') },
-        { label: 'Commercial Spaces', path: getPath('/business/commercial-spaces') },
-        { label: 'Builder & Promoter', path: getPath('/business/builder-and-promoter') },
-        { label: 'NRI & Remote Planning', path: getPath('/business/nri-remote-planning') },
-        { label: 'Developer Solutions', path: getPath('/business/developer-solutions') },
-        { label: 'Zlendo Realty API Suite', path: getPath('/products/api-suite') }
-    ];
-
-    const resourceLinks = [
-        { label: 'Design Library', path: designLibrary, openInNewTab: true },
-        { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
-        { label: 'Blog', path: 'https://zlendorealty.com/blog', openInNewTab: false },
-        { label: 'Tutorials', path: getPath('/tutorials') },
-        { label: 'Help Center', path: getPath('/help-center') },
-        { label: 'Partnership', path: getPath('/partners') },
-        { label: 'Contact Us', path: getPath('/contact') },
-    ];
-
-    const socialLinks = [
-        { icon: Linkedin, href: 'https://www.linkedin.com/showcase/zlendo-realty/?viewAsMember=true', bg: 'hover:bg-[#0A66C2]' },
-        { icon: Facebook, href: 'https://www.facebook.com/people/Zlendo-Realty/61585610645980/', bg: 'hover:bg-[#1877F2]' },
-        { icon: Instagram, href: 'https://www.instagram.com/zlendorealty/', bg: 'hover:bg-[#E4405F]' },
-        { icon: X, href: 'https://x.com/ZlendoRealty', bg: 'hover:bg-black' },
-        { icon: Pin, href: 'https://in.pinterest.com/ZlendoRealty/', bg: 'hover:bg-[#E60023]' },
-        { icon: Youtube, href: 'https://www.youtube.com/@ZlendoRealty', bg: 'hover:bg-[#FF0000]' },
-    ];
-
     return (
-        <footer className="bg-[#f9fafb] pt-4 md:pt-24 pb-12 border-t border-black/[0.03] relative overflow-hidden font-nunito">
-            {/* CTA Section */}
-            {!shouldHideCTA && (
-                <div className="container-custom px-6 lg:px-12 mb-8 md:mb-20 text-[15px]">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="bg-white rounded-[40px] p-4 md:p-12 shadow-xl shadow-black/[0.02] border border-black/[0.03] flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 relative overflow-hidden"
-                    >
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-zlendo-teal/5 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2" />
-                        <div className="relative z-10 text-center md:text-left">
-                            <h3 className="text-[28px] md:text-[34px] font-black text-zlendo-grey-dark mb-4">Create your account today</h3>
-                            <p className="text-[18px] text-zlendo-grey-medium font-bold opacity-60">Experience the future of AI home design for free.</p>
-                        </div>
-                        <a
-                            href={SIGNUP_URL}
-                            className="relative z-10 px-10 py-5 bg-zlendo-teal text-white rounded-full font-black text-xl shadow-2xl shadow-zlendo-teal/30 hover:scale-105 transition-all flex items-center gap-3 active:scale-95"
-                        >
-                            Get Started <ArrowRight className="w-6 h-6" />
-                        </a>
-                    </motion.div>
-                </div>
-            )}
-
+        <FooterClient hideCTA={hideCTA}>
             <div className="container-custom px-6 lg:px-12 relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-20"
-                >
+                <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-20">
                     {/* Brand Section */}
                     <div className="lg:w-1/4 space-y-6">
                         <Logo className="h-14" />
                         <p className="text-[15px] text-zlendo-grey-medium font-medium leading-relaxed opacity-80">
-                            The world's first Design-to-Sales engine. Experience your space in 360° ultra-realistic 8K, AR/MR.
+                            The world&apos;s first Design-to-Sales engine. Experience your space in 360° ultra-realistic 8K, AR/MR.
                         </p>
                         <div className="flex flex-wrap gap-2.5">
                             {socialLinks.map((social, i) => (
@@ -114,7 +80,7 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                         </div>
                     </div>
 
-                    {/* Desktop Menus in Single Line */}
+                    {/* Products */}
                     <div className="lg:w-[14%]">
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Products</h4>
                         <ul className="space-y-3.5 text-[15px]">
@@ -128,6 +94,7 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                         </ul>
                     </div>
 
+                    {/* Use Cases */}
                     <div className="lg:w-[14%]">
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Use Cases</h4>
                         <ul className="space-y-3.5 text-[15px]">
@@ -141,75 +108,44 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                         </ul>
                     </div>
 
+                    {/* Resources */}
                     <div className="lg:w-[14%]">
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Resources</h4>
                         <ul className="space-y-3.5 text-[15px]">
-                            {resourceLinks.map((link, i) => {
-                                const isExternal = link.path.startsWith('http');
-                                const shouldOpenInNewTab = link.openInNewTab !== undefined ? link.openInNewTab : isExternal;
-                                return (
-                                    <li key={i}>
-                                        {isExternal ? (
-                                            <a
-                                                href={link.path}
-                                                target={shouldOpenInNewTab ? "_blank" : undefined}
-                                                rel={shouldOpenInNewTab ? "noopener noreferrer" : undefined}
-                                                className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap"
-                                            >
-                                                {link.label}
-                                            </a>
-                                        ) : (
-                                            <Link href={link.path} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
-                                                {link.label}
-                                            </Link>
-                                        )}
-                                    </li>
-                                );
-                            })}
+                            {resourceLinks.map((link, i) => (
+                                <li key={i}>
+                                    {link.external ? (
+                                        <a
+                                            href={link.path}
+                                            target={link.newTab ? "_blank" : undefined}
+                                            rel={link.newTab ? "noopener noreferrer" : undefined}
+                                            className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap"
+                                        >
+                                            {link.label}
+                                        </a>
+                                    ) : (
+                                        <Link href={link.path} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
+                                            {link.label}
+                                        </Link>
+                                    )}
+                                </li>
+                            ))}
                         </ul>
                     </div>
 
+                    {/* Legal */}
                     <div className="lg:w-[14%]">
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Legal</h4>
                         <ul className="space-y-3.5 text-[15px]">
-                            <li>
-                                <Link href={getPath('/privacy-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
-                                    Privacy Policy
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href={getPath('/terms-of-service')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
-                                    Terms of Service
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href={getPath('/cookie-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
-                                    Cookie Policy
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href={getPath('/refund-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
-                                    Refund Policy
-                                </Link>
-                            </li>
-                            {/* <li>
-                                <Link href={getPath('/dpa')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
-                                    DPA
-                                </Link>
-                            </li> */}
-                            <li>
-                                <Link href={getPath('/sla')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
-                                    SLA
-                                </Link>
-                            </li>
-                            {/* <li>
-                                <Link href={getPath('/community-guidelines')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
-                                    Community Guidelines
-                                </Link>
-                            </li> */}
+                            <li><Link href={getPath('/privacy-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Privacy Policy</Link></li>
+                            <li><Link href={getPath('/terms-of-service')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Terms of Service</Link></li>
+                            <li><Link href={getPath('/cookie-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Cookie Policy</Link></li>
+                            <li><Link href={getPath('/refund-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Refund Policy</Link></li>
+                            <li><Link href={getPath('/sla')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">SLA</Link></li>
                         </ul>
                     </div>
 
+                    {/* Contact */}
                     <div className="lg:w-[20%]">
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Contact Us</h4>
                         <ul className="space-y-4 text-[15px]">
@@ -253,24 +189,22 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                             </li>
                         </ul>
                     </div>
-                </motion.div>
+                </div>
 
                 {/* Bottom Bar */}
                 <div className="pt-10 border-t border-black/[0.05] flex flex-col md:flex-row items-center justify-between gap-8 text-[#666666] text-[13px] font-medium">
                     <p>Copyright © 2026 Zlendo Technologies Pvt. Ltd. | All Rights Reserved.</p>
                     <div className="flex items-center gap-8">
                         <Link href={getPath('/cookie-policy')} className="hover:text-zlendo-teal transition-colors">Cookie Policy</Link>
-                        <Link href={getPath('/terms-of-service')} className="hover:text-zlendo-teal transition-colors">Terms & Conditions</Link>
+                        <Link href={getPath('/terms-of-service')} className="hover:text-zlendo-teal transition-colors">Terms &amp; Conditions</Link>
                         <Link href={getPath('/privacy-policy')} className="hover:text-zlendo-teal transition-colors">Privacy Policy</Link>
                         <div className="h-4 w-px bg-black/[0.05] hidden md:block" />
                         <CountrySwitcher />
                     </div>
                 </div>
             </div>
-        </footer>
+        </FooterClient>
     );
 };
 
 export default Footer;
-
-

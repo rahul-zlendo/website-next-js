@@ -1,5 +1,9 @@
+import type { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
+    title: 'Commercial Space Design Software | Zlendo Realty',
+    description:
+        'Design professional commercial spaces with AI-powered tools. Office layouts, retail spaces, and commercial building plans with 3D visualization.',
     keywords: [
         'commercial floor plan software',
         'commercial 3D design software',
@@ -12,6 +16,35 @@ export const metadata = {
         'professional commercial design tool',
         'architectural software for commercial projects',
     ],
+    openGraph: {
+        title: 'Commercial Space Design | Zlendo Realty',
+        description: 'AI-powered commercial space planning. Office layouts, retail spaces, and building plans in 3D.',
+        url: 'https://zlendorealty.com/in/business/commercial-spaces',
+        siteName: 'Zlendo Realty',
+        images: [
+            {
+                url: 'https://zlendorealty.com/og-image.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Zlendo Realty - Commercial Spaces',
+                type: 'image/jpeg',
+            },
+        ],
+        locale: 'en_IN',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Commercial Space Design | Zlendo Realty',
+        description: 'Professional commercial space planning with 3D visualization.',
+    },
+    alternates: {
+        canonical: 'https://zlendorealty.com/in/business/commercial-spaces',
+        languages: {
+            'en-IN': 'https://zlendorealty.com/in/business/commercial-spaces',
+            'x-default': 'https://zlendorealty.com/in/business/commercial-spaces',
+        },
+    },
 };
 
 export default function CommercialSpacesLayout({

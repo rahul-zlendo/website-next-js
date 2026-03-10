@@ -61,26 +61,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Generate URLs for all countries
+  // Use a static date for pages that don't change frequently.
+  // This prevents Google from re-crawling unchanged pages on every sitemap fetch.
+  const staticLastMod = new Date('2026-03-09T00:00:00Z');
+  const dynamicLastMod = new Date(); // For frequently updated content (help center, templates)
+
   const urls: MetadataRoute.Sitemap = [];
 
   for (const country of SUPPORTED_COUNTRIES) {
     for (const route of routes) {
+      // Use dynamic dates for frequently changing content
+      const isDynamic = route.changeFrequency === 'daily';
       urls.push({
         url: `${BASE_URL}/${country}${route.path}`,
-        lastModified: new Date(),
+        lastModified: isDynamic ? dynamicLastMod : staticLastMod,
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });
     }
   }
 
-  // Add root URL
-  urls.unshift({
-    url: BASE_URL,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 1.0,
-  });
+  // Note: Root URL (/) is deliberately excluded — it rewrites to /in via middleware.
+  // The /in entry (priority 1.0) is the canonical home page URL.
 
   // Fetch help center articles from WordPress
   try {

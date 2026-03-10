@@ -24,6 +24,13 @@ export const metadata: Metadata = {
     title: 'AI Cost Estimator for Homes',
     description: 'Plan smarter, spend better. Explore free sample estimates.',
   },
+  alternates: {
+    canonical: 'https://zlendorealty.com/in/products/cost-estimator',
+    languages: {
+      'en-IN': 'https://zlendorealty.com/in/products/cost-estimator',
+      'x-default': 'https://zlendorealty.com/in/products/cost-estimator',
+    },
+  },
 };
 
 export default function CostEstimatorPage() {

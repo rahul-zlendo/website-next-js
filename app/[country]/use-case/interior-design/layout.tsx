@@ -22,11 +22,11 @@ export const metadata: Metadata = {
     siteName: 'Zlendo Realty',
     images: [
       {
-        url: 'https://zlendorealty.com/og-image.png',
+        url: 'https://zlendorealty.com/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Zlendo Realty - Interior Design',
-        type: 'image/png',
+        type: 'image/jpeg',
       },
     ],
     locale: 'en_IN',
@@ -38,7 +38,11 @@ export const metadata: Metadata = {
     description: 'See how Zlendo Realty transforms interior design with 3D visualization and space planning.',
   },
   alternates: {
-    canonical: '/use-case/interior-design',
+    canonical: 'https://zlendorealty.com/in/use-case/interior-design',
+    languages: {
+      'en-IN': 'https://zlendorealty.com/in/use-case/interior-design',
+      'x-default': 'https://zlendorealty.com/in/use-case/interior-design',
+    },
   },
 };
 

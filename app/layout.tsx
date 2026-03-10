@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 import './globals.css';
 import { Providers } from './providers';
-import { generateOrganizationSchema } from '@/lib/utils/structuredData';
+import { generateOrganizationSchema, generateWebSiteSchema, generateSoftwareApplicationSchema } from '@/lib/utils/structuredData';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -43,28 +43,28 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://zlendorealty.com'),
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://zlendorealty.com/',
-    title: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
+    locale: 'en_IN',
+    url: 'https://zlendorealty.com/in',
+    title: 'Zlendo Realty | AI Home & Office Design Software',
     description:
-      'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
+      'AI-powered 3D home design and floor planning software for architects, builders, interior designers, and vastu consultants.',
     siteName: 'Zlendo Realty',
     images: [
       {
-        url: 'https://zlendorealty.com/og-image.png',
+        url: 'https://zlendorealty.com/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
-        type: 'image/png',
+        alt: 'Zlendo Realty — AI Home & Office Design Software',
+        type: 'image/jpeg',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Zlendo Realty | Free 3D Home Design & Floor Planning Software',
+    title: 'Zlendo Realty | AI Home & Office Design Software',
     description:
-      'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
-    images: ['https://zlendorealty.com/og-image.png'],
+      'AI-powered 3D home design and floor planning software. Start free today.',
+    images: ['https://zlendorealty.com/og-image.jpg'],
   },
   icons: {
     icon: '/favicon.png',
@@ -94,6 +94,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const organizationSchema = generateOrganizationSchema();
+  const webSiteSchema = generateWebSiteSchema();
+  const softwareAppSchema = generateSoftwareApplicationSchema();
 
   return (
     <html lang="en" className={`${outfit.variable} ${nunito.variable}`}>
@@ -102,8 +104,16 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+        />
         {/* Fallback for older social scrapers */}
-        <link rel="image_src" href="https://zlendorealty.com/og-image.png" />
+        <link rel="image_src" href="https://zlendorealty.com/og-image.jpg" />
       </head>
       <body>
         <noscript>

@@ -23,11 +23,11 @@ export const metadata: Metadata = {
     siteName: 'Zlendo Realty',
     images: [
       {
-        url: 'https://zlendorealty.com/og-image.png',
+        url: 'https://zlendorealty.com/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Zlendo Realty - New Home Building',
-        type: 'image/png',
+        type: 'image/jpeg',
       },
     ],
     locale: 'en_IN',
@@ -39,7 +39,11 @@ export const metadata: Metadata = {
     description: 'Design your dream home with custom home plans and see your new build in 3D before construction begins.',
   },
   alternates: {
-    canonical: '/use-case/new-home-building',
+    canonical: 'https://zlendorealty.com/in/use-case/new-home-building',
+    languages: {
+      'en-IN': 'https://zlendorealty.com/in/use-case/new-home-building',
+      'x-default': 'https://zlendorealty.com/in/use-case/new-home-building',
+    },
   },
 };
 

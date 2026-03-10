@@ -9,12 +9,16 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           '/api/',
           '/temp',
+          '/register',
+          '/user-profile',
+          '/vastu-campaign',
         ],
       },
     ],
     sitemap: [
-      'https://zlendorealty.com/sitemap.xml',           // Main site (dynamic, auto-updated)
-      'https://zlendorealty.com/blog/sitemap.xml',      // WordPress blog sitemap
+      'https://zlendorealty.com/sitemap.xml',
+      'https://zlendorealty.com/blog/sitemap.xml',
     ],
+    host: 'https://zlendorealty.com',
   };
 }

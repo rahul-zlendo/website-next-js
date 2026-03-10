@@ -23,23 +23,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             title: {
                 absolute: 'Zlendo Realty | Professionally Designed Home Plan Templates',
             },
-            description: 'Explore Zlendo Realty’s complete collection of expertly crafted plan templates for every space in your home. Sign up today and start designing with ease!',
+            description: 'Explore Zlendo Realty\'s complete collection of expertly crafted plan templates for every space in your home. Sign up today and start designing with ease!',
             openGraph: {
-                title: 'Zlendo Realty – Complete Collection of Home Plan Templates',
+                title: 'Zlendo Realty - Complete Collection of Home Plan Templates',
                 description: 'Discover beautifully designed templates for every room in your home with Zlendo Realty. Sign up now and bring your dream spaces to life!',
                 url: 'https://zlendorealty.com/in/viewalltemplates',
                 siteName: 'Zlendo Realty',
                 images: [
                     {
-                        url: 'https://zlendorealty.com/og-image.png',
+                        url: 'https://zlendorealty.com/og-image.jpg',
                         width: 1200,
                         height: 630,
                         alt: 'Zlendo Realty Home Plan Templates',
-                        type: 'image/png',
+                        type: 'image/jpeg',
                     },
                 ],
                 locale: 'en_IN',
                 type: 'website',
+            },
+            alternates: {
+                canonical: 'https://zlendorealty.com/in/viewalltemplates',
+                languages: {
+                    'en-IN': 'https://zlendorealty.com/in/viewalltemplates',
+                    'x-default': 'https://zlendorealty.com/in/viewalltemplates',
+                },
             },
         };
     }

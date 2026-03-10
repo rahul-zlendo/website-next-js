@@ -36,6 +36,52 @@ export function generateOrganizationSchema() {
 }
 
 /**
+ * Generate WebSite schema (enables Google Sitelinks Searchbox)
+ */
+export function generateWebSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Zlendo Realty',
+    url: 'https://zlendorealty.com',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://zlendorealty.com/in/help-center?search={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
+/**
+ * Generate SoftwareApplication schema (enables software rich results)
+ */
+export function generateSoftwareApplicationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Zlendo Realty',
+    applicationCategory: 'DesignApplication',
+    operatingSystem: 'Web',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'INR',
+    },
+    description:
+      'AI-powered 3D home design and floor planning software for architects, builders, interior designers, and vastu consultants.',
+    url: 'https://zlendorealty.com/in',
+    screenshot: 'https://zlendorealty.com/og-image.jpg',
+    creator: {
+      '@type': 'Organization',
+      name: 'Zlendo Realty',
+    },
+  };
+}
+
+/**
  * Generate BreadcrumbList schema
  */
 export function generateBreadcrumbSchema(items: BreadcrumbItem[]) {
@@ -66,7 +112,7 @@ export function generateProductSchema(product: {
     name: product.name,
     description: product.description,
     url: product.url,
-    image: product.image || 'https://zlendorealty.com/og-image.png',
+    image: product.image || 'https://zlendorealty.com/og-image.jpg',
     brand: {
       '@type': 'Brand',
       name: 'Zlendo Realty',
