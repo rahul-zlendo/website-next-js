@@ -16,11 +16,13 @@ const env = process.env.NEXT_PUBLIC_ENV || 'dev';
 const isDev = env === 'dev';
 
 // Frontend URLs - Using production URL for both dev and prod its
+// const FRONTEND_URL_DEV = 'http://localhost:3000'
 const FRONTEND_URL_DEV = 'https://stagingapp.zlendorealty.com';
 const FRONTEND_URL_PROD = 'https://app.zlendorealty.com';
 
 // Backend URLs - Using production API for both dev and prod
 const BACKEND_URL_DEV = 'https://api.zlendorealty.com';
+// const BACKEND_URL_DEV = 'https://216.48.182.24:4051';
 const BACKEND_URL_PROD = 'https://prodapi.zlendorealty.com';
 
 // Blob URL
