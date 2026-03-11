@@ -13,6 +13,7 @@ export interface FollowDataResponse {
   userId: number;
   followingCount: number;
   followerCount: number;
+  isFollowing: boolean;
 }
 
 export const followOrUnfollowUserService = async (payload: FollowUserPayload): Promise<unknown> => {
