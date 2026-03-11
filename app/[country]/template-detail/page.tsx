@@ -58,9 +58,9 @@ const getValidUrl = (url: string | null | undefined): string | null => {
 const processProfileUrl = (profileUrl: string | null | undefined): string | null => {
     const rawUrl = getValidUrl(profileUrl);
     if (!rawUrl) return null;
-    
+
     const normalizedUrl = normalizeGoogleImageUrl(rawUrl);
-    
+
     // If it's already a full HTTP/HTTPS URL (like blob storage URL)
     if (normalizedUrl.startsWith('http://') || normalizedUrl.startsWith('https://')) {
         // Check if it's a blob storage URL and needs SAS token
@@ -74,7 +74,7 @@ const processProfileUrl = (profileUrl: string | null | undefined): string | null
         // For other HTTP URLs (like Google images), return as is
         return normalizedUrl;
     }
-    
+
     // If it's a relative path, construct full URL with SAS token
     const fullUrl = `${BLOB_BASE_URL}${normalizedUrl}`;
     return `${fullUrl}${fullUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
@@ -99,7 +99,7 @@ function CommentItem({
     const isReplying = replyingTo === comment.templateCommentId;
     const currentReplyText = replyText[comment.templateCommentId] || '';
     const displayProfileUrl = processProfileUrl(comment.profileUrl);
-    
+
     return (
         <div className="bg-white border border-gray-100 rounded-[24px] p-6 shadow-sm">
             <div className="flex items-start gap-4">
@@ -111,7 +111,7 @@ function CommentItem({
                             className="w-full h-full object-cover"
                             onError={(e) => {
                                 const target = e.currentTarget;
-                                target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
+                                target.src = 'data:image/svg+xml,%3Csvg width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
                             }}
                         />
                     ) : (
@@ -187,7 +187,7 @@ function CommentItem({
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => {
                                                     const target = e.currentTarget;
-                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Crect fill="%23e2e8f0" width="32" height="32"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="12"%3E%3C/text%3E%3C/svg%3E';
+                                                    target.src = 'data:image/svg+xml,%3Csvg width="32" height="32"%3E%3Crect fill="%23e2e8f0" width="32" height="32"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="12"%3E%3C/text%3E%3C/svg%3E';
                                                 }}
                                             />
                                         ) : (
@@ -326,7 +326,7 @@ function TemplateDetailContent() {
         const idNum = Number(templateId);
         return activeTemplates.find(t => t.template_Id === idNum) || null;
     }, [templateId, activeTemplates]);
-console.log(selectedTemplate,hasReportedTemplate,user,"detail");
+    console.log(selectedTemplate, hasReportedTemplate, user, "detail");
 
     // Fetch templates if not loaded
     useEffect(() => {
@@ -886,7 +886,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                 userId: user.userId,
                 reason: reportDescription.trim()
             }) as any;
-            
+
             // Show success message from API response
             if (response?.message) {
                 setReportMessage(response.message);
@@ -1143,7 +1143,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                                         }
                                                     }
 
-                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200"%3E%3Crect fill="%23f1f5f9" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="12"%3EImage not available%3C/text%3E%3C/svg%3E';
+                                                    target.src = 'data:image/svg+xml,%3Csvg width="200" height="200"%3E%3Crect fill="%23f1f5f9" width="200" height="200"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="12"%3EImage not available%3C/text%3E%3C/svg%3E';
                                                 }}
                                             />
                                         )}
@@ -1206,7 +1206,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                                             className="w-full h-full object-cover"
                                                             onError={(e) => {
                                                                 const target = e.currentTarget;
-                                                                target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
+                                                                target.src = 'data:image/svg+xml,%3Csvg width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
                                                             }}
                                                         />
                                                     ) : (
@@ -1294,7 +1294,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                     </button>
                                 </div>
 
-                               
+
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <button
@@ -1334,7 +1334,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                         hasReportedTemplate || (isAuthenticated && user?.userId === selectedTemplate?.userId)
                                             ? 'bg-gray-100 border-gray-200 text-zlendo-grey-medium cursor-not-allowed opacity-70'
                                             : 'bg-gray-50 border-black/5 text-zlendo-grey-dark hover:bg-gray-100'
-                                    }`}
+                                        }`}
                                 >
                                     <Flag className="w-4 h-4" /> {hasReportedTemplate ? 'Reported' : 'Report'}
                                 </button>
@@ -1380,7 +1380,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => {
                                                     const target = e.currentTarget;
-                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
+                                                    target.src = 'data:image/svg+xml,%3Csvg width="40" height="40"%3E%3Crect fill="%23e2e8f0" width="40" height="40"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="14"%3E%3C/text%3E%3C/svg%3E';
                                                 }}
                                             />
                                         ) : (
@@ -1494,7 +1494,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                                         }
                                                     }
 
-                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23f1f5f9" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
+                                                    target.src = 'data:image/svg+xml,%3Csvg width="400" height="300"%3E%3Crect fill="%23f1f5f9" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
                                                 }}
                                             />
                                         ) : (
@@ -1579,7 +1579,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                             }
                                         }
 
-                                        target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="800" height="600"%3E%3Crect fill="%23f1f5f9" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
+                                        target.src = 'data:image/svg+xml,%3Csvg width="800" height="600"%3E%3Crect fill="%23f1f5f9" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
                                     }}
                                 />
                             </AnimatePresence>
@@ -1622,7 +1622,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                                     }
                                                 }
 
-                                                target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64"%3E%3Crect fill="%23f1f5f9" width="64" height="64"/%3E%3C/svg%3E';
+                                                target.src = 'data:image/svg+xml,%3Csvg width="64" height="64"%3E%3Crect fill="%23f1f5f9" width="64" height="64"/%3E%3C/svg%3E';
                                             }}
                                         />
                                     </button>
@@ -1713,7 +1713,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                             }
                                         }
 
-                                        target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23f1f5f9" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
+                                        target.src = 'data:image/svg+xml,%3Csvg width="400" height="300"%3E%3Crect fill="%23f1f5f9" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
                                     }}
                                 />
                             </div>
@@ -1873,7 +1873,7 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
 
                                 <p className="text-sm text-zlendo-grey-medium font-medium mb-6">
                                     Please view our{' '}
-    <Link href={getPath('/community-guidelines')} className="text-zlendo-teal hover:underline font-bold">
+                                    <Link href={getPath('/community-guidelines')} className="text-zlendo-teal hover:underline font-bold">
                                         Community Guidelines
                                     </Link>
                                     {' '}for more about dos and don'ts on ZLendo Realty.
@@ -1914,11 +1914,10 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                             }
                                         }}
                                         placeholder="Tell us more about what is wrong with this post..."
-                                        className={`w-full min-h-[120px] p-4 border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark ${
-                                            showReportError && reportDescription.trim().length < 10
-                                                ? 'border-red-300 focus:border-red-500'
-                                                : 'border-gray-200'
-                                        }`}
+                                        className={`w-full min-h-[120px] p-4 border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark ${showReportError && reportDescription.trim().length < 10
+                                            ? 'border-red-300 focus:border-red-500'
+                                            : 'border-gray-200'
+                                            }`}
                                         maxLength={500}
                                     />
                                     <div className="flex items-center justify-between mt-2">
@@ -1927,11 +1926,10 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                                 Report must be at least 10 characters
                                             </span>
                                         )}
-                                        <span className={`text-xs font-bold ml-auto ${
-                                            showReportError && reportDescription.trim().length < 10
-                                                ? 'text-red-500'
-                                                : 'text-zlendo-grey-medium opacity-60'
-                                        }`}>
+                                        <span className={`text-xs font-bold ml-auto ${showReportError && reportDescription.trim().length < 10
+                                            ? 'text-red-500'
+                                            : 'text-zlendo-grey-medium opacity-60'
+                                            }`}>
                                             {reportDescription.length}/500
                                         </span>
                                     </div>

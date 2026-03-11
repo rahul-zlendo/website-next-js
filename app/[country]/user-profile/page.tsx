@@ -251,7 +251,7 @@ function UserProfileContent() {
                                         className="w-full h-full object-cover"
                                         onError={(e) => {
                                             const target = e.currentTarget;
-                                            target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64"%3E%3Crect fill="%23e2e8f0" width="64" height="64"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="20"%3E%3C/text%3E%3C/svg%3E';
+                                            target.src = 'data:image/svg+xml,%3Csvg width="64" height="64"%3E%3Crect fill="%23e2e8f0" width="64" height="64"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="20"%3E%3C/text%3E%3C/svg%3E';
                                         }}
                                     />
                                 ) : (
@@ -333,7 +333,7 @@ function UserProfileContent() {
                                                         }
                                                     }
 
-                                                    target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23f1f5f9" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
+                                                    target.src = 'data:image/svg+xml,%3Csvg width="400" height="300"%3E%3Crect fill="%23f1f5f9" width="400" height="300"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
                                                 }}
                                             />
                                         ) : (
