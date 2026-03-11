@@ -66,8 +66,7 @@ function UserProfileContent() {
     const { activeTemplates, isLoading } = useAppSelector((state) => state.template);
     const { user, isAuthenticated } = useAppSelector((state) => state.auth);
 
-    const loginRedirectUrl = useMemo(() => {
-        // Append current page URL so sign-in can return back here after login.
+    const getLoginRedirectUrl = () => {
         try {
             const url = new URL(LOGIN_URL);
             url.searchParams.set('redirect', window.location.href);
@@ -75,8 +74,7 @@ function UserProfileContent() {
         } catch {
             return LOGIN_URL;
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    };
 
     const [profileUserId, setProfileUserId] = useState<number | null>(null);
     const [userTemplates, setUserTemplates] = useState<any[]>([]);
@@ -166,7 +164,8 @@ function UserProfileContent() {
 
     const handleFollow = async () => {
         if (!isAuthenticated || !user) {
-            router.push(loginRedirectUrl);
+            const redirectUrl = getLoginRedirectUrl();
+            router.push(redirectUrl);
             return;
         }
 
@@ -275,7 +274,8 @@ function UserProfileContent() {
                                             console.log(isFollowing, "isFollowing");
 
                                             if (!isAuthenticated) {
-                                                router.push(loginRedirectUrl);
+                                                const redirectUrl = getLoginRedirectUrl();
+                                                router.push(redirectUrl);
                                                 return;
                                             }
                                             handleFollow();

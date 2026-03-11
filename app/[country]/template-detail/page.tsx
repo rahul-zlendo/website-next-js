@@ -33,7 +33,7 @@ interface CommentItemProps {
     handleDeleteComment: (templateCommentId: number) => void;
     formatDate: (dateString: string) => string;
     router: any;
-    LOGIN_URL: string;
+    getLoginRedirectUrl: () => string;
 }
 
 // Helper function to normalize Google image URLs
@@ -94,7 +94,7 @@ function CommentItem({
     handleDeleteComment,
     formatDate,
     router,
-    LOGIN_URL
+    getLoginRedirectUrl
 }: CommentItemProps) {
     const isReplying = replyingTo === comment.templateCommentId;
     const currentReplyText = replyText[comment.templateCommentId] || '';
@@ -151,7 +151,8 @@ function CommentItem({
                         <button
                             onClick={() => {
                                 if (!isAuthenticated) {
-                                    router.push(LOGIN_URL);
+                                    const redirectUrl = getLoginRedirectUrl();
+                                    router.push(redirectUrl);
                                     return;
                                 }
                                 setReplyingTo(isReplying ? null : comment.templateCommentId);
@@ -248,7 +249,7 @@ function CommentItem({
                                     handleDeleteComment={handleDeleteComment}
                                     formatDate={formatDate}
                                     router={router}
-                                    LOGIN_URL={LOGIN_URL}
+                                    getLoginRedirectUrl={getLoginRedirectUrl}
                                 />
                             ))}
                         </div>
@@ -303,9 +304,7 @@ function TemplateDetailContent() {
     const [showReportError, setShowReportError] = useState(false);
     const [hasReportedTemplate, setHasReportedTemplate] = useState(false);
 
-    const loginRedirectUrl = useMemo(() => {
-        // Append the current page URL so the sign-in page can navigate back after login.
-        // LOGIN_URL is an absolute URL (from env), so URL() is safe in the browser.
+    const getLoginRedirectUrl = () => {
         try {
             const url = new URL(LOGIN_URL);
             url.searchParams.set('redirect', window.location.href);
@@ -313,8 +312,7 @@ function TemplateDetailContent() {
         } catch {
             return LOGIN_URL;
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    };
 
     // Get template ID from URL searchParams
     const templateId = useMemo(() => {
@@ -328,6 +326,7 @@ function TemplateDetailContent() {
         const idNum = Number(templateId);
         return activeTemplates.find(t => t.template_Id === idNum) || null;
     }, [templateId, activeTemplates]);
+console.log(selectedTemplate,hasReportedTemplate,user,"detail");
 
     // Fetch templates if not loaded
     useEffect(() => {
@@ -653,7 +652,8 @@ function TemplateDetailContent() {
 
     const handleLike = async () => {
         if (!isAuthenticated || !user) {
-            router.push(loginRedirectUrl);
+            const redirectUrl = getLoginRedirectUrl();
+            router.push(redirectUrl);
             return;
         }
 
@@ -680,7 +680,8 @@ function TemplateDetailContent() {
 
     const handleFavorite = async () => {
         if (!isAuthenticated) {
-            router.push(loginRedirectUrl);
+            const redirectUrl = getLoginRedirectUrl();
+            router.push(redirectUrl);
             return;
         }
 
@@ -739,7 +740,8 @@ function TemplateDetailContent() {
 
     const handlePostComment = async () => {
         if (!isAuthenticated || !user) {
-            router.push(loginRedirectUrl);
+            const redirectUrl = getLoginRedirectUrl();
+            router.push(redirectUrl);
             return;
         }
 
@@ -767,7 +769,8 @@ function TemplateDetailContent() {
 
     const handlePostReply = async (parentCommentId: number) => {
         if (!isAuthenticated || !user) {
-            router.push(loginRedirectUrl);
+            const redirectUrl = getLoginRedirectUrl();
+            router.push(redirectUrl);
             return;
         }
 
@@ -796,7 +799,8 @@ function TemplateDetailContent() {
 
     const handleLikeComment = async (templateCommentId: number) => {
         if (!isAuthenticated || !user) {
-            router.push(loginRedirectUrl);
+            const redirectUrl = getLoginRedirectUrl();
+            router.push(redirectUrl);
             return;
         }
 
@@ -815,7 +819,8 @@ function TemplateDetailContent() {
 
     const handleDeleteComment = (templateCommentId: number) => {
         if (!isAuthenticated || !user) {
-            router.push(loginRedirectUrl);
+            const redirectUrl = getLoginRedirectUrl();
+            router.push(redirectUrl);
             return;
         }
         // Show confirmation modal
@@ -851,7 +856,8 @@ function TemplateDetailContent() {
 
     const handleReport = () => {
         if (!isAuthenticated) {
-            router.push(loginRedirectUrl);
+            const redirectUrl = getLoginRedirectUrl();
+            router.push(redirectUrl);
             return;
         }
         if (hasReportedTemplate) {
@@ -941,7 +947,8 @@ function TemplateDetailContent() {
 
     const handleFollow = async () => {
         if (!isAuthenticated || !user) {
-            router.push(loginRedirectUrl);
+            const redirectUrl = getLoginRedirectUrl();
+            router.push(redirectUrl);
             return;
         }
 
@@ -1315,9 +1322,16 @@ function TemplateDetailContent() {
                                 </div>
                                 <button
                                     onClick={handleReport}
-                                    disabled={hasReportedTemplate}
-                                    title={hasReportedTemplate ? 'You have already reported this template.' : 'Report this template'}
-                                    className={`relative flex items-center justify-center gap-2 py-3 border rounded-xl font-bold w-full transition-colors ${hasReportedTemplate
+                                    disabled={hasReportedTemplate || (isAuthenticated && user?.userId === selectedTemplate?.userId)}
+                                    title={
+                                        isAuthenticated && user?.userId === selectedTemplate?.userId
+                                            ? "You cannot report your own template."
+                                            : hasReportedTemplate
+                                            ? 'You have already reported this template.'
+                                            : 'Report this template'
+                                    }
+                                    className={`relative flex items-center justify-center gap-2 py-3 border rounded-xl font-bold w-full transition-colors ${
+                                        hasReportedTemplate || (isAuthenticated && user?.userId === selectedTemplate?.userId)
                                             ? 'bg-gray-100 border-gray-200 text-zlendo-grey-medium cursor-not-allowed opacity-70'
                                             : 'bg-gray-50 border-black/5 text-zlendo-grey-dark hover:bg-gray-100'
                                         }`}
@@ -1343,7 +1357,10 @@ function TemplateDetailContent() {
                                     Please log in before leaving your comment.
                                 </span>
                                 <button
-                                    onClick={() => router.push(loginRedirectUrl)}
+                                    onClick={() => {
+                                        const redirectUrl = getLoginRedirectUrl();
+                                        router.push(redirectUrl);
+                                    }}
                                     className="px-6 py-2 bg-black text-white rounded-xl font-black text-sm hover:bg-black/90 transition-colors flex-shrink-0 ml-4"
                                 >
                                     Log in
@@ -1429,7 +1446,7 @@ function TemplateDetailContent() {
                                     handleDeleteComment={handleDeleteComment}
                                     formatDate={formatDate}
                                     router={router}
-                                    LOGIN_URL={loginRedirectUrl}
+                                    getLoginRedirectUrl={getLoginRedirectUrl}
                                 />
                             ))}
                         </div>
