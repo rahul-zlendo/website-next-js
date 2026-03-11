@@ -1857,10 +1857,10 @@ function TemplateDetailContent() {
 
                                 <p className="text-sm text-zlendo-grey-medium font-medium mb-6">
                                     Please view our{' '}
-                                    <Link href="/community-guidelines" className="text-zlendo-teal hover:underline font-bold">
+                                 <Link href={getPath('/community-guidelines')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
                                         Community Guidelines
                                     </Link>
-                                    {' '}for more about dos and don'ts on Coohom.
+                                    {' '}for more about dos and don'ts on ZLendo Realty.
                                 </p>
 
                                 {/* <div className="mb-6">
