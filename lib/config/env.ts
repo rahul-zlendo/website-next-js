@@ -12,7 +12,7 @@
  */
 
 // Determine environment (dev or prod)
-const env = process.env.NEXT_PUBLIC_ENV || 'dev';
+const env = process.env.NEXT_PUBLIC_ENV || 'prod';
 const isDev = env === 'dev';
 
 // Frontend URLs - Using production URL for both dev and prod its

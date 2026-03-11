@@ -166,7 +166,7 @@ export default async function CookiePolicyPage(props: CookiePolicyPageProps) {
                                         Safari (Mobile)
                                     </a>,{" "}
                                     <a
-                                        href="http://support.google.com/ics/nexus/bin/answer.py?hl=en&answer=2425067"
+                                        href="https://support.google.com/ics/nexus/bin/answer.py?hl=en&answer=2425067"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-zlendo-teal font-bold hover:underline"
@@ -174,7 +174,7 @@ export default async function CookiePolicyPage(props: CookiePolicyPageProps) {
                                         Android Browser
                                     </a>,{" "}
                                     <a
-                                        href="http://www.opera.com/help"
+                                        href="https://www.opera.com/help"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-zlendo-teal font-bold hover:underline"
@@ -182,7 +182,7 @@ export default async function CookiePolicyPage(props: CookiePolicyPageProps) {
                                         Opera
                                     </a>,{" "}
                                     <a
-                                        href="http://www.opera.com/help/mobile/android#privacy"
+                                        href="https://www.opera.com/help/mobile/android#privacy"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-zlendo-teal font-bold hover:underline"

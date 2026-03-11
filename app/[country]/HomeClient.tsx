@@ -682,7 +682,7 @@ export default function HomeClient() {
                                                         // Final fallback: inline SVG — no external request
                                                         // (via.placeholder.com is unreachable and causes ERR_NAME_NOT_RESOLVED)
                                                         target.onerror = null;
-                                                        target.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' fill='%2394a3b8'%3EImage unavailable%3C/text%3E%3C/svg%3E`;
+                                                        target.src = `data:image/svg+xml,%3Csvg width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' fill='%2394a3b8'%3EImage unavailable%3C/text%3E%3C/svg%3E`;
                                                     }}
                                                 />
                                             ) : (
