@@ -38,7 +38,7 @@ export default async function CountryLayout({
         <AuthSync />
         <PromoBanner />
         <Header />
-        <LaunchOfferPopup />
+        {/* <LaunchOfferPopup /> */}
         <ScrollToTopOnNavigate />
         <main>{children}</main>
         <Footer />
