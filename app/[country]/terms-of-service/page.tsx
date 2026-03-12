@@ -109,8 +109,67 @@ const TermsPage = () => {
                 ]
             },
             {
+                id: 'subscription-plans',
+                title: '6. Subscription Plans and Payment Models',
+                content: 'Zlendo Realty offers users a range of subscription and payment plan options for accessing the Zlendo Realty Product and its associated functionalities. Users may choose from different payment models and product tiers, including but not limited to Pro and Pro-Plus, each of which may provide different features and capabilities.',
+                subsections: [
+                    {
+                        id: 'one-month-plan',
+                        title: '6.1 One-Month Plan (Fixed Term Access)',
+                        content: [
+                            'Users may choose to access the Zlendo Realty Product under a One-Month Plan for either the Pro or Pro-Plus tier by paying the applicable fee upfront for a period of thirty (30) days, as specified on the Plan Choice Page at the time of purchase.',
+                            'Access to the product and its features will remain active for thirty (30) days from the date of payment. Upon expiry of this period, access to the Platform will automatically cease unless the user renews the plan or subscribes to another available payment model.',
+                            'During the active period of the One-Month Plan, users may choose to upgrade to either a Monthly Subscription Plan or a Yearly Subscription Plan under the Pro or Pro-Plus tiers. Where such upgrade is selected and the applicable subscription fee has been paid, the upgraded plan will take effect only after the expiry of the current One-Month Plan.'
+                        ]
+                    },
+                    {
+                        id: 'monthly-subscription-plan',
+                        title: '6.2 Monthly Subscription Plan',
+                        content: [
+                            'Users may subscribe to the Zlendo Realty Product under a Monthly Subscription Plan for either the Pro or Pro-Plus tier by paying the monthly subscription fee specified on the Plan Choice Page.',
+                            'The subscription fee will be automatically charged on a recurring monthly basis beginning from the date of activation of the subscription.',
+                            'The Monthly Subscription Plan operates as an auto-renewing subscription and will continue to renew each month unless cancelled by the user in accordance with these Terms.',
+                            'During the continuance of the Monthly Subscription Plan, users may choose to upgrade to a Yearly Subscription Plan under the Pro or Pro-Plus tiers. Where such upgrade is selected and the applicable subscription fee has been paid, the upgraded plan will take effect after the expiry of the current monthly billing cycle.'
+                        ]
+                    },
+                    {
+                        id: 'one-year-plan',
+                        title: '6.3 One-Year Plan (Fixed Term Access)',
+                        content: [
+                            'Users may access the Zlendo Realty Product under a One-Year Plan for either the Pro or Pro-Plus tier by paying the applicable fee upfront for a fixed period of twelve (12) months, as specified on the Plan Choice Page.',
+                            'Access to the Platform and its functionalities will remain active for twelve (12) months from the date of payment. Upon completion of the twelve-month period, access to the product will automatically terminate unless the user renews the plan or subscribes to another available payment model.',
+                            'During the active period of the One-Year Plan, users may choose to upgrade to a Yearly Subscription Plan under the Pro or Pro-Plus tiers. Where such upgrade is selected and the applicable subscription fee has been paid, the new subscription will commence only upon the expiry of the existing One-Year Plan.'
+                        ]
+                    },
+                    {
+                        id: 'yearly-subscription-plan',
+                        title: '6.4 Yearly Subscription Plan',
+                        content: [
+                            'Users may subscribe to the Zlendo Realty Product under a Yearly Subscription Plan for either the Pro or Pro-Plus tier by paying the yearly subscription fee specified on the Plan Choice Page.',
+                            'The Yearly Subscription Plan provides access to the Platform for a period of twelve (12) months beginning from the date of activation of the subscription.',
+                            'This plan operates as an auto-renewing annual subscription, and the subscription fee will automatically be charged at the start of each subsequent twelve-month billing cycle unless the subscription is cancelled by the user prior to the renewal date.',
+                            'By default, the auto-renewal setting for the Yearly Subscription Plan may remain active for a maximum duration of ten (10) years from the date of commencement of the subscription, unless earlier cancelled by the user.'
+                        ]
+                    },
+                    {
+                        id: 'plan-upgrades',
+                        title: '6.5 Plan Upgrades',
+                        content: 'Users may upgrade from one payment plan or tier (including Pro or Pro-Plus) to another during the active period of their existing plan. Where a user elects to upgrade and pays the applicable subscription fee for the new plan, the upgraded subscription will take effect only after the expiration of the current active plan.'
+                    },
+                    {
+                        id: 'right-to-change-pricing',
+                        title: '6.6 Right to Change Pricing',
+                        content: [
+                            'Zlendo Realty reserves the right to modify, revise, or update the pricing applicable to any subscription plan, payment model, or product tier, including but not limited to Pro and Pro-Plus, at its sole discretion.',
+                            'Any such changes in pricing shall apply to new subscriptions purchased after the revised pricing becomes effective and to renewals of existing subscriptions occurring after the effective date of such pricing change.',
+                            'Zlendo Realty may notify users of material pricing changes through the Platform, email communication, or updates to the Plan Choice Page. Continued use of the Platform or renewal of a subscription after such pricing changes become effective shall constitute acceptance of the revised pricing.'
+                        ]
+                    }
+                ]
+            },
+            {
                 id: 'customisation',
-                title: '6. Customisation',
+                title: '7. Customisation',
                 content: [
                     'Zlendo is a standard cloud-based SaaS product offered on an \'as-is\' basis, inclusive of all existing in-app features and standard integrations available under the applicable subscription plan. As a SaaS platform, Zlendo does not offer whitelabelling, branding, or theme level customisations and permits only feature level configurations already available within the application.',
                     'Any new feature or integration that is not part of the existing Platform may incur additional charges and require separate timelines, subject to Zlendo\'s product roadmap & vision.',
@@ -119,7 +178,7 @@ const TermsPage = () => {
             },
             {
                 id: 'intellectual-property',
-                title: '7. Intellectual Property Rights and Content Ownership',
+                title: '8. Intellectual Property Rights and Content Ownership',
                 content: [
                     <span key="patent">The entire contents of the Platform are protected by applicable copyright, trademark laws and an exclusive patent has been filed vide <strong className="whitespace-nowrap">patent application no : 202541075322</strong> . The owner of the copyrights, trademarks and patent is Zlendo, its affiliates, or third-party licensors. All rights, title, and interest in and to the Platform, including all Intellectual Property Rights arising out of it, are owned by Zlendo or its licensors.</span>,
                     'User Content Ownership: You retain all ownership rights, title, and interest in the User Content created or stored by you.',
@@ -129,7 +188,7 @@ const TermsPage = () => {
             },
             {
                 id: 'confidentiality',
-                title: '8. Confidentiality',
+                title: '9. Confidentiality',
                 content: [
                     'Receiving Party shall maintain the confidentiality of Disclosing Party\'s Confidential Information using at minimum the same degree of care the Receiving Party use to protect its own information, but no less than reasonable care, and shall not disclose it to any third party except as required to perform obligations or exercise rights under this Agreement.',
                     'Receiving Party shall not use Confidential Information except as necessary to perform its obligations or exercise its rights under this Agreement and shall not use it to gain any unfair advantage over Disclosing Party. Upon termination or request, all tangible and digital copies of Confidential Information must be returned or destroyed.'
@@ -137,7 +196,7 @@ const TermsPage = () => {
             },
             {
                 id: 'warranties',
-                title: '9. Disclaimer of Warranties',
+                title: '10. Disclaimer of Warranties',
                 content: [
                     'You expressly understand and agree that the use of the Services is at your sole risk. The Platform and related information are provided \'as is\', \'as available\' and with \'all faults\' without warranties of any kind, whether express or implied, to the maximum extent permitted by applicable law.',
                     'Zlendo expressly disclaims all implied warranties, including without limitation warranties of title, non-infringement, merchantability, or fitness for a particular purpose.',
@@ -146,7 +205,7 @@ const TermsPage = () => {
             },
             {
                 id: 'liability',
-                title: '10. Limitation of Liability',
+                title: '11. Limitation of Liability',
                 content: [
                     'In no event will Zlendo be liable for any incidental, consequential, indirect, special, punitive, exemplary, or other damages whatsoever (including, but not limited to, damages for loss of profits, loss of goodwill, business interruption, loss of programs or information, or unauthorized access to data), arising out of the use of or inability to use the Service, even if Zlendo has been advised of the possibility of such damages.',
                     'Zlendo\'s entire aggregate liability to you in respect of any claim arising out of or relating to the Platform and/or the Services shall not exceed the value of the aggregate of all amounts paid by the Subscriber to Zlendo in the one (1) month preceding the first event giving rise to such claim or action, or ten thousand rupees (₹ 10,000), whichever is lower.'
@@ -154,7 +213,7 @@ const TermsPage = () => {
             },
             {
                 id: 'indemnification',
-                title: '11. Indemnification',
+                title: '12. Indemnification',
                 content: [
                     'You agree to indemnify, defend, and hold harmless Zlendo, its officers, directors, employees, agents, licensors, suppliers, and affiliates (collectively, \'Affiliated Parties\') from and against all losses, expenses, damages, claims, and costs, including reasonable attorneys\' fees, resulting from:',
                     'Your unauthorized or improper use of the Services or Platform;',
@@ -165,16 +224,17 @@ const TermsPage = () => {
             },
             {
                 id: 'third-party',
-                title: '12. Third-Party Services and Resources',
+                title: '13. Third-Party Services and Resources',
                 content: [
                     'The Platform may include content, integrations, documents, tools, or links to third-party applications, software, or websites (\'Third-Party Services\').',
                     'Zlendo makes no representations or warranties regarding Third-Party Services and disclaims all liability for any interruptions, errors, or damages arising from their use.',
-                    'Your use of Third-Party Services is subject to the respective terms and conditions of such third parties, which you are responsible for reviewing and accepting. Zlendo does not operate, control, or endorse any information, products, or services offered by third parties through the Platform.'
+                    'Your use of Third-Party Services is subject to the respective terms and conditions of such third parties, which you are responsible for reviewing and accepting. Zlendo does not operate, control, or endorse any information, products, or services offered by third parties through the Platform.',
+                    'The recommended browser for this application to perform at its maximum potential is the latest version of Google Chrome.'
                 ]
             },
             {
                 id: 'term',
-                title: '13. Term',
+                title: '14. Term',
                 content: 'The term of this Agreement depends on how you access the Services:',
                 subsections: [
                     {
@@ -195,7 +255,7 @@ const TermsPage = () => {
             },
             {
                 id: 'termination',
-                title: '14. Termination',
+                title: '15. Termination',
                 content: [
                     'Either Party may terminate this Agreement for cause by providing thirty (30) days\' written notice to the other Party if the other Party materially breaches this Agreement and fails to remedy such breach within the notice period.',
                     'Zlendo may terminate this Agreement and/or suspend the User Account and access to the Services, immediately upon written notice, if the Subscriber/User is reasonably suspected of engaging in illegal, fraudulent, or abusive activities, is subject to bankruptcy or insolvency proceedings, or fails to pay undisputed fees when due.'
@@ -216,7 +276,7 @@ const TermsPage = () => {
             },
             {
                 id: 'governing-law',
-                title: '15. Governing Law and Dispute Resolution',
+                title: '16. Governing Law and Dispute Resolution',
                 content: [
                     'This Agreement shall be governed by and construed in accordance with the laws of India.',
                     'In case of any dispute or difference either in interpretation or otherwise, of any terms of these Terms between the parties hereto, the parties shall attempt to resolve the same through discussion. In case the parties fail to arrive at an amiable solution through discussion, the same shall be referred to Arbitration at the request of either Party in writing, in accordance with the provisions of Arbitration and Conciliation Act, 1996, as amended from time to time. The arbitration shall be conducted by a sole Arbitrator to be mutually appointed between the Parties and decision of the arbitrator shall be final and binding on the parties hereto. The seat and venue of arbitration shall be Madurai, Tamil Nadu, India.'
@@ -224,7 +284,7 @@ const TermsPage = () => {
             },
             {
                 id: 'ai-estimates',
-                title: '16. Use of AI and Estimates (Zlendo Realty)',
+                title: '17. Use of AI and Estimates (Zlendo Realty)',
                 content: 'Zlendo Realty provides AI-powered tools for real estate design, converting 2D plans to 3D, creating virtual realty walkthroughs (VR Studio), offering Vaastu recommendations, cost estimation (BoQ), and API integrations.',
                 subsections: [
                     {
@@ -264,7 +324,7 @@ const TermsPage = () => {
             },
             {
                 id: 'vendor-disclaimer',
-                title: '17. Vendor and Physical Services Disclaimer',
+                title: '18. Vendor and Physical Services Disclaimer',
                 content: [
                     'If the Services include connecting you to independent vendors or contractors (\'Third-Party Vendors\') for physical services such as installation, construction, or customized work:',
                     'Facilitation Role: Zlendo acts solely as a facilitator between you and the Third-Party Vendor for enabling such Custom Work or installation.',
@@ -275,57 +335,57 @@ const TermsPage = () => {
             },
             {
                 id: 'injunctive-relief',
-                title: '18. Injunctive Relief',
+                title: '19. Injunctive Relief',
                 content: 'The Parties agree that breaches of confidentiality, non-use, or other obligations under this Agreement causing irreparable harm shall entitle the affected Party to seek injunctive relief or specific performance. The Parties acknowledge that monetary damages alone may be inadequate to remedy such breaches. This right is in addition to any other remedies that the affected Party may have at law or in equity.'
             },
             {
                 id: 'non-disparagement',
-                title: '19. Non Disparagement',
+                title: '20. Non Disparagement',
                 content: 'During and after the term of this Agreement, both Parties shall act in good faith. They shall refrain from making or publishing any false, misleading, derogatory, defamatory, or otherwise harmful statements about the other Party, its services, personnel, or business. This prohibition applies whether the statements are made publicly or privately on any digital/public platforms.'
             },
             {
                 id: 'amendments',
-                title: '20. Amendments',
+                title: '21. Amendments',
                 content: 'No provision of this Agreement may be terminated, modified or waived, by course of dealing or otherwise, unless such termination, modification or waiver is set forth in a written agreement referencing this Agreement and is executed by an authorized representative of both Parties.'
             },
             {
                 id: 'force-majeure',
-                title: '21. Force Majeure',
+                title: '22. Force Majeure',
                 content: 'Neither Party shall be liable for delays or failures in performance due to causes beyond its reasonable control, including but not limited to natural disasters (e.g., flooding, earthquake, hurricane), government actions, wars, riots, strikes, lockouts, epidemic, pandemic, or other concerted acts of workmen or acts of God.'
             },
             {
                 id: 'notices',
-                title: '22. Notices',
+                title: '23. Notices',
                 content: 'All notices under this Agreement must be in writing. Notices to Zlendo concerning this Agreement should be sent to support@zlendorealty.com, or to Zlendo\'s registered address. Notices to Subscriber must be sent addressing the email address of the representative as provided in the SOF, unless otherwise agreed in writing by the Parties.'
             },
             {
                 id: 'assignment',
-                title: '23. Assignment',
+                title: '24. Assignment',
                 content: 'You shall not assign or transfer your rights or obligations under this Agreement without the prior written consent of Zlendo. However, Zlendo may assign its rights and duties under this Agreement to any party at any time without notice to you.'
             },
             {
                 id: 'conflict',
-                title: '24. Conflict of Terms',
+                title: '25. Conflict of Terms',
                 content: 'Notwithstanding anything to the contrary, any separately executed agreement/SOF between Zlendo and User shall govern and prevail over these Terms in the event of any conflict.'
             },
             {
                 id: 'waiver',
-                title: '25. Waiver',
+                title: '26. Waiver',
                 content: 'No failure or delay by either Party in exercising any right, power or remedy under this Agreement shall operate as a waiver of any such right, power or remedy. The waiver by either Party of any breach or default hereunder shall not be deemed a waiver of any subsequent breach or default.'
             },
             {
                 id: 'severability',
-                title: '26. Severability',
+                title: '27. Severability',
                 content: 'The invalidity or unenforceability of any provision of this Agreement shall not affect the validity or enforceability of the Agreement as a whole, which shall remain in full force and effect. If any provision is found to be invalid or unenforceable, the Agreement shall be construed as if it does not contain that specific provision. Furthermore, the Parties agree to collaborate in good faith to replace any invalid or unenforceable provision with one that is valid and enforceable and achieves, to the maximum extent legally permissible, the same objective as the provision deemed invalid or unenforceable.'
             },
             {
                 id: 'independent-contractors',
-                title: '27. Independent Contractors',
+                title: '28. Independent Contractors',
                 content: 'The Parties are independent contractors, and nothing contained in this Agreement shall be construed to constitute the parties as partners, joint venturers, co-owners or otherwise as participants in a joint or common undertaking.'
             },
             {
                 id: 'electronic-signatures',
-                title: '28. Electronic Signatures',
+                title: '29. Electronic Signatures',
                 content: 'The Parties agree that this Agreement and any other documents to be delivered in connection herewith may be executed by electronic means, via digital signatures. Such electronic execution shall be deemed to have the same legal effect as delivery of an original executed copy. The Parties further agree that electronic signatures shall be binding and enforceable to the same extent as physical, handwritten ("wet") signatures, in accordance with Applicable Laws.'
             }
         ] as PolicySection[]

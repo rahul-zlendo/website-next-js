@@ -1,5 +1,9 @@
+import type { Metadata } from 'next';
 
-export const metadata = {
+export const metadata: Metadata = {
+    title: 'Virtual Walkthrough & 8K Home Tours | Zlendo Realty',
+    description:
+        'Walk through your future home in immersive 8K virtual tours. First-person exploration compatible with VR headsets. Experience spaces before they are built.',
     keywords: [
         'hyper-realistic virtual walkthroughs',
         '8k virtual walkthroughs',
@@ -14,6 +18,35 @@ export const metadata = {
         'architects design software',
         'real estate builders software',
     ],
+    openGraph: {
+        title: 'Immersive Virtual Walkthrough | Zlendo Realty',
+        description: 'Walk through your future home in 8K quality. First-person exploration of spaces before construction.',
+        url: 'https://zlendorealty.com/in/products/virtual-walkthrough',
+        siteName: 'Zlendo Realty',
+        images: [
+            {
+                url: 'https://zlendorealty.com/og-image.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Zlendo Realty - Virtual Walkthrough',
+                type: 'image/jpeg',
+            },
+        ],
+        locale: 'en_IN',
+        type: 'website',
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Virtual Home Walkthrough | Zlendo Realty',
+        description: 'Immersive 8K home tours with VR support. Experience your design today.',
+    },
+    alternates: {
+        canonical: 'https://zlendorealty.com/in/products/virtual-walkthrough',
+        languages: {
+            'en-IN': 'https://zlendorealty.com/in/products/virtual-walkthrough',
+            'x-default': 'https://zlendorealty.com/in/products/virtual-walkthrough',
+        },
+    },
 };
 
 export default function VirtualWalkthroughLayout({

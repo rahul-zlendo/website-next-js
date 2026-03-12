@@ -20,7 +20,19 @@ export const metadata: Metadata = {
     title: 'Design and Build Services & Remote Home Planning | Zlendo Realty',
     description:
       'Bridge the distance with transparent design. Manage international and remote projects with absolute clarity, ensuring your NRI clients feel present at every step.',
-    url: 'https://app.zlendorealty.com/in/business/nri-remote-planning',
+    url: 'https://zlendorealty.com/in/business/nri-remote-planning',
+    siteName: 'Zlendo Realty',
+    images: [
+      {
+        url: 'https://zlendorealty.com/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Zlendo Realty - NRI Remote Home Planning',
+        type: 'image/jpeg',
+      },
+    ],
+    locale: 'en_IN',
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
@@ -28,7 +40,11 @@ export const metadata: Metadata = {
     description: 'Empower your NRI clients with 3D visualization and seamless remote collaboration for home design projects.',
   },
   alternates: {
-    canonical: '/business/nri-remote-planning',
+    canonical: 'https://zlendorealty.com/in/business/nri-remote-planning',
+    languages: {
+      'en-IN': 'https://zlendorealty.com/in/business/nri-remote-planning',
+      'x-default': 'https://zlendorealty.com/in/business/nri-remote-planning',
+    },
   },
 };
 
