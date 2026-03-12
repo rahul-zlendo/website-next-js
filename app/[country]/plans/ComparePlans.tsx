@@ -35,8 +35,8 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList }) =
         if (restrictionValue === 0) {
             return (
                 <div className="flex flex-col items-center">
-                    <span className="text-xs font-bold text-gray-500">0/Month</span>
-                    <span className="text-xs font-bold text-gray-400">0/Year</span>
+                    <span className="text-xs font-bold text-gray-500">-</span>
+                    {/* <span className="text-xs font-bold text-gray-400">0/Year</span> */}
                 </div>
             );
         }
@@ -45,7 +45,7 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList }) =
         return (
             <div className="flex flex-col items-center">
                 <span className="text-xs font-bold text-gray-700">{restrictionValue}/Month</span>
-                <span className="text-[11px] font-bold text-gray-500">{restrictionValue * 12}/Year</span>
+                {/* <span className="text-[11px] font-bold text-gray-500">{restrictionValue * 12}/Year</span> */}
             </div>
         );
     };
@@ -71,8 +71,8 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList }) =
                                 <h3 className="text-lg font-black text-zlendo-grey-dark">{plan.planName}</h3>
                                 {plan.planName.toLowerCase() !== 'free' ? (
                                     <div className="mt-1 flex flex-col items-center justify-center">
-                                        <span className="text-sm font-bold text-zlendo-teal">₹{plan.price} /Monthly</span>
-                                        <span className="text-xs font-bold text-zlendo-teal">₹{plan.yearlyPrice} /Yearly</span>
+                                        <span className="text-sm font-bold text-zlendo-teal">₹{plan.price} /Month</span>
+                                        {/* <span className="text-xs font-bold text-zlendo-teal">₹{plan.yearlyPrice} /Yearly</span> */}
                                     </div>
                                 ) : (
                                     <div className="mt-1 h-10 flex items-center justify-center">
