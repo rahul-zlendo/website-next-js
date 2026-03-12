@@ -119,7 +119,7 @@ const TermsPage = () => {
                         content: [
                             'Users may choose to access the Zlendo Realty Product under a One-Month Plan for either the Pro or Pro-Plus tier by paying the applicable fee upfront for a period of thirty (30) days, as specified on the Plan Choice Page at the time of purchase.',
                             'Access to the product and its features will remain active for thirty (30) days from the date of payment. Upon expiry of this period, access to the Platform will automatically cease unless the user renews the plan or subscribes to another available payment model.',
-                            'During the active period of the One-Month Plan, users may choose to upgrade to either a Monthly Subscription Plan or a Yearly Subscription Plan under the Pro or Pro-Plus tiers. Where such upgrade is selected and the applicable subscription fee has been paid, the upgraded plan will take effect only after the expiry of the current One-Month Plan.'
+                            'During the active period of the One-Month Plan, users may choose to upgrade to another available subscription plan or tier under the Pro or Pro-Plus offerings. Where such upgrade is selected and the applicable subscription fee has been paid, the upgraded plan will take effect only after the expiry of the current One-Month Plan.'
                         ]
                     },
                     {
@@ -128,37 +128,19 @@ const TermsPage = () => {
                         content: [
                             'Users may subscribe to the Zlendo Realty Product under a Monthly Subscription Plan for either the Pro or Pro-Plus tier by paying the monthly subscription fee specified on the Plan Choice Page.',
                             'The subscription fee will be automatically charged on a recurring monthly basis beginning from the date of activation of the subscription.',
-                            'The Monthly Subscription Plan operates as an auto-renewing subscription and will continue to renew each month unless cancelled by the user in accordance with these Terms.',
-                            'During the continuance of the Monthly Subscription Plan, users may choose to upgrade to a Yearly Subscription Plan under the Pro or Pro-Plus tiers. Where such upgrade is selected and the applicable subscription fee has been paid, the upgraded plan will take effect after the expiry of the current monthly billing cycle.'
-                        ]
-                    },
-                    {
-                        id: 'one-year-plan',
-                        title: '6.3 One-Year Plan (Fixed Term Access)',
-                        content: [
-                            'Users may access the Zlendo Realty Product under a One-Year Plan for either the Pro or Pro-Plus tier by paying the applicable fee upfront for a fixed period of twelve (12) months, as specified on the Plan Choice Page.',
-                            'Access to the Platform and its functionalities will remain active for twelve (12) months from the date of payment. Upon completion of the twelve-month period, access to the product will automatically terminate unless the user renews the plan or subscribes to another available payment model.',
-                            'During the active period of the One-Year Plan, users may choose to upgrade to a Yearly Subscription Plan under the Pro or Pro-Plus tiers. Where such upgrade is selected and the applicable subscription fee has been paid, the new subscription will commence only upon the expiry of the existing One-Year Plan.'
-                        ]
-                    },
-                    {
-                        id: 'yearly-subscription-plan',
-                        title: '6.4 Yearly Subscription Plan',
-                        content: [
-                            'Users may subscribe to the Zlendo Realty Product under a Yearly Subscription Plan for either the Pro or Pro-Plus tier by paying the yearly subscription fee specified on the Plan Choice Page.',
-                            'The Yearly Subscription Plan provides access to the Platform for a period of twelve (12) months beginning from the date of activation of the subscription.',
-                            'This plan operates as an auto-renewing annual subscription, and the subscription fee will automatically be charged at the start of each subsequent twelve-month billing cycle unless the subscription is cancelled by the user prior to the renewal date.',
-                            'By default, the auto-renewal setting for the Yearly Subscription Plan may remain active for a maximum duration of ten (10) years from the date of commencement of the subscription, unless earlier cancelled by the user.'
+                            'The Monthly Subscription Plan operates as an auto-renewing subscription, and the subscription shall automatically renew at the end of each monthly billing cycle unless cancelled by the user in accordance with these Terms.',
+                            'The automatic monthly renewal will continue for a maximum period of twelve (12) months from the date of activation of the Monthly Subscription Plan. Upon completion of the twelve-month period, the subscription will automatically expire unless the user actively opts to subscribe again to the Monthly Subscription Plan or selects another available payment model.',
+                            'During the continuance of the Monthly Subscription Plan, users may choose to upgrade to another available subscription plan or tier under the Pro or Pro-Plus offerings. Where such upgrade is selected and the applicable subscription fee has been paid, the upgraded plan shall take effect after the expiry of the current monthly billing cycle.'
                         ]
                     },
                     {
                         id: 'plan-upgrades',
-                        title: '6.5 Plan Upgrades',
+                        title: '6.3 Plan Upgrades',
                         content: 'Users may upgrade from one payment plan or tier (including Pro or Pro-Plus) to another during the active period of their existing plan. Where a user elects to upgrade and pays the applicable subscription fee for the new plan, the upgraded subscription will take effect only after the expiration of the current active plan.'
                     },
                     {
                         id: 'right-to-change-pricing',
-                        title: '6.6 Right to Change Pricing',
+                        title: '6.4 Right to Change Pricing',
                         content: [
                             'Zlendo Realty reserves the right to modify, revise, or update the pricing applicable to any subscription plan, payment model, or product tier, including but not limited to Pro and Pro-Plus, at its sole discretion.',
                             'Any such changes in pricing shall apply to new subscriptions purchased after the revised pricing becomes effective and to renewals of existing subscriptions occurring after the effective date of such pricing change.',
