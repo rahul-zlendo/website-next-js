@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://api.zlendorealty.com/api/:path*',
+        destination: 'https://216.48.182.24:4051/api/:path*',
       },
     ];
   },
