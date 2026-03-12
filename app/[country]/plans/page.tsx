@@ -11,7 +11,7 @@ import ComparePlans from './ComparePlans';
 
 const PricingPage = () => {
     const { getPath } = useCountry();
-    const [billingCycle, setBillingCycle] = useState<'month' | 'monthly'>('monthly');
+    const [billingCycle, setBillingCycle] = useState<'month' | 'monthly'>('month');
     const [plans, setPlans] = useState<Subscription[]>([]);
     const [compareData, setCompareData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -97,7 +97,7 @@ const PricingPage = () => {
                     </p>
 
                     <div className="flex border-2 border-zlendo-teal/10 p-1.5 rounded-full bg-white/50 backdrop-blur-sm shadow-xl shadow-zlendo-teal/5 relative mx-auto w-fit">
-                        {['month', 'monthly'].map((cycle) => (
+                        {['month'/*, 'monthly'*/].map((cycle) => (
                             <button
                                 key={cycle}
                                 onClick={() => setBillingCycle(cycle as 'month' | 'monthly')}
