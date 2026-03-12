@@ -1,87 +1,55 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Star, Zap, Building2, Crown, Sparkles, ArrowRight } from 'lucide-react';
+import { Check, Star, Zap, Building2, Crown, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useCountry } from '@/lib/context/CountryContext';
 import { LOGIN_URL, SIGNUP_URL } from '@/lib/constants/urls';
-
+import { getAllSubscriptionsService, compareSubscriptionsService, Subscription } from '@/lib/services/subscriptionService';
+import ComparePlans from './ComparePlans';
 
 const PricingPage = () => {
-    const { getPath, paths } = useCountry();
-    const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
+    const { getPath } = useCountry();
+    const [billingCycle, setBillingCycle] = useState<'month' | 'monthly'>('month');
+    const [plans, setPlans] = useState<Subscription[]>([]);
+    const [compareData, setCompareData] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const [plansResponse, compareResponse] = await Promise.all([
+                    getAllSubscriptionsService(),
+                    compareSubscriptionsService()
+                ]);
 
+                // We only show Residential plans (planTypeId === 1) here for end users
+                // Sorting them by displayOrder
+                const residentialPlans = plansResponse
+                    .filter(p => p.planTypeId === 1 && p.isActive !== false)
+                    .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
 
-    // Plans Data - India Focused
-    const plans = [
-        {
-            id: 'free',
-            name: 'Free',
-            status: 'active',
-            badge: null,
-            icon: Star,
-            description: 'For beginners starting their design journey.',
-            price: { monthly: 0, yearly: 0 },
-            features: [
-                'Project Creation* - Start From Scratch / Upload Floor Plan / Template Based Design / Wizard',
-                'AI Inspiration* - Inspiration',
-                'Walk Through* - 360 Panorama / 360 Walkthrough',
-                'Image Rendering* - AI Image/ Draft Image / HD Image / 4K',
-                'Video Rendering* - 420p Video',
-                'Estimation* - Cost Estimation and Vastu',
-                '*Limits and Conditions Apply'
-            ],
-            missing: ['Advanced Team Collaboration', 'Texture customization', 'AI Plan Recognition'],
-            cta: 'Start Designing',
-            ctaStyle: 'outline'
-        },
-        {
-            id: 'pro',
-            name: 'Pro',
-            status: 'coming-soon',
-            badge: 'Popular',
-            icon: Zap,
-            description: 'Unlock the full catalog and AI tools.',
-            price: { monthly: 1499, yearly: 15290 }, // ₹1,499/mo or ₹15,290/year (15% off ₹17,988)
-            originalYearly: 17988, // Original yearly price before discount
-            features: [
-                // 'All Free features',
-                // 'Full Catalog Access (8,000+ items)',
-                // '5 High-Quality Renders / mo',
-                // 'AI Plan Recognition',
-                // 'Texture & Material Customization',
-                // 'No Watermarks',
-                // 'Priority Support'
-            ],
-            missing: ['Full 4K Renders', '360° Panoramas', 'Custom 3D Model Upload'],
-            cta: 'Start Now',
-            ctaStyle: 'disabled'
-        },
-        {
-            id: 'pro-plus',
-            name: 'Pro Plus',
-            status: 'coming-soon',
-            badge: 'Best Value',
-            icon: Crown,
-            description: 'For professionals needing top-tier visuals.',
-            price: { monthly: 3999, yearly: 40790 }, // ₹3,999/mo or ₹40,790/year (15% off ₹47,988)
-            originalYearly: 47988, // Original yearly price before discount
-            features: [
-                // 'Everything in Pro',
-                // 'All 4K Photorealistic Renders',
-                // '360° Panorama Tours',
-                // 'Custom 3D Model Upload (OBJ/FBX)',
-                // 'Create multi-concept Moodboards',
-                // 'Commercial Usage Rights',
-                // 'Export to CAD/DXF'
-            ],
-            missing: [],
-            cta: 'Start Now',
-            ctaStyle: 'disabled'
-        }
-    ];
+                setPlans(residentialPlans);
+                
+                // Set comparison data directly
+                if (Array.isArray(compareResponse)) {
+                    setCompareData(compareResponse);
+                }
+                
+                setError(null);
+            } catch (err: any) {
+                console.error("Failed to load plans:", err);
+                setError(err.message || 'Failed to load subscription plans. Please try again later.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const businessFeatures = [
         'White-label solution',
@@ -92,6 +60,20 @@ const PricingPage = () => {
         'Advanced Analytics',
         'Custom Contracts & SLAs'
     ];
+
+    // Helper to extract icons based on plan name
+    const getPlanIcon = (name: string) => {
+        const lowerName = name.toLowerCase();
+        if (lowerName.includes('free')) return Star;
+        if (lowerName.includes('plus')) return Crown;
+        return Zap;
+    };
+
+    const formatPrice = (price?: number | string) => {
+        if (!price) return 0;
+        const numPrice = typeof price === 'string' ? parseFloat(price.replace(/[^0-9.]/g, "")) : price;
+        return numPrice.toLocaleString('en-IN');
+    };
 
     return (
         <div className="min-h-screen bg-gray-50 font-nunito pt-12 pb-20">
@@ -114,27 +96,23 @@ const PricingPage = () => {
                         Whether you are renovating a single room or building a professional portfolio, we have a plan for you.
                     </p>
 
-                    {/* Billing Toggle */}
-                    <div className="inline-flex bg-white p-1.5 rounded-full border border-gray-200 shadow-sm relative">
-                        {['monthly', 'yearly'].map((cycle) => (
+                    <div className="flex border-2 border-zlendo-teal/10 p-1.5 rounded-full bg-white/50 backdrop-blur-sm shadow-xl shadow-zlendo-teal/5 relative mx-auto w-fit">
+                        {['month'/*, 'monthly'*/].map((cycle) => (
                             <button
                                 key={cycle}
-                                onClick={() => setBillingCycle(cycle as 'monthly' | 'yearly')}
-                                className={`relative z-10 px-6 py-2.5 rounded-full text-sm font-black transition-colors duration-300 flex items-center justify-center gap-2 ${billingCycle === cycle ? 'text-white' : 'text-zlendo-grey-medium hover:text-zlendo-teal'}`}
+                                onClick={() => setBillingCycle(cycle as 'month' | 'monthly')}
+                                className={`relative w-[130px] md:w-[160px] py-4 rounded-full text-sm font-black transition-all duration-500 flex items-center justify-center ${
+                                    billingCycle === cycle ? 'text-white' : 'text-gray-400 hover:text-zlendo-teal'
+                                }`}
                             >
-                                {cycle === 'monthly' ? 'Monthly' : 'Yearly'}
-                                {cycle === 'yearly' && (
-                                    <span className="bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-bold whitespace-nowrap">
-                                        SAVE 15%
-                                    </span>
-                                )}
+                                <span className="relative z-10">
+                                    {cycle === 'month' ? 'Month' : 'Monthly'}
+                                </span>
                                 {billingCycle === cycle && (
                                     <motion.div
-                                        layoutId="active-pill"
-                                        className="absolute inset-0 bg-zlendo-teal rounded-full shadow-md"
-                                        initial={false}
-                                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                                        style={{ zIndex: -1 }}
+                                        layoutId="billing-pill"
+                                        className="absolute inset-0 bg-zlendo-teal rounded-full shadow-lg shadow-zlendo-teal/30"
+                                        transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
                                     />
                                 )}
                             </button>
@@ -143,162 +121,183 @@ const PricingPage = () => {
                 </motion.div>
             </div>
 
-            {/* Plans Grid */}
-            <div className="container-custom px-4 mb-24">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    {plans.map((plan, index) => (
-                        <motion.div
-                            key={plan.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className={`relative bg-white rounded-[24px] p-6 border transition-all duration-300 flex flex-col
-                                ${plan.status === 'coming-soon' ? 'opacity-70 grayscale-[0.5] pointer-events-none' : 'hover:-translate-y-1'}
-                                ${plan.id === 'pro-plus' && plan.status === 'active'
-                                    ? 'border-zlendo-teal shadow-[0_20px_40px_-15px_rgba(0,168,132,0.15)] z-10'
-                                    : 'border-gray-100 shadow-lg shadow-black/[0.02]'
-                                }`}
-                        >
-                            {plan.badge && (
-                                <div className={`absolute top-0 right-6 -translate-y-1/2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-md ${plan.id === 'pro-plus' ? 'bg-gradient-to-r from-zlendo-teal to-blue-500' : 'bg-zlendo-teal'}`}>
-                                    {plan.badge}
-                                </div>
-                            )}
-
-                            {plan.status === 'coming-soon' && (
-                                <div className="absolute inset-0 z-20 flex items-center justify-center p-4">
-                                    <div className="bg-zlendo-grey-dark/90 text-white px-6 py-5 rounded-full text-sm font-black uppercase tracking-widest rotate-[-10deg] shadow-2xl border border-white/20">
-                                        Launching Soon
-                                    </div>
-                                </div>
-                            )}
-
-                            {/* Header */}
-                            <div className="mb-4">
-                                <h3 className="text-2xl font-black text-zlendo-grey-dark">{plan.name}</h3>
-                            </div>
-
-                            {/* Price */}
-                            <div className="mb-4">
-                                {plan.id === 'free' ? (
-                                    <div className="text-4xl font-black text-zlendo-grey-dark">₹0</div>
-                                ) : (
-                                    <>
-                                        {billingCycle === 'monthly' ? (
-                                            <>
-                                                <div className="flex items-baseline gap-1">
-                                                    <span className="text-3xl font-black text-zlendo-grey-dark">
-                                                        {plan.status === 'coming-soon' ? '₹XXXX' : `₹${plan.price.monthly.toLocaleString('en-IN')}`}
-                                                    </span>
-                                                    <span className="text-sm font-bold text-zlendo-grey-medium opacity-60">/mo</span>
-                                                </div>
-                                                <p className="text-xs font-bold text-zlendo-grey-medium opacity-60 mt-1">
-                                                    {plan.status === 'coming-soon' ? 'Revealing Soon' : `Pay ₹${plan.price.monthly.toLocaleString('en-IN')} per month`}
-                                                </p>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <div className="flex flex-col gap-2">
-                                                    <div className="flex items-baseline gap-2 flex-wrap">
-                                                        <span className="text-3xl font-black text-zlendo-grey-dark">
-                                                            {plan.status === 'coming-soon' ? '₹XXXXX' : `₹${plan.price.yearly.toLocaleString('en-IN')}`}
-                                                        </span>
-                                                        <span className="text-sm font-bold text-zlendo-grey-medium opacity-60">/year</span>
-                                                        {plan.originalYearly && plan.status !== 'coming-soon' && (
-                                                            <>
-                                                                <span className="text-lg font-bold text-zlendo-grey-medium opacity-40 line-through">
-                                                                    ₹{plan.originalYearly.toLocaleString('en-IN')}
-                                                                </span>
-                                                            </>
-                                                        )}
-                                                    </div>
-                                                    {plan.originalYearly && plan.status !== 'coming-soon' && (
-                                                        <div className="flex items-center gap-2 flex-wrap">
-                                                            <span className="bg-gradient-to-r from-green-100 to-emerald-50 text-green-700 text-[11px] px-3 py-1.5 rounded-full font-black uppercase tracking-wider border border-green-200 shadow-sm">
-                                                                Save ₹{(plan.originalYearly - plan.price.yearly).toLocaleString('en-IN')} (15% OFF)
-                                                            </span>
-                                                        </div>
-                                                    )}
-                                                    <div className="flex items-center gap-2 mt-0.5">
-                                                        <span className="text-xs font-bold text-zlendo-grey-medium opacity-70">
-                                                            {plan.status === 'coming-soon'
-                                                                ? 'Revealing Soon'
-                                                                : `Just ₹${Math.round(plan.price.yearly / 12).toLocaleString('en-IN')}/mo`
-                                                            }
-                                                        </span>
-                                                        {plan.status !== 'coming-soon' && (
-                                                            <span className="text-[10px] font-bold text-zlendo-grey-medium opacity-50">
-                                                                (Billed ₹{plan.price.yearly.toLocaleString('en-IN')} annually)
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </>
-                                        )}
-                                    </>
-                                )}
-                                {plan.id === 'free' && (
-                                    <p className="text-xs font-bold text-zlendo-grey-medium opacity-60 mt-1">
-                                        Access to Project Plans
-                                    </p>
-                                )}
-                            </div>
-
-                            {/* CTA Button moved up */}
-                            <div className="mb-8">
-                                {plan.status === 'active' ? (
-                                    <a
-                                        href={SIGNUP_URL}
-                                        className={`w-full py-3.5 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center ${plan.ctaStyle === 'solid-teal'
-                                            ? 'bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20'
-                                            : plan.ctaStyle === 'gradient'
-                                                ? 'bg-gradient-to-r from-zlendo-teal to-blue-500 text-white hover:shadow-lg shadow-blue-500/20'
-                                                : 'bg-[#e6fcf5] text-zlendo-teal hover:bg-[#d3f9ed]'
-                                            }`}
-                                    >
-                                        {plan.cta}
-                                    </a>
-                                ) : (
-                                    <button
-                                        disabled
-                                        className={`w-full py-3.5 rounded-full font-black text-base bg-gray-100 text-gray-400 cursor-not-allowed`}
-                                    >
-                                        {plan.cta}
-                                    </button>
-                                )}
-                            </div>
-
-                            {/* Features */}
-                            <div className="flex-grow">
-                                {plan.id === 'free' && (
-                                    <p className="text-xs font-black text-zlendo-grey-dark/40 uppercase tracking-widest mb-4">
-                                        What's included
-                                    </p>
-                                )}
-                                <ul className="space-y-3">
-                                    {plan.features.map((feature) => (
-                                        <li key={feature} className="flex items-start gap-2.5">
-                                            {feature.startsWith('*') ? (
-                                                <span className="text-[10px] font-bold text-zlendo-grey-medium opacity-50 italic mt-2 ml-1">
-                                                    {feature}
-                                                </span>
-                                            ) : (
-                                                <>
-                                                    <Check className="w-4 h-4 text-zlendo-teal shrink-0 mt-0.5" />
-                                                    <span className="text-sm font-bold text-zlendo-grey-dark opacity-80 leading-tight">
-                                                        {feature}
-                                                    </span>
-                                                </>
-                                            )}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </motion.div>
-                    ))}
+            {/* Error Message */}
+            {error && (
+                <div className="container-custom px-4 mb-8 text-center">
+                    <div className="inline-block bg-red-50 text-red-600 px-6 py-3 rounded-lg border border-red-100 font-bold">
+                        {error}
+                    </div>
                 </div>
-            </div>
+            )}
+
+            {/* Loading Indicator */}
+            {loading ? (
+                <div className="flex justify-center items-center py-20 min-h-[400px]">
+                    <Loader2 className="w-10 h-10 text-zlendo-teal animate-spin" />
+                </div>
+            ) : (
+                <div className="container-custom px-4 mb-24">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                        {plans.map((plan, index) => {
+                            const Icon = getPlanIcon(plan.planName || '');
+                            const isFree = plan.planName?.toLowerCase().includes('free');
+                            const isProPlus = plan.planName?.toLowerCase().includes('pro plus') || plan.planName?.toLowerCase().includes('plus');
+                            const isPopular = !!plan.popular;
+                            const badge = isPopular ? 'Most Popular' : isProPlus ? 'Best Value' : null;
+                            
+                            // Period mapping: month -> price, monthly -> monthPrice
+                            const period = billingCycle; 
+
+                            let calculatedPrice = 0;
+                            const rawPrice = Number(plan.price) || 0;
+
+                            if (period === 'month') {
+                                calculatedPrice = rawPrice;
+                            } else {
+                                calculatedPrice = Number(plan.monthPrice) || rawPrice;
+                            }
+
+                            const displayPrice = calculatedPrice.toLocaleString('en-IN');
+                            const periodLabel = period === 'month' ? 'Month' : 'mo';
+                            
+                            // Map features from mainFeatures or featureName
+                            let featuresList: string[] = [];
+                            if (plan.mainFeatures && Array.isArray(plan.mainFeatures)) {
+                                featuresList = plan.mainFeatures
+                                    .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+                                    .map(mf => {
+                                        let text = mf.featureName;
+                                        if (mf.subFeatures && mf.subFeatures.length > 0) {
+                                            const subNames = mf.subFeatures
+                                                .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+                                                .map(sf => sf.featureName)
+                                                .join(' / ');
+                                            text = `${mf.featureName} - ${subNames}`;
+                                        }
+                                        return text;
+                                    });
+                            } else if (plan.featureName && Array.isArray(plan.featureName)) {
+                                featuresList = plan.featureName;
+                            } else if (plan.features) {
+                                if (Array.isArray(plan.features)) {
+                                    featuresList = plan.features.map((f: any) => typeof f === 'string' ? f : f.text);
+                                } else if (typeof plan.features === 'string') {
+                                    try {
+                                        const pFeatures = JSON.parse(plan.features);
+                                        if (Array.isArray(pFeatures)) {
+                                            featuresList = pFeatures.map((f: any) => typeof f === 'string' ? f : f.text);
+                                        }
+                                    } catch(e) {
+                                        featuresList = (plan.features as string).split(',').map((f: string) => f.trim());
+                                    }
+                                }
+                            }
+
+                            return (
+                                <motion.div
+                                    key={plan.planId || index}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                    className={`relative bg-white rounded-[24px] p-8 border transition-all duration-300 flex flex-col hover:-translate-y-1 ${
+                                        isProPlus
+                                            ? 'border-zlendo-teal shadow-[0_20px_40px_-15px_rgba(0,168,132,0.15)] z-10'
+                                            : 'border-gray-100 shadow-lg shadow-black/[0.02]'
+                                    }`}
+                                >
+                                    {badge && (
+                                        <div className={`absolute top-0 right-8 -translate-y-1/2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-md ${isProPlus ? 'bg-gradient-to-r from-zlendo-teal to-emerald-500' : 'bg-zlendo-teal'}`}>
+                                            {badge}
+                                        </div>
+                                    )}
+
+                                    {/* Header */}
+                                    <div className="mb-6">
+                                        <h3 className="text-2xl font-black text-zlendo-grey-dark">{plan.planName}</h3>
+                                        <p className="text-sm font-bold text-gray-400 mt-1 line-clamp-2">{plan.description}</p>
+                                    </div>
+
+                                    {/* Price */}
+                                    <div className="mb-8 h-20 flex flex-col justify-center">
+                                        {isFree ? (
+                                            <div className="text-4xl font-black text-zlendo-grey-dark">₹0</div>
+                                        ) : (
+                                            <div className="flex flex-col gap-1">
+                                                <div className="flex items-baseline gap-2 flex-wrap">
+                                                    <span className="text-4xl font-black text-zlendo-grey-dark">
+                                                        ₹{displayPrice}
+                                                    </span>
+                                                    <span className="text-sm font-bold text-gray-400 opacity-60">/{periodLabel}</span>
+                                                </div>
+                                            </div>
+                                        )}
+                                        {isFree && (
+                                            <p className="text-xs font-bold text-zlendo-grey-medium opacity-60 mt-1">
+                                                Access to Project Plans
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    {/* CTA Button */}
+                                    <div className="mb-8 mt-auto">
+                                        <Link
+                                            href={SIGNUP_URL}
+                                            className={`w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center ${
+                                                isProPlus
+                                                    ? 'bg-gradient-to-r from-zlendo-teal to-emerald-500 text-white hover:shadow-lg shadow-emerald-500/20'
+                                                    : isPopular 
+                                                        ? 'bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20'
+                                                        : 'bg-[#e6fcf5] text-zlendo-teal hover:bg-[#d3f9ed]'
+                                            }`}
+                                        >
+                                            {isFree ? 'Start Designing' : 'Get Started Now'}
+                                        </Link>
+                                    </div>
+
+                                    {/* Features */}
+                                    <div className="flex-grow">
+                                        {isFree && (
+                                            <p className="text-xs font-black text-zlendo-grey-dark/40 uppercase tracking-widest mb-4">
+                                                What's included
+                                            </p>
+                                        )}
+                                        <ul className="space-y-4">
+                                            {featuresList.map((feature, fIndex) => (
+                                                <li key={fIndex} className="flex items-start gap-3">
+                                                    {feature.startsWith('*') ? (
+                                                        <span className="text-[10px] font-bold text-zlendo-grey-medium opacity-50 italic mt-2 ml-1">
+                                                            {feature}
+                                                        </span>
+                                                    ) : (
+                                                        <>
+                                                            <Check className="w-4 h-4 text-zlendo-teal shrink-0 mt-0.5" />
+                                                            <div className="text-sm font-bold text-zlendo-grey-dark opacity-80 leading-tight">
+                                                                {feature.includes(' - ') ? (
+                                                                    <>
+                                                                        <span className="font-black">{feature.split(' - ')[0]}</span>
+                                                                        <span className="opacity-70"> - {feature.split(' - ').slice(1).join(' - ')}</span>
+                                                                    </>
+                                                                ) : feature}
+                                                            </div>
+                                                        </>
+                                                    )}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+
+            {/* Compare Plans Section */}
+            {!loading && compareData.length > 0 && plans.length > 0 && (
+                <div className="container-custom px-4">
+                    <ComparePlans compareData={compareData} plansList={plans} />
+                </div>
+            )}
 
             {/* Business Plan Section */}
             <div className="container-custom px-4">
@@ -328,11 +327,11 @@ const PricingPage = () => {
                             <div className="flex flex-wrap gap-4">
                                 <Link
                                     href={`${getPath('/contact')}?business=enterprise-grade-custom-solutions`}
-                                    className="bg-white text-zlendo-grey-dark px-10 py-4 rounded-full font-black text-lg hover:bg-gray-100 transition-colors flex items-center justify-center"
+                                    className="bg-white text-zlendo-grey-dark px-10 py-4 rounded-full font-black text-lg hover:bg-gray-100 transition-colors flex items-center justify-center font-nunito"
                                 >
                                     Contact Sales
                                 </Link>
-                                <Link href={getPath('/business')} className="px-10 py-4 rounded-full font-bold text-white border border-white/20 hover:bg-white/10 transition-colors flex items-center gap-2 group">
+                                <Link href={getPath('/business')} className="px-10 py-4 rounded-full font-bold text-white border border-white/20 hover:bg-white/10 transition-colors flex items-center gap-2 group font-nunito">
                                     Learn More <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
                             </div>
