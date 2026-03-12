@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         type: 'image/jpeg',
       },
     ],
-    locale: 'en_US',
+    locale: 'en_IN',
     type: 'website',
   },
   twitter: {
@@ -28,7 +28,11 @@ export const metadata: Metadata = {
     images: ['https://zlendorealty.com/og-image.jpg'],
   },
   alternates: {
-    canonical: '/in/products/vastu',
+    canonical: 'https://zlendorealty.com/in/products/vastu',
+    languages: {
+      'en-IN': 'https://zlendorealty.com/in/products/vastu',
+      'x-default': 'https://zlendorealty.com/in/products/vastu',
+    },
   },
 };
 
