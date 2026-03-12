@@ -22,7 +22,7 @@ const FRONTEND_URL_PROD = 'https://app.zlendorealty.com';
 
 // Backend URLs - Using production API for both dev and prod
 const BACKEND_URL_DEV = 'https://api.zlendorealty.com';
-// const BACKEND_URL_DEV = 'https://216.48.182.24:4051';
+//const BACKEND_URL_DEV = 'https://216.48.182.24:4051';
 const BACKEND_URL_PROD = 'https://prodapi.zlendorealty.com';
 
 // Blob URL
@@ -41,7 +41,8 @@ export const version = "/v1";
 export const baseUrl = `${api}${version}`;
 
 // Full API Base URL
-export const API_BASE_URL = `${BACKEND_URL}${baseUrl}`;
+// In development, call backend directly to bypass proxy SSL issues and handle CORS
+export const API_BASE_URL = (typeof window !== 'undefined' && env === 'prod') ? baseUrl : `${BACKEND_URL}${baseUrl}`;
 
 // Helper function to get API URL
 export const getApiUrl = (endpoint: string): string => {
@@ -60,9 +61,11 @@ export const designLibrary = `${FRONTEND_URL}/design-library`
 export const PROJECT_DETAILS_URL = `${FRONTEND_URL}/project-details`;
 
 // Default API tokens for unauthenticated requests
-export const DEFAULT_API_TOKEN_DEV = 'zrsk_dev_41fbb72c9a0e5f1c8d2a9b6d4e8f3c2';
+export const DEFAULT_API_TOKEN_DEV = 'zrsk_beta_8a1d4c7e6f2b9a5d3c1e0f8b6a4d';
 export const DEFAULT_API_TOKEN_PROD = 'zrsk_beta_8a1d4c7e6f2b9a5d3c1e0f8b6a4d';
-export const DEFAULT_API_TOKEN = DEFAULT_API_TOKEN_PROD;
+
+// Use environment variable if provided, otherwise fallback to hardcoded defaults
+export const DEFAULT_API_TOKEN = process.env.NEXT_PUBLIC_ZREALTY_SERVICE_API_KEY || (isDev ? DEFAULT_API_TOKEN_DEV : DEFAULT_API_TOKEN_PROD);
 
 // Export environment info
 export const IS_DEV = isDev;
