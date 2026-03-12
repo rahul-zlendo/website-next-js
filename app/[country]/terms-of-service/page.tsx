@@ -228,7 +228,8 @@ const TermsPage = () => {
                 content: [
                     'The Platform may include content, integrations, documents, tools, or links to third-party applications, software, or websites (\'Third-Party Services\').',
                     'Zlendo makes no representations or warranties regarding Third-Party Services and disclaims all liability for any interruptions, errors, or damages arising from their use.',
-                    'Your use of Third-Party Services is subject to the respective terms and conditions of such third parties, which you are responsible for reviewing and accepting. Zlendo does not operate, control, or endorse any information, products, or services offered by third parties through the Platform.'
+                    'Your use of Third-Party Services is subject to the respective terms and conditions of such third parties, which you are responsible for reviewing and accepting. Zlendo does not operate, control, or endorse any information, products, or services offered by third parties through the Platform.',
+                    'The recommended browser for this application to perform at its maximum potential is the latest version of Google Chrome.'
                 ]
             },
             {
