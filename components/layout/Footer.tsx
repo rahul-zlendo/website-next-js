@@ -40,7 +40,7 @@ const resourceLinks = [
     { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
     { label: 'Blog', path: 'https://zlendorealty.com/blog', external: true, newTab: false },
     { label: 'Tutorials', path: getPath('/tutorials') },
-    { label: 'Help Center', path: getPath('/help-center') },
+    { label: 'Help Center', path: "https://helpcenter.zlendorealty.com/" , external: true, newTab: false },
     { label: 'Partnership', path: getPath('/partners') },
     { label: 'Contact Us', path: getPath('/contact') },
 ];

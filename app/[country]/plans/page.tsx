@@ -7,10 +7,12 @@ import Link from 'next/link';
 import { useCountry } from '@/lib/context/CountryContext';
 import { LOGIN_URL, SIGNUP_URL } from '@/lib/constants/urls';
 import { getAllSubscriptionsService, compareSubscriptionsService, Subscription } from '@/lib/services/subscriptionService';
+import { useAppSelector } from '@/lib/store/hooks';
 import ComparePlans from './ComparePlans';
 
 const PricingPage = () => {
     const { getPath } = useCountry();
+    const { activeOffer } = useAppSelector((state) => state.offer);
     const [billingCycle, setBillingCycle] = useState<'month' | 'monthly'>('month');
     const [plans, setPlans] = useState<Subscription[]>([]);
     const [compareData, setCompareData] = useState<any[]>([]);
@@ -106,7 +108,7 @@ const PricingPage = () => {
                                 }`}
                             >
                                 <span className="relative z-10">
-                                    {cycle === 'month' ? 'Month' : 'Monthly'}
+                                    {cycle === 'month' ? 'One Time' : 'Monthly'}
                                 </span>
                                 {billingCycle === cycle && (
                                     <motion.div
@@ -148,16 +150,34 @@ const PricingPage = () => {
                             // Period mapping: month -> price, monthly -> monthPrice
                             const period = billingCycle; 
 
-                            let calculatedPrice = 0;
                             const rawPrice = Number(plan.price) || 0;
+                            const normalPrice = period === 'month' ? rawPrice : (Number(plan.monthPrice) || rawPrice);
+                            
+                            let discountedPrice = normalPrice;
+                            let hasDiscount = false;
+                            let discountLabel = '';
 
-                            if (period === 'month') {
-                                calculatedPrice = rawPrice;
-                            } else {
-                                calculatedPrice = Number(plan.monthPrice) || rawPrice;
+                            if (activeOffer && !isFree) {
+                                if (activeOffer.offerType === 'Percentage') {
+                                    discountedPrice = normalPrice * (1 - (activeOffer.discountValue / 100));
+                                    hasDiscount = true;
+                                    discountLabel = `${activeOffer.discountValue}% OFF`;
+                                } else if (activeOffer.offerType === 'Flat') {
+                                    const rawDiscountedPrice = normalPrice - activeOffer.discountValue;
+                                    // Safety check: Skip offer if it results in a negative price
+                                    if (rawDiscountedPrice >= 0) {
+                                        discountedPrice = rawDiscountedPrice;
+                                        hasDiscount = true;
+                                        // Calculate what percentage the flat discount represents
+                                        const percentageOff = Math.round((activeOffer.discountValue / normalPrice) * 100);
+                                        discountLabel = `${percentageOff}% OFF`;
+                                    }
+                                }
+                                discountedPrice = Math.round(discountedPrice);
                             }
 
-                            const displayPrice = calculatedPrice.toLocaleString('en-IN');
+                            const displayPrice = discountedPrice.toLocaleString('en-IN');
+                            const originalPriceFormatted = normalPrice.toLocaleString('en-IN');
                             const periodLabel = period === 'month' ? 'Month' : 'mo';
                             
                             // Map features from mainFeatures or featureName
@@ -223,6 +243,16 @@ const PricingPage = () => {
                                             <div className="text-4xl font-black text-zlendo-grey-dark">₹0</div>
                                         ) : (
                                             <div className="flex flex-col gap-1">
+                                                {hasDiscount && (
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <span className="text-xl font-bold text-gray-400 line-through opacity-60">
+                                                            ₹{originalPriceFormatted}
+                                                        </span>
+                                                        <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-xs font-black">
+                                                            {discountLabel}
+                                                        </span>
+                                                    </div>
+                                                )}
                                                 <div className="flex items-baseline gap-2 flex-wrap">
                                                     <span className="text-4xl font-black text-zlendo-grey-dark">
                                                         ₹{displayPrice}

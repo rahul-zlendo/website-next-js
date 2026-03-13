@@ -186,7 +186,7 @@ export default async function HcPostPage({ params }: HcPostPageProps) {
                                     Can't find the answer you're looking for? Our team is here to help you.
                                 </p>
                                 <Link
-                                    href="/contact"
+                                    href="https://zlendorealty.com/in/contact"
                                     className="block w-full py-4 bg-white text-zlendo-teal text-center font-black rounded-2xl hover:bg-zlendo-grey-dark hover:text-white transition-all shadow-lg"
                                 >
                                     Contact Support
