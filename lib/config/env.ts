@@ -6,8 +6,8 @@
  * - Set NEXT_PUBLIC_ENV=prod for production
  * - Or leave unset to use default (prod)
  * 
- * You can also override individual URLs using:edsf
- * - NEXT_PUBLIC_FRONTEND_URLn
+ * You can also override individual URLs using:
+ * - NEXT_PUBLIC_FRONTEND_URL
  * - NEXT_PUBLIC_BACKEND_URL
  */
 
@@ -15,7 +15,7 @@
 const env = process.env.NEXT_PUBLIC_ENV || 'prod';
 const isDev = env === 'dev';
 
-// Frontend URLs - Using production URL for both dev and prod its
+// Frontend URLs - Using production URL for both dev and prod 
 // const FRONTEND_URL_DEV = 'http://localhost:3000'
 const FRONTEND_URL_DEV = 'https://stagingapp.zlendorealty.com';
 const FRONTEND_URL_PROD = 'https://app.zlendorealty.com';
