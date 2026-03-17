@@ -8,6 +8,10 @@ import BusinessFeatureTabs from '../components/BusinessFeatureTabs';
 
 const COUNTRY = 'in';
 function getPath(path: string): string {
+    // If it's an absolute URL, return it as is
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+        return path;
+    }
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
     if (cleanPath === '/') return 'https://zlendorealty.com/';
     return `/${COUNTRY}${cleanPath}`;

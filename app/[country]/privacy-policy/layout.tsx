@@ -19,6 +19,13 @@ export const metadata: Metadata = {
         'platform',
         'zlendo website',
     ],
+    alternates: {
+        canonical: 'https://zlendorealty.com/in/privacy-policy',
+        languages: {
+            'en-IN': 'https://zlendorealty.com/in/privacy-policy',
+            'x-default': 'https://zlendorealty.com/in/privacy-policy',
+        },
+    },
 };
 
 export default function PrivacyPolicyLayout({

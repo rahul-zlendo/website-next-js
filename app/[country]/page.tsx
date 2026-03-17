@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Zap, ShieldCheck, Sparkles, Eye, Ruler, Calculator, Box, Image as ImageIcon, Video, Palette, Compass, Layers, Calendar } from 'lucide-react';
-import { SIGNUP_URL } from '@/lib/constants/urls';
+import { designLibrary, SIGNUP_URL } from '@/lib/constants/urls';
 import FaqAccordion from './components/FaqAccordion';
 import DesignTemplateGallery from './components/DesignTemplateGallery';
 
@@ -10,6 +10,10 @@ const COUNTRY = 'in';
 
 // Helper to build country-prefixed paths (server-side equivalent of getPath)
 function getPath(path: string): string {
+  // If it's an absolute URL, return it as is
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   if (cleanPath === '/') return 'https://zlendorealty.com/';
   return `/${COUNTRY}${cleanPath}`;
@@ -235,7 +239,7 @@ const intelligenceDimensions = [
     bg: 'bg-amber-500',
     benefit: 'Design Freedom',
     cta: 'Explore Materials',
-    link: getPath('/products/material-library'),
+    link: getPath(designLibrary),
   },
   {
     id: '8D',

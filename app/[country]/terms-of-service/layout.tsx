@@ -31,6 +31,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty Terms of Service',
                 description: 'Review the official Terms of Service for Zlendo Realty. Learn about user obligations, service conditions, and the policies that govern the use of our products and platform.',
             },
+            alternates: {
+                canonical: 'https://zlendorealty.com/in/terms-of-service',
+                languages: {
+                    'en-IN': 'https://zlendorealty.com/in/terms-of-service',
+                    'x-default': 'https://zlendorealty.com/in/terms-of-service',
+                },
+            },
         };
     }
 
