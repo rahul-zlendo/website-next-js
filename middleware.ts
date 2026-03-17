@@ -25,7 +25,7 @@ export function middleware(request: NextRequest) {
   if (pathname === '/') {
     const url = request.nextUrl.clone();
     url.pathname = '/in';
-    return NextResponse.rewrite(url);
+    return NextResponse.redirect(url, 301);
   }
 
   // ──────────────────────────────────────────────────────────

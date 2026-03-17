@@ -27,6 +27,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty Refund & Cancellation Policy',
                 description: 'Understand Zlendo Realty’s Refund & Cancellation Policy. All purchases are final—no refunds or cancellations are permitted.',
             },
+            alternates: {
+                canonical: 'https://zlendorealty.com/in/refund-policy',
+                languages: {
+                    'en-IN': 'https://zlendorealty.com/in/refund-policy',
+                    'x-default': 'https://zlendorealty.com/in/refund-policy',
+                },
+            },
         };
     }
 

@@ -43,6 +43,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/business/builder-and-promoter', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/business/nri-remote-planning', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/business/developer-solutions', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/business/real-estate-brokers', priority: 0.7, changeFrequency: 'monthly' as const },
+
+    // Landing / Campaign pages
+    { path: '/vastu-campaign', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/register', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/tutorials', priority: 0.7, changeFrequency: 'weekly' as const },
 
     // Policy pages
     { path: '/privacy-policy', priority: 0.3, changeFrequency: 'monthly' as const },
@@ -57,31 +63,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/community-guidelines', priority: 0.3, changeFrequency: 'monthly' as const },
 
     // Help center
-    { path: '/help-center', priority: 0.7, changeFrequency: 'weekly' as const },
+    { path: '/help-center', priority: 0.7, changeFrequency: 'weekly' as const, isGlobal: true },
   ];
 
   // Generate URLs for all countries
-  // Use a static date for pages that don't change frequently.
-  // This prevents Google from re-crawling unchanged pages on every sitemap fetch.
   const staticLastMod = new Date('2026-03-09T00:00:00Z');
-  const dynamicLastMod = new Date(); // For frequently updated content (help center, templates)
+  const dynamicLastMod = new Date(); 
 
   const urls: MetadataRoute.Sitemap = [];
 
   for (const country of SUPPORTED_COUNTRIES) {
-    for (const route of routes) {
-      // Use dynamic dates for frequently changing content
-      const isDynamic = route.changeFrequency === 'daily';
+    for (const route of routes as any[]) {
+      if (route.isGlobal) continue;
       urls.push({
         url: `${BASE_URL}/${country}${route.path}`,
-        lastModified: isDynamic ? dynamicLastMod : staticLastMod,
+        lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });
     }
   }
 
-  // Note: Root URL (/) is deliberately excluded — it rewrites to /in via middleware.
+  // Add global routes (like Help Center)
+  const globalRoutes = (routes as any[]).filter(r => r.isGlobal);
+  for (const route of globalRoutes) {
+    urls.push({
+      url: `${BASE_URL}${route.path}`,
+      lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    });
+  }
+
+  // Note: Root URL (/) is deliberately excluded — it redirects to /in via middleware.
   // The /in entry (priority 1.0) is the canonical home page URL.
 
   // Fetch help center articles from WordPress

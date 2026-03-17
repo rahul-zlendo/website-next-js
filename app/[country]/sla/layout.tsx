@@ -30,6 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty Service Level Agreement (SLA)',
                 description: 'View the Zlendo Realty SLA, detailing service availability, support timelines, resolution objectives, maintenance responsibilities, and performance standards for our platform users.',
             },
+            alternates: {
+                canonical: 'https://zlendorealty.com/in/sla',
+                languages: {
+                    'en-IN': 'https://zlendorealty.com/in/sla',
+                    'x-default': 'https://zlendorealty.com/in/sla',
+                },
+            },
         };
     }
 

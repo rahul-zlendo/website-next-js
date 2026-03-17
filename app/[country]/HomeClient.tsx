@@ -6,7 +6,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCountry } from '@/lib/context/CountryContext';
-import { SIGNUP_URL } from '@/lib/constants/urls';
+import { designLibrary, SIGNUP_URL } from '@/lib/constants/urls';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { getAllTemplates } from '@/lib/store/slices/templateSlice';
 import { fetchBlobUrl, BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
@@ -413,7 +413,7 @@ export default function HomeClient() {
             bg: 'bg-amber-500',
             benefit: 'Design Freedom',
             cta: 'Explore Materials',
-            action: { type: 'route', value: getPath('/products/material-library') }
+            action: { type: 'route', value: getPath(designLibrary) }
         },
         {
             id: '8D',

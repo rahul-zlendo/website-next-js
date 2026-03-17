@@ -44,6 +44,10 @@ export function generateHcListMetadata(page: number = 1): Metadata {
         description,
         alternates: {
             canonical: absoluteUrl(page === 1 ? '/help-center' : `/help-center?page=${page}`),
+            languages: {
+                'en-IN': absoluteUrl(page === 1 ? '/help-center' : `/help-center?page=${page}`),
+                'x-default': absoluteUrl(page === 1 ? '/help-center' : `/help-center?page=${page}`),
+            },
         },
         openGraph: {
             title,
@@ -88,6 +92,10 @@ export function generateHcPostMetadata(post: BlogPost): Metadata {
         description,
         alternates: {
             canonical: canonicalUrl,
+            languages: {
+                'en-IN': canonicalUrl,
+                'x-default': canonicalUrl,
+            },
         },
         openGraph: {
             title: post.title,
@@ -135,6 +143,10 @@ export function generateHcCategoryMetadata(
         description,
         alternates: {
             canonical: absoluteUrl(page === 1 ? `/help-center/category/${categorySlug}` : `/help-center/category/${categorySlug}?page=${page}`),
+            languages: {
+                'en-IN': absoluteUrl(page === 1 ? `/help-center/category/${categorySlug}` : `/help-center/category/${categorySlug}?page=${page}`),
+                'x-default': absoluteUrl(page === 1 ? `/help-center/category/${categorySlug}` : `/help-center/category/${categorySlug}?page=${page}`),
+            },
         },
         openGraph: {
             title,
@@ -175,6 +187,10 @@ export function generateHcTagMetadata(
         description,
         alternates: {
             canonical: absoluteUrl(page === 1 ? `/help-center/tag/${tagSlug}` : `/help-center/tag/${tagSlug}?page=${page}`),
+            languages: {
+                'en-IN': absoluteUrl(page === 1 ? `/help-center/tag/${tagSlug}` : `/help-center/tag/${tagSlug}?page=${page}`),
+                'x-default': absoluteUrl(page === 1 ? `/help-center/tag/${tagSlug}` : `/help-center/tag/${tagSlug}?page=${page}`),
+            },
         },
         openGraph: {
             title,
