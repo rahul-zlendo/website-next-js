@@ -13,7 +13,7 @@ function getPath(path: string): string {
         return path;
     }
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    if (cleanPath === '/') return 'https://zlendorealty.com/';
+    if (cleanPath === '/') return `/${COUNTRY}`;
     return `/${COUNTRY}${cleanPath}`;
 }
 

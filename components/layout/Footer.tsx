@@ -8,7 +8,7 @@ import CountrySwitcher from '../common/CountrySwitcher';
 const COUNTRY = 'in';
 function getPath(path: string): string {
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    if (cleanPath === '/') return 'https://zlendorealty.com/';
+    if (cleanPath === '/') return `/${COUNTRY}`;
     return `/${COUNTRY}${cleanPath}`;
 }
 

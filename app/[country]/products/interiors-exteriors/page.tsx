@@ -25,9 +25,74 @@ const indianStates = [
     'Tamil Nadu', 'Kerala', 'Karnataka', 'Maharashtra', 'Telangana', 'Andhra Pradesh', 'Delhi', 'Rajasthan', 'Punjab', 'West Bengal'
 ];
 
+const regionalDetails: Record<string, { climateTitle: string, climateDesc: string, cultureTitle: string, cultureDesc: string }> = {
+    'Tamil Nadu': {
+        climateTitle: 'Tropical Humidity',
+        climateDesc: 'Ventilation-focused layouts with high ceilings and heat-reflective roof tiles.',
+        cultureTitle: 'Traditional Courtyard',
+        cultureDesc: 'Integration of Thinnai (porch) and Mutram (central courtyard) elements.'
+    },
+    'Kerala': {
+        climateTitle: 'Monsoon Ready',
+        climateDesc: 'Sloped roofs for heavy rain and laterite stone textures for humid durability.',
+        cultureTitle: 'Nalukettu Logic',
+        cultureDesc: 'Traditional wooden joinery and open verandas for cross-ventilation.'
+    },
+    'Karnataka': {
+        climateTitle: 'Plateau Climate',
+        climateDesc: 'Natural granite finishes and thermal-mass walls for cool nights and warm days.',
+        cultureTitle: 'Functional Elegance',
+        cultureDesc: 'Integration of stone-based entryways and decorative puja mantapas.'
+    },
+    'Maharashtra': {
+        climateTitle: 'Coastal & Ghats',
+        climateDesc: 'Corrosion-resistant metal fittings and stone cladding for varied weather.',
+        cultureTitle: 'Urban Synergy',
+        cultureDesc: 'Space-saving multi-functional rooms and modern-traditional fusion balconies.'
+    },
+    'Telangana': {
+        climateTitle: 'Deccan Heat',
+        climateDesc: 'Deep eaves and sun-shading pergolas to maintain cool indoor temperatures.',
+        cultureTitle: 'Vibrant Layouts',
+        cultureDesc: 'Grand entrances and spacious living areas for festive gatherings.'
+    },
+    'Andhra Pradesh': {
+        climateTitle: 'Coastal Resilience',
+        climateDesc: 'Salt-air resistant materials and wind-protected terrace designs.',
+        cultureTitle: 'Vastu Excellence',
+        cultureDesc: 'Precision-aligned layouts optimized for traditional prosperity principles.'
+    },
+    'Delhi': {
+        climateTitle: 'Extreme Seasonal',
+        climateDesc: 'Insulated double-glazed windows and thermal wall layering for hot & cold extremes.',
+        cultureTitle: 'Metro Chic',
+        cultureDesc: 'Sleek luxury finishes with maximized natural light and smart storage.'
+    },
+    'Rajasthan': {
+        climateTitle: 'Arid Heat',
+        climateDesc: 'Traditional Jali patterns for air cooling and thick sandstone walls.',
+        cultureTitle: 'Royal Majesty',
+        cultureDesc: 'Arch-based entryways and majestic courtyards inspired by Haveli styles.'
+    },
+    'Punjab': {
+        climateTitle: 'Agricultural Hub',
+        climateDesc: 'Large windows for winter sun and expansive farm-house style ventilation.',
+        cultureTitle: 'Grand Scales',
+        cultureDesc: 'Heirloom-friendly kitchen designs and large guest-receiving areas.'
+    },
+    'West Bengal': {
+        climateTitle: 'Riverine Humidity',
+        climateDesc: 'Raised plinths and breathable lime-plaster finishes for marshy areas.',
+        cultureTitle: 'Artistic Heritage',
+        cultureDesc: 'Terracotta tile accents and dedicated spaces for artistic displays.'
+    }
+};
+
 export default function InteriorsExteriorsPage() {
     const [selectedState, setSelectedState] = useState('Tamil Nadu');
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
+
+    const details = regionalDetails[selectedState];
 
     const faqSchema = {
         "@context": "https://schema.org/",
@@ -342,14 +407,30 @@ export default function InteriorsExteriorsPage() {
                                     </div>
 
                                     <div className="grid grid-cols-2 gap-6 pt-4">
-                                        <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                                            <h4 className="font-black text-zlendo-teal mb-1">Climate-First</h4>
-                                            <p className="text-xs text-slate-400 font-medium">Materials chosen for local weather conditions.</p>
-                                        </div>
-                                        <div className="p-4 rounded-2xl bg-white/5 border border-white/10">
-                                            <h4 className="font-black text-zlendo-teal mb-1">Cultural Nuance</h4>
-                                            <p className="text-xs text-slate-400 font-medium">Layouts that respect regional family dynamics.</p>
-                                        </div>
+                                        <AnimatePresence mode="wait">
+                                            <motion.div
+                                                key={`${selectedState}-climate`}
+                                                initial={{ opacity: 0, scale: 0.95 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.95 }}
+                                                className="p-4 rounded-2xl bg-white/5 border border-white/10"
+                                            >
+                                                <h4 className="font-black text-zlendo-teal mb-1">{details.climateTitle}</h4>
+                                                <p className="text-xs text-slate-400 font-medium">{details.climateDesc}</p>
+                                            </motion.div>
+                                        </AnimatePresence>
+                                        <AnimatePresence mode="wait">
+                                            <motion.div
+                                                key={`${selectedState}-culture`}
+                                                initial={{ opacity: 0, scale: 0.95 }}
+                                                animate={{ opacity: 1, scale: 1 }}
+                                                exit={{ opacity: 0, scale: 0.95 }}
+                                                className="p-4 rounded-2xl bg-white/5 border border-white/10"
+                                            >
+                                                <h4 className="font-black text-zlendo-teal mb-1">{details.cultureTitle}</h4>
+                                                <p className="text-xs text-slate-400 font-medium">{details.cultureDesc}</p>
+                                            </motion.div>
+                                        </AnimatePresence>
                                     </div>
                                 </div>
 
