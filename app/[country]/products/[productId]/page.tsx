@@ -210,7 +210,7 @@ const productData = {
 };
 
 const faqs = [
-    { q: "Is this tool free to use?", a: "Yes! You can start for free and design your first project without any credit card. Premium textuers and high-res renders are available in paid plans." },
+    { q: "Is this tool free to use?", a: "Yes! You can start for free and design your first project without any credit card. Premium textures and high-res renders are available in paid plans." },
     { q: "Do I need to install any software?", a: "No, Zlendo Realty runs entirely in your browser. It works smoothly on Chrome, Firefox, and Safari on both Windows and Mac." },
     { q: "Can I import my own CAD files?", a: "Absolutely. We support DXF, DWG, JPG, PNG, and PDF formats for seamless import." },
     { q: "How accurately are the costs estimated?", a: "Our cost engine is updated weekly with local market rates for materials and labor, ensuring 95%+ accuracy for your zip code." }
@@ -516,7 +516,7 @@ export default function ProductPage() {
             </section>
 
             {/* 6. TEMPLATES GALLERY (Static Placeholder) */}
-            <section className="py-16 bg-white">
+            {/* <section className="py-16 bg-white">
                 <div className="container-custom px-6">
                     <div className="flex justify-between items-end mb-8">
                         <div>
@@ -544,7 +544,7 @@ export default function ProductPage() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
 
             {/* 7. COMPARISON TABLE */}
             <section className="py-16 bg-slate-50">

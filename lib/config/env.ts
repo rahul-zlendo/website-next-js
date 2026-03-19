@@ -55,7 +55,7 @@ export const BASE_APP_URL = FRONTEND_URL;
 export const SIGNUP_URL = `${FRONTEND_URL}/signup`;
 export const LOGIN_URL = `${FRONTEND_URL}/signin`;
 export const DASHBOARD_URL = `${FRONTEND_URL}/dashboard`;
-export const Plans = `${FRONTEND_URL}/plans?tab=billing&period=monthly`
+export const Plans = `${FRONTEND_URL}/pricing?tab=billing&period=month`
 export const designLibrary = `${FRONTEND_URL}/design-library`
 // Project Details URL (for 3D Editor)
 export const PROJECT_DETAILS_URL = `${FRONTEND_URL}/project-details`;
