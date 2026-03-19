@@ -198,8 +198,9 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                         <Link href={getPath('/cookie-policy')} className="hover:text-zlendo-teal transition-colors">Cookie Policy</Link>
                         <Link href={getPath('/terms-of-service')} className="hover:text-zlendo-teal transition-colors">Terms &amp; Conditions</Link>
                         <Link href={getPath('/privacy-policy')} className="hover:text-zlendo-teal transition-colors">Privacy Policy</Link>
-                        <div className="h-4 w-px bg-black/[0.05] hidden md:block" />
+                        
                         <CountrySwitcher />
+                        <div className="h-4 w-px bg-black/[0.05] hidden md:block" />
                     </div>
                 </div>
             </div>
