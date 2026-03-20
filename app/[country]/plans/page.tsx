@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Check, Star, Zap, Building2, Crown, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useCountry } from '@/lib/context/CountryContext';
-import { LOGIN_URL, SIGNUP_URL } from '@/lib/constants/urls';
+import { DASHBOARD_URL, LOGIN_URL, SIGNUP_URL } from '@/lib/constants/urls';
 import { getAllSubscriptionsService, compareSubscriptionsService, Subscription } from '@/lib/services/subscriptionService';
 import { useAppSelector } from '@/lib/store/hooks';
 import ComparePlans from './ComparePlans';
@@ -13,11 +13,14 @@ import ComparePlans from './ComparePlans';
 const PricingPage = () => {
     const { getPath } = useCountry();
     const { activeOffer } = useAppSelector((state) => state.offer);
+    const { user, isAuthenticated } = useAppSelector((state) => state.auth);
     const [billingCycle, setBillingCycle] = useState<'month' | 'monthly'>('month');
     const [plans, setPlans] = useState<Subscription[]>([]);
     const [compareData, setCompareData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    console.log(user, isAuthenticated, "user");
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -145,7 +148,8 @@ const PricingPage = () => {
                             const isFree = plan.planName?.toLowerCase().includes('free');
                             const isProPlus = plan.planName?.toLowerCase().includes('pro plus') || plan.planName?.toLowerCase().includes('plus');
                             const isPopular = !!plan.popular;
-                            const badge = isPopular ? 'Most Popular' : isProPlus ? 'Best Value' : null;
+                            const isCurrentPlan = isAuthenticated && user && user.currentPlanId === plan.planId;
+                            const badge = isCurrentPlan ? 'Current Plan' : isPopular ? 'Most Popular' : isProPlus ? 'Best Value' : null;
                             
                             // Period mapping: month -> price, monthly -> monthPrice
                             const period = billingCycle; 
@@ -217,16 +221,16 @@ const PricingPage = () => {
                                 <motion.div
                                     key={plan.planId || index}
                                     initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                    className={`relative bg-white rounded-[24px] p-8 border transition-all duration-300 flex flex-col hover:-translate-y-1 ${
-                                        isProPlus
-                                            ? 'border-zlendo-teal shadow-[0_20px_40px_-15px_rgba(0,168,132,0.15)] z-10'
-                                            : 'border-gray-100 shadow-lg shadow-black/[0.02]'
+                                    animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.4 } }}
+                                    whileHover={{ y: -8, scale: 1.01, transition: { duration: 0.2 } }}
+                                    className={`relative bg-white rounded-[24px] p-8 border transition-colors transition-shadow duration-300 flex flex-col hover:shadow-xl ${
+                                        isCurrentPlan || isProPlus
+                                            ? 'border-zlendo-teal shadow-[0_20px_40px_-15px_rgba(0,168,132,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,168,132,0.25)] z-10'
+                                            : 'border-gray-100 shadow-lg shadow-black/[0.02] hover:border-zlendo-teal/30 hover:shadow-black/[0.05]'
                                     }`}
                                 >
                                     {badge && (
-                                        <div className={`absolute top-0 right-8 -translate-y-1/2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-md ${isProPlus ? 'bg-gradient-to-r from-zlendo-teal to-emerald-500' : 'bg-zlendo-teal'}`}>
+                                        <div className={`absolute top-0 right-8 -translate-y-1/2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-md ${(isProPlus && !isCurrentPlan) ? 'bg-gradient-to-r from-zlendo-teal to-emerald-500' : 'bg-zlendo-teal'}`}>
                                             {badge}
                                         </div>
                                     )}
@@ -270,7 +274,21 @@ const PricingPage = () => {
 
                                     {/* CTA Button */}
                                     <div className="mb-8 mt-auto">
-                                        <Link
+                                        {isAuthenticated && user ? (
+                                             <Link
+                                            href={DASHBOARD_URL}
+                                            className={`w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center ${
+                                                isProPlus
+                                                    ? 'bg-gradient-to-r from-zlendo-teal to-emerald-500 text-white hover:shadow-lg shadow-emerald-500/20'
+                                                    : isPopular 
+                                                        ? 'bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20'
+                                                        : 'bg-[#e6fcf5] text-zlendo-teal hover:bg-[#d3f9ed]'
+                                            }`}
+                                        >
+                                            {(isCurrentPlan || isFree) ? 'Start Designing' : 'Get Started Now'}
+                                        </Link>
+                                        ) :(
+                                            <Link
                                             href={SIGNUP_URL}
                                             className={`w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center ${
                                                 isProPlus
@@ -282,6 +300,7 @@ const PricingPage = () => {
                                         >
                                             {isFree ? 'Start Designing' : 'Get Started Now'}
                                         </Link>
+                                        )}
                                     </div>
 
                                     {/* Features */}

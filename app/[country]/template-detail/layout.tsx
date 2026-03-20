@@ -42,6 +42,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 locale: 'en_IN',
                 type: 'website',
             },
+            alternates: {
+                canonical: 'https://zlendorealty.com/in/template-detail',
+                languages: {
+                    'en-IN': 'https://zlendorealty.com/in/template-detail',
+                    'x-default': 'https://zlendorealty.com/in/template-detail',
+                },
+            },
         };
     }
 

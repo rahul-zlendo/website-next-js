@@ -56,8 +56,8 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
 
     const getPath = (path: string) => {
         const cleanPath = path.startsWith('/') ? path : `/${path}`;
-        // Homepage always uses the canonical non-region URL
-        if (cleanPath === '/') return 'https://zlendorealty.com/';
+        // Homepage uses the region-specific URL
+        if (cleanPath === '/') return `/${country}`;
         return `/${country}${cleanPath}`;
     };
 

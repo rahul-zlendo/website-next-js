@@ -30,6 +30,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Partnerships with Zlendo Realty Home-Tech Platform',
                 description: 'Build successful partnerships with Zlendo Realty, India’s leading home-tech platform for designers, architects, and interior professionals. Become a Partner and grow with us!',
             },
+            alternates: {
+                canonical: 'https://zlendorealty.com/in/partners',
+                languages: {
+                    'en-IN': 'https://zlendorealty.com/in/partners',
+                    'x-default': 'https://zlendorealty.com/in/partners',
+                },
+            },
         };
     }
 

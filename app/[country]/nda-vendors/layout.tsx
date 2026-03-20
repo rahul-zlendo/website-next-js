@@ -29,6 +29,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Technologies Vendor Non-Disclosure Agreement (NDA)',
                 description: 'Access the official NDA for vendors partnering with Zlendo Technologies. Learn about confidentiality requirements and terms governing vendor collaborations.',
             },
+            alternates: {
+                canonical: 'https://zlendorealty.com/in/nda-vendors',
+                languages: {
+                    'en-IN': 'https://zlendorealty.com/in/nda-vendors',
+                    'x-default': 'https://zlendorealty.com/in/nda-vendors',
+                },
+            },
         };
     }
 

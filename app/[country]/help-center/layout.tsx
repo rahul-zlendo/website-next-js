@@ -32,6 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty Help Center & Help Documents',
                 description: 'Access Zlendo Realty’s Help Center for FAQs, troubleshooting tips, and comprehensive help documents to get the support and guidance you need.',
             },
+            alternates: {
+                canonical: 'https://zlendorealty.com/in/help-center',
+                languages: {
+                    'en-IN': 'https://zlendorealty.com/in/help-center',
+                    'x-default': 'https://zlendorealty.com/in/help-center',
+                },
+            },
         };
     }
 

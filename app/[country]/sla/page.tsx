@@ -87,21 +87,21 @@ export default function ServiceLevelAgreementPage() {
                                 <thead className="bg-gray-50">
                                     <tr>
                                         <th className="border border-gray-300 px-4 py-2 text-left font-bold text-gray-900 w-1/3">Monthly Uptime</th>
-                                        <th className="border border-gray-300 px-4 py-2 text-right font-bold text-gray-900">Service Credit (% of Monthly Subscription Fees)</th>
+                                        <th className="border border-gray-300 px-4 py-2 text-center font-bold text-gray-900">Service Credit (% of Monthly Subscription Fees)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td className="border border-gray-300 px-4 py-2">85% to 89%</td>
-                                        <td className="border border-gray-300 px-4 py-2 text-right">5%</td>
+                                        <td className="border border-gray-300 px-4 py-2 text-center">5%</td>
                                     </tr>
                                     <tr>
                                         <td className="border border-gray-300 px-4 py-2">80% to 84%</td>
-                                        <td className="border border-gray-300 px-4 py-2 text-right">10%</td>
+                                        <td className="border border-gray-300 px-4 py-2 text-center">10%</td>
                                     </tr>
                                     <tr>
                                         <td className="border border-gray-300 px-4 py-2">&lt;80%</td>
-                                        <td className="border border-gray-300 px-4 py-2 text-right">15%</td>
+                                        <td className="border border-gray-300 px-4 py-2 text-center">15%</td>
                                     </tr>
                                 </tbody>
                             </table>

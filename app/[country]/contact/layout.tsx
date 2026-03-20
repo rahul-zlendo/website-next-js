@@ -27,6 +27,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty Support & Inquiries',
                 description: 'Have questions or need assistance? Get in touch with the Zlendo Realty team for support, product information, or general inquiries.',
             },
+            alternates: {
+                canonical: 'https://zlendorealty.com/in/contact',
+                languages: {
+                    'en-IN': 'https://zlendorealty.com/in/contact',
+                    'x-default': 'https://zlendorealty.com/in/contact',
+                },
+            },
         };
     }
 

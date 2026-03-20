@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
     Sparkles, CheckCircle2, Video, ArrowRight,
@@ -8,8 +11,12 @@ import BusinessFeatureTabs from '../components/BusinessFeatureTabs';
 
 const COUNTRY = 'in';
 function getPath(path: string): string {
+    // If it's an absolute URL, return it as is
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+        return path;
+    }
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    if (cleanPath === '/') return 'https://zlendorealty.com/';
+    if (cleanPath === '/') return `/${COUNTRY}`;
     return `/${COUNTRY}${cleanPath}`;
 }
 
@@ -119,6 +126,21 @@ const personas = [
 const personaIcons = [Briefcase, Layers, Sparkles, BarChart3];
 
 export default function EnterprisePage() {
+    const [hasDemoHash, setHasDemoHash] = useState(false);
+
+    useEffect(() => {
+        const checkHash = () => {
+            setHasDemoHash(window.location.hash === '#demo-form');
+        };
+
+        // Initial check
+        checkHash();
+
+        // Listen for hash changes
+        window.addEventListener('hashchange', checkHash);
+        return () => window.removeEventListener('hashchange', checkHash);
+    }, []);
+
     return (
         <div className="bg-white selection:bg-zlendo-orange/10 selection:text-zlendo-orange">
             <div className="min-h-screen relative overflow-hidden">
@@ -127,7 +149,7 @@ export default function EnterprisePage() {
                 <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-zlendo-teal/5 blur-[120px] rounded-full translate-y-1/4 -translate-x-1/4 -z-10" />
 
                 {/* Hero Section */}
-                <section className="container-custom text-center mb-8 md:mb-12 px-4 py-8 lg:py-12 overflow-visible relative z-10">
+                <section className={`container-custom text-center mb-8 md:mb-12 px-4 ${hasDemoHash ? 'pt-32 lg:pt-48' : 'py-8 lg:py-12'} overflow-visible relative z-10 transition-all duration-300`}>
                     <div className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white shadow-xl shadow-black/5 border border-black/5 mb-8">
                         <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-[#FF6820]">Built in India.</span>
                         <div className="w-1.5 h-1.5 rounded-full bg-gray-300" />
