@@ -253,7 +253,7 @@ export default function PartnersPage() {
                                             </div>
                                             <div className="text-center">
                                                 <a
-                                                    href={SIGNUP_URL}
+                                                    href={paths.enterpriseDemo}
                                                     className="px-12 py-5 bg-zlendo-teal text-white rounded-2xl font-black text-xl shadow-xl shadow-zlendo-teal/20 hover:scale-105 transition-all text-center inline-block"
                                                 >
                                                     Apply to Become an Affiliate

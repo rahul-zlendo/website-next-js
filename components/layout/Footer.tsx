@@ -154,7 +154,7 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                                     <div className="w-7 h-7 rounded-lg bg-zlendo-teal/5 flex items-center justify-center text-zlendo-teal shrink-0 group-hover:bg-zlendo-teal group-hover:text-white transition-all">
                                         <Mail className="w-3.5 h-3.5" />
                                     </div>
-                                    <span className="text-[14px] text-[#666666] font-medium group-hover:text-zlendo-teal transition-colors">
+                                    <span className="text-[15px] text-[#666666] font-medium group-hover:text-zlendo-teal transition-colors">
                                         contact@zlendorealty.com
                                     </span>
                                 </a>

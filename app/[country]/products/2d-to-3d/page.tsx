@@ -99,7 +99,7 @@ export default function TwoDToThreeDPage() {
             />
             {/* 1. HERO SECTION */}
             <section className="bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
-                <div className="container-custom px-6 py-12 lg:py-20">
+                <div className="container-custom px-6 py-12">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                         {/* Text Content */}
                         <motion.div
