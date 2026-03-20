@@ -41,8 +41,8 @@ export const version = "/v1";
 export const baseUrl = `${api}${version}`;
 
 // Full API Base URL
-// In development, call backend directly to bypass proxy SSL issues and handle CORS
-export const API_BASE_URL = (typeof window !== 'undefined' && env === 'prod') ? baseUrl : `${BACKEND_URL}${baseUrl}`;
+// Use the backend URL directly to avoid routing through Next.js proxy incorrectly
+export const API_BASE_URL = `${BACKEND_URL}${baseUrl}`;
 
 // Helper function to get API URL
 export const getApiUrl = (endpoint: string): string => {
