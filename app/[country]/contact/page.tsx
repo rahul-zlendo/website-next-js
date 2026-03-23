@@ -110,7 +110,11 @@ const ContactPage = () => {
                                     </div>
                                     <div>
                                         <div className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-40 mb-1">Email us</div>
-                                        <div className="text-lg font-black text-zlendo-grey-dark">contact@zlendorealty.com</div>
+                                        <div className="text-lg font-black text-zlendo-grey-dark">
+                                            <span dangerouslySetInnerHTML={{ __html: '<!--email_off-->' }} />
+                                            contact@zlendorealty.com
+                                            <span dangerouslySetInnerHTML={{ __html: '<!--/email_off-->' }} />
+                                        </div>
                                     </div>
                                 </a>
 
@@ -241,12 +245,12 @@ const ContactPage = () => {
                                                 autoComplete="off"
                                                 placeholder="Your email address"
                                             />
-                                            {emailError && (
-                                                <p className="mt-1 text-[10px] font-bold text-red-500 ml-1">
-                                                    Please enter a valid email (e.g., name@company.com)
-                                                </p>
-                                            )}
                                         </div>
+                                        {emailError && (
+                                            <p className="mt-1 text-[10px] font-bold text-red-500 ml-1">
+                                                Please enter a valid email (e.g., name@company.com)
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
 
