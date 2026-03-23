@@ -9,6 +9,10 @@ import FloatingContactButton from '@/components/common/FloatingContactButton';
 import CookieConsent from '@/components/common/CookieConsent';
 import LaunchOfferPopup from '@/components/common/LaunchOfferPopup';
 import ScrollToTopOnNavigate from '@/components/common/ScrollToTopOnNavigate';
+import { getClient } from '@/lib/sanity/client';
+import { siteSettingsQuery } from '@/lib/sanity/queries';
+import { urlFor } from '@/lib/sanity/image';
+import { draftMode } from 'next/headers';
 
 const SUPPORTED_COUNTRIES = ['in'];
 
@@ -31,20 +35,30 @@ export default async function CountryLayout({
   if (country !== 'in') {
     redirect('/in');
   }
+ 
+  const { isEnabled: preview } = await draftMode();
+  const settings = await getClient(preview).fetch(siteSettingsQuery).catch(() => null);
+  const logoUrl = settings?.logoImage ? urlFor(settings.logoImage).url() : undefined;
 
   return (
     <CountryProvider initialCountry={country as CountryCode}>
       <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
         <AuthSync />
         <PromoBanner />
-        <Header />
+        <header>
+          <Header logoUrl={logoUrl} />
+        </header>
         {/* <LaunchOfferPopup /> */}
         <ScrollToTopOnNavigate />
         <main>{children}</main>
-        <Footer />
+        <Footer settings={settings} />
         <ScrollToTop />
         <FloatingContactButton />
-        <CookieConsent />
+        <CookieConsent 
+          text={settings?.cookieConsentText}
+          acceptLabel={settings?.cookieAcceptLabel}
+          declineLabel={settings?.cookieDeclineLabel}
+        />
       </div>
     </CountryProvider>
   );

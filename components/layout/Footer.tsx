@@ -54,7 +54,31 @@ const socialLinks = [
     { icon: Youtube, href: 'https://www.youtube.com/@ZlendoRealty', bg: 'hover:bg-[#FF0000]' },
 ];
 
-const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
+const resolveSocialLinks = (cmsSocial: any) => {
+    if (!cmsSocial) return socialLinks;
+    
+    const resolved: typeof socialLinks = [];
+    if (cmsSocial.linkedin) resolved.push({ icon: Linkedin, href: cmsSocial.linkedin, bg: 'hover:bg-[#0A66C2]' });
+    if (cmsSocial.facebook) resolved.push({ icon: Facebook, href: cmsSocial.facebook, bg: 'hover:bg-[#1877F2]' });
+    if (cmsSocial.instagram) resolved.push({ icon: Instagram, href: cmsSocial.instagram, bg: 'hover:bg-[#E4405F]' });
+    if (cmsSocial.twitter) resolved.push({ icon: X, href: cmsSocial.twitter, bg: 'hover:bg-black' });
+    if (cmsSocial.pinterest) resolved.push({ icon: Pin, href: cmsSocial.pinterest, bg: 'hover:bg-[#E60023]' });
+    if (cmsSocial.youtube) resolved.push({ icon: Youtube, href: cmsSocial.youtube, bg: 'hover:bg-[#FF0000]' });
+    
+    return resolved.length > 0 ? resolved : socialLinks;
+};
+
+const Footer = ({ 
+    hideCTA = false,
+    settings 
+}: { 
+    hideCTA?: boolean;
+    settings?: any;
+}) => {
+    // Dynamic social links from Sanity or fallback
+    const cmsSocial = settings?.socialLinks;
+    const resolvedSocialLinks = resolveSocialLinks(cmsSocial);
+
     return (
         <FooterClient hideCTA={hideCTA}>
             <div className="container-custom px-6 lg:px-12 relative z-10">
@@ -63,10 +87,10 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                     <div className="lg:w-1/4 space-y-6">
                         <Logo className="h-14" />
                         <p className="text-[15px] text-zlendo-grey-medium font-medium leading-relaxed opacity-80">
-                            The world&apos;s first Design-to-Sales engine. Experience your space in 360° ultra-realistic 8K, AR/MR.
+                            {settings?.footerDescription ?? "The world's first Design-to-Sales engine. Experience your space in 360° ultra-realistic 8K, AR/MR."}
                         </p>
                         <div className="flex flex-wrap gap-2.5">
-                            {socialLinks.map((social, i) => (
+                            {resolvedSocialLinks.map((social, i) => (
                                 <a
                                     key={i}
                                     href={social.href}
@@ -79,6 +103,7 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                             ))}
                         </div>
                     </div>
+
 
                     {/* Products */}
                     <div className="lg:w-[14%]">
@@ -150,12 +175,12 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Contact Us</h4>
                         <ul className="space-y-4 text-[15px]">
                             <li>
-                                <a href="mailto:contact@zlendorealty.com" className="flex items-center gap-2.5 group whitespace-nowrap">
+                                <a href={`mailto:${settings?.footerEmail ?? "contact@zlendorealty.com"}`} className="flex items-center gap-2.5 group whitespace-nowrap">
                                     <div className="w-7 h-7 rounded-lg bg-zlendo-teal/5 flex items-center justify-center text-zlendo-teal shrink-0 group-hover:bg-zlendo-teal group-hover:text-white transition-all">
                                         <Mail className="w-3.5 h-3.5" />
                                     </div>
                                     <span className="text-[14px] text-[#666666] font-medium group-hover:text-zlendo-teal transition-colors">
-                                        contact@zlendorealty.com
+                                        {settings?.footerEmail ?? "contact@zlendorealty.com"}
                                     </span>
                                 </a>
                             </li>
@@ -166,10 +191,8 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                                     </div>
                                     <div>
                                         <div className="text-[11px] font-bold uppercase tracking-wider text-zlendo-grey-medium opacity-40 mb-1">Headquarters</div>
-                                        <p className="text-[13px] text-[#666666] font-medium leading-relaxed">
-                                            36/1, Ganapathy Street,<br />
-                                            Alagappan Nagar, Madurai – 625003<br />
-                                            Tamil Nadu, India
+                                        <p className="text-[13px] text-[#666666] font-medium leading-relaxed whitespace-pre-line">
+                                            {settings?.footerAddress ?? '36/1, Ganapathy Street,\nAlagappan Nagar, Madurai – 625003\nTamil Nadu, India'}
                                         </p>
                                     </div>
                                 </div>
@@ -182,7 +205,7 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
                                     <div>
                                         <div className="text-[11px] font-bold uppercase tracking-wider text-zlendo-grey-medium opacity-40 mb-1">Other Cities</div>
                                         <p className="text-[13px] text-[#666666] font-medium leading-snug">
-                                            Pune • Bengaluru • Delhi • Hyderabad
+                                            {settings?.footerCities ?? 'Pune • Bengaluru • Delhi • Hyderabad'}
                                         </p>
                                     </div>
                                 </div>
@@ -193,7 +216,7 @@ const Footer = ({ hideCTA = false }: { hideCTA?: boolean }) => {
 
                 {/* Bottom Bar */}
                 <div className="pt-10 border-t border-black/[0.05] flex flex-col md:flex-row items-center justify-between gap-8 text-[#666666] text-[13px] font-medium">
-                    <p>Copyright © 2026 Zlendo Technologies Pvt. Ltd. | All Rights Reserved.</p>
+                    <p>{settings?.copyrightText ?? 'Copyright © 2026 Zlendo Technologies Pvt. Ltd. | All Rights Reserved.'}</p>
                     <div className="flex items-center gap-8">
                         <Link href={getPath('/cookie-policy')} className="hover:text-zlendo-teal transition-colors">Cookie Policy</Link>
                         <Link href={getPath('/terms-of-service')} className="hover:text-zlendo-teal transition-colors">Terms &amp; Conditions</Link>

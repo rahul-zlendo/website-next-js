@@ -1,12 +1,18 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { draftMode } from 'next/headers';
 import { ArrowRight, Zap, ShieldCheck, Sparkles, Eye, Ruler, Calculator, Box, Image as ImageIcon, Video, Palette, Compass, Layers, Calendar } from 'lucide-react';
 import { designLibrary, SIGNUP_URL } from '@/lib/constants/urls';
 import FaqAccordion from './components/FaqAccordion';
 import DesignTemplateGallery from './components/DesignTemplateGallery';
+import { getClient } from '@/lib/sanity/client';
+import { homePageQuery } from '@/lib/sanity/queries';
 
 const BASE_URL = 'https://zlendorealty.com';
 const COUNTRY = 'in';
+
+// Revalidate every 60 seconds (Incremental Static Regeneration)
+export const revalidate = 60;
 
 // Helper to build country-prefixed paths (server-side equivalent of getPath)
 function getPath(path: string): string {
@@ -26,20 +32,33 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { country } = await params;
 
+  // Fetch SEO data from Sanity
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let cmsSeo: Record<string, any> | null = null;
+  try {
+    cmsSeo = await getClient(false).fetch(homePageQuery);
+  } catch { /* fallback to defaults */ }
+
   if (country === 'in') {
+    const seoTitle = cmsSeo?.seoTitle ?? 'AI Home & Office Design Software for Builders and Architects';
+    const seoDesc = cmsSeo?.seoDescription ?? 'Zlendo Realty AI Floor Planner and 2D-to-3D Designs in Minutes. All-in-One Software for Architects, Builders, Interior Designers, and Vastu Consultants. Start Your Free Trial Now!';
+    const ogTitle = cmsSeo?.ogTitle ?? 'AI-Powered Home & Office Design Software | Zlendo Realty';
+    const ogDesc = cmsSeo?.ogDescription ?? 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. The all-in-one design software for Architects, Builders, Interior designers, and Vastu Consultants. Start your free trial today!';
+    const ogImg = cmsSeo?.ogImage ?? `${BASE_URL}/og-image.jpg`;
+
     return {
       title: {
-        absolute: 'AI Home & Office Design Software for Builders and Architects',
+        absolute: seoTitle,
       },
-      description: 'Zlendo Realty AI Floor Planner and 2D-to-3D Designs in Minutes. All-in-One Software for Architects, Builders, Interior Designers, and Vastu Consultants. Start Your Free Trial Now!',
+      description: seoDesc,
       openGraph: {
-        title: 'AI-Powered Home & Office Design Software | Zlendo Realty',
-        description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. The all-in-one design software for Architects, Builders, Interior designers, and Vastu Consultants. Start your free trial today!',
+        title: ogTitle,
+        description: ogDesc,
         url: `${BASE_URL}/in`,
         siteName: 'Zlendo Realty',
         images: [
           {
-            url: `${BASE_URL}/og-image.jpg`,
+            url: ogImg,
             width: 1200,
             height: 630,
             alt: 'Zlendo Realty AI Design Software',
@@ -51,9 +70,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
       twitter: {
         card: 'summary_large_image',
-        title: 'AI-Powered Home & Office Design Software | Zlendo Realty',
-        description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI.',
-        images: [`${BASE_URL}/og-image.jpg`],
+        title: ogTitle,
+        description: ogDesc,
+        images: [ogImg],
       },
       alternates: {
         canonical: `${BASE_URL}/in`,
@@ -73,61 +92,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // ── Static Data ──────────────────────────────────────────────────────────────
 
-const faqSchema = {
-  '@context': 'https://schema.org/',
-  '@type': 'FAQPage',
-  'name': 'Zlendo Realty Frequently Asked Questions',
-  'mainEntity': [
-    {
-      '@type': 'Question',
-      'name': 'Who can use Zlendo Realty?',
-      'acceptedAnswer': {
-        '@type': 'Answer',
-        'text': 'Zlendo Realty can be used by homeowners, architects, students, builders, and property professionals. It supports both beginners and experienced users involved in home planning and design.',
-      },
-    },
-    {
-      '@type': 'Question',
-      'name': 'Is it beginner friendly?',
-      'acceptedAnswer': {
-        '@type': 'Answer',
-        'text': 'Yes. The platform is designed to be easy to use and does not require any technical, architectural, or design background.',
-      },
-    },
-    {
-      '@type': 'Question',
-      'name': 'Does it work on mobile?',
-      'acceptedAnswer': {
-        '@type': 'Answer',
-        'text': 'Yes. Zlendo Realty works seamlessly across mobile phones, tablets, and desktop devices, allowing access anytime and anywhere.',
-      },
-    },
-    {
-      '@type': 'Question',
-      'name': 'Is my data secure?',
-      'acceptedAnswer': {
-        '@type': 'Answer',
-        'text': 'Yes. Your designs and project data remain private unless you choose to share them. Strong data security measures are maintained.',
-      },
-    },
-    {
-      '@type': 'Question',
-      'name': 'Can it be used for professional work?',
-      'acceptedAnswer': {
-        '@type': 'Answer',
-        'text': 'Yes. The platform is suitable for professional projects, client presentations, and property planning, and is widely used for architectural design services and project visualization.',
-      },
-    },
-    {
-      '@type': 'Question',
-      'name': 'Is support available?',
-      'acceptedAnswer': {
-        '@type': 'Answer',
-        'text': 'Yes. Dedicated customer support is available to assist users whenever help is needed.',
-      },
-    },
-  ],
-};
+// faqSchema is now generated dynamically from CMS data (see inside Page component)
 
 const faqs = [
   {
@@ -330,7 +295,94 @@ const comparisonRows = [
 
 // ── Page Component (Server Component — renders real HTML) ────────────────────
 
-export default function Page() {
+export default async function Page() {
+  // Fetch CMS content (falls back to static data if no document is published yet)
+  const { isEnabled: preview } = await draftMode();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cms: Record<string, any> | null = await getClient(preview).fetch(homePageQuery).catch(() => null);
+
+  // Merge CMS values over static defaults
+  const resolvedFaqs = cms?.faqs?.length
+    ? cms.faqs.map((f: { question: string; answer: string }) => ({ q: f.question, a: f.answer }))
+    : faqs;
+
+  const resolvedFeatures = cms?.features?.length ? cms.features : features;
+  const resolvedComparisonRows = cms?.comparisonRows?.length
+    ? cms.comparisonRows.map((r: { title: string; oldWay: string; newWay: string; gradient: string }) => ({
+        title: r.title,
+        trad: r.oldWay,
+        zlendo: r.newWay,
+        img: r.gradient ?? 'from-purple-500 to-pink-400',
+      }))
+    : comparisonRows;
+
+  const resolvedIntelligence = cms?.intelligenceDimensions?.length
+    ? cms.intelligenceDimensions.map((d: {
+        id: string; title: string; shortDesc: string; longDesc: string;
+        benefit: string; cta: string; link: string; iconName: string; colorClass: string; bgClass: string;
+      }) => ({
+        id: d.id, title: d.title, shortDesc: d.shortDesc, longDesc: d.longDesc,
+        benefit: d.benefit, cta: d.cta, link: d.link,
+        iconName: d.iconName, color: d.colorClass, bg: d.bgClass,
+      }))
+    : intelligenceDimensions;
+
+  const heroTitle = cms?.heroTitle ?? 'Design Smarter.';
+  const heroHighlight = cms?.heroTitleHighlight ?? 'Build Faster.';
+  const heroAfter = cms?.heroTitleAfter ?? 'Deliver Better.';
+  const heroSubtitleText = cms?.heroSubtitle ?? 'Powerful Civil Plan & Interior Design Software for Professionals and Individuals. Zlendo Realty helps you create accurate 2D plans, stunning 3D designs, and complete interior layouts—all from one easy-to-use platform.';
+  const heroPrimaryLabel = cms?.heroPrimaryCtaLabel ?? 'Design Home for Free';
+  const heroSecondaryLabel = cms?.heroSecondaryCtaLabel ?? 'Schedule Your Business Demo';
+  const faqTitle = cms?.faqSectionTitle ?? 'Frequently Asked Questions';
+  const ctaTitle = cms?.ctaTitle ?? 'Start designing your house with Zlendo Realty';
+  const ctaSubtitle = cms?.ctaSubtitle ?? 'Draw a floor plan and create a 3D home design in 10 min.';
+  const ctaButtonLabel = cms?.ctaButtonLabel ?? 'Get Started For Free';
+  const howToTitle = cms?.howToSectionTitle ?? 'How to design a home online for free';
+
+  const templatesTitle = cms?.templatesSectionTitle;
+  const templatesHighlight = cms?.templatesSectionTitleHighlight;
+  const templatesSubtitle = cms?.templatesSectionSubtitle;
+  const templatesButton = cms?.templatesButtonLabel;
+  const templatesNoData = cms?.templatesNoDataText;
+
+  const badgeText = cms?.heroBadgeText ?? 'Create with Confidence';
+  const heroPrimaryLink = cms?.heroPrimaryCtaLink ?? SIGNUP_URL;
+  const heroSecondaryLink = cms?.heroSecondaryCtaLink ?? `/${COUNTRY}/business#demo-form`;
+  const intelligenceBadge = cms?.intelligenceBadgeText ?? 'Proprietary 9D Framework';
+  const intelligenceTitle = cms?.intelligenceSectionTitle ?? 'The Intelligence';
+  const intelligenceHighlight = cms?.intelligenceSectionTitleHighlight ?? 'behind';
+  const intelligenceAfter = cms?.intelligenceSectionTitleAfter ?? 'your dream home.';
+  const intelligenceSubtitle = cms?.intelligenceSectionSubtitle ?? 'Swipe to explore how our 9D engine guarantees total peace of mind.';
+  const comparisonBadge = cms?.comparisonBadgeText ?? 'Peace of Mind';
+  const comparisonTitle = cms?.comparisonTitle ?? 'Your Dream Design';
+  const comparisonHighlight = cms?.comparisonTitleHighlight ?? 'made Easy';
+  const comparisonSubtitle = cms?.comparisonSubtitle ?? 'Why 12,000+ modern homeowners chose Zlendo Realty over traditional guesswork.';
+  const ctaImageUrl = cms?.ctaImageUrl ?? 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800';
+  const ctaLink = cms?.ctaButtonLink ?? SIGNUP_URL;
+  const comparisonOldWayLabel = cms?.comparisonOldWayLabel ?? 'Old Way';
+  const comparisonNewWayLabel = cms?.comparisonNewWayLabel ?? 'Zlendo Realty Way';
+  const dimensionSuffix = cms?.dimensionSuffix ?? 'Dimension';
+
+  // Build FAQ structured data dynamically from CMS
+  const faqSchema = {
+    '@context': 'https://schema.org/',
+    '@type': 'FAQPage',
+    'name': 'Zlendo Realty Frequently Asked Questions',
+    'mainEntity': resolvedFaqs.map((faq: { q: string; a: string }) => ({
+      '@type': 'Question',
+      'name': faq.q,
+      'acceptedAnswer': {
+        '@type': 'Answer',
+        'text': faq.a,
+      },
+    })),
+  };
+
+  // Icon map for comparison rows
+  const comparisonIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+    Layers, Palette, Box, Zap,
+  };
+
   return (
     <>
       {/* FAQPage structured data */}
@@ -348,30 +400,29 @@ export default function Page() {
 
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-3">
               <Sparkles className="w-4 h-4 text-zlendo-teal" />
-              <span className="text-xs font-black text-zlendo-teal uppercase tracking-[0.2em]">Create with Confidence</span>
+              <span className="text-xs font-black text-zlendo-teal uppercase tracking-[0.2em]">{badgeText}</span>
             </div>
 
             <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-grey-dark leading-[1.1] md:leading-[1.05] mb-3 md:mb-4 max-w-5xl mx-auto tracking-tight md:tracking-tighter">
-              Design Smarter. <span className="text-zlendo-teal italic"> Build Faster.</span> Deliver Better.
+              {heroTitle} <span className="text-zlendo-teal italic"> {heroHighlight}</span> {heroAfter}
             </h1>
 
             <p className="text-base md:text-lg text-zlendo-grey-medium font-bold max-w-3xl mx-auto mb-5 leading-relaxed opacity-90">
-              Powerful Civil Plan &amp; Interior Design Software for Professionals and Individuals.
-              Zlendo Realty helps you create accurate 2D plans, stunning 3D designs, and complete interior layouts—all from one easy-to-use platform.
+              {heroSubtitleText}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
-                href={SIGNUP_URL}
+                href={heroPrimaryLink}
                 className="bg-zlendo-teal text-white px-8 py-3.5 rounded-[20px] font-black text-base hover:scale-105 transition-all shadow-2xl shadow-zlendo-teal/30 group flex items-center gap-2"
               >
-                Design Home for Free <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                {heroPrimaryLabel} <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </a>
               <Link
-                href={`/${COUNTRY}/business#demo-form`}
+                href={heroSecondaryLink}
                 className="bg-white text-zlendo-grey-dark px-8 py-3.5 rounded-[20px] font-black text-base border border-black/10 hover:bg-gray-50 hover:scale-105 transition-all shadow-xl group flex items-center gap-2"
               >
-                Schedule Your Business Demo <Calendar className="w-6 h-6 text-zlendo-grey-medium group-hover:text-zlendo-teal transition-colors" />
+                {heroSecondaryLabel} <Calendar className="w-6 h-6 text-zlendo-grey-medium group-hover:text-zlendo-teal transition-colors" />
               </Link>
             </div>
           </section>
@@ -382,20 +433,19 @@ export default function Page() {
               <div className="max-w-4xl mx-auto text-center mb-6 md:mb-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-3">
                   <div className="w-2 h-2 rounded-full bg-zlendo-teal animate-pulse" />
-                  <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">Proprietary 9D Framework</span>
+                  <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">{intelligenceBadge}</span>
                 </div>
                 <h2 className="text-3xl md:text-[48px] font-black font-nunito text-zlendo-grey-dark mb-3 md:mb-4 leading-[1] tracking-tighter">
-                  The <span className="text-zlendo-teal">Intelligence</span> behind <br />
-                  your dream home.
+                  {intelligenceTitle} <span className="text-zlendo-teal">{intelligenceHighlight}</span> {intelligenceAfter}
                 </h2>
                 <p className="text-base md:text-lg text-zlendo-grey-medium font-bold opacity-60 leading-relaxed max-w-2xl mx-auto">
-                  Swipe to explore how our 9D engine guarantees total peace of mind.
+                  {intelligenceSubtitle}
                 </p>
               </div>
 
               {/* Horizontal Scroll Container — static HTML cards */}
               <div className="flex gap-6 overflow-x-auto pb-12 pt-4 px-4 -mx-4 md:px-0 md:mx-0 snap-x snap-mandatory scrollbar-hide">
-                {intelligenceDimensions.map((dim) => {
+                {resolvedIntelligence.map((dim) => {
                   const Icon = iconMap[dim.iconName] || Sparkles;
                   return (
                     <div
@@ -407,7 +457,7 @@ export default function Page() {
                         <div className="absolute top-0 right-0 w-16 h-16 sm:w-32 sm:h-32 bg-white/20 blur-[40px] rounded-full translate-x-1/2 -translate-y-1/2" />
                         <div className="relative z-10 flex justify-between items-start">
                           <div className="bg-white/20 backdrop-blur-md px-1.5 py-0.5 sm:px-4 sm:py-1.5 rounded-full text-white font-black text-[9px] sm:text-xs uppercase tracking-normal sm:tracking-widest border border-white/20">
-                            {dim.id} Dimension
+                            {dim.id} {dimensionSuffix}
                           </div>
                           <div className="w-8 h-8 sm:w-12 sm:h-12 bg-white rounded-lg sm:rounded-2xl flex items-center justify-center shadow-lg text-zlendo-teal">
                             <Icon className="w-4 h-4 sm:w-6 sm:h-6" />
@@ -437,22 +487,28 @@ export default function Page() {
           </section>
 
           {/* ───────────────── DESIGN TEMPLATES (Client Island) ───────────────── */}
-          <DesignTemplateGallery />
+          <DesignTemplateGallery 
+            title={templatesTitle}
+            titleHighlight={templatesHighlight}
+            subtitle={templatesSubtitle}
+            buttonLabel={templatesButton}
+            noDataText={templatesNoData}
+          />
 
           {/* ───────────────── HOW TO DESIGN ───────────────── */}
           <section className="container-custom mb-10 md:mb-16 px-4 text-center">
             <div className="max-w-4xl mx-auto mb-6">
               <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-6">
-                How to design a home online for free
+                {howToTitle}
               </h2>
               <p className="text-xl text-zlendo-grey-medium font-bold opacity-80 leading-relaxed">
-                Design your 2BHK, pooja room, or bungalow easily with Zlendo Realty. Get Vastu-friendly plans &amp; realistic 3D views!
+                {cms?.howToSectionSubtitle ?? 'Design your 2BHK, pooja room, or bungalow easily with Zlendo Realty. Get Vastu-friendly plans & realistic 3D views!'}
               </p>
             </div>
           </section>
 
           {/* ───────────────── FEATURE SECTIONS ───────────────── */}
-          {features.map((feature) => (
+          {resolvedFeatures.map((feature) => (
             <section key={feature.section} className="container-custom mb-16 md:mb-24 px-4">
               <div className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${feature.reverse ? 'lg:flex-row-reverse' : ''}`}>
                 {/* Text */}
@@ -479,7 +535,7 @@ export default function Page() {
                   </ul>
 
                   <a
-                    href={SIGNUP_URL}
+                    href={feature.ctaLink || SIGNUP_URL}
                     className="inline-flex items-center gap-2 text-zlendo-teal font-black text-lg group hover:gap-4 transition-all"
                   >
                     {feature.cta} <ArrowRight className="w-5 h-5" />
@@ -500,7 +556,7 @@ export default function Page() {
                     </div>
                     <div className="mt-12 rounded-2xl overflow-hidden bg-gray-50 aspect-[4/3] group relative">
                       <img
-                        src={feature.img}
+                        src={feature.imageUrl || feature.img}
                         alt={feature.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
                         loading="lazy"
@@ -522,20 +578,20 @@ export default function Page() {
               <div className="text-center mb-12 md:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-6">
                   <ShieldCheck className="w-4 h-4 text-zlendo-teal" />
-                  <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">Peace of Mind</span>
+                  <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">{comparisonBadge}</span>
                 </div>
                 <h2 className="text-4xl md:text-6xl font-black font-nunito text-zlendo-grey-dark mb-8 tracking-tighter leading-[0.9]">
-                  Your Dream Design <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-500">made Easy</span>
+                  {comparisonTitle} <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-500">{comparisonHighlight}</span>
                 </h2>
                 <p className="text-xl md:text-2xl text-zlendo-grey-medium font-bold max-w-2xl mx-auto leading-relaxed opacity-80 text-center">
-                  Why 12,000+ modern homeowners chose Zlendo Realty over traditional guesswork.
+                  {comparisonSubtitle}
                 </p>
               </div>
 
               <div className="max-w-6xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-                  {comparisonRows.map((row, i) => (
+                  {resolvedComparisonRows.map((row, i) => (
                     <div
                       key={i}
                       className="group relative bg-white rounded-[40px] p-8 md:p-10 border border-black/[0.04] shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_60px_rgba(0,168,132,0.1)] transition-all duration-500 hover:-translate-y-2 overflow-hidden"
@@ -545,23 +601,23 @@ export default function Page() {
                       <div className="relative z-10 flex flex-col h-full justify-between gap-8">
                         <div className="flex items-start justify-between">
                           <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${row.img} flex items-center justify-center text-white shadow-lg shrink-0`}>
-                            {i === 0 && <Layers className="w-8 h-8" />}
-                            {i === 1 && <Palette className="w-8 h-8" />}
-                            {i === 2 && <Box className="w-8 h-8" />}
-                            {i === 3 && <Zap className="w-8 h-8" />}
+                            {(() => {
+                              const RowIcon = (row.iconName && comparisonIconMap[row.iconName]) || [Layers, Palette, Box, Zap][i] || Zap;
+                              return <RowIcon className="w-8 h-8" />;
+                            })()}
                           </div>
                           <h4 className="text-2xl font-black font-nunito text-zlendo-grey-dark ml-6 md:ml-0">{row.title}</h4>
                         </div>
 
                         <div className="space-y-4">
                           <div className="p-4 rounded-2xl bg-red-50 border border-red-100/50">
-                            <div className="text-[10px] font-black uppercase text-red-500 tracking-widest mb-1 opacity-70">Old Way</div>
+                            <div className="text-[10px] font-black uppercase text-red-500 tracking-widest mb-1 opacity-70">{comparisonOldWayLabel}</div>
                             <div className="text-lg font-bold text-red-900/60 line-through decoration-red-300 text-left">{row.trad}</div>
                           </div>
                           <div className="relative">
                             <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 bg-zlendo-teal rounded-full" />
                             <div className="pl-4 text-left">
-                              <div className="text-[10px] font-black uppercase text-zlendo-teal tracking-widest mb-1">Zlendo Realty Way</div>
+                              <div className="text-[10px] font-black uppercase text-zlendo-teal tracking-widest mb-1">{comparisonNewWayLabel}</div>
                               <div className="text-xl font-black text-zlendo-grey-dark">{row.zlendo}</div>
                             </div>
                           </div>
@@ -580,25 +636,28 @@ export default function Page() {
               <div className="bg-white border border-gray-100 rounded-[32px] md:rounded-[48px] p-3 md:p-16 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]">
                 <div className="flex-1 text-center md:text-left space-y-3 md:space-y-8">
                   <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark leading-tight">
-                    Start designing your house <br className="hidden md:block" />
-                    with <span className="text-emerald-500">Zlendo Realty</span>
+                    {ctaTitle.replace('Zlendo Realty', '').trim() ? (
+                      <>{ctaTitle.split('Zlendo Realty')[0]}<span className="text-emerald-500">Zlendo Realty</span>{ctaTitle.split('Zlendo Realty')[1]}</>
+                    ) : (
+                      ctaTitle
+                    )}
                   </h2>
                   <p className="text-xl font-bold text-zlendo-grey-medium max-w-lg mx-auto md:mx-0 opacity-70">
-                    Draw a floor plan and create a 3D home design in 10 min.
+                    {ctaSubtitle}
                   </p>
                   <div className="flex justify-center md:justify-start">
                     <a
-                      href={SIGNUP_URL}
+                      href={ctaLink}
                       className="bg-[#1AE16C] text-zlendo-grey-dark px-10 py-5 rounded-full font-black text-lg shadow-[0_10px_30px_rgba(26,225,108,0.3)] hover:scale-105 active:scale-95 transition-all inline-block"
                     >
-                      Get Started For Free
+                      {ctaButtonLabel}
                     </a>
                   </div>
                 </div>
 
                 <div className="flex-1 w-full max-w-md">
                   <img
-                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800"
+                    src={ctaImageUrl}
                     alt="Zlendo Realty Designer Illustration"
                     className="w-full h-auto drop-shadow-2xl"
                     loading="lazy"
@@ -611,8 +670,8 @@ export default function Page() {
           {/* ───────────────── FAQ SECTION ───────────────── */}
           <section className="py-20 md:py-32 bg-white">
             <div className="container-custom px-6 max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-12">Frequently Asked Questions</h2>
-              <FaqAccordion faqs={faqs} />
+              <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-12">{faqTitle}</h2>
+              <FaqAccordion faqs={resolvedFaqs} />
             </div>
           </section>
 
