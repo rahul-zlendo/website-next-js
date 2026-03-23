@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Virtual Walkthrough & 8K Home Tours | Zlendo Realty',
+    title: 'Virtual Walkthrough & 8K Home Tours',
     description:
         'Walk through your future home in immersive 8K virtual tours. First-person exploration compatible with VR headsets. Experience spaces before they are built.',
     keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         'real estate builders software',
     ],
     openGraph: {
-        title: 'Immersive Virtual Walkthrough | Zlendo Realty',
+        title: 'Immersive Virtual Walkthrough',
         description: 'Walk through your future home in 8K quality. First-person exploration of spaces before construction.',
         url: 'https://zlendorealty.com/in/products/virtual-walkthrough',
         siteName: 'Zlendo Realty',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Virtual Home Walkthrough | Zlendo Realty',
+        title: 'Virtual Home Walkthrough',
         description: 'Immersive 8K home tours with VR support. Experience your design today.',
     },
     alternates: {

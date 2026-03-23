@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '2D to 3D House Plan Converter | Zlendo Realty – Try Free',
+  title: '2D to 3D House Plan Converter',
   description:
     'Convert 2D house plans into realistic 3D visuals instantly. Visualize layouts before construction begins. Explore free sample plans with Zlendo Realty.',
   keywords: [

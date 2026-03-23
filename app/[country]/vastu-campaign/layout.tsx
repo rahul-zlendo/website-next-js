@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'AI-Powered Vastu Analysis | Zlendo Realty',
+    title: 'AI-Powered Vastu Analysis',
     description: 'Get an instant AI-powered Vastu compliance score for your home or office. Upload your floor plan and align your space with ancient wisdom.',
     keywords: [
         'AI vastu analysis',

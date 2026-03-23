@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Vastu-Compliant House Plans | Zlendo Realty – Design Now',
+  title: 'Vastu-Compliant House Plans',
   description: 'Create vastu-optimized house plans blending tradition and modern design. Perfect for harmonious, functional homes. Design your house now.',
   keywords: 'vastu house plan design, free vastu house plan layout, free vastu living room layout tips, vastu planner online, home energy flow, vastu compliant house design',
   openGraph: {

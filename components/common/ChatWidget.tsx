@@ -102,7 +102,7 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                 <Bot className="w-6 h-6 text-white" />
                             </div>
                             <div>
-                                <h4 className="font-black text-lg">Zlendo Assistant</h4>
+                                <h4 className="font-black text-lg">Zlendo Realty Assistant</h4>
                                 <div className="flex items-center gap-1.5 min-w-0">
                                     <span className="w-2 h-2 bg-emerald-300 rounded-full" />
                                     <span className="text-[10px] font-bold uppercase tracking-widest opacity-80">Always Active</span>
@@ -131,15 +131,21 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                 className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                             >
                                 <div className={`max-w-[80%] p-4 rounded-2xl flex flex-col gap-1 ${msg.sender === 'user'
-                                        ? 'bg-zlendo-teal text-white rounded-tr-none'
-                                        : 'bg-white text-zlendo-grey-dark shadow-sm border border-black/5 rounded-tl-none'
+                                    ? 'bg-zlendo-teal text-white rounded-tr-none'
+                                    : 'bg-white text-zlendo-grey-dark shadow-sm border border-black/5 rounded-tl-none'
                                     }`}>
                                     <p className="text-sm font-medium leading-relaxed">
                                         {msg.text.split(/(\[.*?\]\(.*?\))/).map((part, i) => {
                                             const match = part.match(/\[(.*?)\]\((.*?)\)/);
                                             if (match) {
                                                 return (
-                                                    <a key={i} href={match[2]} className="underline font-bold decoration-2 hover:opacity-80 decoration-white/30">
+                                                    <a 
+                                                        key={i} 
+                                                        href={match[2]} 
+                                                        className={`font-black underline decoration-2 underline-offset-2 transition-all hover:opacity-80 ${
+                                                            msg.sender === 'user' ? 'text-white decoration-white/40' : 'text-zlendo-teal decoration-zlendo-teal/30'
+                                                        }`}
+                                                    >
                                                         {match[1]}
                                                     </a>
                                                 );
@@ -156,7 +162,7 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                     </div>
 
                     {/* Quick Replies */}
-                    <div className="px-6 py-2 flex gap-2 overflow-x-auto no-scrollbar">
+                    <div className="px-6 py-1.5 flex gap-2 overflow-x-auto no-scrollbar border-t border-black/[0.03]">
                         {['Pricing', '3D Tools', 'Vastu', 'Support'].map(q => (
                             <button
                                 key={q}
@@ -164,7 +170,7 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                     setInputValue(q);
                                     setTimeout(handleSend, 0);
                                 }}
-                                className="px-4 py-1.5 bg-white border border-black/5 rounded-full text-xs font-bold text-zlendo-grey-medium whitespace-nowrap hover:border-zlendo-teal hover:text-zlendo-teal transition-all shadow-sm"
+                                className="px-4 py-1 bg-white border border-black/5 rounded-full text-xs font-bold text-zlendo-grey-medium whitespace-nowrap hover:border-zlendo-teal hover:text-zlendo-teal transition-all shadow-sm"
                             >
                                 {q}
                             </button>
@@ -172,7 +178,7 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                     </div>
 
                     {/* Input Area */}
-                    <div className="p-6 bg-white border-t border-black/5">
+                    <div className="px-6 py-4 bg-white border-t border-black/5">
                         <div className="relative">
                             <input
                                 type="text"
@@ -180,17 +186,17 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                 onChange={(e) => setInputValue(e.target.value)}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                                 placeholder="Typing something..."
-                                className="w-full bg-slate-50 border border-black/5 rounded-2xl py-4 pl-6 pr-14 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-medium text-zlendo-grey-dark text-sm"
+                                className="w-full bg-slate-50 border border-black/5 rounded-2xl py-3 pl-6 pr-14 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-medium text-zlendo-grey-dark text-sm"
                             />
                             <button
                                 onClick={handleSend}
                                 disabled={!inputValue.trim()}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-zlendo-teal text-white rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all disabled:opacity-40 disabled:hover:scale-100 shadow-lg shadow-zlendo-teal/20"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-zlendo-teal text-white rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all disabled:opacity-40 disabled:hover:scale-100 shadow-lg shadow-zlendo-teal/20"
                             >
-                                <Send className="w-5 h-5" />
+                                <Send className="w-4 h-4" />
                             </button>
                         </div>
-                        <p className="mt-3 text-[10px] text-center font-bold text-zlendo-grey-medium opacity-40 uppercase tracking-widest">
+                        <p className="mt-2 text-[8px] text-center font-bold text-zlendo-grey-medium opacity-30 uppercase tracking-[0.2em]">
                             Zlendo AI usually Responds in Seconds
                         </p>
                     </div>
