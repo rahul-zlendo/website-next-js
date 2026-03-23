@@ -326,7 +326,7 @@ function TemplateDetailContent() {
         const idNum = Number(templateId);
         return activeTemplates.find(t => t.template_Id === idNum) || null;
     }, [templateId, activeTemplates]);
-console.log(selectedTemplate,hasReportedTemplate,user,"detail");
+    console.log(selectedTemplate, hasReportedTemplate, user, "detail");
 
     // Fetch templates if not loaded
     useEffect(() => {
@@ -1915,8 +1915,8 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                         }}
                                         placeholder="Tell us more about what is wrong with this post..."
                                         className={`w-full min-h-[120px] p-4 border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-zlendo-teal/20 focus:border-zlendo-teal font-medium text-zlendo-grey-dark ${showReportError && reportDescription.trim().length < 10
-                                                ? 'border-red-300 focus:border-red-500'
-                                                : 'border-gray-200'
+                                            ? 'border-red-300 focus:border-red-500'
+                                            : 'border-gray-200'
                                             }`}
                                         maxLength={500}
                                     />
@@ -1927,8 +1927,8 @@ console.log(selectedTemplate,hasReportedTemplate,user,"detail");
                                             </span>
                                         )}
                                         <span className={`text-xs font-bold ml-auto ${showReportError && reportDescription.trim().length < 10
-                                                ? 'text-red-500'
-                                                : 'text-zlendo-grey-medium opacity-60'
+                                            ? 'text-red-500'
+                                            : 'text-zlendo-grey-medium opacity-60'
                                             }`}>
                                             {reportDescription.length}/500
                                         </span>
