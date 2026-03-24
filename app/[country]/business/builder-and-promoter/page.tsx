@@ -90,7 +90,7 @@ export default function BuilderAndPromoterPage() {
                     </motion.div>
 
                     {/* ── THE CHALLENGE ── */}
-                    <div className="grid lg:grid-cols-2 gap-10 mb-16 items-start">
+                    <div className="grid lg:grid-cols-2 gap-10 mb-16">
                         <motion.div
                             {...fadeUp(0.1)}
                             className="bg-red-50 border border-red-100 rounded-3xl p-8 lg:p-10"

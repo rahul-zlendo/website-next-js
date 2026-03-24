@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Interior & Exterior Home Design | Zlendo Realty – Free Demo',
+  title: 'Interior & Exterior Home Design',
   description:
     'Design climate-responsive interiors and stunning exteriors tailored to Indian lifestyles. Create cohesive residential home plans. Book a free demo today.',
   keywords: [

@@ -6,8 +6,8 @@
  * - Set NEXT_PUBLIC_ENV=prod for production
  * - Or leave unset to use default (prod)
  * 
- * You can also override individual URLs using:edsf
- * - NEXT_PUBLIC_FRONTEND_URLn
+ * You can also override individual URLs using:
+ * - NEXT_PUBLIC_FRONTEND_URL
  * - NEXT_PUBLIC_BACKEND_URL
  */
 
@@ -15,7 +15,7 @@
 const env = process.env.NEXT_PUBLIC_ENV || 'dev';
 const isDev = env === 'dev';
 
-// Frontend URLs - Using production URL for both dev and prod its
+// Frontend URLs - Using production URL for both dev and prod 
 // const FRONTEND_URL_DEV = 'http://localhost:3000'
 const FRONTEND_URL_DEV = 'https://stagingapp.zlendorealty.com';
 const FRONTEND_URL_PROD = 'https://app.zlendorealty.com';
@@ -41,8 +41,8 @@ export const version = "/v1";
 export const baseUrl = `${api}${version}`;
 
 // Full API Base URL
-// In development, call backend directly to bypass proxy SSL issues and handle CORS
-export const API_BASE_URL = (typeof window !== 'undefined' && env === 'prod') ? baseUrl : `${BACKEND_URL}${baseUrl}`;
+// Use the backend URL directly to avoid routing through Next.js proxy incorrectly
+export const API_BASE_URL = `${BACKEND_URL}${baseUrl}`;
 
 // Helper function to get API URL
 export const getApiUrl = (endpoint: string): string => {

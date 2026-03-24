@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Photorealistic 3D Renders for Home Design | Zlendo Realty',
+    title: 'Photorealistic 3D Renders for Home Design',
     description:
         'Generate magazine-quality photorealistic renders of your home design. Ray-traced lighting, shadows, and material accuracy for stunning presentations.',
     keywords: [
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         'home remodeling',
     ],
     openGraph: {
-        title: 'Photorealistic Home Renders | Zlendo Realty',
+        title: 'Photorealistic Home Renders',
         description: 'Generate stunning photorealistic renders for your home design projects. 4K quality with ray-traced lighting.',
         url: 'https://zlendorealty.com/in/products/realistic-renders',
         siteName: 'Zlendo Realty',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Photorealistic Home Renders | Zlendo Realty',
+        title: 'Photorealistic Home Renders',
         description: 'Magazine-quality 3D renders for home designs. Start your free trial.',
     },
     alternates: {

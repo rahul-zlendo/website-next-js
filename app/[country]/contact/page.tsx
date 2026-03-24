@@ -27,6 +27,7 @@ const ContactPage = () => {
         userType: 'individual',
         message: ''
     });
+    const [emailError, setEmailError] = useState(false);
 
     useEffect(() => {
         // Reset form when component mounts
@@ -35,6 +36,13 @@ const ContactPage = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Manual validation for more specific email requirements
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(formState.email)) {
+            alert("Please enter a valid email address with a domain extension (e.g., .com, .in).");
+            return;
+        }
 
         const payload = {
             fullName: formState.name,
@@ -102,7 +110,11 @@ const ContactPage = () => {
                                     </div>
                                     <div>
                                         <div className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-40 mb-1">Email us</div>
-                                        <div className="text-lg font-black text-zlendo-grey-dark">contact@zlendorealty.com</div>
+                                        <div className="text-lg font-black text-zlendo-grey-dark">
+                                            <span dangerouslySetInnerHTML={{ __html: '<!--email_off-->' }} />
+                                            contact@zlendorealty.com
+                                            <span dangerouslySetInnerHTML={{ __html: '<!--/email_off-->' }} />
+                                        </div>
                                     </div>
                                 </a>
 
@@ -218,15 +230,27 @@ const ContactPage = () => {
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-40 ml-1">Email Address</label>
-                                        <input
-                                            type="email"
-                                            required
-                                            value={formState.email}
-                                            onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                                            className="w-full px-6 py-4 rounded-2xl bg-[#f9fafb] border border-black/[0.03] focus:border-zlendo-teal focus:bg-white outline-none transition-all font-bold text-zlendo-grey-dark"
-                                            autoComplete="off"
-                                            placeholder="Your email address"
-                                        />
+                                        <div className="relative">
+                                            <input
+                                                type="email"
+                                                required
+                                                value={formState.email}
+                                                onChange={(e) => {
+                                                    const value = e.target.value.toLowerCase();
+                                                    setFormState({ ...formState, email: value });
+                                                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                                                    setEmailError(!emailRegex.test(value) && value.length > 0);
+                                                }}
+                                                className={`w-full px-6 py-4 rounded-2xl bg-[#f9fafb] border outline-none transition-all font-bold text-zlendo-grey-dark ${emailError ? 'border-red-500 focus:border-red-500' : 'border-black/[0.03] focus:border-zlendo-teal focus:bg-white'}`}
+                                                autoComplete="off"
+                                                placeholder="Your email address"
+                                            />
+                                        </div>
+                                        {emailError && (
+                                            <p className="mt-1 text-[10px] font-bold text-red-500 ml-1">
+                                                Please enter a valid email (e.g., name@company.com)
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
 
@@ -262,7 +286,7 @@ const ContactPage = () => {
 
                                 <button
                                     type="submit"
-                                    disabled={isSubmitting}
+                                    disabled={isSubmitting || emailError}
                                     className="w-full py-6 bg-zlendo-teal text-white rounded-[32px] font-black text-xl shadow-2xl shadow-zlendo-teal/30 hover:scale-[1.02] transition-all flex items-center justify-center gap-3 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
                                     {isSubmitting ? 'Sending...' : 'Send Message'}
