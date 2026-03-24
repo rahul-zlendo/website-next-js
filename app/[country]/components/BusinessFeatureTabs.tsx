@@ -25,7 +25,7 @@ export default function BusinessFeatureTabs({ featureContent }: { featureContent
     };
 
     return (
-        <section className="py-12 lg:py-16 px-4 bg-white">
+        <section className="py-12 lg:py-6 px-4 bg-white">
             <div className="container-custom">
                 <div className="text-center mb-16">
                     <div className="inline-block px-5 py-1.5 border border-gray-200 rounded-lg text-sm font-bold text-gray-500 mb-6 tracking-tight bg-gray-50/50">
@@ -109,10 +109,10 @@ export default function BusinessFeatureTabs({ featureContent }: { featureContent
                     </div>
                 </div>
 
-                <div className="text-center mt-20">
+                <div className="text-center mt-5">
                     <button
                         onClick={scrollToForm}
-                        className="group inline-flex items-center gap-2 text-zlendo-orange font-black text-xl hover:translate-x-1 transition-all"
+                        className="group inline-flex items-center gap-3 px-5 py-4 border-2 border-zlendo-orange text-zlendo-orange rounded-full font-black text-xl hover:bg-zlendo-orange hover:text-white transition-all shadow-xl shadow-zlendo-orange/10 hover:shadow-zlendo-orange/20 active:scale-95"
                     >
                         Book a free demo
                         <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
