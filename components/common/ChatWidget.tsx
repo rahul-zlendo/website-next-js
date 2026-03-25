@@ -34,9 +34,9 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
         'pricing': "Explore our flexible plans here: [View Pricing](/in/plans). We offer both monthly and annual subscriptions.",
         'cost': "Explore our flexible plans here: [View Pricing](/in/plans). We offer both monthly and annual subscriptions.",
         'plan': "Explore our flexible plans here: [View Pricing](/in/plans). We offer both monthly and annual subscriptions.",
-        '3d': "Zlendo Realty provides 8K ultra-realistic renders and AI walkthroughs. Check out our [Design Library](/in/design-library)!",
-        'render': "Zlendo Realty provides 8K ultra-realistic renders and AI walkthroughs. Check out our [Design Library](/in/design-library)!",
-        'walkthrough': "Zlendo Realty provides 8K ultra-realistic renders and AI walkthroughs. Check out our [Design Library](/in/design-library)!",
+        '3d': "Zlendo Realty provides 8K ultra-realistic renders and AI walkthroughs. Check out our [2D to 3D](/in/products/2d-to-3d)!",
+        'render': "Zlendo Realty provides 8K ultra-realistic renders and AI walkthroughs. Check out our [Realistic Renders](/in/products/realistic-renders)!",
+        'walkthrough': "Zlendo Realty provides 8K ultra-realistic renders and AI walkthroughs. Check out our [Virtual Walkthrough](/in/products/virtual-walkthrough)!",
         'vastu': "Our Vastu Optimizer is perfect for positive home alignment. You can learn more [here](/in/products/vastu).",
         'contact': "You can reach us at contact@zlendorealty.com or visit our [Contact Page](/in/contact).",
         'support': "You can reach us at contact@zlendorealty.com or visit our [Contact Page](/in/contact).",
@@ -139,12 +139,11 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                             const match = part.match(/\[(.*?)\]\((.*?)\)/);
                                             if (match) {
                                                 return (
-                                                    <a 
-                                                        key={i} 
-                                                        href={match[2]} 
-                                                        className={`font-black underline decoration-2 underline-offset-2 transition-all hover:opacity-80 ${
-                                                            msg.sender === 'user' ? 'text-white decoration-white/40' : 'text-zlendo-teal decoration-zlendo-teal/30'
-                                                        }`}
+                                                    <a
+                                                        key={i}
+                                                        href={match[2]}
+                                                        className={`font-black underline decoration-2 underline-offset-2 transition-all hover:opacity-80 ${msg.sender === 'user' ? 'text-white decoration-white/40' : 'text-zlendo-teal decoration-zlendo-teal/30'
+                                                            }`}
                                                     >
                                                         {match[1]}
                                                     </a>
