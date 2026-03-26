@@ -113,6 +113,24 @@ async function cacheUrl(url: string, blobUrl: string): Promise<void> {
 }
 
 /**
+ * Construct full URL from relative path
+ */
+export function constructFullBlobUrl(relativeUrl: string): string {
+    if (!relativeUrl) return '';
+    
+    // If it's already an absolute URL or local path, return it as is
+    if (relativeUrl.startsWith('http://') || relativeUrl.startsWith('https://') || relativeUrl.startsWith('/assets/') || relativeUrl.startsWith('/')) {
+        return relativeUrl;
+    }
+    
+    // Otherwise, prepend the Azure blob base URL
+    const cleanBaseUrl = BLOB_BASE_URL.endsWith('/') ? BLOB_BASE_URL.slice(0, -1) : BLOB_BASE_URL;
+    const cleanRelativeUrl = relativeUrl.startsWith('/') ? relativeUrl : `/${relativeUrl}`;
+    
+    return `${cleanBaseUrl}${cleanRelativeUrl}`;
+}
+
+/**
  * Fetch blob URL with caching
  */
 export async function fetchBlobUrl(relativeUrl: any): Promise<string> {

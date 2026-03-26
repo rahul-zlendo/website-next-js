@@ -15,6 +15,14 @@ export default defineType({
     { name: 'cta', title: '🚀 Final CTA' },
   ],
   fields: [
+    // Hidden Title for CMS Root ID
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      hidden: true,
+      initialValue: 'Home Page'
+    }),
     // ── SEO & Meta ────────────────────────────────────────────────────────
     defineField({
       name: 'seoTitle',
@@ -550,6 +558,9 @@ export default defineType({
     }),
   ],
   preview: {
-    prepare: () => ({ title: 'Home Page' }),
+    select: { title: 'seoTitle' },
+    prepare({ title }) {
+      return { title: title || 'Home Page' }
+    }
   },
 });

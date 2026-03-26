@@ -98,6 +98,43 @@ export const homePageQuery = groq`
   }
 `;
 
+export const twoDTo3DPageQuery = `
+  *[_type == "twoDTo3DPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroSubtitle,
+    heroTitle,
+    heroDesc,
+    heroCtaLabel,
+    heroCtaLink,
+    heroImage,
+    heroVideoLink,
+    heroGradient,
+    uploadTitle,
+    uploadSubtitle,
+    howToTitle,
+    howToDesc,
+    howToImage,
+    howToCtaLabel,
+    howToCtaLink,
+    stepsSectionTitle,
+    stepsSectionSubtitle,
+    steps[]{
+      title,
+      desc,
+      image
+    },
+    features[]{
+      title,
+      desc
+    },
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
 /**
  * Fetch Site Settings singleton.
  */

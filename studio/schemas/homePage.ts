@@ -15,6 +15,14 @@ export default defineType({
     { name: 'cta', title: '🚀 Final CTA' },
   ],
   fields: [
+    // Hidden Title for CMS Root ID
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      hidden: true,
+      initialValue: 'Home Page'
+    }),
     // ── SEO & Meta ────────────────────────────────────────────────────────
     defineField({
       name: 'seoTitle',
@@ -51,7 +59,7 @@ export default defineType({
     defineField({
       name: 'ogImage',
       title: 'OpenGraph Image URL (Social Share)',
-      type: 'url',
+      type: 'string',
       group: 'seo',
       initialValue: 'https://zlendorealty.com/og-image.jpg',
     }),
@@ -104,7 +112,7 @@ export default defineType({
     defineField({
       name: 'heroPrimaryCtaLink',
       title: 'Primary CTA Button Link',
-      type: 'url',
+      type: 'string',
       group: 'hero',
       initialValue: 'https://app.zlendorealty.com/register',
       description: 'Where the primary CTA button leads to.',
@@ -359,7 +367,7 @@ export default defineType({
             }),
             defineField({ name: 'cta', title: 'CTA Text', type: 'string' }),
             defineField({ name: 'ctaLink', title: 'CTA Link URL', type: 'string', description: 'Leave empty to default to signup URL.' }),
-            defineField({ name: 'imageUrl', title: 'Image URL', type: 'url' }),
+            defineField({ name: 'imageUrl', title: 'Image URL', type: 'string' }),
             defineField({ name: 'reverse', title: 'Reverse Layout (image left)', type: 'boolean', initialValue: false }),
           ],
           preview: {
@@ -537,19 +545,22 @@ export default defineType({
     defineField({
       name: 'ctaButtonLink',
       title: 'Final CTA Button Link',
-      type: 'url',
+      type: 'string',
       group: 'cta',
       initialValue: 'https://app.zlendorealty.com/register',
     }),
     defineField({
       name: 'ctaImageUrl',
       title: 'CTA Section Image URL',
-      type: 'url',
+      type: 'string',
       group: 'cta',
       initialValue: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800',
     }),
   ],
   preview: {
-    prepare: () => ({ title: 'Home Page' }),
+    select: { title: 'seoTitle' },
+    prepare({ title }) {
+      return { title: title || 'Home Page' }
+    }
   },
 });
