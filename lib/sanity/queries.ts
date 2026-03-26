@@ -184,3 +184,34 @@ export const floorPlannerPageQuery = groq`
     }
   }
 `;
+
+/**
+ * Fetch the Home Remodeling Page singleton document from Sanity.
+ */
+export const homeRemodelingPageQuery = groq`
+  *[_type == "homeRemodelingPage" && (_id == "homeRemodelingPage" || _id == "singleton-homeRemodelingPage")][0]{
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    heroBadgeText,
+    heroTitle,
+    heroTitleHighlight,
+    heroParagraph,
+    caseStudyTitle,
+    caseStudySubtitle,
+    caseStudyIcon,
+    challengeTitle,
+    challengeDescription,
+    solutionTitle,
+    solutionDescription,
+    stats[]{
+      label,
+      value
+    },
+    caseStudyImage,
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel
+  }
+`;
