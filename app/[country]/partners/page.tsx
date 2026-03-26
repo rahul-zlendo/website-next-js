@@ -253,7 +253,7 @@ export default function PartnersPage() {
                                             </div>
                                             <div className="text-center">
                                                 <a
-                                                    href={SIGNUP_URL}
+                                                    href={paths.enterpriseDemo}
                                                     className="px-12 py-5 bg-zlendo-teal text-white rounded-2xl font-black text-xl shadow-xl shadow-zlendo-teal/20 hover:scale-105 transition-all text-center inline-block"
                                                 >
                                                     Apply to Become an Affiliate
@@ -433,8 +433,8 @@ export default function PartnersPage() {
                             className="bg-white p-16 rounded-[60px] border border-black/5 shadow-2xl relative"
                         >
                             <div className="mb-8">
-                                <h2 className="text-5xl md:text-7xl font-black font-nunito text-zlendo-grey-dark mb-6">Let's Grow Together.</h2>
-                                <p className="text-xl md:text-2xl text-zlendo-grey-medium font-medium max-w-2xl mx-auto leading-relaxed">
+                                <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-6">Let's Grow Together.</h2>
+                                <p className="text-xl text-zlendo-grey-medium font-medium max-w-2xl mx-auto leading-relaxed opacity-60">
                                     Zlendo isn't just a tool; it's a movement toward digital-first construction and interiors. We have a long-term partnership mindset.
                                 </p>
                             </div>
@@ -465,10 +465,10 @@ export default function PartnersPage() {
                 <div className="container-custom px-4 text-center">
                     <div className="max-w-4xl mx-auto space-y-12">
                         <div className="space-y-4">
-                            <h2 className="text-4xl md:text-7xl font-black font-nunito leading-tight text-zlendo-grey-dark">
+                            <h2 className="text-4xl md:text-5xl font-black font-nunito leading-tight text-zlendo-grey-dark">
                                 Turn Influence Into <span className="text-zlendo-teal italic">Income.</span>
                             </h2>
-                            <p className="text-xl md:text-2xl text-zlendo-grey-medium font-medium leading-relaxed max-w-2xl mx-auto">
+                            <p className="text-xl text-zlendo-grey-medium font-medium leading-relaxed max-w-2xl mx-auto opacity-60">
                                 Start today. Grow with India’s most innovative home tech platform.
                             </p>
                         </div>
@@ -476,15 +476,15 @@ export default function PartnersPage() {
                         <div className="flex flex-col sm:flex-row justify-center gap-6">
                             <Link
                                 href={paths.enterpriseDemo}
-                                className="px-12 py-6 bg-zlendo-grey-dark text-white rounded-[2rem] font-black text-2xl shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-3 text-center inline-block"
+                                className="px-10 py-5 bg-zlendo-grey-dark text-white rounded-[2rem] font-black text-xl shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-3 text-center inline-block"
                             >
-                                Apply to Become a Partner <ArrowRight className="w-6 h-6" />
+                                Apply to Become a Partner <ArrowRight className="w-5 h-5" />
                             </Link>
                             <a
                                 href={SIGNUP_URL}
-                                className="px-12 py-6 bg-zlendo-teal text-white rounded-[2rem] font-black text-2xl shadow-2xl shadow-zlendo-teal/40 hover:scale-105 transition-all flex items-center justify-center gap-3 text-center inline-block"
+                                className="px-10 py-5 bg-zlendo-teal text-white rounded-[2rem] font-black text-xl shadow-2xl shadow-zlendo-teal/40 hover:scale-105 transition-all flex items-center justify-center gap-3 text-center inline-block"
                             >
-                                Join as Affiliate <Zap className="w-6 h-6" />
+                                Join as Affiliate <Zap className="w-5 h-5" />
                             </a>
                         </div>
 

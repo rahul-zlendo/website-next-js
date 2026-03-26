@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'AI Room Styler & Interior Inspiration | Zlendo Realty',
+    title: 'AI Room Styler & Interior Inspiration',
     description:
         'Get AI-generated room style inspirations tailored to your space. Explore curated furniture, color palettes, and photorealistic interior previews.',
     keywords: [
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         'room model',
     ],
     openGraph: {
-        title: 'AI Room Styler | Zlendo Realty',
+        title: 'AI Room Styler',
         description: 'AI-generated room style inspirations tailored to your layout. Curated furniture and color palettes.',
         url: 'https://zlendorealty.com/in/products/room-styler',
         siteName: 'Zlendo Realty',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'AI Room Styler | Zlendo Realty',
+        title: 'AI Room Styler',
         description: 'Get AI-powered interior style suggestions for any room.',
     },
     alternates: {

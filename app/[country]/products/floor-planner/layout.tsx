@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'AI Floor Planner & Floor Plan Software | Zlendo Realty – Free',
+    title: 'AI Floor Planner & Floor Plan Software',
     description:
         'Create professional 2D floor plans with AI-powered tools. Smart room sizing, auto-alignment, and instant 3D preview. Start designing for free.',
     keywords: [
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         'automated floor planning software',
     ],
     openGraph: {
-        title: 'AI-Powered Floor Planner | Zlendo Realty',
+        title: 'AI-Powered Floor Planner',
         description: 'Design professional floor plans with intelligent tools. Auto-alignment, smart dimensions, and instant 3D conversion.',
         url: 'https://zlendorealty.com/in/products/floor-planner',
         siteName: 'Zlendo Realty',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'AI Floor Planner | Zlendo Realty',
+        title: 'AI Floor Planner',
         description: 'Design professional floor plans with AI. Start free today.',
     },
     alternates: {

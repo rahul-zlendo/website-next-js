@@ -118,3 +118,69 @@ export const siteSettingsQuery = groq`
     cookieDeclineLabel,
   }
 `;
+/**
+ * Fetch the Floor Planner Page singleton document from Sanity.
+ */
+export const floorPlannerPageQuery = groq`
+  *[_type == "floorPlannerPage" && (_id == "floorPlannerPage" || _id == "singleton-floorPlannerPage")][0]{
+    seoTitle,
+    seoDescription,
+    heroBadgeText,
+    heroTitle,
+    heroTitleHighlight,
+    heroSubtitle,
+    heroSubtitleAfter,
+    heroPrimaryCtaLabel,
+    heroSecondaryCtaLabel,
+    heroImageUrl,
+    workflowBadgeText,
+    workflowSectionTitle,
+    workflowSectionSubtitle,
+    workflowSteps[]{
+      title,
+      desc,
+      iconName
+    },
+    draftingBadgeText,
+    draftingSectionTitle,
+    draftingSectionDescription,
+    draftingFeatures,
+    draftingButtonLabel,
+    draftingImageUrl,
+    magicBadgeText,
+    magicSectionTitle,
+    magicSectionSubtitle,
+    magicInputLabel,
+    magicInputTitle,
+    magicInputImage,
+    magicProcessTitle,
+    magicProcessSubtitle,
+    magicOutputLabel,
+    magicOutputTitle,
+    magicOutputImage,
+    templatesBadgeText,
+    templatesSectionTitle,
+    templatesSectionSubtitle,
+    templateTags,
+    templatesButtonLabel,
+    templatesImage1,
+    templatesImage2,
+    templatesBadgeTitle,
+    templatesBadgeSubtitle,
+    ctaSectionTitle,
+    ctaSectionSubtitle,
+    individualCardTitle,
+    individualCardDesc,
+    individualCardFeatures,
+    individualCardCta,
+    businessCardTitle,
+    businessCardDesc,
+    businessCardFeatures,
+    businessCardCta,
+    faqSectionTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;

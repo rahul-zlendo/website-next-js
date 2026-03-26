@@ -22,6 +22,22 @@ export default defineConfig({
                   .documentId('singleton-homePage')
               ),
             S.listItem()
+              .title('Products')
+              .child(
+                S.list()
+                  .title('Product Pages')
+                  .items([
+                    S.listItem()
+                      .title('Floor Planner Page')
+                      .child(
+                        S.document()
+                          .schemaType('floorPlannerPage')
+                          .documentId('singleton-floorPlannerPage')
+                      ),
+                    // Add more products here later
+                  ])
+              ),
+            S.listItem()
               .title('Site Settings')
               .child(
                 S.document()

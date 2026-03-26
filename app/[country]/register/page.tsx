@@ -55,6 +55,7 @@ const RegistrationContent = () => {
         comments: '',
         floorPlan: undefined
     });
+    const [emailError, setEmailError] = useState(false);
 
     useEffect(() => {
         const t = searchParams.get('type') as FormType;
@@ -171,6 +172,13 @@ const RegistrationContent = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Manual validation for more specific email requirements
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(formState.email)) {
+            alert("Please enter a valid email address with a domain extension (e.g., .com, .in).");
+            return;
+        }
 
         if (type === 'partnership') {
             // Find the numeric ID (lov_Value) for the selected industry description
@@ -374,11 +382,21 @@ const RegistrationContent = () => {
                                             <input
                                                 type="email"
                                                 required
-                                                className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
+                                                className={`w-full bg-[#f9fafb] border rounded-2xl py-4 pl-12 pr-6 outline-none transition-all font-normal text-[#1a1a1a] ${emailError ? 'border-red-500 focus:border-red-500' : 'border-[#eee] focus:border-zlendo-teal focus:bg-white'}`}
                                                 value={formState.email}
-                                                onChange={e => setFormState({ ...formState, email: e.target.value })}
+                                                onChange={e => {
+                                                    const value = e.target.value.toLowerCase();
+                                                    setFormState({ ...formState, email: value });
+                                                    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                                                    setEmailError(!emailRegex.test(value) && value.length > 0);
+                                                }}
                                             />
                                         </div>
+                                        {emailError && (
+                                            <p className="mt-1 text-[10px] font-bold text-red-500 ml-2">
+                                                Please enter a valid email (e.g., name@company.com)
+                                            </p>
+                                        )}
                                     </div>
 
                                     <div className="space-y-1.5">
@@ -515,8 +533,8 @@ const RegistrationContent = () => {
 
                                     <button
                                         type="submit"
-                                        disabled={isSubmitting}
-                                        className={`w-full bg-zlendo-teal text-white rounded-[20px] py-5 font-black text-xl shadow-xl shadow-zlendo-teal/20 active:scale-95 hover:bg-zlendo-teal/90 transition-all flex items-center justify-center gap-3 mt-4 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                        disabled={isSubmitting || emailError}
+                                        className={`w-full bg-zlendo-teal text-white rounded-[20px] py-5 font-black text-xl shadow-xl shadow-zlendo-teal/20 active:scale-95 hover:bg-zlendo-teal/90 transition-all flex items-center justify-center gap-3 mt-4 ${isSubmitting || emailError ? 'opacity-70 cursor-not-allowed' : ''}`}
                                     >
                                         {isSubmitting ? (
                                             <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
