@@ -37,7 +37,13 @@ export default defineConfig({
                   .schemaType('twoDTo3DPage')
                   .documentId('singleton-twoDTo3DPage')
               ),
-            // You can add more products here by copying this section
+              S.listItem()
+              .title('Use Case: Home Remodeling')
+              .child(
+                S.document()
+                  .schemaType('homeRemodelingPage')
+                  .documentId('singleton-homeRemodelingPage')
+              ),
             S.divider(),
             S.listItem()
               .title('Site Settings')
