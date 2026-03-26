@@ -15,7 +15,7 @@ export default {
         { name: 'heroSubtitleAfter', title: 'Hero Subtitle (Part 2)', type: 'text' },
         { name: 'heroPrimaryCtaLabel', title: 'Primary CTA Label', type: 'string' },
         { name: 'heroSecondaryCtaLabel', title: 'Secondary CTA Label', type: 'string' },
-        { name: 'heroImageUrl', title: 'Dashboard Preview Image', type: 'url' },
+        { name: 'heroImageUrl', title: 'Dashboard Preview Image', type: 'string' },
 
         // Workflow
         { name: 'workflowBadgeText', title: 'Workflow Badge Text', type: 'string' },
@@ -46,7 +46,7 @@ export default {
             of: [{ type: 'string' }]
         },
         { name: 'draftingButtonLabel', title: 'Drafting Button Label', type: 'string' },
-        { name: 'draftingImageUrl', title: 'Drafting Tool Image', type: 'url' },
+        { name: 'draftingImageUrl', title: 'Drafting Tool Image', type: 'string' },
 
         // Magic Moment (Upload)
         { name: 'magicBadgeText', title: 'Magic Badge Text', type: 'string' },
@@ -54,12 +54,12 @@ export default {
         { name: 'magicSectionSubtitle', title: 'Magic Section Subtitle', type: 'text' },
         { name: 'magicInputLabel', title: 'Magic Input Label', type: 'string' },
         { name: 'magicInputTitle', title: 'Magic Input Title', type: 'string' },
-        { name: 'magicInputImage', title: 'Magic Input Image', type: 'url' },
+        { name: 'magicInputImage', title: 'Magic Input Image', type: 'string' },
         { name: 'magicProcessTitle', title: 'Magic Process Title', type: 'string' },
         { name: 'magicProcessSubtitle', title: 'Magic Process Subtitle', type: 'string' },
         { name: 'magicOutputLabel', title: 'Magic Output Label', type: 'string' },
         { name: 'magicOutputTitle', title: 'Magic Output Title', type: 'string' },
-        { name: 'magicOutputImage', title: 'Magic Output Image', type: 'url' },
+        { name: 'magicOutputImage', title: 'Magic Output Image', type: 'string' },
 
         // Architect Templates
         { name: 'templatesBadgeText', title: 'Templates Badge Text', type: 'string' },
@@ -72,8 +72,8 @@ export default {
             of: [{ type: 'string' }]
         },
         { name: 'templatesButtonLabel', title: 'Templates Button Label', type: 'string' },
-        { name: 'templatesImage1', title: 'Home Design Image 1', type: 'url' },
-        { name: 'templatesImage2', title: 'Home Design Image 2', type: 'url' },
+        { name: 'templatesImage1', title: 'Home Design Image 1', type: 'string' },
+        { name: 'templatesImage2', title: 'Home Design Image 2', type: 'string' },
         { name: 'templatesBadgeTitle', title: 'Floating Badge Title', type: 'string' },
         { name: 'templatesBadgeSubtitle', title: 'Floating Badge Subtitle', type: 'string' },
 
