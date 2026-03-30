@@ -6,6 +6,7 @@ import { designLibrary, SIGNUP_URL } from '@/lib/constants/urls';
 import HomeClient from './HomeClient';
 import { getClient } from '@/lib/sanity/client';
 import { homePageQuery } from '@/lib/sanity/queries';
+import { urlFor } from '@/lib/sanity/image';
 
 const BASE_URL = 'https://zlendorealty.com';
 const COUNTRY = 'in';
@@ -20,6 +21,12 @@ function getPath(path: string): string {
     return path;
   }
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
+
+  // Prevent duplicate country prefix if already present
+  if (cleanPath.startsWith(`/${COUNTRY}/`) || cleanPath === `/${COUNTRY}`) {
+    return cleanPath;
+  }
+
   if (cleanPath === '/') return `/${COUNTRY}`;
   return `/${COUNTRY}${cleanPath}`;
 }
@@ -43,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const seoDesc = cmsSeo?.seoDescription ?? 'Zlendo Realty AI Floor Planner and 2D-to-3D Designs in Minutes. All-in-One Software for Architects, Builders, Interior Designers, and Vastu Consultants. Start Your Free Trial Now!';
     const ogTitle = cmsSeo?.ogTitle ?? 'AI-Powered Home & Office Design Software | Zlendo Realty';
     const ogDesc = cmsSeo?.ogDescription ?? 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. The all-in-one design software for Architects, Builders, Interior designers, and Vastu Consultants. Start your free trial today!';
-    const ogImg = cmsSeo?.ogImage ?? `${BASE_URL}/og-image.jpg`;
+    const ogImg = urlFor(cmsSeo?.ogImage).url() || `${BASE_URL}/og-image.jpg`;
 
     return {
       title: {

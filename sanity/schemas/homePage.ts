@@ -15,6 +15,14 @@ export default defineType({
     { name: 'cta', title: '🚀 Final CTA' },
   ],
   fields: [
+    // Hidden Title for CMS Root ID
+    defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+      hidden: true,
+      initialValue: 'Home Page'
+    }),
     // ── SEO & Meta ────────────────────────────────────────────────────────
     defineField({
       name: 'seoTitle',
@@ -50,10 +58,11 @@ export default defineType({
     }),
     defineField({
       name: 'ogImage',
-      title: 'OpenGraph Image URL (Social Share)',
-      type: 'string',
+      title: 'OpenGraph Image (Social Share)',
+      type: 'image',
       group: 'seo',
-      initialValue: 'https://zlendorealty.com/og-image.jpg',
+      options: { hotspot: true },
+      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
     }),
 
     // ── Hero ──────────────────────────────────────────────────────────────
@@ -359,7 +368,13 @@ export default defineType({
             }),
             defineField({ name: 'cta', title: 'CTA Text', type: 'string' }),
             defineField({ name: 'ctaLink', title: 'CTA Link URL', type: 'string', description: 'Leave empty to default to signup URL.' }),
-            defineField({ name: 'imageUrl', title: 'Image URL', type: 'string' }),
+            defineField({
+              name: 'imageUrl',
+              title: 'Feature Image',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
+            }),
             defineField({ name: 'reverse', title: 'Reverse Layout (image left)', type: 'boolean', initialValue: false }),
           ],
           preview: {
@@ -543,13 +558,17 @@ export default defineType({
     }),
     defineField({
       name: 'ctaImageUrl',
-      title: 'CTA Section Image URL',
-      type: 'string',
+      title: 'CTA Section Image',
+      type: 'image',
       group: 'cta',
-      initialValue: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800',
+      options: { hotspot: true },
+      fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })],
     }),
   ],
   preview: {
-    prepare: () => ({ title: 'Home Page' }),
+    select: { title: 'seoTitle' },
+    prepare({ title }) {
+      return { title: title || 'Home Page' }
+    }
   },
 });

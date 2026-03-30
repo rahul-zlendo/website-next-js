@@ -1,119 +1,155 @@
-export default {
+import { defineField, defineType } from 'sanity';
+
+export default defineType({
     name: 'floorPlannerPage',
     title: 'Floor Planner Page',
     type: 'document',
+    groups: [
+        { name: 'seo', title: '🔍 SEO & Meta' },
+        { name: 'hero', title: '🏠 Hero Section' },
+        { name: 'workflow', title: '⚙️ Workflow' },
+        { name: 'drafting', title: '📐 Precision Drafting' },
+        { name: 'magic', title: '✨ Magic Upload' },
+        { name: 'templates', title: '🖼️ Architect Templates' },
+        { name: 'cta', title: '🎯 Split CTA' },
+        { name: 'faq', title: '❓ FAQs' },
+    ],
     fields: [
+        // Hidden Title for CMS Root ID
+        defineField({
+            name: 'title',
+            title: 'Title',
+            type: 'string',
+            hidden: true,
+            initialValue: 'Floor Planner Page'
+        }),
         // SEO
-        { name: 'seoTitle', title: 'SEO Title', type: 'string' },
-        { name: 'seoDescription', title: 'SEO Description', type: 'text' },
+        defineField({ name: 'seoTitle', title: 'SEO Title', type: 'string', group: 'seo' }),
+        defineField({ name: 'seoDescription', title: 'SEO Description', type: 'text', group: 'seo' }),
         
         // Hero
-        { name: 'heroBadgeText', title: 'Hero Badge Text', type: 'string' },
-        { name: 'heroTitle', title: 'Hero Title', type: 'string' },
-        { name: 'heroTitleHighlight', title: 'Hero Title Highlight', type: 'string' },
-        { name: 'heroSubtitle', title: 'Hero Subtitle (Part 1)', type: 'text' },
-        { name: 'heroSubtitleAfter', title: 'Hero Subtitle (Part 2)', type: 'text' },
-        { name: 'heroPrimaryCtaLabel', title: 'Primary CTA Label', type: 'string' },
-        { name: 'heroSecondaryCtaLabel', title: 'Secondary CTA Label', type: 'string' },
-        { name: 'heroImageUrl', title: 'Dashboard Preview Image', type: 'string' },
+        defineField({ name: 'heroBadgeText', title: 'Hero Badge Text', type: 'string', group: 'hero' }),
+        defineField({ name: 'heroTitle', title: 'Hero Title', type: 'string', group: 'hero' }),
+        defineField({ name: 'heroTitleHighlight', title: 'Hero Title Highlight', type: 'string', group: 'hero' }),
+        defineField({ name: 'heroSubtitle', title: 'Hero Subtitle (Part 1)', type: 'text', group: 'hero' }),
+        defineField({ name: 'heroSubtitleAfter', title: 'Hero Subtitle (Part 2)', type: 'text', group: 'hero' }),
+        defineField({ name: 'heroPrimaryCtaLabel', title: 'Primary CTA Label', type: 'string', group: 'hero' }),
+        defineField({ name: 'heroSecondaryCtaLabel', title: 'Secondary CTA Label', type: 'string', group: 'hero' }),
+        defineField({ name: 'heroImageUrl', title: 'Dashboard Preview Image', type: 'image', group: 'hero', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
 
         // Workflow
-        { name: 'workflowBadgeText', title: 'Workflow Badge Text', type: 'string' },
-        { name: 'workflowSectionTitle', title: 'Workflow Section Title', type: 'string' },
-        { name: 'workflowSectionSubtitle', title: 'Workflow Section Subtitle', type: 'text' },
-        {
+        defineField({ name: 'workflowBadgeText', title: 'Workflow Badge Text', type: 'string', group: 'workflow' }),
+        defineField({ name: 'workflowSectionTitle', title: 'Workflow Section Title', type: 'string', group: 'workflow' }),
+        defineField({ name: 'workflowSectionSubtitle', title: 'Workflow Section Subtitle', type: 'text', group: 'workflow' }),
+        defineField({
             name: 'workflowSteps',
             title: 'Workflow Steps',
             type: 'array',
+            group: 'workflow',
             of: [{
                 type: 'object',
                 fields: [
-                    { name: 'title', type: 'string' },
-                    { name: 'desc', type: 'string' },
-                    { name: 'iconName', type: 'string', description: 'Sparkles, PenTool, Zap, Layers, Home' }
+                    defineField({ name: 'title', type: 'string' }),
+                    defineField({ name: 'desc', type: 'string' }),
+                    defineField({ name: 'iconName', type: 'string', description: 'Sparkles, PenTool, Zap, Layers, Home' })
                 ]
             }]
-        },
+        }),
 
         // Precision Drafting
-        { name: 'draftingBadgeText', title: 'Drafting Badge Text', type: 'string' },
-        { name: 'draftingSectionTitle', title: 'Drafting Section Title', type: 'string' },
-        { name: 'draftingSectionDescription', title: 'Drafting Section Description', type: 'text' },
-        {
+        defineField({ name: 'draftingBadgeText', title: 'Drafting Badge Text', type: 'string', group: 'drafting' }),
+        defineField({ name: 'draftingSectionTitle', title: 'Drafting Section Title', type: 'string', group: 'drafting' }),
+        defineField({ name: 'draftingSectionDescription', title: 'Drafting Section Description', type: 'text', group: 'drafting' }),
+        defineField({
             name: 'draftingFeatures',
             title: 'Drafting Features',
             type: 'array',
+            group: 'drafting',
             of: [{ type: 'string' }]
-        },
-        { name: 'draftingButtonLabel', title: 'Drafting Button Label', type: 'string' },
-        { name: 'draftingImageUrl', title: 'Drafting Tool Image', type: 'string' },
+        }),
+        defineField({ name: 'draftingButtonLabel', title: 'Drafting Button Label', type: 'string', group: 'drafting' }),
+        defineField({ name: 'draftingImageUrl', title: 'Drafting Tool Image', type: 'image', group: 'drafting', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
 
         // Magic Moment (Upload)
-        { name: 'magicBadgeText', title: 'Magic Badge Text', type: 'string' },
-        { name: 'magicSectionTitle', title: 'Magic Section Title', type: 'string' },
-        { name: 'magicSectionSubtitle', title: 'Magic Section Subtitle', type: 'text' },
-        { name: 'magicInputLabel', title: 'Magic Input Label', type: 'string' },
-        { name: 'magicInputTitle', title: 'Magic Input Title', type: 'string' },
-        { name: 'magicInputImage', title: 'Magic Input Image', type: 'string' },
-        { name: 'magicProcessTitle', title: 'Magic Process Title', type: 'string' },
-        { name: 'magicProcessSubtitle', title: 'Magic Process Subtitle', type: 'string' },
-        { name: 'magicOutputLabel', title: 'Magic Output Label', type: 'string' },
-        { name: 'magicOutputTitle', title: 'Magic Output Title', type: 'string' },
-        { name: 'magicOutputImage', title: 'Magic Output Image', type: 'string' },
+        defineField({ name: 'magicBadgeText', title: 'Magic Badge Text', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicSectionTitle', title: 'Magic Section Title', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicSectionSubtitle', title: 'Magic Section Subtitle', type: 'text', group: 'magic' }),
+        defineField({ name: 'magicInputLabel', title: 'Magic Input Label', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicInputTitle', title: 'Magic Input Title', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicInputImage', title: 'Magic Input Image', type: 'image', group: 'magic', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
+        defineField({ name: 'magicProcessTitle', title: 'Magic Process Title', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicProcessSubtitle', title: 'Magic Process Subtitle', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicOutputLabel', title: 'Magic Output Label', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicOutputTitle', title: 'Magic Output Title', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicOutputImage', title: 'Magic Output Image', type: 'image', group: 'magic', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
 
         // Architect Templates
-        { name: 'templatesBadgeText', title: 'Templates Badge Text', type: 'string' },
-        { name: 'templatesSectionTitle', title: 'Templates Section Title', type: 'string' },
-        { name: 'templatesSectionSubtitle', title: 'Templates Section Subtitle', type: 'text' },
-        {
+        defineField({ name: 'templatesBadgeText', title: 'Templates Badge Text', type: 'string', group: 'templates' }),
+        defineField({ name: 'templatesSectionTitle', title: 'Templates Section Title', type: 'string', group: 'templates' }),
+        defineField({ name: 'templatesSectionSubtitle', title: 'Templates Section Subtitle', type: 'text', group: 'templates' }),
+        defineField({
             name: 'templateTags',
             title: 'Template Tags',
             type: 'array',
+            group: 'templates',
             of: [{ type: 'string' }]
-        },
-        { name: 'templatesButtonLabel', title: 'Templates Button Label', type: 'string' },
-        { name: 'templatesImage1', title: 'Home Design Image 1', type: 'string' },
-        { name: 'templatesImage2', title: 'Home Design Image 2', type: 'string' },
-        { name: 'templatesBadgeTitle', title: 'Floating Badge Title', type: 'string' },
-        { name: 'templatesBadgeSubtitle', title: 'Floating Badge Subtitle', type: 'string' },
+        }),
+        defineField({ name: 'templatesButtonLabel', title: 'Templates Button Label', type: 'string', group: 'templates' }),
+        defineField({ name: 'templatesImage1', title: 'Home Design Image 1', type: 'image', group: 'templates', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
+        defineField({ name: 'templatesImage2', title: 'Home Design Image 2', type: 'image', group: 'templates', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
+        defineField({ name: 'templatesBadgeTitle', title: 'Floating Badge Title', type: 'string', group: 'templates' }),
+        defineField({ name: 'templatesBadgeSubtitle', title: 'Floating Badge Subtitle', type: 'string', group: 'templates' }),
 
         // Split CTA
-        { name: 'ctaSectionTitle', title: 'CTA Section Title', type: 'string' },
-        { name: 'ctaSectionSubtitle', title: 'CTA Section Subtitle', type: 'text' },
+        defineField({ name: 'ctaSectionTitle', title: 'CTA Section Title', type: 'string', group: 'cta' }),
+        defineField({ name: 'ctaSectionSubtitle', title: 'CTA Section Subtitle', type: 'text', group: 'cta' }),
         
-        { name: 'individualCardTitle', title: 'Homeowners Card Title', type: 'string' },
-        { name: 'individualCardDesc', title: 'Homeowners Card Description', type: 'text' },
-        {
+        defineField({ name: 'individualCardTitle', title: 'Homeowners Card Title', type: 'string', group: 'cta' }),
+        defineField({ name: 'individualCardDesc', title: 'Homeowners Card Description', type: 'text', group: 'cta' }),
+        defineField({
             name: 'individualCardFeatures',
             title: 'Homeowners Features',
             type: 'array',
+            group: 'cta',
             of: [{ type: 'string' }]
-        },
-        { name: 'individualCardCta', title: 'Homeowners CTA Label', type: 'string' },
+        }),
+        defineField({ name: 'individualCardCta', title: 'Homeowners CTA Label', type: 'string', group: 'cta' }),
 
-        { name: 'businessCardTitle', title: 'Business Card Title', type: 'string' },
-        { name: 'businessCardDesc', title: 'Business Card Description', type: 'text' },
-        {
+        defineField({ name: 'businessCardTitle', title: 'Business Card Title', type: 'string', group: 'cta' }),
+        defineField({ name: 'businessCardDesc', title: 'Business Card Description', type: 'text', group: 'cta' }),
+        defineField({
             name: 'businessCardFeatures',
             title: 'Business Features',
             type: 'array',
+            group: 'cta',
             of: [{ type: 'string' }]
-        },
-        { name: 'businessCardCta', title: 'Business CTA Label', type: 'string' },
+        }),
+        defineField({ name: 'businessCardCta', title: 'Business CTA Label', type: 'string', group: 'cta' }),
 
         // FAQs
-        { name: 'faqSectionTitle', title: 'FAQ Section Title', type: 'string' },
-        {
+        defineField({ name: 'faqSectionTitle', title: 'FAQ Section Title', type: 'string', group: 'faq' }),
+        defineField({
             name: 'faqs',
             title: 'FAQs',
             type: 'array',
+            group: 'faq',
             of: [{
                 type: 'object',
                 fields: [
-                    { name: 'question', type: 'string' },
-                    { name: 'answer', type: 'text' }
+                    defineField({ name: 'question', type: 'string' }),
+                    defineField({ name: 'answer', type: 'text' })
                 ]
             }]
-        }
-    ]
-}
+        })
+    ],
+    preview: {
+        select: {
+            title: 'seoTitle',
+        },
+        prepare({ title }) {
+            return {
+                title: title || 'Floor Planner Page',
+            };
+        },
+    },
+});

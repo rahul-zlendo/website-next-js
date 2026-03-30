@@ -35,7 +35,7 @@ export default async function CountryLayout({
   if (country !== 'in') {
     redirect('/in');
   }
- 
+
   const { isEnabled: preview } = await draftMode();
   const settings = await getClient(preview).fetch(siteSettingsQuery).catch(() => null);
   const logoUrl = settings?.logoImage ? urlFor(settings.logoImage).url() : undefined;
@@ -45,16 +45,14 @@ export default async function CountryLayout({
       <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
         <AuthSync />
         <PromoBanner />
-        <header>
           <Header logoUrl={logoUrl} />
-        </header>
         {/* <LaunchOfferPopup /> */}
         <ScrollToTopOnNavigate />
         <main>{children}</main>
         <Footer settings={settings} />
         <ScrollToTop />
         <FloatingContactButton />
-        <CookieConsent 
+        <CookieConsent
           text={settings?.cookieConsentText}
           acceptLabel={settings?.cookieAcceptLabel}
           declineLabel={settings?.cookieDeclineLabel}
