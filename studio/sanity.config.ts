@@ -50,6 +50,13 @@ export default defineConfig({
                   .schemaType('vastuPage')
                   .documentId('singleton-vastuPage')
               ),
+            S.listItem()
+              .title('Product: Interiors & Exteriors')
+              .child(
+                S.document()
+                  .schemaType('interiorsExteriorsPage')
+                  .documentId('singleton-interiorsExteriorsPage')
+              ),
             S.divider(),
             S.listItem()
               .title('Use Case: Home Remodeling')
