@@ -233,6 +233,81 @@ export const vastuPageQuery = `
     }
   }
 `;
+
+export const interiorsExteriorsPageQuery = `
+  *[_type == "interiorsExteriorsPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroBadge,
+    heroTitle,
+    heroTitleHighlight,
+    heroTitleAfter,
+    heroDesc,
+    heroPrimaryCtaLabel,
+    heroSecondaryCtaLabel,
+    heroImage{
+      ...,
+      asset->{url, metadata{dimensions}, "caption": caption, "subcaption": subcaption}
+    },
+    interiorTitle,
+    interiorTitleHighlight,
+    interiorDesc,
+    interiorCards[]{
+      title,
+      features,
+      colorClass
+    },
+    exteriorBadge,
+    exteriorTitle,
+    exteriorTitleHighlight,
+    exteriorDesc,
+    exteriorGrid[]{
+      title,
+      desc
+    },
+    exteriorImages[]{
+      asset->{url, metadata{dimensions}}
+    },
+    landscapeBadge,
+    landscapeTitle,
+    landscapeTitleHighlight,
+    landscapeDesc,
+    landscapeCards[]{
+      title,
+      desc,
+      image{
+        asset->{url, metadata{dimensions}}
+      }
+    },
+    regionalBadge,
+    regionalTitle,
+    regionalTitleHighlight,
+    regionalDesc,
+    regionalStates[]{
+      state,
+      climateTitle,
+      climateDesc,
+      cultureTitle,
+      cultureDesc
+    },
+    cultureBadge,
+    cultureTitle,
+    cultureTitleHighlight,
+    culturePoints[]{
+      title,
+      desc,
+      colorTheme
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaDesc,
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
 /**
  * Fetch Site Settings singleton.
  */
