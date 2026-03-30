@@ -57,6 +57,27 @@ export default defineConfig({
                   .schemaType('interiorsExteriorsPage')
                   .documentId('singleton-interiorsExteriorsPage')
               ),
+            S.listItem()
+              .title('Product: Cost Estimator')
+              .child(
+                S.document()
+                  .schemaType('costEstimatorPage')
+                  .documentId('singleton-costEstimatorPage')
+              ),
+            S.listItem()
+              .title('Product: Realistic Renders')
+              .child(
+                S.document()
+                  .schemaType('realisticRendersPage')
+                  .documentId('singleton-realisticRendersPage')
+              ),
+            S.listItem()
+              .title('Product: Virtual Walkthrough')
+              .child(
+                S.document()
+                  .schemaType('virtualWalkthroughPage')
+                  .documentId('singleton-virtualWalkthroughPage')
+              ),
             S.divider(),
             S.listItem()
               .title('Use Case: Home Remodeling')

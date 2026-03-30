@@ -449,3 +449,185 @@ export const homeRemodelingPageQuery = groq`
     ctaSecondaryLabel
   }
 `;
+
+export const costEstimatorPageQuery = groq`
+  *[_type == "costEstimatorPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroBadge,
+    heroTitle,
+    heroTitleMid,
+    heroTitleHighlight,
+    heroDesc,
+    heroCtaLabel,
+    heroSubtext,
+    logicTitle,
+    logicDesc,
+    logicCards[]{
+      title,
+      desc,
+      iconName
+    },
+    breakdownBadge,
+    breakdownTitle,
+    breakdownDesc,
+    breakdownItems[]{
+      label,
+      range
+    },
+    compTitle,
+    compDesc,
+    concreteTitle,
+    brickTitle,
+    tiersTitle,
+    tiersDesc,
+    tiers[]{
+      tierName,
+      features
+    },
+    trustBadge,
+    trustTitle,
+    trustDesc,
+    trustStats[]{
+      label,
+      value
+    },
+    trustMessages,
+    ctaTitle,
+    ctaDesc,
+    ctaButtonLabel,
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
+
+export const realisticRendersPageQuery = groq`
+  *[_type == "realisticRendersPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroBadge,
+    heroTitle,
+    heroTitleHighlight,
+    heroDesc,
+    heroCtaLabel,
+    heroSecondaryCtaLabel,
+    "heroImage": heroImage.asset->url,
+    photoBadge,
+    photoTitle,
+    photoTitleHighlight,
+    photoDesc,
+    "photoImage": photoImage.asset->url,
+    photoFeatures[]{
+      title,
+      desc
+    },
+    cameraBadge,
+    cameraTitle,
+    cameraTitleHighlight,
+    cameraDesc,
+    cameraCards[]{
+      title,
+      desc,
+      "image": image.asset->url
+    },
+    lightingBadge,
+    lightingTitle,
+    lightingTitleHighlight,
+    lightingDesc,
+    "morningImage": morningImage.asset->url,
+    "dayImage": dayImage.asset->url,
+    "eveningImage": eveningImage.asset->url,
+    "nightImage": nightImage.asset->url,
+    qualityTitle,
+    qualityDesc,
+    qualityTiers[]{
+      title,
+      resolution,
+      time,
+      useCase,
+      iconName
+    },
+    audienceTitle,
+    audienceRoles[]{
+      role,
+      desc
+    },
+    "audienceImages": audienceImages[].asset->url,
+    ctaTitle,
+    ctaDesc,
+    ctaLabel,
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
+
+export const virtualWalkthroughPageQuery = groq`
+  *[_type == "virtualWalkthroughPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroBadge,
+    heroTitle,
+    heroTitleHighlight,
+    heroDesc,
+    "heroImage": heroImage.asset->url,
+    heroCtaLabel,
+    heroSecondaryCtaLabel,
+    walkBadge,
+    walkTitle,
+    walkDesc,
+    "walkImage": walkImage.asset->url,
+    walkFeatures,
+    qualityTitle,
+    qualityTitleHighlight,
+    qualityDesc,
+    qualityCards[]{
+      title,
+      desc,
+      iconName
+    },
+    "qualityComparisonImage": qualityComparisonImage.asset->url,
+    toolsTitle,
+    toolsDesc,
+    toolCards[]{
+      title,
+      quote,
+      desc,
+      iconName
+    },
+    marketTitle,
+    marketTitleHighlight,
+    marketFeatures[]{
+      title,
+      desc
+    },
+    "marketImages": marketImages[].asset->url,
+    impactTitle,
+    impactDesc,
+    impactCards[]{
+      title,
+      desc,
+      highlight,
+      iconName
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaDesc,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel,
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
+
+
+
+
