@@ -11,7 +11,10 @@ export const homePageQuery = groq`
     seoDescription,
     ogTitle,
     ogDescription,
-    ogImage,
+    ogImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
 
     // Hero
     heroBadgeText,
@@ -56,7 +59,10 @@ export const homePageQuery = groq`
       howItWorks,
       cta,
       ctaLink,
-      imageUrl,
+      imageUrl{
+        ...,
+        asset->{url, metadata{dimensions}}
+      },
       reverse,
     },
 
@@ -94,7 +100,10 @@ export const homePageQuery = groq`
     ctaSubtitle,
     ctaButtonLabel,
     ctaButtonLink,
-    ctaImageUrl,
+    ctaImageUrl{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
   }
 `;
 
@@ -107,14 +116,22 @@ export const twoDTo3DPageQuery = `
     heroDesc,
     heroCtaLabel,
     heroCtaLink,
-    heroImage,
+    heroImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
     heroVideoLink,
     heroGradient,
     uploadTitle,
     uploadSubtitle,
+    uploadButtonLabel,
+    uploadButtonLink,
     howToTitle,
     howToDesc,
-    howToImage,
+    howToImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
     howToCtaLabel,
     howToCtaLink,
     stepsSectionTitle,
@@ -122,7 +139,88 @@ export const twoDTo3DPageQuery = `
     steps[]{
       title,
       desc,
-      image
+      image{
+        ...,
+        asset->{url, metadata{dimensions}}
+      }
+    },
+    features[]{
+      title,
+      desc
+    },
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
+
+export const roomStylerPageQuery = `
+  *[_type == "roomStylerPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroSubtitle,
+    heroTitle,
+    heroDesc,
+    heroCtaLabel,
+    heroCtaLink,
+    heroImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    heroVideoLink,
+    heroGradient,
+    stepsSectionTitle,
+    stepsSectionSubtitle,
+    steps[]{
+      title,
+      desc,
+      image{
+        ...,
+        asset->{url, metadata{dimensions}}
+      }
+    },
+    features[]{
+      title,
+      desc
+    },
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
+
+export const vastuPageQuery = `
+  *[_type == "vastuPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroSubtitle,
+    heroTitle,
+    heroDesc,
+    heroCtaLabel,
+    heroCtaLink,
+    heroImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    heroVideoLink,
+    heroGradient,
+    uploadTitle,
+    uploadSubtitle,
+    uploadButtonLabel,
+    uploadButtonLink,
+    stepsSectionTitle,
+    stepsSectionSubtitle,
+    steps[]{
+      title,
+      desc,
+      image{
+        ...,
+        asset->{url, metadata{dimensions}}
+      }
     },
     features[]{
       title,
@@ -149,7 +247,10 @@ export const siteSettingsQuery = groq`
     footerAddress,
     footerCities,
     copyrightText,
-    logoImage,
+    logoImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
     cookieConsentText,
     cookieAcceptLabel,
     cookieDeclineLabel,
@@ -169,7 +270,10 @@ export const floorPlannerPageQuery = groq`
     heroSubtitleAfter,
     heroPrimaryCtaLabel,
     heroSecondaryCtaLabel,
-    heroImageUrl,
+    heroImageUrl{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
     workflowBadgeText,
     workflowSectionTitle,
     workflowSectionSubtitle,
@@ -183,25 +287,40 @@ export const floorPlannerPageQuery = groq`
     draftingSectionDescription,
     draftingFeatures,
     draftingButtonLabel,
-    draftingImageUrl,
+    draftingImageUrl{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
     magicBadgeText,
     magicSectionTitle,
     magicSectionSubtitle,
     magicInputLabel,
     magicInputTitle,
-    magicInputImage,
+    magicInputImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
     magicProcessTitle,
     magicProcessSubtitle,
     magicOutputLabel,
     magicOutputTitle,
-    magicOutputImage,
+    magicOutputImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
     templatesBadgeText,
     templatesSectionTitle,
     templatesSectionSubtitle,
     templateTags,
     templatesButtonLabel,
-    templatesImage1,
-    templatesImage2,
+    templatesImage1{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    templatesImage2{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
     templatesBadgeTitle,
     templatesBadgeSubtitle,
     ctaSectionTitle,
@@ -245,7 +364,10 @@ export const homeRemodelingPageQuery = groq`
       label,
       value
     },
-    caseStudyImage,
+    caseStudyImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
     ctaTitle,
     ctaTitleHighlight,
     ctaPrimaryLabel,

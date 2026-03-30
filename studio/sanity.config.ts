@@ -36,6 +36,20 @@ export default defineConfig({
                   .schemaType('twoDTo3DPage')
                   .documentId('singleton-twoDTo3DPage')
               ),
+            S.listItem()
+              .title('Product: Room Styler')
+              .child(
+                S.document()
+                  .schemaType('roomStylerPage')
+                  .documentId('singleton-roomStylerPage')
+              ),
+            S.listItem()
+              .title('Product: Vastu Optimizer')
+              .child(
+                S.document()
+                  .schemaType('vastuPage')
+                  .documentId('singleton-vastuPage')
+              ),
             S.divider(),
             S.listItem()
               .title('Use Case: Home Remodeling')

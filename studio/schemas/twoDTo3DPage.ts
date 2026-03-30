@@ -79,9 +79,13 @@ export default defineType({
     defineField({
       name: 'heroImage',
       title: 'Hero Image',
-      type: 'string', // Using string for relative path support
+      type: 'image',
       group: 'hero',
-      initialValue: 'https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?auto=format&fit=crop&q=80&w=2400',
+      options: { hotspot: true },
+      description: 'Upload an image directly. Recommended size: 1200×800px.',
+      fields: [
+        defineField({ name: 'alt', title: 'Alt Text', type: 'string' })
+      ]
     }),
     defineField({
       name: 'heroVideoLink',
@@ -114,6 +118,20 @@ export default defineType({
       group: 'upload',
       initialValue: 'Drag & drop your 2D sketch, image, or CAD file here to instantly generate a 3D model.',
     }),
+    defineField({
+      name: 'uploadButtonLabel',
+      title: 'Upload Button Label',
+      type: 'string',
+      group: 'upload',
+      initialValue: 'Select File to Upload',
+    }),
+    defineField({
+      name: 'uploadButtonLink',
+      title: 'Upload Button Link',
+      type: 'string',
+      group: 'upload',
+      description: 'Leave empty to default to signup URL.',
+    }),
 
     // ── How To Section (Dark) ─────────────────────────────────────────────
     defineField({
@@ -134,9 +152,13 @@ export default defineType({
     defineField({
       name: 'howToImage',
       title: 'How To Section Image',
-      type: 'string',
+      type: 'image',
       group: 'howTo',
-      initialValue: '/assets/2d-to-3d/dashboard-interface.png',
+      options: { hotspot: true },
+      description: 'Upload an image for the dark "How To" section.',
+      fields: [
+        defineField({ name: 'alt', title: 'Alt Text', type: 'string' })
+      ]
     }),
     defineField({
       name: 'howToCtaLabel',
@@ -176,10 +198,19 @@ export default defineType({
       of: [
         {
           type: 'object',
+          preview: { select: { title: 'title' } },
           fields: [
             defineField({ name: 'title', title: 'Step Title', type: 'string' }),
             defineField({ name: 'desc', title: 'Step Description', type: 'text' }),
-            defineField({ name: 'image', title: 'Step Image', type: 'string' }),
+            defineField({
+              name: 'image',
+              title: 'Step Image',
+              type: 'image',
+              options: { hotspot: true },
+              fields: [
+                defineField({ name: 'alt', title: 'Alt Text', type: 'string' })
+              ]
+            }),
           ],
         },
       ],
@@ -229,9 +260,9 @@ export default defineType({
   preview: {
     select: { title: 'seoTitle' },
     prepare({ title }) {
-      return {
-        title: title || 'Product: 2D to 3D'
-      };
+        return {
+            title: title || 'Product: 2D to 3D'
+        };
     },
   },
 });

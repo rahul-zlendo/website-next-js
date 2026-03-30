@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { constructFullBlobUrl } from '@/lib/utils/blobUtils';
+import { urlFor } from '@/lib/sanity/image';
 import { useCountry } from '@/lib/context/CountryContext';
 
 interface Props {
@@ -97,7 +98,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         >
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-black/5">
                                 <img
-                                    src={constructFullBlobUrl(cms?.heroImage || 'https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?auto=format&fit=crop&q=80&w=2400')}
+                                    src={urlFor(cms?.heroImage).url() || constructFullBlobUrl('https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?auto=format&fit=crop&q=80&w=2400')}
                                     alt="Hero Image"
                                     className="w-full h-auto object-cover"
                                 />
@@ -138,7 +139,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         <div
                             className="group relative cursor-pointer"
                         >
-                            <a href={cms?.heroCtaLink || SIGNUP_URL} className="absolute inset-0 z-20" />
+                             <a href={cms?.uploadButtonLink || cms?.heroCtaLink || SIGNUP_URL} className="absolute inset-0 z-20" />
                             {/* Animated Glow Effect behind the box */}
                             <div className="absolute -inset-1 bg-gradient-to-r from-zlendo-teal via-blue-500 to-purple-500 rounded-[2.5rem] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500" />
 
@@ -189,9 +190,9 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                                     {cms?.uploadSubtitle || 'Drag & drop your 2D sketch, image, or CAD file here to instantly generate a 3D model.'}
                                 </p>
 
-                                <button className="px-8 py-4 bg-zlendo-teal text-white rounded-xl font-bold text-lg shadow-lg shadow-zlendo-teal/20 group-hover:scale-105 transition-transform flex items-center gap-2">
-                                    <ImageIcon className="w-5 h-5" /> Select File to Upload
-                                </button>
+                                 <button className="px-8 py-4 bg-zlendo-teal text-white rounded-xl font-bold text-lg shadow-lg shadow-zlendo-teal/20 group-hover:scale-105 transition-transform flex items-center gap-2">
+                                     <ImageIcon className="w-5 h-5" /> {cms?.uploadButtonLabel || 'Select File to Upload'}
+                                 </button>
 
                                 <div className="mt-8 flex items-center gap-2 text-sm font-bold text-slate-400">
                                     <ShieldCheck className="w-4 h-4" /> Secure SSL Encryption
@@ -209,7 +210,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         <div className="order-2 lg:order-1 relative">
                             <div className="absolute -inset-10 bg-zlendo-teal opacity-20 blur-[80px] rounded-full" />
                             <img
-                                src={constructFullBlobUrl(cms?.howToImage || '/assets/2d-to-3d/dashboard-interface.png')}
+                                src={urlFor(cms?.howToImage).url() || constructFullBlobUrl('/assets/2d-to-3d/dashboard-interface.png')}
                                 alt="Dashboard Interface"
                                 className="relative z-10 rounded-2xl shadow-2xl border border-white/10 w-full"
                             />
@@ -253,7 +254,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                             <div className={`${i % 2 === 1 ? 'lg:order-1' : ''} relative`}>
                                 <div className="absolute inset-0 bg-slate-100 rounded-[3rem] transform rotate-3 scale-95 group-hover:rotate-6 transition-transform duration-500" />
                                 <img
-                                    src={constructFullBlobUrl(step.image)}
+                                    src={urlFor(step.image).url() || constructFullBlobUrl(step.image)}
                                     alt={step.title}
                                     className="relative z-10 w-full rounded-[2rem] shadow-xl"
                                 />

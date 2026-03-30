@@ -1,9 +1,9 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-    ArrowRight, Zap, ShieldCheck, Sparkles, Eye, Ruler, Calculator, 
-    Box, Image, Video, Palette, Compass, Layers, Calendar 
+import {
+    ArrowRight, Zap, ShieldCheck, Sparkles, Eye, Ruler, Calculator,
+    Box, Image, Video, Palette, Compass, Layers, Calendar
 } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
@@ -15,6 +15,7 @@ import { getAllTemplates } from '@/lib/store/slices/templateSlice';
 import { fetchBlobUrl, BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
 import { addTemplateViewService } from '@/lib/services/templateService';
 import { encryptProjectId } from '@/lib/utils/encryptionUtils';
+import { urlFor } from '@/lib/sanity/image';
 import FaqAccordion from './components/FaqAccordion';
 
 interface HomeClientProps {
@@ -47,7 +48,7 @@ export default function HomeClient({
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { activeTemplates } = useAppSelector((state) => state.template);
-    
+
     const [activeDesignFilter, setActiveDesignFilter] = useState("All Spaces");
     const [imageUrls, setImageUrls] = useState<Record<number, string>>({});
     const [multipleImageUrls, setMultipleImageUrls] = useState<Record<number, string[]>>({});
@@ -70,7 +71,7 @@ export default function HomeClient({
     const intelligenceHighlight = cms?.intelligenceSectionTitleHighlight ?? 'behind';
     const intelligenceAfter = cms?.intelligenceSectionTitleAfter ?? 'your dream home.';
     const intelligenceSubtitle = cms?.intelligenceSectionSubtitle ?? 'Swipe to explore how our 9D engine guarantees total peace of mind.';
-    
+
     const howToTitle = cms?.howToSectionTitle ?? 'How to design a home online for free';
     const howToSubtitle = cms?.howToSectionSubtitle ?? 'Design your 2BHK, pooja room, or bungalow easily with Zlendo Realty. Get Vastu-friendly plans & realistic 3D views!';
 
@@ -85,13 +86,13 @@ export default function HomeClient({
     const ctaTitle = cms?.ctaTitle ?? 'Start designing your house with Zlendo Realty';
     const ctaSubtitle = cms?.ctaSubtitle ?? 'Draw a floor plan and create a 3D home design in 10 min.';
     const ctaButtonLabel = cms?.ctaButtonLabel ?? 'Get Started For Free';
-    const ctaImageUrl = cms?.ctaImageUrl ?? 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800';
+    const ctaImageUrl = urlFor(cms?.ctaImageUrl).url() || 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800';
     const ctaLink = cms?.ctaButtonLink ?? SIGNUP_URL;
 
     const faqTitle = cms?.faqSectionTitle ?? 'Frequently Asked Questions';
 
-    const iconMap: any = { 
-        Ruler, Box, Eye, Image, Video, Calculator, Palette, Sparkles, Compass, Layers, Zap 
+    const iconMap: any = {
+        Ruler, Box, Eye, Image, Video, Calculator, Palette, Sparkles, Compass, Layers, Zap
     };
 
     useEffect(() => {
@@ -207,7 +208,7 @@ export default function HomeClient({
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
             <main className="pt-8 md:pt-14">
-                
+
                 {/* HERO SECTION */}
                 <section className="container-custom text-center mb-10 md:mb-16 px-4 overflow-visible relative">
                     <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-zlendo-teal/10 blur-[120px] rounded-full -z-10" />
@@ -272,7 +273,7 @@ export default function HomeClient({
                                 <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">{intelligenceBadge}</span>
                             </motion.div>
                             <h2 className="text-3xl md:text-[48px] font-black font-nunito text-zlendo-grey-dark mb-3 md:mb-4 leading-[1] tracking-tighter">
-                                {intelligenceTitle} <span className="text-zlendo-teal">{intelligenceHighlight}</span> {intelligenceAfter}
+                                {intelligenceTitle} <span className="text-zlendo-teal">{intelligenceHighlight}</span> <br /> {intelligenceAfter}
                             </h2>
                             <p className="text-base md:text-lg text-zlendo-grey-medium font-bold opacity-60 leading-relaxed max-w-2xl mx-auto">
                                 {intelligenceSubtitle}
@@ -346,7 +347,7 @@ export default function HomeClient({
                                 className={`px-6 md:px-8 py-3 rounded-full border text-sm md:text-base font-bold transition-all duration-300 ${activeDesignFilter === item
                                     ? 'bg-zlendo-teal text-white border-zlendo-teal shadow-lg shadow-zlendo-teal/20 scale-105'
                                     : 'bg-white border-black/10 text-zlendo-grey-medium hover:border-black/30 hover:bg-gray-50'
-                                }`}
+                                    }`}
                             >
                                 {item}
                             </button>
@@ -436,7 +437,7 @@ export default function HomeClient({
                                         </div>
                                     </div>
                                     <div className="mt-12 rounded-2xl overflow-hidden bg-gray-50 aspect-[4/3] group relative">
-                                        <img src={constructFullBlobUrl(feature.imageUrl || feature.img)} alt={feature.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu" />
+                                        <img src={urlFor(feature.imageUrl).url().startsWith('http') ? urlFor(feature.imageUrl).url() : constructFullBlobUrl(feature.imageUrl || feature.img)} alt={feature.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu" />
                                     </div>
                                 </motion.div>
                             </div>
@@ -447,6 +448,8 @@ export default function HomeClient({
                 {/* COMPARISON SECTION */}
                 <section className="bg-white py-16 md:py-28 relative rounded-[60px] md:rounded-[100px_100px_0_0] overflow-hidden">
                     <div className="absolute top-0 inset-x-0 h-full bg-[#FAFFFD]" />
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-zlendo-teal/10 to-blue-200/20 blur-[130px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-rose-100 to-orange-100 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
                     <div className="container-custom relative z-10 px-4">
                         <div className="text-center mb-12 md:mb-16">
                             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-6">
@@ -509,7 +512,7 @@ export default function HomeClient({
                                 </div>
                             </div>
                             <div className="flex-1 w-full max-w-md">
-                                <img src={constructFullBlobUrl(ctaImageUrl)} alt="Zlendo Realty" className="w-full h-auto drop-shadow-2xl" loading="lazy" />
+                                <img src={ctaImageUrl.startsWith('http') ? ctaImageUrl : constructFullBlobUrl(ctaImageUrl)} alt="Zlendo Realty" className="w-full h-auto drop-shadow-2xl" loading="lazy" />
                             </div>
                         </div>
                     </div>

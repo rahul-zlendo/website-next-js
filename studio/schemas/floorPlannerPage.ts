@@ -35,7 +35,7 @@ export default defineType({
         defineField({ name: 'heroSubtitleAfter', title: 'Hero Subtitle (Part 2)', type: 'text', group: 'hero' }),
         defineField({ name: 'heroPrimaryCtaLabel', title: 'Primary CTA Label', type: 'string', group: 'hero' }),
         defineField({ name: 'heroSecondaryCtaLabel', title: 'Secondary CTA Label', type: 'string', group: 'hero' }),
-        defineField({ name: 'heroImageUrl', title: 'Dashboard Preview Image', type: 'string', group: 'hero' }),
+        defineField({ name: 'heroImageUrl', title: 'Dashboard Preview Image', type: 'image', group: 'hero', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
 
         // Workflow
         defineField({ name: 'workflowBadgeText', title: 'Workflow Badge Text', type: 'string', group: 'workflow' }),
@@ -68,7 +68,7 @@ export default defineType({
             of: [{ type: 'string' }]
         }),
         defineField({ name: 'draftingButtonLabel', title: 'Drafting Button Label', type: 'string', group: 'drafting' }),
-        defineField({ name: 'draftingImageUrl', title: 'Drafting Tool Image', type: 'string', group: 'drafting' }),
+        defineField({ name: 'draftingImageUrl', title: 'Drafting Tool Image', type: 'image', group: 'drafting', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
 
         // Magic Moment (Upload)
         defineField({ name: 'magicBadgeText', title: 'Magic Badge Text', type: 'string', group: 'magic' }),
@@ -76,12 +76,12 @@ export default defineType({
         defineField({ name: 'magicSectionSubtitle', title: 'Magic Section Subtitle', type: 'text', group: 'magic' }),
         defineField({ name: 'magicInputLabel', title: 'Magic Input Label', type: 'string', group: 'magic' }),
         defineField({ name: 'magicInputTitle', title: 'Magic Input Title', type: 'string', group: 'magic' }),
-        defineField({ name: 'magicInputImage', title: 'Magic Input Image', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicInputImage', title: 'Magic Input Image', type: 'image', group: 'magic', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
         defineField({ name: 'magicProcessTitle', title: 'Magic Process Title', type: 'string', group: 'magic' }),
         defineField({ name: 'magicProcessSubtitle', title: 'Magic Process Subtitle', type: 'string', group: 'magic' }),
         defineField({ name: 'magicOutputLabel', title: 'Magic Output Label', type: 'string', group: 'magic' }),
         defineField({ name: 'magicOutputTitle', title: 'Magic Output Title', type: 'string', group: 'magic' }),
-        defineField({ name: 'magicOutputImage', title: 'Magic Output Image', type: 'string', group: 'magic' }),
+        defineField({ name: 'magicOutputImage', title: 'Magic Output Image', type: 'image', group: 'magic', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
 
         // Architect Templates
         defineField({ name: 'templatesBadgeText', title: 'Templates Badge Text', type: 'string', group: 'templates' }),
@@ -95,8 +95,8 @@ export default defineType({
             of: [{ type: 'string' }]
         }),
         defineField({ name: 'templatesButtonLabel', title: 'Templates Button Label', type: 'string', group: 'templates' }),
-        defineField({ name: 'templatesImage1', title: 'Home Design Image 1', type: 'string', group: 'templates' }),
-        defineField({ name: 'templatesImage2', title: 'Home Design Image 2', type: 'string', group: 'templates' }),
+        defineField({ name: 'templatesImage1', title: 'Home Design Image 1', type: 'image', group: 'templates', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
+        defineField({ name: 'templatesImage2', title: 'Home Design Image 2', type: 'image', group: 'templates', options: { hotspot: true }, fields: [defineField({ name: 'alt', type: 'string', title: 'Alt Text' })] }),
         defineField({ name: 'templatesBadgeTitle', title: 'Floating Badge Title', type: 'string', group: 'templates' }),
         defineField({ name: 'templatesBadgeSubtitle', title: 'Floating Badge Subtitle', type: 'string', group: 'templates' }),
 

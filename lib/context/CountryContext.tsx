@@ -55,7 +55,18 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
     };
 
     const getPath = (path: string) => {
+        // If it's an absolute URL, return it as is
+        if (path.startsWith('http://') || path.startsWith('https://')) {
+            return path;
+        }
+        
         const cleanPath = path.startsWith('/') ? path : `/${path}`;
+
+        // Prevent duplicate country prefix if already present (e.g., /in/...)
+        if (cleanPath.startsWith(`/${country}/`) || cleanPath === `/${country}`) {
+            return cleanPath;
+        }
+
         // Homepage uses the region-specific URL
         if (cleanPath === '/') return `/${country}`;
         return `/${country}${cleanPath}`;

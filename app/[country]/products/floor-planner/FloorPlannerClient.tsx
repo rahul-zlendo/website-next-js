@@ -6,6 +6,7 @@ import {
     CheckCircle2, Sparkles, Zap, Layers, User, Briefcase
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import { urlFor } from '@/lib/sanity/image';
 import FaqAccordion from '../../components/FaqAccordion';
 
 interface FloorPlannerClientProps {
@@ -103,7 +104,7 @@ export default function FloorPlannerClient({
                         <div className="relative mx-auto max-w-6xl">
                             <div className="relative rounded-t-[32px] overflow-hidden shadow-2xl border-x-8 border-t-8 border-white bg-slate-900 aspect-[16/9] mx-4 md:mx-0 ring-1 ring-black/10">
                                 <img
-                                    src={cms?.heroImageUrl ?? "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=2400"}
+                                    src={urlFor(cms?.heroImageUrl).url() || "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=2400"}
                                     alt="Zlendo Realty Floor Planner Interface"
                                     className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-700"
                                 />
@@ -177,7 +178,7 @@ export default function FloorPlannerClient({
                         <div className="relative">
                             <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-cyan-400 opacity-20 blur-3xl rounded-full" />
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                                <img src={cms?.draftingImageUrl ?? "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=1200"} alt="Zlendo Realty Drafting Tool Interface" className="w-full h-auto" loading="lazy" />
+                                <img src={urlFor(cms?.draftingImageUrl).url() || "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=1200"} alt="Zlendo Realty Drafting Tool Interface" className="w-full h-auto" loading="lazy" />
                             </div>
                         </div>
                     </div>
@@ -206,7 +207,7 @@ export default function FloorPlannerClient({
                         {/* Input */}
                         <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-3xl">
                             <div className="text-sm font-bold text-slate-400 mb-4 uppercase tracking-wider">{cms?.magicInputLabel ?? 'Input'}</div>
-                            <img src={cms?.magicInputImage ?? TwoDSketchImg} alt="Hand-drawn floor plan sketch" className="rounded-xl w-full opacity-80" />
+                            <img src={urlFor(cms?.magicInputImage).url() || TwoDSketchImg} alt="Hand-drawn floor plan sketch" className="rounded-xl w-full opacity-80" />
                             <div className="mt-4 text-center font-black text-xl">{cms?.magicInputTitle ?? 'Your Sketch'}</div>
                         </div>
 
@@ -223,7 +224,7 @@ export default function FloorPlannerClient({
                         {/* Output */}
                         <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-3xl">
                             <div className="text-sm font-bold text-slate-400 mb-4 uppercase tracking-wider">{cms?.magicOutputLabel ?? 'Result'}</div>
-                            <img src={cms?.magicOutputImage ?? ThreeDSketchImg} alt="AI-generated 3D model from sketch" className="rounded-xl w-full" />
+                            <img src={urlFor(cms?.magicOutputImage).url() || ThreeDSketchImg} alt="AI-generated 3D model from sketch" className="rounded-xl w-full" />
                             <div className="mt-4 text-center font-black text-xl">{cms?.magicOutputTitle ?? 'Interactive 3D'}</div>
                         </div>
                     </div>
@@ -236,8 +237,8 @@ export default function FloorPlannerClient({
                     <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div className="order-2 lg:order-1 relative">
                             <div className="grid grid-cols-2 gap-4">
-                                <img src={cms?.templatesImage1 ?? "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=600"} className="rounded-3xl shadow-lg mt-12 w-full" alt="Indian Home Design 1" loading="lazy" />
-                                <img src={cms?.templatesImage2 ?? "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=600"} className="rounded-3xl shadow-lg w-full" alt="Indian Home Design 2" loading="lazy" />
+                                <img src={urlFor(cms?.templatesImage1).url() || "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=600"} className="rounded-3xl shadow-lg mt-12 w-full" alt={cms?.templatesImage1?.alt || "Indian Home Design 1"} loading="lazy" />
+                                <img src={urlFor(cms?.templatesImage2).url() || "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=600"} className="rounded-3xl shadow-lg w-full" alt={cms?.templatesImage2?.alt || "Indian Home Design 2"} loading="lazy" />
                             </div>
                             {/* Floating Vastu Badge */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-2xl shadow-xl border border-orange-100 flex items-center gap-3">
