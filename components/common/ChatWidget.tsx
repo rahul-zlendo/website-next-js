@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, User, Bot, HelpCircle, ArrowRight } from 'lucide-react';
+import { CHATBOT_RESPONSES } from '@/lib/constants/chatBotResponseData';
 
 interface Message {
     id: string;
@@ -30,43 +31,26 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
         }
     }, [messages]);
 
-    const keywordResponses: Record<string, string> = {
-        'pricing': "Explore our flexible plans here: [View Pricing](/in/plans). We offer both monthly and annual subscriptions.",
-        'cost': "Explore our flexible plans here: [View Pricing](/in/plans). We offer both monthly and annual subscriptions.",
-        'plan': "Explore our flexible plans here: [View Pricing](/in/plans). We offer both monthly and annual subscriptions.",
-        '3d': "Zlendo Realty provides 8K ultra-realistic renders and AI walkthroughs. Check out our [2D to 3D](/in/products/2d-to-3d)!",
-        'render': "Zlendo Realty provides 8K ultra-realistic renders and AI walkthroughs. Check out our [Realistic Renders](/in/products/realistic-renders)!",
-        'walkthrough': "Zlendo Realty provides 8K ultra-realistic renders and AI walkthroughs. Check out our [Virtual Walkthrough](/in/products/virtual-walkthrough)!",
-        'vastu': "Our Vastu Optimizer is perfect for positive home alignment. You can learn more [here](/in/products/vastu).",
-        'contact': "You can reach us at contact@zlendorealty.com or visit our [Contact Page](/in/contact).",
-        'support': "You can reach us at contact@zlendorealty.com or visit our [Contact Page](/in/contact).",
-        'hello': "Hello! How can the Zlendo team assist you today?",
-        'hi': "Hello! How can the Zlendo team assist you today?",
-        'hey': "Hello! How can the Zlendo team assist you today?",
-        'partner': "We love collaborators! Check our [Partners Program](/in/partners) to grow with us.",
-        'affiliate': "We love collaborators! Check our [Partners Program](/in/partners) to grow with us.",
-        'thanks': "You're very welcome! Feel free to ask more questions.",
-        'thank': "You're very welcome! Feel free to ask more questions.",
-        'bye': "Goodbye! Have a great day!"
-    };
+    const keywordResponses: Record<string, string> = CHATBOT_RESPONSES;
 
-    const handleSend = () => {
-        if (!inputValue.trim()) return;
+    const handleSend = (text?: string) => {
+        const messageText = (text || inputValue).trim();
+        if (!messageText) return;
 
         const userMsg: Message = {
             id: Date.now().toString(),
-            text: inputValue.trim(),
+            text: messageText,
             sender: 'user',
             timestamp: new Date()
         };
 
         setMessages(prev => [...prev, userMsg]);
-        setInputValue('');
+        if (!text) setInputValue('');
 
         // Simple Bot Logic
         setTimeout(() => {
             const lowerInput = userMsg.text.toLowerCase();
-            let responseText = "I'm not sure about that. Try asking about 'Pricing' or '3D Tools'. Alternatively, you can reach us at contact@zlendorealty.com or visit our [Contact Page](/in/contact).";
+            let responseText = "I'm not sure about that. Try asking about Pricing, our 3D tools or Vastu services. Alternatively, you can reach us at contact@zlendorealty.com or visit our [Contact Page](/in/contact).";
 
             // Keyword matching
             for (const [keyword, response] of Object.entries(keywordResponses)) {
@@ -162,19 +146,17 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 
                     {/* Quick Replies */}
                     <div className="px-6 py-1.5 flex gap-2 overflow-x-auto no-scrollbar border-t border-black/[0.03]">
-                        {['Pricing', '3D Tools', 'Vastu', 'Support'].map(q => (
+                        {['Pricing', 'partnership', 'Vastu', 'Support'].map(q => (
                             <button
                                 key={q}
-                                onClick={() => {
-                                    setInputValue(q);
-                                    setTimeout(handleSend, 0);
-                                }}
+                                onClick={() => handleSend(q)}
                                 className="px-4 py-1 bg-white border border-black/5 rounded-full text-xs font-bold text-zlendo-grey-medium whitespace-nowrap hover:border-zlendo-teal hover:text-zlendo-teal transition-all shadow-sm"
                             >
                                 {q}
                             </button>
                         ))}
                     </div>
+
 
                     {/* Input Area */}
                     <div className="px-6 py-4 bg-white border-t border-black/5">
@@ -188,7 +170,7 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                                 className="w-full bg-slate-50 border border-black/5 rounded-2xl py-3 pl-6 pr-14 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-medium text-zlendo-grey-dark text-sm"
                             />
                             <button
-                                onClick={handleSend}
+                                onClick={() => handleSend()}
                                 disabled={!inputValue.trim()}
                                 className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 bg-zlendo-teal text-white rounded-xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all disabled:opacity-40 disabled:hover:scale-100 shadow-lg shadow-zlendo-teal/20"
                             >
