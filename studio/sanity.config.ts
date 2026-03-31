@@ -86,6 +86,27 @@ export default defineConfig({
                   .schemaType('homeRemodelingPage')
                   .documentId('singleton-homeRemodelingPage')
               ),
+            S.listItem()
+              .title('Use Case: Interior Design')
+              .child(
+                S.document()
+                  .schemaType('interiorDesignPage')
+                  .documentId('singleton-interiorDesignPage')
+              ),
+            S.listItem()
+              .title('Use Case: Vastu Optimization')
+              .child(
+                S.document()
+                  .schemaType('vastuOptimizationPage')
+                  .documentId('singleton-vastuOptimizationPage')
+              ),
+            S.listItem()
+              .title('Use Case: New Home Building')
+              .child(
+                S.document()
+                  .schemaType('newHomeBuildingPage')
+                  .documentId('singleton-newHomeBuildingPage')
+              ),
             S.divider(),
             S.listItem()
               .title('Business / Enterprise Page')
