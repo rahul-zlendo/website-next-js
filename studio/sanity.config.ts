@@ -133,6 +133,35 @@ export default defineConfig({
               ),
             S.divider(),
             S.listItem()
+              .title('Product: VR Studio')
+              .child(
+                S.document()
+                  .schemaType('vrStudioPage')
+                  .documentId('singleton-vrStudioPage')
+              ),
+            S.listItem()
+              .title('Product: API Suite')
+              .child(
+                S.document()
+                  .schemaType('apiSuitePage')
+                  .documentId('singleton-apiSuitePage')
+              ),
+            S.listItem()
+              .title('Page: Partners')
+              .child(
+                S.document()
+                  .schemaType('partnersPage')
+                  .documentId('singleton-partnersPage')
+              ),
+            S.listItem()
+              .title('Page: Contact Us')
+              .child(
+                S.document()
+                  .schemaType('contactPage')
+                  .documentId('singleton-contactPage')
+              ),
+            S.divider(),
+            S.listItem()
               .title('Site Settings')
               .child(
                 S.document()
