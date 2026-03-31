@@ -4,17 +4,26 @@ import { contactPageQuery } from '@/lib/sanity/queries';
 import ContactClient from './ContactClient';
 import { Metadata } from 'next';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface Props {
+    params: Promise<{ country: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(contactPageQuery).catch(() => null);
 
     return {
         title: cms?.seoTitle || 'Contact Zlendo Realty | Get Expert Guidance & Support',
         description: cms?.seoDescription || 'Get in touch with Zlendo Realty experts for product guidance, support, or partnership opportunities.',
+        alternates: {
+            canonical: `https://zlendorealty.com/${country}/contact`,
+        },
     };
 }
 
-export default async function ContactPage() {
+export default async function ContactPage({ params }: Props) {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(contactPageQuery).catch(() => null);
 

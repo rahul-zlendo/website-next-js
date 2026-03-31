@@ -4,12 +4,13 @@ import BusinessClient from './BusinessClient';
 import { Metadata } from 'next';
 
 interface Props {
-  params: {
+  params: Promise<{
     country: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { country } = await params;
   const cms = await client.fetch(businessPageQuery);
   return {
     title: cms?.seoTitle || 'Zlendo Realty for Business - Enterprise Solutions',
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function EnterprisePage({ params }: Props) {
-  const { country } = params;
+  const { country } = await params;
   
   // Fetch everything from Sanity
   // We use the first one found or a singleton pattern

@@ -4,7 +4,7 @@ import { client } from '@/lib/sanity/client';
 import { virtualWalkthroughPageQuery } from '@/lib/sanity/queries';
 
 interface PageProps {
-  params: { country: string };
+  params: Promise<{ country: string }>;
 }
 
 /**
@@ -14,8 +14,9 @@ export async function generateMetadata(
   { params }: PageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { country: countryCode } = await params;
   const data = await client.fetch(virtualWalkthroughPageQuery);
-  const country = params.country.toUpperCase();
+  const country = countryCode.toUpperCase();
 
   return {
     title: data?.seoTitle || `3D Virtual Walkthrough for Homes | Immersive VR Tours | Zlendo Realty ${country}`,
@@ -32,14 +33,15 @@ export async function generateMetadata(
       type: 'website',
     },
     alternates: {
-      canonical: `https://zlendorealty.com/${params.country}/products/virtual-walkthrough`,
+      canonical: `https://zlendorealty.com/${countryCode}/products/virtual-walkthrough`,
     },
   };
 }
 
 export default async function VirtualWalkthroughPage({ params }: PageProps) {
+  const { country: countryInParams } = await params;
   const cms = await client.fetch(virtualWalkthroughPageQuery);
-  const country = params?.country || 'in';
+  const country = countryInParams || 'in';
 
   // FAQ Schema for SEO
   const resolvedFaqs = cms?.faqs?.map((f: any) => ({
