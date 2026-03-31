@@ -631,3 +631,105 @@ export const virtualWalkthroughPageQuery = groq`
 
 
 
+
+export const businessPageQuery = groq`
+  *[_type == "businessPage"][0] {
+ seoTitle,
+ seoDescription,
+ badgeText1,
+ badgeText2,
+    heroTitle,
+    heroTitleHighlight,
+    heroTitleBottom,
+    heroDescPrefix1,
+    heroDescHighlight1,
+    heroDescPrefix2,
+    heroDescHighlight2,
+    heroDescPrefix3,
+    heroDescHighlight3,
+    heroCtaLabel,
+    heroSubDesc,
+ heroFeatures[]{
+ title,
+ desc,
+ bg,
+ iconColor,
+ borderColor,
+ textColor
+ },
+ checkmarks,
+    platformTitle,
+    platformTitleHighlight,
+ platformSubtitle,
+    platformVideoUrl,
+    platformCtaLabel,
+ industryFeatures[]{
+ industryName,
+ features[]{
+ title,
+ desc,
+ mediaUrl,
+ image {
+ asset->{url, metadata{dimensions}}
+ }
+ }
+ },
+ roiBadge,
+    roiTitle,
+    roiTitleHighlight,
+ roiDesc1,
+ roiDesc2,
+ roiStats[]{
+ value,
+ label
+ },
+ roiImage{
+ asset->{url, metadata{dimensions}}
+ },
+ roiProjectLabel,
+ roiProjectName,
+    personasTitle,
+    personasTitleHighlight,
+ personasSubtitle,
+ personas[]{
+ title,
+ desc,
+ link
+ },
+    demoBadge,
+       demoTitle,
+    demoTitleHighlight,
+    demoSubtitle
+  }
+`;
+
+export const viewAllTemplatesPageQuery = groq`
+  *[_type == "viewAllTemplatesPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroTitle,
+    heroTitleHighlight,
+    heroDesc,
+    backToHomeLabel
+  }
+`;
+
+
+export const tutorialsPageQuery = groq`
+  *[_type == "tutorialsPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroTitle,
+    heroTitleHighlight,
+    heroDesc,
+    playlistId,
+    playlistTitle,
+    videos[]{
+      videoId,
+      title,
+      duration,
+      views
+    }
+  }
+`;
+
