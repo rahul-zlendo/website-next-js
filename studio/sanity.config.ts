@@ -107,6 +107,34 @@ export default defineConfig({
                   .schemaType('newHomeBuildingPage')
                   .documentId('singleton-newHomeBuildingPage')
               ),
+            S.listItem()
+              .title('Use Case: Commercial Spaces')
+              .child(
+                S.document()
+                  .schemaType('commercialSpacesPage')
+                  .documentId('singleton-commercialSpacesPage')
+              ),
+            S.listItem()
+              .title('Use Case: Builder & Promoter')
+              .child(
+                S.document()
+                  .schemaType('builderAndPromoterPage')
+                  .documentId('singleton-builderAndPromoterPage')
+              ),
+            S.listItem()
+              .title('Use Case: NRI & Remote Planning')
+              .child(
+                S.document()
+                  .schemaType('nriRemotePlanningPage')
+                  .documentId('singleton-nriRemotePlanningPage')
+              ),
+            S.listItem()
+              .title('Use Case: Developer Solutions')
+              .child(
+                S.document()
+                  .schemaType('developerSolutionsPage')
+                  .documentId('singleton-developerSolutionsPage')
+              ),
             S.divider(),
             S.listItem()
               .title('Business / Enterprise Page')

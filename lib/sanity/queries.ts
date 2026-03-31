@@ -570,6 +570,167 @@ export const newHomeBuildingPageQuery = groq`
     ctaSecondaryLabel
   }
 `;
+
+/**
+ * Fetch the Commercial Spaces Page singleton document from Sanity.
+ */
+export const commercialSpacesPageQuery = groq`
+  *[_type == "commercialSpacesPage" && (_id == "commercialSpacesPage" || _id == "singleton-commercialSpacesPage")][0]{
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    heroBadgeText,
+    heroTitle,
+    heroTitleHighlight,
+    heroParagraph,
+    caseStudyTitle,
+    caseStudySubtitle,
+    caseStudyIcon,
+    challengeTitle,
+    challengeDescription,
+    solutionTitle,
+    solutionDescription,
+    stats[]{
+      label,
+      value
+    },
+    caseStudyImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel
+  }
+`;
+
+/**
+ * Fetch the Builder & Promoter Page singleton document from Sanity.
+ */
+export const builderAndPromoterPageQuery = groq`
+  *[_type == "builderAndPromoterPage" && (_id == "builderAndPromoterPage" || _id == "singleton-builderAndPromoterPage")][0]{
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    heroBadgeText,
+    heroTitle,
+    heroTitleHighlight,
+    heroParagraph,
+    caseStudyTitle,
+    caseStudySubtitle,
+    caseStudyIcon,
+    challengeTitle,
+    challengeDescription,
+    solutionTitle,
+    solutionDescription,
+    stats[]{
+      label,
+      value
+    },
+    caseStudyImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    featuresBadgeText,
+    featuresTitle,
+    featuresTitleHighlight,
+    featuresList[]{
+      text,
+      iconName
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel
+  }
+`;
+
+/**
+ * Fetch the NRI & Remote Planning Page singleton document from Sanity.
+ */
+export const nriRemotePlanningPageQuery = groq`
+  *[_type == "nriRemotePlanningPage" && (_id == "nriRemotePlanningPage" || _id == "singleton-nriRemotePlanningPage")][0]{
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    heroBadgeText,
+    heroTitle,
+    heroTitleHighlight,
+    heroParagraph,
+    caseStudyTitle,
+    caseStudySubtitle,
+    caseStudyIcon,
+    challengeTitle,
+    challengeDescription,
+    solutionTitle,
+    solutionDescription,
+    stats[]{
+      label,
+      value
+    },
+    caseStudyImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel
+  }
+`;
+
+/**
+ * Fetch the Developer Solutions Page singleton document from Sanity.
+ */
+export const developerSolutionsPageQuery = groq`
+  *[_type == "developerSolutionsPage" && (_id == "developerSolutionsPage" || _id == "singleton-developerSolutionsPage")][0]{
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    heroBadgeText,
+    heroTitle,
+    heroTitleHighlight,
+    heroParagraph,
+    caseStudyTitle,
+    caseStudySubtitle,
+    caseStudyIcon,
+    challengeTitle,
+    challengeDescription,
+    solutionTitle,
+    solutionDescription,
+    stats[]{
+      label,
+      value
+    },
+    caseStudyImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    additionalCaseStudies[]{
+      title,
+      subtitle,
+      iconName,
+      challengeTitle,
+      challengeDescription,
+      solutionTitle,
+      solutionDescription,
+      stats[]{
+        label,
+        value
+      },
+      image{
+        ...,
+        asset->{url, metadata{dimensions}}
+      }
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel
+  }
+`;
+
 export const costEstimatorPageQuery = groq`
   *[_type == "costEstimatorPage"][0] {
     seoTitle,

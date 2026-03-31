@@ -12,9 +12,21 @@ import virtualWalkthroughPage from './virtualWalkthroughPage';
 import businessPage from './businessPage';
 import viewAllTemplatesPage from './viewAllTemplatesPage';
 import tutorialsPage from './tutorialsPage';
+import commercialSpacesPage from './commercialSpacesPage';
+import builderAndPromoterPage from './builderAndPromoterPage';
+import nriRemotePlanningPage from './nriRemotePlanningPage';
+import developerSolutionsPage from './developerSolutionsPage';
 import vrStudioPage from './vrStudioPage';
 import apiSuitePage from './apiSuitePage';
 import partnersPage from './partnersPage';
 import contactPage from './contactPage';
+import interiorDesignPage from './interiorDesignPage';
+import vastuOptimizationPage from './vastuOptimizationPage';
+import newHomeBuildingPage from './newHomeBuildingPage';
 
-export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage, vrStudioPage, apiSuitePage, partnersPage, contactPage];
+export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, interiorDesignPage, vastuOptimizationPage, newHomeBuildingPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage, commercialSpacesPage, builderAndPromoterPage, nriRemotePlanningPage, developerSolutionsPage, vrStudioPage, apiSuitePage, partnersPage, contactPage];
+
+
+
+
+
