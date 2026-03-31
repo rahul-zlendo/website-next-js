@@ -853,3 +853,168 @@ export const tutorialsPageQuery = groq`
   }
 `;
 
+
+export const vrStudioPageQuery = groq`
+  *[_type == "vrStudioPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroSubtitle,
+    heroTitle,
+    heroDesc,
+    heroCtaLabel,
+    heroCtaLink,
+    heroImage,
+    heroVideoLink,
+    heroGradient,
+    uploadTitle,
+    uploadSubtitle,
+    howToTitle,
+    howToDesc,
+    howToImage,
+    stepsSectionTitle,
+    stepsSectionSubtitle,
+    steps[]{
+      title,
+      desc,
+      image
+    },
+    features[]{
+      title,
+      desc
+    },
+    comparisonTitle,
+    comparisonRows[]{
+      feature,
+      us,
+      competitor1,
+      competitor2
+    },
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    },
+    finalCtaTitle,
+    finalCtaSubtitle,
+    finalCtaLabel
+  }
+`;
+
+export const partnersPageQuery = groq`
+  *[_type == "partnersPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroSubtitle,
+    heroTitlePart1,
+    heroTitlePart2,
+    heroDesc,
+    heroImage,
+    programsTitle,
+    programsSubtitle,
+    affiliateTitlePart1,
+    affiliateTitlePart2,
+    affiliateDesc,
+    affiliateSteps,
+    affiliateBenefits,
+    affiliateTags,
+    affiliateConversionRate,
+    affiliateAvgEarnings,
+    partnerTitlePart1,
+    partnerTitlePart2,
+    partnerDesc,
+    partnerFeatures,
+    partnerImage,
+    partnerUseCaseTitle,
+    partnerUseCaseDesc,
+    partnerActivePartners,
+    partnerPayouts,
+    whyTitle,
+    whySubtitle,
+    whyCards,
+    growthTitle,
+    growthSubtitle,
+    growthPoints,
+    growthQuoteTitle,
+    growthQuoteDesc,
+    finalCtaTitlePart1,
+    finalCtaTitlePart2,
+    finalCtaSubtitle
+  }
+`;
+
+export const contactPageQuery = groq`
+  *[_type == "contactPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroSubtitle,
+    heroTitlePart1,
+    heroTitlePart2,
+    heroDescription,
+    directContactTitle,
+    directContactSubtitle,
+    email,
+    phone,
+    hqTitle,
+    hqAddress,
+    regionalPresenceLabel,
+    regionalPresenceList,
+    formTitle,
+    formSuccessTitle,
+    formSuccessMessage,
+    formSuccessButtonLabel,
+    helpCenterTitle,
+    helpCenterSubtitle,
+    helpItems[]{
+      title,
+      description,
+      icon,
+      url
+    }
+  }
+`;
+export const apiSuitePageQuery = groq`
+  *[_type == "apiSuitePage"][0] {
+    seoTitle,
+    seoDescription,
+    heroSubtitle,
+    heroTitle,
+    heroDesc,
+    heroCtaLabel,
+    heroCtaLink,
+    heroImage,
+    heroVideoLink,
+    heroGradient,
+    uploadTitle,
+    uploadSubtitle,
+    howToTitle,
+    howToDesc,
+    howToImage,
+    stepsSectionTitle,
+    stepsSectionSubtitle,
+    steps[]{
+      title,
+      desc,
+      image
+    },
+    features[]{
+      title,
+      desc
+    },
+    comparisonTitle,
+    comparisonRows[]{
+      feature,
+      us,
+      competitor1,
+      competitor2
+    },
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    },
+    finalCtaTitle,
+    finalCtaSubtitle,
+    finalCtaLabel
+  }
+`;
+
