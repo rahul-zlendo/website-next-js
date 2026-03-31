@@ -141,7 +141,7 @@ export default defineType({
       type: 'image',
       group: 'howTo',
       options: { hotspot: true },
-      initialValue: { asset: { _ref: 'image-dashboard-interface-png' } } // Placeholder ref
+      initialValue: { asset: { _type: 'reference', _ref: 'image-dashboard-interface-png' } } // Placeholder ref
     }),
 
     // ── Steps ─────────────────────────────────────────────────────────────

@@ -4,7 +4,7 @@ import { client } from '@/lib/sanity/client';
 import { realisticRendersPageQuery } from '@/lib/sanity/queries';
 
 interface PageProps {
-  params: { country: string };
+  params: Promise<{ country: string }>;
 }
 
 /**
@@ -14,8 +14,9 @@ export async function generateMetadata(
   { params }: PageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const { country: countryCode } = await params;
   const data = await client.fetch(realisticRendersPageQuery);
-  const country = params.country.toUpperCase();
+  const country = countryCode.toUpperCase();
 
   return {
     title: data?.seoTitle || `Realistic Renders | 8K Interior Visualization | Zlendo Realty ${country}`,
@@ -32,7 +33,7 @@ export async function generateMetadata(
       type: 'website',
     },
     alternates: {
-      canonical: `https://zlendorealty.com/${params.country}/products/realistic-renders`,
+      canonical: `https://zlendorealty.com/${countryCode}/products/realistic-renders`,
     },
   };
 }

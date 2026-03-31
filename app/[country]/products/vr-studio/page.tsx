@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function VRStudioPage({ params }: Props) {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms: any = await getClient(preview).fetch(vrStudioPageQuery).catch(() => null);
 

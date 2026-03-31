@@ -4,17 +4,26 @@ import { partnersPageQuery } from '@/lib/sanity/queries';
 import PartnersClient from './PartnersClient';
 import { Metadata } from 'next';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface Props {
+    params: Promise<{ country: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(partnersPageQuery).catch(() => null);
 
     return {
         title: cms?.seoTitle || 'Partner with Zlendo Realty - Affiliate & Agent Programs',
         description: cms?.seoDescription || 'Turn your network into revenue. Join the Zlendo Realty partner or affiliate program and earn by sharing the future of PropTech.',
+        alternates: {
+            canonical: `https://zlendorealty.com/${country}/partners`,
+        },
     };
 }
 
-export default async function PartnersPage() {
+export default async function PartnersPage({ params }: Props) {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(partnersPageQuery).catch(() => null);
 
