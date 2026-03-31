@@ -449,3 +449,124 @@ export const homeRemodelingPageQuery = groq`
     ctaSecondaryLabel
   }
 `;
+
+/**
+ * Fetch the Interior Design Page singleton document from Sanity.
+ */
+export const interiorDesignPageQuery = groq`
+  *[_type == "interiorDesignPage" && (_id == "interiorDesignPage" || _id == "singleton-interiorDesignPage")][0]{
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    heroBadgeText,
+    heroTitle,
+    heroTitleHighlight,
+    heroParagraph,
+    // Top-Level Case Study (Matching Home Remodeling)
+    caseStudyTitle,
+    caseStudySubtitle,
+    caseStudyIcon,
+    challengeTitle,
+    challengeDescription,
+    solutionTitle,
+    solutionDescription,
+    stats[]{
+      label,
+      value
+    },
+    caseStudyImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    // Optional Additional Case Studies
+    additionalCaseStudies[]{
+      title,
+      subtitle,
+      iconName,
+      challengeTitle,
+      challengeDescription,
+      solutionTitle,
+      solutionDescription,
+      stats[]{
+        label,
+        value
+      },
+      image{
+        ...,
+        asset->{url, metadata{dimensions}}
+      }
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel
+  }
+`;
+
+/**
+ * Fetch the Vastu Optimization Page singleton document from Sanity.
+ */
+export const vastuOptimizationPageQuery = groq`
+  *[_type == "vastuOptimizationPage" && (_id == "vastuOptimizationPage" || _id == "singleton-vastuOptimizationPage")][0]{
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    heroBadgeText,
+    heroTitle,
+    heroTitleHighlight,
+    heroParagraph,
+    caseStudyTitle,
+    caseStudySubtitle,
+    caseStudyIcon,
+    challengeTitle,
+    challengeDescription,
+    solutionTitle,
+    solutionDescription,
+    stats[]{
+      label,
+      value
+    },
+    caseStudyImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel
+  }
+`;
+
+/**
+ * Fetch the New Home Building Page singleton document from Sanity.
+ */
+export const newHomeBuildingPageQuery = groq`
+  *[_type == "newHomeBuildingPage" && (_id == "newHomeBuildingPage" || _id == "singleton-newHomeBuildingPage")][0]{
+    seoTitle,
+    seoDescription,
+    seoKeywords,
+    heroBadgeText,
+    heroTitle,
+    heroTitleHighlight,
+    heroParagraph,
+    caseStudyTitle,
+    caseStudySubtitle,
+    caseStudyIcon,
+    challengeTitle,
+    challengeDescription,
+    solutionTitle,
+    solutionDescription,
+    stats[]{
+      label,
+      value
+    },
+    caseStudyImage{
+      ...,
+      asset->{url, metadata{dimensions}}
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel
+  }
+`;

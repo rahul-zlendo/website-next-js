@@ -6,6 +6,8 @@ import homeRemodelingPage from './homeRemodelingPage';
 import roomStylerPage from './roomStylerPage';
 import vastuPage from './vastuPage';
 import interiorsExteriorsPage from './interiorsExteriorsPage';
+import interiorDesignPage from './interiorDesignPage';
+import vastuOptimizationPage from './vastuOptimizationPage';
+import newHomeBuildingPage from './newHomeBuildingPage';
 
-
-export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage];
+export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, interiorDesignPage, vastuOptimizationPage, newHomeBuildingPage];
