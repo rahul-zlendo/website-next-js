@@ -570,3 +570,286 @@ export const newHomeBuildingPageQuery = groq`
     ctaSecondaryLabel
   }
 `;
+export const costEstimatorPageQuery = groq`
+  *[_type == "costEstimatorPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroBadge,
+    heroTitle,
+    heroTitleMid,
+    heroTitleHighlight,
+    heroDesc,
+    heroCtaLabel,
+    heroSubtext,
+    logicTitle,
+    logicDesc,
+    logicCards[]{
+      title,
+      desc,
+      iconName
+    },
+    breakdownBadge,
+    breakdownTitle,
+    breakdownDesc,
+    breakdownItems[]{
+      label,
+      range
+    },
+    compTitle,
+    compDesc,
+    concreteTitle,
+    brickTitle,
+    tiersTitle,
+    tiersDesc,
+    tiers[]{
+      tierName,
+      features
+    },
+    trustBadge,
+    trustTitle,
+    trustDesc,
+    trustStats[]{
+      label,
+      value
+    },
+    trustMessages,
+    ctaTitle,
+    ctaDesc,
+    ctaButtonLabel,
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
+
+export const realisticRendersPageQuery = groq`
+  *[_type == "realisticRendersPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroBadge,
+    heroTitle,
+    heroTitleHighlight,
+    heroDesc,
+    heroCtaLabel,
+    heroSecondaryCtaLabel,
+    "heroImage": heroImage.asset->url,
+    photoBadge,
+    photoTitle,
+    photoTitleHighlight,
+    photoDesc,
+    "photoImage": photoImage.asset->url,
+    photoFeatures[]{
+      title,
+      desc
+    },
+    cameraBadge,
+    cameraTitle,
+    cameraTitleHighlight,
+    cameraDesc,
+    cameraCards[]{
+      title,
+      desc,
+      "image": image.asset->url
+    },
+    lightingBadge,
+    lightingTitle,
+    lightingTitleHighlight,
+    lightingDesc,
+    "morningImage": morningImage.asset->url,
+    "dayImage": dayImage.asset->url,
+    "eveningImage": eveningImage.asset->url,
+    "nightImage": nightImage.asset->url,
+    qualityTitle,
+    qualityDesc,
+    qualityTiers[]{
+      title,
+      resolution,
+      time,
+      useCase,
+      iconName
+    },
+    audienceTitle,
+    audienceRoles[]{
+      role,
+      desc
+    },
+    "audienceImages": audienceImages[].asset->url,
+    ctaTitle,
+    ctaDesc,
+    ctaLabel,
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
+
+export const virtualWalkthroughPageQuery = groq`
+  *[_type == "virtualWalkthroughPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroBadge,
+    heroTitle,
+    heroTitleHighlight,
+    heroDesc,
+    "heroImage": heroImage.asset->url,
+    heroCtaLabel,
+    heroSecondaryCtaLabel,
+    walkBadge,
+    walkTitle,
+    walkDesc,
+    "walkImage": walkImage.asset->url,
+    walkFeatures,
+    qualityTitle,
+    qualityTitleHighlight,
+    qualityDesc,
+    qualityCards[]{
+      title,
+      desc,
+      iconName
+    },
+    "qualityComparisonImage": qualityComparisonImage.asset->url,
+    toolsTitle,
+    toolsDesc,
+    toolCards[]{
+      title,
+      quote,
+      desc,
+      iconName
+    },
+    marketTitle,
+    marketTitleHighlight,
+    marketFeatures[]{
+      title,
+      desc
+    },
+    "marketImages": marketImages[].asset->url,
+    impactTitle,
+    impactDesc,
+    impactCards[]{
+      title,
+      desc,
+      highlight,
+      iconName
+    },
+    ctaTitle,
+    ctaTitleHighlight,
+    ctaDesc,
+    ctaPrimaryLabel,
+    ctaSecondaryLabel,
+    faqTitle,
+    faqs[]{
+      question,
+      answer
+    }
+  }
+`;
+
+
+
+
+
+export const businessPageQuery = groq`
+  *[_type == "businessPage"][0] {
+ seoTitle,
+ seoDescription,
+ badgeText1,
+ badgeText2,
+    heroTitle,
+    heroTitleHighlight,
+    heroTitleBottom,
+    heroDescPrefix1,
+    heroDescHighlight1,
+    heroDescPrefix2,
+    heroDescHighlight2,
+    heroDescPrefix3,
+    heroDescHighlight3,
+    heroCtaLabel,
+    heroSubDesc,
+ heroFeatures[]{
+ title,
+ desc,
+ bg,
+ iconColor,
+ borderColor,
+ textColor
+ },
+ checkmarks,
+    platformTitle,
+    platformTitleHighlight,
+ platformSubtitle,
+    platformVideoUrl,
+    platformCtaLabel,
+ industryFeatures[]{
+ industryName,
+ features[]{
+ title,
+ desc,
+ mediaUrl,
+ image {
+ asset->{url, metadata{dimensions}}
+ }
+ }
+ },
+ roiBadge,
+    roiTitle,
+    roiTitleHighlight,
+ roiDesc1,
+ roiDesc2,
+ roiStats[]{
+ value,
+ label
+ },
+ roiImage{
+ asset->{url, metadata{dimensions}}
+ },
+ roiProjectLabel,
+ roiProjectName,
+    personasTitle,
+    personasTitleHighlight,
+ personasSubtitle,
+ personas[]{
+ title,
+ desc,
+ link
+ },
+    demoBadge,
+       demoTitle,
+    demoTitleHighlight,
+    demoSubtitle
+  }
+`;
+
+export const viewAllTemplatesPageQuery = groq`
+  *[_type == "viewAllTemplatesPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroTitle,
+    heroTitleHighlight,
+    heroDesc,
+    backToHomeLabel
+  }
+`;
+
+
+export const tutorialsPageQuery = groq`
+  *[_type == "tutorialsPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroTitle,
+    heroTitleHighlight,
+    heroDesc,
+    playlistId,
+    playlistTitle,
+    videos[]{
+      videoId,
+      title,
+      duration,
+      views
+    }
+  }
+`;
+

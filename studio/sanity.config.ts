@@ -57,6 +57,27 @@ export default defineConfig({
                   .schemaType('interiorsExteriorsPage')
                   .documentId('singleton-interiorsExteriorsPage')
               ),
+            S.listItem()
+              .title('Product: Cost Estimator')
+              .child(
+                S.document()
+                  .schemaType('costEstimatorPage')
+                  .documentId('singleton-costEstimatorPage')
+              ),
+            S.listItem()
+              .title('Product: Realistic Renders')
+              .child(
+                S.document()
+                  .schemaType('realisticRendersPage')
+                  .documentId('singleton-realisticRendersPage')
+              ),
+            S.listItem()
+              .title('Product: Virtual Walkthrough')
+              .child(
+                S.document()
+                  .schemaType('virtualWalkthroughPage')
+                  .documentId('singleton-virtualWalkthroughPage')
+              ),
             S.divider(),
             S.listItem()
               .title('Use Case: Home Remodeling')
@@ -85,6 +106,30 @@ export default defineConfig({
                 S.document()
                   .schemaType('newHomeBuildingPage')
                   .documentId('singleton-newHomeBuildingPage')
+              ),
+            S.divider(),
+            S.listItem()
+              .title('Business / Enterprise Page')
+              .child(
+                S.document()
+                  .schemaType('businessPage')
+                  .documentId('singleton-businessPage')
+              ),
+            S.divider(),
+            S.listItem()
+              .title('Page: View All Templates')
+              .child(
+                S.document()
+                  .schemaType('viewAllTemplatesPage')
+                  .documentId('singleton-viewAllTemplatesPage')
+              ),
+            S.divider(),
+            S.listItem()
+              .title('Page: Tutorials')
+              .child(
+                S.document()
+                  .schemaType('tutorialsPage')
+                  .documentId('singleton-tutorialsPage')
               ),
             S.divider(),
             S.listItem()
