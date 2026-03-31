@@ -12,6 +12,9 @@ import virtualWalkthroughPage from './virtualWalkthroughPage';
 import businessPage from './businessPage';
 import viewAllTemplatesPage from './viewAllTemplatesPage';
 import tutorialsPage from './tutorialsPage';
+import vrStudioPage from './vrStudioPage';
+import apiSuitePage from './apiSuitePage';
+import partnersPage from './partnersPage';
+import contactPage from './contactPage';
 
-
-export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage];
+export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage, vrStudioPage, apiSuitePage, partnersPage, contactPage];
