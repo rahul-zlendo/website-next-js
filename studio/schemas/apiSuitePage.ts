@@ -23,7 +23,7 @@ export default defineType({
       hidden: true,
       initialValue: 'Product: API Suite'
     }),
-    // ── SEO & Meta ────────────────────────────────────────────────────────
+    // ── SEO & Meta ────────────────────────────────────────────────────────-
     defineField({
       name: 'seoTitle',
       title: 'Page Title (SEO)',
@@ -88,11 +88,11 @@ export default defineType({
       ]
     }),
     defineField({
-        name: 'heroVideoLink',
-        title: 'Hero Video YouTube Link',
-        type: 'url',
-        group: 'hero',
-        initialValue: 'https://www.youtube.com/embed/ttZcXOgmrNY?autoplay=1',
+      name: 'heroVideoLink',
+      title: 'Hero Video YouTube Link',
+      type: 'url',
+      group: 'hero',
+      initialValue: 'https://www.youtube.com/embed/ttZcXOgmrNY?autoplay=1',
     }),
     defineField({
       name: 'heroGradient',
@@ -278,9 +278,9 @@ export default defineType({
   preview: {
     select: { title: 'seoTitle' },
     prepare({ title }) {
-        return {
-            title: title || 'Product: API Suite'
-        };
+      return {
+        title: title || 'Product: API Suite'
+      };
     },
   },
 });
