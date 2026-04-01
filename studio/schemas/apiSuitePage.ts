@@ -23,7 +23,7 @@ export default defineType({
       hidden: true,
       initialValue: 'Product: API Suite'
     }),
-    // ── SEO & Meta ───────────────────────────────────────────────────────
+    // ── SEO & Meta ─────────────────────────────────────────────────────
     defineField({
       name: 'seoTitle',
       title: 'Page Title (SEO)',
