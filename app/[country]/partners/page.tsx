@@ -4,6 +4,9 @@ import { partnersPageQuery } from '@/lib/sanity/queries';
 import PartnersClient from './PartnersClient';
 import { Metadata } from 'next';
 
+// ISR: re-fetch Sanity data every 60 seconds so CMS edits go live quickly
+export const revalidate = 60;
+
 interface Props {
     params: Promise<{ country: string }>;
 }
