@@ -17,7 +17,7 @@ export default function robots(): MetadataRoute.Robots {
     ],
     sitemap: [
       'https://zlendorealty.com/sitemap.xml',
-      'https://zlendorealty.com/blog/sitemap.xml',
+      'https://zlendorealty.com/blog/sitemap_index.xml',
     ],
     host: 'https://zlendorealty.com',
   };
