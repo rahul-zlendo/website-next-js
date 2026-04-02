@@ -4,6 +4,9 @@ import { getClient } from '@/lib/sanity/client';
 import { commercialSpacesPageQuery } from '@/lib/sanity/queries';
 import CommercialSpacesClient from './CommercialSpacesClient';
 
+// ISR: re-fetch Sanity data every 60 seconds so CMS edits go live quickly
+export const revalidate = 60;
+
 const BASE_URL = 'https://zlendorealty.com';
 
 interface Props {
