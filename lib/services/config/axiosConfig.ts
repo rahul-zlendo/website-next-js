@@ -115,6 +115,21 @@ axiosInstance.interceptors.response.use(
           .then((token) => {
             originalRequest._retry = true;
             originalRequest.headers["Authorization"] = `Bearer ${token}`;
+
+            // Fix for APIs that pass the token in the request body (like GetUserDetailsByToken)
+            if (originalRequest.data) {
+              try {
+                let data = originalRequest.data;
+                if (typeof data === 'string') {
+                  try { data = JSON.parse(data); } catch (e) { }
+                }
+                if (data && typeof data === 'object' && (data as any).userToken) {
+                  (data as any).userToken = token;
+                  originalRequest.data = JSON.stringify(data);
+                }
+              } catch (e) { }
+            }
+
             return axiosInstance(originalRequest);
           })
           .catch((err) => {
@@ -126,13 +141,13 @@ axiosInstance.interceptors.response.use(
       isRefreshing = true;
 
       let refreshToken = localStorage.getItem("refreshToken");
-      
+
       if (refreshToken) {
         // Clean the token to remove any extra quotes or whitespace
         refreshToken = refreshToken.trim();
         // Remove surrounding quotes if present
-        if ((refreshToken.startsWith('"') && refreshToken.endsWith('"')) || 
-            (refreshToken.startsWith("'") && refreshToken.endsWith("'"))) {
+        if ((refreshToken.startsWith('"') && refreshToken.endsWith('"')) ||
+          (refreshToken.startsWith("'") && refreshToken.endsWith("'"))) {
           refreshToken = refreshToken.slice(1, -1);
         }
         // Remove escaped quotes and nested quotes if any (e.g. "\"token\"")
@@ -190,7 +205,11 @@ axiosInstance.interceptors.response.use(
 
         if (newAccessToken) {
           localStorage.setItem("authToken", newAccessToken);
+          localStorage.setItem("accessToken", newAccessToken);
           Cookies.set('accessToken', newAccessToken); // Ensure Cookies are updated too
+
+          // Update the global instance headers so future requests use the new token immediately
+          axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
         }
         if (newRefreshToken) {
           localStorage.setItem("refreshToken", newRefreshToken);
@@ -200,7 +219,34 @@ axiosInstance.interceptors.response.use(
         processQueue(null, newAccessToken);
 
         // Retry original request with new token
-        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        // Ensure headers exist before setting
+        if (originalRequest.headers) {
+          originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
+        }
+
+        // Fix for APIs that pass the token in the request body (like GetUserDetailsByToken)
+        if (originalRequest.data) {
+          try {
+            // originalRequest.data might be a JSON string or an object depending on how it was sent
+            let data = originalRequest.data;
+            if (typeof data === 'string') {
+              try {
+                data = JSON.parse(data);
+              } catch (e) {
+                // If not valid JSON string, keep as is
+              }
+            }
+
+            if (data && typeof data === 'object' && (data as any).userToken) {
+              (data as any).userToken = newAccessToken;
+              // Set the updated data back as a string to match axios expectations for POST
+              originalRequest.data = JSON.stringify(data);
+            }
+          } catch (error) {
+            console.error("[REFRESH-DEBUG] Failed to update request payload:", error);
+          }
+        }
+
         return axiosInstance(originalRequest);
       } catch (refreshError: any) {
         console.log(
