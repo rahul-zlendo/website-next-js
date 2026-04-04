@@ -27,6 +27,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/products/2d-to-3d', priority: 0.9, changeFrequency: 'weekly' as const },
     { path: '/products/vastu', priority: 0.8, changeFrequency: 'weekly' as const },
     { path: '/products/room-styler', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/products/vr-studio', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/products/api-suite', priority: 0.8, changeFrequency: 'weekly' as const },
 
     // Template pages
     { path: '/viewalltemplates', priority: 0.8, changeFrequency: 'daily' as const },
