@@ -17,7 +17,7 @@ export default function FooterClient({
     const shouldHideCTA = hideCTA || pathname?.includes('/register') || (pathname?.includes('/vastu') && !pathname?.includes('/products/'));
 
     return (
-        <footer className="bg-[#f9fafb] pt-4 md:pt-24 pb-12 border-t border-black/[0.03] relative overflow-hidden font-nunito">
+        <footer className="bg-[#f9fafb] pt-4 md:pt-10 pb-12 border-t border-black/[0.03] relative overflow-hidden font-nunito">
             {/* CTA Section */}
             {!shouldHideCTA && (
                 <div className="container-custom px-6 lg:px-12 mb-8 md:mb-20 text-[15px]">
