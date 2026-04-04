@@ -80,7 +80,7 @@ export default function BusinessClient({ cms, country }: BusinessClientProps) {
         cms.industryFeatures.reduce((acc: any, item: any) => {
             acc[item.industryName] = {
                 title: item.industryName,
-                features: item.features.map((f: any) => ({
+                features: (item.features || []).map((f: any) => ({
                     title: f.title,
                     desc: f.desc,
                     image: f.mediaUrl || (f.image ? urlFor(f.image).url() : '')
