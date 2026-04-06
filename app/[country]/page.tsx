@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (country === 'in') {
     const seoTitle = cmsSeo?.seoTitle ?? 'AI Home & Office Design Software for Builders and Architects';
     const seoDesc = cmsSeo?.seoDescription ?? 'Zlendo Realty AI Floor Planner and 2D-to-3D Designs in Minutes. All-in-One Software for Architects, Builders, Interior Designers, and Vastu Consultants. Start Your Free Trial Now!';
-    const ogTitle = cmsSeo?.ogTitle ?? 'AI-Powered Home & Office Design Software | Zlendo Realty';
+    const ogTitle = cmsSeo?.ogTitle ?? 'AI-Powered Home & Office Design Software';
     const ogDesc = cmsSeo?.ogDescription ?? 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. The all-in-one design software for Architects, Builders, Interior designers, and Vastu Consultants. Start your free trial today!';
     const ogImg = urlFor(cmsSeo?.ogImage).url() || `${BASE_URL}/og-image.jpg`;
 
@@ -315,22 +315,22 @@ export default async function Page() {
   const resolvedFeatures = cms?.features?.length ? cms.features : features;
   const resolvedComparisonRows = cms?.comparisonRows?.length
     ? cms.comparisonRows.map((r: { title: string; oldWay: string; newWay: string; gradient: string }) => ({
-        title: r.title,
-        trad: r.oldWay,
-        zlendo: r.newWay,
-        img: r.gradient ?? 'from-purple-500 to-pink-400',
-      }))
+      title: r.title,
+      trad: r.oldWay,
+      zlendo: r.newWay,
+      img: r.gradient ?? 'from-purple-500 to-pink-400',
+    }))
     : comparisonRows;
 
   const resolvedIntelligence = cms?.intelligenceDimensions?.length
     ? cms.intelligenceDimensions.map((d: {
-        id: string; title: string; shortDesc: string; longDesc: string;
-        benefit: string; cta: string; link: string; iconName: string; colorClass: string; bgClass: string;
-      }) => ({
-        id: d.id, title: d.title, shortDesc: d.shortDesc, longDesc: d.longDesc,
-        benefit: d.benefit, cta: d.cta, link: d.link,
-        iconName: d.iconName, color: d.colorClass, bg: d.bgClass,
-      }))
+      id: string; title: string; shortDesc: string; longDesc: string;
+      benefit: string; cta: string; link: string; iconName: string; colorClass: string; bgClass: string;
+    }) => ({
+      id: d.id, title: d.title, shortDesc: d.shortDesc, longDesc: d.longDesc,
+      benefit: d.benefit, cta: d.cta, link: d.link,
+      iconName: d.iconName, color: d.colorClass, bg: d.bgClass,
+    }))
     : intelligenceDimensions;
 
   const heroTitle = cms?.heroTitle ?? 'Design Smarter.';

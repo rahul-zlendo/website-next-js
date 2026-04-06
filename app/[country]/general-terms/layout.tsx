@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'service level agreement',
         'virtual realty walkthroughs',
     ],
-        title: 'General Terms | Zlendo Realty',
+        title: 'General Terms',
     };
 }
 
@@ -57,3 +57,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

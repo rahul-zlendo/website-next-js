@@ -20,7 +20,7 @@ export default function InteriorDesignClient({ cms }: InteriorDesignClientProps)
 
     // Set document title and meta tags for SEO from CMS or defaults
     useEffect(() => {
-        document.title = cms?.seoTitle ?? 'Interior Design Use Cases | Zlendo Realty';
+        document.title = cms?.seoTitle ?? 'Interior Design Use Cases';
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             metaDescription.setAttribute('content', cms?.seoDescription ?? 'From first-time homebuyers to remote professionals, see how we transform spatial uncertainty into design confidence.');
@@ -190,3 +190,4 @@ export default function InteriorDesignClient({ cms }: InteriorDesignClientProps)
         </div>
     );
 }
+

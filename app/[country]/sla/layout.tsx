@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             'real estate software sla',
             'business sla solutions',
         ],
-        title: 'Service Level Agreement | Zlendo Realty',
+        title: 'Service Level Agreement',
     };
 }
 
@@ -61,3 +61,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

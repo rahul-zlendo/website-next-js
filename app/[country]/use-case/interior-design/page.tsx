@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cms = await getClient(false).fetch(interiorDesignPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cms?.seoTitle ?? 'Interior Design Use Cases | Zlendo Realty';
+    const seoTitle = cms?.seoTitle ?? 'Interior Design Use Cases';
     const seoDesc = cms?.seoDescription ?? 'From first-time homebuyers to remote professionals, see how we transform spatial uncertainty into design confidence.';
 
     return {
@@ -46,3 +46,4 @@ export default async function Page({ params }: Props) {
         <InteriorDesignClient cms={cms} />
     );
 }
+

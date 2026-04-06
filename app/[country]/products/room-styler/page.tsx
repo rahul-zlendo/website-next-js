@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const cms = await getClient(preview).fetch(roomStylerPageQuery).catch(() => null);
 
     return {
-        title: cms?.seoTitle || 'Smart Room Styler - AI-driven Interior Design | Zlendo Realty',
+        title: cms?.seoTitle || 'Smart Room Styler - AI-driven Interior Design',
         description: cms?.seoDescription || 'AI-driven interior design at your fingertips. Visualize different styles, furniture layouts, and color palettes instantly.',
     };
 }
@@ -116,3 +116,4 @@ export default async function RoomStylerPage() {
         </>
     );
 }
+

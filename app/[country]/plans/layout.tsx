@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             },
             description: 'Choose a Zlendo Realty plan that fits your needs. Whether renovating a single room or building a professional portfolio, we have the right plan for you.',
             openGraph: {
-                title: 'Plans for Every Individual | Zlendo Realty',
+                title: 'Plans for Every Individual',
                 description: 'Whether you’re renovating a single room or creating a professional portfolio, Zlendo Realty offers flexible plans designed to suit every individual’s needs.',
             },
             alternates: {
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'business subscription',
         'student subscription',
     ],
-        title: 'Subscription Plans | Zlendo Realty',
+        title: 'Subscription Plans',
     };
 }
 
@@ -59,3 +59,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

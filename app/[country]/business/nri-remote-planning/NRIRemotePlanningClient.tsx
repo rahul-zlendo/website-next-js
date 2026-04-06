@@ -20,7 +20,7 @@ export default function NRIRemotePlanningClient({ cms }: NRIRemotePlanningClient
 
     // Set document title and meta tags for SEO from CMS or defaults
     useEffect(() => {
-        document.title = cms?.seoTitle ?? 'NRI & Remote Planning | Zlendo Realty';
+        document.title = cms?.seoTitle ?? 'NRI & Remote Planning';
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             metaDescription.setAttribute('content', cms?.seoDescription ?? 'Manage international and remote projects with absolute clarity, ensuring your NRI clients feel present at every step of the journey.');
@@ -133,3 +133,4 @@ export default function NRIRemotePlanningClient({ cms }: NRIRemotePlanningClient
         </div>
     );
 }
+

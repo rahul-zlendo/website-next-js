@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cms = await getClient(false).fetch(builderAndPromoterPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cms?.seoTitle ?? 'Builder & Promoter Solutions | Zlendo Realty';
+    const seoTitle = cms?.seoTitle ?? 'Builder & Promoter Solutions';
     const seoDesc = cms?.seoDescription ?? 'Empower your buyers to visualize their future home instantly, reducing sales friction and accelerating your commission cycle.';
 
     return {
@@ -46,3 +46,4 @@ export default async function Page({ params }: Props) {
         <BuilderAndPromoterClient cms={cms} />
     );
 }
+

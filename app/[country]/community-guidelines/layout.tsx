@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'ethical AI applications',
         'zlendorealty rules',
     ],
-        title: 'Community Guidelines | Zlendo Realty',
+        title: 'Community Guidelines',
     };
 }
 
@@ -61,3 +61,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'nda for vendor partnerships',
         'confidentiality agreement',
     ],
-        title: 'Vendor NDA | Zlendo Realty',
+        title: 'Vendor NDA',
     };
 }
 
@@ -59,3 +59,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

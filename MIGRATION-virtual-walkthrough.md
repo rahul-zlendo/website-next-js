@@ -81,7 +81,7 @@ Create `app/[country]/products/virtual-walkthrough/layout.tsx`:
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "3D Virtual Walkthrough for Homes | Zlendo Realty – Free Demo",
+  title: "3D Virtual Walkthrough for Homes – Free Demo",
   description: "Experience immersive 3D virtual walkthroughs that showcase space, flow, and finishes. Ideal for premium home plan services. Book a free demo today.",
   keywords: "interactive virtual tour services, 3d walkthrough rendering, architectural walkthrough services, free immersive 3d walkthrough, property walkthrough animation, real estate virtual tour",
   openGraph: {

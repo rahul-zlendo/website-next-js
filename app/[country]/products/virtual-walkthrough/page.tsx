@@ -19,7 +19,7 @@ export async function generateMetadata(
   const country = countryCode.toUpperCase();
 
   return {
-    title: data?.seoTitle || `3D Virtual Walkthrough for Homes | Immersive VR Tours | Zlendo Realty ${country}`,
+    title: data?.seoTitle || `3D Virtual Walkthrough for Homes | Immersive VR Tours ${country}`,
     description: data?.seoDescription || 'Experience immersive 3D virtual walkthroughs that showcase space, flow, and finishes. Close deals faster with 8K cinematic storytelling.',
     keywords: [
       '3d virtual walkthrough',
@@ -98,3 +98,4 @@ export default async function VirtualWalkthroughPage({ params }: PageProps) {
     </>
   );
 }
+

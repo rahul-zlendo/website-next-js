@@ -20,7 +20,7 @@ export default function DeveloperSolutionsClient({ cms }: DeveloperSolutionsClie
 
     // Set document title and meta tags for SEO from CMS or defaults
     useEffect(() => {
-        document.title = cms?.seoTitle ?? 'Developer Solutions | Zlendo Realty';
+        document.title = cms?.seoTitle ?? 'Developer Solutions';
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             metaDescription.setAttribute('content', cms?.seoDescription ?? 'Transform complex design concepts into hyper-realistic visual experiences that eliminate confusion and accelerate project lifecycles.');
@@ -192,3 +192,4 @@ export default function DeveloperSolutionsClient({ cms }: DeveloperSolutionsClie
         </div>
     );
 }
+

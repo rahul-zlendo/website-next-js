@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         "zlendo realty's services",
         'zlendo refund policy',
     ],
-        title: 'Refund Policy | Zlendo Realty',
+        title: 'Refund Policy',
     };
 }
 
@@ -55,3 +55,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

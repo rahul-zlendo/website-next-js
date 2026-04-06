@@ -27,7 +27,7 @@ export default function BuilderAndPromoterClient({ cms }: BuilderAndPromoterClie
 
     // Set document title and meta tags for SEO from CMS or defaults
     useEffect(() => {
-        document.title = cms?.seoTitle ?? 'Builder & Promoter Solutions | Zlendo Realty';
+        document.title = cms?.seoTitle ?? 'Builder & Promoter Solutions';
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             metaDescription.setAttribute('content', cms?.seoDescription ?? 'Empower your buyers to visualize their future home instantly, reducing sales friction and accelerating your commission cycle.');

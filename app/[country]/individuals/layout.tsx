@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'For Homeowners & Individuals | Zlendo Realty',
+    title: 'For Homeowners & Individuals',
     description:
         'See your future home in immersive 8K 3D before construction begins. Accurate cost estimates, material selection, and vastu-compliant designs for homeowners.',
     keywords: [
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
         'home building cost estimate',
     ],
     openGraph: {
-        title: 'Visualize Your Dream Home in 3D | Zlendo Realty',
+        title: 'Visualize Your Dream Home in 3D',
         description:
             'Experience your future home before it is built. Get precise cost estimates and immersive 3D interior designs.',
         url: 'https://zlendorealty.com/in/individuals',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'For Homeowners | Zlendo Realty',
+        title: 'For Homeowners',
         description: 'Visualize your dream home in 8K 3D. Accurate estimates, zero guesswork.',
     },
     alternates: {
@@ -52,3 +52,4 @@ export default function IndividualsLayout({
 }) {
     return <>{children}</>;
 }
+

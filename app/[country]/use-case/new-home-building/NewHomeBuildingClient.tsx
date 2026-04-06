@@ -20,7 +20,7 @@ export default function NewHomeBuildingClient({ cms }: NewHomeBuildingClientProp
 
     // Set document title and meta tags for SEO from CMS or defaults
     useEffect(() => {
-        document.title = cms?.seoTitle ?? 'New Home Building Use Cases | Zlendo Realty';
+        document.title = cms?.seoTitle ?? 'New Home Building Use Cases';
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             metaDescription.setAttribute('content', cms?.seoDescription ?? 'From foundation to final finishes, visualize every detail of your new home construction to ensure a perfect build.');
@@ -133,3 +133,4 @@ export default function NewHomeBuildingClient({ cms }: NewHomeBuildingClientProp
         </div>
     );
 }
+

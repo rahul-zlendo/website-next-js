@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cmsSeo = await getClient(preview).fetch(vrStudioPageQuery);
     } catch { /* fallback */ }
 
-    const title = cmsSeo?.seoTitle || "8K VR Studio - Immersive Home Experiences | Zlendo Realty";
+    const title = cmsSeo?.seoTitle || "8K VR Studio - Immersive Home Experiences";
     const description = cmsSeo?.seoDescription || "Step inside your design with hyper-realistic VR. Compatible with Meta Quest, Apple Vision Pro, and web browsers.";
 
     return {
@@ -93,3 +93,4 @@ export default async function VRStudioPage({ params }: Props) {
         </>
     );
 }
+

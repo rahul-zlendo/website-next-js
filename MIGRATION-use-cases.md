@@ -65,7 +65,7 @@ import ModernArchStudioImg from '@/src/assets/use-case/modern-architecture-studi
 ```typescript
 // layout.tsx
 export const metadata: Metadata = {
-    title: 'Home Design Use Cases | Zlendo Realty Solutions',
+    title: 'Home Design Use Cases',
     description: 'Discover how Zlendo Realty is used by homeowners, designers, builders, and real estate professionals worldwide.',
     keywords: 'home design use cases, interior design solutions, real estate design tools, builder design software, architecture use cases',
 };

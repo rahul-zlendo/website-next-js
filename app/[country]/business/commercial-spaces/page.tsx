@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cms = await getClient(false).fetch(commercialSpacesPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cms?.seoTitle ?? 'Commercial Spaces | Zlendo Realty';
+    const seoTitle = cms?.seoTitle ?? 'Commercial Spaces';
     const seoDesc = cms?.seoDescription ?? 'From startup offices to flagship retail stores, ensure every square foot is optimized for productivity and brand identity.';
 
     return {
@@ -46,3 +46,4 @@ export default async function Page({ params }: Props) {
         <CommercialSpacesClient cms={cms} />
     );
 }
+

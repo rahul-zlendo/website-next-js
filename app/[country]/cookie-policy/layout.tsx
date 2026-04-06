@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Cookie Policy | Zlendo Realty',
+    title: 'Cookie Policy',
     description: 'Zlendo Realty Cookie Policy - Learn how we use cookies and similar technologies on our website.',
     keywords: [
         'cookie policy',
@@ -28,3 +28,4 @@ export default function CookiePolicyLayout({
 }) {
     return <>{children}</>;
 }
+
