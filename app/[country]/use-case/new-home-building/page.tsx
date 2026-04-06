@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cms = await getClient(false).fetch(newHomeBuildingPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cms?.seoTitle ?? 'New Home Building Use Cases | Zlendo Realty';
+    const seoTitle = cms?.seoTitle ?? 'New Home Building Use Cases';
     const seoDesc = cms?.seoDescription ?? 'From foundation to final finishes, visualize every detail of your new home construction to ensure a perfect build.';
 
     return {
@@ -46,3 +46,4 @@ export default async function Page({ params }: Props) {
         <NewHomeBuildingClient cms={cms} />
     );
 }
+

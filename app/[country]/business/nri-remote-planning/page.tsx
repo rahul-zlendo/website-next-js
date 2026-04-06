@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cms = await getClient(false).fetch(nriRemotePlanningPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cms?.seoTitle ?? 'NRI & Remote Planning | Zlendo Realty';
+    const seoTitle = cms?.seoTitle ?? 'NRI & Remote Planning';
     const seoDesc = cms?.seoDescription ?? 'Manage international and remote projects with absolute clarity, ensuring your NRI clients feel present at every step of the journey.';
 
     return {
@@ -46,3 +46,4 @@ export default async function Page({ params }: Props) {
         <NRIRemotePlanningClient cms={cms} />
     );
 }
+

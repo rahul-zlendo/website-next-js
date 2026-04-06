@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const cms = await getClient(preview).fetch(vastuPageQuery).catch(() => null);
 
     return {
-        title: cms?.seoTitle || 'Vastu Optimizer - Align Your Home with Ancient Wisdom | Zlendo Realty',
+        title: cms?.seoTitle || 'Vastu Optimizer - Align Your Home with Ancient Wisdom',
         description: cms?.seoDescription || 'Combine modern design with Vastu Shastra principles. Our automated analysis ensures your home brings health, wealth, and harmony.',
     };
 }
@@ -95,3 +95,4 @@ export default async function VastuPage() {
         </>
     );
 }
+

@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cmsSeo = await getClient(false).fetch(twoDTo3DPageQuery);
     } catch { /* fallback */ }
 
-    const title = cmsSeo?.seoTitle || "2D to 3D Converter - Instant Architectural Visualization | Zlendo Realty";
+    const title = cmsSeo?.seoTitle || "2D to 3D Converter - Instant Architectural Visualization";
     const description = cmsSeo?.seoDescription || "Instantly convert 2D floor plans into interactive 3D models. Best online 3D home design software for architects, builders, and individuals. Start free today!";
 
     return {
@@ -154,3 +154,4 @@ export default async function TwoDToThreeDPage() {
         </>
     );
 }
+

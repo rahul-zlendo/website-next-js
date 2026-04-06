@@ -11,15 +11,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (country === 'in') {
         return {
             keywords: [
-        'designers',
-        'architects',
-        'interior experts',
-        'zlendo realty ai design software',
-        'floor planner',
-        'online civil design software',
-        'home planning software',
-        'building design software',
-    ],
+                'designers',
+                'architects',
+                'interior experts',
+                'zlendo realty ai design software',
+                'floor planner',
+                'online civil design software',
+                'home planning software',
+                'building design software',
+            ],
             title: {
                 absolute: 'Zlendo Realty | India’s Leading Cloud Platform for Designers & Architects',
             },
@@ -39,17 +39,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     return {
-            keywords: [
-        'designers',
-        'architects',
-        'interior experts',
-        'zlendo realty ai design software',
-        'floor planner',
-        'online civil design software',
-        'home planning software',
-        'building design software',
-    ],
-        title: 'Business Solutions | Zlendo Realty',
+        keywords: [
+            'designers',
+            'architects',
+            'interior experts',
+            'zlendo realty ai design software',
+            'floor planner',
+            'online civil design software',
+            'home planning software',
+            'building design software',
+        ],
+        title: 'Business Solutions',
     };
 }
 

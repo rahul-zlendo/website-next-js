@@ -20,7 +20,7 @@ export default function VastuOptimizationClient({ cms }: VastuOptimizationClient
 
     // Set document title and meta tags for SEO from CMS or defaults
     useEffect(() => {
-        document.title = cms?.seoTitle ?? 'Vastu Optimization Use Cases | Zlendo Realty';
+        document.title = cms?.seoTitle ?? 'Vastu Optimization Use Cases';
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             metaDescription.setAttribute('content', cms?.seoDescription ?? 'Ensure your home supports peace, health, and prosperity through data-driven Vastu optimization and visual clarity.');
@@ -133,3 +133,4 @@ export default function VastuOptimizationClient({ cms }: VastuOptimizationClient
         </div>
     );
 }
+

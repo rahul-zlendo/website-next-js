@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             '2bhk house design',
             'apartment design',
         ],
-        title: 'Template Details | Zlendo Realty',
+        title: 'Template Details',
     };
 }
 
@@ -72,3 +72,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

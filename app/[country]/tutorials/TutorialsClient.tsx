@@ -36,7 +36,7 @@ export default function TutorialsClient({ cms }: { cms: any }) {
 
     const playlistVideos = cms?.videos || defaultVideos;
     const playlistId = cms?.playlistId || 'PLetnELr5c_JVwUtuFKM9wGjGKrKPrGmsa';
-    const playlistTitle = cms?.playlistTitle || 'Beginner Guide | Zlendo Realty 2026';
+    const playlistTitle = cms?.playlistTitle || 'Beginner Guide 2026';
     const activeVideo = playlistVideos[activeIndex] || playlistVideos[0];
 
     const embedSrc = (videoId: string, autoplay = false) =>
@@ -149,3 +149,4 @@ export default function TutorialsClient({ cms }: { cms: any }) {
         </div>
     );
 }
+

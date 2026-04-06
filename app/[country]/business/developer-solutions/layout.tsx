@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Developer Design Solutions | Zlendo Realty',
+    title: 'Developer Design Solutions',
     description:
         'Comprehensive design solutions for real estate developers. AI-powered floor plans, 3D architecture, virtual walkthroughs, and construction cost estimation.',
     keywords: [
@@ -52,3 +52,4 @@ export default function DeveloperSolutionsLayout({
 }) {
     return <>{children}</>;
 }
+

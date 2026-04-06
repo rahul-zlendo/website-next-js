@@ -19,7 +19,7 @@ export async function generateMetadata(
   const country = countryCode.toUpperCase();
 
   return {
-    title: data?.seoTitle || `Smart Construction Cost Estimator | Zlendo Realty ${country}`,
+    title: data?.seoTitle || `Smart Construction Cost Estimator ${country}`,
     description: data?.seoDescription || 'Estimate residential construction costs accurately with AI-driven insights.',
     keywords: [
       'construction cost calculator',
@@ -96,3 +96,4 @@ export default async function CostEstimatorPage() {
     </>
   );
 }
+

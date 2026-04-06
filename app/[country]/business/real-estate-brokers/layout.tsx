@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Real Estate Broker Tools | Zlendo Realty',
+    title: 'Real Estate Broker Tools',
     description:
         'Empower your property sales with 3D floor plans, virtual tours, and interactive visualization tools. Close deals faster with Zlendo Realty.',
     keywords: [
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
         'property showcase',
     ],
     openGraph: {
-        title: 'Real Estate Broker Tools | Zlendo Realty',
+        title: 'Real Estate Broker Tools',
         description: 'Close deals faster with immersive 3D property visualization and virtual tours.',
         url: 'https://zlendorealty.com/in/business/real-estate-brokers',
         siteName: 'Zlendo Realty',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Real Estate Broker Tools | Zlendo Realty',
+        title: 'Real Estate Broker Tools',
         description: 'Immersive 3D property tours for faster deal closures.',
     },
     alternates: {
@@ -55,3 +55,4 @@ export default function RealEstateBrokersLayout({
 }) {
     return <>{children}</>;
 }
+

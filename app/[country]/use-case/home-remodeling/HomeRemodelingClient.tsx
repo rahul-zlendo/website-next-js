@@ -20,7 +20,7 @@ export default function HomeRemodelingClient({ cms }: HomeRemodelingClientProps)
 
     // Set document title and meta tags for SEO from CMS or defaults
     useEffect(() => {
-        document.title = cms?.seoTitle ?? 'Home Remodeling Use Cases | Zlendo Realty';
+        document.title = cms?.seoTitle ?? 'Home Remodeling Use Cases';
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             metaDescription.setAttribute('content', cms?.seoDescription ?? 'Visualize renovations in photorealistic 3D before you start building. See how Zlendo Realty helps homeowners avoid costly changes and rework.');
@@ -133,3 +133,4 @@ export default function HomeRemodelingClient({ cms }: HomeRemodelingClientProps)
         </div>
     );
 }
+

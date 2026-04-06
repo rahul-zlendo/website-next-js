@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cms = await getClient(false).fetch(developerSolutionsPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cms?.seoTitle ?? 'Developer Solutions | Zlendo Realty';
+    const seoTitle = cms?.seoTitle ?? 'Developer Solutions';
     const seoDesc = cms?.seoDescription ?? 'Transform complex design concepts into hyper-realistic visual experiences that eliminate confusion and accelerate project lifecycles.';
 
     return {
@@ -46,3 +46,4 @@ export default async function Page({ params }: Props) {
         <DeveloperSolutionsClient cms={cms} />
     );
 }
+

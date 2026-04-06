@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         '3d home design',
         'floor design',
     ],
-        title: 'Contact Us | Zlendo Realty',
+        title: 'Contact Us',
     };
 }
 
@@ -55,3 +55,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

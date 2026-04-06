@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const cms = await getClient(preview).fetch(interiorsExteriorsPageQuery).catch(() => null);
 
     return {
-        title: cms?.seoTitle || 'Interiors & Exteriors - Indian Homes. Indian Lifestyles. | Zlendo Realty',
+        title: cms?.seoTitle || 'Interiors & Exteriors - Indian Homes. Indian Lifestyles.',
         description: cms?.seoDescription || 'Experience interior and exterior design intelligence that respects your culture, climate, and religious preferences across India.',
     };
 }
@@ -189,3 +189,4 @@ export default async function InteriorsExteriorsPage() {
         </>
     );
 }
+

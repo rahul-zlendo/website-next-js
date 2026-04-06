@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             'building layout templates',
             'downloadable floor plan templates',
         ],
-        title: 'Home Plan Templates | Zlendo Realty',
+        title: 'Home Plan Templates',
     };
 }
 
@@ -70,3 +70,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

@@ -200,7 +200,7 @@ Each page exports a `generateMetadata` function:
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Page Title | Zlendo Realty',
+  title: 'Page Title',
   description: 'Page description',
   openGraph: {
     title: 'Page Title',

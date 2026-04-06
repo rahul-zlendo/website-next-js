@@ -20,7 +20,7 @@ export default function CommercialSpacesClient({ cms }: CommercialSpacesClientPr
 
     // Set document title and meta tags for SEO from CMS or defaults
     useEffect(() => {
-        document.title = cms?.seoTitle ?? 'Commercial Spaces | Zlendo Realty';
+        document.title = cms?.seoTitle ?? 'Commercial Spaces';
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
             metaDescription.setAttribute('content', cms?.seoDescription ?? 'From startup offices to flagship retail stores, ensure every square foot is optimized for productivity and brand identity.');
@@ -133,3 +133,4 @@ export default function CommercialSpacesClient({ cms }: CommercialSpacesClientPr
         </div>
     );
 }
+

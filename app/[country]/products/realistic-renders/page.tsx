@@ -19,7 +19,7 @@ export async function generateMetadata(
   const country = countryCode.toUpperCase();
 
   return {
-    title: data?.seoTitle || `Realistic Renders | 8K Interior Visualization | Zlendo Realty ${country}`,
+    title: data?.seoTitle || `Realistic Renders | 8K Interior Visualization ${country}`,
     description: data?.seoDescription || 'Experience your future home with 8K photorealism and intelligent light simulation.',
     keywords: [
       'realistic renders',
@@ -96,3 +96,4 @@ export default async function RealisticRendersPage() {
     </>
   );
 }
+

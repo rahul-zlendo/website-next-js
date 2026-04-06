@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cms = await getClient(false).fetch(vastuOptimizationPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cms?.seoTitle ?? 'Vastu Optimization Use Cases | Zlendo Realty';
+    const seoTitle = cms?.seoTitle ?? 'Vastu Optimization Use Cases';
     const seoDesc = cms?.seoDescription ?? 'Ensure your home supports peace, health, and prosperity through data-driven Vastu optimization and visual clarity.';
 
     return {
@@ -46,3 +46,4 @@ export default async function Page({ params }: Props) {
         <VastuOptimizationClient cms={cms} />
     );
 }
+
