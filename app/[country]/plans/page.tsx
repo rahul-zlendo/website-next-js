@@ -146,7 +146,7 @@ const PricingPage = () => {
                         {plans.map((plan, index) => {
                             const Icon = getPlanIcon(plan.planName || '');
                             const isFree = plan.planName?.toLowerCase().includes('free');
-                            const isProPlus = plan.planName?.toLowerCase().includes('pro plus') || plan.planName?.toLowerCase().includes('plus');
+                            const isProPlus = plan.planName?.toLowerCase().includes('Designer Plus') || plan.planName?.toLowerCase().includes('plus');
                             const isPopular = !!plan.popular;
                             const isCurrentPlan = isAuthenticated && user && user.currentPlanId === plan.planId;
                             const badge = isCurrentPlan ? 'Current Plan' : isPopular ? 'Most Popular' : isProPlus ? 'Best Value' : null;
