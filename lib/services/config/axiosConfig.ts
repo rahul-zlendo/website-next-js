@@ -114,7 +114,11 @@ axiosInstance.interceptors.response.use(
         })
           .then((token) => {
             originalRequest._retry = true;
-            originalRequest.headers["Authorization"] = `Bearer ${token}`;
+            
+            // Force the new token into the headers
+            if (originalRequest.headers) {
+              originalRequest.headers["Authorization"] = `Bearer ${token}`;
+            }
 
             // Fix for APIs that pass the token in the request body (like GetUserDetailsByToken)
             if (originalRequest.data) {
@@ -207,7 +211,9 @@ axiosInstance.interceptors.response.use(
         if (newAccessToken) {
           localStorage.setItem("authToken", newAccessToken);
           localStorage.setItem("accessToken", newAccessToken);
-          // Set cookie with shared domain for subdomains
+          
+          // CRITICAL: Clear any old subdomain-specific cookies before setting the new shared one
+          Cookies.remove('accessToken'); // Clear local subdomain cookie
           Cookies.set('accessToken', newAccessToken, { domain: '.zlendorealty.com', path: '/' });
           
           // Update the global instance headers
@@ -215,7 +221,9 @@ axiosInstance.interceptors.response.use(
         }
         if (newRefreshToken) {
           localStorage.setItem("refreshToken", newRefreshToken);
-          // Set cookie with shared domain for subdomains
+          
+          // CRITICAL: Clear any old subdomain-specific cookies before setting the new shared one
+          Cookies.remove('refreshToken'); // Clear local subdomain cookie
           Cookies.set('refreshToken', newRefreshToken, { domain: '.zlendorealty.com', path: '/' });
         }
 
