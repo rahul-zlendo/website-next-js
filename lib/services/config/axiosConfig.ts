@@ -140,7 +140,8 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      let refreshToken = localStorage.getItem("refreshToken");
+      // Try to get refreshToken from LocalStorage first, then Cookies
+      let refreshToken = localStorage.getItem("refreshToken") || Cookies.get("refreshToken");
 
       if (refreshToken) {
         // Clean the token to remove any extra quotes or whitespace
@@ -206,13 +207,16 @@ axiosInstance.interceptors.response.use(
         if (newAccessToken) {
           localStorage.setItem("authToken", newAccessToken);
           localStorage.setItem("accessToken", newAccessToken);
-          Cookies.set('accessToken', newAccessToken); // Ensure Cookies are updated too
-
-          // Update the global instance headers so future requests use the new token immediately
+          // Set cookie with shared domain for subdomains
+          Cookies.set('accessToken', newAccessToken, { domain: '.zlendorealty.com', path: '/' });
+          
+          // Update the global instance headers
           axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
         }
         if (newRefreshToken) {
           localStorage.setItem("refreshToken", newRefreshToken);
+          // Set cookie with shared domain for subdomains
+          Cookies.set('refreshToken', newRefreshToken, { domain: '.zlendorealty.com', path: '/' });
         }
 
         isRefreshing = false;
