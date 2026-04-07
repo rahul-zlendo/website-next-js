@@ -114,7 +114,7 @@ axiosInstance.interceptors.response.use(
         })
           .then((token) => {
             originalRequest._retry = true;
-            
+
             // Force the new token into the headers
             if (originalRequest.headers) {
               originalRequest.headers["Authorization"] = `Bearer ${token}`;
@@ -211,17 +211,17 @@ axiosInstance.interceptors.response.use(
         if (newAccessToken) {
           localStorage.setItem("authToken", newAccessToken);
           localStorage.setItem("accessToken", newAccessToken);
-          
+
           // CRITICAL: Clear any old subdomain-specific cookies before setting the new shared one
           Cookies.remove('accessToken'); // Clear local subdomain cookie
           Cookies.set('accessToken', newAccessToken, { domain: '.zlendorealty.com', path: '/' });
-          
+
           // Update the global instance headers
           axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${newAccessToken}`;
         }
         if (newRefreshToken) {
           localStorage.setItem("refreshToken", newRefreshToken);
-          
+
           // CRITICAL: Clear any old subdomain-specific cookies before setting the new shared one
           Cookies.remove('refreshToken'); // Clear local subdomain cookie
           Cookies.set('refreshToken', newRefreshToken, { domain: '.zlendorealty.com', path: '/' });
@@ -268,6 +268,14 @@ axiosInstance.interceptors.response.use(
         );
         isRefreshing = false;
         processQueue(refreshError, null);
+
+        // Ensure original request falls back to default headers if possible
+        if (originalRequest.headers) {
+          const headers = originalRequest.headers as any;
+          delete headers['Authorization'];
+          headers['zrealtyserviceapikey'] = DEFAULT_API_TOKEN;
+        }
+
         forceLogout();
         return Promise.reject({
           status: 401,
