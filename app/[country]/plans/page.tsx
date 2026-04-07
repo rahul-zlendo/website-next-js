@@ -140,16 +140,22 @@ const PricingPage = () => {
                 <div className="flex justify-center items-center py-20 min-h-[400px]">
                     <Loader2 className="w-10 h-10 text-zlendo-teal animate-spin" />
                 </div>
-            ) : (
-                <div className="container-custom px-4 mb-24">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-                        {plans.map((plan, index) => {
-                            const Icon = getPlanIcon(plan.planName || '');
-                            const isFree = plan.planName?.toLowerCase().includes('free');
-                            const isProPlus = plan.planName?.toLowerCase().includes('Designer Plus') || plan.planName?.toLowerCase().includes('plus');
-                            const isPopular = !!plan.popular;
-                            const isCurrentPlan = isAuthenticated && user && user.currentPlanId === plan.planId;
-                            const badge = isCurrentPlan ? 'Current Plan' : isPopular ? 'Most Popular' : isProPlus ? 'Best Value' : null;
+            ) : (() => {
+                const currentPlan = plans.find(p => p.planId === user?.currentPlanId);
+                const currentPlanOrder = currentPlan?.displayOrder || 0;
+                
+                return (
+                    <div className="container-custom px-4 mb-24">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                            {plans.map((plan, index) => {
+                                const Icon = getPlanIcon(plan.planName || '');
+                                const isFree = plan.planName?.toLowerCase().includes('free');
+                                const isProPlus = plan.planName?.toLowerCase().includes('Designer Plus') || plan.planName?.toLowerCase().includes('plus');
+                                const isPopular = !!plan.popular;
+                                const isCurrentPlan = isAuthenticated && user && user.currentPlanId === plan.planId;
+                                const isDowngrade = isAuthenticated && user && (plan.displayOrder || 0) < currentPlanOrder;
+                                
+                                const badge = isCurrentPlan ? 'Current Plan' : isPopular ? 'Most Popular' : isProPlus ? 'Best Value' : null;
                             
                             // Period mapping: month -> price, monthly -> monthPrice
                             const period = billingCycle; 
@@ -274,20 +280,26 @@ const PricingPage = () => {
 
                                     {/* CTA Button */}
                                     <div className="mb-8 mt-auto">
-                                        {isAuthenticated && user ? (
-                                            <Link
-                                                href={DASHBOARD_URL}
-                                                className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
-                                            >
-                                                Get Started Now
-                                            </Link>
+                                        {(isCurrentPlan || isDowngrade) ? (
+                                            <div className={`w-full py-4 rounded-full font-black text-base flex items-center justify-center border-2 ${isCurrentPlan ? 'border-zlendo-teal/20 bg-zlendo-teal/5 text-zlendo-teal' : 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed'}`}>
+                                                {isCurrentPlan ? 'Current Plan' : 'Higher Plan Active'}
+                                            </div>
                                         ) : (
-                                            <Link
-                                                href={SIGNUP_URL}
-                                                className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
-                                            >
-                                                Get Started Now
-                                            </Link>
+                                            isAuthenticated && user ? (
+                                                <Link
+                                                    href={DASHBOARD_URL}
+                                                    className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
+                                                >
+                                                    Get Started Now
+                                                </Link>
+                                            ) : (
+                                                <Link
+                                                    href={SIGNUP_URL}
+                                                    className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
+                                                >
+                                                    Get Started Now
+                                                </Link>
+                                            )
                                         )}
                                     </div>
 
@@ -325,9 +337,10 @@ const PricingPage = () => {
                                 </motion.div>
                             );
                         })}
+                        </div>
                     </div>
-                </div>
-            )}
+                );
+            })()}
 
             {/* Compare Plans Section */}
             {!loading && compareData.length > 0 && plans.length > 0 && (
