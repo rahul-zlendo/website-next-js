@@ -20,7 +20,7 @@ const PricingPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     console.log(user, isAuthenticated, "user");
-    
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,12 +38,12 @@ const PricingPage = () => {
                     .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
 
                 setPlans(residentialPlans);
-                
+
                 // Set comparison data directly
                 if (Array.isArray(compareResponse)) {
                     setCompareData(compareResponse);
                 }
-                
+
                 setError(null);
             } catch (err: any) {
                 console.error("Failed to load plans:", err);
@@ -106,9 +106,8 @@ const PricingPage = () => {
                             <button
                                 key={cycle}
                                 onClick={() => setBillingCycle(cycle as 'month' | 'monthly')}
-                                className={`relative w-[130px] md:w-[160px] py-4 rounded-full text-sm font-black transition-all duration-500 flex items-center justify-center ${
-                                    billingCycle === cycle ? 'text-white' : 'text-gray-400 hover:text-zlendo-teal'
-                                }`}
+                                className={`relative w-[130px] md:w-[160px] py-4 rounded-full text-sm font-black transition-all duration-500 flex items-center justify-center ${billingCycle === cycle ? 'text-white' : 'text-gray-400 hover:text-zlendo-teal'
+                                    }`}
                             >
                                 <span className="relative z-10">
                                     {cycle === 'month' ? 'One Time' : 'Monthly'}
@@ -143,7 +142,7 @@ const PricingPage = () => {
             ) : (() => {
                 const currentPlan = plans.find(p => p.planId === user?.currentPlanId);
                 const currentPlanOrder = currentPlan?.displayOrder || 0;
-                
+
                 return (
                     <div className="container-custom px-4 mb-24">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
@@ -154,189 +153,188 @@ const PricingPage = () => {
                                 const isPopular = !!plan.popular;
                                 const isCurrentPlan = isAuthenticated && user && user.currentPlanId === plan.planId;
                                 const isDowngrade = isAuthenticated && user && (plan.displayOrder || 0) < currentPlanOrder;
-                                
+
                                 const badge = isCurrentPlan ? 'Current Plan' : isPopular ? 'Most Popular' : isProPlus ? 'Best Value' : null;
-                            
-                            // Period mapping: month -> price, monthly -> monthPrice
-                            const period = billingCycle; 
 
-                            const rawPrice = Number(plan.price) || 0;
-                            const normalPrice = period === 'month' ? rawPrice : (Number(plan.monthPrice) || rawPrice);
-                            
-                            let discountedPrice = normalPrice;
-                            let hasDiscount = false;
-                            let discountLabel = '';
+                                // Period mapping: month -> price, monthly -> monthPrice
+                                const period = billingCycle;
 
-                            if (activeOffer && !isFree) {
-                                if (activeOffer.offerType === 'Percentage') {
-                                    discountedPrice = normalPrice * (1 - (activeOffer.discountValue / 100));
-                                    hasDiscount = true;
-                                    discountLabel = `${activeOffer.discountValue}% OFF`;
-                                } else if (activeOffer.offerType === 'Flat') {
-                                    const rawDiscountedPrice = normalPrice - activeOffer.discountValue;
-                                    // Safety check: Skip offer if it results in a negative price
-                                    if (rawDiscountedPrice >= 0) {
-                                        discountedPrice = rawDiscountedPrice;
+                                const rawPrice = Number(plan.price) || 0;
+                                const normalPrice = period === 'month' ? rawPrice : (Number(plan.monthPrice) || rawPrice);
+
+                                let discountedPrice = normalPrice;
+                                let hasDiscount = false;
+                                let discountLabel = '';
+
+                                if (activeOffer && !isFree) {
+                                    if (activeOffer.offerType === 'Percentage') {
+                                        discountedPrice = normalPrice * (1 - (activeOffer.discountValue / 100));
                                         hasDiscount = true;
-                                        // Calculate what percentage the flat discount represents
-                                        const percentageOff = Math.round((activeOffer.discountValue / normalPrice) * 100);
-                                        discountLabel = `${percentageOff}% OFF`;
+                                        discountLabel = `${activeOffer.discountValue}% OFF`;
+                                    } else if (activeOffer.offerType === 'Flat') {
+                                        const rawDiscountedPrice = normalPrice - activeOffer.discountValue;
+                                        // Safety check: Skip offer if it results in a negative price
+                                        if (rawDiscountedPrice >= 0) {
+                                            discountedPrice = rawDiscountedPrice;
+                                            hasDiscount = true;
+                                            // Calculate what percentage the flat discount represents
+                                            const percentageOff = Math.round((activeOffer.discountValue / normalPrice) * 100);
+                                            discountLabel = `${percentageOff}% OFF`;
+                                        }
+                                    }
+                                    discountedPrice = Math.round(discountedPrice);
+                                }
+
+                                const displayPrice = discountedPrice.toLocaleString('en-IN');
+                                const originalPriceFormatted = normalPrice.toLocaleString('en-IN');
+                                const periodLabel = period === 'month' ? 'Month' : 'mo';
+
+                                // Map features from mainFeatures or featureName
+                                let featuresList: string[] = [];
+                                if (plan.mainFeatures && Array.isArray(plan.mainFeatures)) {
+                                    featuresList = plan.mainFeatures
+                                        .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+                                        .map(mf => {
+                                            let text = mf.featureName;
+                                            if (mf.subFeatures && mf.subFeatures.length > 0) {
+                                                const subNames = mf.subFeatures
+                                                    .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
+                                                    .map(sf => sf.featureName)
+                                                    .join(' / ');
+                                                text = `${mf.featureName} - ${subNames}`;
+                                            }
+                                            return text;
+                                        });
+                                } else if (plan.featureName && Array.isArray(plan.featureName)) {
+                                    featuresList = plan.featureName;
+                                } else if (plan.features) {
+                                    if (Array.isArray(plan.features)) {
+                                        featuresList = plan.features.map((f: any) => typeof f === 'string' ? f : f.text);
+                                    } else if (typeof plan.features === 'string') {
+                                        try {
+                                            const pFeatures = JSON.parse(plan.features);
+                                            if (Array.isArray(pFeatures)) {
+                                                featuresList = pFeatures.map((f: any) => typeof f === 'string' ? f : f.text);
+                                            }
+                                        } catch (e) {
+                                            featuresList = (plan.features as string).split(',').map((f: string) => f.trim());
+                                        }
                                     }
                                 }
-                                discountedPrice = Math.round(discountedPrice);
-                            }
 
-                            const displayPrice = discountedPrice.toLocaleString('en-IN');
-                            const originalPriceFormatted = normalPrice.toLocaleString('en-IN');
-                            const periodLabel = period === 'month' ? 'Month' : 'mo';
-                            
-                            // Map features from mainFeatures or featureName
-                            let featuresList: string[] = [];
-                            if (plan.mainFeatures && Array.isArray(plan.mainFeatures)) {
-                                featuresList = plan.mainFeatures
-                                    .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
-                                    .map(mf => {
-                                        let text = mf.featureName;
-                                        if (mf.subFeatures && mf.subFeatures.length > 0) {
-                                            const subNames = mf.subFeatures
-                                                .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0))
-                                                .map(sf => sf.featureName)
-                                                .join(' / ');
-                                            text = `${mf.featureName} - ${subNames}`;
-                                        }
-                                        return text;
-                                    });
-                            } else if (plan.featureName && Array.isArray(plan.featureName)) {
-                                featuresList = plan.featureName;
-                            } else if (plan.features) {
-                                if (Array.isArray(plan.features)) {
-                                    featuresList = plan.features.map((f: any) => typeof f === 'string' ? f : f.text);
-                                } else if (typeof plan.features === 'string') {
-                                    try {
-                                        const pFeatures = JSON.parse(plan.features);
-                                        if (Array.isArray(pFeatures)) {
-                                            featuresList = pFeatures.map((f: any) => typeof f === 'string' ? f : f.text);
-                                        }
-                                    } catch(e) {
-                                        featuresList = (plan.features as string).split(',').map((f: string) => f.trim());
-                                    }
-                                }
-                            }
+                                return (
+                                    <motion.div
+                                        key={plan.planId || index}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.4 } }}
+                                        whileHover={{ y: -8, scale: 1.01, transition: { duration: 0.2 } }}
+                                        className={`relative bg-white rounded-[24px] p-8 border transition-colors transition-shadow duration-300 flex flex-col hover:shadow-xl ${isCurrentPlan || isProPlus
+                                                ? 'border-zlendo-teal shadow-[0_20px_40px_-15px_rgba(0,168,132,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,168,132,0.25)] z-10'
+                                                : 'border-gray-100 shadow-lg shadow-black/[0.02] hover:border-zlendo-teal/30 hover:shadow-black/[0.05]'
+                                            }`}
+                                    >
+                                        {badge && (
+                                            <div className="absolute top-0 right-8 -translate-y-1/2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-md bg-zlendo-orange">
+                                                {badge}
+                                            </div>
+                                        )}
 
-                            return (
-                                <motion.div
-                                    key={plan.planId || index}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.4 } }}
-                                    whileHover={{ y: -8, scale: 1.01, transition: { duration: 0.2 } }}
-                                    className={`relative bg-white rounded-[24px] p-8 border transition-colors transition-shadow duration-300 flex flex-col hover:shadow-xl ${
-                                        isCurrentPlan || isProPlus
-                                            ? 'border-zlendo-teal shadow-[0_20px_40px_-15px_rgba(0,168,132,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,168,132,0.25)] z-10'
-                                            : 'border-gray-100 shadow-lg shadow-black/[0.02] hover:border-zlendo-teal/30 hover:shadow-black/[0.05]'
-                                    }`}
-                                >
-                                    {badge && (
-                                        <div className="absolute top-0 right-8 -translate-y-1/2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-md bg-zlendo-orange">
-                                            {badge}
+                                        {/* Header */}
+                                        <div className="mb-6">
+                                            <h3 className="text-2xl font-black text-zlendo-grey-dark">{plan.planName}</h3>
+                                            <p className="text-sm font-bold text-gray-400 mt-1 line-clamp-2">{plan.description}</p>
                                         </div>
-                                    )}
 
-                                    {/* Header */}
-                                    <div className="mb-6">
-                                        <h3 className="text-2xl font-black text-zlendo-grey-dark">{plan.planName}</h3>
-                                        <p className="text-sm font-bold text-gray-400 mt-1 line-clamp-2">{plan.description}</p>
-                                    </div>
-
-                                    {/* Price */}
-                                    <div className="mb-8 h-20 flex flex-col justify-center">
-                                        {isFree ? (
-                                            <div className="text-4xl font-black text-zlendo-grey-dark">₹0</div>
-                                        ) : (
-                                            <div className="flex flex-col gap-1">
-                                                {hasDiscount && (
-                                                    <div className="flex items-center gap-2 mb-1">
-                                                        <span className="text-xl font-bold text-gray-400 line-through opacity-60">
-                                                            ₹{originalPriceFormatted}
-                                                        </span>
-                                                        <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-xs font-black">
-                                                            {discountLabel}
-                                                        </span>
-                                                    </div>
-                                                )}
-                                                <div className="flex items-baseline gap-2 flex-wrap">
-                                                    <span className="text-4xl font-black text-zlendo-grey-dark">
-                                                        ₹{displayPrice}
-                                                    </span>
-                                                    <span className="text-sm font-bold text-gray-400 opacity-60">/{periodLabel}</span>
-                                                </div>
-                                            </div>
-                                        )}
-                                        {isFree && (
-                                            <p className="text-xs font-bold text-zlendo-grey-medium opacity-60 mt-1">
-                                                Access to Project Plans
-                                            </p>
-                                        )}
-                                    </div>
-
-                                    {/* CTA Button */}
-                                    <div className="mb-8 mt-auto">
-                                        {(isCurrentPlan || isDowngrade) ? (
-                                            <div className={`w-full py-4 rounded-full font-black text-base flex items-center justify-center border-2 ${isCurrentPlan ? 'border-zlendo-teal/20 bg-zlendo-teal/5 text-zlendo-teal' : 'border-gray-100 bg-gray-50 text-gray-400 cursor-not-allowed'}`}>
-                                                {isCurrentPlan ? 'Current Plan' : 'Higher Plan Active'}
-                                            </div>
-                                        ) : (
-                                            isAuthenticated && user ? (
-                                                <Link
-                                                    href={DASHBOARD_URL}
-                                                    className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
-                                                >
-                                                    Get Started Now
-                                                </Link>
+                                        {/* Price */}
+                                        <div className="mb-8 h-20 flex flex-col justify-center">
+                                            {isFree ? (
+                                                <div className="text-4xl font-black text-zlendo-grey-dark">₹0</div>
                                             ) : (
-                                                <Link
-                                                    href={SIGNUP_URL}
-                                                    className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
-                                                >
-                                                    Get Started Now
-                                                </Link>
-                                            )
-                                        )}
-                                    </div>
-
-                                    {/* Features */}
-                                    <div className="flex-grow">
-                                        {isFree && (
-                                            <p className="text-xs font-black text-zlendo-grey-dark/40 uppercase tracking-widest mb-4">
-                                                What's included
-                                            </p>
-                                        )}
-                                        <ul className="space-y-4">
-                                            {featuresList.map((feature, fIndex) => (
-                                                <li key={fIndex} className="flex items-start gap-3">
-                                                    {feature.startsWith('*') ? (
-                                                        <span className="text-[10px] font-bold text-zlendo-grey-medium opacity-50 italic mt-2 ml-1">
-                                                            {feature}
-                                                        </span>
-                                                    ) : (
-                                                        <>
-                                                            <Check className="w-4 h-4 text-zlendo-teal shrink-0 mt-0.5" />
-                                                            <div className="text-sm font-bold text-zlendo-grey-dark opacity-80 leading-tight">
-                                                                {feature.includes(' - ') ? (
-                                                                    <>
-                                                                        <span className="font-black">{feature.split(' - ')[0]}</span>
-                                                                        <span className="opacity-70"> - {feature.split(' - ').slice(1).join(' - ')}</span>
-                                                                    </>
-                                                                ) : feature}
-                                                            </div>
-                                                        </>
+                                                <div className="flex flex-col gap-1">
+                                                    {hasDiscount && (
+                                                        <div className="flex items-center gap-2 mb-1">
+                                                            <span className="text-xl font-bold text-gray-400 line-through opacity-60">
+                                                                ₹{originalPriceFormatted}
+                                                            </span>
+                                                            <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-xs font-black">
+                                                                {discountLabel}
+                                                            </span>
+                                                        </div>
                                                     )}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </motion.div>
-                            );
-                        })}
+                                                    <div className="flex items-baseline gap-2 flex-wrap">
+                                                        <span className="text-4xl font-black text-zlendo-grey-dark">
+                                                            ₹{displayPrice}
+                                                        </span>
+                                                        <span className="text-sm font-bold text-gray-400 opacity-60">/{periodLabel}</span>
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {isFree && (
+                                                <p className="text-xs font-bold text-zlendo-grey-medium opacity-60 mt-1">
+                                                    Access to Project Plans
+                                                </p>
+                                            )}
+                                        </div>
+
+                                        {/* CTA Button */}
+                                        <div className="mb-8 mt-auto">
+                                            {(isCurrentPlan || isDowngrade) ? (
+                                                <div className="w-full py-4 rounded-full font-black text-base flex items-center justify-center bg-gray-50 text-gray-300 cursor-not-allowed border border-gray-100/50">
+                                                    Get Started Now
+                                                </div>
+                                            ) : (
+                                                isAuthenticated && user ? (
+                                                    <Link
+                                                        href={DASHBOARD_URL}
+                                                        className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
+                                                    >
+                                                        Get Started Now
+                                                    </Link>
+                                                ) : (
+                                                    <Link
+                                                        href={SIGNUP_URL}
+                                                        className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
+                                                    >
+                                                        Get Started Now
+                                                    </Link>
+                                                )
+                                            )}
+                                        </div>
+
+                                        {/* Features */}
+                                        <div className="flex-grow">
+                                            {isFree && (
+                                                <p className="text-xs font-black text-zlendo-grey-dark/40 uppercase tracking-widest mb-4">
+                                                    What's included
+                                                </p>
+                                            )}
+                                            <ul className="space-y-4">
+                                                {featuresList.map((feature, fIndex) => (
+                                                    <li key={fIndex} className="flex items-start gap-3">
+                                                        {feature.startsWith('*') ? (
+                                                            <span className="text-[10px] font-bold text-zlendo-grey-medium opacity-50 italic mt-2 ml-1">
+                                                                {feature}
+                                                            </span>
+                                                        ) : (
+                                                            <>
+                                                                <Check className="w-4 h-4 text-zlendo-teal shrink-0 mt-0.5" />
+                                                                <div className="text-sm font-bold text-zlendo-grey-dark opacity-80 leading-tight">
+                                                                    {feature.includes(' - ') ? (
+                                                                        <>
+                                                                            <span className="font-black">{feature.split(' - ')[0]}</span>
+                                                                            <span className="opacity-70"> - {feature.split(' - ').slice(1).join(' - ')}</span>
+                                                                        </>
+                                                                    ) : feature}
+                                                                </div>
+                                                            </>
+                                                        )}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </motion.div>
+                                );
+                            })}
                         </div>
                     </div>
                 );
@@ -345,9 +343,9 @@ const PricingPage = () => {
             {/* Compare Plans Section */}
             {!loading && compareData.length > 0 && plans.length > 0 && (
                 <div className="container-custom px-4">
-                    <ComparePlans 
-                        compareData={compareData} 
-                        plansList={plans} 
+                    <ComparePlans
+                        compareData={compareData}
+                        plansList={plans}
                         billingCycle={billingCycle}
                         activeOffer={activeOffer}
                     />
