@@ -172,7 +172,7 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
                     </div>
 
                     {/* Right: Contact Form */}
-                    <div className="lg:col-span-7 relative">
+                    <div id="contact-form" className="lg:col-span-7 relative scroll-mt-24">
                         <div className="absolute inset-0 bg-zlendo-teal/5 blur-[100px] rounded-full -z-10" />
 
                         <div className="bg-white rounded-[40px] p-8 md:p-12 shadow-2xl shadow-black/[0.03] border border-black/[0.03] relative overflow-hidden">

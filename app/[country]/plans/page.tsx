@@ -142,7 +142,7 @@ const PricingPage = () => {
                 </div>
             ) : (
                 <div className="container-custom px-4 mb-24">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
                         {plans.map((plan, index) => {
                             const Icon = getPlanIcon(plan.planName || '');
                             const isFree = plan.planName?.toLowerCase().includes('free');
@@ -230,7 +230,7 @@ const PricingPage = () => {
                                     }`}
                                 >
                                     {badge && (
-                                        <div className={`absolute top-0 right-8 -translate-y-1/2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-md ${(isProPlus && !isCurrentPlan) ? 'bg-gradient-to-r from-zlendo-teal to-emerald-500' : 'bg-zlendo-teal'}`}>
+                                        <div className="absolute top-0 right-8 -translate-y-1/2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-md bg-zlendo-orange">
                                             {badge}
                                         </div>
                                     )}
@@ -275,31 +275,19 @@ const PricingPage = () => {
                                     {/* CTA Button */}
                                     <div className="mb-8 mt-auto">
                                         {isAuthenticated && user ? (
-                                             <Link
-                                            href={DASHBOARD_URL}
-                                            className={`w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center ${
-                                                isProPlus
-                                                    ? 'bg-gradient-to-r from-zlendo-teal to-emerald-500 text-white hover:shadow-lg shadow-emerald-500/20'
-                                                    : isPopular 
-                                                        ? 'bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20'
-                                                        : 'bg-[#e6fcf5] text-zlendo-teal hover:bg-[#d3f9ed]'
-                                            }`}
-                                        >
-                                            {(isCurrentPlan || isFree) ? 'Start Designing' : 'Get Started Now'}
-                                        </Link>
-                                        ) :(
                                             <Link
-                                            href={SIGNUP_URL}
-                                            className={`w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center ${
-                                                isProPlus
-                                                    ? 'bg-gradient-to-r from-zlendo-teal to-emerald-500 text-white hover:shadow-lg shadow-emerald-500/20'
-                                                    : isPopular 
-                                                        ? 'bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20'
-                                                        : 'bg-[#e6fcf5] text-zlendo-teal hover:bg-[#d3f9ed]'
-                                            }`}
-                                        >
-                                            {isFree ? 'Start Designing' : 'Get Started Now'}
-                                        </Link>
+                                                href={DASHBOARD_URL}
+                                                className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
+                                            >
+                                                Get Started Now
+                                            </Link>
+                                        ) : (
+                                            <Link
+                                                href={SIGNUP_URL}
+                                                className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
+                                            >
+                                                Get Started Now
+                                            </Link>
                                         )}
                                     </div>
 
@@ -344,7 +332,12 @@ const PricingPage = () => {
             {/* Compare Plans Section */}
             {!loading && compareData.length > 0 && plans.length > 0 && (
                 <div className="container-custom px-4">
-                    <ComparePlans compareData={compareData} plansList={plans} />
+                    <ComparePlans 
+                        compareData={compareData} 
+                        plansList={plans} 
+                        billingCycle={billingCycle}
+                        activeOffer={activeOffer}
+                    />
                 </div>
             )}
 
