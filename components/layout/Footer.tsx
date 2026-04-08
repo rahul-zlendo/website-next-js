@@ -40,7 +40,7 @@ const resourceLinks = [
     { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
     { label: 'Blog', path: 'https://zlendorealty.com/blog', external: true, newTab: false },
     { label: 'Tutorials', path: getPath('/tutorials') },
-    { label: 'Help Center', path: "https://helpcenter.zlendorealty.com/" , external: true, newTab: false },
+    { label: 'Help Center', path: "https://helpcenter.zlendorealty.com/", external: true, newTab: false },
     { label: 'Partnership', path: getPath('/partners') },
     { label: 'Contact Us', path: getPath('/contact') },
 ];
@@ -56,7 +56,7 @@ const socialLinks = [
 
 const resolveSocialLinks = (cmsSocial: any) => {
     if (!cmsSocial) return socialLinks;
-    
+
     const resolved: typeof socialLinks = [];
     if (cmsSocial.linkedin) resolved.push({ icon: Linkedin, href: cmsSocial.linkedin, bg: 'hover:bg-[#0A66C2]' });
     if (cmsSocial.facebook) resolved.push({ icon: Facebook, href: cmsSocial.facebook, bg: 'hover:bg-[#1877F2]' });
@@ -64,14 +64,14 @@ const resolveSocialLinks = (cmsSocial: any) => {
     if (cmsSocial.twitter) resolved.push({ icon: X, href: cmsSocial.twitter, bg: 'hover:bg-black' });
     if (cmsSocial.pinterest) resolved.push({ icon: Pin, href: cmsSocial.pinterest, bg: 'hover:bg-[#E60023]' });
     if (cmsSocial.youtube) resolved.push({ icon: Youtube, href: cmsSocial.youtube, bg: 'hover:bg-[#FF0000]' });
-    
+
     return resolved.length > 0 ? resolved : socialLinks;
 };
 
-const Footer = ({ 
+const Footer = ({
     hideCTA = false,
-    settings 
-}: { 
+    settings
+}: {
     hideCTA?: boolean;
     settings?: any;
 }) => {
@@ -175,16 +175,16 @@ const Footer = ({
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Contact Us</h4>
                         <ul className="space-y-4 text-[15px]">
                             <li>
+                                <span dangerouslySetInnerHTML={{ __html: '<!--email_off-->' }} />
                                 <a href={`mailto:${settings?.footerEmail ?? "contact@zlendorealty.com"}`} className="flex items-center gap-2.5 group whitespace-nowrap">
                                     <div className="w-7 h-7 rounded-lg bg-zlendo-teal/5 flex items-center justify-center text-zlendo-teal shrink-0 group-hover:bg-zlendo-teal group-hover:text-white transition-all">
                                         <Mail className="w-3.5 h-3.5" />
                                     </div>
-                                    <span dangerouslySetInnerHTML={{ __html: '<!--email_off-->' }} />
                                     <span className="text-[15px] text-[#666666] font-medium group-hover:text-zlendo-teal transition-colors">
                                         contact@zlendorealty.com
                                     </span>
-                                    <span dangerouslySetInnerHTML={{ __html: '<!--/email_off-->' }} />
                                 </a>
+                                <span dangerouslySetInnerHTML={{ __html: '<!--/email_off-->' }} />
                             </li>
                             <li className="pt-4 mt-2 border-t border-black/[0.03]">
                                 <div className="flex items-start gap-2.5">
@@ -223,7 +223,7 @@ const Footer = ({
                         <Link href={getPath('/cookie-policy')} className="hover:text-zlendo-teal transition-colors">Cookie Policy</Link>
                         <Link href={getPath('/terms-of-service')} className="hover:text-zlendo-teal transition-colors">Terms &amp; Conditions</Link>
                         <Link href={getPath('/privacy-policy')} className="hover:text-zlendo-teal transition-colors">Privacy Policy</Link>
-                        
+
                         <CountrySwitcher />
                         <div className="h-4 w-px bg-black/[0.05] hidden md:block" />
                     </div>
