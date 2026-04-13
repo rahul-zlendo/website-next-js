@@ -7,27 +7,35 @@ import Link from 'next/link';
 import { useCountry } from '@/lib/context/CountryContext';
 import { DASHBOARD_URL, LOGIN_URL, SIGNUP_URL } from '@/lib/constants/urls';
 import { getAllSubscriptionsService, compareSubscriptionsService, Subscription } from '@/lib/services/subscriptionService';
-import { useAppSelector } from '@/lib/store/hooks';
+import { useAppSelector, useAppDispatch } from '@/lib/store/hooks';
+import { detectUserCountry } from '@/lib/store/slices/enterpriseSlice';
 import ComparePlans from './ComparePlans';
 
 const PricingPage = () => {
+    const dispatch = useAppDispatch();
     const { getPath } = useCountry();
     const { activeOffer } = useAppSelector((state) => state.offer);
     const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+    const { detectedCountryId, isDetectingCountry } = useAppSelector((state) => state.enterprise);
     const [billingCycle, setBillingCycle] = useState<'month' | 'monthly'>('month');
     const [plans, setPlans] = useState<Subscription[]>([]);
     const [compareData, setCompareData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    console.log(user, isAuthenticated, "user");
+    // console.log(detectedCountryId, user, plans, "detectedCountryId");
 
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
+
+                // 1. Detect country (handles profile country vs IP logic)
+                const countryId = await dispatch(detectUserCountry()).unwrap();
+
+                // 2. Fetch plans using the detected countryId
                 const [plansResponse, compareResponse] = await Promise.all([
-                    getAllSubscriptionsService(),
+                    getAllSubscriptionsService(countryId || undefined),
                     compareSubscriptionsService()
                 ]);
 
@@ -54,7 +62,7 @@ const PricingPage = () => {
         };
 
         fetchData();
-    }, []);
+    }, [dispatch, isAuthenticated, user?.countryId]);
 
     const businessFeatures = [
         'White-label solution',
@@ -145,8 +153,8 @@ const PricingPage = () => {
 
                 return (
                     <div className="container-custom px-4 mb-24">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-                            {plans.map((plan, index) => {
+                        <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
+                            {plans.map((plan: any, index: any) => {
                                 const Icon = getPlanIcon(plan.planName || '');
                                 const isFree = plan.planName?.toLowerCase().includes('free');
                                 const isProPlus = plan.planName?.toLowerCase().includes('Designer Plus') || plan.planName?.toLowerCase().includes('plus');
@@ -228,9 +236,9 @@ const PricingPage = () => {
                                         initial={{ opacity: 0, y: 30 }}
                                         animate={{ opacity: 1, y: 0, transition: { delay: index * 0.1, duration: 0.4 } }}
                                         whileHover={{ y: -8, scale: 1.01, transition: { duration: 0.2 } }}
-                                        className={`relative bg-white rounded-[24px] p-8 border transition-colors transition-shadow duration-300 flex flex-col hover:shadow-xl ${isCurrentPlan || isProPlus
-                                                ? 'border-zlendo-teal shadow-[0_20px_40px_-15px_rgba(0,168,132,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,168,132,0.25)] z-10'
-                                                : 'border-gray-100 shadow-lg shadow-black/[0.02] hover:border-zlendo-teal/30 hover:shadow-black/[0.05]'
+                                        className={`relative bg-white rounded-[24px] p-8 border transition-colors transition-shadow duration-300 flex flex-col hover:shadow-xl w-full md:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] min-h-[500px] ${isCurrentPlan || isProPlus
+                                            ? 'border-zlendo-teal shadow-[0_20px_40px_-15px_rgba(0,168,132,0.15)] hover:shadow-[0_25px_50px_-12px_rgba(0,168,132,0.25)] z-10'
+                                            : 'border-gray-100 shadow-lg shadow-black/[0.02] hover:border-zlendo-teal/30 hover:shadow-black/[0.05]'
                                             }`}
                                     >
                                         {badge && (
@@ -248,13 +256,13 @@ const PricingPage = () => {
                                         {/* Price */}
                                         <div className="mb-8 h-20 flex flex-col justify-center">
                                             {isFree ? (
-                                                <div className="text-4xl font-black text-zlendo-grey-dark">₹0</div>
+                                                <div className="text-4xl font-black text-zlendo-grey-dark">{plan.symbol || '₹'}0</div>
                                             ) : (
                                                 <div className="flex flex-col gap-1">
                                                     {hasDiscount && (
                                                         <div className="flex items-center gap-2 mb-1">
                                                             <span className="text-xl font-bold text-gray-400 line-through opacity-60">
-                                                                ₹{originalPriceFormatted}
+                                                                {plan?.symbol}{originalPriceFormatted}
                                                             </span>
                                                             <span className="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-xs font-black">
                                                                 {discountLabel}
@@ -263,7 +271,7 @@ const PricingPage = () => {
                                                     )}
                                                     <div className="flex items-baseline gap-2 flex-wrap">
                                                         <span className="text-4xl font-black text-zlendo-grey-dark">
-                                                            ₹{displayPrice}
+                                                            {plan?.symbol}{displayPrice}
                                                         </span>
                                                         <span className="text-sm font-bold text-gray-400 opacity-60">/{periodLabel}</span>
                                                     </div>

@@ -51,11 +51,12 @@ export interface TemplateCommentsResponse {
   totalCommentLikes: number;
 }
 
-export const getAllTemplatesService = async (): Promise<Template[]> => {
+export const getAllTemplatesService = async (regionId?: number): Promise<Template[]> => {
   try {
+    const params = regionId ? { RegionId: regionId } : {};
     // Fetch both endpoints in parallel
     const [allTemplatesResponse, communityTemplatesResponse] = await Promise.all([
-      axiosInstance.get(ENDPOINTS_TEMPLATE.GET_ALL),
+      axiosInstance.get(ENDPOINTS_TEMPLATE.GET_ALL, { params }),
       axiosInstance.get(ENDPOINTS_TEMPLATE.GET_COMMUNITY).catch(() => ({ data: [] })) // Fallback to empty array if fails
     ]);
 

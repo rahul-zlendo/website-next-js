@@ -3,6 +3,8 @@ import enterpriseService from "../../services/enterpriseService";
 import type {
   CreateOrUpdateBusinessInfoPayload,
   ListOfValue,
+  Location,
+  Region,
 } from "../../services/enterpriseService";
 
 const initialState = {
@@ -12,9 +14,20 @@ const initialState = {
   isLoadingUserTypes: false,
   industries: [] as ListOfValue[],
   userTypes: [] as ListOfValue[],
+  Location_type: [] as ListOfValue[],
+  locations: [] as Location[],
+  isLoadingLocations: false,
+  regions: [] as Region[],
+  isLoadingRegions: false,
+  detectedCountryId: null as number | null,
+  isDetectingCountry: false,
+  detectedRegionId: null as number | null,
+  isDetectingRegion: false,
   error: null as string | null,
   industriesError: null as string | null,
   userTypesError: null as string | null,
+  locationsError: null as string | null,
+  regionsError: null as string | null,
 };
 
 export const createOrUpdateBusinessInfo = createAsyncThunk<any, any, { rejectValue: string }>(
@@ -39,6 +52,102 @@ export const getAllListOfValues = createAsyncThunk<any, void, { rejectValue: str
     } catch (e: unknown) {
       const errorData = (e instanceof Error ? e.message : null) || "Failed to load industries";
       return rejectWithValue(errorData);
+    }
+  }
+);
+
+export const getAllLocations = createAsyncThunk<any, void, { rejectValue: string }>(
+  "enterprise/getAllLocations",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await enterpriseService.getAllLocationsService();
+      return response;
+    } catch (e: unknown) {
+      const errorData = (e instanceof Error ? e.message : null) || "Failed to load locations";
+      return rejectWithValue(errorData);
+    }
+  }
+);
+
+export const getAllRegions = createAsyncThunk<any, void, { rejectValue: string }>(
+  "enterprise/getAllRegions",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await enterpriseService.getAllRegionsService();
+      return response;
+    } catch (e: unknown) {
+      const errorData = (e instanceof Error ? e.message : null) || "Failed to load regions";
+      return rejectWithValue(errorData);
+    }
+  }
+);
+
+export const detectUserCountry = createAsyncThunk<number | null, void, { state: any }>(
+  "enterprise/detectUserCountry",
+  async (_, { getState, dispatch }) => {
+    try {
+      // 1. If authenticated, only use user profile data (no third-party API call)
+      const authState = getState().auth;
+      if (authState.isAuthenticated) {
+        return authState.user?.countryId || null;
+      }
+
+      // 2. If not authenticated, call third-party API for IP-based detection
+      const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
+      const ipData = await ipResponse.json();
+      const countryName = ipData.countryName;
+
+      let locations = getState().enterprise.locations;
+      if (locations.length === 0) {
+        const result: any = await dispatch(getAllLocations()).unwrap();
+        locations = Array.isArray(result) ? result : (result?.data || result?.list || []);
+      }
+
+      const matchedLocation = locations.find(
+        (loc: any) => loc.location_Name.toLowerCase() === countryName.toLowerCase()
+      );
+
+      return matchedLocation ? matchedLocation.location_Id : null;
+    } catch (e) {
+      console.error("Failed to detect country or match location:", e);
+      return null;
+    }
+  }
+);
+
+export const detectUserRegion = createAsyncThunk<number | null, void, { state: any }>(
+  "enterprise/detectUserRegion",
+  async (_, { getState, dispatch }) => {
+    try {
+      // 1. If authenticated, only use user profile data (no external API call)
+      const authState = getState().auth;
+      if (authState.isAuthenticated) {
+        return authState.user?.regionId || null;
+      }
+
+      // 2. If not authenticated, identify region based on IP
+      const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
+      const ipData = await ipResponse.json();
+      const countryName = ipData.countryName;
+
+      if (!countryName) return null;
+
+      // 3. Get Regions
+      let regions = getState().enterprise.regions;
+      if (regions.length === 0) {
+        const result: any = await dispatch(getAllRegions()).unwrap();
+        regions = Array.isArray(result) ? result : (result?.data || result?.list || []);
+      }
+
+      // 4. Match countryName in region.countries
+      const matchedRegion = regions.find((region: any) => 
+        region.countries && region.countries.some((c: string) => c.toLowerCase() === countryName.toLowerCase())
+      );
+
+      return matchedRegion ? matchedRegion.regionId : null;
+    } catch (e) {
+      console.error("Failed to detect region:", e);
+      return null;
     }
   }
 );
@@ -91,6 +200,15 @@ const enterpriseSlice = createSlice({
           state.error = "Invalid data format from API";
           return;
         }
+        // Filter for Location_type - only active items
+        state.Location_type = dataArray.filter(
+          (item: any) => {
+            const rawName = item.lov_Name || "";
+            const name = String(rawName).toLowerCase().trim().replace(/[^a-z0-9]/g, '');
+            const active = item.isActive ?? item.IsActive ?? item.is_active ?? true;
+            return name === "Location Type" && active === true;
+          }
+        ) as ListOfValue[];
 
         // Filter for BusinessInfo (Industries) - only active items
         state.industries = dataArray.filter(
@@ -123,6 +241,68 @@ const enterpriseSlice = createSlice({
         state.isLoadingUserTypes = false;
         state.industriesError = action.payload as string;
         state.userTypesError = action.payload as string;
+      })
+      // Get All Locations
+      .addCase(getAllLocations.pending, (state) => {
+        state.isLoadingLocations = true;
+        state.locationsError = null;
+      })
+      .addCase(getAllLocations.fulfilled, (state, action: any) => {
+        state.isLoadingLocations = false;
+        const payload = action.payload;
+        const dataArray = Array.isArray(payload)
+          ? payload
+          : (payload?.data || payload?.list || payload?.item || []);
+        
+        state.locations = Array.isArray(dataArray) ? dataArray : [];
+        state.locationsError = null;
+      })
+      .addCase(getAllLocations.rejected, (state, action) => {
+        state.isLoadingLocations = false;
+        state.locationsError = action.payload as string;
+      })
+      // Detect User Country
+      .addCase(detectUserCountry.pending, (state) => {
+        state.isDetectingCountry = true;
+      })
+      .addCase(detectUserCountry.fulfilled, (state, action) => {
+        state.isDetectingCountry = false;
+        state.detectedCountryId = action.payload;
+      })
+      .addCase(detectUserCountry.rejected, (state) => {
+        state.isDetectingCountry = false;
+        state.detectedCountryId = null;
+      })
+      // Get All Regions
+      .addCase(getAllRegions.pending, (state) => {
+        state.isLoadingRegions = true;
+        state.regionsError = null;
+      })
+      .addCase(getAllRegions.fulfilled, (state, action: any) => {
+        state.isLoadingRegions = false;
+        const payload = action.payload;
+        const dataArray = Array.isArray(payload)
+          ? payload
+          : (payload?.data || payload?.list || payload?.item || []);
+        
+        state.regions = Array.isArray(dataArray) ? dataArray : [];
+        state.regionsError = null;
+      })
+      .addCase(getAllRegions.rejected, (state, action) => {
+        state.isLoadingRegions = false;
+        state.regionsError = action.payload as string;
+      })
+      // Detect User Region
+      .addCase(detectUserRegion.pending, (state) => {
+        state.isDetectingRegion = true;
+      })
+      .addCase(detectUserRegion.fulfilled, (state, action) => {
+        state.isDetectingRegion = false;
+        state.detectedRegionId = action.payload;
+      })
+      .addCase(detectUserRegion.rejected, (state) => {
+        state.isDetectingRegion = false;
+        state.detectedRegionId = null;
       });
   },
 });

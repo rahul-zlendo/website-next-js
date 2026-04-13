@@ -5,15 +5,29 @@ import { motion } from 'framer-motion';
 import { Sparkles, ArrowRight } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { getAllOffers } from '@/lib/store/slices/offerSlice';
+import { detectUserCountry } from '@/lib/store/slices/enterpriseSlice';
 import { Plans } from '@/lib/config/env';
 
 const PromoBanner = () => {
     const dispatch = useAppDispatch();
     const { activeOffer, isLoading } = useAppSelector((state) => state.offer);
+    const { detectedCountryId } = useAppSelector((state) => state.enterprise);
 
     useEffect(() => {
-        dispatch(getAllOffers());
-    }, [dispatch]);
+        const fetchPromoData = async () => {
+            // First ensure we have country detected for filtering offers
+            if (!detectedCountryId) {
+                try {
+                    await dispatch(detectUserCountry()).unwrap();
+                } catch (e) {
+                    console.error("PromoBanner country detection failed:", e);
+                }
+            }
+            dispatch(getAllOffers());
+        };
+
+        fetchPromoData();
+    }, [dispatch, detectedCountryId]);
 
     // Don't render if still loading
     if (isLoading) {
@@ -28,7 +42,7 @@ const PromoBanner = () => {
     // Format discount value
     const discountText = activeOffer.offerType === 'Percentage'
         ? `${activeOffer.discountValue}% OFF`
-        : `₹${activeOffer.discountValue} OFF`;
+        : `${activeOffer.symbol}${activeOffer.discountValue} OFF`;
 
     return (
         <motion.div
