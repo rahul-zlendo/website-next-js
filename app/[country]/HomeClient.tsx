@@ -17,6 +17,7 @@ import { addTemplateViewService } from '@/lib/services/templateService';
 import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 import { urlFor } from '@/lib/sanity/image';
 import FaqAccordion from './components/FaqAccordion';
+import { detectUserRegion } from '@/lib/store/slices/enterpriseSlice';
 
 interface HomeClientProps {
     cms: any;
@@ -97,7 +98,20 @@ export default function HomeClient({
 
     useEffect(() => {
         setMounted(true);
-        dispatch(getAllTemplates());
+        const fetchInitialData = async () => {
+            try {
+                // 1. Detect user region first
+                const regionId = await dispatch(detectUserRegion()).unwrap();
+                // 2. Load templates filtered by region
+                dispatch(getAllTemplates(regionId || undefined));
+            } catch (error) {
+                console.error("Error loading initial data:", error);
+                // Fallback to load all templates if region detection fails
+                dispatch(getAllTemplates());
+            }
+        };
+
+        fetchInitialData();
     }, [dispatch]);
 
     const handleTemplateClick = (templateId: number) => {

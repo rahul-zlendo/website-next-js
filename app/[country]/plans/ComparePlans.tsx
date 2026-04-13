@@ -110,7 +110,7 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, bil
                                             {hasDiscount && (
                                                 <div className="flex items-center gap-1.5 mb-0.5">
                                                     <span className="text-xs font-bold text-gray-400 line-through opacity-60">
-                                                        ₹{originalPriceFormatted}
+                                                        {plan.symbol || '₹'}{originalPriceFormatted}
                                                     </span>
                                                     <span className="px-1.5 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-[9px] font-black">
                                                         {discountLabel}
@@ -119,7 +119,7 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, bil
                                             )}
                                             <div className="flex items-baseline gap-1">
                                                 <span className="text-xl font-black text-zlendo-teal">
-                                                    ₹{displayPrice}
+                                                    {plan.symbol || '₹'}{displayPrice}
                                                 </span>
                                                 <span className="text-[10px] font-bold text-gray-400 opacity-60">/{periodLabel}</span>
                                             </div>

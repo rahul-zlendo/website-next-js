@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { getAllTemplates } from '@/lib/store/slices/templateSlice';
 import { getAllRoomStyles } from '@/lib/store/slices/roomStyleSlice';
+import { detectUserRegion } from '@/lib/store/slices/enterpriseSlice';
 import { useCountry } from '@/lib/context/CountryContext';
 import { fetchBlobUrl, BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
 import { addTemplateViewService } from '@/lib/services/templateService';
@@ -83,8 +84,22 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
     const { activeRoomStyles } = useAppSelector((state) => state.roomStyle);
 
     useEffect(() => {
-        dispatch(getAllTemplates());
-        dispatch(getAllRoomStyles());
+        const fetchInitialData = async () => {
+            try {
+                // 1. Detect user region first
+                const regionId = await dispatch(detectUserRegion()).unwrap();
+                // 2. Load templates filtered by region
+                dispatch(getAllTemplates(regionId || undefined));
+            } catch (error) {
+                console.error("Error loading initial data:", error);
+                // Fallback to load all templates if region detection fails
+                dispatch(getAllTemplates());
+            }
+            // Load room styles independently
+            dispatch(getAllRoomStyles());
+        };
+
+        fetchInitialData();
     }, [dispatch]);
 
     const uniqueRoomTypes = useMemo(() => {
@@ -333,6 +348,16 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
                     </motion.div>
                 )}
 
+                {/* Loading State */}
+                {isLoading && (
+                    <div className="flex flex-col items-center justify-center py-24">
+                        <div className="w-16 h-16 border-4 border-zlendo-teal border-t-transparent rounded-full animate-spin"></div>
+                        <p className="mt-6 text-xl text-zlendo-grey-medium font-bold animate-pulse">
+                            Loading amazing designs...
+                        </p>
+                    </div>
+                )}
+
                 {/* Templates Grid */}
                 {!isLoading && !error && filteredTemplates.length > 0 && (
                     <motion.div
@@ -466,6 +491,19 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
                                 </motion.div>
                             );
                         })}
+                    </motion.div>
+                )}
+
+                {/* Empty State */}
+                {!isLoading && !error && filteredTemplates.length === 0 && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center py-20 bg-gray-50/50 rounded-[32px] border-2 border-dashed border-gray-100"
+                    >
+                        <p className="text-base font-bold text-zlendo-grey-medium opacity-50">
+                            No designs available for this category.
+                        </p>
                     </motion.div>
                 )}
 

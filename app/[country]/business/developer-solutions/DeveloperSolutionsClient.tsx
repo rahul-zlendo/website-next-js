@@ -123,7 +123,7 @@ export default function DeveloperSolutionsClient({ cms }: DeveloperSolutionsClie
                                     description: cs.solutionDescription
                                 },
                                 stats: cs.stats,
-                                image: urlFor(cs.image).url()
+                                image: cs.image ? urlFor(cs.image).url() : 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200'
                             }}
                             accentColorClass={accentColorClass}
                             bgAccentClass={bgAccentClass}
@@ -153,7 +153,7 @@ export default function DeveloperSolutionsClient({ cms }: DeveloperSolutionsClie
                                     { label: 'Booking Timeline', value: '2x Faster' },
                                     { label: 'Buyer Confidence', value: '100%' }
                                 ],
-                                image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=1200'
+                                image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200'
                             }}
                             accentColorClass={accentColorClass}
                             bgAccentClass={bgAccentClass}
