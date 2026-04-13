@@ -188,7 +188,7 @@ export default defineType({
       type: 'text',
       rows: 3,
       group: 'partner',
-      initialValue: 'Best for agencies, interior designers, architects, and real estate consultants who want to build a business with Zlendo.',
+      initialValue: 'Best for agencies, interior designers, architects, and real estate consultants who want to build a business with Zlendo Realty.',
     }),
     defineField({
       name: 'partnerFeatures',
@@ -224,7 +224,7 @@ export default defineType({
       type: 'text',
       rows: 3,
       group: 'partner',
-      initialValue: 'Design studios bundling Zlendo walkthroughs with premium interior packages.',
+      initialValue: 'Design studios bundling Zlendo Realty walkthroughs with premium interior packages.',
     }),
     defineField({
       name: 'partnerActivePartners',
@@ -247,14 +247,14 @@ export default defineType({
       title: 'Trust Section Title',
       type: 'string',
       group: 'trust',
-      initialValue: 'Why Take Zlendo to Your Network?',
+      initialValue: 'Why Take Zlendo Realty to Your Network?',
     }),
     defineField({
       name: 'whySubtitle',
       title: 'Trust Section Subtitle',
       type: 'string',
       group: 'trust',
-      initialValue: "Success in partnerships is built on product quality. Zlendo is India's most trusted home-tech platform.",
+      initialValue: "Success in partnerships is built on product quality. Zlendo Realty is India's most trusted home-tech platform.",
     }),
     defineField({
       name: 'whyCards',
@@ -286,7 +286,7 @@ export default defineType({
       type: 'text',
       rows: 3,
       group: 'growth',
-      initialValue: "Zlendo isn't just a tool; it's a movement toward digital-first construction and interiors. We have a long-term partnership mindset.",
+      initialValue: "Zlendo Realty isn't just a tool; it's a movement toward digital-first construction and interiors. We have a long-term partnership mindset.",
     }),
     defineField({
       name: 'growthPoints',

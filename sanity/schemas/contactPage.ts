@@ -49,7 +49,7 @@ export default defineType({
       title: 'Hero Title Part 1 (Regular)',
       type: 'string',
       group: 'hero',
-      initialValue: 'Contact Zlendo',
+      initialValue: 'Contact Zlendo Realty',
     }),
     defineField({
       name: 'heroTitlePart2',
