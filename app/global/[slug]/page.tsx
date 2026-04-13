@@ -4,9 +4,9 @@ import SectionRenderer from '@/components/global/SectionRenderer';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 async function getGlobalPage(slug: string) {
@@ -15,7 +15,8 @@ async function getGlobalPage(slug: string) {
 }
 
 const GlobalDynamicPage = async ({ params }: PageProps) => {
-  const pageData = await getGlobalPage(params.slug);
+  const { slug } = await params;
+  const pageData = await getGlobalPage(slug);
 
   if (!pageData) {
     notFound();
