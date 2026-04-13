@@ -8,7 +8,7 @@ export default defineType({
         { name: 'seo', title: '🔍 SEO & Meta' },
         { name: 'hero', title: '🏢 Hero Section' },
         { name: 'caseStudy', title: '📖 Case Study' },
-        { name: 'features', title: '✨ Why Choose Zlendo' },
+        { name: 'features', title: '✨ Why Choose Zlendo Realty' },
         { name: 'cta', title: '🎯 Final CTA' },
     ],
     fields: [
@@ -64,7 +64,7 @@ export default defineType({
             fields: [defineField({ name: 'alt', title: 'Alt Text', type: 'string' })]
         }),
 
-        // Why Choose Zlendo (Features)
+        // Why Choose Zlendo Realty (Features)
         defineField({ name: 'featuresBadgeText', title: 'Features Badge Text', type: 'string', group: 'features' }),
         defineField({ name: 'featuresTitle', title: 'Features Title', type: 'string', group: 'features' }),
         defineField({ name: 'featuresTitleHighlight', title: 'Features Title Highlight', type: 'string', group: 'features' }),
