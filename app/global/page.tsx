@@ -67,6 +67,9 @@ const GlobalHomePage = async () => {
         ]
       },
       {
+        _type: 'globalTemplateGallery',
+      },
+      {
         _type: 'globalProblem',
         heading: "The tools haven't *kept up with the work.*",
         subheading: "Architecture and design have never demanded more, yet professionals are still stuck waiting hours for renders and switching between disconnected tools. Zlendo Realty eliminates the gap between design and visualization.",

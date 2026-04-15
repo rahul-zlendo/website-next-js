@@ -17,7 +17,7 @@ export default async function GlobalLayout({
   const logoUrl = settings?.logoImage ? urlFor(settings.logoImage).url() : undefined;
 
   return (
-    <CountryProvider initialCountry="in">
+    <CountryProvider initialCountry="global">
       <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal font-nunito">
         <Header logoUrl={logoUrl} />
         <main>{children}</main>

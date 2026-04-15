@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-export type CountryCode = 'in';
+export type CountryCode = 'in' | 'global';
 
 interface CountryPaths {
     enterpriseDemo: string;
@@ -22,7 +22,7 @@ interface CountryContextType {
 }
 
 const COUNTRY_COOKIE_NAME = 'zl_country_pref';
-const SUPPORTED_COUNTRIES: CountryCode[] = ['in'];
+const SUPPORTED_COUNTRIES: CountryCode[] = ['in', 'global'];
 
 const CountryContext = createContext<CountryContextType | undefined>(undefined);
 
@@ -36,10 +36,15 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
 
     // Update country state when path changes
     useEffect(() => {
-        const pathCountry = pathname?.split('/')[1] as CountryCode;
+        const pathParts = pathname?.split('/') || [];
+        const pathCountry = pathParts[1] as CountryCode;
         if (pathCountry && SUPPORTED_COUNTRIES.includes(pathCountry)) {
             setCountryState(pathCountry);
             localStorage.setItem(COUNTRY_COOKIE_NAME, pathCountry);
+        } else if (pathParts.length > 0) {
+            // If no country prefix, it's global
+            setCountryState('global');
+            localStorage.setItem(COUNTRY_COOKIE_NAME, 'global');
         }
     }, [pathname]);
 
@@ -49,8 +54,9 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
             localStorage.setItem(COUNTRY_COOKIE_NAME, code);
 
             // Redirect to the same path but with the new country code
-            const currentPathWithoutCountry = pathname?.replace(/^\/[a-z]{2}/, '') || '';
-            router.push(`/${code}${currentPathWithoutCountry}`);
+            const currentPathWithoutCountry = pathname?.replace(/^\/in/, '') || '';
+            const newPath = code === 'global' ? (currentPathWithoutCountry || '/') : `/${code}${currentPathWithoutCountry}`;
+            router.push(newPath);
         }
     };
 
@@ -61,6 +67,11 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
         }
         
         const cleanPath = path.startsWith('/') ? path : `/${path}`;
+
+        // Global country doesn't use prefixes
+        if (country === 'global') {
+            return cleanPath;
+        }
 
         // Prevent duplicate country prefix if already present (e.g., /in/...)
         if (cleanPath.startsWith(`/${country}/`) || cleanPath === `/${country}`) {
@@ -73,14 +84,17 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
     };
 
     // Pre-built paths for commonly used routes
-    const paths = useMemo<CountryPaths>(() => ({
-        enterpriseDemo: `/${country}/business#demo-form`,
-        enterprise: `/${country}/business`,
-        plans: `/${country}/plans`,
-        contact: `/${country}/contact`,
-        helpCenter: `/${country}/help-center`,
-        partners: `/${country}/partners`,
-    }), [country]);
+    const paths = useMemo<CountryPaths>(() => {
+        const prefix = country === 'global' ? '' : `/${country}`;
+        return {
+            enterpriseDemo: `${prefix}/business#demo-form`,
+            enterprise: `${prefix}/business`,
+            plans: `${prefix}/plans`,
+            contact: `${prefix}/contact`,
+            helpCenter: `${prefix}/help-center`,
+            partners: `${prefix}/partners`,
+        };
+    }, [country]);
 
     return (
         <CountryContext.Provider value={{ country, setCountry, getPath, paths }}>

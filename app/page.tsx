@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   alternates: {
-    canonical: 'https://zlendorealty.com/in',
+    canonical: 'https://zlendorealty.com',
     languages: {
       'en-IN': 'https://zlendorealty.com/in',
       'x-default': 'https://zlendorealty.com/in',
@@ -19,5 +19,5 @@ export const metadata: Metadata = {
 // redirect to /in. In practice, middleware's rewrite() runs first,
 // so this component never renders.
 export default function RootPage() {
-  redirect('/in');
+  redirect('/global');
 }

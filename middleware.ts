@@ -17,33 +17,37 @@ export function middleware(request: NextRequest) {
   }
 
   // ──────────────────────────────────────────────────────────
-  // 2. Root path: REWRITE (not redirect) to /in
-  //    This serves /in content at the / URL — no 307, no redirect chain.
-  //    Social crawlers (WhatsApp, Facebook, LinkedIn) and users both
-  //    get full HTML with OG tags at the root URL.
+  // 2. Navigation & Internationalization
   // ──────────────────────────────────────────────────────────
+
+  // A. Root path: REWRITE to /global (The Global Site)
   if (pathname === '/') {
-    const url = request.nextUrl.clone();
-    url.pathname = '/in';
-    return NextResponse.redirect(url, 301);
+    return NextResponse.rewrite(new URL('/global', request.url));
   }
 
-  // ──────────────────────────────────────────────────────────
-  // 3. Unsupported country codes → 308 permanent redirect to /in
-  //    Only relevant when someone manually navigates to /us, /uk, etc.
-  //    308 preserves HTTP method and passes full link equity.
-  // ──────────────────────────────────────────────────────────
+  // B. Allow /in and /global paths to pass through 
+  if (pathname.startsWith('/in') || pathname.startsWith('/global')) {
+    return NextResponse.next();
+  }
+
+  // C. Handle legacy/manual country codes (e.g., /us, /uk) 
+  // Redirect them to the global (non-prefixed) version
   const countryMatch = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
   if (countryMatch) {
     const [, country, rest] = countryMatch;
+    // We only have a dedicated directory for 'in'. Others go to Global.
     if (country !== 'in') {
       const url = request.nextUrl.clone();
-      url.pathname = `/in${rest || ''}`;
-      return NextResponse.redirect(url, 308);
+      url.pathname = rest || '/';
+      return NextResponse.redirect(url, 307);
     }
   }
 
-  return NextResponse.next();
+  // D. For all other paths (e.g., /partners, /about), 
+  // REWRITE to /global/[path] to serve global content at clean URLs.
+  const url = request.nextUrl.clone();
+  url.pathname = `/global${pathname}`;
+  return NextResponse.rewrite(url);
 }
 
 export const config = {

@@ -8,6 +8,11 @@ import Comparison from './sections/Comparison';
 import SocialProof from './sections/SocialProof';
 import WhoItIsFor from './sections/WhoItIsFor';
 import FinalCTA from './sections/FinalCTA';
+import FAQ from './sections/FAQ';
+import ProductFeatureDetail from './sections/ProductFeatureDetail';
+import ProductHero from './sections/ProductHero';
+import HowItWorks from './sections/HowItWorks';
+import TemplateGallery from './sections/TemplateGallery';
 
 interface SectionRendererProps {
   sections: any[];
@@ -24,6 +29,11 @@ const componentMap: Record<string, React.FC<any>> = {
   'globalSocialProof': SocialProof,
   'globalWhoItIsFor': WhoItIsFor,
   'globalFinalCTA': FinalCTA,
+  'globalFAQ': FAQ,
+  'globalFeatureDetail': ProductFeatureDetail,
+  'globalProductHero': ProductHero,
+  'globalHowItWorks': HowItWorks,
+  'globalTemplateGallery': TemplateGallery,
 };
 
 const SectionRenderer: React.FC<SectionRendererProps> = ({ sections }) => {
