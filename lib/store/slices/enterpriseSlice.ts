@@ -95,7 +95,28 @@ export const detectUserCountry = createAsyncThunk<number | null, void, { state: 
       // 2. If not authenticated, call third-party API for IP-based detection
       const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
       const ipData = await ipResponse.json();
-      const countryName = ipData.countryName;
+      const countryName = ipData?.countryName || "";
+      const countryCode = ipData?.countryCode || "";
+
+      // ── Automatic Redirection based on IP location ───────────────────────────
+      if (typeof window !== "undefined") {
+        const pathname = window.location.pathname;
+        const isOnIndiaSite = pathname === "/in" || pathname.startsWith("/in/");
+        const isIndia = countryName.toLowerCase() === "india" || countryCode.toUpperCase() === "IN";
+
+        if (isIndia && !isOnIndiaSite) {
+          // IP is India but not on /in → redirect to India site
+          window.location.href = "/in";
+          return null;
+        }
+
+        if (!isIndia && isOnIndiaSite) {
+          // IP is NOT India but sitting on /in → redirect to global .com
+          window.location.href = "/";
+          return null;
+        }
+        // Already on the correct site → no redirect needed
+      }
 
       let locations = getState().enterprise.locations;
       if (locations.length === 0) {

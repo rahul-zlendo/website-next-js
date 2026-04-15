@@ -72,7 +72,7 @@ export default defineType({
       name: 'copyrightText',
       title: 'Copyright Text',
       type: 'string',
-      initialValue: 'Copyright © 2026 Zlendo Technologies Pvt. Ltd. | All Rights Reserved.',
+      initialValue: 'Copyright © 2026 Zlendo Realty | All Rights Reserved.',
     }),
     defineField({
       name: 'cookieConsentText',
