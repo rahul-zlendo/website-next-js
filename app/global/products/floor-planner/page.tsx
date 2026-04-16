@@ -3,6 +3,7 @@ import { getClient } from '@/lib/sanity/client';
 import SectionRenderer from '@/components/global/SectionRenderer';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { SIGNUP_URL } from '@/lib/config/env';
 
 export const metadata: Metadata = {
   title: 'Zlendo Realty Products Floor Planer - Design Your Home in 3D',
@@ -48,7 +49,7 @@ const GlobalFloorPlannerPage = async () => {
         subheading: "Create accurate 2D house plans and watch them come to life in realistic 3D architecture. Built for individuals and professionals who demand speed without sacrificing precision.",
         image: "/assets/floor-planner/3d-sketch.png",
         ctaText: "Start Designing Free",
-        ctaLink: "/register",
+        ctaLink: SIGNUP_URL,
         ctaSubtext: "14 days, full access. No credit card.",
         secondaryCtaText: "View Gallery",
         secondaryCtaLink: "/viewalltemplates",
@@ -163,12 +164,12 @@ const GlobalFloorPlannerPage = async () => {
         primaryCta: {
           text: "Start Free Trial",
           subtext: "14 days. Full access. No card.",
-          link: "/register"
+          link: SIGNUP_URL
         },
         secondaryCta: {
           text: "Book a Demo",
           subtext: "30 min with a product expert.",
-          link: "/contact"
+          link: "/business#demo-form"
         },
         frictionLine: "No credit card required  ·  Cancel anytime  ·  DWG compatible  ·  GDPR compliant"
       }

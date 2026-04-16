@@ -253,7 +253,7 @@ export default function GlobalBusinessClient() {
                             { end: 3, suffix: 'x', label: 'More Projects Delivered', icon: Layers, color: 'from-violet-500/20 to-purple-500/10' },
                             { end: 60, suffix: 's', label: 'Render Time', icon: Timer, color: 'from-zlendo-teal/20 to-emerald-500/10' },
                             { end: 80, suffix: '%', label: 'Faster Client Approvals', icon: TrendingUp, color: 'from-amber-500/20 to-orange-500/10' },
-                            { end: 40, suffix: '+', label: 'Countries Using Zlendo', icon: Globe2, color: 'from-blue-500/20 to-cyan-500/10' },
+                            { end: 40, suffix: '+', label: 'Countries Using Zlendo Realty', icon: Globe2, color: 'from-blue-500/20 to-cyan-500/10' },
                         ].map((stat, i) => (
                             <motion.div
                                 key={i}
@@ -329,7 +329,7 @@ export default function GlobalBusinessClient() {
                         <p className="text-[11px] font-black uppercase tracking-[0.3em] text-zlendo-teal/60 mb-4">Why Switch</p>
                         <h2 className="text-3xl md:text-5xl font-black tracking-tight">
                             What your practice looks like{' '}
-                            <span className="bg-gradient-to-r from-zlendo-teal to-cyan-400 bg-clip-text text-transparent">with Zlendo.</span>
+                            <span className="bg-gradient-to-r from-zlendo-teal to-cyan-400 bg-clip-text text-transparent">with Zlendo Realty.</span>
                         </h2>
                     </div>
 
@@ -343,7 +343,7 @@ export default function GlobalBusinessClient() {
                             className="p-10 rounded-[32px] bg-red-500/[0.04] border border-red-500/10 relative overflow-hidden"
                         >
                             <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-red-500/10 text-red-400 text-[10px] font-black uppercase tracking-widest">Traditional</div>
-                            <h3 className="text-2xl font-black mb-8 text-red-300/80">❌ Without Zlendo</h3>
+                            <h3 className="text-2xl font-black mb-8 text-red-300/80">❌ Without Zlendo Realty</h3>
                             <div className="space-y-5">
                                 {[
                                     { item: 'Floor plan to 3D model', detail: '2–4 days manual work' },
@@ -374,7 +374,7 @@ export default function GlobalBusinessClient() {
                             className="p-10 rounded-[32px] bg-zlendo-teal/[0.04] border border-zlendo-teal/10 relative overflow-hidden"
                         >
                             <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-zlendo-teal/10 text-zlendo-teal text-[10px] font-black uppercase tracking-widest">Zlendo Realty</div>
-                            <h3 className="text-2xl font-black mb-8 text-zlendo-teal/80">✅ With Zlendo</h3>
+                            <h3 className="text-2xl font-black mb-8 text-zlendo-teal/80">✅ With Zlendo Realty</h3>
                             <div className="space-y-5">
                                 {[
                                     { item: 'Floor plan to 3D model', detail: 'Under 2 minutes, automatic' },
