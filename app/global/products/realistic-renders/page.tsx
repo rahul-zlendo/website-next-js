@@ -142,7 +142,7 @@ export default function RealisticRendersPage() {
                     <div className="container-custom px-4">
                         <div className="text-center mb-16 max-w-3xl mx-auto">
                             <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">Traditional Rendering is Dead.</h2>
-                            <p className="text-[#666] text-lg font-medium">Legacy software was built for 2005. Zlendo was built for 2026.</p>
+                            <p className="text-[#666] text-lg font-medium">Legacy software was built for 2005. Zlendo Realty was built for 2026.</p>
                         </div>
 
                         <div className="max-w-6xl mx-auto overflow-hidden rounded-[2.5rem] border border-black/[0.05] shadow-[0_20px_60px_rgba(0,0,0,0.03)] bg-white">
@@ -155,7 +155,7 @@ export default function RealisticRendersPage() {
                                             <th className="p-10 text-lg font-black text-zlendo-teal w-[37.5%] bg-zlendo-teal/[0.02]">
                                                 <div className="flex items-center gap-2">
                                                     <Zap className="w-5 h-5 fill-zlendo-teal" />
-                                                    The Zlendo Way
+                                                    The Zlendo Realty Way
                                                 </div>
                                             </th>
                                         </tr>

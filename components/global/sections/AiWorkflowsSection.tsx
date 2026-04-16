@@ -8,7 +8,7 @@ export default function AiWorkflowsSection() {
         <section className="py-24 bg-[#03060C] font-nunito border-t border-white/5">
             <div className="container-custom px-4 md:px-8 max-w-7xl mx-auto">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-black text-white">Explore Zlendo Workflows</h2>
+                    <h2 className="text-4xl md:text-5xl font-black text-white">Explore Zlendo Realty Workflows</h2>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 md:gap-12">

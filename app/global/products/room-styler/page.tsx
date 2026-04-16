@@ -4,6 +4,7 @@ import SectionRenderer from '@/components/global/SectionRenderer';
 import AiWorkflowsSection from '@/components/global/sections/AiWorkflowsSection';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { SIGNUP_URL } from '@/lib/config/env';
 
 export const metadata: Metadata = {
   title: 'Smart Room Styler - AI-driven Interior Design | Zlendo Realty',
@@ -49,7 +50,7 @@ const GlobalRoomStylerPage = async () => {
         subheading: "Smart Room Styler automatically suggests furniture layouts, colors, lighting, and décor. Visualize beautiful interiors using realistic 3D design and explore endless interior ideas.",
         image: "/assets/room-styler/scandinavian.jpg",
         ctaText: "Start Styling Free",
-        ctaLink: "/register",
+        ctaLink: SIGNUP_URL,
         ctaSubtext: "14 days, full access. No credit card.",
         secondaryCtaText: "Explore Styles",
         secondaryCtaLink: "/viewalltemplates",
@@ -92,9 +93,9 @@ const GlobalRoomStylerPage = async () => {
         bullets: [
           "Apply Modern, Boho, Minimalist, or Industrial themes with one click.",
           "Automatically swaps flooring, wall paints, and textures.",
-          "Maintains accurate spatial scaling for all 10,000+ furniture items."
+          "Maintains accurate spatial scaling for all 1000+ furniture items."
         ],
-        statValue: "10,000+",
+        statValue: "1000+",
         statLabel: "Real-world furniture items available immediately",
         image: "/assets/Home-Page/living-room/scandinavian-style.jpg",
         imageAtRight: false
@@ -163,12 +164,12 @@ const GlobalRoomStylerPage = async () => {
         primaryCta: {
           text: "Start Free Trial",
           subtext: "14 days. Full access. No card.",
-          link: "/register"
+          link: SIGNUP_URL
         },
         secondaryCta: {
           text: "Book a Demo",
           subtext: "See it in action.",
-          link: "/contact"
+          link: "/business#demo-form"
         },
         frictionLine: "No credit card required  ·  Cancel anytime  ·  10k+ Assets"
       }

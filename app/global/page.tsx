@@ -5,6 +5,7 @@ import AdvancedFeatures from '@/components/global/sections/AdvancedFeatures';
 import GlobalRedesignBlocks from '@/components/global/sections/GlobalRedesignBlocks';
 import InteractiveGlobalHero from '@/components/global/sections/InteractiveGlobalHero';
 import { notFound } from 'next/navigation';
+import { SIGNUP_URL } from '@/lib/config/env';
 
 async function getGlobalHomePage() {
   const query = `*[_type == "globalPage" && slug.current == "home"][0]`;
@@ -198,17 +199,17 @@ const GlobalHomePage = async () => {
         primaryCta: {
           text: "Start your free trial",
           subtext: "14 days. Full access. No card.",
-          link: "/in"
+          link: SIGNUP_URL
         },
         secondaryCta: {
           text: "Book a studio demo",
           subtext: "30 min with a product expert.",
-          link: "/in"
+          link: "/business#demo-form"
         },
         tertiaryCta: {
           text: "Talk to our team",
           subtext: "For studios of 10 or more.",
-          link: "/in"
+          link: "/contact"
         },
         frictionLine: "No credit card required for the trial  ·  Cancel anytime  ·  Works with your existing DWG files  ·  GDPR compliant  ·  Data hosted in the EU and US"
       }

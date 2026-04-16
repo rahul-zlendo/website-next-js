@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Play, Users, Zap } from 'lucide-react';
 import DualColorHeading from '../DualColorHeading';
+import { SIGNUP_URL } from '@/lib/config/env';
 
 interface CTAData {
   text?: string;
@@ -61,7 +62,7 @@ const FinalCTA: React.FC<FinalCTAProps> = ({ data }) => {
               viewport={{ once: true }}
               className="group"
             >
-              <Link href={primaryCta?.link || '#'} className="flex flex-col items-center justify-center h-full p-6 rounded-[40px] bg-zlendo-teal text-white hover:bg-[#008f72] transition-all transform hover:scale-[1.02] shadow-2xl shadow-zlendo-teal/20 text-center">
+              <Link href={primaryCta?.link || SIGNUP_URL} className="flex flex-col items-center justify-center h-full p-6 rounded-[40px] bg-zlendo-teal text-white hover:bg-[#008f72] transition-all transform hover:scale-[1.02] shadow-2xl shadow-zlendo-teal/20 text-center">
                 <Zap className="w-6 h-6 text-white mb-4 fill-current" />
                 <div className="text-xl font-black mb-2">{primaryCta?.text || 'Start your free trial'}</div>
                 <div className="text-[10px] font-black uppercase tracking-widest opacity-80">{primaryCta?.subtext || '14 days. No card.'}</div>
@@ -76,7 +77,7 @@ const FinalCTA: React.FC<FinalCTAProps> = ({ data }) => {
               viewport={{ once: true }}
               className="group"
             >
-              <Link href={secondaryCta?.link || '#'} className="flex flex-col items-center justify-center h-full p-6 rounded-[40px] bg-white/5 border border-white/10 hover:bg-white/10 transition-all transform hover:scale-[1.02] text-center">
+              <Link href={secondaryCta?.link || '/business#demo-form'} className="flex flex-col items-center justify-center h-full p-6 rounded-[40px] bg-white/5 border border-white/10 hover:bg-white/10 transition-all transform hover:scale-[1.02] text-center">
                 <Play className="w-6 h-6 text-zlendo-teal mb-4" />
                 <div className="text-xl font-black mb-2">{secondaryCta?.text || 'Book a studio demo'}</div>
                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">{secondaryCta?.subtext || '30 min walkthrough'}</div>
@@ -91,7 +92,7 @@ const FinalCTA: React.FC<FinalCTAProps> = ({ data }) => {
               viewport={{ once: true }}
               className="group"
             >
-              <Link href={tertiaryCta?.link || '#'} className="flex flex-col items-center justify-center h-full p-6 rounded-[40px] bg-white/5 border border-white/10 hover:bg-white/10 transition-all transform hover:scale-[1.02] text-center">
+              <Link href={tertiaryCta?.link || '/contact'} className="flex flex-col items-center justify-center h-full p-6 rounded-[40px] bg-white/5 border border-white/10 hover:bg-white/10 transition-all transform hover:scale-[1.02] text-center">
                 <Users className="w-6 h-6 text-zlendo-teal mb-4" />
                 <div className="text-xl font-black mb-2">{tertiaryCta?.text || 'Talk to our team'}</div>
                 <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">{tertiaryCta?.subtext || 'For larger studios'}</div>

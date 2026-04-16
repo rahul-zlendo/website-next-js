@@ -75,7 +75,7 @@ export default async function RoomStylerPage() {
 
     const defaultFeatures = [
         { title: 'Style Transfer', desc: 'Apply "Modern", "Boho", or "Industrial" themes with one click.' },
-        { title: 'Furniture Catalog', desc: 'Access 10,000+ real-world furniture items to place in your room.' },
+        { title: 'Furniture Catalog', desc: 'Access 1000+ real-world furniture items to place in your room.' },
         { title: 'Lighting Simulation', desc: 'See how your room looks at sunrise, sunset, or night.' },
         { title: 'Material Swapping', desc: 'Instantly change flooring, wall paints, and textures.' }
     ];

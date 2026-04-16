@@ -60,8 +60,8 @@ export const getAllTemplatesService = async (regionId?: number): Promise<Templat
       axiosInstance.get(ENDPOINTS_TEMPLATE.GET_COMMUNITY).catch(() => ({ data: [] })) // Fallback to empty array if fails
     ]);
 
-    const allTemplates: Template[] = allTemplatesResponse.data;
-    const communityTemplates: Template[] = communityTemplatesResponse.data;
+    const allTemplates: Template[] = allTemplatesResponse.data.templateList;
+    const communityTemplates: Template[] = communityTemplatesResponse.data.templateList;
 
     // Create a map of community templates by template_Id for quick lookup
     const communityMap = new Map<number, Template>();

@@ -275,24 +275,26 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsVideoOpen(false)}
-            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
+            className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
           >
+            {/* Close button — outside the clipped container */}
+            <button
+              onClick={() => setIsVideoOpen(false)}
+              className="absolute top-6 right-6 z-[10000] p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all backdrop-blur-md border border-white/10 cursor-pointer"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-6xl aspect-video bg-black rounded-[40px] overflow-hidden shadow-2xl border border-white/10"
+              className="relative w-full max-w-4xl aspect-video bg-black rounded-[20px] overflow-hidden shadow-2xl border border-white/10"
             >
-              <button
-                onClick={() => setIsVideoOpen(false)}
-                className="absolute top-5 right-5 z-10 p-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all backdrop-blur-md border border-white/10"
-              >
-                <X className="w-5 h-5" />
-              </button>
               <iframe
                 className="w-full h-full"
-                src={videoUrl}
+                src={`${videoUrl}${videoUrl.includes('?') ? '&' : '?'}autoplay=1`}
                 title="Product Demo"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
