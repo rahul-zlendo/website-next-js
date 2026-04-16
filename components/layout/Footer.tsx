@@ -5,45 +5,7 @@ import { designLibrary } from '@/lib/config/env';
 import FooterClient from './FooterClient';
 import CountrySwitcher from '../common/CountrySwitcher';
 
-const COUNTRY = 'in';
-function getPath(path: string): string {
-    const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    if (cleanPath === '/') return `/${COUNTRY}`;
-    return `/${COUNTRY}${cleanPath}`;
-}
 
-const productLinks = [
-    { label: 'AI Floor Planner', path: getPath('/products/floor-planner') },
-    { label: '2D to 3D Converter', path: getPath('/products/2d-to-3d') },
-    { label: 'Smart Room Styler', path: getPath('/products/room-styler') },
-    { label: 'Interiors & Exteriors', path: getPath('/products/interiors-exteriors') },
-    { label: 'Smart Cost Estimator', path: getPath('/products/cost-estimator') },
-    { label: 'Vastu Optimizer', path: getPath('/products/vastu') },
-    { label: 'Realistic Renders', path: getPath('/products/realistic-renders') },
-    { label: 'Virtual Walkthrough', path: getPath('/products/virtual-walkthrough') },
-];
-
-const useCaseLinks = [
-    { label: 'Home Remodeling', path: getPath('/use-case/home-remodeling') },
-    { label: 'Interior Design', path: getPath('/use-case/interior-design') },
-    { label: 'Vastu Optimization', path: getPath('/use-case/vastu-optimization') },
-    { label: 'New Home Building', path: getPath('/use-case/new-home-building') },
-    { label: 'Commercial Spaces', path: getPath('/business/commercial-spaces') },
-    { label: 'Builder & Promoter', path: getPath('/business/builder-and-promoter') },
-    { label: 'NRI & Remote Planning', path: getPath('/business/nri-remote-planning') },
-    { label: 'Developer Solutions', path: getPath('/business/developer-solutions') },
-    { label: 'Zlendo Realty API Suite', path: getPath('/products/api-suite') }
-];
-
-const resourceLinks = [
-    { label: 'Design Library', path: designLibrary, external: true, newTab: true },
-    { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
-    { label: 'Blog', path: 'https://zlendorealty.com/blog', external: true, newTab: false },
-    { label: 'Tutorials', path: getPath('/tutorials') },
-    { label: 'Help Center', path: "https://helpcenter.zlendorealty.com/", external: true, newTab: false },
-    { label: 'Partnership', path: getPath('/partners') },
-    { label: 'Contact Us', path: getPath('/contact') },
-];
 
 const socialLinks = [
     { icon: Linkedin, href: 'https://www.linkedin.com/showcase/zlendo-realty/?viewAsMember=true', bg: 'hover:bg-[#0A66C2]' },
@@ -70,11 +32,63 @@ const resolveSocialLinks = (cmsSocial: any) => {
 
 const Footer = ({
     hideCTA = false,
-    settings
+    settings,
+    isGlobal = false
 }: {
     hideCTA?: boolean;
     settings?: any;
+    isGlobal?: boolean;
 }) => {
+    // Dynamic logic based on Global/India
+    const getPath = (path: string): string => {
+        const cleanPath = path.startsWith('/') ? path : `/${path}`;
+        if (cleanPath === '/') return isGlobal ? '/' : '/in';
+        return isGlobal ? cleanPath : `/in${cleanPath}`;
+    };
+
+    const isIndiaSite = !isGlobal;
+
+    const productLinks = [
+        { label: 'AI Floor Planner', path: getPath('/products/floor-planner') },
+        { label: '2D to 3D Converter', path: getPath('/products/2d-to-3d') },
+        { label: 'Smart Room Styler', path: getPath('/products/room-styler') },
+        { label: 'Interiors & Exteriors', path: getPath('/products/interiors-exteriors') },
+        ...(isIndiaSite ? [
+            { label: 'Smart Cost Estimator', path: getPath('/products/cost-estimator') },
+            { label: 'Vastu Optimizer', path: getPath('/products/vastu') }
+        ] : []),
+        { label: 'Realistic Renders', path: getPath('/products/realistic-renders') },
+        { label: 'Virtual Walkthrough', path: getPath('/products/virtual-walkthrough') },
+    ];
+
+    const useCaseLinks = [
+        { label: 'Home Remodeling', path: getPath('/use-case/home-remodeling') },
+        { label: 'Interior Design', path: getPath('/use-case/interior-design') },
+        { label: 'Vastu Optimization', path: getPath('/use-case/vastu-optimization') },
+        { label: 'New Home Building', path: getPath('/use-case/new-home-building') },
+        { label: 'Commercial Spaces', path: getPath('/business/commercial-spaces') },
+        { label: 'Builder & Promoter', path: getPath('/business/builder-and-promoter') },
+        { label: 'NRI & Remote Planning', path: getPath('/business/nri-remote-planning') },
+        { label: 'Developer Solutions', path: getPath('/business/developer-solutions') },
+        { label: 'Zlendo Realty API Suite', path: getPath('/products/api-suite') }
+    ];
+
+    const resourceLinks = [
+        { label: 'Design Library', path: designLibrary, external: true, newTab: true },
+        { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
+        { label: 'Blog', path: 'https://zlendorealty.com/blog', external: true, newTab: false },
+        { label: 'Tutorials', path: getPath('/tutorials') },
+        { label: 'Help Center', path: "https://helpcenter.zlendorealty.com/", external: true, newTab: false },
+        { label: isIndiaSite ? 'Partnership' : 'Enterprise', path: getPath('/partners') },
+        { label: 'Contact Us', path: getPath('/contact') },
+    ];
+
+    const businessMenuLinks = [
+        { label: 'Business Free Trial', path: getPath('/business') + '#demo-form' },
+        { label: 'Affiliate & Partner Program', path: getPath('/partners') },
+        { label: 'Zlendo Realty API Suite', path: getPath('/products/api-suite') },
+    ];
+
     // Dynamic social links from Sanity or fallback
     const cmsSocial = settings?.socialLinks;
     const resolvedSocialLinks = resolveSocialLinks(cmsSocial);
@@ -107,7 +121,9 @@ const Footer = ({
 
                     {/* Products */}
                     <div className="lg:w-[14%]">
-                        <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Products</h4>
+                        <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">
+                            {isIndiaSite ? 'Products' : 'Solutions'}
+                        </h4>
                         <ul className="space-y-3.5 text-[15px]">
                             {productLinks.map((link, i) => (
                                 <li key={i}>
@@ -119,11 +135,13 @@ const Footer = ({
                         </ul>
                     </div>
 
-                    {/* Use Cases */}
+                    {/* Use Cases / Enterprise */}
                     <div className="lg:w-[14%]">
-                        <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Use Cases</h4>
+                        <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">
+                            {isIndiaSite ? 'Use Cases' : 'Enterprise'}
+                        </h4>
                         <ul className="space-y-3.5 text-[15px]">
-                            {useCaseLinks.map((link, i) => (
+                            {(isIndiaSite ? useCaseLinks : businessMenuLinks).map((link, i) => (
                                 <li key={i}>
                                     <Link href={link.path} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
                                         {link.label}

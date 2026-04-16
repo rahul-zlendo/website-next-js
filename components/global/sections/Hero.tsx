@@ -77,13 +77,12 @@ const PremiumHero: React.FC<HeroProps> = ({ data }) => {
 
     let cx = 50, cy = 50;
     const tick = () => {
-      cx += (mousePos.current.x - cx) * 0.04;
-      cy += (mousePos.current.y - cy) * 0.04;
+      cx += (mousePos.current.x - cx) * 0.25;
+      cy += (mousePos.current.y - cy) * 0.25;
 
-      // Mask: transparent circle reveals Image A → opaque ring shows Image B
-      // Using a much softer transition and smaller radius for elegance
-      // Added 'circle' explicitly so it never squishes into an ellipse
-      const mask = `radial-gradient(circle 250px at ${cx}% ${cy}%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)`;
+      const mask = `radial-gradient(circle 300px at ${cx}% ${cy}%, transparent 150px, black 300px)`;
+      const inverseMask = `radial-gradient(circle 300px at ${cx}% ${cy}%, black 150px, transparent 300px)`;
+      
       if (cover) {
         cover.style.maskImage = mask;
         cover.style.webkitMaskImage = mask;
@@ -133,9 +132,9 @@ const PremiumHero: React.FC<HeroProps> = ({ data }) => {
         className="absolute inset-0 z-[2] overflow-hidden"
         style={isMobile ? {} : {
           maskImage:
-            'radial-gradient(circle 250px at 50% 50%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)',
+            'radial-gradient(circle 300px at 50% 50%, transparent 150px, black 300px)',
           WebkitMaskImage:
-            'radial-gradient(circle 250px at 50% 50%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)',
+            'radial-gradient(circle 300px at 50% 50%, transparent 150px, black 300px)',
         }}
       >
         <Image
@@ -156,9 +155,9 @@ const PremiumHero: React.FC<HeroProps> = ({ data }) => {
         className="absolute inset-0 z-[3] bg-[#050505]/45"
         style={isMobile ? {} : {
           maskImage:
-            'radial-gradient(circle 250px at 50% 50%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)',
+            'radial-gradient(circle 300px at 50% 50%, transparent 150px, black 300px)',
           WebkitMaskImage:
-            'radial-gradient(circle 250px at 50% 50%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)',
+            'radial-gradient(circle 300px at 50% 50%, transparent 150px, black 300px)',
         }}
       />
 
@@ -172,8 +171,7 @@ const PremiumHero: React.FC<HeroProps> = ({ data }) => {
         }}
       />
 
-      {/* ── Radial vignette (so it feels deeply immersive and rich) ──────────────── */}
-      <div className="absolute inset-0 z-[4] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(2,2,4,0.7)_100%)] pointer-events-none" />
+      {/* ── Radial vignette removed as requested ──────────────── */}
 
       {/* ── Top ambient teal/emerald glow to give a software/UI vibe ─────────────── */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[60%] z-[4] bg-[radial-gradient(ellipse_at_50%_-10%,rgba(0,191,154,0.15)_0%,transparent_70%)] pointer-events-none" />
@@ -224,7 +222,7 @@ const PremiumHero: React.FC<HeroProps> = ({ data }) => {
             className="max-w-3xl mx-auto"
           >
             {subheading && (
-              <p className="text-base md:text-lg text-gray-300 font-bold leading-relaxed mb-8 opacity-90 drop-shadow">
+              <p className="text-base md:text-lg text-white font-bold leading-relaxed mb-8 mix-blend-difference opacity-90">
                 {subheading}
               </p>
             )}
