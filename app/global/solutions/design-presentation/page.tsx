@@ -266,9 +266,9 @@ export default function DesignPresentationPage() {
                 {/* 5. GRADIENT CTA BLOCK (The Orange-to-Yellow Wow Factor) */}
                 <section className="py-24 bg-white relative overflow-hidden">
                     <div className="container-custom px-4 md:px-8">
-                        <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-br from-[#FF7A00] to-[#FFB800] shadow-[0_30px_60px_rgba(255,122,0,0.3)]">
+                        <div className="relative rounded-[3rem] bg-gradient-to-br from-[#FF7A00] to-[#FFB800] shadow-[0_30px_60px_rgba(255,122,0,0.3)]">
                             {/* Background texture mix */}
-                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/noise-pattern-with-subtle-cross-lines.png')] opacity-20 mix-blend-overlay"></div>
+                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/noise-pattern-with-subtle-cross-lines.png')] opacity-20 mix-blend-overlay rounded-[3rem]"></div>
                             
                             <div className="grid lg:grid-cols-2 items-center p-12 lg:p-20 relative z-10 gap-12">
                                 <div className="space-y-8 text-white max-w-lg relative z-20">

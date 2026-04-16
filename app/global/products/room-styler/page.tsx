@@ -1,6 +1,7 @@
 import React from 'react';
 import { getClient } from '@/lib/sanity/client';
 import SectionRenderer from '@/components/global/SectionRenderer';
+import AiWorkflowsSection from '@/components/global/sections/AiWorkflowsSection';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
@@ -175,14 +176,20 @@ const GlobalRoomStylerPage = async () => {
 
     return (
       <main className="min-h-screen">
-        <SectionRenderer sections={fallbackSections} />
+        {fallbackSections.length > 0 && <SectionRenderer sections={[fallbackSections[0]]} />}
+        <AiWorkflowsSection />
+        {fallbackSections.length > 1 && <SectionRenderer sections={fallbackSections.slice(1)} />}
       </main>
     );
   }
 
+  const sections = pageData?.sections || [];
+
   return (
     <main className="min-h-screen">
-      <SectionRenderer sections={pageData.sections} />
+      {sections.length > 0 && <SectionRenderer sections={[sections[0]]} />}
+      <AiWorkflowsSection />
+      {sections.length > 1 && <SectionRenderer sections={sections.slice(1)} />}
     </main>
   );
 };

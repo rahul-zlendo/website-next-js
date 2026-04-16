@@ -250,7 +250,96 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                     </div>
                 </section>
 
-                {/* 4. FINAL CTA Section */}
+                {/* 4. COMPARISON TABLE SECTION */}
+                <section className="py-24 bg-white">
+                    <div className="container-custom px-4">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">Stop wasting time. Start creating.</h2>
+                            <p className="text-[#666] text-lg font-medium">Why top designers are ditching legacy tools for Zlendo's AI workflow.</p>
+                        </div>
+
+                        <div className="max-w-6xl mx-auto overflow-hidden rounded-[2.5rem] border border-black/[0.05] shadow-[0_20px_60px_rgba(0,0,0,0.03)] bg-white">
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr className="bg-[#FAFAFC] border-b border-black/[0.05]">
+                                            <th className="p-8 text-xl font-black text-[#111] w-1/4">Step</th>
+                                            <th className="p-8 text-lg font-bold text-[#999] opacity-60 w-[37.5%]">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="w-2 h-2 rounded-full bg-gray-300" />
+                                                    The Old Way
+                                                </div>
+                                            </th>
+                                            <th className="p-8 text-lg font-black text-zlendo-teal w-[37.5%] bg-zlendo-teal/[0.02]">
+                                                <div className="flex items-center gap-2">
+                                                    <Zap className="w-5 h-5 fill-zlendo-teal" />
+                                                    The Zlendo Way
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-black/[0.05]">
+                                        {[
+                                            { 
+                                                step: "Setup", 
+                                                old: "Install heavy software on expensive workstations", 
+                                                new: "Open a browser on any device. No installs needed." 
+                                            },
+                                            { 
+                                                step: "Realism", 
+                                                old: "Hours tweaking textures, lighting, and materials", 
+                                                new: "Automatic photorealism handled by AI" 
+                                            },
+                                            { 
+                                                step: "Render time", 
+                                                old: "30 min to several hours per image", 
+                                                new: "Under 10 seconds per image" 
+                                            },
+                                            { 
+                                                step: "Getting unstuck", 
+                                                old: "Post on forums, hope for a reply one day", 
+                                                new: "Instant live chat and expert email support" 
+                                            },
+                                            { 
+                                                step: "Edits", 
+                                                old: "Change the model, re-render the whole scene", 
+                                                new: "Type \"change siding to bleached oak\"" 
+                                            },
+                                            { 
+                                                step: "Post-processing", 
+                                                old: "Hours spent in Photoshop for touch-ups", 
+                                                new: "Professional enhancement in one click" 
+                                            },
+                                            { 
+                                                step: "Animation", 
+                                                old: "Hours setting up complex camera paths", 
+                                                new: "Select camera presets, ready in 90s" 
+                                            }
+                                        ].map((row, i) => (
+                                            <tr key={i} className="group hover:bg-[#FAFAFC]/50 transition-colors">
+                                                <td className="p-8 font-black text-[#111] text-lg">{row.step}</td>
+                                                <td className="p-8 text-[#999] font-medium">
+                                                    <div className="flex items-start gap-3">
+                                                        <span className="mt-1.5 flex-shrink-0 text-gray-300 select-none">✕</span>
+                                                        {row.old}
+                                                    </div>
+                                                </td>
+                                                <td className="p-8 text-[#111] font-bold bg-zlendo-teal/[0.01]">
+                                                    <div className="flex items-start gap-3">
+                                                        <CheckCircle2 className="w-6 h-6 text-zlendo-teal flex-shrink-0 mt-0.5" />
+                                                        {row.new}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* 5. FINAL CTA Section */}
                 <section className="py-32 relative overflow-hidden bg-white border-t border-black/5">
                     <div className="container-custom px-4 text-center relative z-10">
                         <motion.div
