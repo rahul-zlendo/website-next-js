@@ -1,6 +1,9 @@
 import React from 'react';
 import { getClient } from '@/lib/sanity/client';
 import SectionRenderer from '@/components/global/SectionRenderer';
+import AdvancedFeatures from '@/components/global/sections/AdvancedFeatures';
+import GlobalRedesignBlocks from '@/components/global/sections/GlobalRedesignBlocks';
+import InteractiveGlobalHero from '@/components/global/sections/InteractiveGlobalHero';
 import { notFound } from 'next/navigation';
 
 async function getGlobalHomePage() {
@@ -52,8 +55,7 @@ const GlobalHomePage = async () => {
         logos: [
           { name: 'G2 Leader' },
           { name: 'Capterra' },
-          { name: 'Dezeen' },
-          { name: 'Architectural Digest' },
+          { name: 'Product Hunt' },
           { name: 'Wallpaper*' }
         ]
       },
@@ -214,14 +216,24 @@ const GlobalHomePage = async () => {
 
     return (
       <main className="min-h-screen">
-        <SectionRenderer sections={fallbackSections} />
+        <InteractiveGlobalHero />
+        {fallbackSections.length > 1 && <SectionRenderer sections={[fallbackSections[1]]} />}
+        <AdvancedFeatures />
+        {fallbackSections.length > 3 && <SectionRenderer sections={[fallbackSections[3]]} />}
+        <GlobalRedesignBlocks />
       </main>
     );
   }
 
+  const sections = pageData?.sections || [];
+
   return (
     <main className="min-h-screen">
-      <SectionRenderer sections={pageData.sections} />
+      <InteractiveGlobalHero />
+      {sections.length > 1 && <SectionRenderer sections={[sections[1]]} />}
+      <AdvancedFeatures />
+      {sections.length > 3 && <SectionRenderer sections={[sections[3]]} />}
+      <GlobalRedesignBlocks />
     </main>
   );
 };
