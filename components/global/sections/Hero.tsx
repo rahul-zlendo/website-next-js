@@ -77,11 +77,13 @@ const PremiumHero: React.FC<HeroProps> = ({ data }) => {
 
     let cx = 50, cy = 50;
     const tick = () => {
-      cx += (mousePos.current.x - cx) * 0.08;
-      cy += (mousePos.current.y - cy) * 0.08;
+      cx += (mousePos.current.x - cx) * 0.04;
+      cy += (mousePos.current.y - cy) * 0.04;
 
       // Mask: transparent circle reveals Image A → opaque ring shows Image B
-      const mask = `radial-gradient(340px at ${cx}% ${cy}%, transparent 180px, rgba(0,0,0,0.08) 240px, black 340px)`;
+      // Using a much softer transition and smaller radius for elegance
+      // Added 'circle' explicitly so it never squishes into an ellipse
+      const mask = `radial-gradient(circle 250px at ${cx}% ${cy}%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)`;
       if (cover) {
         cover.style.maskImage = mask;
         cover.style.webkitMaskImage = mask;
@@ -131,9 +133,9 @@ const PremiumHero: React.FC<HeroProps> = ({ data }) => {
         className="absolute inset-0 z-[2] overflow-hidden"
         style={isMobile ? {} : {
           maskImage:
-            'radial-gradient(340px at 50% 50%, transparent 180px, rgba(0,0,0,0.08) 240px, black 340px)',
+            'radial-gradient(circle 250px at 50% 50%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)',
           WebkitMaskImage:
-            'radial-gradient(340px at 50% 50%, transparent 180px, rgba(0,0,0,0.08) 240px, black 340px)',
+            'radial-gradient(circle 250px at 50% 50%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)',
         }}
       >
         <Image
@@ -154,27 +156,27 @@ const PremiumHero: React.FC<HeroProps> = ({ data }) => {
         className="absolute inset-0 z-[3] bg-[#050505]/45"
         style={isMobile ? {} : {
           maskImage:
-            'radial-gradient(340px at 50% 50%, transparent 180px, rgba(0,0,0,0.08) 240px, black 340px)',
+            'radial-gradient(circle 250px at 50% 50%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)',
           WebkitMaskImage:
-            'radial-gradient(340px at 50% 50%, transparent 180px, rgba(0,0,0,0.08) 240px, black 340px)',
+            'radial-gradient(circle 250px at 50% 50%, transparent 80px, rgba(0,0,0,0.3) 160px, black 250px)',
         }}
       />
 
       {/* ── Fine architectural grid on top ───────────────────────────────────── */}
       <div
-        className="absolute inset-0 z-[4] opacity-[0.04] pointer-events-none"
+        className="absolute inset-0 z-[4] opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage:
             'linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px)',
-          backgroundSize: '60px 60px',
+          backgroundSize: '40px 40px',
         }}
       />
 
-      {/* ── Radial vignette (lighter so images remain vivid) ──────────────── */}
-      <div className="absolute inset-0 z-[4] bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(5,5,5,0.55)_100%)] pointer-events-none" />
+      {/* ── Radial vignette (so it feels deeply immersive and rich) ──────────────── */}
+      <div className="absolute inset-0 z-[4] bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(2,2,4,0.7)_100%)] pointer-events-none" />
 
-      {/* ── Top ambient teal glow ─────────────────────────────────────────────── */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[55%] z-[4] bg-[radial-gradient(circle_at_50%_0%,rgba(0,191,154,0.1)_0%,transparent_60%)] pointer-events-none" />
+      {/* ── Top ambient teal/emerald glow to give a software/UI vibe ─────────────── */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[60%] z-[4] bg-[radial-gradient(ellipse_at_50%_-10%,rgba(0,191,154,0.15)_0%,transparent_70%)] pointer-events-none" />
 
       {/* ── Content ─── z-[10] sits above all background layers ──────────────── */}
       <div className="container-custom relative z-10 px-4">

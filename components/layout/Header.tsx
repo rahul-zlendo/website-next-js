@@ -85,6 +85,11 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         { label: 'Virtual Walkthrough', desc: '8K Ultra-realistic experiences', icon: Video, path: getPath('/products/virtual-walkthrough') },
     ];
 
+    const solutionsLinks = [
+        { label: 'Design Presentation', desc: 'Present clearly. Get approval faster.', icon: LayoutTemplate, path: getPath('/solutions/design-presentation') },
+    ];
+
+
     const resourceLinks = [
         { label: 'Design Library', desc: 'Inspiration gallery', icon: Library, path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', desc: 'Built-in layouts for homes, rooms, and interiors.', icon: LayoutTemplate, path: getPath('/viewalltemplates') },
@@ -214,6 +219,45 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                                 <div>
                                                     <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
                                                     <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Solutions Dropdown */}
+                        <div className="relative group">
+                            <button
+                                onClick={() => setActiveDropdown(activeDropdown === 'solutions' ? null : 'solutions')}
+                                className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'solutions' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
+                            >
+                                Solutions <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
+                            </button>
+
+                            <AnimatePresence>
+                                {activeDropdown === 'solutions' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        className="absolute top-full left-0 mt-4 w-[340px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 flex flex-col gap-2"
+                                    >
+                                        {solutionsLinks.map((item) => (
+                                            <Link
+                                                key={item.label}
+                                                href={item.path}
+                                                prefetch={true}
+                                                onClick={toggleMode}
+                                                className="flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/5 transition-all group/item"
+                                            >
+                                                <div className="w-10 h-10 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
+                                                    <item.icon className="w-4 h-4" />
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
+                                                    <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
                                                 </div>
                                             </Link>
                                         ))}
@@ -523,6 +567,39 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                                 className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10"
                                             >
                                                 {productLinks.map(link => (
+                                                    <Link
+                                                        key={link.label}
+                                                        href={link.path}
+                                                        prefetch={true}
+                                                        onClick={() => setIsMobileMenuOpen(false)}
+                                                        className="block text-base font-medium text-zlendo-grey-medium hover:text-zlendo-teal"
+                                                    >
+                                                        {link.label}
+                                                    </Link>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+
+                                {/* Solutions Mobile Dropdown */}
+                                <div>
+                                    <button
+                                        onClick={() => setActiveDropdown(activeDropdown === 'solutions' ? null : 'solutions')}
+                                        className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
+                                    >
+                                        Solutions
+                                        <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    <AnimatePresence>
+                                        {activeDropdown === 'solutions' && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10"
+                                            >
+                                                {solutionsLinks.map(link => (
                                                     <Link
                                                         key={link.label}
                                                         href={link.path}
