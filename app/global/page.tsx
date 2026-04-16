@@ -54,7 +54,7 @@ const GlobalHomePage = async () => {
           { name: 'Capterra' },
           { name: 'Dezeen' },
           { name: 'Architectural Digest' },
-          { name: 'Wallpaper*' }
+          { name: 'Wallpaper' }
         ]
       },
       {
