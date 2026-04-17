@@ -9,9 +9,10 @@ interface ComparePlansProps {
     plansList: any[]; // The filtered list of plans to display (e.g., Free, Pro, Pro Plus)
     billingCycle?: string;
     activeOffer?: any;
+    isGlobal?: boolean;
 }
 
-const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, billingCycle = 'month', activeOffer = null }) => {
+const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, billingCycle = 'month', activeOffer = null, isGlobal = false }) => {
     // Keep track of which main features are expanded
     // Expanding all by default
     const [expandedSections, setExpandedSections] = useState<Record<number, boolean>>(
@@ -94,8 +95,8 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, bil
                                 discountedPrice = Math.round(discountedPrice);
                             }
 
-                            const displayPrice = discountedPrice.toLocaleString('en-IN');
-                            const originalPriceFormatted = normalPrice.toLocaleString('en-IN');
+                            const displayPrice = discountedPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
+                            const originalPriceFormatted = normalPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
                             const periodLabel = billingCycle === 'month' ? 'Month' : 'mo';
 
                             return (

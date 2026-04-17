@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Send, User, Bot, HelpCircle, ArrowRight } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { CHATBOT_RESPONSES } from '@/lib/constants/chatBotResponseData';
 
 interface Message {
@@ -13,6 +14,9 @@ interface Message {
 }
 
 const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+    const pathname = usePathname();
+    const isIndia = pathname?.startsWith('/in');
+
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
@@ -50,7 +54,8 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
         // Simple Bot Logic
         setTimeout(() => {
             const lowerInput = userMsg.text.toLowerCase();
-            let responseText = "I'm not sure about that. Try asking about Pricing, our 3D tools or Vastu services. Alternatively, you can reach us at contact@zlendorealty.com or visit our [Contact Page](/in/contact).";
+            const basePath = isIndia ? '/in' : '/';
+            let responseText = `I'm not sure about that. Try asking about Pricing, our 3D tools or Vastu services. Alternatively, you can reach us at contact@zlendorealty.com or visit our [Contact Page](${basePath}/contact).`;
 
             // Keyword matching
             for (const [keyword, response] of Object.entries(keywordResponses)) {
@@ -58,6 +63,12 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                     responseText = response;
                     break;
                 }
+            }
+
+            // Global URL transformation (if not on India site)
+            if (!isIndia) {
+                // Replace both display text and link if they contain /in/
+                responseText = responseText.replace(/\/in\//g, '/');
             }
 
             const botMsg: Message = {
