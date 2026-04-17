@@ -12,6 +12,8 @@ import {
     TrendingUp, Timer
 } from 'lucide-react';
 import { useCountry } from '@/lib/context/CountryContext';
+import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
+import { createOrUpdateBusinessInfo, getAllListOfValues, getAllLocations, resetEnterpriseForm } from '@/lib/store/slices/enterpriseSlice';
 
 /* ────────────────────────────────────────────
    ANIMATED COUNTER COMPONENT
@@ -116,25 +118,84 @@ const testimonials = [
 ════════════════════════════════════════════ */
 export default function GlobalBusinessClient() {
     const { getPath } = useCountry();
+    const dispatch = useAppDispatch();
+    const {
+        isSubmitting,
+        isSubmitted,
+        isLoadingIndustries,
+        industries,
+        Location_type,
+        isLoadingLocations,
+        locations
+    } = useAppSelector((state) => state.enterprise);
+
     const [activeTab, setActiveTab] = useState('architects');
     const [formData, setFormData] = useState({
-        fullName: '', workEmail: '', companyName: '',
-        companySize: '', industry: '', useCase: '',
+        company: '',
+        name: '',
+        role: '',
+        phone: '',
+        email: '',
+        industry: '',
+        description: '',
+        teamSize: '',
+        city: '',
+        timeline: '',
+        country: 0,
     });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    useEffect(() => {
+        dispatch(resetEnterpriseForm());
+        dispatch(getAllListOfValues());
+        dispatch(getAllLocations());
+    }, [dispatch]);
+
+    const countries = useMemo(() => {
+        if (!locations || locations.length === 0) return [];
+        const countryLovId = Location_type.find((item: any) =>
+            item.lov_Key?.toLowerCase() === 'country'
+        )?.lov_Id || 12;
+
+        return locations
+            .filter((loc: any) => loc.location_TypeId === countryLovId && loc.isActive !== false)
+            .sort((a: any, b: any) => a.location_Name.localeCompare(b.location_Name));
+    }, [locations, Location_type]);
 
     const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setIsSubmitting(true);
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setIsSubmitted(true);
-        }, 1500);
+
+        const payload = {
+            Id: 0,
+            FullName: formData.name,
+            EmailAddress: formData.email,
+            CompanyName: formData.company,
+            PhoneNumber: formData.phone || "",
+            State: null,
+            country: formData.country,
+            BusinessStatus: 0,
+            BusinessDescription: parseInt(formData.industry) || 0,
+            BusinessChallenge: formData.description,
+            IsActive: true,
+            ScheduleDate: null,
+            ScheduleTime: null,
+            RescheduleDate: null,
+            RescheduleTime: null,
+            Remarks: "",
+            AssignedTo: 0,
+            ModuleName: "Business Info Master",
+            Activity: "Create"
+        };
+
+        try {
+            await dispatch(createOrUpdateBusinessInfo(payload)).unwrap();
+        } catch (error: unknown) {
+            console.error('Error submitting form:', error);
+            alert(error instanceof Error ? error.message : 'Something went wrong. Please try again.');
+        }
     };
 
     const activeTabData = useMemo(() => useCaseTabs.find(t => t.id === activeTab), [activeTab]);
@@ -419,8 +480,8 @@ export default function GlobalBusinessClient() {
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all ${activeTab === tab.id
-                                        ? 'bg-zlendo-teal text-white shadow-lg shadow-zlendo-teal/20'
-                                        : 'bg-white/[0.04] text-white/50 border border-white/[0.06] hover:bg-white/[0.07]'
+                                    ? 'bg-zlendo-teal text-white shadow-lg shadow-zlendo-teal/20'
+                                    : 'bg-white/[0.04] text-white/50 border border-white/[0.06] hover:bg-white/[0.07]'
                                     }`}
                             >
                                 <tab.icon className="w-4.5 h-4.5" />
@@ -693,86 +754,142 @@ export default function GlobalBusinessClient() {
                                         <div>
                                             <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Full Name *</label>
                                             <input
-                                                type="text" name="fullName" required value={formData.fullName} onChange={handleFormChange}
-                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all"
+                                                type="text" name="name" required value={formData.name} onChange={handleFormChange}
+                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all font-nunito"
                                                 placeholder="John Doe"
                                             />
                                         </div>
                                         <div>
                                             <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Work Email *</label>
                                             <input
-                                                type="email" name="workEmail" required value={formData.workEmail} onChange={handleFormChange}
-                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all"
+                                                type="email" name="email" required value={formData.email} onChange={handleFormChange}
+                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all font-nunito"
                                                 placeholder="john@company.com"
                                             />
                                         </div>
                                     </div>
 
-                                    <div>
-                                        <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Company Name *</label>
-                                        <input
-                                            type="text" name="companyName" required value={formData.companyName} onChange={handleFormChange}
-                                            className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all"
-                                            placeholder="Your Company"
-                                        />
-                                    </div>
-
                                     <div className="grid sm:grid-cols-2 gap-5">
                                         <div>
-                                            <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Company Size</label>
-                                            <select
-                                                name="companySize" value={formData.companySize} onChange={handleFormChange}
-                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all appearance-none"
-                                            >
-                                                <option value="" className="bg-[#0a0f1a]">Select size</option>
-                                                <option value="1-10" className="bg-[#0a0f1a]">1–10 employees</option>
-                                                <option value="11-50" className="bg-[#0a0f1a]">11–50 employees</option>
-                                                <option value="51-200" className="bg-[#0a0f1a]">51–200 employees</option>
-                                                <option value="201-1000" className="bg-[#0a0f1a]">201–1,000 employees</option>
-                                                <option value="1000+" className="bg-[#0a0f1a]">1,000+ employees</option>
-                                            </select>
+                                            <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Country *</label>
+                                            <div className="relative">
+                                                <select
+                                                    name="country" required value={formData.country}
+                                                    onChange={(e) => {
+                                                        const newVal = parseInt(e.target.value);
+                                                        const selected = countries.find((c: any) => c.location_Id === newVal);
+                                                        const isInd = selected?.location_Name?.toLowerCase() === 'india';
+                                                        setFormData(prev => ({
+                                                            ...prev,
+                                                            country: newVal,
+                                                            phone: isInd ? prev.phone : ''
+                                                        }));
+                                                    }}
+                                                    className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all appearance-none cursor-pointer font-nunito"
+                                                >
+                                                    <option value={0} className="bg-[#0a0f1a]">Select country...</option>
+                                                    {isLoadingLocations ? (
+                                                        <option disabled className="bg-[#0a0f1a]">Loading countries...</option>
+                                                    ) : countries.length > 0 ? (
+                                                        countries.map((c: any, idx: number) => (
+                                                            <option key={idx} value={c.location_Id} className="bg-[#0a0f1a]">
+                                                                {c.location_Name}
+                                                            </option>
+                                                        ))
+                                                    ) : (
+                                                        <option disabled className="bg-[#0a0f1a]">No countries found</option>
+                                                    )}
+                                                </select>
+                                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-30">
+                                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Industry</label>
-                                            <select
-                                                name="industry" value={formData.industry} onChange={handleFormChange}
-                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all appearance-none"
-                                            >
-                                                <option value="" className="bg-[#0a0f1a]">Select industry</option>
-                                                <option value="architecture" className="bg-[#0a0f1a]">Architecture</option>
-                                                <option value="interior-design" className="bg-[#0a0f1a]">Interior Design</option>
-                                                <option value="real-estate" className="bg-[#0a0f1a]">Real Estate Development</option>
-                                                <option value="construction" className="bg-[#0a0f1a]">Construction</option>
-                                                <option value="other" className="bg-[#0a0f1a]">Other</option>
-                                            </select>
+                                            <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Company Name *</label>
+                                            <input
+                                                type="text" name="company" required value={formData.company} onChange={handleFormChange}
+                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all font-nunito"
+                                                placeholder="Your Company"
+                                            />
                                         </div>
                                     </div>
 
+                                    {(() => {
+                                        const selected = countries.find((c: any) => c.location_Id === formData.country);
+                                        const isIndia = selected?.location_Name?.toLowerCase() === 'india';
+
+                                        return (
+                                            <div className="grid sm:grid-cols-2 gap-5">
+                                                <div className={isIndia ? '' : 'sm:col-span-2'}>
+                                                    <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Industry *</label>
+                                                    <div className="relative">
+                                                        <select
+                                                            name="industry" required value={formData.industry}
+                                                            onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
+                                                            className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all appearance-none cursor-pointer font-nunito"
+                                                        >
+                                                            <option value="" className="bg-[#0a0f1a]">Select industry...</option>
+                                                            {isLoadingIndustries ? (
+                                                                <option disabled className="bg-[#0a0f1a]">Loading industries...</option>
+                                                            ) : industries.length > 0 ? (
+                                                                industries.map((ind: any, idx: number) => (
+                                                                    <option key={idx} value={ind.lov_Value} className="bg-[#0a0f1a]">
+                                                                        {ind.description || ind.lov_Key}
+                                                                    </option>
+                                                                ))
+                                                            ) : (
+                                                                <option disabled className="bg-[#0a0f1a]">No industries found</option>
+                                                            )}
+                                                        </select>
+                                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-30">
+                                                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {isIndia && (
+                                                    <div>
+                                                        <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Phone *</label>
+                                                        <input
+                                                            type="tel" name="phone" required pattern="[0-9]{10}" maxLength={10} value={formData.phone}
+                                                            onChange={(e) => { const value = e.target.value.replace(/\D/g, '').slice(0, 10); setFormData({ ...formData, phone: value }); }}
+                                                            className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all font-nunito"
+                                                            placeholder="10-digit mobile number"
+                                                        />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        );
+                                    })()}
+
                                     <div>
-                                        <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Use Case (Optional)</label>
+                                        <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">How can we help? *</label>
                                         <textarea
-                                            name="useCase" value={formData.useCase} onChange={handleFormChange} rows={3}
-                                            className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all resize-none"
-                                            placeholder="Tell us about your specific needs..."
+                                            name="description" required value={formData.description} onChange={handleFormChange} rows={3}
+                                            className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all resize-none font-nunito"
+                                            placeholder="Tell us about your project requirements or challenges..."
                                         />
                                     </div>
 
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-zlendo-teal to-emerald-400 text-white font-black text-lg rounded-2xl shadow-2xl shadow-zlendo-teal/20 hover:shadow-zlendo-teal/30 hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-60"
+                                        className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-zlendo-teal to-emerald-400 text-white font-black text-lg rounded-2xl shadow-2xl shadow-zlendo-teal/20 hover:shadow-zlendo-teal/30 hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-60 font-nunito"
                                     >
                                         {isSubmitting ? (
-                                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                            <>
+                                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                                                Submitting...
+                                            </>
                                         ) : (
                                             <>
-                                                Book Your Demo
-                                                <Send className="w-5 h-5" />
+                                                Book Strategy Call
+                                                <ArrowRight className="w-5 h-5" />
                                             </>
                                         )}
                                     </button>
 
-                                    <p className="text-center text-xs text-white/20 font-medium">
+                                    <p className="text-center text-xs text-white/20 font-bold font-nunito">
                                         No credit card required · We respond within 1 business day
                                     </p>
                                 </form>
