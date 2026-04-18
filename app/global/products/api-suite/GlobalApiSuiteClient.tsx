@@ -122,7 +122,7 @@ export default function GlobalApiSuiteClient() {
                                 <span className="text-[11px] font-black uppercase tracking-[0.25em] text-slate-500">Global Enterprise API</span>
                             </div>
 
-                            <h1 className="text-[40px] md:text-[56px] lg:text-[76px] font-black text-[#0A0A0B] mb-8 leading-[0.9] tracking-[-0.05em]">
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#0A0A0B] mb-8 leading-[1.05] tracking-tight">
                                 The Engine For{' '}
                                 <br />
                                 <span className="bg-gradient-to-r from-zlendo-teal via-emerald-500 to-cyan-500 bg-clip-text text-transparent">
