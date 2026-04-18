@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { createBusinessContact, resetContactForm } from '@/lib/store/slices/contactSlice';
+import { getAllLocations } from '@/lib/store/slices/enterpriseSlice';
 import {
     Mail,
     Phone,
@@ -28,11 +29,20 @@ interface ContactClientProps {
 const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
     const dispatch = useAppDispatch();
     const { isSubmitting, isSubmitted } = useAppSelector((state) => state.contact);
+    const { locations: countries, isLoadingLocations } = useAppSelector((state) => state.enterprise);
+
+    const sortedCountries = useMemo(() => {
+        if (!countries) return [];
+        return [...countries].sort((a, b) =>
+            (a.location_Name || '').localeCompare(b.location_Name || '')
+        );
+    }, [countries]);
 
     const [formState, setFormState] = useState({
         name: '',
         email: '',
         phone: '',
+        country: 0,
         userType: 'individual',
         message: ''
     });
@@ -40,6 +50,7 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
 
     useEffect(() => {
         dispatch(resetContactForm());
+        dispatch(getAllLocations());
     }, [dispatch]);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -51,11 +62,14 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
             return;
         }
 
+        const selectedCountry = countries.find((c: any) => c.location_Id === formState.country);
+        const countryName = selectedCountry?.location_Name || 'Not Specified';
+
         const payload = {
             fullName: formState.name,
             emailAddress: formState.email,
             phoneNumber: formState.phone,
-            message: `User Type: ${formState.userType} - ${formState.message}`,
+            message: `User Type: ${formState.userType} - Country: ${countryName} - ${formState.message}`,
             isActive: true,
             createdBy: "ContactPage",
             createdOn: new Date().toISOString(),
@@ -202,6 +216,7 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
                                                     name: '',
                                                     email: '',
                                                     phone: '',
+                                                    country: 0,
                                                     userType: 'individual',
                                                     message: ''
                                                 });
@@ -276,22 +291,52 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
                                     </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-40 ml-1">Phone Number</label>
-                                    <input
-                                        type="tel"
-                                        required
-                                        pattern="[0-9]{10}"
-                                        maxLength={10}
-                                        value={formState.phone}
-                                        onChange={(e) => {
-                                            const value = e.target.value.replace(/\D/g, '').slice(0, 10);
-                                            setFormState({ ...formState, phone: value });
-                                        }}
-                                        className="w-full px-6 py-4 rounded-2xl bg-[#f9fafb] border border-black/[0.03] focus:border-zlendo-teal focus:bg-white outline-none transition-all font-bold text-zlendo-grey-dark"
-                                        placeholder="10-digit mobile number"
-                                        title="Please enter a valid 10-digit mobile number"
-                                    />
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="space-y-2">
+                                        <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-40 ml-1">Phone Number</label>
+                                        <input
+                                            type="tel"
+                                            pattern="[0-9]{10}"
+                                            value={formState.phone}
+                                            onChange={(e) => {
+                                                const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+                                                setFormState({ ...formState, phone: value });
+                                            }}
+                                            className="w-full px-6 py-4 rounded-2xl bg-[#f9fafb] border border-black/[0.03] focus:border-zlendo-teal focus:bg-white outline-none transition-all font-bold text-zlendo-grey-dark"
+                                            placeholder="10-digit mobile number"
+                                            title="Please enter a valid 10-digit mobile number"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-40 ml-1">Country</label>
+                                        <div className="relative">
+                                            <select
+                                                required
+                                                value={formState.country}
+                                                onChange={(e) => {
+                                                    const newVal = parseInt(e.target.value);
+                                                    setFormState({ ...formState, country: newVal });
+                                                }}
+                                                className="w-full px-6 py-4 rounded-2xl bg-[#f9fafb] border border-black/[0.03] focus:border-zlendo-teal focus:bg-white outline-none transition-all font-bold text-zlendo-grey-dark appearance-none cursor-pointer"
+                                            >
+                                                <option value={0}>Select country...</option>
+                                                {isLoadingLocations ? (
+                                                    <option disabled>Loading countries...</option>
+                                                ) : sortedCountries && sortedCountries.length > 0 ? (
+                                                    sortedCountries.map((c: any, idx: number) => (
+                                                        <option key={idx} value={c.location_Id}>
+                                                            {c.location_Name}
+                                                        </option>
+                                                    ))
+                                                ) : (
+                                                    <option disabled>No countries found</option>
+                                                )}
+                                            </select>
+                                            <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none opacity-40">
+                                                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="space-y-2">

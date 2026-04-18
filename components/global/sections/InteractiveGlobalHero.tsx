@@ -113,7 +113,7 @@ export default function InteractiveGlobalHero() {
                                 Try it now <ArrowRight className="w-5 h-5" />
                             </a>
                             <a
-                                href="/contact"
+                                href="/business#demo-form"
                                 className="w-full sm:w-auto px-8 py-4 bg-white/5 backdrop-blur-md text-white border border-white/10 font-bold text-lg rounded-xl hover:bg-white/10 transition-all flex items-center justify-center gap-3"
                             >
                                 <Play className="w-5 h-5" /> Watch demo

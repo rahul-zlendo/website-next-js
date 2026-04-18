@@ -51,9 +51,9 @@ const GlobalFloorPlannerPage = async () => {
         ctaText: "Start Designing Free",
         ctaLink: SIGNUP_URL,
         ctaSubtext: "14 days, full access. No credit card.",
-        secondaryCtaText: "View Gallery",
-        secondaryCtaLink: "/viewalltemplates",
-        secondaryCtaSubtext: "Explore existing templates."
+        secondaryCtaText: "Request Your Demo",
+        secondaryCtaLink: "/business#demo-form",
+        secondaryCtaSubtext: "Schedule a 1-on-1 platform tour."
       },
       {
         _type: 'globalHowItWorks',

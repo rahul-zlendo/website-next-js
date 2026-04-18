@@ -31,7 +31,18 @@ export const POLICIES: PolicyMetadata[] = [
         category: 'privacy',
         description: 'Zlendo Technologies Privacy Policy - Learn how we collect, use, and protect your personal information.',
         lastUpdated: 'January 2026',
-        sections: [] // Content moved to PrivacyPolicyPage.tsx
+        sections: [
+            {
+                id: 'intro',
+                title: 'Introduction',
+                content: 'Welcome to Zlendo Realty. This Privacy Policy explains how we collect, use, and protect your information when you use our services.'
+            },
+            {
+                id: 'data-collection',
+                title: 'Data Collection',
+                content: 'We collect information that you provide to us directly, such as when you create an account, upload a floor plan, or contact support.'
+            }
+        ]
     },
     {
         id: 'terms-of-service',
@@ -41,7 +52,18 @@ export const POLICIES: PolicyMetadata[] = [
         category: 'legal',
         description: 'Zlendo Realty Terms of Service - Understand the rules and regulations for using our services.',
         lastUpdated: 'January 2026',
-        sections: [] // Content moved to TermsPage.tsx
+        sections: [
+            {
+                id: 'acceptance',
+                title: 'Acceptance of Terms',
+                content: 'By accessing or using Zlendo Realty, you agree to comply with and be bound by these Terms of Service.'
+            },
+            {
+                id: 'user-conduct',
+                title: 'User Conduct',
+                content: 'You agree not to use our services for any unlawful purpose or in any way that could damage our platform.'
+            }
+        ]
     },
     {
         id: 'cookie-policy',
@@ -51,18 +73,19 @@ export const POLICIES: PolicyMetadata[] = [
         category: 'privacy',
         description: 'Information about how we use cookies and similar technologies.',
         lastUpdated: 'January 2026',
-        sections: [] // Content moved to CookiePolicyPage.tsx
+        sections: [
+            {
+                id: 'what-are-cookies',
+                title: 'What are Cookies?',
+                content: 'Cookies are small text files that are stored on your device when you visit our website.'
+            },
+            {
+                id: 'how-we-use-them',
+                title: 'How we use Cookies',
+                content: 'We use cookies to improve your experience, remember your preferences, and analyze our traffic.'
+            }
+        ]
     },
-    // {
-    //     id: 'dpa',
-    //     slug: 'dpa',
-    //     title: 'Data Processing Agreement',
-    //     icon: Shield,
-    //     category: 'privacy',
-    //     description: 'Our commitment to data protection and processing standards.',
-    //     lastUpdated: 'January 2026',
-    //     sections: [] 
-    // },
     {
         id: 'general-terms',
         slug: 'general-terms',
@@ -71,25 +94,14 @@ export const POLICIES: PolicyMetadata[] = [
         category: 'legal',
         description: 'General terms and conditions for using our platform.',
         lastUpdated: 'January 2026',
-        sections: [] // Content moved to GeneralTermsPage.tsx
+        sections: [
+            {
+                id: 'scope',
+                title: 'Scope of Terms',
+                content: 'These general terms apply to all interactions with the Zlendo Realty platform and services.'
+            }
+        ]
     },
-    // {
-    //     id: 'nda-customers',
-    //     slug: 'nda-customers',
-    //     title: 'NDA for Customers',
-    //     icon: UserCheck,
-    //     category: 'agreement',
-    //     description: 'Non-disclosure agreement for customer relationships.',
-    //     lastUpdated: 'January 2026',
-    //     sections: [
-    //         {
-    //             id: 'introduction',
-    //             title: 'Introduction',
-    //             content: 'This Non-Disclosure Agreement protects confidential information shared between Zlendo Realty and our customers.'
-    //         },
-    //         // Add more sections from the NDA for Customers.docx document
-    //     ]
-    // },
     {
         id: 'nda-vendors',
         slug: 'nda-vendors',
@@ -98,7 +110,13 @@ export const POLICIES: PolicyMetadata[] = [
         category: 'agreement',
         description: 'Non-disclosure agreement for vendor partnerships.',
         lastUpdated: 'January 2026',
-        sections: [] // Content moved to NDAVendorsPage.tsx
+        sections: [
+            {
+                id: 'confidentiality',
+                title: 'Confidentiality Agreement',
+                content: 'Vendors agree to maintain the confidentiality of all sensitive information shared during the partnership.'
+            }
+        ]
     },
     {
         id: 'refund-policy',
@@ -108,7 +126,13 @@ export const POLICIES: PolicyMetadata[] = [
         category: 'service',
         description: 'Our policy on refunds and cancellations.',
         lastUpdated: 'January 2026',
-        sections: [] // Content moved to RefundPolicyPage.tsx
+        sections: [
+            {
+                id: 'refunds',
+                title: 'Refund Eligibility',
+                content: 'Refunds are subject to our service quality standards and will be reviewed on a case-by-case basis.'
+            }
+        ]
     },
     {
         id: 'sla',
@@ -118,7 +142,13 @@ export const POLICIES: PolicyMetadata[] = [
         category: 'service',
         description: 'Our commitment to service quality and availability.',
         lastUpdated: 'January 2026',
-        sections: [] // Content moved to ServiceLevelAgreementPage.tsx
+        sections: [
+            {
+                id: 'uptime',
+                title: 'Service Uptime',
+                content: 'We strive for 99.9% uptime for our core rendering and floor planning engines.'
+            }
+        ]
     },
     {
         id: 'community-guidelines',
@@ -128,7 +158,13 @@ export const POLICIES: PolicyMetadata[] = [
         category: 'legal',
         description: 'Rules and standards for conduct and content on the Zlendo Realty platform.',
         lastUpdated: 'January 2026',
-        sections: [] // Content moved to CommunityGuidelinesPage.tsx
+        sections: [
+            {
+                id: 'respect',
+                title: 'Community Respect',
+                content: 'All users are expected to engage respectfully with other members of the Zlendo community.'
+            }
+        ]
     }
 ];
 
