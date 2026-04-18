@@ -22,7 +22,7 @@ export default async function GlobalLayout({
   return (
     <CountryProvider initialCountry="global">
       <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal font-nunito">
-        {/* <PromoBanner /> */}
+        <PromoBanner />
         <Header logoUrl={logoUrl} />
         <main>{children}</main>
         <Footer settings={settings} isGlobal={true} />
