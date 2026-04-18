@@ -266,7 +266,7 @@ export default function GlobalBusinessClient() {
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </a>
                             <a
-                                href="#demo-form"
+                                href="/contact"
                                 className="inline-flex items-center gap-3 px-10 py-5 bg-white/[0.05] border border-white/[0.1] text-white font-bold text-lg rounded-2xl hover:bg-white/[0.08] hover:border-white/[0.15] transition-all"
                             >
                                 Talk to Sales
@@ -930,7 +930,7 @@ export default function GlobalBusinessClient() {
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </a>
                             <a
-                                href="#demo-form"
+                                href="/contact"
                                 className="inline-flex items-center gap-3 px-10 py-5 bg-white/[0.05] border border-white/[0.1] text-white font-bold text-lg rounded-2xl hover:bg-white/[0.08] hover:border-white/[0.15] transition-all"
                             >
                                 Contact Sales
