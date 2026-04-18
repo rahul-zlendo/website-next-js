@@ -206,7 +206,7 @@ export default function GlobalPartnersClient() {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.7, delay: 0.1 }}
-                                className="text-[36px] sm:text-[52px] md:text-[60px] lg:text-[72px] font-black leading-[0.9] tracking-[-0.05em] mb-8 text-[#0A0A0B]"
+                                className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight mb-8 text-[#0A0A0B]"
                             >
                                 Share. Earn.{' '}
                                 <br />

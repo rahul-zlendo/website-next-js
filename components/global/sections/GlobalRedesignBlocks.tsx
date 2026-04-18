@@ -2,8 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { 
-    Wand2, Play, CheckCircle2, XCircle, ArrowRight, TrendingUp, 
+import {
+    Wand2, Play, CheckCircle2, XCircle, ArrowRight, TrendingUp,
     Building2, HardHat, PenTool, Quote, Zap, ArrowDown, Upload, MonitorPlay, Box
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
@@ -29,8 +29,8 @@ const AiTransformation = () => {
                     <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6 tracking-tight">Turn Floor Plans into Experiences.</h2>
                     <p className="text-lg text-[#666] font-medium max-w-2xl mx-auto">Drag to see instantaneous AI 2D-to-3D transformation in action.</p>
                 </div>
-                
-                <div 
+
+                <div
                     ref={containerRef}
                     className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[2.5rem] overflow-hidden bg-slate-100 cursor-ew-resize select-none shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-black/5"
                     onMouseDown={() => setIsDragging(true)}
@@ -85,7 +85,7 @@ const ImmersiveFeatures = () => {
             <div className="container-custom px-4 space-y-32">
                 {features.map((feat, i) => (
                     <div key={i} className={`grid lg:grid-cols-2 gap-16 items-center ${i % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
-                        <motion.div 
+                        <motion.div
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ margin: "-100px", once: true }}
@@ -113,7 +113,7 @@ const ImmersiveFeatures = () => {
 const AnimatedMetrics = () => {
     // Simple mock counter animation using Framer Motion
     const Counter = ({ value, label }: { value: string, label: string }) => (
-        <motion.div 
+        <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -149,8 +149,8 @@ const VisualWorkflowComparison = () => {
                 <div className="grid lg:grid-cols-2 gap-16 relative">
                     {/* The Old Workflow */}
                     <div className="bg-[#FAFAFC] rounded-[3rem] p-12 border border-black/5 opacity-60 hover:opacity-100 transition-opacity">
-                        <div className="text-xl font-bold text-[#999] mb-8 flex items-center justify-between">
-                            <span>The Old Workflow</span>
+                        <div className="text-xl font-bold text-[#111] mb-8 flex items-center justify-between">
+                            <span>The Traditional Workflow</span>
                             <XCircle className="text-red-400 w-6 h-6" />
                         </div>
                         <div className="space-y-4">
@@ -162,7 +162,7 @@ const VisualWorkflowComparison = () => {
                                 "Create separate Excel budget"
                             ].map((step, i) => (
                                 <div key={i} className="flex flex-col items-center">
-                                    <div className="w-full bg-white p-6 rounded-2xl border border-black/5 text-[#555] font-bold text-center shadow-sm">
+                                    <div className="w-full bg-white p-6 rounded-2xl border border-black/5 text-[#111] font-bold text-center shadow-sm">
                                         {step}
                                     </div>
                                     {i < 4 && <ArrowDown className="w-5 h-5 text-gray-300 my-4" />}
@@ -179,7 +179,7 @@ const VisualWorkflowComparison = () => {
                         </div>
                         <div className="h-full flex flex-col justify-center gap-6">
                             <motion.div whileHover={{ scale: 1.05 }} className="w-full bg-white p-6 rounded-2xl border border-zlendo-teal/20 text-[#111] font-black text-center shadow-lg text-lg">
-                                Upload 2D Blueprint
+                                Upload 2D Floor Plan
                             </motion.div>
                             <ArrowDown className="w-8 h-8 text-zlendo-teal mx-auto" />
                             <motion.div whileHover={{ scale: 1.05 }} className="w-full bg-[#111] p-8 rounded-3xl text-white text-center shadow-2xl relative overflow-hidden group">
@@ -212,7 +212,7 @@ const DarkProductFlow = () => {
         <section className="py-24 bg-[#050505] relative overflow-hidden">
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-zlendo-teal/10 blur-[120px] rounded-full pointer-events-none" />
-            
+
             <div className="container-custom px-4 text-center mb-20 relative z-10">
                 <h2 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">One seamless motion.</h2>
             </div>
@@ -224,7 +224,7 @@ const DarkProductFlow = () => {
                     { icon: Zap, title: "3. Auto-Render", desc: "Studio lighting applied" },
                     { icon: MonitorPlay, title: "4. Walkthrough", desc: "Send presentation link" }
                 ].map((step, i) => (
-                    <motion.div 
+                    <motion.div
                         key={i}
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -256,10 +256,17 @@ const AnimatedComparisonTable = () => {
                 <div className="text-center mb-16">
                     <h2 className="text-3xl md:text-5xl font-black text-[#111]">The Competitive Advantage</h2>
                 </div>
-                
+
                 <div className="bg-[#FAFAFC] rounded-[3rem] p-8 md:p-12 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.03)]">
+                    {/* Table Header */}
+                    <div className="hidden md:flex items-center justify-between pb-8 border-b border-black/10 mb-4 px-4">
+                        <div className="w-1/3 text-[13px] font-black uppercase tracking-[0.3em] text-[#111]">Capability</div>
+                        <div className="w-1/3 text-[13px] font-black uppercase tracking-[0.3em] text-[#111]">Competitor</div>
+                        <div className="w-1/3 text-[13px] font-black uppercase tracking-[0.3em] text-zlendo-teal">Zlendo Realty</div>
+                    </div>
+
                     {rows.map((row, i) => (
-                        <motion.div 
+                        <motion.div
                             key={i}
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
@@ -285,18 +292,18 @@ const AnimatedComparisonTable = () => {
 const TabbedUseCases = () => {
     const [activeTab, setActiveTab] = useState(0);
     const tabs = [
-        { 
-            name: "Architects", 
+        {
+            name: "Architects",
             img: "/assets/2d_hero.png",
             benefits: ["Convert DWG to 3D instantly", "Accurate sun/shadow simulation", "Client-ready presentations"]
         },
-        { 
-            name: "Interior Designers", 
+        {
+            name: "Interior Designers",
             img: "/assets/Home-Page/ai-room-inspirtion.png",
             benefits: ["Real-time material swapping", "10k+ Shoppable catalog items", "Instantly render mood variations"]
         },
-        { 
-            name: "Builders & Devs", 
+        {
+            name: "Builders & Devs",
             img: "/assets/3d_hero.png",
             benefits: ["Showcase units before breaking ground", "Live cost-estimation tracking", "Reduce client disputes significantly"]
         }
@@ -307,7 +314,7 @@ const TabbedUseCases = () => {
             <div className="container-custom px-4 max-w-6xl mx-auto">
                 <div className="flex flex-wrap justify-center gap-4 mb-16">
                     {tabs.map((tab, i) => (
-                        <button 
+                        <button
                             key={i}
                             onClick={() => setActiveTab(i)}
                             className={`px-8 py-4 rounded-full font-black text-lg transition-all ${activeTab === i ? 'bg-[#111] text-white shadow-xl scale-105' : 'bg-white text-[#666] border border-black/5 hover:bg-black/5'}`}
@@ -333,10 +340,10 @@ const TabbedUseCases = () => {
                         </AnimatePresence>
                     </div>
                     <div className="order-1 lg:order-2 space-y-6">
-                        <h3 className="text-3xl md:text-4xl font-black text-[#111] leading-tight">Built specifically for <br/><span className="text-zlendo-teal">{tabs[activeTab].name}</span></h3>
+                        <h3 className="text-3xl md:text-4xl font-black text-[#111] leading-tight">Built specifically for <br /><span className="text-zlendo-teal">{tabs[activeTab].name}</span></h3>
                         <div className="space-y-4">
                             {tabs[activeTab].benefits.map((benefit, i) => (
-                                <motion.div 
+                                <motion.div
                                     key={`${activeTab}-${i}`}
                                     initial={{ opacity: 0, x: 20 }}
                                     animate={{ opacity: 1, x: 0 }}
@@ -376,7 +383,7 @@ const VisualTestimonials = () => {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="bg-[#FAFAFC] text-[#111] p-10 rounded-[2.5rem] border border-black/5 shadow-xl group">
                         <Quote className="absolute top-8 right-8 w-16 h-16 text-black/5 -rotate-12 group-hover:rotate-0 transition-transform duration-500" />
                         <div className="relative z-10 flex flex-col h-full">
@@ -402,7 +409,7 @@ const HighContrastCTA = () => {
         <section className="py-24 bg-[#050505] text-white relative overflow-hidden">
             <div className="absolute inset-0 bg-[url('/assets/3d_hero.png')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
-            
+
             <div className="container-custom px-4 text-center relative z-10 max-w-4xl mx-auto">
                 <h2 className="text-4xl md:text-5xl lg:text-7xl font-black leading-[1.05] tracking-tight mb-6 drop-shadow-2xl">
                     Close your next client in one meeting.
@@ -411,7 +418,7 @@ const HighContrastCTA = () => {
                     <a href={SIGNUP_URL} className="w-full sm:w-auto px-10 py-5 bg-zlendo-teal text-white font-black text-xl rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_40px_rgba(0,191,154,0.3)] hover:scale-105">
                         Start your free trial
                     </a>
-                    <a href="/contact" className="w-full sm:w-auto px-10 py-5 bg-white/10 backdrop-blur-md text-white border border-white/20 font-black text-xl rounded-full hover:bg-white/20 transition-all duration-300">
+                    <a href="/business#demo-form" className="w-full sm:w-auto px-10 py-5 bg-white/10 backdrop-blur-md text-white border border-white/20 font-black text-xl rounded-full hover:bg-white/20 transition-all duration-300">
                         Book a demo
                     </a>
                 </div>
