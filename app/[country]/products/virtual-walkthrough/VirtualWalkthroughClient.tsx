@@ -20,7 +20,8 @@ import {
     Home,
     ChevronDown,
     Camera,
-    PlayCircle
+    PlayCircle,
+    X
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 
@@ -32,6 +33,7 @@ interface VirtualWalkthroughClientProps {
 
 export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }: VirtualWalkthroughClientProps) {
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
 
     return (
         <div className="bg-white text-[#222222] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
@@ -89,6 +91,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                         Try now <ArrowRight className="w-5 h-5" />
                                     </a>
                                     <button
+                                        onClick={() => setIsVideoOpen(true)}
                                         className="px-8 py-5 bg-white border border-black/5 text-[#111] rounded-xl font-bold text-xl hover:bg-slate-50 transition-all flex items-center justify-center gap-3 group shadow-sm"
                                     >
                                         <PlayCircle className="w-6 h-6 text-[#111] group-hover:scale-110 transition-transform" />
@@ -108,7 +111,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[15s] group-hover:scale-105"
                                     alt="360 Virtual Walkthrough preview"
                                 />
-                                
+
                                 <div className="absolute bottom-10 left-10 p-6 bg-white/90 backdrop-blur-xl border border-black/5 rounded-2xl shadow-xl">
                                     <div className="flex items-center gap-4 mb-2">
                                         <div className="w-10 h-10 rounded-full bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
@@ -128,7 +131,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                 {/* 2. THREE PILLARS */}
                 <section className="py-24 relative overflow-hidden bg-white">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,191,154,0.02)_0%,transparent_70%)] pointer-events-none" />
-                    
+
                     <div className="container-custom px-4 relative z-10">
                         <div className="grid md:grid-cols-3 gap-8">
                             <motion.div
@@ -267,7 +270,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                             <th className="p-8 text-lg font-bold text-[#999] opacity-60 w-[37.5%]">
                                                 <div className="flex items-center gap-2">
                                                     <span className="w-2 h-2 rounded-full bg-gray-300" />
-                                                    The Old Way
+                                                    The Traditional Way
                                                 </div>
                                             </th>
                                             <th className="p-8 text-lg font-black text-zlendo-teal w-[37.5%] bg-zlendo-teal/[0.02]">
@@ -280,40 +283,40 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                     </thead>
                                     <tbody className="divide-y divide-black/[0.05]">
                                         {[
-                                            { 
-                                                step: "Setup", 
-                                                old: "Install heavy software on expensive workstations", 
-                                                new: "Open a browser on any device. No installs needed." 
+                                            {
+                                                step: "Setup",
+                                                old: "Install heavy software on expensive workstations",
+                                                new: "Open a browser on any device. No installs needed."
                                             },
-                                            { 
-                                                step: "Realism", 
-                                                old: "Hours tweaking textures, lighting, and materials", 
-                                                new: "Automatic photorealism handled by AI" 
+                                            {
+                                                step: "Realism",
+                                                old: "Hours tweaking textures, lighting, and materials",
+                                                new: "Automatic photorealism handled by AI"
                                             },
-                                            { 
-                                                step: "Render time", 
-                                                old: "30 min to several hours per image", 
-                                                new: "Under 10 seconds per image" 
+                                            {
+                                                step: "Render time",
+                                                old: "30 min to several hours per image",
+                                                new: "Under 10 seconds per image"
                                             },
-                                            { 
-                                                step: "Getting unstuck", 
-                                                old: "Post on forums, hope for a reply one day", 
-                                                new: "Instant live chat and expert email support" 
+                                            {
+                                                step: "Getting unstuck",
+                                                old: "Post on forums, hope for a reply one day",
+                                                new: "Instant live chat and expert email support"
                                             },
-                                            { 
-                                                step: "Edits", 
-                                                old: "Change the model, re-render the whole scene", 
-                                                new: "Type \"change siding to bleached oak\"" 
+                                            {
+                                                step: "Edits",
+                                                old: "Change the model, re-render the whole scene",
+                                                new: "Type \"change siding to bleached oak\""
                                             },
-                                            { 
-                                                step: "Post-processing", 
-                                                old: "Hours spent in Photoshop for touch-ups", 
-                                                new: "Professional enhancement in one click" 
+                                            {
+                                                step: "Post-processing",
+                                                old: "Hours spent in Photoshop for touch-ups",
+                                                new: "Professional enhancement in one click"
                                             },
-                                            { 
-                                                step: "Animation", 
-                                                old: "Hours setting up complex camera paths", 
-                                                new: "Select camera presets, ready in 90s" 
+                                            {
+                                                step: "Animation",
+                                                old: "Hours setting up complex camera paths",
+                                                new: "Select camera presets, ready in 90s"
                                             }
                                         ].map((row, i) => (
                                             <tr key={i} className="group hover:bg-[#FAFAFC]/50 transition-colors">
@@ -349,7 +352,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                             className="bg-gradient-to-b from-zlendo-teal/10 to-transparent border border-zlendo-teal/20 max-w-5xl mx-auto rounded-[3rem] p-16 md:p-24 relative overflow-hidden"
                         >
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 relative z-10 text-[#111] leading-tight">
-                                Start creating stunning <br className="hidden md:block"/>visual representations of your ideas today!
+                                Start creating stunning <br className="hidden md:block" />visual representations of your ideas today!
                             </h2>
                             <div className="flex justify-center relative z-10 pt-4">
                                 <a
@@ -367,7 +370,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                 <section className="py-24 bg-[#FAFAFC] border-t border-black/5">
                     <div className="container-custom px-6 max-w-4xl mx-auto">
                         <div className="space-y-12 text-[#666] font-medium leading-relaxed">
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -376,8 +379,8 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                 <h3 className="text-2xl font-black text-[#111]">What is a virtual tour?</h3>
                                 <p>A virtual tour is an interactive digital experience that simulates visiting a physical location. It allows users to explore a space remotely, providing a sense of the environment and its layout. This technology is widely used in various fields, including real estate, interior design, tourism, and museums, to offer a realistic view of a location or design without the need for physical presence.</p>
                             </motion.div>
-                            
-                            <motion.div 
+
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -387,7 +390,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                 <p>To create a virtual tour, especially with our PRO toolset, you would first design your interior concepts using the platform's tools. Once the design is complete, you can use the 360 Walkthrough feature to generate an immersive tour. This feature allows clients to navigate through the virtual space, experiencing the design from every angle and getting a realistic feel of the proposed layout and aesthetics.</p>
                             </motion.div>
 
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -399,8 +402,42 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                         </div>
                     </div>
                 </section>
-
             </main>
+
+            {/* Video Modal */}
+            <AnimatePresence>
+                {isVideoOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsVideoOpen(false)}
+                        className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-md flex items-center justify-center p-4"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="relative w-full max-w-5xl bg-black rounded-3xl overflow-hidden shadow-2xl aspect-video"
+                        >
+                            <button
+                                onClick={() => setIsVideoOpen(false)}
+                                className="absolute top-4 right-4 z-10 p-2 bg-black/50 hover:bg-black/80 text-white rounded-full transition-colors"
+                            >
+                                <X className="w-6 h-6" />
+                            </button>
+                            <iframe
+                                className="w-full h-full"
+                                src={cms?.heroVideoLink || "https://www.youtube.com/embed/ttZcXOgmrNY?autoplay=1"}
+                                title="Product Demo"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
