@@ -30,23 +30,23 @@ export default function AiWorkflowsSection() {
 
                         <div className="p-10 md:p-12 relative z-10 h-full flex flex-col">
                             <h3 className="text-3xl font-black text-white leading-tight mb-4 tracking-tight">
-                                See Your Empty Room <br className="hidden md:block" />Transform Instantly
+                                The Intelligence Engine for <br className="hidden md:block" />Modern Design Teams
                             </h3>
                             <p className="text-slate-400 font-medium leading-relaxed mb-12 max-w-sm">
-                                Turn inspiration, mood boards, or single items into a fully designed space
+                                Eliminate bottlenecks by unifying rendering, cost analysis, and client delivery into one AI-powered motion.
                             </p>
 
                             <div className="mt-auto flex items-end justify-between relative pt-8">
                                 {/* Bottom Left Icons Grid */}
                                 <div className="grid grid-cols-2 gap-3 w-40 h-40 shrink-0 z-10">
                                     {[
-                                        "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&q=80&w=200", // Lamp/Bed substitute
-                                        "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&q=80&w=200", // Chair
-                                        "https://images.unsplash.com/photo-1612222869049-d8ec83637a3c?auto=format&fit=crop&q=80&w=200", // Vase
-                                        "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?auto=format&fit=crop&q=80&w=200"  // Cabinet
+                                        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=200", // Data Intelligence
+                                        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=200", // Cloud Dashboard
+                                        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=200", // Team Collaboration
+                                        "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=200"  // Design Excellence
                                     ].map((img, i) => (
                                         <div key={i} className="rounded-2xl bg-white/5 border border-white/10 p-2 overflow-hidden flex items-center justify-center hover:scale-105 transition-transform">
-                                            <img src={img} className="w-full h-full object-cover mix-blend-screen opacity-80" alt="decor" />
+                                            <img src={img} className="w-full h-full object-cover mix-blend-screen opacity-80" alt="intelligence" />
                                         </div>
                                     ))}
                                 </div>
@@ -57,8 +57,8 @@ export default function AiWorkflowsSection() {
                                         {/* Colored border stroke outlining the 3D room block */}
                                         <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-blue-400/30 to-zlendo-teal/30 z-20 pointer-events-none" style={{ clipPath: 'polygon(10% 25%, 90% 15%, 85% 85%, 20% 95%)'}} />
                                         <img 
-                                            src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800" 
-                                            alt="Rendered room" 
+                                            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=800" 
+                                            alt="Enterprise Render" 
                                             className="w-full object-contain"
                                             style={{
                                                 clipPath: 'polygon(10% 25%, 90% 15%, 85% 85%, 20% 95%)',

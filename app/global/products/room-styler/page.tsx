@@ -52,9 +52,9 @@ const GlobalRoomStylerPage = async () => {
         ctaText: "Start Styling Free",
         ctaLink: SIGNUP_URL,
         ctaSubtext: "14 days, full access. No credit card.",
-        secondaryCtaText: "Explore Styles",
-        secondaryCtaLink: "/viewalltemplates",
-        secondaryCtaSubtext: "Browse 10,000+ real-world assets."
+        secondaryCtaText: "Request Your Demo",
+        secondaryCtaLink: "/business#demo-form",
+        secondaryCtaSubtext: "Schedule a 1-on-1 platform tour."
       },
       {
         _type: 'globalHowItWorks',

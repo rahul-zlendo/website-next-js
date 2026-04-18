@@ -3,6 +3,9 @@ import { getClient } from '@/lib/sanity/client';
 import SectionRenderer from '@/components/global/SectionRenderer';
 import { notFound } from 'next/navigation';
 
+import { getPolicyBySlug } from '@/lib/constants/policiesData';
+import GlobalPolicyClient from '@/components/policies/GlobalPolicyClient';
+
 interface PageProps {
   params: Promise<{
     slug: string;
@@ -16,6 +19,13 @@ async function getGlobalPage(slug: string) {
 
 const GlobalDynamicPage = async ({ params }: PageProps) => {
   const { slug } = await params;
+
+  // Check if it's a policy page first
+  const policy = getPolicyBySlug(slug);
+  if (policy) {
+    return <GlobalPolicyClient slug={slug} />;
+  }
+
   const pageData = await getGlobalPage(slug);
 
   if (!pageData) {

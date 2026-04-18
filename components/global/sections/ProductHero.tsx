@@ -186,15 +186,15 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
 
                 {/* Secondary */}
                 <div className="flex flex-col gap-2">
-                  <button
-                    onClick={() => setIsVideoOpen(true)}
+                  <Link
+                    href="/business#demo-form"
                     className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white/10 text-white font-black text-base border border-white/20 hover:bg-white/20 transition-all hover:scale-[1.05] backdrop-blur-sm group min-w-[200px]"
                   >
                     <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#00bf9a] transition-colors">
-                      <Play className="w-3 h-3 fill-current ml-0.5" />
+                      <Zap className="w-3 h-3 fill-current" />
                     </div>
-                    {secondaryCtaText}
-                  </button>
+                    Request Your Demo
+                  </Link>
                   {secondaryCtaSubtext && (
                     <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest text-center">
                       {secondaryCtaSubtext}

@@ -2,16 +2,16 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-    Zap, 
-    CheckCircle2, 
-    ArrowRight, 
-    Play, 
-    Star, 
-    UploadCloud, 
-    Layers, 
-    Download, 
-    MousePointer2, 
+import {
+    Zap,
+    CheckCircle2,
+    ArrowRight,
+    Play,
+    Star,
+    UploadCloud,
+    Layers,
+    Download,
+    MousePointer2,
     MessageSquare,
     MousePointerClick,
     Plus,
@@ -30,7 +30,7 @@ export default function RealisticRendersPage() {
         <div className="min-h-screen bg-white text-[#222222] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
             <main>
                 {/* 1. HERO SECTION */}
-                <section className="relative pt-32 pb-24 overflow-hidden bg-[#FAFAFC]">
+                <section className="relative pt-24 pb-24 overflow-hidden bg-[#FAFAFC]">
                     <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-zlendo-teal/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4 pointer-events-none" />
                     <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] translate-y-1/4 -translate-x-1/4 pointer-events-none" />
 
@@ -45,7 +45,7 @@ export default function RealisticRendersPage() {
                                     <div className="flex -space-x-2">
                                         {[1, 2, 3, 4].map((i) => (
                                             <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
-                                                <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="user" className="w-full h-full object-cover" />
+                                                <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="user" className="w-full h-full object-cover" />
                                             </div>
                                         ))}
                                     </div>
@@ -59,7 +59,7 @@ export default function RealisticRendersPage() {
                                     initial={{ opacity: 0, y: 15 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 }}
-                                    className="text-[44px] md:text-[64px] lg:text-[76px] tracking-tight font-black leading-[1.05] text-[#111]"
+                                    className="text-4xl md:text-5xl lg:text-6xl font-black text-[#111] leading-[1.05] tracking-tight"
                                 >
                                     Photorealistic AI rendering <br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-600">
@@ -141,7 +141,12 @@ export default function RealisticRendersPage() {
                 <section className="py-32 bg-white">
                     <div className="container-custom px-4">
                         <div className="text-center mb-16 max-w-3xl mx-auto">
-                            <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">Traditional Rendering is Dead.</h2>
+                            <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">
+                                Legacy vs.{' '}
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-600">
+                                    Zlendo Realty.
+                                </span>
+                            </h2>
                             <p className="text-[#666] text-lg font-medium">Legacy software was built for 2005. Zlendo Realty was built for 2026.</p>
                         </div>
 
@@ -151,7 +156,7 @@ export default function RealisticRendersPage() {
                                     <thead>
                                         <tr className="bg-[#FAFAFC] border-b border-black/[0.05]">
                                             <th className="p-10 text-xl font-black text-[#111] w-1/4">Feature</th>
-                                            <th className="p-10 text-lg font-bold text-[#999] opacity-60 w-[37.5%]">Traditional Rendering</th>
+                                            <th className="p-10 text-lg font-bold text-[#111] opacity-60 w-[37.5%]">Traditional Rendering</th>
                                             <th className="p-10 text-lg font-black text-zlendo-teal w-[37.5%] bg-zlendo-teal/[0.02]">
                                                 <div className="flex items-center gap-2">
                                                     <Zap className="w-5 h-5 fill-zlendo-teal" />
@@ -170,7 +175,7 @@ export default function RealisticRendersPage() {
                                         ].map((row, i) => (
                                             <tr key={i}>
                                                 <td className="p-10 font-black text-[#111] text-lg">{row.f}</td>
-                                                <td className="p-10 text-[#999] font-medium leading-relaxed">
+                                                <td className="p-10 text-[#111] font-medium leading-relaxed">
                                                     <div className="flex items-start gap-3">
                                                         <span className="mt-1 flex-shrink-0 opacity-30 select-none">✕</span>
                                                         {row.old}
@@ -225,7 +230,7 @@ export default function RealisticRendersPage() {
                                 <p className="text-xl text-[#666] font-medium leading-relaxed">
                                     Stop manual modeling for every design tweak. Our AI understands plain English. Swap materials, add sunlight, or change furniture styles instantly.
                                 </p>
-                                
+
                                 <div className="space-y-6">
                                     {[
                                         "\"Change the floor to dark oak hardwood\"",
@@ -247,10 +252,10 @@ export default function RealisticRendersPage() {
                                 <div className="absolute -inset-4 bg-zlendo-teal/10 rounded-[3rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <div className="relative rounded-[2.5rem] overflow-hidden border border-black/5 bg-slate-900 shadow-2xl">
                                     {/* Mock Editor UI Image */}
-                                    <img 
-                                        src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=1200" 
-                                        className="w-full h-full object-cover" 
-                                        alt="AI Inpainting Dashboard" 
+                                    <img
+                                        src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=1200"
+                                        className="w-full h-full object-cover"
+                                        alt="AI Inpainting Dashboard"
                                     />
                                     {/* Virtual Mouse Pointer */}
                                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -274,9 +279,9 @@ export default function RealisticRendersPage() {
                     <div className="container-custom px-4 md:px-8">
                         <div className="relative rounded-[3rem] bg-[#111] text-white p-12 md:p-24 text-center overflow-hidden">
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[150%] bg-[radial-gradient(circle_at_50%_0%,rgba(0,191,154,0.15)_0%,transparent_60%)] pointer-events-none" />
-                            
+
                             <h2 className="text-4xl md:text-6xl font-black mb-8 relative z-10 leading-[1.1]">
-                                Photorealistic rendering <br className="hidden md:block"/> in seconds, for free.
+                                Photorealistic rendering <br className="hidden md:block" /> in seconds, for free.
                             </h2>
                             <p className="text-xl text-[#999] mb-12 relative z-10 font-medium max-w-2xl mx-auto">
                                 Join 10,000+ architects and designers who have already saved hundreds of hours.
