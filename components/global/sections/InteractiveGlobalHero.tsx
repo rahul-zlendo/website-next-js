@@ -153,7 +153,7 @@ export default function InteractiveGlobalHero() {
                         <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/40 to-transparent">
 
                             {/* Hover Interactions indicator */}
-                            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-lg border border-white/10 text-white text-xs font-bold uppercase tracking-widest">
+                            <div className="absolute bottom-4 right-6 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2 px-3 py-1.5 bg-black/60 backdrop-blur-md rounded-lg border border-white/10 text-white text-xs font-bold uppercase tracking-widest">
                                 <Maximize2 className="w-3 h-3" /> Interactive Mode
                             </div>
 

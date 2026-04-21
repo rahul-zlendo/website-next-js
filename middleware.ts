@@ -17,6 +17,17 @@ export function middleware(request: NextRequest) {
   }
 
   // ──────────────────────────────────────────────────────────
+  // 1.5. Redirect Help Center to subdomain
+  // ──────────────────────────────────────────────────────────
+  if (pathname.startsWith('/help-center')) {
+    const searchParams = request.nextUrl.search;
+    return NextResponse.redirect(
+      new URL(`https://helpcenter.zlendorealty.com${pathname.replace('/help-center', '')}${searchParams}`),
+      301
+    );
+  }
+
+  // ──────────────────────────────────────────────────────────
   // 2. Navigation & Internationalization
   // ──────────────────────────────────────────────────────────
 

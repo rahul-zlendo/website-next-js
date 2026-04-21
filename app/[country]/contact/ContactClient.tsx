@@ -62,14 +62,12 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
             return;
         }
 
-        const selectedCountry = countries.find((c: any) => c.location_Id === formState.country);
-        const countryName = selectedCountry?.location_Name || 'Not Specified';
-
         const payload = {
             fullName: formState.name,
             emailAddress: formState.email,
             phoneNumber: formState.phone,
-            message: `User Type: ${formState.userType} - Country: ${countryName} - ${formState.message}`,
+            countryId: formState.country,
+            message: `User Type: ${formState.userType} - ${formState.message}`,
             isActive: true,
             createdBy: "ContactPage",
             createdOn: new Date().toISOString(),

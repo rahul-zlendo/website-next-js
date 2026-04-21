@@ -109,7 +109,7 @@ export default function RealisticRendersPage() {
                                 className="relative rounded-[2.5rem] overflow-hidden shadow-2xl group border border-black/[0.03]"
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=2400"
+                                    src="/images/products/luxury-modern-interior.webp"
                                     className="w-full aspect-[4/3] object-cover"
                                     alt="Photorealistic AI Render"
                                 />
@@ -253,9 +253,10 @@ export default function RealisticRendersPage() {
                                 <div className="relative rounded-[2.5rem] overflow-hidden border border-black/5 bg-slate-900 shadow-2xl">
                                     {/* Mock Editor UI Image */}
                                     <img
-                                        src="https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=1200"
+                                        src="/images/products/ai-inpainting-dashboard.webp"
                                         className="w-full h-full object-cover"
                                         alt="AI Inpainting Dashboard"
+                                        loading='lazy'
                                     />
                                     {/* Virtual Mouse Pointer */}
                                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
