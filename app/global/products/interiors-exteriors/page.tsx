@@ -68,7 +68,7 @@ export default function InteriorsExteriorsPage() {
                                 className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border border-black/[0.03] aspect-[4/5] lg:aspect-square bg-white p-2"
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2000"
+                                    src="/images/products/interiors-exteriors.webp"
                                     className="w-full h-full object-cover rounded-[2rem]"
                                     alt="Modern house exterior and interior"
                                 />

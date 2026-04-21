@@ -76,7 +76,7 @@ const Footer = ({
     const resourceLinks = [
         { label: 'Design Library', path: designLibrary, external: true, newTab: true },
         { label: 'Pre-built Templates', path: getPath('/viewalltemplates') },
-        { label: 'Blog', path: 'https://zlendorealty.com/blog', external: true, newTab: false },
+        { label: 'Blog', path: 'https://blog.zlendorealty.com', external: true, newTab: false },
         { label: 'Tutorials', path: getPath('/tutorials') },
         { label: 'Help Center', path: "https://helpcenter.zlendorealty.com/", external: true, newTab: false },
         { label: isIndiaSite ? 'Partnership' : 'Enterprise', path: getPath('/partners') },

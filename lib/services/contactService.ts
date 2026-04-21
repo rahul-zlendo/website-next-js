@@ -7,6 +7,7 @@ export interface CreateBusinessContactPayload {
   fullName: string;
   emailAddress: string;
   phoneNumber: string;
+  countryId: number;
   message: string;
   isActive: boolean;
   createdBy: string;

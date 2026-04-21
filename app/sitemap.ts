@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getAllHcPostSlugs, getAllHcCategorySlugs, getAllHcTagSlugs, getTotalHcPostPages } from '@/lib/wordpress/helpcenter';
+// import { getAllHcPostSlugs, getAllHcCategorySlugs, getAllHcTagSlugs, getTotalHcPostPages } from '@/lib/wordpress/helpcenter';
 
 // Generate sitemap at runtime (not build-time) to avoid overwhelming WP API during deploy
 export const dynamic = 'force-dynamic';
@@ -64,8 +64,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/sla', priority: 0.3, changeFrequency: 'monthly' as const },
     { path: '/community-guidelines', priority: 0.3, changeFrequency: 'monthly' as const },
 
-    // Help center
-    { path: '/help-center', priority: 0.7, changeFrequency: 'weekly' as const, isGlobal: true },
+    // Help center (Commented out to use external subdomain)
+    // { path: '/help-center', priority: 0.7, changeFrequency: 'weekly' as const, isGlobal: true },
   ];
 
   // Generate URLs for all countries
@@ -100,7 +100,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Note: Root URL (/) is deliberately excluded — it redirects to /in via middleware.
   // The /in entry (priority 1.0) is the canonical home page URL.
 
-  // Fetch help center articles from WordPress
+  // Fetch help center articles from WordPress (Commented out to use external subdomain)
+  /*
   try {
     // Add all paginated HC listing pages
     const { totalPages: hcTotalPages } = await getTotalHcPostPages(9);
@@ -148,6 +149,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   } catch (error) {
     console.error('[Sitemap] Failed to fetch help center content:', error);
   }
+  */
 
   return urls;
 }
