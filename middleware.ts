@@ -31,17 +31,42 @@ export function middleware(request: NextRequest) {
   // 2. Navigation & Internationalization
   // ──────────────────────────────────────────────────────────
 
-  // A. Root path: REWRITE to /global (The Global Site)
-  if (pathname === '/') {
-    return NextResponse.rewrite(new URL('/global', request.url));
+  // A. Geo-Detection & Redirection
+  const countryHeader = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry') || 'IN';
+  const isIndia = countryHeader.toUpperCase() === 'IN';
+  const isOnIndiaSite = pathname === '/in' || pathname.startsWith('/in/');
+
+  // Force India visitors to /in if they hit the root or other paths
+  if (isIndia && !isOnIndiaSite) {
+    // If hitting root, redirect to /in
+    if (pathname === '/') {
+      return NextResponse.redirect(new URL('/in', request.url));
+    }
+    // For other paths, we could rewrite or let them stay, but the user's 
+    // original logic forced /in for India IPs.
+    // However, if we redirect everything for India IPs to /in, it might break subpages.
+    // Let's stick to the root for now to avoid breaking subpages unless they hit the wrong country prefix.
   }
 
-  // B. Allow /in and /global paths to pass through 
+  // Force Non-India visitors away from /in
+  if (!isIndia && isOnIndiaSite) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace('/in', '') || '/';
+    return NextResponse.redirect(url);
+  }
+
+  // B. Root path: REWRITE to /global or /in based on IP 
+  // (Middleware runs before page, so this is instant)
+  if (pathname === '/') {
+    return NextResponse.rewrite(new URL(isIndia ? '/in' : '/global', request.url));
+  }
+
+  // C. Allow /in and /global paths to pass through 
   if (pathname.startsWith('/in') || pathname.startsWith('/global')) {
     return NextResponse.next();
   }
 
-  // C. Handle legacy/manual country codes (e.g., /us, /uk) 
+  // D. Handle legacy/manual country codes (e.g., /us, /uk) 
   // Redirect them to the global (non-prefixed) version
   const countryMatch = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
   if (countryMatch) {
@@ -54,7 +79,7 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // D. For all other paths (e.g., /partners, /about), 
+  // E. For all other paths (e.g., /partners, /about), 
   // REWRITE to /global/[path] to serve global content at clean URLs.
   const url = request.nextUrl.clone();
   url.pathname = `/global${pathname}`;

@@ -249,7 +249,7 @@ const features = [
     description: 'Zlendo Realty converts simple floor plans into structured, walkable 3D environments without manual modeling.',
     howItWorks: ['Upload Plan', 'Interpret Layout', 'Generate 3D Model', 'Ready for Exploration'],
     cta: 'Experience the Converter',
-    img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200',
+    img: '/assets/Home-Page/plan-design.webp',
     reverse: false
   },
   {
@@ -258,7 +258,7 @@ const features = [
     description: 'Inspiration is generated based on actual room context, not generic templates.',
     howItWorks: ['Understand Room Context', 'Generate Relevant Inspirations', 'Preview in Context', 'Apply Selectively'],
     cta: 'Start Designing with AI',
-    img: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=1200',
+    img: '/assets/Home-Page/ai-inspiration.webp',
     reverse: true
   },
   {
@@ -267,7 +267,7 @@ const features = [
     description: 'Design outputs are prepared for communication and downstream use.',
     howItWorks: ['Select Design Version', 'Choose Export Format', 'Export or Share', 'Reuse Across Workflows'],
     cta: 'Try It Now',
-    img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200',
+    img: '/assets/Home-Page/export-toolkit.webp',
     reverse: false
   }
 ];
@@ -363,7 +363,7 @@ export default async function Page() {
   const comparisonTitle = cms?.comparisonTitle ?? 'Your Dream Design';
   const comparisonHighlight = cms?.comparisonTitleHighlight ?? 'made Easy';
   const comparisonSubtitle = cms?.comparisonSubtitle ?? 'Why 12,000+ modern homeowners chose Zlendo Realty over traditional guesswork.';
-  const ctaImageUrl = cms?.ctaImageUrl ?? 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800';
+  const ctaImageUrl = cms?.ctaImageUrl ?? '/assets/Home-Page/cta-home.webp';
   const ctaLink = cms?.ctaButtonLink ?? SIGNUP_URL;
   const comparisonOldWayLabel = cms?.comparisonOldWayLabel ?? 'Old Way';
   const comparisonNewWayLabel = cms?.comparisonNewWayLabel ?? 'Zlendo Realty Way';

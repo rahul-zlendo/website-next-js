@@ -44,10 +44,10 @@ export default async function VRStudioPage({ params }: Props) {
     ];
 
     const defaultSteps = [
-        { title: 'Import Model', desc: 'Load your 3D model into our VR engine.', image: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=800' },
-        { title: 'Configure Environment', desc: 'Set lighting, weather, and time of day.', image: 'https://images.unsplash.com/photo-1617347454431-f49d7ff8c367?auto=format&fit=crop&q=80&w=800' },
-        { title: 'Generate Link', desc: 'Create a shareable web link for instant access.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800' },
-        { title: 'Enter VR', desc: 'Put on your headset and step inside.', image: 'https://images.unsplash.com/photo-1626387200548-bf8ed410ebc3?auto=format&fit=crop&q=80&w=800' }
+        { title: 'Import Model', desc: 'Load your 3D model into our VR engine.', image: '/assets/vr-studio/import-model.webp' },
+        { title: 'Configure Environment', desc: 'Set lighting, weather, and time of day.', image: '/assets/vr-studio/configure-env.webp' },
+        { title: 'Generate Link', desc: 'Create a shareable web link for instant access.', image: '/assets/vr-studio/generate-link.webp' },
+        { title: 'Enter VR', desc: 'Put on your headset and step inside.', image: '/assets/vr-studio/enter-vr.webp' }
     ];
 
     const defaultFeatures = [

@@ -35,7 +35,7 @@ export default function VastuClient({
         headerDesc: cms?.heroDesc || 'Combine modern design with Vastu Shastra principles. Our automated analysis ensures your home brings health, wealth, and harmony.',
         icon: Ruler,
         gradient: cms?.heroGradient || 'from-amber-500 to-orange-400',
-        heroImage: urlFor(cms?.heroImage).url() || 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=2400',
+        heroImage: urlFor(cms?.heroImage).url() || '/assets/vastu-product/hero-vastu.webp',
         heroSubtitle: cms?.heroSubtitle || 'Vastu-Compliant Design Logic',
     };
 

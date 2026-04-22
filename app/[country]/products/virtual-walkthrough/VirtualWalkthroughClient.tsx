@@ -107,7 +107,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                 className="relative lg:h-[700px] rounded-[2.5rem] overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-black/[0.03]"
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=2400"
+                                    src="/assets/virtual-walkthrough/hero-walkthrough.webp"
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[15s] group-hover:scale-105"
                                     alt="360 Virtual Walkthrough preview"
                                 />

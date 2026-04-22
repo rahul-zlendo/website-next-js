@@ -50,7 +50,7 @@ export default function CommercialSpacesClient({ cms }: CommercialSpacesClientPr
             { label: 'Execution Changes', value: '-85%' },
             { label: 'Design Finalization', value: '3x Faster' }
         ],
-        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200'
+        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/use-cases/commercial/commercial-office.webp'
     };
 
     return (

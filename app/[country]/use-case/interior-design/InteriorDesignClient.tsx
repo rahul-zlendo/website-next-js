@@ -50,7 +50,7 @@ export default function InteriorDesignClient({ cms }: InteriorDesignClientProps)
             { label: 'Spatial Errors Avoided', value: '100%' },
             { label: 'Planning Time Reduced', value: '60%' }
         ],
-        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200'
+        image: '/assets/interior-design/interior-case-study-1.webp'
     };
 
     const caseStudy2Fallback = {
@@ -69,7 +69,7 @@ export default function InteriorDesignClient({ cms }: InteriorDesignClientProps)
             { label: 'Productivity Lift', value: '40%' },
             { label: 'Space Utilization', value: '100%' }
         ],
-        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200'
+        image: '/assets/interior-design/interior-case-study-2.webp'
     };
 
     // Primary case study from top-level fields

@@ -50,7 +50,7 @@ export default function NRIRemotePlanningClient({ cms }: NRIRemotePlanningClient
             { label: 'Approval Speed', value: '3x Faster' },
             { label: 'Rework Reduction', value: '90%' }
         ],
-        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : 'https://images.unsplash.com/photo-1526628953301-3e589a6a8b74?auto=format&fit=crop&q=80&w=1200'
+        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/use-cases/nri/remote-planning.webp'
     };
 
     return (

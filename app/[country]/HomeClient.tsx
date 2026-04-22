@@ -87,7 +87,7 @@ export default function HomeClient({
     const ctaTitle = cms?.ctaTitle ?? 'Start designing your house with Zlendo Realty';
     const ctaSubtitle = cms?.ctaSubtitle ?? 'Draw a floor plan and create a 3D home design in 10 min.';
     const ctaButtonLabel = cms?.ctaButtonLabel ?? 'Get Started For Free';
-    const ctaImageUrl = urlFor(cms?.ctaImageUrl).url() || 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800';
+    const ctaImageUrl = urlFor(cms?.ctaImageUrl).url() || '/assets/Home-Page/cta-home.webp';
     const ctaLink = cms?.ctaButtonLink ?? SIGNUP_URL;
 
     const faqTitle = cms?.faqSectionTitle ?? 'Frequently Asked Questions';
@@ -122,7 +122,7 @@ export default function HomeClient({
 
     const constructFullBlobUrl = (relativeUrl: string): string => {
         if (!relativeUrl) return '';
-        if (relativeUrl.startsWith('http') || relativeUrl.startsWith('blob:')) {
+        if (relativeUrl.startsWith('http') || relativeUrl.startsWith('blob:') || relativeUrl.startsWith('/')) {
             if (relativeUrl.includes('blob.core.windows.net') && !relativeUrl.includes('sig=') && BLOB_SAS_TOKEN) {
                 return relativeUrl.includes('?') ? `${relativeUrl}&${BLOB_SAS_TOKEN}` : `${relativeUrl}?${BLOB_SAS_TOKEN}`;
             }
@@ -451,7 +451,11 @@ export default function HomeClient({
                                         </div>
                                     </div>
                                     <div className="mt-12 rounded-2xl overflow-hidden bg-gray-50 aspect-[4/3] group relative">
-                                        <img src={urlFor(feature.imageUrl).url().startsWith('http') ? urlFor(feature.imageUrl).url() : constructFullBlobUrl(feature.imageUrl || feature.img)} alt={feature.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu" />
+                                        <img
+                                            src={feature.imageUrl ? urlFor(feature.imageUrl).url() : constructFullBlobUrl(feature.img)}
+                                            alt={feature.title}
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
+                                        />
                                     </div>
                                 </motion.div>
                             </div>

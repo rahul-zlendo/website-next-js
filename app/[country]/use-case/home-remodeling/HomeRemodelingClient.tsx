@@ -50,7 +50,7 @@ export default function HomeRemodelingClient({ cms }: HomeRemodelingClientProps)
             { label: 'Rework Costs Saved', value: '100%' },
             { label: 'Decision Speed', value: '2x Faster' }
         ],
-        image: urlFor(cms?.caseStudyImage).url() || 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=1200'
+        image: urlFor(cms?.caseStudyImage).url() || '/assets/remodeling/remodeling-case-study.webp'
     };
 
     return (

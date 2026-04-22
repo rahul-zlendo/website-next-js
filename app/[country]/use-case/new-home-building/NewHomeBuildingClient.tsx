@@ -50,7 +50,7 @@ export default function NewHomeBuildingClient({ cms }: NewHomeBuildingClientProp
             { label: 'Decision Speed', value: '2x Faster' },
             { label: 'Construction Rework', value: '0%' }
         ],
-        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200'
+        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/new-home/new-home-case-study.webp'
     };
 
     return (

@@ -16,14 +16,14 @@ const steps = [
         tag: 'Instant Transformation',
         title: 'Convert 2D plans into immersive 8K walkthroughs.',
         desc: 'Stop imagining. Start experiencing. Turn flat blueprints into photorealistic, interactive 3D worlds in seconds. No technical skills required.',
-        img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200',
+        img: '/assets/individuals/transformation.webp',
         IconComponent: Layers,
     },
     {
         tag: 'Smart Customization',
         title: 'Pick materials & get precise budgets instantly.',
         desc: 'Experiment with premium finishes and specific materials. See real-time cost estimates to keep your dream home within budget.',
-        img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200',
+        img: '/assets/individuals/hero-individuals.webp',
         IconComponent: Palette,
         reverse: true,
     },
@@ -31,14 +31,14 @@ const steps = [
         tag: 'Construction Clarity',
         title: 'Eliminate construction guesswork forever.',
         desc: 'Walk through your design before a single brick is laid. Identify issues early and ensure every corner matches your vision perfectly.',
-        img: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200',
+        img: '/assets/individuals/clarity.webp',
         IconComponent: Box,
     },
     {
         tag: 'Unmatched Speed',
         title: 'Get 3D walkthroughs in just 30 seconds.',
         desc: 'Why wait weeks? Experience high-fidelity 3D tours in seconds. Complete your entire design review in under 10 minutes.',
-        img: 'https://images.unsplash.com/photo-1487958449913-d973b917c2c6?auto=format&fit=crop&q=80&w=1200',
+        img: '/assets/individuals/speed.webp',
         IconComponent: Zap,
         reverse: true,
     }
@@ -95,7 +95,7 @@ export default function IndividualsPage() {
                         <div className="relative mt-8 lg:mt-0">
                             <div className="rounded-[32px] overflow-hidden shadow-2xl border border-black/5">
                                 <img
-                                    src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200"
+                                    src="/assets/individuals/hero-individuals.webp"
                                     alt="Zlendo Realty Platform Preview — 3D Home Visualization"
                                     className="w-full h-auto object-cover"
                                 />

@@ -44,10 +44,10 @@ export default async function APISuitePage({ params }: Props) {
     ];
 
     const defaultSteps = [
-        { title: 'Get API Key', desc: 'Sign up and generate your secure API credentials.', image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800' },
-        { title: 'Read Docs', desc: 'Explore our interactive API documentation.', image: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80&w=800' },
-        { title: 'Connect', desc: 'Use our SDKs to connect your app to Zlendo Realty.', image: 'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=800' },
-        { title: 'Go Live', desc: 'Launch your powered-up application to the world.', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800' }
+        { title: 'Get API Key', desc: 'Sign up and generate your secure API credentials.', image: '/assets/api-suite/api-key.webp' },
+        { title: 'Read Docs', desc: 'Explore our interactive API documentation.', image: '/assets/api-suite/read-docs.webp' },
+        { title: 'Connect', desc: 'Use our SDKs to connect your app to Zlendo Realty.', image: '/assets/api-suite/connect.webp' },
+        { title: 'Go Live', desc: 'Launch your powered-up application to the world.', image: '/assets/api-suite/go-live.webp' }
     ];
 
     const defaultFeatures = [

@@ -43,7 +43,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
             bg: 'bg-orange-50',
             accent: 'text-orange-500',
             desc: 'Soft, warm morning light entering from the East.',
-            img: cms?.morningImage || 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?auto=format&fit=crop&q=80&w=2000'
+            img: cms?.morningImage || '/assets/realistic-renders/morning.webp'
         },
         day: {
             bg: 'bg-blue-50',
@@ -55,7 +55,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
             bg: 'bg-amber-50',
             accent: 'text-amber-600',
             desc: 'Golden hour warmth with dramatic long shadows.',
-            img: cms?.eveningImage || 'https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&q=80&w=2000'
+            img: cms?.eveningImage || '/assets/realistic-renders/evening.webp'
         },
         night: {
             bg: 'bg-slate-900',
@@ -73,8 +73,8 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
 
     const cameraCards = cms?.cameraCards || [
         { title: 'Human Eye-Level', desc: 'Experience the room as if walking through it.', image: '/assets/realistic-renders/human-eye-level.jpg' },
-        { title: 'Wide Angle', desc: 'Capture the full scale of small spaces easily.', image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=800' },
-        { title: 'Top-Down Plan', desc: 'Understand flow and furniture layout clearly.', image: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&q=80&w=800' }
+        { title: 'Wide Angle', desc: 'Capture the full scale of small spaces easily.', image: '/assets/realistic-renders/wide-angle.webp' },
+        { title: 'Top-Down Plan', desc: 'Understand flow and furniture layout clearly.', image: '/assets/realistic-renders/top-down.webp' }
     ];
 
     const qualityTiers = cms?.qualityTiers || [
@@ -97,7 +97,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                 <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden text-center">
                     <div className="absolute inset-0 z-0 transition-opacity duration-1000">
                         <img
-                            src={cms?.heroImage || "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=2400"}
+                            src={cms?.heroImage || "/assets/realistic-renders/hero-renders.webp"}
                             className={`w-full h-full object-cover transition-all duration-1000 ${timeOfDay === 'night' ? 'opacity-30' : 'opacity-100'}`}
                             alt="Hero Background"
                         />
@@ -172,7 +172,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                                 <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px] -z-10" />
                                 <div className="rounded-[40px] overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] relative group">
                                     <img
-                                        src={cms?.photoImage || "https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&q=80&w=2000"}
+                                        src={cms?.photoImage || "/assets/realistic-renders/realistic-photo.webp"}
                                         alt="Photorealistic Living Room"
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
@@ -376,9 +376,9 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                             </div>
                             <div className="relative">
                                 <div className="grid grid-cols-2 gap-4">
-                                    <img src={cms?.audienceImages?.[0] || "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=600"} alt="Interior design" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
-                                    <img src={cms?.audienceImages?.[1] || "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=600"} alt="Home design" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
-                                    <img src={cms?.audienceImages?.[2] || "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=600"} alt="Living space" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
+                                    <img src={cms?.audienceImages?.[0] || "/assets/realistic-renders/audience-1.webp"} alt="Interior design" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
+                                    <img src={cms?.audienceImages?.[1] || "/assets/realistic-renders/audience-2.webp"} alt="Home design" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
+                                    <img src={cms?.audienceImages?.[2] || "/assets/realistic-renders/audience-3.webp"} alt="Living space" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
                                     <img src={cms?.audienceImages?.[3] || "/assets/realistic-renders/interior.jpg"} alt="Interior style" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
                                 </div>
                             </div>
