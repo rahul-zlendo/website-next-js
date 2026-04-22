@@ -23,28 +23,28 @@ export default function DesignPresentationPage() {
             title: "Guide with recorded camera path",
             desc: "Create interactive 3D design proposals for clients to experience your designs immersively.",
             icon: Video,
-            img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200"
+            img: "/assets/design-presentation/space-flow.webp"
         },
         {
             navLabel: "Too many back-and-forths",
             title: "Share one always-updated 3D link",
             desc: "Always sees the latest version — no files, no resend.",
             icon: Share2,
-            img: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=1200"
+            img: "/assets/design-presentation/share-link.webp"
         },
         {
             navLabel: "Lose hours jumping software",
             title: "Model, stage & render in one workflow",
             desc: "Stop jumping between software — refine and present in the same workspace.",
             icon: SplitSquareHorizontal,
-            img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200"
+            img: "/assets/design-presentation/workspace.webp"
         },
         {
             navLabel: "Clients can't visualize",
             title: "Present in real time — on a 2nd screen",
             desc: "Show the space live with instant updates — understanding happens immediately.",
             icon: MonitorPlay,
-            img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200"
+            img: "/assets/design-presentation/live-presentation.webp"
         }
     ];
 
@@ -118,7 +118,7 @@ export default function DesignPresentationPage() {
                                 {/* Main Image wrapper */}
                                 <div className="absolute inset-y-12 inset-x-8 lg:inset-x-12 bg-white rounded-[2.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.08)] overflow-hidden border border-black/[0.04] z-10 hover:shadow-[0_40px_80px_rgba(0,0,0,0.15)] transition-shadow duration-500">
                                     <img
-                                        src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=2000"
+                                        src="/assets/design-presentation/hero-dashboard.webp"
                                         className="w-full h-full object-cover transition-transform duration-[15s] hover:scale-105"
                                         alt="Design Presentation Dashboard"
                                     />
@@ -291,9 +291,10 @@ export default function DesignPresentationPage() {
                                 {/* Floating Render Display over the gradient */}
                                 <div className="relative lg:absolute lg:-right-10 lg:w-[600px] lg:h-[120%] lg:-top-[10%] drop-shadow-2xl z-10 mt-10 lg:mt-0 opacity-90 hover:opacity-100 transition-opacity">
                                     <img 
-                                        src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1200" 
+                                        src="/assets/design-presentation/final-render.webp" 
                                         className="w-full h-full object-cover rounded-[2rem] shadow-2xl -rotate-2 hover:rotate-0 transition-transform duration-700" 
                                         alt="Design Plan Render" 
+                                        loading="lazy"
                                     />
                                     {/* Stats Badge floating on the image */}
                                     <div className="absolute -bottom-10 -left-10 bg-white p-6 rounded-3xl shadow-2xl border border-black/5 animate-[bounce_4s_infinite]">

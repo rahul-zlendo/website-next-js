@@ -57,7 +57,7 @@ export default function BuilderAndPromoterClient({ cms }: BuilderAndPromoterClie
             { label: 'Sales Conversion', value: '+45%' },
             { label: 'Approval Time', value: '2x Faster' }
         ],
-        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200'
+        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/use-cases/builders/builder-visual.webp'
     };
 
     return (

@@ -106,10 +106,10 @@ export default async function InteriorsExteriorsPage() {
     ];
 
     const defaultLandscapeCards = [
-        { title: 'Courtyard Zen', desc: 'Indoor-outdoor living with native plants.', img: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80&w=800' },
-        { title: 'Traditional Elements', desc: 'Tulsi maadam and stone statues.', img: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&q=80&w=800' },
+        { title: 'Courtyard Zen', desc: 'Indoor-outdoor living with native plants.', img: '/assets/interior-exterior/courtyard-zen.webp' },
+        { title: 'Traditional Elements', desc: 'Tulsi maadam and stone statues.', img: '/assets/interior-exterior/traditional-elements.webp' },
         { title: 'Modern Pathways', desc: 'Stone paving and lawn integration.', img: ModernPathwayImg },
-        { title: 'Leisure Spaces', desc: 'Garden swings and custom seating.', img: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&q=80&w=800' }
+        { title: 'Leisure Spaces', desc: 'Garden swings and custom seating.', img: '/assets/interior-exterior/leisure-spaces.webp' }
     ];
 
     const defaultCulturePoints = [

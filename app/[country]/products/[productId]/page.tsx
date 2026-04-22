@@ -23,7 +23,7 @@ const productData = {
         headerDesc: 'Step inside your design with hyper-realistic VR. Compatible with Meta Quest, Apple Vision Pro, and web browsers.',
         icon: Video,
         gradient: 'from-indigo-500 to-violet-400',
-        heroImage: 'https://images.unsplash.com/photo-1622979135225-d2ba269fb1bd?auto=format&fit=crop&q=80&w=2400',
+        heroImage: '/assets/vr-studio/hero-vr.webp',
         tagline: 'Next-Gen Real Estate Visualization',
         features: [
             { title: 'Immersive Walkthrough', desc: 'Full 6DOF movement within your designed space.' },
@@ -32,10 +32,10 @@ const productData = {
             { title: 'Multi-User', desc: 'Invite clients to walk through the design with you.' }
         ],
         steps: [
-            { title: 'Import Model', desc: 'Load your 3D model into our VR engine.', image: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Configure Environment', desc: 'Set lighting, weather, and time of day.', image: 'https://images.unsplash.com/photo-1617347454431-f49d7ff8c367?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Generate Link', desc: 'Create a shareable web link for instant access.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Enter VR', desc: 'Put on your headset and step inside.', image: 'https://images.unsplash.com/photo-1626387200548-bf8ed410ebc3?auto=format&fit=crop&q=80&w=800' }
+            { title: 'Import Model', desc: 'Load your 3D model into our VR engine.', image: '/assets/vr-studio/import-model.webp' },
+            { title: 'Configure Environment', desc: 'Set lighting, weather, and time of day.', image: '/assets/vr-studio/configure-env.webp' },
+            { title: 'Generate Link', desc: 'Create a shareable web link for instant access.', image: '/assets/vr-studio/generate-link.webp' },
+            { title: 'Enter VR', desc: 'Put on your headset and step inside.', image: '/assets/vr-studio/enter-vr.webp' }
         ]
     },
     'api-suite': {
@@ -44,7 +44,7 @@ const productData = {
         headerDesc: 'Integrate our core 2D-to-3D, costing, and styling engines directly into your own applications.',
         icon: Cpu,
         gradient: 'from-slate-800 to-slate-600',
-        heroImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2400',
+        heroImage: '/assets/api-suite/hero-api.webp',
         tagline: 'Enterprise API Solutions',
         features: [
             { title: 'Restful API', desc: 'Easy to integrate endpoints with comprehensive documentation.' },
@@ -53,10 +53,10 @@ const productData = {
             { title: 'Webhooks', desc: 'Real-time event notifications for your app.' }
         ],
         steps: [
-            { title: 'Get API Key', desc: 'Sign up and generate your secure API credentials.', image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Read Docs', desc: 'Explore our interactive API documentation.', image: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Connect', desc: 'Use our SDKs to connect your app to Zlendo Realty.', image: 'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Go Live', desc: 'Launch your powered-up application to the world.', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800' }
+            { title: 'Get API Key', desc: 'Sign up and generate your secure API credentials.', image: '/assets/api-suite/api-key.webp' },
+            { title: 'Read Docs', desc: 'Explore our interactive API documentation.', image: '/assets/api-suite/read-docs.webp' },
+            { title: 'Connect', desc: 'Use our SDKs to connect your app to Zlendo Realty.', image: '/assets/api-suite/connect.webp' },
+            { title: 'Go Live', desc: 'Launch your powered-up application to the world.', image: '/assets/api-suite/go-live.webp' }
         ]
     }
 };

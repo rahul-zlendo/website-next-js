@@ -92,31 +92,25 @@ export const detectUserCountry = createAsyncThunk<number | null, void, { state: 
         return authState.user?.countryId || null;
       }
 
-      // 2. If not authenticated, call third-party API for IP-based detection
+      // 2. Caching: Check if we've already detected country in this session
+      if (typeof window !== "undefined") {
+        const cachedCountryId = sessionStorage.getItem('detectedCountryId');
+        const cachedCountryName = sessionStorage.getItem('detectedCountryName');
+        if (cachedCountryId && cachedCountryName) {
+          // If we have cached name, we still need to match it with locations if id is not enough
+          // but for now let's just use the ID if provided
+          return Number(cachedCountryId);
+        }
+      }
+
+      // 3. Fallback: Call third-party API for IP-based detection (Slow, but necessary if no headers)
       const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
       const ipData = await ipResponse.json();
       const countryName = ipData?.countryName || "";
       const countryCode = ipData?.countryCode || "";
 
-      // ── Automatic Redirection based on IP location ───────────────────────────
-      if (typeof window !== "undefined") {
-        const pathname = window.location.pathname;
-        const isOnIndiaSite = pathname === "/in" || pathname.startsWith("/in/");
-        const isIndia = countryName.toLowerCase() === "india" || countryCode.toUpperCase() === "IN";
-
-        if (isIndia && !isOnIndiaSite) {
-          // IP is India but not on /in → redirect to India site
-          window.location.href = "/in";
-          return null;
-        }
-
-        if (!isIndia && isOnIndiaSite) {
-          // IP is NOT India but sitting on /in → redirect to global .com
-          window.location.href = "/";
-          return null;
-        }
-        // Already on the correct site → no redirect needed
-      }
+      // Note: Redirection is now handled by Middleware (server-side) for better performance.
+      // We no longer perform window.location.href redirects here to avoid delays and loops.
 
       let locations = getState().enterprise.locations;
       if (locations.length === 0) {
@@ -128,7 +122,15 @@ export const detectUserCountry = createAsyncThunk<number | null, void, { state: 
         (loc: any) => loc.location_Name.toLowerCase() === countryName.toLowerCase()
       );
 
-      return matchedLocation ? matchedLocation.location_Id : null;
+      const detectedId = matchedLocation ? matchedLocation.location_Id : null;
+
+      // Store in session storage for next time
+      if (typeof window !== "undefined" && detectedId) {
+        sessionStorage.setItem('detectedCountryId', String(detectedId));
+        sessionStorage.setItem('detectedCountryName', countryName);
+      }
+
+      return detectedId;
     } catch (e) {
       console.error("Failed to detect country or match location:", e);
       return null;
@@ -146,10 +148,22 @@ export const detectUserRegion = createAsyncThunk<number | null, void, { state: a
         return authState.user?.regionId || null;
       }
 
-      // 2. If not authenticated, identify region based on IP
-      const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
-      const ipData = await ipResponse.json();
-      const countryName = ipData.countryName;
+      // 2. Identify region based on IP (or cache)
+      let countryName = "";
+      
+      if (typeof window !== "undefined") {
+        countryName = sessionStorage.getItem('detectedCountryName') || "";
+      }
+
+      if (!countryName) {
+        const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
+        const ipData = await ipResponse.json();
+        countryName = ipData.countryName;
+        
+        if (typeof window !== "undefined" && countryName) {
+           sessionStorage.setItem('detectedCountryName', countryName);
+        }
+      }
 
       if (!countryName) return null;
 

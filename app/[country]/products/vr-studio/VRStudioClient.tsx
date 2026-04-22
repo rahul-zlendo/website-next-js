@@ -60,7 +60,7 @@ export default function VRStudioClient({ cms, resolvedFaqs, resolvedSteps, resol
 
                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="relative">
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-black/5">
-                                <img src={cms?.heroImage ? urlFor(cms.heroImage).url() : "https://images.unsplash.com/photo-1622979135225-d2ba269fb1bd?auto=format&fit=crop&q=80&w=2400"} alt={cms?.heroTitle} className="w-full h-auto object-cover" />
+                                <img src={cms?.heroImage ? urlFor(cms.heroImage).url() : "/assets/vr-studio/hero-vr.webp"} alt={cms?.heroTitle} className="w-full h-auto object-cover" />
                                 
                                 {/* Status Badge Overlay */}
                                 <motion.div 

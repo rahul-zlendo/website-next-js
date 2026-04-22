@@ -50,7 +50,7 @@ export default function VastuOptimizationClient({ cms }: VastuOptimizationClient
             { label: 'Decision Speed', value: '2x Faster' },
             { label: 'Family Consensus', value: '100%' }
         ],
-        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=1200'
+        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/vastu/vastu-case-study.webp'
     };
 
     return (

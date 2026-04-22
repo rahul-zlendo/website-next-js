@@ -106,7 +106,7 @@ export default function InteriorsExteriorsClient({
                             >
                                 <div className="rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] md:aspect-square">
                                     <img
-                                        src={urlFor(cms?.heroImage).url() || "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000"}
+                                        src={urlFor(cms?.heroImage).url() || "/assets/interior-exterior/hero-interiors.webp"}
                                         alt={cms?.heroImage?.alt || "Modern Indian Interior"}
                                         className="w-full h-full object-cover"
                                     />
@@ -175,18 +175,18 @@ export default function InteriorsExteriorsClient({
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-4">
                                     <div className="rounded-3xl overflow-hidden aspect-[4/3] shadow-lg border-2 border-white">
-                                        <img src={urlFor(cms?.exteriorImages?.[0]).url() || "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1000"} alt="Exterior" className="w-full h-full object-cover" />
+                                        <img src={urlFor(cms?.exteriorImages?.[0]).url() || "/assets/interior-exterior/exterior-1.webp"} alt="Exterior" className="w-full h-full object-cover" />
                                     </div>
                                     <div className="rounded-3xl overflow-hidden aspect-square shadow-lg border-2 border-white">
-                                        <img src={urlFor(cms?.exteriorImages?.[1]).url() || "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&q=80&w=1000"} alt="Exterior Details" className="w-full h-full object-cover" />
+                                        <img src={urlFor(cms?.exteriorImages?.[1]).url() || "/assets/interior-exterior/exterior-2.webp"} alt="Exterior Details" className="w-full h-full object-cover" />
                                     </div>
                                 </div>
                                 <div className="space-y-4 pt-12">
                                     <div className="rounded-3xl overflow-hidden aspect-square shadow-lg border-2 border-white">
-                                        <img src={urlFor(cms?.exteriorImages?.[2]).url() || "https://images.unsplash.com/photo-1598228723793-52759bba239c?auto=format&fit=crop&q=80&w=1000"} alt="Modern Gate" className="w-full h-full object-cover" />
+                                        <img src={urlFor(cms?.exteriorImages?.[2]).url() || "/assets/interior-exterior/exterior-3.webp"} alt="Modern Gate" className="w-full h-full object-cover" />
                                     </div>
                                     <div className="rounded-3xl overflow-hidden aspect-[4/3] shadow-lg border-2 border-white">
-                                        <img src={urlFor(cms?.exteriorImages?.[3]).url() || "https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=1000"} alt="Compound Wall" className="w-full h-full object-cover" />
+                                        <img src={urlFor(cms?.exteriorImages?.[3]).url() || "/assets/interior-exterior/exterior-4.webp"} alt="Compound Wall" className="w-full h-full object-cover" />
                                     </div>
                                 </div>
                             </div>

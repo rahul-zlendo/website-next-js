@@ -98,7 +98,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         >
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-black/5">
                                 <img
-                                    src={urlFor(cms?.heroImage).url() || constructFullBlobUrl('https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?auto=format&fit=crop&q=80&w=2400')}
+                                    src={urlFor(cms?.heroImage).url() || '/assets/2d-to-3d/hero-visual-localized.webp'}
                                     alt="Hero Image"
                                     className="w-full h-auto object-cover"
                                 />

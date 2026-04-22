@@ -138,7 +138,7 @@ export default function PartnersClient({
                             <div className="absolute -inset-1 bg-gradient-to-r from-zlendo-teal/20 to-blue-600/20 blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
                             <div className="relative bg-slate-900 rounded-[40px] p-2 shadow-2xl overflow-hidden border border-white/10">
                                 <img
-                                    src={cms?.heroImage ? urlFor(cms.heroImage).url() : "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2000"}
+                                    src={cms?.heroImage ? urlFor(cms.heroImage).url() : "/assets/partners/hero-partners.webp"}
                                     alt="Zlendo Realty Earnings Dashboard"
                                     className="w-full h-auto rounded-[32px] opacity-90 group-hover:opacity-100 transition-opacity duration-700"
                                 />
@@ -345,7 +345,7 @@ export default function PartnersClient({
                                                 <div className="absolute -inset-4 bg-blue-600/20 blur-3xl opacity-50 rounded-full animate-pulse" />
                                                 <div className="relative rounded-[40px] overflow-hidden border border-white/10 shadow-2xl bg-black aspect-square">
                                                     <img
-                                                        src={cms?.partnerImage ? urlFor(cms.partnerImage).url() : "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=2000"}
+                                                        src={cms?.partnerImage ? urlFor(cms.partnerImage).url() : "/assets/partners/partner-collaboration.webp"}
                                                         alt="Partner Collaboration"
                                                         className="w-full h-full object-cover opacity-80"
                                                     />

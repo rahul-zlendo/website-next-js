@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             siteName: 'Zlendo Realty',
             images: [
                 {
-                    url: 'https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?auto=format&fit=crop&q=80&w=1200', // Default ogImage
+                    url: '/assets/2d-to-3d/hero-visual-localized.webp', // Default ogImage
                     width: 1200,
                     height: 630,
                     alt: 'Zlendo Realty 2D to 3D Converter',
@@ -96,7 +96,7 @@ export default async function TwoDToThreeDPage() {
         {
             title: 'Furnish & Decorate',
             desc: 'Drag and drop furniture from our massive 3D library to style the room to your taste.',
-            image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800'
+            image: '/assets/2d-to-3d/furnish.webp'
         },
         {
             title: 'Render & Export',
