@@ -32,26 +32,26 @@ export default function AdvancedFeatures() {
                                 Describe your space, generate a floor plan, and instantly apply AI-inspired designs tailored to your needs.
                             </p>
 
-                            {/* Micro Flow UI */}
+                                    {/* Micro Flow UI */}
                             <div className="flex flex-wrap items-center gap-2 pt-4">
                                 {['Describe', 'Generate Plan', 'Apply Inspiration', 'Customize', 'Present'].map((step, i) => (
                                     <React.Fragment key={i}>
-                                        <div className="px-3 py-1.5 bg-white border border-black/5 rounded-lg text-xs font-bold text-[#111] shadow-sm">
+                                        <div className="px-3 py-1.5 bg-white border border-black/5 rounded-lg text-sm font-bold text-[#111] shadow-sm">
                                             {step}
                                         </div>
-                                        {i < 4 && <div className="text-black/20 text-xs">→</div>}
+                                        {i < 4 && <div className="text-black/20 text-sm">→</div>}
                                     </React.Fragment>
                                 ))}
                             </div>
                         </div>
-                        <div className="relative rounded-3xl overflow-hidden glassmorphism shadow-2xl border border-white/50 aspect-square lg:aspect-video bg-white p-4">
+                        <div className="relative rounded-3xl overflow-hidden glassmorphism shadow-2xl border border-white/50 aspect-[4/3] bg-white p-4">
                             <div className="absolute inset-0 bg-gradient-to-br from-zlendo-teal/5 to-transparent pointer-events-none" />
 
                             {/* Wizard UI Simulation */}
                             <div className="h-full flex flex-col space-y-4">
                                 {/* Prompt Input Sim */}
                                 <div className="p-4 bg-[#FAFAFC] border border-black/5 rounded-2xl shadow-inner">
-                                    <div className="text-[10px] uppercase font-bold text-black/40 mb-2 tracking-widest">Input Prompt</div>
+                                    <div className="text-xs uppercase font-bold text-black/40 mb-2 tracking-widest">Input Prompt</div>
                                     <div className="text-sm font-bold text-[#111] flex items-center gap-2">
                                         <span className="w-1.5 h-4 bg-zlendo-teal rounded-full animate-pulse" />
                                         Modern 3BHK with open kitchen...
@@ -61,29 +61,29 @@ export default function AdvancedFeatures() {
                                 {/* Transformation Sim */}
                                 <div className="flex-1 relative rounded-2xl overflow-hidden bg-slate-100 group">
                                     <img
-                                        src="/assets/3d_hero.png"
+                                        src="/assets/global/scandi-kitchen.png"
                                         alt="AI Interior Design"
                                         className="w-full h-full object-cover"
                                     />
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="bg-white/90 backdrop-blur-md px-6 py-3 rounded-2xl shadow-2xl border border-white flex items-center gap-3">
-                                            <div className="w-6 h-6 rounded-full border-2 border-zlendo-teal border-t-transparent animate-spin" />
+                                    <div className="absolute inset-0 flex items-start justify-center pt-12">
+                                        <div className="bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-2xl shadow-2xl border border-white flex items-center gap-3">
+                                            <div className="w-5 h-5 rounded-full border-2 border-zlendo-teal border-t-transparent animate-spin" />
                                             <span className="text-sm font-bold text-[#111]">AI generating plan...</span>
                                         </div>
                                     </div>
 
                                     {/* Style Applied Overlay (Simulated) */}
-                                    <div className="absolute bottom-4 left-4 right-4 p-3 bg-white/95 backdrop-blur-md rounded-xl border border-white shadow-xl flex items-center justify-between">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-lg bg-zlendo-teal/10 flex items-center justify-center">
-                                                <Sparkles className="w-5 h-5 text-zlendo-teal" />
+                                    <div className="absolute bottom-3 left-3 right-3 p-2.5 bg-white/95 backdrop-blur-md rounded-xl border border-white shadow-xl flex items-center justify-between">
+                                        <div className="flex items-center gap-2.5">
+                                            <div className="w-9 h-9 rounded-lg bg-zlendo-teal/10 flex items-center justify-center">
+                                                <Sparkles className="w-4 h-4 text-zlendo-teal" />
                                             </div>
                                             <div>
-                                                <div className="text-[10px] font-bold text-black/40 uppercase tracking-tight">AI Style Selected</div>
-                                                <div className="text-xs font-black text-[#111]">Scandinavian Modern</div>
+                                                <div className="text-xs font-bold text-black/40 uppercase tracking-tight">AI Style Selected</div>
+                                                <div className="text-sm font-black text-[#111]">Scandinavian Modern</div>
                                             </div>
                                         </div>
-                                        <div className="px-3 py-1.5 bg-zlendo-teal text-white text-[10px] font-black rounded-lg uppercase tracking-widest">Applied</div>
+                                        <div className="px-2.5 py-1.5 bg-zlendo-teal text-white text-xs font-black rounded-lg uppercase tracking-widest">Applied</div>
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Metadata } from 'next';
 import { getClient } from '@/lib/sanity/client';
 import SectionRenderer from '@/components/global/SectionRenderer';
 import AdvancedFeatures from '@/components/global/sections/AdvancedFeatures';
@@ -6,6 +7,11 @@ import GlobalRedesignBlocks from '@/components/global/sections/GlobalRedesignBlo
 import InteractiveGlobalHero from '@/components/global/sections/InteractiveGlobalHero';
 import { notFound } from 'next/navigation';
 import { SIGNUP_URL } from '@/lib/config/env';
+
+export const metadata: Metadata = {
+  title: 'Zlendo Realty | AI Home & Office Design Software for Professionals',
+  description: 'Zlendo Realty is the complete design-to-client workflow for architecture and interior design professionals. Generate 3D models and renders in 60 seconds.',
+};
 
 async function getGlobalHomePage() {
   const query = `*[_type == "globalPage" && slug.current == "home"][0]`;

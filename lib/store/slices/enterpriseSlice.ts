@@ -92,18 +92,7 @@ export const detectUserCountry = createAsyncThunk<number | null, void, { state: 
         return authState.user?.countryId || null;
       }
 
-      // 2. Caching: Check if we've already detected country in this session
-      if (typeof window !== "undefined") {
-        const cachedCountryId = sessionStorage.getItem('detectedCountryId');
-        const cachedCountryName = sessionStorage.getItem('detectedCountryName');
-        if (cachedCountryId && cachedCountryName) {
-          // If we have cached name, we still need to match it with locations if id is not enough
-          // but for now let's just use the ID if provided
-          return Number(cachedCountryId);
-        }
-      }
-
-      // 3. Fallback: Call third-party API for IP-based detection (Slow, but necessary if no headers)
+      // 2. If not authenticated, call third-party API for IP-based detection
       const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
       const ipData = await ipResponse.json();
       const countryName = ipData?.countryName || "";
@@ -122,15 +111,7 @@ export const detectUserCountry = createAsyncThunk<number | null, void, { state: 
         (loc: any) => loc.location_Name.toLowerCase() === countryName.toLowerCase()
       );
 
-      const detectedId = matchedLocation ? matchedLocation.location_Id : null;
-
-      // Store in session storage for next time
-      if (typeof window !== "undefined" && detectedId) {
-        sessionStorage.setItem('detectedCountryId', String(detectedId));
-        sessionStorage.setItem('detectedCountryName', countryName);
-      }
-
-      return detectedId;
+      return matchedLocation ? matchedLocation.location_Id : null;
     } catch (e) {
       console.error("Failed to detect country or match location:", e);
       return null;
@@ -148,22 +129,10 @@ export const detectUserRegion = createAsyncThunk<number | null, void, { state: a
         return authState.user?.regionId || null;
       }
 
-      // 2. Identify region based on IP (or cache)
-      let countryName = "";
-      
-      if (typeof window !== "undefined") {
-        countryName = sessionStorage.getItem('detectedCountryName') || "";
-      }
-
-      if (!countryName) {
-        const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
-        const ipData = await ipResponse.json();
-        countryName = ipData.countryName;
-        
-        if (typeof window !== "undefined" && countryName) {
-           sessionStorage.setItem('detectedCountryName', countryName);
-        }
-      }
+      // 2. If not authenticated, identify region based on IP
+      const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
+      const ipData = await ipResponse.json();
+      const countryName = ipData.countryName;
 
       if (!countryName) return null;
 
