@@ -46,8 +46,9 @@ const BeforeAfterSlider = () => {
       {/* Base Image (3D Render - After) */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=2400"
+          src="/assets/2d-to-3d/after-render.webp"
           alt="3D Render After"
+          loading="lazy"
           className="w-full h-full object-cover pointer-events-none"
         />
       </div>
@@ -59,8 +60,9 @@ const BeforeAfterSlider = () => {
       >
         <div className="absolute inset-0 bg-white">
           <img
-            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=2400"
+            src="/assets/2d-to-3d/before-plan.webp"
             alt="2D Floor Plan Before"
+            loading="lazy"
             className="w-full h-full object-cover opacity-80 pointer-events-none grayscale brightness-110"
           />
           {/* Add Blueprint-style grid underneath to simulate 2D mapping */}
@@ -98,10 +100,10 @@ export default function TwoDToThreeDPage() {
 
   const [activeUseCase, setActiveUseCase] = useState(0);
   const useCases = [
-    { title: 'Architects', icon: Building2, img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200', outcome: 'Stop rendering. Start presenting.' },
-    { title: 'Civil Engineers', icon: HardHat, img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=1200', outcome: 'Bridge the gap between blueprints and reality instantly.' },
-    { title: 'Builders', icon: Hammer, img: 'https://images.unsplash.com/photo-1503708928676-1cb796a0891e?auto=format&fit=crop&q=80&w=1200', outcome: 'Show clients exactly what they are paying for to eliminate disputes.' },
-    { title: 'Homeowners', icon: Home, img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=1200', outcome: 'Visualize your dream home clearly before the first brick is laid.' }
+    { title: 'Architects', icon: Building2, img: '/assets/2d-to-3d/before-plan.webp', outcome: 'Stop rendering. Start presenting.' },
+    { title: 'Civil Engineers', icon: HardHat, img: '/assets/2d-to-3d/engineers.webp', outcome: 'Bridge the gap between blueprints and reality instantly.' },
+    { title: 'Builders', icon: Hammer, img: '/assets/2d-to-3d/builders.webp', outcome: 'Show clients exactly what they are paying for to eliminate disputes.' },
+    { title: 'Homeowners', icon: Home, img: '/assets/2d-to-3d/homeowners.webp', outcome: 'Visualize your dream home clearly before the first brick is laid.' }
   ];
 
   return (
@@ -113,7 +115,7 @@ export default function TwoDToThreeDPage() {
             {/* Simulated cinematic sequence: 2D plan morphing into 3D walkthrough */}
             {/* We use a high quality video background to show speed + wow factor */}
             <img
-              src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&q=80&w=2400"
+              src="/assets/2d-to-3d/hero-visual.webp"
               className="w-full h-full object-cover scale-105 animate-[pulse_10s_ease-in-out_infinite]"
               alt="Cinematic Architectural Render"
             />
@@ -168,7 +170,7 @@ export default function TwoDToThreeDPage() {
                 className="order-2 lg:order-1 relative rounded-[2.5rem] bg-white p-8 shadow-[0_30px_60px_rgba(0,0,0,0.05)] border border-black/5"
               >
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(0,191,154,0.05)_0%,transparent_70%)] rounded-[2.5rem]" />
-                <img src="https://plus.unsplash.com/premium_photo-1661883964999-c1bcb57a7357?auto=format&fit=crop&q=80&w=1200" className="w-full rounded-2xl opacity-90" alt="Blueprint" />
+                <img src="/assets/2d-to-3d/blueprint-scan.webp" className="w-full rounded-2xl opacity-90" alt="Blueprint" loading="lazy" />
                 {/* Scanning animation line */}
                 <div className="absolute top-8 bottom-8 w-1 bg-zlendo-teal shadow-[0_0_20px_#00bf9a] animate-[scan_3s_ease-in-out_infinite]" style={{ left: '50%' }} />
               </motion.div>
@@ -190,7 +192,7 @@ export default function TwoDToThreeDPage() {
                 viewport={{ margin: "-100px", once: true }}
                 className="relative rounded-[2.5rem] bg-slate-900 p-4 shadow-2xl overflow-hidden aspect-video group"
               >
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200" className="w-full h-full object-cover rounded-[1.5rem] transition-transform duration-[10s] group-hover:scale-110" alt="3D Presentation" />
+                <img src="/assets/2d-to-3d/presentation-walkthrough.webp" className="w-full h-full object-cover rounded-[1.5rem] transition-transform duration-[10s] group-hover:scale-110" alt="3D Presentation" loading="lazy" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20">
                     <Play className="w-8 h-8 text-white fill-white ml-2" />
@@ -337,7 +339,7 @@ export default function TwoDToThreeDPage() {
             <h2 className="text-4xl md:text-6xl font-black text-[#111] mb-6">Don't show flat images. <br />Show them their future home.</h2>
             <div className="relative w-full max-w-5xl mx-auto mt-16 rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.1)] border border-white group aspect-video">
               {/* Simulated Walkthrough Video */}
-              <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=2400" className="w-full h-full object-cover animate-[pulse_10s_ease-in-out_infinite]" alt="Walkthrough" />
+              <img src="/assets/2d-to-3d/after-render.webp" className="w-full h-full object-cover animate-[pulse_10s_ease-in-out_infinite]" alt="Walkthrough" loading="lazy" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <button className="w-24 h-24 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 group-hover:scale-110 transition-transform shadow-2xl">
                   <Play className="w-10 h-10 text-white fill-white ml-2" />
@@ -383,7 +385,7 @@ export default function TwoDToThreeDPage() {
               "Zlendo Realty is the first tool that actually fits into a professional workflow. We win bids on the spot now."
             </h2>
             <div className="flex items-center justify-center gap-4">
-              <img src="https://i.pravatar.cc/150?img=32" alt="Sarah J" className="w-16 h-16 rounded-full grayscale opacity-80" />
+              <img src="/assets/2d-to-3d/testimonial-sarah.webp" alt="Sarah J" className="w-16 h-16 rounded-full grayscale opacity-80" loading="lazy" />
               <div className="text-left">
                 <div className="font-black text-[#111] text-lg">Sarah Jenkins</div>
                 <div className="text-[#666] font-medium">Principal Architect, DesignStudio NY</div>

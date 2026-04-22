@@ -8,11 +8,12 @@ interface ComparePlansProps {
     compareData: any[]; // The structured Array of main features with subFeatures and plans
     plansList: any[]; // The filtered list of plans to display (e.g., Free, Pro, Pro Plus)
     billingCycle?: string;
+    isSubscriptionChecked?: boolean;
     activeOffer?: any;
     isGlobal?: boolean;
 }
 
-const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, billingCycle = 'month', activeOffer = null, isGlobal = false }) => {
+const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, billingCycle = 'monthly', isSubscriptionChecked = false, activeOffer = null, isGlobal = false }) => {
     // Keep track of which main features are expanded
     // Expanding all by default
     const [expandedSections, setExpandedSections] = useState<Record<number, boolean>>(
@@ -71,8 +72,28 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, bil
                         </div>
                         {plansList.map(plan => {
                             const isFree = plan.planName?.toLowerCase() === 'free';
-                            const rawPrice = Number(plan.price) || 0;
-                            const normalPrice = billingCycle === 'month' ? rawPrice : (Number(plan.monthPrice) || rawPrice);
+                            const isYearly = billingCycle === 'yearly';
+                            
+                            let normalPrice = 0;
+                            let periodLabel = '';
+
+                            if (!isSubscriptionChecked) {
+                                if (!isYearly) {
+                                    normalPrice = Number(plan.price) || 0;
+                                    periodLabel = 'Month';
+                                } else {
+                                    normalPrice = Number(plan.yearPrice) || 0;
+                                    periodLabel = 'Year';
+                                }
+                            } else {
+                                if (!isYearly) {
+                                    normalPrice = Number(plan.monthPrice) || 0;
+                                    periodLabel = 'Monthly';
+                                } else {
+                                    normalPrice = Number(plan.yearlyPrice) || 0;
+                                    periodLabel = 'Yearly';
+                                }
+                            }
                             
                             let discountedPrice = normalPrice;
                             let hasDiscount = false;
@@ -97,7 +118,7 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, bil
 
                             const displayPrice = discountedPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
                             const originalPriceFormatted = normalPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
-                            const periodLabel = billingCycle === 'month' ? 'Month' : 'mo';
+                            // periodLabel set above
 
                             return (
                                 <div key={plan.planId} className="w-1/4 text-center">
