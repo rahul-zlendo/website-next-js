@@ -9,25 +9,25 @@ import { SIGNUP_URL } from '@/lib/constants/urls';
 const STAGES = [
     {
         id: '2d-plan',
-        image: '/assets/Home-Page/2d-to-3d-convertor.png',
+        image: '/assets/global/luxury-blueprint.png',
         label: '1. 2D Floor Plan',
         style: { filter: 'none' } // Use native look
     },
     {
         id: '3d-structure',
-        image: '/assets/3d_hero.png',
+        image: '/assets/global/clay-model.png',
         label: '2. 3D Model',
-        style: { filter: 'sepia(30%) hue-rotate(180deg) saturate(50%)' } // Mimic clay render
+        style: { filter: 'none' } // Pure clay model look
     },
     {
         id: 'render',
-        image: '/assets/3d_hero.png',
+        image: '/assets/global/luxury-living-room.png',
         label: '3. Photorealism',
         style: { filter: 'none' } // Full HD render
     },
     {
         id: 'walkthrough',
-        image: '/assets/3d_hero.png',
+        image: '/assets/global/villa-night.png',
         label: '4. Live Walkthrough',
         style: { scale: 1.15 } // Simulate camera zoom
     }
@@ -114,9 +114,9 @@ export default function InteractiveGlobalHero() {
                             </a>
                             <a
                                 href="/business#demo-form"
-                                className="w-full sm:w-auto px-8 py-4 bg-white/5 backdrop-blur-md text-white border border-white/10 font-bold text-lg rounded-xl hover:bg-white/10 transition-all flex items-center justify-center gap-3"
+                                className="w-full sm:w-auto px-8 py-4 bg-white/10 backdrop-blur-lg text-white border border-white/20 font-bold text-lg rounded-xl hover:bg-white/20 hover:border-white/30 transition-all flex items-center justify-center gap-3 shadow-xl"
                             >
-                                <Play className="w-5 h-5" /> Watch demo
+                                <Play className="w-5 h-5 fill-white" /> Watch demo
                             </a>
                         </motion.div>
                     </div>

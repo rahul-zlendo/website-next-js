@@ -32,7 +32,7 @@ export function middleware(request: NextRequest) {
   // ──────────────────────────────────────────────────────────
 
   // A. Geo-Detection & Redirection
-  const countryHeader = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry') || 'IN';
+  const countryHeader = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry') || 'US';
   const isIndia = countryHeader.toUpperCase() === 'IN';
   const isOnIndiaSite = pathname === '/in' || pathname.startsWith('/in/');
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Metadata } from 'next';
 import { getClient } from '@/lib/sanity/client';
 import SectionRenderer from '@/components/global/SectionRenderer';
 import { notFound } from 'next/navigation';
@@ -10,6 +11,26 @@ interface PageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const policy = getPolicyBySlug(slug);
+
+  if (policy) {
+    return {
+      title: `${policy.title} | Zlendo Realty`,
+      description: `Official ${policy.title} for Zlendo Realty. Read our legal terms and conditions.`,
+    };
+  }
+
+  const query = `*[_type == "globalPage" && slug.current == $slug][0]`;
+  const pageData = await getClient().fetch(query, { slug });
+
+  return {
+    title: pageData?.title ? `${pageData.title} | Zlendo Realty` : 'Zlendo Realty | Professional 3D Design',
+    description: pageData?.description || 'Zlendo Realty - The professional workflow for design and architecture.',
+  };
 }
 
 async function getGlobalPage(slug: string) {

@@ -32,7 +32,7 @@ const AiTransformation = () => {
 
                 <div
                     ref={containerRef}
-                    className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-[2.5rem] overflow-hidden bg-slate-100 cursor-ew-resize select-none shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-black/5"
+                    className="relative w-full aspect-[3/2] rounded-[2.5rem] overflow-hidden bg-slate-100 cursor-ew-resize select-none shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-black/5"
                     onMouseDown={() => setIsDragging(true)}
                     onMouseUp={() => setIsDragging(false)}
                     onMouseLeave={() => setIsDragging(false)}
@@ -42,10 +42,10 @@ const AiTransformation = () => {
                     onTouchMove={(e) => handleMove(e.touches[0].clientX)}
                 >
                     <div className="absolute inset-0">
-                        <img src="/assets/3d_hero.png" className="w-full h-full object-cover pointer-events-none" alt="3D Render" />
+                        <img src="/assets/global/luxury-living-room.png" className="w-full h-full object-cover pointer-events-none" alt="3D Render" />
                     </div>
                     <div className="absolute inset-0 border-r-4 border-white/90" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
-                        <img src="/assets/Home-Page/2d-to-3d-convertor.png" className="w-full h-full object-cover pointer-events-none" alt="2D Plan" />
+                        <img src="/assets/global/luxury-blueprint.png" className="w-full h-full object-cover pointer-events-none" alt="2D Plan" />
                     </div>
                     <div className="absolute top-0 bottom-0 w-1 flex items-center justify-center -ml-0.5 pointer-events-none" style={{ left: `${sliderPosition}%` }}>
                         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-2xl border border-black/10">
@@ -69,7 +69,7 @@ const ImmersiveFeatures = () => {
         {
             title: "Photorealism in Seconds.",
             desc: "Cloud-based 4K rendering that runs on any laptop.",
-            img: "/assets/3d_hero.png",
+            img: "/assets/global/office-lobby.png",
             icon: Zap
         },
         {
@@ -304,7 +304,7 @@ const TabbedUseCases = () => {
         },
         {
             name: "Builders & Devs",
-            img: "/assets/3d_hero.png",
+            img: "/assets/global/villa-night.png",
             benefits: ["Showcase units before breaking ground", "Live cost-estimation tracking", "Reduce client disputes significantly"]
         }
     ];
@@ -407,7 +407,7 @@ const VisualTestimonials = () => {
 const HighContrastCTA = () => {
     return (
         <section className="py-24 bg-[#050505] text-white relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/assets/3d_hero.png')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
+            <div className="absolute inset-0 bg-[url('/assets/global/luxury-living-room.png')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
 
             <div className="container-custom px-4 text-center relative z-10 max-w-4xl mx-auto">
