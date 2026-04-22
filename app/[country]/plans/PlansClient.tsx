@@ -10,6 +10,7 @@ import { getAllSubscriptionsService, compareSubscriptionsService, Subscription }
 import { useAppSelector, useAppDispatch } from '@/lib/store/hooks';
 import { detectUserCountry } from '@/lib/store/slices/enterpriseSlice';
 import ComparePlans from './ComparePlans';
+import { FRONTEND_URL } from '@/lib/config/env';
 
 interface PlansClientProps {
     isGlobal?: boolean;
@@ -21,7 +22,8 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
     const { activeOffer } = useAppSelector((state) => state.offer);
     const { user, isAuthenticated } = useAppSelector((state) => state.auth);
     const { detectedCountryId, isDetectingCountry } = useAppSelector((state) => state.enterprise);
-    const [billingCycle, setBillingCycle] = useState<'month' | 'monthly'>('month');
+    const [isYearly, setIsYearly] = useState(false);
+    const [isSubscriptionChecked, setIsSubscriptionChecked] = useState(false);
     const [plans, setPlans] = useState<Subscription[]>([]);
     const [compareData, setCompareData] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -87,6 +89,10 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
         return numPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
     };
 
+    const AppPlanURL = (period: string, planId: any) => {
+        return `${SIGNUP_URL}?planId=${planId}&period=${period}`;
+    };
+
     return (
         <div className="min-h-screen bg-gray-50 font-nunito pt-12 pb-20">
             {/* Header Section */}
@@ -110,25 +116,31 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
                     </p>
 
                     <div className="flex border-2 border-zlendo-teal/10 p-1.5 rounded-full bg-white/50 backdrop-blur-sm shadow-xl shadow-zlendo-teal/5 relative mx-auto w-fit">
-                        {['month'].map((cycle) => (
-                            <button
-                                key={cycle}
-                                onClick={() => setBillingCycle(cycle as 'month')}
-                                className={`relative w-[130px] md:w-[160px] py-4 rounded-full text-sm font-black transition-all duration-500 flex items-center justify-center ${billingCycle === cycle ? 'text-white' : 'text-gray-400 hover:text-zlendo-teal'
-                                    }`}
-                            >
-                                <span className="relative z-10">
-                                    {cycle === 'month' ? 'One Time' : 'Monthly'}
-                                </span>
-                                {billingCycle === cycle && (
-                                    <motion.div
-                                        layoutId="billing-pill"
-                                        className="absolute inset-0 bg-zlendo-teal rounded-full shadow-lg shadow-zlendo-teal/30"
-                                        transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                                    />
-                                )}
-                            </button>
-                        ))}
+                        {[
+                            isSubscriptionChecked ? "Monthly" : "Month",
+                            isSubscriptionChecked ? "Yearly" : "Year"
+                        ].map((label) => {
+                            const active = isYearly ? (label === "Year" || label === "Yearly") : (label === "Month" || label === "Monthly");
+                            return (
+                                <button
+                                    key={label}
+                                    onClick={() => setIsYearly(label === "Year" || label === "Yearly")}
+                                    className={`relative w-[130px] md:w-[160px] py-4 rounded-full text-sm font-black transition-all duration-500 flex items-center justify-center ${active ? 'text-white' : 'text-gray-400 hover:text-zlendo-teal'
+                                        }`}
+                                >
+                                    <span className="relative z-10">
+                                        {label}
+                                    </span>
+                                    {active && (
+                                        <motion.div
+                                            layoutId="billing-pill"
+                                            className="absolute inset-0 bg-zlendo-teal rounded-full shadow-lg shadow-zlendo-teal/30"
+                                            transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                                        />
+                                    )}
+                                </button>
+                            );
+                        })}
                     </div>
                 </motion.div>
             </div>
@@ -162,9 +174,26 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
 
                                 const badge = isCurrentPlan ? 'Current Plan' : isPopular ? 'Most Popular' : isProPlus ? 'Best Value' : null;
 
-                                const period = billingCycle;
-                                const rawPrice = Number(plan.price) || 0;
-                                const normalPrice = period === 'month' ? rawPrice : (Number(plan.monthPrice) || rawPrice);
+                                let normalPrice = 0;
+                                let periodLabel = '';
+
+                                if (!isSubscriptionChecked) {
+                                    if (!isYearly) {
+                                        normalPrice = Number(plan.price) || 0;
+                                        periodLabel = 'Month';
+                                    } else {
+                                        normalPrice = Number(plan.yearPrice) || 0;
+                                        periodLabel = 'Year';
+                                    }
+                                } else {
+                                    if (!isYearly) {
+                                        normalPrice = Number(plan.monthPrice) || 0;
+                                        periodLabel = 'Monthly';
+                                    } else {
+                                        normalPrice = Number(plan.yearlyPrice) || 0;
+                                        periodLabel = 'Yearly';
+                                    }
+                                }
 
                                 let discountedPrice = normalPrice;
                                 let hasDiscount = false;
@@ -189,7 +218,7 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
 
                                 const displayPrice = discountedPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
                                 const originalPriceFormatted = normalPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
-                                const periodLabel = period === 'month' ? 'Month' : 'mo';
+                                // periodLabel is already set above
 
                                 let featuresList: string[] = [];
                                 if (plan.mainFeatures && Array.isArray(plan.mainFeatures)) {
@@ -257,20 +286,46 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
                                             )}
                                         </div>
 
-                                        <div className="mb-8 mt-auto">
+                                        <div className="mb-6 mt-auto">
                                             {(isCurrentPlan || isDowngrade) ? (
                                                 <div className="w-full py-4 rounded-full font-black text-base flex items-center justify-center bg-gray-50 text-gray-300 cursor-not-allowed border border-gray-100/50">
                                                     Get Started Now
                                                 </div>
                                             ) : (
                                                 <Link
-                                                    href={isAuthenticated && user ? DASHBOARD_URL : SIGNUP_URL}
+                                                    href={isAuthenticated && user ? DASHBOARD_URL : AppPlanURL(periodLabel.toLowerCase(), plan.planId)}
                                                     className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
                                                 >
                                                     Get Started Now
                                                 </Link>
                                             )}
                                         </div>
+
+                                        {/* Subscription Toggle Switch */}
+                                        {!isFree && (
+                                            <div className="flex items-center gap-4 mb-4">
+                                                <button
+                                                    onClick={() => setIsSubscriptionChecked(!isSubscriptionChecked)}
+                                                    className={`relative w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none ${isSubscriptionChecked ? 'bg-zlendo-teal' : 'bg-gray-300'
+                                                        }`}
+                                                >
+                                                    <motion.div
+                                                        animate={{ x: isSubscriptionChecked ? 26 : 2 }}
+                                                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                                                        className="absolute top-1 left-0 w-4 h-4 bg-white rounded-full shadow-sm"
+                                                    />
+                                                </button>
+                                                <span className="text-sm font-bold text-zlendo-grey-dark">
+                                                    {isSubscriptionChecked ? (
+                                                        <>
+                                                            Subscription <span className="text-zlendo-orange ml-1">SAVE BIG</span>
+                                                        </>
+                                                    ) : (
+                                                        "One time purchase"
+                                                    )}
+                                                </span>
+                                            </div>
+                                        )}
 
                                         <div className="flex-grow">
                                             <ul className="space-y-4">
@@ -305,7 +360,8 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
                     <ComparePlans
                         compareData={compareData}
                         plansList={plans}
-                        billingCycle={billingCycle}
+                        billingCycle={isYearly ? 'yearly' : 'monthly'}
+                        isSubscriptionChecked={isSubscriptionChecked}
                         activeOffer={activeOffer}
                         isGlobal={isGlobal}
                     />

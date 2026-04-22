@@ -33,7 +33,7 @@ export const POLICIES: PolicyMetadata[] = [
         icon: FileText,
         category: 'legal',
         description: 'Zlendo Realty Terms of Service - Understand the rules and regulations for using our services.',
-        lastUpdated: 'January 2026',
+        lastUpdated: 'April 2026',
         sections: termsOfServiceSections
     },
     {
@@ -53,7 +53,7 @@ export const POLICIES: PolicyMetadata[] = [
         icon: Scale,
         category: 'legal',
         description: 'General terms and conditions for using our platform.',
-        lastUpdated: 'January 2026',
+        lastUpdated: 'April 2026',
         sections: generalTermsSections
     },
     {
@@ -73,7 +73,7 @@ export const POLICIES: PolicyMetadata[] = [
         icon: RefreshCw,
         category: 'service',
         description: 'Our policy on refunds and cancellations.',
-        lastUpdated: 'January 2026',
+        lastUpdated: 'April 2026',
         sections: refundPolicySections
     },
     {
