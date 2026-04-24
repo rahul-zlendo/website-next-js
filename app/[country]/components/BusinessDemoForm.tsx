@@ -154,7 +154,7 @@ export default function BusinessDemoForm() {
                                     )}
                                 </select>
                                 <div className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
-                                    <svg className="w-3 h-2 sm:w-3 sm:h-2" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                    <svg className="w-3 h-2 sm:w-3 sm:h-2" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +193,7 @@ export default function BusinessDemoForm() {
                                             )}
                                         </select>
                                         <div className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 pointer-events-none opacity-50">
-                                            <svg className="w-3 h-2 sm:w-3 sm:h-2" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                            <svg className="w-3 h-2 sm:w-3 sm:h-2" width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                                         </div>
                                     </div>
                                 </div>

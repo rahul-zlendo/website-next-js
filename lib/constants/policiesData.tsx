@@ -63,7 +63,7 @@ export const POLICIES: PolicyMetadata[] = [
         icon: UserCheck,
         category: 'agreement',
         description: 'Non-disclosure agreement for vendor partnerships.',
-        lastUpdated: 'January 2026',
+        lastUpdated: 'April 2026',
         sections: ndaVendorsSections
     },
     {
@@ -83,7 +83,7 @@ export const POLICIES: PolicyMetadata[] = [
         icon: Clock,
         category: 'service',
         description: 'Our commitment to service quality and availability.',
-        lastUpdated: 'January 2026',
+        lastUpdated: 'April 2026',
         sections: slaSections
     },
     {
@@ -93,7 +93,7 @@ export const POLICIES: PolicyMetadata[] = [
         icon: ShieldAlert,
         category: 'legal',
         description: 'Rules and standards for conduct and content on the Zlendo Realty platform.',
-        lastUpdated: 'January 2026',
+        lastUpdated: 'April 2026',
         sections: communityGuidelinesSections
     }
 ];

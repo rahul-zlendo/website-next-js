@@ -4,7 +4,7 @@ import type { PolicySection } from './types';
 export const refundPolicySections: PolicySection[] = [
     {
         id: 'intro',
-        title: 'REFUND AND CANCELLATION POLICY FOR ZLENDO REALTY',
+        title: 'Policy Overview and Acceptance',
         content: (
             <div className="font-nunito text-lg text-zlendo-grey-medium leading-relaxed text-justify space-y-4">
                 <p className="italic">Last Updated: April 2026</p>
@@ -14,7 +14,7 @@ export const refundPolicySections: PolicySection[] = [
     },
     {
         id: 'general-refunds',
-        title: 'GENERAL REFUND POLICY',
+        title: 'Terms of Refund Eligibility',
         content: (
             <div className="font-nunito text-lg text-zlendo-grey-medium leading-relaxed text-justify space-y-4">
                 <p>Subject to the mandatory statutory rights set out in Applicable Laws, all payments made towards subscriptions or services on the Zlendo Realty platform are generally non-refundable once the digital service has been fully provided, or once performance has begun with the User’s prior express consent and acknowledgement that the right of withdrawal will be lost upon start of performance.</p>

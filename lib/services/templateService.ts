@@ -53,7 +53,8 @@ export interface TemplateCommentsResponse {
 
 export const getAllTemplatesService = async (regionId?: number): Promise<Template[]> => {
   try {
-    const params = regionId ? { RegionId: regionId } : {};
+    // const params = regionId ? { RegionId: regionId } : {};
+    const params = { RegionId: 0 };
     // Fetch both endpoints in parallel
     const [allTemplatesResponse, communityTemplatesResponse] = await Promise.all([
       axiosInstance.get(ENDPOINTS_TEMPLATE.GET_ALL, { params }),
@@ -116,9 +117,9 @@ export const likeTemplateService = async (
 
 export const addCommentService = async (templateId: number, userId: number, text: string, parentCommentId: number | null = null): Promise<unknown> => {
   try {
-    const payload = { 
-      templateId, 
-      userId, 
+    const payload = {
+      templateId,
+      userId,
       parentCommentId: parentCommentId ?? null,
       text
     };

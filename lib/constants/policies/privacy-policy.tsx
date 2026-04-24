@@ -5,7 +5,7 @@ import { Maximize2 } from 'lucide-react';
 export const privacyPolicySections: PolicySection[] = [
     {
         id: 'intro',
-        title: 'Introduction',
+        title: 'Privacy Policy Overview',
         content: (
             <div className="font-nunito text-lg text-zlendo-grey-medium leading-relaxed text-justify space-y-4">
                 <p>This Privacy Policy outlines the practices of Zlendo Technologies (referred to herein as 'Zlendo', 'we', 'us' or 'our'), encompassing its website and Zlendo Realty products. We are committed to protecting your Personal Data and respecting your privacy.</p>

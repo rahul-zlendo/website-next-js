@@ -419,7 +419,7 @@ export default function GlobalPartnersClient() {
                                         <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest">Avg Conversion</div>
                                     </div>
                                     <a
-                                        href="/global/business#demo-form"
+                                        href="/business#demo-form"
                                         className="px-10 py-4 bg-zlendo-teal text-white rounded-2xl font-black text-lg shadow-xl shadow-zlendo-teal/20 hover:scale-[1.03] transition-all"
                                     >
                                         Apply as Affiliate
@@ -509,7 +509,7 @@ export default function GlobalPartnersClient() {
                                         </div>
                                     </div>
                                     <a
-                                        href="/global/business#demo-form"
+                                        href="/business#demo-form"
                                         className="px-10 py-4 bg-white text-[#020204] rounded-2xl font-black text-lg hover:bg-white/90 transition-all flex items-center gap-3"
                                     >
                                         Join as Partner <Handshake className="w-5 h-5" />
@@ -652,7 +652,7 @@ export default function GlobalPartnersClient() {
                             className="flex flex-col sm:flex-row justify-center gap-4"
                         >
                             <a
-                                href="/global/business#demo-form"
+                                href="/business#demo-form"
                                 className="px-10 py-5 bg-white text-[#020204] rounded-2xl font-black text-lg hover:bg-white/90 transition-all flex items-center justify-center gap-3"
                             >
                                 Apply as Partner <ArrowRight className="w-5 h-5" />

@@ -52,9 +52,9 @@ const getValidUrl = (url: string | null | undefined): string | null => {
 const processProfileUrl = (profileUrl: string | null | undefined): string | null => {
     const rawUrl = getValidUrl(profileUrl);
     if (!rawUrl) return null;
-    
+
     const normalizedUrl = normalizeGoogleImageUrl(rawUrl);
-    
+
     if (normalizedUrl.startsWith('http://') || normalizedUrl.startsWith('https://')) {
         if (normalizedUrl.includes('blob.core.windows.net')) {
             if (!normalizedUrl.includes('sig=')) {
@@ -64,7 +64,7 @@ const processProfileUrl = (profileUrl: string | null | undefined): string | null
         }
         return normalizedUrl;
     }
-    
+
     const fullUrl = `${BLOB_BASE_URL}${normalizedUrl}`;
     return `${fullUrl}${fullUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
 };
@@ -202,7 +202,7 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
 
         filteredTemplates.forEach((template) => {
             if (template.thumbnail_Url && isValidUrl(template.thumbnail_Url)) {
-                
+
                 const normalizedTemplate = {
                     ...template,
                     template_StyleName: template.template_StyleName ?? undefined,
@@ -219,7 +219,7 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filteredTemplates]);
-    
+
     const handleTemplateClick = (templateId: number) => {
         const encryptedId = encryptProjectId(templateId);
         router.push(getPath(`/template-detail?templateId=${encryptedId}`));

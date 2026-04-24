@@ -39,25 +39,25 @@ const comparisonRows = [
 ];
 
 const features = [
-    { 
-        title: 'Neutral Spatial AI', 
+    {
+        title: 'Neutral Spatial AI',
         desc: 'Advanced neural networks that interpret hand-drawn sketches and architectural blueprints with 99.2% accuracy.',
-        icon: Cpu 
+        icon: Cpu
     },
-    { 
-        title: 'Asset Orchestration', 
+    {
+        title: 'Asset Orchestration',
         desc: 'Sync your custom object catalogs or use our hyper-realistic 100K+ model library via dynamic mapping.',
-        icon: Database 
+        icon: Database
     },
-    { 
-        title: 'Whitelabel Delivery', 
+    {
+        title: 'Whitelabel Delivery',
         desc: 'Serve 3D tours and high-fidelity renders under your own brand with zero reference to Zlendo infrastructure.',
-        icon: Layers 
+        icon: Layers
     },
-    { 
-        title: 'Global DX CDN', 
+    {
+        title: 'Global DX CDN',
         desc: 'Low-latency asset delivery through our global edge network, ensuring smooth 3D experiences in 120+ countries.',
-        icon: Globe 
+        icon: Globe
     }
 ];
 
@@ -107,7 +107,7 @@ export default function GlobalApiSuiteClient() {
 
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal overflow-x-hidden">
-            
+
             {/* 1. HERO — LIGHT AIRY */}
             <section className="relative min-h-[90vh] flex items-center bg-white overflow-hidden">
                 <div className="absolute top-[-30%] right-[-15%] w-[800px] h-[800px] bg-gradient-to-br from-zlendo-teal/10 to-transparent rounded-full blur-[160px] pointer-events-none" />
@@ -158,7 +158,7 @@ export default function GlobalApiSuiteClient() {
             {/* 2. CORE CAPABILITIES — DARK */}
             <section className="py-12 lg:py-20 bg-[#020204] text-white relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-                
+
                 <div className="container-custom px-6 text-center mb-16 relative z-10">
                     <p className="text-[11px] font-black uppercase tracking-[0.4em] text-zlendo-teal/60 mb-4">Core Technology</p>
                     <h2 className="text-3xl md:text-[52px] font-black tracking-[-0.04em] mb-4">
@@ -169,11 +169,11 @@ export default function GlobalApiSuiteClient() {
                 <div className="container-custom px-6 relative z-10">
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                         {features.map((item, i) => (
-                            <motion.div 
-                                key={i} 
-                                initial={{ opacity: 0, y: 30 }} 
-                                whileInView={{ opacity: 1, y: 0 }} 
-                                viewport={{ once: true }} 
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
                                 transition={{ delay: i * 0.1 }}
                                 className="bg-white/[0.02] border border-white/[0.08] p-8 rounded-[28px] hover:bg-white/[0.04] hover:border-white/[0.12] transition-all group"
                             >
@@ -207,7 +207,7 @@ export default function GlobalApiSuiteClient() {
                                     </div>
                                     <h3 className="text-3xl md:text-4xl font-black text-[#0A0A0B] tracking-tight">{step.title}</h3>
                                     <p className="text-lg text-slate-600 font-bold tracking-tight leading-relaxed">{step.desc}</p>
-                                    
+
                                     <div className="rounded-2xl border border-slate-200 bg-[#0A0D14] overflow-hidden shadow-xl lg:max-w-md">
                                         <div className="px-4 py-2 border-b border-white/5 bg-white/5 flex gap-1.5">
                                             <div className="w-2 h-2 rounded-full bg-red-400" />
@@ -234,7 +234,7 @@ export default function GlobalApiSuiteClient() {
             {/* 4. COMPARISON — DARK */}
             <section className="py-20 bg-[#020204] text-white relative">
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-                
+
                 <div className="container-custom px-6 max-w-4xl">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-[42px] font-black tracking-[-0.04em] mb-4">
@@ -274,7 +274,7 @@ export default function GlobalApiSuiteClient() {
                         <p className="text-[11px] font-black uppercase tracking-[0.4em] text-zlendo-teal mb-4">Support & FAQ</p>
                         <h2 className="text-4xl font-black text-[#0A0A0B] tracking-tight">Everything about the <span className="text-zlendo-teal">Stack.</span></h2>
                     </div>
-                    
+
                     <div className="space-y-4">
                         {faqs.map((faq, i) => (
                             <div key={i} className="border border-slate-100 rounded-2xl overflow-hidden hover:border-slate-200 transition-colors bg-slate-50/50">
@@ -313,13 +313,13 @@ export default function GlobalApiSuiteClient() {
                             <a href={SIGNUP_URL} className="px-10 py-5 bg-white text-[#020204] rounded-2xl font-black text-lg hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] transition-all flex items-center justify-center gap-3">
                                 Get API Keys <ArrowRight className="w-5 h-5" />
                             </a>
-                            <a href="/global/business#demo-form" className="px-10 py-5 bg-zlendo-teal text-white rounded-2xl font-black text-lg shadow-2xl shadow-zlendo-teal/40 hover:scale-[1.03] transition-all flex items-center justify-center gap-3">
+                            <a href="/business#demo-form" className="px-10 py-5 bg-zlendo-teal text-white rounded-2xl font-black text-lg shadow-2xl shadow-zlendo-teal/40 hover:scale-[1.03] transition-all flex items-center justify-center gap-3">
                                 Book Enterprise Demo <Rocket className="w-5 h-5" />
                             </a>
                         </motion.div>
 
                         <div className="flex flex-wrap justify-center gap-8 pt-12">
-                            {[ { l: 'High Capacity', i: Zap }, { l: 'Global SLB', i: Globe }, { l: 'Bank-Grade Security', i: Lock } ].map((badge, i) => (
+                            {[{ l: 'High Capacity', i: Zap }, { l: 'Global SLB', i: Globe }, { l: 'Bank-Grade Security', i: Lock }].map((badge, i) => (
                                 <div key={i} className="flex items-center gap-2 text-white/30 font-bold text-xs uppercase tracking-widest">
                                     <badge.i className="w-4 h-4" /> {badge.l}
                                 </div>

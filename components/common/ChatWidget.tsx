@@ -157,7 +157,7 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
 
                     {/* Quick Replies */}
                     <div className="px-6 py-1.5 flex gap-2 overflow-x-auto no-scrollbar border-t border-black/[0.03]">
-                        {['Pricing', 'partnership', 'Vastu', 'Support'].map(q => (
+                        {['Pricing', 'partnership', 'Demo', 'Support'].map(q => (
                             <button
                                 key={q}
                                 onClick={() => handleSend(q)}
