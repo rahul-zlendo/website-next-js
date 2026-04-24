@@ -17,7 +17,7 @@ import {
     Sparkles,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SIGNUP_URL, designLibrary } from '@/lib/constants/urls';
+import { LOGIN_URL, SIGNUP_URL, designLibrary } from '@/lib/constants/urls';
 
 interface RealisticRendersClientProps {
     cms: any;
@@ -150,7 +150,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                                     {cms?.heroCtaLabel || 'Generate Photorealistic View'} <ArrowRight className="w-5 h-5" />
                                 </a>
                                 <a
-                                    href={designLibrary}
+                                    href={LOGIN_URL}
                                     className={`px-10 py-5 rounded-2xl font-bold text-xl border hover:bg-white/10 transition-all flex items-center gap-2 ${timeOfDay === 'night' ? 'text-white border-white/20' : 'bg-white text-zlendo-grey-dark border-slate-200'}`}
                                 >
                                     <Play className="w-5 h-5 fill-current" /> {cms?.heroSecondaryCtaLabel || 'View Gallery'}

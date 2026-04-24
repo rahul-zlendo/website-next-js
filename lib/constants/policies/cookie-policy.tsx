@@ -4,7 +4,7 @@ import type { PolicySection } from './types';
 export const cookiePolicySections: PolicySection[] = [
     {
         id: 'intro',
-        title: 'Introduction',
+        title: 'Cookie Statement Overview',
         content: (
             <div className="font-nunito text-lg text-zlendo-grey-medium leading-relaxed text-justify space-y-4">
                 <p>Our Privacy Policy sets out our principles governing the collection, processing and storage of Your information. This policy specifically describes how we or our partners use cookies, as well as the choices available to You for controlling them. This cookie statement should be read in conjunction with the Zlendo Privacy Policy.</p>

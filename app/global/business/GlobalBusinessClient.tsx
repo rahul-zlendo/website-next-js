@@ -305,7 +305,7 @@ export default function GlobalBusinessClient() {
                     <div className="text-center mb-16">
                         <p className="text-[11px] font-black uppercase tracking-[0.3em] text-zlendo-teal/60 mb-4">Measurable Impact</p>
                         <h2 className="text-3xl md:text-5xl font-black tracking-tight">
-                            Numbers that <span className="bg-gradient-to-r from-zlendo-teal to-cyan-400 bg-clip-text text-transparent">speak louder.</span>
+                            Measurable <span className="bg-gradient-to-r from-zlendo-teal to-cyan-400 bg-clip-text text-transparent">Business Impact.</span>
                         </h2>
                     </div>
 
@@ -801,7 +801,7 @@ export default function GlobalBusinessClient() {
                                                     )}
                                                 </select>
                                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-30">
-                                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                                                 </div>
                                             </div>
                                         </div>
@@ -843,7 +843,7 @@ export default function GlobalBusinessClient() {
                                                             )}
                                                         </select>
                                                         <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-30">
-                                                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                                                         </div>
                                                     </div>
                                                 </div>

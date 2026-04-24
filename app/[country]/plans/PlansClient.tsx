@@ -293,7 +293,7 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
                                                 </div>
                                             ) : (
                                                 <Link
-                                                    href={isAuthenticated && user ? DASHBOARD_URL : AppPlanURL(periodLabel.toLowerCase(), plan.planId)}
+                                                    href={isAuthenticated && user ? DASHBOARD_URL : (isFree ? SIGNUP_URL : AppPlanURL(periodLabel.toLowerCase(), plan.planId))}
                                                     className="w-full py-4 rounded-full font-black text-base transition-all active:scale-95 flex items-center justify-center bg-zlendo-teal text-white hover:bg-[#008f72] shadow-lg shadow-zlendo-teal/20"
                                                 >
                                                     Get Started Now

@@ -11,16 +11,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (country === 'in') {
         return {
             keywords: [
-        'zlendo technologies nda',
-        'non-disclosure agreement',
-        'nda template',
-        'legal agreement',
-        'vendor partnerships',
-        'Business partnerships',
-        'collaboration agreements',
-        'nda for vendor partnerships',
-        'confidentiality agreement',
-    ],
+                'zlendo technologies nda',
+                'non-disclosure agreement',
+                'nda template',
+                'legal agreement',
+                'vendor partnerships',
+                'Business partnerships',
+                'collaboration agreements',
+                'nda for vendor partnerships',
+            ],
             title: {
                 absolute: 'Zlendo Technologies Vendor Non-Disclosure Agreement (NDA)',
             },
@@ -40,17 +39,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
 
     return {
-            keywords: [
-        'zlendo technologies nda',
-        'non-disclosure agreement',
-        'nda template',
-        'legal agreement',
-        'vendor partnerships',
-        'Business partnerships',
-        'collaboration agreements',
-        'nda for vendor partnerships',
-        'confidentiality agreement',
-    ],
+        keywords: [
+            'zlendo technologies nda',
+            'non-disclosure agreement',
+            'nda template',
+            'legal agreement',
+            'vendor partnerships',
+            'Business partnerships',
+            'collaboration agreements',
+            'nda for vendor partnerships',
+        ],
         title: 'Vendor NDA',
     };
 }
