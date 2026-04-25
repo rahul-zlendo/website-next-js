@@ -34,10 +34,15 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
             try {
                 setLoading(true);
 
-                // 1. Detect country (handles profile country vs IP logic)
-                const countryId = await dispatch(detectUserCountry()).unwrap();
+                // 1. Determine countryId: use profile directly if authenticated, else detect via IP
+                let countryId: number | null = null;
+                if (isAuthenticated && user?.countryId) {
+                    countryId = Number(user.countryId);
+                } else {
+                    countryId = await dispatch(detectUserCountry()).unwrap();
+                }
 
-                // 2. Fetch plans using the detected countryId
+                // 2. Fetch plans using the resolved countryId
                 const [plansResponse, compareResponse] = await Promise.all([
                     getAllSubscriptionsService(countryId || undefined),
                     compareSubscriptionsService()
