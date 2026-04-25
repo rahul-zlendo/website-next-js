@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle } from 'lucide-react';
+import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../common/Logo';
 import { SIGNUP_URL, LOGIN_URL, DASHBOARD_URL } from '@/lib/constants/urls';
@@ -450,6 +450,19 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                     )}
 
                     <div className="h-8 w-px bg-black/[0.05] hidden md:block" />
+                    
+                    {/* Calling Number */}
+                    <a 
+                        href="tel:+918047135989" 
+                        className="hidden xl:flex items-center gap-2 text-[15px] font-bold text-zlendo-grey-dark hover:text-zlendo-teal transition-all"
+                    >
+                        <div className="w-8 h-8 rounded-full bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
+                            <Phone className="w-4 h-4" />
+                        </div>
+                        +91 8047135989
+                    </a>
+
+                    <div className="h-8 w-px bg-black/[0.05] hidden xl:block" />
 
                     {/* Login and Start for free buttons */}
                     <div className="hidden md:flex items-center gap-4">
@@ -552,9 +565,14 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                         exit={{ opacity: 0, height: 0 }}
                         className="lg:hidden border-t border-black/5 bg-white shadow-2xl overflow-hidden"
                     >
-                        <div className="p-6 space-y-6 h-full overflow-y-auto">
+                        <div className="p-6 space-y-6 h-full overflow-y-auto pb-32">
                             <div className="space-y-4">
-                                <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-zlendo-grey-medium/40">Menu</h4>
+                                <div className="flex items-center justify-between">
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-zlendo-grey-medium/40">Menu</h4>
+                                    <a href="tel:+918047135989" className="flex items-center gap-2 text-xs font-bold text-zlendo-teal">
+                                        <Phone className="w-3 h-3" /> Call Us
+                                    </a>
+                                </div>
 
                                 {/* Products Mobile Dropdown */}
                                 <div>

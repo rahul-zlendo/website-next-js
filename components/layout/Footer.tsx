@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Instagram, Linkedin, Facebook, Youtube, Pin, X, Mail, MapPin } from 'lucide-react';
+import { Instagram, Linkedin, Facebook, Youtube, Pin, X, Mail, MapPin, Phone } from 'lucide-react';
 import Logo from '../common/Logo';
 import { designLibrary } from '@/lib/config/env';
 import FooterClient from './FooterClient';
@@ -194,15 +194,25 @@ const Footer = ({
                         <ul className="space-y-4 text-[15px]">
                             <li>
                                 <span dangerouslySetInnerHTML={{ __html: '<!--email_off-->' }} />
-                                <a href={`mailto:${settings?.footerEmail ?? "contact@zlendorealty.com"}`} className="flex items-center gap-2.5 group whitespace-nowrap">
+                                <a href={`mailto:${settings?.footerEmail ?? "support@zlendorealty.com"}`} className="flex items-center gap-2.5 group whitespace-nowrap">
                                     <div className="w-7 h-7 rounded-lg bg-zlendo-teal/5 flex items-center justify-center text-zlendo-teal shrink-0 group-hover:bg-zlendo-teal group-hover:text-white transition-all">
                                         <Mail className="w-3.5 h-3.5" />
                                     </div>
                                     <span className="text-[15px] text-[#666666] font-medium group-hover:text-zlendo-teal transition-colors">
-                                        contact@zlendorealty.com
+                                        support@zlendorealty.com
                                     </span>
                                 </a>
                                 <span dangerouslySetInnerHTML={{ __html: '<!--/email_off-->' }} />
+                            </li>
+                            <li>
+                                <a href="tel:+918047135989" className="flex items-center gap-2.5 group whitespace-nowrap">
+                                    <div className="w-7 h-7 rounded-lg bg-zlendo-teal/5 flex items-center justify-center text-zlendo-teal shrink-0 group-hover:bg-zlendo-teal group-hover:text-white transition-all">
+                                        <Phone className="w-3.5 h-3.5" />
+                                    </div>
+                                    <span className="text-[15px] text-[#666666] font-bold group-hover:text-zlendo-teal transition-colors">
+                                        +91 8047135989
+                                    </span>
+                                </a>
                             </li>
                             <li className="pt-4 mt-2 border-t border-black/[0.03]">
                                 <div className="flex items-start gap-2.5">

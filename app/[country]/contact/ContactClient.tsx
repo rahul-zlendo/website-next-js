@@ -131,27 +131,27 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 pt-4">
                                 <span dangerouslySetInnerHTML={{ __html: '<!--email_off-->' }} />
-                                <a href={`mailto:${cms?.email || 'contact@zlendorealty.com'}`} className="group flex items-center gap-5 p-6 rounded-3xl bg-[#f9fafb] border border-black/[0.03] hover:bg-white hover:shadow-xl hover:shadow-zlendo-teal/5 transition-all duration-300">
+                                <a href={`mailto:${cms?.email || 'support@zlendorealty.com'}`} className="group flex items-center gap-5 p-6 rounded-3xl bg-[#f9fafb] border border-black/[0.03] hover:bg-white hover:shadow-xl hover:shadow-zlendo-teal/5 transition-all duration-300">
                                     <div className="w-14 h-14 rounded-2xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal group-hover:bg-zlendo-teal group-hover:text-white transition-all">
                                         <Mail className="w-6 h-6" />
                                     </div>
                                     <div>
                                         <div className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-40 mb-1">Email us</div>
                                         <div className="text-lg font-black text-zlendo-grey-dark">
-                                            {cms?.email || 'contact@zlendorealty.com'}
+                                            {cms?.email || 'support@zlendorealty.com'}
                                         </div>
                                     </div>
                                 </a>
                                 <span dangerouslySetInnerHTML={{ __html: '<!--/email_off-->' }} />
 
-                                <a href={`tel:${cms?.phone || '0452-3583474'}`} className="group flex items-center gap-5 p-6 rounded-3xl bg-[#f9fafb] border border-black/[0.03] hover:bg-white hover:shadow-xl hover:shadow-zlendo-teal/5 transition-all duration-300">
+                                <a href={`tel:${cms?.phone || '+91 8047135989'}`} className="group flex items-center gap-5 p-6 rounded-3xl bg-[#f9fafb] border border-black/[0.03] hover:bg-white hover:shadow-xl hover:shadow-zlendo-teal/5 transition-all duration-300">
                                     <div className="w-14 h-14 rounded-2xl bg-[#f2f7f6] flex items-center justify-center text-zlendo-grey-dark group-hover:bg-zlendo-teal group-hover:text-white transition-all">
                                         <Phone className="w-6 h-6" />
                                     </div>
                                     <div>
                                         <div className="text-[11px] font-black uppercase tracking-widest text-zlendo-grey-medium opacity-40 mb-1">Call us</div>
                                         <div className="text-lg font-black text-zlendo-grey-dark">
-                                            {cms?.phone || '0452-3583474'}
+                                            {cms?.phone || '+91 8047135989'}
                                         </div>
                                     </div>
                                 </a>
