@@ -86,6 +86,12 @@ export const detectUserCountry = createAsyncThunk<number | null, void, { state: 
   "enterprise/detectUserCountry",
   async (_, { getState, dispatch }) => {
     try {
+      // 0. If we already have a detected country, don't overwrite it
+      const existingCountryId = getState().enterprise.detectedCountryId;
+      if (existingCountryId) {
+        return existingCountryId;
+      }
+
       // 1. If authenticated and has countryId, use user profile data
       const authState = getState().auth;
       if (authState.isAuthenticated && authState.user?.countryId) {
@@ -124,6 +130,12 @@ export const detectUserRegion = createAsyncThunk<number | null, void, { state: a
   "enterprise/detectUserRegion",
   async (_, { getState, dispatch }) => {
     try {
+      // 0. If we already have a detected region, don't overwrite it
+      const existingRegionId = getState().enterprise.detectedRegionId;
+      if (existingRegionId) {
+        return existingRegionId;
+      }
+
       // 1. If authenticated and has regionId, use user profile data
       const authState = getState().auth;
       if (authState.isAuthenticated && authState.user?.regionId) {
