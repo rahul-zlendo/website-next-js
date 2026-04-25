@@ -61,7 +61,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                     initial={{ opacity: 0, y: 15 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1, duration: 0.6 }}
-                                    className="text-[40px] md:text-[56px] lg:text-[72px] tracking-tight font-black leading-[1.05] text-[#111]"
+                                    className="text-[28px] md:text-[42px] lg:text-[56px] tracking-tight font-black leading-[1.1] md:leading-[1.05] text-[#111]"
                                 >
                                     Professional 360° <br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-500">
@@ -73,7 +73,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                     initial={{ opacity: 0, y: 15 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.2, duration: 0.6 }}
-                                    className="text-xl md:text-2xl text-[#666] font-medium leading-relaxed"
+                                    className="text-base md:text-lg text-[#666] font-bold opacity-80 leading-relaxed"
                                 >
                                     Immerse your clients in a realistic and interactive tour of your projects, allowing them to explore every detail from the comfort of their own space.
                                 </motion.p>
@@ -104,7 +104,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 1, ease: "easeOut" }}
-                                className="relative lg:h-[700px] rounded-[2.5rem] overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-black/[0.03]"
+                                className="relative lg:h-[580px] rounded-[2.5rem] overflow-hidden group shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-black/[0.03]"
                             >
                                 <img
                                     src="/assets/virtual-walkthrough/hero-walkthrough.webp"
@@ -192,20 +192,20 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                 </section>
 
                 {/* 3. SCROLLING FEATURES LIST */}
-                <section className="py-32 relative bg-[#FAFAFC] border-t border-black/5">
+                <section className="py-20 md:py-32 relative bg-[#FAFAFC] border-t border-black/5">
                     <div className="container-custom px-4">
-                        <div className="grid lg:grid-cols-2 gap-20 items-start">
-                            <div className="sticky top-32 space-y-8">
-                                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.1] text-[#111]">
+                        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+                            <div className="lg:sticky lg:top-32 space-y-6 md:space-y-8">
+                                <h2 className="text-3xl md:text-[48px] font-black leading-[1.1] text-[#111] tracking-tighter">
                                     Experience the future of <br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-[#111]">interior design.</span>
                                 </h2>
-                                <p className="text-xl text-[#666] font-medium leading-relaxed">
+                                <p className="text-lg md:text-xl text-[#666] font-medium leading-relaxed">
                                     Empower yourself to showcase your designs with unparalleled realism and interactivity. Reveal the true potential of your concepts.
                                 </p>
                             </div>
 
-                            <div className="space-y-12">
+                            <div className="space-y-8 md:space-y-12">
                                 {[
                                     {
                                         step: "1",
@@ -239,13 +239,13 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                         whileInView={{ opacity: 1, x: 0 }}
                                         viewport={{ once: true, margin: "-100px" }}
                                         transition={{ duration: 0.6 }}
-                                        className="bg-white border border-black/[0.04] shadow-sm p-10 rounded-[2.5rem] relative overflow-hidden group hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all"
+                                        className="bg-white border border-black/[0.04] shadow-sm p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] relative overflow-hidden group hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all"
                                     >
-                                        <div className="absolute top-0 right-0 p-8 text-8xl font-black text-black/[0.03] group-hover:text-zlendo-teal/10 transition-colors pointer-events-none">
+                                        <div className="absolute top-0 right-0 p-4 sm:p-8 text-7xl sm:text-8xl font-black text-black/[0.03] group-hover:text-zlendo-teal/10 transition-colors pointer-events-none">
                                             {item.step}
                                         </div>
-                                        <h3 className="text-2xl md:text-3xl font-black mb-6 relative z-10 text-[#111]">{item.title}</h3>
-                                        <p className="text-lg text-[#666] font-medium leading-relaxed relative z-10">{item.desc}</p>
+                                        <h3 className="text-xl sm:text-2xl md:text-3xl font-black mb-4 sm:mb-6 relative z-10 text-[#111] pr-10">{item.title}</h3>
+                                        <p className="text-base sm:text-lg text-[#666] font-medium leading-relaxed relative z-10">{item.desc}</p>
                                     </motion.div>
                                 ))}
                             </div>
@@ -258,7 +258,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                     <div className="container-custom px-4">
                         <div className="text-center mb-16">
                             <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">Stop wasting time. Start creating.</h2>
-                            <p className="text-[#666] text-lg font-medium">Why top designers are ditching legacy tools for Zlendo's AI workflow.</p>
+                            <p className="text-[#666] text-lg font-medium">Why top designers are ditching legacy tools for Zlendo Realty AI workflow.</p>
                         </div>
 
                         <div className="max-w-6xl mx-auto overflow-hidden rounded-[2.5rem] border border-black/[0.05] shadow-[0_20px_60px_rgba(0,0,0,0.03)] bg-white">
@@ -276,7 +276,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                             <th className="p-8 text-lg font-black text-zlendo-teal w-[37.5%] bg-zlendo-teal/[0.02]">
                                                 <div className="flex items-center gap-2">
                                                     <Zap className="w-5 h-5 fill-zlendo-teal" />
-                                                    The Zlendo Way
+                                                    The Zlendo Realty Way
                                                 </div>
                                             </th>
                                         </tr>
