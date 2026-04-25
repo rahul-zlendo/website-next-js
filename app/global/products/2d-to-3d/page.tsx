@@ -235,7 +235,7 @@ export default function TwoDToThreeDPage() {
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-zlendo-teal/10 rounded-full blur-[150px] pointer-events-none" />
 
           <div className="container-custom px-4 text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-black mb-6">The Treditional way is bleeding your profit.</h2>
+            <h2 className="text-4xl md:text-6xl font-black mb-6">The Traditional way is bleeding your profit.</h2>
           </div>
 
           <div className="container-custom px-4 max-w-5xl mx-auto">

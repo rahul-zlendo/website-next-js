@@ -24,6 +24,7 @@ import {
     X
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import FaqAccordion from '../../components/FaqAccordion';
 
 interface VirtualWalkthroughClientProps {
     cms: any;
@@ -267,9 +268,9 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                     <thead>
                                         <tr className="bg-[#FAFAFC] border-b border-black/[0.05]">
                                             <th className="p-8 text-xl font-black text-[#111] w-1/4">Step</th>
-                                            <th className="p-8 text-lg font-bold text-[#999] opacity-60 w-[37.5%]">
+                                            <th className="p-8 text-lg font-black text-[#666] w-[37.5%]">
                                                 <div className="flex items-center gap-2">
-                                                    <span className="w-2 h-2 rounded-full bg-gray-300" />
+                                                    <span className="w-2 h-2 rounded-full bg-slate-300" />
                                                     The Traditional Way
                                                 </div>
                                             </th>
@@ -321,9 +322,9 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                         ].map((row, i) => (
                                             <tr key={i} className="group hover:bg-[#FAFAFC]/50 transition-colors">
                                                 <td className="p-8 font-black text-[#111] text-lg">{row.step}</td>
-                                                <td className="p-8 text-[#999] font-medium">
+                                                <td className="p-8 text-[#666] font-bold opacity-80">
                                                     <div className="flex items-start gap-3">
-                                                        <span className="mt-1.5 flex-shrink-0 text-gray-300 select-none">✕</span>
+                                                        <span className="mt-1 flex-shrink-0 text-red-300 select-none">✕</span>
                                                         {row.old}
                                                     </div>
                                                 </td>
@@ -366,40 +367,28 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                     </div>
                 </section>
 
-                {/* 5. FAQ INFO BLOCKS */}
-                <section className="py-24 bg-[#FAFAFC] border-t border-black/5">
-                    <div className="container-custom px-6 max-w-4xl mx-auto">
-                        <div className="space-y-12 text-[#666] font-medium leading-relaxed">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                className="space-y-4"
-                            >
-                                <h3 className="text-2xl font-black text-[#111]">What is a virtual tour?</h3>
-                                <p>A virtual tour is an interactive digital experience that simulates visiting a physical location. It allows users to explore a space remotely, providing a sense of the environment and its layout. This technology is widely used in various fields, including real estate, interior design, tourism, and museums, to offer a realistic view of a location or design without the need for physical presence.</p>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                className="space-y-4"
-                            >
-                                <h3 className="text-2xl font-black text-[#111]">How to create a virtual tour?</h3>
-                                <p>To create a virtual tour, especially with our PRO toolset, you would first design your interior concepts using the platform's tools. Once the design is complete, you can use the 360 Walkthrough feature to generate an immersive tour. This feature allows clients to navigate through the virtual space, experiencing the design from every angle and getting a realistic feel of the proposed layout and aesthetics.</p>
-                            </motion.div>
-
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                className="space-y-4"
-                            >
-                                <h3 className="text-2xl font-black text-[#111]">How do 360 Walkthroughs work?</h3>
-                                <p>360 Walkthroughs work by using high-resolution 360-degree renders and advanced technology to create an immersive virtual environment. Users can navigate through this environment, exploring every corner of the designed space. The system uses an intelligent algorithm to generate camera placements automatically, making the creation of these walkthroughs seamless and efficient. This allows designers and their clients to assess and experience the design in a comprehensive and realistic manner, facilitating better communication and decision-making.</p>
-                            </motion.div>
-                        </div>
+                {/* 6. FAQ SECTION */}
+                <section className="py-20 md:py-32 bg-white border-t border-black/5">
+                    <div className="container-custom px-6 max-w-3xl mx-auto">
+                        <h2 className="text-3xl md:text-5xl font-black text-center text-[#111] mb-12">
+                            {cms?.faqTitle || 'Frequently Asked Questions'}
+                        </h2>
+                        <FaqAccordion 
+                            faqs={resolvedFaqs && resolvedFaqs.length > 0 ? resolvedFaqs : [
+                                {
+                                    q: "What is a virtual tour?",
+                                    a: "A virtual tour is an interactive digital experience that simulates visiting a physical location. It allows users to explore a space remotely, providing a sense of the environment and its layout. This technology is widely used in various fields, including real estate, interior design, tourism, and museums."
+                                },
+                                {
+                                    q: "How to create a virtual tour?",
+                                    a: "To create a virtual tour, especially with our PRO toolset, you would first design your interior concepts using the platform's tools. Once the design is complete, you can use the 360 Walkthrough feature to generate an immersive tour. This feature allows clients to navigate through the virtual space, experiencing the design from every angle."
+                                },
+                                {
+                                    q: "How do 360 Walkthroughs work?",
+                                    a: "360 Walkthroughs work by using high-resolution 360-degree renders and advanced technology to create an immersive virtual environment. Users can navigate through this environment, exploring every corner of the designed space. The system uses an intelligent algorithm to generate camera placements automatically, making the creation of these walkthroughs seamless and efficient."
+                                }
+                            ]} 
+                        />
                     </div>
                 </section>
             </main>

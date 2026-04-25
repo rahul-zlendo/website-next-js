@@ -35,7 +35,7 @@ export default async function ContactPage({ params }: Props) {
             title: "Demo Request",
             description: "Want to see Zlendo Realty in action? Book a personalized walkthrough.",
             icon: "Building2",
-            url: "https://zlendorealty.com/in/business#demo-form"
+            url: "/business#demo-form"
         },
         {
             title: "Support Docs",
@@ -47,7 +47,7 @@ export default async function ContactPage({ params }: Props) {
             title: "Partnership",
             description: "Learn about our affiliate and builder referral programs.",
             icon: "ArrowRight",
-            url: "https://zlendorealty.com/in/partners"
+            url: "/partners"
         }
     ];
 
