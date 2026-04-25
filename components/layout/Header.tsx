@@ -589,38 +589,41 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                     </AnimatePresence>
                                 </div>
 
+
                                 {/* Solutions Mobile Dropdown */}
-                                <div>
-                                    <button
-                                        onClick={() => setActiveDropdown(activeDropdown === 'solutions' ? null : 'solutions')}
-                                        className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
-                                    >
-                                        Solutions
-                                        <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
-                                    </button>
-                                    <AnimatePresence>
-                                        {activeDropdown === 'solutions' && (
-                                            <motion.div
-                                                initial={{ height: 0, opacity: 0 }}
-                                                animate={{ height: 'auto', opacity: 1 }}
-                                                exit={{ height: 0, opacity: 0 }}
-                                                className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10"
-                                            >
-                                                {solutionsLinks.map(link => (
-                                                    <Link
-                                                        key={link.label}
-                                                        href={link.path}
-                                                        prefetch={true}
-                                                        onClick={() => setIsMobileMenuOpen(false)}
-                                                        className="block text-base font-medium text-zlendo-grey-medium hover:text-zlendo-teal"
-                                                    >
-                                                        {link.label}
-                                                    </Link>
-                                                ))}
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
+                                {false && (
+                                    < div >
+                                        <button
+                                            onClick={() => setActiveDropdown(activeDropdown === 'solutions' ? null : 'solutions')}
+                                            className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
+                                        >
+                                            Solutions
+                                            <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        <AnimatePresence>
+                                            {activeDropdown === 'solutions' && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10"
+                                                >
+                                                    {solutionsLinks.map(link => (
+                                                        <Link
+                                                            key={link.label}
+                                                            href={link.path}
+                                                            prefetch={true}
+                                                            onClick={() => setIsMobileMenuOpen(false)}
+                                                            className="block text-base font-medium text-zlendo-grey-medium hover:text-zlendo-teal"
+                                                        >
+                                                            {link.label}
+                                                        </Link>
+                                                    ))}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                )}
 
                                 {/* Use Cases Mobile Dropdown */}
                                 {isIndiaSite && (
@@ -822,7 +825,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </nav >
     );
 };
 

@@ -198,31 +198,31 @@ export default function GlobalApiSuiteClient() {
                         </h2>
                     </div>
 
-                    <div className="space-y-32">
+                    <div className="space-y-20 md:space-y-32">
                         {steps.map((step, i) => (
-                            <div key={i} className={`flex flex-col lg:flex-row items-center gap-16 lg:gap-24 ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
-                                <div className="flex-1 space-y-8">
-                                    <div className="w-14 h-14 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center font-black text-2xl text-[#0A0A0B] shadow-sm">
+                            <div key={i} className={`flex flex-col lg:flex-row items-start lg:items-center gap-12 lg:gap-24 ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+                                <div className="flex-1 space-y-6 md:space-y-8 w-full">
+                                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center font-black text-xl md:text-2xl text-[#0A0A0B] shadow-sm">
                                         0{i + 1}
                                     </div>
-                                    <h3 className="text-3xl md:text-4xl font-black text-[#0A0A0B] tracking-tight">{step.title}</h3>
-                                    <p className="text-lg text-slate-600 font-bold tracking-tight leading-relaxed">{step.desc}</p>
+                                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#0A0A0B] tracking-tight leading-tight">{step.title}</h3>
+                                    <p className="text-base md:text-lg text-slate-600 font-bold tracking-tight leading-relaxed">{step.desc}</p>
 
-                                    <div className="rounded-2xl border border-slate-200 bg-[#0A0D14] overflow-hidden shadow-xl lg:max-w-md">
+                                    <div className="rounded-2xl border border-slate-200 bg-[#0A0D14] overflow-hidden shadow-xl lg:max-w-md w-full">
                                         <div className="px-4 py-2 border-b border-white/5 bg-white/5 flex gap-1.5">
                                             <div className="w-2 h-2 rounded-full bg-red-400" />
                                             <div className="w-2 h-2 rounded-full bg-yellow-400" />
                                             <div className="w-2 h-2 rounded-full bg-green-400" />
                                         </div>
-                                        <div className="p-6 font-mono text-xs text-white/70 leading-relaxed overflow-x-auto whitespace-pre">
+                                        <div className="p-4 sm:p-6 font-mono text-[10px] sm:text-xs text-white/70 leading-relaxed overflow-x-auto whitespace-pre">
                                             {step.code}
                                         </div>
                                     </div>
                                 </div>
-                                <div className="flex-1 relative group">
+                                <div className="flex-1 relative group w-full">
                                     <div className="absolute -inset-4 bg-zlendo-teal/10 blur-3xl opacity-20 group-hover:opacity-40 transition duration-1000" />
-                                    <div className="relative rounded-[32px] overflow-hidden border border-slate-200 shadow-2xl">
-                                        <img src={step.image} alt={step.title} className="w-full h-64 lg:h-96 object-cover hover:scale-105 transition-transform duration-1000" />
+                                    <div className="relative rounded-[2rem] overflow-hidden border border-slate-200 shadow-2xl">
+                                        <img src={step.image} alt={step.title} className="w-full h-56 sm:h-64 lg:h-96 object-cover hover:scale-105 transition-transform duration-1000" />
                                     </div>
                                 </div>
                             </div>
@@ -242,7 +242,7 @@ export default function GlobalApiSuiteClient() {
                         </h2>
                     </div>
 
-                    <div className="overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.02]">
+                    <div className="overflow-x-auto rounded-[28px] border border-white/[0.08] bg-white/[0.02] no-scrollbar">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="border-b border-white/[0.08]">

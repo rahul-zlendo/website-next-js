@@ -393,7 +393,7 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
 
                             <div className="flex flex-wrap gap-4">
                                 <Link
-                                    href={`${getPath('/contact')}?business=enterprise-grade-custom-solutions`}
+                                    href={`${getPath('/contact')}`}
                                     className="bg-white text-zlendo-grey-dark px-10 py-4 rounded-full font-black text-lg hover:bg-gray-100 transition-colors flex items-center justify-center font-nunito"
                                 >
                                     Contact Sales

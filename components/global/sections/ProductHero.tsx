@@ -41,12 +41,12 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
 
   // ── Mouse-follow parallax (same technique as global Hero) ──
   const sectionRef = useRef<HTMLElement>(null);
-  const orb1Ref   = useRef<HTMLDivElement>(null);
-  const orb2Ref   = useRef<HTMLDivElement>(null);
-  const orb3Ref   = useRef<HTMLDivElement>(null);
-  const spotRef   = useRef<HTMLDivElement>(null);
-  const rafRef    = useRef<number | null>(null);
-  const mousePos  = useRef({ x: 0, y: 0 });
+  const orb1Ref = useRef<HTMLDivElement>(null);
+  const orb2Ref = useRef<HTMLDivElement>(null);
+  const orb3Ref = useRef<HTMLDivElement>(null);
+  const spotRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
+  const mousePos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -57,7 +57,7 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
       if (e.clientY < rect.top || e.clientY > rect.bottom) return;
       mousePos.current = {
         x: (e.clientX - rect.left) / rect.width - 0.5,
-        y: (e.clientY - rect.top)  / rect.height - 0.5,
+        y: (e.clientY - rect.top) / rect.height - 0.5,
       };
     };
     window.addEventListener('mousemove', onMove);
@@ -69,7 +69,7 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
       if (orb1Ref.current) orb1Ref.current.style.transform = `translate(${cx * 100}px, ${cy * 70}px)`;
       if (orb2Ref.current) orb2Ref.current.style.transform = `translate(${cx * -130}px, ${cy * -90}px)`;
       if (orb3Ref.current) orb3Ref.current.style.transform = `translate(${cx * 180}px, ${cy * 120}px)`;
-      if (spotRef.current)  spotRef.current.style.background =
+      if (spotRef.current) spotRef.current.style.background =
         `radial-gradient(700px circle at ${(mousePos.current.x + 0.5) * 100}% ${(mousePos.current.y + 0.5) * 100}%, rgba(0,191,154,0.12), transparent 60%)`;
       rafRef.current = requestAnimationFrame(tick);
     };
@@ -173,7 +173,7 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
                 <div className="flex flex-col gap-2">
                   <Link
                     href={ctaLink}
-                    className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[#00bf9a] text-white font-black text-base hover:bg-[#008f72] transition-all transform hover:scale-[1.05] shadow-2xl shadow-[#00bf9a]/30 min-w-[200px]"
+                    className="inline-flex items-center justify-center px-10 py-5 rounded-full bg-[#00bf9a] text-white font-black text-base hover:bg-[#008f72] transition-all transform hover:scale-[1.05] shadow-2xl shadow-[#00bf9a]/30 min-w-[200px]"
                   >
                     {ctaText}
                   </Link>

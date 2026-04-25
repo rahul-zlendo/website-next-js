@@ -355,22 +355,22 @@ export default function TwoDToThreeDPage() {
         </section>
 
         {/* 5. USE CASE SEGMENTS */}
-        <section className="py-24 bg-white">
+        <section className="py-16 md:py-24 bg-white">
           <div className="container-custom px-4 max-w-6xl mx-auto">
-            <div className="flex flex-wrap justify-center gap-4 mb-16">
+            <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-10 md:mb-16">
               {useCases.map((uc, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveUseCase(i)}
-                  className={`px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center gap-3 ${activeUseCase === i ? 'bg-[#111] text-white shadow-xl scale-105' : 'bg-[#FAFAFC] text-[#666] hover:bg-black/5 border border-black/5'}`}
+                  className={`px-5 py-2.5 md:px-8 md:py-4 rounded-full font-bold text-sm md:text-lg transition-all flex items-center gap-2 md:gap-3 ${activeUseCase === i ? 'bg-[#111] text-white shadow-xl scale-105' : 'bg-[#FAFAFC] text-[#666] hover:bg-black/5 border border-black/5'}`}
                 >
-                  <uc.icon className="w-5 h-5" />
+                  <uc.icon className="w-4 h-4 md:w-5 md:h-5" />
                   {uc.title}
                 </button>
               ))}
             </div>
 
-            <div className="relative rounded-[3rem] overflow-hidden bg-black aspect-[21/9]">
+            <div className="relative rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-black aspect-[4/5] sm:aspect-video md:aspect-[21/9]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeUseCase}
