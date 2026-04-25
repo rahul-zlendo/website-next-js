@@ -449,20 +449,23 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                         </Link>
                     )}
 
-                    <div className="h-8 w-px bg-black/[0.05] hidden md:block" />
-                    
-                    {/* Calling Number */}
-                    <a 
-                        href="tel:+918047135989" 
-                        className="hidden xl:flex items-center gap-2 text-[15px] font-bold text-zlendo-grey-dark hover:text-zlendo-teal transition-all"
-                    >
-                        <div className="w-8 h-8 rounded-full bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
-                            <Phone className="w-4 h-4" />
-                        </div>
-                        +91 8047135989
-                    </a>
+                    {false && (
+                        <>
+                            <div className="h-8 w-px bg-black/[0.05] hidden md:block" />
 
-                    <div className="h-8 w-px bg-black/[0.05] hidden xl:block" />
+                            <a
+                                href="tel:+918047135989"
+                                className="hidden xl:flex items-center gap-2 text-[15px] font-bold text-zlendo-grey-dark hover:text-zlendo-teal transition-all"
+                            >
+                                <div className="w-8 h-8 rounded-full bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
+                                    <Phone className="w-4 h-4" />
+                                </div>
+                                +91 8047135989
+                            </a>
+
+                            <div className="h-8 w-px bg-black/[0.05] hidden xl:block" />
+                        </>
+                    )}
 
                     {/* Login and Start for free buttons */}
                     <div className="hidden md:flex items-center gap-4">
