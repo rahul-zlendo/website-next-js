@@ -86,32 +86,33 @@ export const detectUserCountry = createAsyncThunk<number | null, void, { state: 
   "enterprise/detectUserCountry",
   async (_, { getState, dispatch }) => {
     try {
-      // 1. If authenticated, only use user profile data (no third-party API call)
+      // 1. If authenticated and has countryId, use user profile data
       const authState = getState().auth;
-      if (authState.isAuthenticated) {
-        return authState.user?.countryId || null;
+      if (authState.isAuthenticated && authState.user?.countryId) {
+        return authState.user.countryId;
+      } else {
+
+        // 2. If not authenticated or missing countryId, call third-party API for IP-based detection
+        const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
+        const ipData = await ipResponse.json();
+        const countryName = ipData?.countryName || "";
+        const countryCode = ipData?.countryCode || "";
+
+        // Note: Redirection is now handled by Middleware (server-side) for better performance.
+        // We no longer perform window.location.href redirects here to avoid delays and loops.
+
+        let locations = getState().enterprise.locations;
+        if (locations.length === 0) {
+          const result: any = await dispatch(getAllLocations()).unwrap();
+          locations = Array.isArray(result) ? result : (result?.data || result?.list || []);
+        }
+
+        const matchedLocation = locations.find(
+          (loc: any) => loc.location_Name.toLowerCase() === countryName.toLowerCase()
+        );
+
+        return matchedLocation ? matchedLocation.location_Id : null;
       }
-
-      // 2. If not authenticated, call third-party API for IP-based detection
-      const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
-      const ipData = await ipResponse.json();
-      const countryName = ipData?.countryName || "";
-      const countryCode = ipData?.countryCode || "";
-
-      // Note: Redirection is now handled by Middleware (server-side) for better performance.
-      // We no longer perform window.location.href redirects here to avoid delays and loops.
-
-      let locations = getState().enterprise.locations;
-      if (locations.length === 0) {
-        const result: any = await dispatch(getAllLocations()).unwrap();
-        locations = Array.isArray(result) ? result : (result?.data || result?.list || []);
-      }
-
-      const matchedLocation = locations.find(
-        (loc: any) => loc.location_Name.toLowerCase() === countryName.toLowerCase()
-      );
-
-      return matchedLocation ? matchedLocation.location_Id : null;
     } catch (e) {
       console.error("Failed to detect country or match location:", e);
       return null;
@@ -123,32 +124,33 @@ export const detectUserRegion = createAsyncThunk<number | null, void, { state: a
   "enterprise/detectUserRegion",
   async (_, { getState, dispatch }) => {
     try {
-      // 1. If authenticated, only use user profile data (no external API call)
+      // 1. If authenticated and has regionId, use user profile data
       const authState = getState().auth;
-      if (authState.isAuthenticated) {
-        return authState.user?.regionId || null;
+      if (authState.isAuthenticated && authState.user?.regionId) {
+        return authState.user.regionId;
+      } else {
+
+        // 2. If not authenticated or missing regionId, identify region based on IP
+        const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
+        const ipData = await ipResponse.json();
+        const countryName = ipData.countryName;
+
+        if (!countryName) return null;
+
+        // 3. Get Regions
+        let regions = getState().enterprise.regions;
+        if (regions.length === 0) {
+          const result: any = await dispatch(getAllRegions()).unwrap();
+          regions = Array.isArray(result) ? result : (result?.data || result?.list || []);
+        }
+
+        // 4. Match countryName in region.countries
+        const matchedRegion = regions.find((region: any) =>
+          region.countries && region.countries.some((c: string) => c.toLowerCase() === countryName.toLowerCase())
+        );
+
+        return matchedRegion ? matchedRegion.regionId : null;
       }
-
-      // 2. If not authenticated, identify region based on IP
-      const ipResponse = await fetch("https://free.freeipapi.com/api/json/");
-      const ipData = await ipResponse.json();
-      const countryName = ipData.countryName;
-
-      if (!countryName) return null;
-
-      // 3. Get Regions
-      let regions = getState().enterprise.regions;
-      if (regions.length === 0) {
-        const result: any = await dispatch(getAllRegions()).unwrap();
-        regions = Array.isArray(result) ? result : (result?.data || result?.list || []);
-      }
-
-      // 4. Match countryName in region.countries
-      const matchedRegion = regions.find((region: any) => 
-        region.countries && region.countries.some((c: string) => c.toLowerCase() === countryName.toLowerCase())
-      );
-
-      return matchedRegion ? matchedRegion.regionId : null;
     } catch (e) {
       console.error("Failed to detect region:", e);
       return null;
@@ -257,7 +259,7 @@ const enterpriseSlice = createSlice({
         const dataArray = Array.isArray(payload)
           ? payload
           : (payload?.data || payload?.list || payload?.item || []);
-        
+
         state.locations = Array.isArray(dataArray) ? dataArray : [];
         state.locationsError = null;
       })
@@ -288,7 +290,7 @@ const enterpriseSlice = createSlice({
         const dataArray = Array.isArray(payload)
           ? payload
           : (payload?.data || payload?.list || payload?.item || []);
-        
+
         state.regions = Array.isArray(dataArray) ? dataArray : [];
         state.regionsError = null;
       })
