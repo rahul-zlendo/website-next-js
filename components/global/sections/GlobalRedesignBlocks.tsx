@@ -436,9 +436,8 @@ export default function GlobalRedesignBlocks() {
             <AiTransformation />
             <ImmersiveFeatures />
             <AnimatedMetrics />
-            <VisualWorkflowComparison />
-            <DarkProductFlow />
             <AnimatedComparisonTable />
+            <DarkProductFlow />
             <TabbedUseCases />
             <VisualTestimonials />
             <HighContrastCTA />

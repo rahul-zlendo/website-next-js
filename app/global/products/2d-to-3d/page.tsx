@@ -129,7 +129,7 @@ export default function TwoDToThreeDPage() {
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.1]">
                 Upload a 2D Plan. <br className="hidden md:block" />
                 Present in <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-400">3D Reality.</span>
               </h1>
@@ -151,7 +151,7 @@ export default function TwoDToThreeDPage() {
         {/* 2. LIVE TRANSFORMATION SECTION (The Slider) */}
         <section className="py-32 bg-white relative -mt-10 rounded-t-[3rem] z-20">
           <div className="container-custom px-4 max-w-6xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">See the transformation live</h2>
+            <h2 className="text-2xl md:text-4xl font-black text-[#111] mb-6">See the transformation live</h2>
             <p className="text-xl text-[#666] font-medium mb-16">Drag the slider to watch flat diagrams become emotional spaces instantly.</p>
 
             <BeforeAfterSlider />
@@ -175,16 +175,16 @@ export default function TwoDToThreeDPage() {
                 <div className="absolute top-8 bottom-8 w-1 bg-zlendo-teal shadow-[0_0_20px_#00bf9a] animate-[scan_3s_ease-in-out_infinite]" style={{ left: '50%' }} />
               </motion.div>
               <div className="order-1 lg:order-2 space-y-6">
-                <h2 className="text-4xl md:text-6xl font-black text-[#111] leading-tight">Drop a PDF.<br />We read the walls.</h2>
-                <p className="text-2xl text-[#666] font-bold">100% automated layout recognition.</p>
+                <h2 className="text-3xl md:text-5xl font-black text-[#111] leading-tight">Drop a PDF.<br />We read the walls.</h2>
+                <p className="text-xl text-[#666] font-bold">100% automated layout recognition.</p>
               </div>
             </div>
 
             {/* UX Feature 2: Instant 3D + Walkthrough */}
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-6">
-                <h2 className="text-4xl md:text-6xl font-black text-[#111] leading-tight">Close the deal.<br />Inside the model.</h2>
-                <p className="text-2xl text-[#666] font-bold">Generate a stunning presentation link instantly.</p>
+                <h2 className="text-3xl md:text-5xl font-black text-[#111] leading-tight">Close the deal.<br />Inside the model.</h2>
+                <p className="text-xl text-[#666] font-bold">Generate a stunning presentation link instantly.</p>
               </div>
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
@@ -201,31 +201,90 @@ export default function TwoDToThreeDPage() {
               </motion.div>
             </div>
 
-            {/* UX Feature 3: Live Cost Estimation (Business ROI) */}
+            {/* UX Feature 3: 2D to 3D Transformation Story */}
             <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Text Content */}
+              <div className="order-2 lg:order-1 space-y-8">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#111] leading-[1.1] tracking-tight">
+                  From Plan to Reality.<br />
+                  <span className="text-zlendo-teal">In Seconds.</span>
+                </h2>
+                <p className="text-xl text-[#666] font-medium leading-relaxed">
+                  Turn uploaded layouts into client-ready 3D spaces instantly — with walls, rooms, structure, lighting, and depth automatically understood.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-2">
+                  {[
+                    "Auto wall detection",
+                    "Instant 3D generation",
+                    "Client-ready output"
+                  ].map((badge) => (
+                    <div key={badge} className="flex items-center gap-2 px-4 py-2 bg-white border border-black/5 rounded-full shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-sm font-bold text-[#333]">
+                      <CheckCircle2 className="w-4 h-4 text-zlendo-teal" />
+                      {badge}
+                    </div>
+                  ))}
+                </div>
+                <div className="pt-4">
+                  <a href={SIGNUP_URL} className="inline-flex items-center gap-2 px-8 py-4 bg-zlendo-teal text-white font-black text-lg rounded-full hover:bg-[#00a685] transition-all shadow-lg hover:shadow-[0_10px_30px_rgba(0,191,154,0.3)] hover:scale-105 group">
+                    See 2D to 3D in action <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Animated Visual Card */}
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
+                initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ margin: "-100px", once: true }}
-                className="order-2 lg:order-1 relative rounded-[2.5rem] bg-gradient-to-br from-[#111] to-[#222] p-8 shadow-2xl"
+                className="order-1 lg:order-2 relative aspect-[4/3] bg-white rounded-[2.5rem] p-3 md:p-5 shadow-[0_30px_60px_rgba(0,0,0,0.08)] border border-black/5 group overflow-hidden"
               >
-                <div className="absolute inset-x-8 top-1/2 -translate-y-1/2 bg-white rounded-2xl p-6 shadow-xl transform rotate-3">
-                  <div className="flex justify-between items-end border-b border-black/10 pb-4 mb-4">
-                    <div>
-                      <div className="text-sm font-bold text-[#666] uppercase tracking-wider mb-1">Live BOQ Total</div>
-                      <div className="text-4xl font-black text-[#111]">$245,680</div>
-                    </div>
-                    <TrendingUp className="w-8 h-8 text-zlendo-teal" />
+                <div className="relative w-full h-full rounded-[2rem] overflow-hidden bg-slate-50 shadow-inner">
+                  {/* 2D Base Image */}
+                  <img src="/assets/2d-to-3d/before-plan.webp" alt="2D Floor Plan" className="absolute inset-0 w-full h-full object-cover opacity-50 grayscale" />
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] bg-[size:40px_40px]" />
+
+                  {/* 3D Reveal Image */}
+                  <motion.div
+                    className="absolute inset-0 bg-white"
+                    animate={{ clipPath: ["inset(0 100% 0 0)", "inset(0 0% 0 0)", "inset(0 100% 0 0)"] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <img src="/assets/2d-to-3d/after-render.webp" alt="3D Render" className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[2s] ease-out" />
+                    <div className="absolute inset-0 bg-black/10 mix-blend-overlay group-hover:bg-black/0 transition-colors duration-500" />
+                  </motion.div>
+
+                  {/* Glowing Slider Line */}
+                  <motion.div
+                    className="absolute top-0 bottom-0 w-1 bg-zlendo-teal shadow-[0_0_15px_#00bf9a,0_0_30px_#00bf9a]"
+                    animate={{ left: ["0%", "100%", "0%"] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    {/* Center Core */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-32 bg-white rounded-full shadow-[0_0_20px_#00bf9a]" />
+                  </motion.div>
+
+                  {/* Labels */}
+                  <div className="absolute top-4 left-4 md:top-6 md:left-6 px-3 py-1.5 bg-white/95 backdrop-blur-md border border-black/5 rounded-lg shadow-sm text-[10px] md:text-xs font-bold text-slate-500 z-10 uppercase tracking-widest pointer-events-none">
+                    2D Floor Plan
                   </div>
-                  <div className="flex items-center gap-3 text-sm font-bold text-[#111]">
-                    <CheckCircle2 className="w-5 h-5 text-zlendo-teal" /> Wall finishes updated manually
-                  </div>
+
+                  <motion.div
+                    className="absolute top-4 right-4 md:top-6 md:right-6 px-3 py-1.5 bg-zlendo-teal text-white rounded-lg shadow-lg text-[10px] md:text-xs font-bold z-10 uppercase tracking-widest pointer-events-none"
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", times: [0, 0.5, 1] }}
+                  >
+                    AI 3D Model
+                  </motion.div>
+
+                  <motion.div
+                    className="absolute bottom-4 right-4 md:bottom-6 md:right-6 px-4 py-2 bg-[#111] text-white rounded-xl shadow-2xl text-xs md:text-sm font-black z-10 flex items-center gap-2 border border-white/10 pointer-events-none"
+                    animate={{ opacity: [0, 1, 0], y: [10, 0, 10] }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", times: [0, 0.5, 1] }}
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-zlendo-teal" /> Ready to Present
+                  </motion.div>
                 </div>
               </motion.div>
-              <div className="order-1 lg:order-2 space-y-6">
-                <h2 className="text-4xl md:text-6xl font-black text-[#111] leading-tight">Edit the design.<br />Watch the budget update.</h2>
-                <p className="text-2xl text-[#666] font-bold">Never open an Excel spreadsheet again.</p>
-              </div>
             </div>
           </div>
         </section>
@@ -235,7 +294,7 @@ export default function TwoDToThreeDPage() {
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-zlendo-teal/10 rounded-full blur-[150px] pointer-events-none" />
 
           <div className="container-custom px-4 text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-black mb-6">The Treditional way is bleeding your profit.</h2>
+            <h2 className="text-3xl md:text-5xl font-black mb-6">The Treditional way is bleeding your profit.</h2>
           </div>
 
           <div className="container-custom px-4 max-w-5xl mx-auto">
@@ -287,7 +346,7 @@ export default function TwoDToThreeDPage() {
                   </div>
                   <div className="pt-4 text-left">
                     <div className="text-sm font-bold text-[#013f33] uppercase tracking-widest mb-1">Time to Client Presentation</div>
-                    <div className="text-5xl font-black text-white drop-shadow-md">Under 1 Min</div>
+                    <div className="text-5xl font-black text-white drop-shadow-md">Under 60 Min</div>
                   </div>
                 </div>
               </div>
@@ -323,7 +382,7 @@ export default function TwoDToThreeDPage() {
                 >
                   <img src={useCases[activeUseCase].img} alt={useCases[activeUseCase].title} className="w-full h-full object-cover opacity-60" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex items-end p-12 md:p-20">
-                    <h3 className="text-4xl md:text-6xl font-black text-white max-w-2xl leading-tight">
+                    <h3 className="text-3xl md:text-5xl font-black text-white max-w-2xl leading-tight">
                       {useCases[activeUseCase].outcome}
                     </h3>
                   </div>
@@ -336,15 +395,18 @@ export default function TwoDToThreeDPage() {
         {/* 6. WALKTHROUGH EXPERIENCE (Emotion & Space) */}
         <section className="py-32 bg-[#FAFAFC] border-y border-black/5 overflow-hidden">
           <div className="container-custom px-4 text-center">
-            <h2 className="text-4xl md:text-6xl font-black text-[#111] mb-6">Don't show flat images. <br />Show them their future home.</h2>
-            <div className="relative w-full max-w-5xl mx-auto mt-16 rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.1)] border border-white group aspect-video">
-              {/* Simulated Walkthrough Video */}
-              <img src="/assets/2d-to-3d/after-render.webp" className="w-full h-full object-cover animate-[pulse_10s_ease-in-out_infinite]" alt="Walkthrough" loading="lazy" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <button className="w-24 h-24 bg-white/20 backdrop-blur-lg rounded-full flex items-center justify-center border border-white/50 group-hover:scale-110 transition-transform shadow-2xl">
-                  <Play className="w-10 h-10 text-white fill-white ml-2" />
-                </button>
-              </div>
+            <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">Don't show flat images. <br />Show them their future home.</h2>
+            <div className="relative w-full max-w-5xl mx-auto mt-16 rounded-[2.5rem] overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.1)] border border-white group aspect-video bg-black">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/fvAFH25rWlY?autoplay=0&rel=0&showinfo=0"
+                title="Zlendo Realty 2D to 3D Walkthrough"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              ></iframe>
             </div>
           </div>
         </section>
@@ -353,7 +415,7 @@ export default function TwoDToThreeDPage() {
         <section className="py-32 bg-white">
           <div className="container-custom px-4 text-center max-w-6xl mx-auto">
             <h2 className="text-3xl font-black text-zlendo-teal uppercase tracking-widest mb-4">The Business Impact</h2>
-            <h3 className="text-4xl md:text-6xl font-black text-[#111] leading-tight mb-20">
+            <h3 className="text-3xl md:text-5xl font-black text-[#111] leading-tight mb-20">
               Stop selling design.<br />Start selling certainty.
             </h3>
 
@@ -381,7 +443,7 @@ export default function TwoDToThreeDPage() {
         <section className="py-24 bg-[#FAFAFC] border-t border-black/5">
           <div className="container-custom px-4 text-center max-w-4xl mx-auto">
             <Quote className="w-16 h-16 text-zlendo-teal/30 mx-auto mb-8" />
-            <h2 className="text-3xl md:text-5xl font-black text-[#111] leading-snug mb-12">
+            <h2 className="text-2xl md:text-4xl font-black text-[#111] leading-snug mb-12">
               "Zlendo Realty is the first tool that actually fits into a professional workflow. We win bids on the spot now."
             </h2>
             <div className="flex items-center justify-center gap-4">
@@ -398,7 +460,7 @@ export default function TwoDToThreeDPage() {
         <section className="py-32 bg-[#111] text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,191,154,0.15)_0%,transparent_70%)]" />
           <div className="container-custom px-4 text-center relative z-10">
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.05] tracking-tight mb-8">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.05] tracking-tight mb-8">
               Design. Render.<br />Close Clients — in Minutes.
             </h2>
             <p className="text-xl text-slate-400 font-medium mb-12 max-w-xl mx-auto">
