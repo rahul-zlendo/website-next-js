@@ -22,6 +22,7 @@ import {
     FileEdit,
     MousePointer2
 } from 'lucide-react';
+import { SIGNUP_URL } from '@/lib/constants/urls';
 
 export default function AdvancedFeatures() {
     return (
@@ -72,9 +73,9 @@ export default function AdvancedFeatures() {
 
                             {/* CTA */}
                             <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 pt-2">
-                                <button className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal text-white font-bold text-lg rounded-xl hover:bg-[#00a685] transition-all flex items-center justify-center gap-2 shadow-lg shadow-zlendo-teal/30 hover:scale-105">
+                                <a href={SIGNUP_URL} className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal text-white font-bold text-lg rounded-xl hover:bg-[#00a685] transition-all flex items-center justify-center gap-2 shadow-lg shadow-zlendo-teal/30 hover:scale-105">
                                     Try It Free <ArrowRight className="w-5 h-5" />
-                                </button>
+                                </a>
                                 <div className="flex items-center gap-2 text-[#666] text-sm font-medium">
                                     <CheckCircle2 className="w-4 h-4 text-green-500" /> No credit card required
                                 </div>
