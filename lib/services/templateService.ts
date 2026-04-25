@@ -58,7 +58,7 @@ export const getAllTemplatesService = async (regionId?: number): Promise<Templat
     // Fetch both endpoints in parallel
     const [allTemplatesResponse, communityTemplatesResponse] = await Promise.all([
       axiosInstance.get(ENDPOINTS_TEMPLATE.GET_ALL, { params }),
-      axiosInstance.get(ENDPOINTS_TEMPLATE.GET_COMMUNITY).catch(() => ({ data: [] })) // Fallback to empty array if fails
+      axiosInstance.get(ENDPOINTS_TEMPLATE.GET_COMMUNITY, { params }).catch(() => ({ data: [] })) // Fallback to empty array if fails
     ]);
 
     const allTemplates: Template[] = allTemplatesResponse.data.templateList;
