@@ -29,7 +29,7 @@ export default async function GlobalContactPage() {
             title: "Demo Request",
             description: "Want to see Zlendo Realty in action? Book a personalized walkthrough.",
             icon: "Building2",
-            url: "https://zlendorealty.com/business#demo-form"
+            url: "/business#demo-form"
         },
         {
             title: "Support Docs",
@@ -41,16 +41,16 @@ export default async function GlobalContactPage() {
             title: "Partnership",
             description: "Learn about our affiliate and builder referral programs.",
             icon: "ArrowRight",
-            url: "https://zlendorealty.com/partners"
+            url: "/partners"
         }
     ];
 
-    const resolvedHelpItems = cms?.helpItems?.length ? cms.helpItems : defaultHelpItems;
+    const resolvedHelpItems = defaultHelpItems;
 
     return (
-        <ContactClient 
-            cms={cms} 
-            resolvedHelpItems={resolvedHelpItems} 
+        <ContactClient
+            cms={cms}
+            resolvedHelpItems={resolvedHelpItems}
         />
     );
 }

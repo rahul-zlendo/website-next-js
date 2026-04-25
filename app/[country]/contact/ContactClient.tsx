@@ -387,7 +387,7 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
                                     <p className="text-lg text-zlendo-grey-medium font-bold opacity-60 mb-6">{item.description}</p>
                                     <a
                                         href={item.url}
-                                        target="_blank"
+                                        // target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-zlendo-teal font-black flex items-center gap-2 group"
                                     >
