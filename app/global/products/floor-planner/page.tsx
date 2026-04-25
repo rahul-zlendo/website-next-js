@@ -111,9 +111,9 @@ const GlobalFloorPlannerPage = async () => {
             icon: "Ruler"
           },
           {
-            title: "Vastu Integration",
-            description: "Built-in guidelines ensure your home plan aligns with Vastu principles.",
-            icon: "Compass"
+            title: "Multi-Story Planning",
+            description: "Design complex multi-level residential layouts with seamless floor-to-floor alignment.",
+            icon: "Box"
           },
           {
             title: "Live 3D Preview",
@@ -123,7 +123,7 @@ const GlobalFloorPlannerPage = async () => {
           {
             title: "Seamless Export",
             description: "Convert your finished plans to professional CAD formats.",
-            icon: "Layers"
+            icon: "Download"
           }
         ]
       },
