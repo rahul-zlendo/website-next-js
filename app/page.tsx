@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 };
 
 // Safety-net fallback: if middleware rewrite somehow doesn't intercept,
-// redirect to /in. In practice, middleware's rewrite() runs first,
-// so this component never renders.
+// redirect to /in (primary market). In practice, middleware's rewrite() runs first,
+// so this component rarely renders.
 export default function RootPage() {
-  redirect('/global');
+  redirect('/in');
 }
