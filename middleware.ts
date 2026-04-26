@@ -38,14 +38,19 @@ export function middleware(request: NextRequest) {
 
   // Force India visitors to /in if they hit the root or other paths
   if (isIndia && !isOnIndiaSite) {
-    // If hitting root, redirect to /in
-    if (pathname === '/') {
-      return NextResponse.redirect(new URL('/in', request.url));
+    const url = request.nextUrl.clone();
+    const countryMatch = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
+
+    if (pathname.startsWith('/global')) {
+      url.pathname = pathname.replace(/^\/global/, '/in');
+    } else if (countryMatch && countryMatch[1] !== 'in') {
+      url.pathname = `/in${countryMatch[2] || ''}`;
+    } else if (pathname === '/') {
+      url.pathname = '/in';
+    } else {
+      url.pathname = `/in${pathname}`;
     }
-    // For other paths, we could rewrite or let them stay, but the user's 
-    // original logic forced /in for India IPs.
-    // However, if we redirect everything for India IPs to /in, it might break subpages.
-    // Let's stick to the root for now to avoid breaking subpages unless they hit the wrong country prefix.
+    return NextResponse.redirect(url);
   }
 
   // Force Non-India visitors away from /in
