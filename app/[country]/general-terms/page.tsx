@@ -17,7 +17,7 @@ export default function GeneralTermsPage() {
         icon: Scale,
         category: 'legal' as const,
         description: 'General terms and conditions for using our platform.',
-        lastUpdated: 'February 2026',
+        lastUpdated: 'January 2026',
         sections: generalTermsSections
     };
 

@@ -32,7 +32,7 @@ export default async function CookiePolicyPage(props: CookiePolicyPageProps) {
         icon: Cookie,
         category: 'privacy' as const,
         description: 'Information about how we use cookies and similar technologies.',
-        lastUpdated: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
+        lastUpdated: 'January 2026',
         sections: [
             {
                 id: 'introduction',

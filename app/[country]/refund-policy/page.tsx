@@ -16,7 +16,7 @@ export default function RefundPolicyPage() {
         icon: RefreshCw,
         category: 'service' as const,
         description: 'No refund and no cancellation policy for zlendo realty',
-        lastUpdated: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
+        lastUpdated: 'January 2026',
         sections: [
             {
                 id: 'no-refund',

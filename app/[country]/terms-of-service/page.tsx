@@ -18,7 +18,7 @@ const TermsPage = () => {
         icon: FileText,
         category: 'legal' as const,
         description: 'Zlendo Realty Terms of Service - Understand the rules and regulations for using our services.',
-        lastUpdated: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
+        lastUpdated: 'January 2026',
         sections: [
             {
                 id: 'introduction',

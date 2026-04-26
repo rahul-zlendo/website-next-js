@@ -554,7 +554,7 @@ export default function GlobalBusinessClient() {
                         <div className="relative rounded-[32px] overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/50 bg-[#0a0f1a]">
                             <div className="relative pt-[56.25%] w-full">
                                 <iframe
-                                    src="https://www.youtube.com/embed/ij_yZ-sNrOY?autoplay=0&mute=1&loop=1&playlist=ij_yZ-sNrOY&controls=0&showinfo=0&rel=0&modestbranding=1"
+                                    src="https://www.youtube.com/embed/fvAFH25rWlY?autoplay=0&rel=0&showinfo=0"
                                     title="Zlendo Realty Immersive Walkthrough Experience"
                                     className="absolute top-0 left-0 w-full h-full object-cover"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -700,7 +700,7 @@ export default function GlobalBusinessClient() {
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 max-w-6xl mx-auto items-start">
                         {/* Left — Benefits */}
                         <div className="py-4 lg:sticky lg:top-24">
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
@@ -708,17 +708,17 @@ export default function GlobalBusinessClient() {
                             >
                                 <Sparkles className="w-3 h-3" /> Get Started
                             </motion.div>
-                            
+
                             <h2 className="text-4xl md:text-[56px] font-black tracking-tight leading-[1.1] mb-8">
                                 Book your{' '}
                                 <span className="relative inline-block">
                                     <span className="bg-gradient-to-r from-zlendo-teal via-emerald-400 to-cyan-400 bg-clip-text text-transparent">personalized demo.</span>
                                     <svg className="absolute w-full h-3 -bottom-2 left-0 text-zlendo-teal/30" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                        <path d="M0 5 Q 50 10 100 0" stroke="currentColor" strokeWidth="6" fill="none" strokeLinecap="round"/>
+                                        <path d="M0 5 Q 50 10 100 0" stroke="currentColor" strokeWidth="6" fill="none" strokeLinecap="round" />
                                     </svg>
                                 </span>
                             </h2>
-                            
+
                             <p className="text-xl text-white/50 font-medium leading-relaxed mb-10 max-w-lg">
                                 See how Zlendo Realty fits your specific workflow. Our product experts will walk you through a live demo tailored to your industry requirements.
                             </p>
@@ -753,162 +753,162 @@ export default function GlobalBusinessClient() {
                         <div className="relative group">
                             {/* Decorative glow behind form */}
                             <div className="absolute -inset-1 bg-gradient-to-r from-zlendo-teal/20 to-violet-600/20 rounded-[40px] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
-                            
+
                             <div className="relative p-8 lg:p-12 rounded-[32px] bg-[#0a0f1a] border border-white/[0.1] shadow-2xl backdrop-blur-xl">
-                            {isSubmitted ? (
-                                <motion.div
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    className="text-center py-16"
-                                >
-                                    <div className="w-20 h-20 rounded-full bg-zlendo-teal/10 flex items-center justify-center mx-auto mb-6">
-                                        <CheckCircle2 className="w-10 h-10 text-zlendo-teal" />
-                                    </div>
-                                    <h3 className="text-2xl font-black mb-3">Thank you!</h3>
-                                    <p className="text-white/40 font-medium">We&apos;ll reach out within 1 business day to schedule your personalized demo.</p>
-                                </motion.div>
-                            ) : (
-                                <form onSubmit={handleFormSubmit} className="space-y-5">
-                                    <div className="grid sm:grid-cols-2 gap-6">
-                                        <div className="space-y-2">
-                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Full Name *</label>
-                                            <input
-                                                type="text" name="name" required value={formData.name} onChange={handleFormChange}
-                                                className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
-                                                placeholder="Your full name"
-                                            />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Work Email *</label>
-                                            <input
-                                                type="email" name="email" required value={formData.email} onChange={handleFormChange}
-                                                className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
-                                                placeholder="name@company.com"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="grid sm:grid-cols-2 gap-6">
-                                        <div className="space-y-2">
-                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Country *</label>
-                                            <div className="relative">
-                                                <select
-                                                    name="country" required value={formData.country}
-                                                    onChange={(e) => {
-                                                        const newVal = parseInt(e.target.value);
-                                                        setFormData(prev => ({
-                                                            ...prev,
-                                                            country: newVal
-                                                        }));
-                                                    }}
-                                                    className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all appearance-none cursor-pointer font-nunito"
-                                                >
-                                                    <option value={0} className="bg-[#0a0f1a]">Select country...</option>
-                                                    {isLoadingLocations ? (
-                                                        <option disabled className="bg-[#0a0f1a]">Loading countries...</option>
-                                                    ) : countries.length > 0 ? (
-                                                        countries.map((c: any, idx: number) => (
-                                                            <option key={idx} value={c.location_Id} className="bg-[#0a0f1a]">
-                                                                {c.location_Name}
-                                                            </option>
-                                                        ))
-                                                    ) : (
-                                                        <option disabled className="bg-[#0a0f1a]">No countries found</option>
-                                                    )}
-                                                </select>
-                                                <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
-                                                    <ChevronRight className="w-4 h-4 rotate-90" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Company Name *</label>
-                                            <input
-                                                type="text" name="company" required value={formData.company} onChange={handleFormChange}
-                                                className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
-                                                placeholder="Your company name"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="grid sm:grid-cols-2 gap-6">
-                                        <div className="space-y-2">
-                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Industry *</label>
-                                            <div className="relative">
-                                                <select
-                                                    name="industry" required value={formData.industry}
-                                                    onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-                                                    className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all appearance-none cursor-pointer font-nunito"
-                                                >
-                                                    <option value="" className="bg-[#0a0f1a]">Select industry...</option>
-                                                    {isLoadingIndustries ? (
-                                                        <option disabled className="bg-[#0a0f1a]">Loading industries...</option>
-                                                    ) : industries.length > 0 ? (
-                                                        industries.map((ind: any, idx: number) => (
-                                                            <option key={idx} value={ind.lov_Value} className="bg-[#0a0f1a]">
-                                                                {ind.description || ind.lov_Key}
-                                                            </option>
-                                                        ))
-                                                    ) : (
-                                                        <option disabled className="bg-[#0a0f1a]">No industries found</option>
-                                                    )}
-                                                </select>
-                                                <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
-                                                    <ChevronRight className="w-4 h-4 rotate-90" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Phone Number *</label>
-                                            <input
-                                                type="tel" name="phone" required value={formData.phone}
-                                                onChange={(e) => { const value = e.target.value.replace(/[^\d+\-() ]/g, ''); setFormData({ ...formData, phone: value }); }}
-                                                className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
-                                                placeholder="+1 (555) 000-0000"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-2">
-                                        <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">How can we help? *</label>
-                                        <textarea
-                                            name="description" required value={formData.description} onChange={handleFormChange} rows={4}
-                                            className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all resize-none font-nunito"
-                                            placeholder="Tell us about your project requirements or challenges..."
-                                        />
-                                    </div>
-
-                                    <button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        className="w-full group/btn flex items-center justify-center gap-3 px-8 py-5.5 bg-gradient-to-r from-zlendo-teal to-emerald-400 text-white font-black text-xl rounded-2xl shadow-2xl shadow-zlendo-teal/20 hover:shadow-zlendo-teal/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 font-nunito overflow-hidden relative"
+                                {isSubmitted ? (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        className="text-center py-16"
                                     >
-                                        <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
-                                        <span className="relative flex items-center gap-3">
-                                            {isSubmitting ? (
-                                                <>
-                                                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                    Submitting...
-                                                </>
-                                            ) : (
-                                                <>
-                                                    Book My Strategy Call
-                                                    <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-1 transition-transform" />
-                                                </>
-                                            )}
-                                        </span>
-                                    </button>
+                                        <div className="w-20 h-20 rounded-full bg-zlendo-teal/10 flex items-center justify-center mx-auto mb-6">
+                                            <CheckCircle2 className="w-10 h-10 text-zlendo-teal" />
+                                        </div>
+                                        <h3 className="text-2xl font-black mb-3">Thank you!</h3>
+                                        <p className="text-white/40 font-medium">We&apos;ll reach out within 1 business day to schedule your personalized demo.</p>
+                                    </motion.div>
+                                ) : (
+                                    <form onSubmit={handleFormSubmit} className="space-y-5">
+                                        <div className="grid sm:grid-cols-2 gap-6">
+                                            <div className="space-y-2">
+                                                <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Full Name *</label>
+                                                <input
+                                                    type="text" name="name" required value={formData.name} onChange={handleFormChange}
+                                                    className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
+                                                    placeholder="Your full name"
+                                                />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Work Email *</label>
+                                                <input
+                                                    type="email" name="email" required value={formData.email} onChange={handleFormChange}
+                                                    className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
+                                                    placeholder="name@company.com"
+                                                />
+                                            </div>
+                                        </div>
 
-                                    <p className="text-center text-xs text-white/20 font-bold font-nunito">
-                                        No credit card required · We respond within 1 business day
-                                    </p>
-                                </form>
-                            )}
+                                        <div className="grid sm:grid-cols-2 gap-6">
+                                            <div className="space-y-2">
+                                                <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Country *</label>
+                                                <div className="relative">
+                                                    <select
+                                                        name="country" required value={formData.country}
+                                                        onChange={(e) => {
+                                                            const newVal = parseInt(e.target.value);
+                                                            setFormData(prev => ({
+                                                                ...prev,
+                                                                country: newVal
+                                                            }));
+                                                        }}
+                                                        className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all appearance-none cursor-pointer font-nunito"
+                                                    >
+                                                        <option value={0} className="bg-[#0a0f1a]">Select country...</option>
+                                                        {isLoadingLocations ? (
+                                                            <option disabled className="bg-[#0a0f1a]">Loading countries...</option>
+                                                        ) : countries.length > 0 ? (
+                                                            countries.map((c: any, idx: number) => (
+                                                                <option key={idx} value={c.location_Id} className="bg-[#0a0f1a]">
+                                                                    {c.location_Name}
+                                                                </option>
+                                                            ))
+                                                        ) : (
+                                                            <option disabled className="bg-[#0a0f1a]">No countries found</option>
+                                                        )}
+                                                    </select>
+                                                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
+                                                        <ChevronRight className="w-4 h-4 rotate-90" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Company Name *</label>
+                                                <input
+                                                    type="text" name="company" required value={formData.company} onChange={handleFormChange}
+                                                    className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
+                                                    placeholder="Your company name"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="grid sm:grid-cols-2 gap-6">
+                                            <div className="space-y-2">
+                                                <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Industry *</label>
+                                                <div className="relative">
+                                                    <select
+                                                        name="industry" required value={formData.industry}
+                                                        onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
+                                                        className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all appearance-none cursor-pointer font-nunito"
+                                                    >
+                                                        <option value="" className="bg-[#0a0f1a]">Select industry...</option>
+                                                        {isLoadingIndustries ? (
+                                                            <option disabled className="bg-[#0a0f1a]">Loading industries...</option>
+                                                        ) : industries.length > 0 ? (
+                                                            industries.map((ind: any, idx: number) => (
+                                                                <option key={idx} value={ind.lov_Value} className="bg-[#0a0f1a]">
+                                                                    {ind.description || ind.lov_Key}
+                                                                </option>
+                                                            ))
+                                                        ) : (
+                                                            <option disabled className="bg-[#0a0f1a]">No industries found</option>
+                                                        )}
+                                                    </select>
+                                                    <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
+                                                        <ChevronRight className="w-4 h-4 rotate-90" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Phone Number *</label>
+                                                <input
+                                                    type="tel" name="phone" required value={formData.phone}
+                                                    onChange={(e) => { const value = e.target.value.replace(/[^\d+\-() ]/g, ''); setFormData({ ...formData, phone: value }); }}
+                                                    className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
+                                                    placeholder="+1 (555) 000-0000"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">How can we help? *</label>
+                                            <textarea
+                                                name="description" required value={formData.description} onChange={handleFormChange} rows={4}
+                                                className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all resize-none font-nunito"
+                                                placeholder="Tell us about your project requirements or challenges..."
+                                            />
+                                        </div>
+
+                                        <button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            className="w-full group/btn flex items-center justify-center gap-3 px-8 py-5.5 bg-gradient-to-r from-zlendo-teal to-emerald-400 text-white font-black text-xl rounded-2xl shadow-2xl shadow-zlendo-teal/20 hover:shadow-zlendo-teal/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 font-nunito overflow-hidden relative"
+                                        >
+                                            <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
+                                            <span className="relative flex items-center gap-3">
+                                                {isSubmitting ? (
+                                                    <>
+                                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                        Submitting...
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        Book My Strategy Call
+                                                        <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-1 transition-transform" />
+                                                    </>
+                                                )}
+                                            </span>
+                                        </button>
+
+                                        <p className="text-center text-xs text-white/20 font-bold font-nunito">
+                                            No credit card required · We respond within 1 business day
+                                        </p>
+                                    </form>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
             {/* ══════════════════════════════════════
                10. FINAL CTA — HIGH CONTRAST

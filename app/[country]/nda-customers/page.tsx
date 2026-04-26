@@ -17,7 +17,7 @@ export default function NDACustomersPage() {
         icon: UserCheck,
         category: 'agreement' as const,
         description: 'Non-disclosure agreement for customer relationships.',
-        lastUpdated: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
+        lastUpdated: 'January 2026',
         sections: [
             {
                 id: 'introduction',
