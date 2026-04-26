@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
         icon: Lock,
         category: 'privacy' as const,
         description: 'Zlendo Technologies Privacy Policy - Learn how we collect, use, and protect your personal information.',
-        lastUpdated: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
+        lastUpdated: 'January 2026',
         sections: [
             {
                 id: 'intro',
@@ -288,7 +288,7 @@ export default function PrivacyPolicyPage() {
                             Zlendo reserves the right to amend or update this Privacy Policy at any time. When changes are made, we will revise the updated date at the bottom of the page and may notify you by email or through a prominent notice on our website. Your continued use of the Services following any changes constitutes your active acceptance and agreement to be bound by the modified Policy.
                         </p>
                         <p className="font-bold text-lg text-zlendo-grey-medium">
-                            Last Updated: {new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}
+                            Last Updated: January 2026
                         </p>
                     </div>
                 )

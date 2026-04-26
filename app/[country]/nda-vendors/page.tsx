@@ -17,7 +17,7 @@ export default function NDAVendorsPage() {
         icon: UserCheck,
         category: 'agreement' as const,
         description: 'Non-disclosure agreement for vendor partnerships with Zlendo Technologies.',
-        lastUpdated: 'February 2026',
+        lastUpdated: 'January 2026',
         sections: ndaVendorsSections
     };
 
