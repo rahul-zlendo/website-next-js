@@ -38,14 +38,14 @@ export default function AdvancedFeatures() {
                             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-zlendo-teal/10 rounded-full text-zlendo-teal font-bold text-sm border border-zlendo-teal/20">
                                 <Wand2 className="w-4 h-4" /> AI Powered
                             </div>
-                            
+
                             {/* Headings */}
                             <h2 className="text-4xl md:text-6xl font-black text-[#111] leading-[1.1] tracking-tight">
                                 Start Simple.<br />
                                 Design <span className="relative text-zlendo-teal inline-block">
                                     Like
                                     <svg className="absolute w-full h-3 -bottom-1 left-0 text-zlendo-teal opacity-80" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                        <path d="M0 5 Q 50 10 100 0" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                                        <path d="M0 5 Q 50 10 100 0" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" />
                                     </svg>
                                 </span> a Pro.
                             </h2>
@@ -85,9 +85,9 @@ export default function AdvancedFeatures() {
                         {/* Right Side: Flow UI (Image Replacement) */}
                         <div className="relative">
                             <div className="bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-black/5 overflow-hidden p-2">
-                                <img 
-                                    src="/assets/global/flow-image.png" 
-                                    alt="Design Flow" 
+                                <img
+                                    src="/assets/global/flow-image.png"
+                                    alt="Design Flow"
                                     className="w-full h-auto object-contain rounded-2xl"
                                 />
                             </div>
@@ -95,10 +95,10 @@ export default function AdvancedFeatures() {
                             {/* Small Feature Cards Below Flow */}
                             <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3 bg-white border border-black/5 shadow-[0_10px_30px_rgba(0,0,0,0.03)] rounded-2xl p-4">
                                 {[
-                                    {icon: Sparkles, color: "text-blue-500", bg: "bg-blue-50", title: "AI-Powered", desc: "Smart & fast"},
-                                    {icon: Box, color: "text-green-500", bg: "bg-green-50", title: "Complete Solution", desc: "Plan, 3D, Render"},
-                                    {icon: Rocket, color: "text-orange-500", bg: "bg-orange-50", title: "Save Time", desc: "From hours to mins"},
-                                    {icon: ShieldCheck, color: "text-yellow-500", bg: "bg-yellow-50", title: "Built for Everyone", desc: "Beginners to pros"}
+                                    { icon: Sparkles, color: "text-blue-500", bg: "bg-blue-50", title: "AI-Powered", desc: "Smart & fast" },
+                                    { icon: Box, color: "text-green-500", bg: "bg-green-50", title: "Complete Solution", desc: "Plan, 3D, Render" },
+                                    { icon: Rocket, color: "text-orange-500", bg: "bg-orange-50", title: "Save Time", desc: "From hours to mins" },
+                                    { icon: ShieldCheck, color: "text-yellow-500", bg: "bg-yellow-50", title: "Built for Everyone", desc: "Beginners to pros" }
                                 ].map((feat, i) => (
                                     <div key={i} className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-2 sm:gap-3">
                                         <div className={`w-8 h-8 rounded-full shrink-0 ${feat.bg} flex items-center justify-center`}>
@@ -127,10 +127,10 @@ export default function AdvancedFeatures() {
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             {[
-                                {icon: Users, num: "50K+", label: "Happy Users", color: "text-blue-500"},
-                                {icon: Home, num: "100K+", label: "Projects Designed", color: "text-indigo-500"},
-                                {icon: Download, num: "25K+", label: "CAD Exports", color: "text-purple-500"},
-                                {icon: Globe, num: "100+", label: "Countries", color: "text-blue-600"}
+                                { icon: Users, num: "5K+", label: "Happy Users", color: "text-blue-500" },
+                                { icon: Home, num: "20K+", label: "Projects Designed", color: "text-indigo-500" },
+                                { icon: Download, num: "2K+", label: "CAD Exports", color: "text-purple-500" },
+                                { icon: Globe, num: "10+", label: "Countries", color: "text-blue-600" }
                             ].map((stat, i) => (
                                 <div key={i} className="flex items-center justify-center gap-3">
                                     <stat.icon className={`w-8 h-8 ${stat.color}`} strokeWidth={1.5} />
@@ -206,12 +206,12 @@ export default function AdvancedFeatures() {
                             <div className="relative w-full h-full overflow-hidden group-hover:scale-[1.02] transition-transform duration-700">
                                 <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-90 brightness-110 contrast-125" alt="" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                                
+
                                 {/* Play UI Overlay */}
                                 <div className="absolute inset-0 m-auto w-14 h-14 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/20 transition-all duration-500 shadow-[0_0_30px_rgba(255,255,255,0.15)]">
                                     <PlayCircle className="w-6 h-6 text-white fill-white/20" />
                                 </div>
-                                
+
                                 {/* WASD Controls Overlay */}
                                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 px-3 py-1.5 bg-black/40 backdrop-blur-md rounded-full border border-white/10 shadow-lg opacity-80 group-hover:opacity-100 transition-opacity">
                                     <div className="w-4 h-4 rounded border border-white/40 flex items-center justify-center text-[8px] text-white font-bold bg-white/10">W</div>
@@ -246,7 +246,7 @@ export default function AdvancedFeatures() {
                                 {/* Faint Render Background */}
                                 <img src="https://images.unsplash.com/photo-1593696140826-c58b021acf8b?q=80&w=600&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-[0.15] blur-sm transition-all duration-700 group-hover:blur-0 group-hover:opacity-40" alt="" />
                                 <div className="absolute inset-0 bg-white/40 group-hover:bg-white/10 transition-colors duration-700" />
-                                
+
                                 <div className="relative z-10 flex flex-col items-center w-full px-4">
                                     {/* Fading Tools */}
                                     <div className="flex flex-wrap justify-center gap-2 mb-6 w-full opacity-60 group-hover:opacity-0 group-hover:-translate-y-4 transition-all duration-700 absolute top-10">
@@ -256,12 +256,12 @@ export default function AdvancedFeatures() {
                                             </div>
                                         ))}
                                     </div>
-                                    
+
                                     {/* One Platform Core */}
                                     <div className="relative mt-12 group-hover:mt-0 transition-all duration-700">
                                         {/* Glowing Aura */}
                                         <div className="absolute -inset-6 bg-[#00bf9a]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                                        
+
                                         <div className="px-5 py-3 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] rounded-2xl border border-[#00bf9a]/20 flex items-center gap-3 transform group-hover:scale-110 transition-transform duration-700 relative z-10">
                                             <div className="w-8 h-8 bg-[#00bf9a] rounded-xl flex items-center justify-center shadow-inner">
                                                 <Layers className="w-4 h-4 text-white" />
@@ -295,7 +295,7 @@ export default function AdvancedFeatures() {
                             <div className="relative w-full h-full overflow-hidden flex items-center justify-center bg-[#fafafc]">
                                 {/* Subtle background glow */}
                                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,191,154,0.04)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                                
+
                                 <div className="flex items-center justify-between w-full px-6 relative z-10">
                                     {[
                                         { label: "Sketch", icon: FileEdit, color: "text-slate-600", bg: "bg-white border-slate-200" },
@@ -346,18 +346,18 @@ export default function AdvancedFeatures() {
                                     <div className="h-[30%] bg-slate-200 rounded-lg overflow-hidden border border-white/50 shadow-sm"><img src="https://images.unsplash.com/photo-1593696140826-c58b021acf8b?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" alt="" /></div>
                                     <div className="h-[30%] bg-slate-200 rounded-lg overflow-hidden border border-white/50 shadow-sm"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" alt="" /></div>
                                 </div>
-                                
+
                                 {/* Right: Applied Design */}
                                 <div className="w-[65%] relative">
                                     <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=400&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt="" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                                    
+
                                     {/* AI Applied Badge */}
                                     <div className="absolute bottom-3 right-3 px-2.5 py-1.5 bg-black/70 backdrop-blur-md rounded-lg border border-white/10 flex items-center gap-1.5 shadow-xl transform group-hover:-translate-y-1 transition-transform duration-500">
                                         <Wand2 className="w-3.5 h-3.5 text-[#00bf9a]" />
                                         <span className="text-[9px] font-bold text-white uppercase tracking-wider">AI Applied</span>
                                     </div>
-                                    
+
                                     {/* Glowing scanline effect */}
                                     <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#00bf9a] shadow-[0_0_15px_#00bf9a]" />
                                     <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-[#00bf9a]/20 to-transparent" />
@@ -385,7 +385,7 @@ export default function AdvancedFeatures() {
                                 {/* Pastel 3D Grid Floor */}
                                 <div className="absolute inset-0 bg-[#FDFBF9]" />
                                 <div className="absolute inset-x-[-50%] bottom-[-20%] h-[80%] bg-[linear-gradient(to_right,#e5e5e5_1px,transparent_1px),linear-gradient(to_bottom,#e5e5e5_1px,transparent_1px)] bg-[size:2rem_2rem] [transform:rotateX(60deg)_scale(1.5)] origin-top opacity-60" />
-                                
+
                                 {/* Floating Object Placeholder */}
                                 <div className="absolute top-[40%] left-1/2 -translate-x-1/2 w-24 h-16 bg-white shadow-[0_20px_40px_rgba(0,0,0,0.08)] rounded-xl border border-[#00bf9a]/20 group-hover:-translate-y-4 transition-transform duration-700 flex items-center justify-center z-10">
                                     <Box className="w-8 h-8 text-[#00bf9a]/40" />

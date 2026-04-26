@@ -8,7 +8,7 @@ import {
     Upload, Paintbrush, Eye, ThumbsUp,
     Layers, Clock, Globe2, Zap, Shield, Users,
     Building2, Palette, HardHat,
-    Send, Star, Quote,
+    Send, Star, Quote, Sparkles,
     TrendingUp, Timer
 } from 'lucide-react';
 import { useCountry } from '@/lib/context/CountryContext';
@@ -691,21 +691,36 @@ export default function GlobalBusinessClient() {
             {/* ══════════════════════════════════════
                9. BUSINESS CONTACT FORM — CRITICAL
             ══════════════════════════════════════ */}
-            <section id="demo-form" className="py-12 lg:py-16 px-6 lg:px-12 bg-[#060810] relative scroll-mt-24 overflow-hidden">
-                <div className="absolute top-[-20%] right-[-10%] w-[700px] h-[700px] bg-zlendo-teal/5 blur-[180px] rounded-full pointer-events-none" />
-                <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-violet-600/5 blur-[140px] rounded-full pointer-events-none" />
+            <section id="demo-form" className="py-24 px-6 lg:px-12 bg-[#020204] relative scroll-mt-24 overflow-hidden">
+                {/* Enhanced Ambient Glows */}
+                <div className="absolute top-[-10%] right-[-5%] w-[800px] h-[800px] bg-zlendo-teal/10 blur-[180px] rounded-full pointer-events-none" />
+                <div className="absolute bottom-[-10%] left-[-5%] w-[600px] h-[600px] bg-violet-600/10 blur-[150px] rounded-full pointer-events-none" />
 
                 <div className="container-custom relative z-10">
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 max-w-6xl mx-auto items-start">
                         {/* Left — Benefits */}
-                        <div className="py-4">
-                            <p className="text-[11px] font-black uppercase tracking-[0.3em] text-zlendo-teal/60 mb-4">Get Started</p>
-                            <h2 className="text-3xl md:text-[44px] font-black tracking-tight leading-tight mb-6">
+                        <div className="py-4 lg:sticky lg:top-24">
+                            <motion.div 
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zlendo-teal/10 border border-zlendo-teal/20 text-zlendo-teal text-[10px] font-black uppercase tracking-[0.2em] mb-6"
+                            >
+                                <Sparkles className="w-3 h-3" /> Get Started
+                            </motion.div>
+                            
+                            <h2 className="text-4xl md:text-[56px] font-black tracking-tight leading-[1.1] mb-8">
                                 Book your{' '}
-                                <span className="bg-gradient-to-r from-zlendo-teal to-cyan-400 bg-clip-text text-transparent">personalized demo.</span>
+                                <span className="relative inline-block">
+                                    <span className="bg-gradient-to-r from-zlendo-teal via-emerald-400 to-cyan-400 bg-clip-text text-transparent">personalized demo.</span>
+                                    <svg className="absolute w-full h-3 -bottom-2 left-0 text-zlendo-teal/30" viewBox="0 0 100 10" preserveAspectRatio="none">
+                                        <path d="M0 5 Q 50 10 100 0" stroke="currentColor" strokeWidth="6" fill="none" strokeLinecap="round"/>
+                                    </svg>
+                                </span>
                             </h2>
-                            <p className="text-lg text-white/40 font-medium leading-relaxed mb-10">
-                                See how Zlendo Realty fits your specific workflow. Our product experts will walk you through a live demo tailored to your industry.
+                            
+                            <p className="text-xl text-white/50 font-medium leading-relaxed mb-10 max-w-lg">
+                                See how Zlendo Realty fits your specific workflow. Our product experts will walk you through a live demo tailored to your industry requirements.
                             </p>
 
                             <div className="space-y-5 mb-12">
@@ -725,17 +740,21 @@ export default function GlobalBusinessClient() {
                             </div>
 
                             {/* Trust logos */}
-                            <div className="flex items-center gap-4 flex-wrap">
+                            {/* <div className="flex items-center gap-4 flex-wrap">
                                 {['SOC 2', 'GDPR', 'ISO 27001'].map((badge, i) => (
                                     <div key={i} className="px-4 py-2 rounded-xl bg-white/[0.03] border border-white/[0.06] text-xs font-bold text-white/30">
                                         {badge}
                                     </div>
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
 
                         {/* Right — Form */}
-                        <div className="p-8 lg:p-10 rounded-[32px] bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+                        <div className="relative group">
+                            {/* Decorative glow behind form */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-zlendo-teal/20 to-violet-600/20 rounded-[40px] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
+                            
+                            <div className="relative p-8 lg:p-12 rounded-[32px] bg-[#0a0f1a] border border-white/[0.1] shadow-2xl backdrop-blur-xl">
                             {isSubmitted ? (
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.95 }}
@@ -750,42 +769,39 @@ export default function GlobalBusinessClient() {
                                 </motion.div>
                             ) : (
                                 <form onSubmit={handleFormSubmit} className="space-y-5">
-                                    <div className="grid sm:grid-cols-2 gap-5">
-                                        <div>
-                                            <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Full Name *</label>
+                                    <div className="grid sm:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Full Name *</label>
                                             <input
                                                 type="text" name="name" required value={formData.name} onChange={handleFormChange}
-                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all font-nunito"
-                                                placeholder="John Doe"
+                                                className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
+                                                placeholder="Your full name"
                                             />
                                         </div>
-                                        <div>
-                                            <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Work Email *</label>
+                                        <div className="space-y-2">
+                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Work Email *</label>
                                             <input
                                                 type="email" name="email" required value={formData.email} onChange={handleFormChange}
-                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all font-nunito"
-                                                placeholder="john@company.com"
+                                                className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
+                                                placeholder="name@company.com"
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="grid sm:grid-cols-2 gap-5">
-                                        <div>
-                                            <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Country *</label>
+                                    <div className="grid sm:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Country *</label>
                                             <div className="relative">
                                                 <select
                                                     name="country" required value={formData.country}
                                                     onChange={(e) => {
                                                         const newVal = parseInt(e.target.value);
-                                                        const selected = countries.find((c: any) => c.location_Id === newVal);
-                                                        const isInd = selected?.location_Name?.toLowerCase() === 'india';
                                                         setFormData(prev => ({
                                                             ...prev,
-                                                            country: newVal,
-                                                            phone: isInd ? prev.phone : ''
+                                                            country: newVal
                                                         }));
                                                     }}
-                                                    className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all appearance-none cursor-pointer font-nunito"
+                                                    className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all appearance-none cursor-pointer font-nunito"
                                                 >
                                                     <option value={0} className="bg-[#0a0f1a]">Select country...</option>
                                                     {isLoadingLocations ? (
@@ -800,73 +816,64 @@ export default function GlobalBusinessClient() {
                                                         <option disabled className="bg-[#0a0f1a]">No countries found</option>
                                                     )}
                                                 </select>
-                                                <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-30">
-                                                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                                                <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
+                                                    <ChevronRight className="w-4 h-4 rotate-90" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
-                                            <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Company Name *</label>
+                                        <div className="space-y-2">
+                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Company Name *</label>
                                             <input
                                                 type="text" name="company" required value={formData.company} onChange={handleFormChange}
-                                                className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all font-nunito"
-                                                placeholder="Your Company"
+                                                className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
+                                                placeholder="Your company name"
                                             />
                                         </div>
                                     </div>
 
-                                    {(() => {
-                                        const selected = countries.find((c: any) => c.location_Id === formData.country);
-                                        const isIndia = selected?.location_Name?.toLowerCase() === 'india';
-
-                                        return (
-                                            <div className="grid sm:grid-cols-2 gap-5">
-                                                <div className={isIndia ? '' : 'sm:col-span-2'}>
-                                                    <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Industry *</label>
-                                                    <div className="relative">
-                                                        <select
-                                                            name="industry" required value={formData.industry}
-                                                            onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
-                                                            className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all appearance-none cursor-pointer font-nunito"
-                                                        >
-                                                            <option value="" className="bg-[#0a0f1a]">Select industry...</option>
-                                                            {isLoadingIndustries ? (
-                                                                <option disabled className="bg-[#0a0f1a]">Loading industries...</option>
-                                                            ) : industries.length > 0 ? (
-                                                                industries.map((ind: any, idx: number) => (
-                                                                    <option key={idx} value={ind.lov_Value} className="bg-[#0a0f1a]">
-                                                                        {ind.description || ind.lov_Key}
-                                                                    </option>
-                                                                ))
-                                                            ) : (
-                                                                <option disabled className="bg-[#0a0f1a]">No industries found</option>
-                                                            )}
-                                                        </select>
-                                                        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-30">
-                                                            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="https://www.w3.org/2000/svg"><path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                                                        </div>
-                                                    </div>
+                                    <div className="grid sm:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Industry *</label>
+                                            <div className="relative">
+                                                <select
+                                                    name="industry" required value={formData.industry}
+                                                    onChange={(e) => setFormData({ ...formData, industry: e.target.value })}
+                                                    className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all appearance-none cursor-pointer font-nunito"
+                                                >
+                                                    <option value="" className="bg-[#0a0f1a]">Select industry...</option>
+                                                    {isLoadingIndustries ? (
+                                                        <option disabled className="bg-[#0a0f1a]">Loading industries...</option>
+                                                    ) : industries.length > 0 ? (
+                                                        industries.map((ind: any, idx: number) => (
+                                                            <option key={idx} value={ind.lov_Value} className="bg-[#0a0f1a]">
+                                                                {ind.description || ind.lov_Key}
+                                                            </option>
+                                                        ))
+                                                    ) : (
+                                                        <option disabled className="bg-[#0a0f1a]">No industries found</option>
+                                                    )}
+                                                </select>
+                                                <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">
+                                                    <ChevronRight className="w-4 h-4 rotate-90" />
                                                 </div>
-                                                {isIndia && (
-                                                    <div>
-                                                        <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">Phone *</label>
-                                                        <input
-                                                            type="tel" name="phone" required pattern="[0-9]{10}" maxLength={10} value={formData.phone}
-                                                            onChange={(e) => { const value = e.target.value.replace(/\D/g, '').slice(0, 10); setFormData({ ...formData, phone: value }); }}
-                                                            className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all font-nunito"
-                                                            placeholder="10-digit mobile number"
-                                                        />
-                                                    </div>
-                                                )}
                                             </div>
-                                        );
-                                    })()}
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">Phone Number *</label>
+                                            <input
+                                                type="tel" name="phone" required value={formData.phone}
+                                                onChange={(e) => { const value = e.target.value.replace(/[^\d+\-() ]/g, ''); setFormData({ ...formData, phone: value }); }}
+                                                className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all font-nunito"
+                                                placeholder="+1 (555) 000-0000"
+                                            />
+                                        </div>
+                                    </div>
 
-                                    <div>
-                                        <label className="block text-xs font-bold text-white/30 uppercase tracking-wider mb-2">How can we help? *</label>
+                                    <div className="space-y-2">
+                                        <label className="block text-[10px] font-black text-white/70 uppercase tracking-[0.2em] ml-1">How can we help? *</label>
                                         <textarea
-                                            name="description" required value={formData.description} onChange={handleFormChange} rows={3}
-                                            className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/[0.08] text-white text-[15px] font-medium placeholder:text-white/20 focus:outline-none focus:border-zlendo-teal/30 focus:ring-1 focus:ring-zlendo-teal/20 transition-all resize-none font-nunito"
+                                            name="description" required value={formData.description} onChange={handleFormChange} rows={4}
+                                            className="w-full px-5 py-4 rounded-2xl bg-white/[0.08] border border-white/[0.15] text-white text-[15px] font-medium placeholder:text-white/30 focus:outline-none focus:border-zlendo-teal focus:bg-white/[0.1] focus:ring-4 focus:ring-zlendo-teal/10 transition-all resize-none font-nunito"
                                             placeholder="Tell us about your project requirements or challenges..."
                                         />
                                     </div>
@@ -874,19 +881,22 @@ export default function GlobalBusinessClient() {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-full flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-zlendo-teal to-emerald-400 text-white font-black text-lg rounded-2xl shadow-2xl shadow-zlendo-teal/20 hover:shadow-zlendo-teal/30 hover:scale-[1.01] active:scale-[0.99] transition-all disabled:opacity-60 font-nunito"
+                                        className="w-full group/btn flex items-center justify-center gap-3 px-8 py-5.5 bg-gradient-to-r from-zlendo-teal to-emerald-400 text-white font-black text-xl rounded-2xl shadow-2xl shadow-zlendo-teal/20 hover:shadow-zlendo-teal/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 font-nunito overflow-hidden relative"
                                     >
-                                        {isSubmitting ? (
-                                            <>
-                                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
-                                                Submitting...
-                                            </>
-                                        ) : (
-                                            <>
-                                                Book Strategy Call
-                                                <ArrowRight className="w-5 h-5" />
-                                            </>
-                                        )}
+                                        <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
+                                        <span className="relative flex items-center gap-3">
+                                            {isSubmitting ? (
+                                                <>
+                                                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                    Submitting...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Book My Strategy Call
+                                                    <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-1 transition-transform" />
+                                                </>
+                                            )}
+                                        </span>
                                     </button>
 
                                     <p className="text-center text-xs text-white/20 font-bold font-nunito">
@@ -897,7 +907,8 @@ export default function GlobalBusinessClient() {
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
             {/* ══════════════════════════════════════
                10. FINAL CTA — HIGH CONTRAST

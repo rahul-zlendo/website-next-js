@@ -61,7 +61,7 @@ const VastuRegistrationContent = () => {
 
         const payload = {
             emailId: formState.email,
-            mobileNumber: parseInt(formState.phone, 10),
+            mobileNumber: formState.phone,
             floorPlan: formState.floorPlan,
             isActive: true
         };
@@ -199,24 +199,17 @@ const VastuRegistrationContent = () => {
 
                                             <div className="space-y-1.5">
                                                 <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Mobile Number *</label>
-                                                <div className="flex gap-2">
-                                                    <div className="w-20 bg-white border border-[#eee] rounded-2xl py-4 flex items-center justify-center font-bold text-sm text-[#1a1a1a]/40">
-                                                        +91
-                                                    </div>
                                                     <div className="relative flex-1">
                                                         <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30" />
                                                         <input
                                                             type="tel"
                                                             required
-                                                            pattern="[0-9]{10}"
-                                                            maxLength={10}
-                                                            placeholder="9876543210"
+                                                            placeholder="Mobile number"
                                                             className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal transition-all font-medium text-[#1a1a1a]"
                                                             value={formState.phone}
-                                                            onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/\D/g, '') })}
+                                                            onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/[^\d+\-() ]/g, '') })}
                                                         />
                                                     </div>
-                                                </div>
                                             </div>
 
                                             <button

@@ -188,7 +188,7 @@ const RegistrationContent = () => {
             const payload = {
                 fullName: formState.name,
                 emailId: formState.email,
-                mobileNumber: parseInt(formState.phone, 10),
+                mobileNumber: formState.phone,
                 industryType: industryId,
                 comments: formState.comments || "",
                 isActive: true
@@ -206,7 +206,7 @@ const RegistrationContent = () => {
             const payload = {
                 fullName: formState.name,
                 emailId: formState.email,
-                mobileNumber: parseInt(formState.phone, 10),
+                mobileNumber: formState.phone,
                 industryType: industryId,
                 userType: userTypeId,
                 isActive: true
@@ -224,7 +224,7 @@ const RegistrationContent = () => {
             const payload = {
                 fullName: formState.name,
                 emailId: formState.email,
-                mobileNumber: parseInt(formState.phone, 10),
+                mobileNumber: formState.phone,
                 industryType: industryId,
                 userType: userTypeId,
                 isActive: true
@@ -238,7 +238,7 @@ const RegistrationContent = () => {
             const payload = {
                 fullName: formState.name,
                 emailId: formState.email,
-                mobileNumber: parseInt(formState.phone, 10),
+                mobileNumber: formState.phone,
                 userType: userTypeId,
                 comments: formState.comments || "",
                 floorPlan: formState.floorPlan,
@@ -401,24 +401,17 @@ const RegistrationContent = () => {
 
                                     <div className="space-y-1.5">
                                         <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Mobile Number *</label>
-                                        <div className="flex gap-2">
-                                            <div className="w-24 bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 px-4 font-normal text-sm flex items-center justify-between text-[#1a1a1a]/60">
-                                                +91 <ChevronDown className="w-4 h-4 opacity-50" />
-                                            </div>
-                                            <div className="relative flex-1">
+                                        <div className="relative flex-1">
                                                 <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
                                                 <input
                                                     type="tel"
                                                     required
-                                                    pattern="[0-9]{10}"
-                                                    maxLength={10}
                                                     className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
                                                     value={formState.phone}
-                                                    onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/\D/g, '') })}
+                                                    onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/[^\d+\-() ]/g, '') })}
                                                 />
                                             </div>
                                         </div>
-                                    </div>
 
                                     {type === 'partnership' ? (
                                         <>

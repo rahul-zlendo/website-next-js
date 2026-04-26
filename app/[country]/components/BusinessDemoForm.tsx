@@ -130,12 +130,9 @@ export default function BusinessDemoForm() {
                                 <select name="country" required value={formData.country}
                                     onChange={(e) => {
                                         const newVal = parseInt(e.target.value);
-                                        const selected = countries.find((c: any) => c.location_Id === newVal);
-                                        const isInd = selected?.location_Name?.toLowerCase() === 'india';
                                         setFormData(prev => ({ 
                                             ...prev, 
-                                            country: newVal,
-                                            phone: isInd ? prev.phone : '' 
+                                            country: newVal
                                         }));
                                     }}
                                     className={`w-full bg-gray-50 border border-transparent focus:border-gray-200 focus:bg-white rounded-lg sm:rounded-xl px-4 py-3 sm:px-5 sm:py-4 pr-10 sm:pr-12 text-sm sm:text-base font-medium focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-gray-100 transition-all shadow-sm appearance-none cursor-pointer ${formData.country ? 'text-gray-900' : 'text-gray-300'}`}
@@ -166,13 +163,8 @@ export default function BusinessDemoForm() {
                         </div>
                     </div>
 
-                    {(() => {
-                        const selected = countries.find((c: any) => c.location_Id === formData.country);
-                        const isIndia = selected?.location_Name?.toLowerCase() === 'india';
-
-                        return (
                             <div className="grid md:grid-cols-2 gap-x-4 gap-y-4 sm:gap-x-6 sm:gap-y-5 md:gap-x-8 md:gap-y-6">
-                                <div className={`space-y-1.5 sm:space-y-2 ${isIndia ? '' : 'md:col-span-2'}`}>
+                                <div className="space-y-1.5 sm:space-y-2">
                                     <label className="text-[10px] sm:text-[11px] font-bold text-gray-700 uppercase tracking-widest ml-1">Industry</label>
                                     <div className="relative">
                                         <select name="industry" required value={formData.industry}
@@ -198,18 +190,14 @@ export default function BusinessDemoForm() {
                                     </div>
                                 </div>
 
-                                {isIndia && (
-                                    <div className="space-y-1.5 sm:space-y-2">
-                                        <label className="text-[10px] sm:text-[11px] font-bold text-gray-700 uppercase tracking-widest ml-1">Phone</label>
-                                        <input name="phone" type="tel" required pattern="[0-9]{10}" maxLength={10} value={formData.phone}
-                                            onChange={(e) => { const value = e.target.value.replace(/\D/g, '').slice(0, 10); setFormData({ ...formData, phone: value }); }}
-                                            className="w-full bg-gray-50 border border-transparent focus:border-gray-200 focus:bg-white rounded-lg sm:rounded-xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-medium text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-gray-100 transition-all shadow-sm"
-                                            placeholder="10-digit mobile number" title="Please enter a valid 10-digit mobile number" />
-                                    </div>
-                                )}
+                                <div className="space-y-1.5 sm:space-y-2">
+                                    <label className="text-[10px] sm:text-[11px] font-bold text-gray-700 uppercase tracking-widest ml-1">Phone</label>
+                                    <input name="phone" type="tel" required value={formData.phone}
+                                        onChange={(e) => { const value = e.target.value.replace(/[^\d+\-() ]/g, ''); setFormData({ ...formData, phone: value }); }}
+                                        className="w-full bg-gray-50 border border-transparent focus:border-gray-200 focus:bg-white rounded-lg sm:rounded-xl px-4 py-3 sm:px-5 sm:py-4 text-base sm:text-lg font-medium text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 sm:focus:ring-4 focus:ring-gray-100 transition-all shadow-sm"
+                                        placeholder="Mobile number" title="Please enter a valid mobile number" />
+                                </div>
                             </div>
-                        );
-                    })()}
 
                     <div className="grid md:grid-cols-1 gap-x-4 gap-y-4 sm:gap-x-6 sm:gap-y-5 md:gap-x-8 md:gap-y-6">
                         <div className="space-y-1.5 sm:space-y-2">

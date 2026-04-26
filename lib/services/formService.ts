@@ -6,7 +6,7 @@ const ENDPOINTS_FORM = ENDPOINTS.FORM;
 export interface PartnershipFormPayload {
     fullName: string;
     emailId: string;
-    mobileNumber: number;
+    mobileNumber: string;
     industryType: number;
     comments: string;
     isActive: boolean;
@@ -15,7 +15,7 @@ export interface PartnershipFormPayload {
 export interface TrainingFormPayload {
     fullName: string;
     emailId: string;
-    mobileNumber: number;
+    mobileNumber: string;
     industryType: number;
     userType: number;
     isActive: boolean;
@@ -24,7 +24,7 @@ export interface TrainingFormPayload {
 export interface ResourceFormPayload {
     fullName: string;
     emailId: string;
-    mobileNumber: number;
+    mobileNumber: string;
     industryType: number;
     userType: number;
     isActive: boolean;
@@ -32,7 +32,7 @@ export interface ResourceFormPayload {
 
 export interface VastuFormPayload {
     emailId: string;
-    mobileNumber: number;
+    mobileNumber: string;
     floorPlan?: File;
     isActive: boolean;
 }
@@ -89,7 +89,7 @@ export const createVastuFormService = async (
         const formData = new FormData();
         formData.append('EmailId', data.emailId);
         formData.append('Campaign', "Vastu Campaign");
-        formData.append('PhoneNumber', data.mobileNumber.toString());
+        formData.append('PhoneNumber', data.mobileNumber);
         formData.append('isActive', data.isActive.toString());
         if (data.floorPlan) {
             formData.append('Image', data.floorPlan);
