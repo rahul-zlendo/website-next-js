@@ -34,17 +34,19 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
     const pathname = usePathname();
     const router = useRouter();
 
-    // Update country state when path changes
+    // Update country state when path changes.
+    // NOTE: We intentionally do NOT write to localStorage here.
+    // localStorage is only updated on explicit user action (setCountry)
+    // to prevent path-based navigation from creating stale geo preferences
+    // that persist across VPN/network changes.
     useEffect(() => {
         const pathParts = pathname?.split('/') || [];
         const pathCountry = pathParts[1] as CountryCode;
         if (pathCountry && SUPPORTED_COUNTRIES.includes(pathCountry)) {
             setCountryState(pathCountry);
-            localStorage.setItem(COUNTRY_COOKIE_NAME, pathCountry);
         } else if (pathParts.length > 0) {
             // If no country prefix, it's global
             setCountryState('global');
-            localStorage.setItem(COUNTRY_COOKIE_NAME, 'global');
         }
     }, [pathname]);
 

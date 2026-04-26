@@ -10,6 +10,7 @@ import {
     User, Building2, CheckCircle2, ArrowRight,
     Clock, Shield, Star, Zap, ChevronDown
 } from 'lucide-react';
+import { useCountry } from '@/lib/context/CountryContext';
 
 const IconMap: Record<string, any> = {
     Mail, Phone, MapPin, Send, MessageSquare, User, Building2, CheckCircle2, ArrowRight
@@ -31,6 +32,8 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
     const dispatch = useAppDispatch();
     const { isSubmitting, isSubmitted } = useAppSelector((state) => state.contact);
     const { locations: countries, isLoadingLocations } = useAppSelector((state) => state.enterprise);
+    const { country } = useCountry();
+    const isIndiaSite = country === 'in';
 
     const sortedCountries = useMemo(() => {
         if (!countries) return [];
@@ -173,16 +176,18 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
                                 </a>
                                 <span dangerouslySetInnerHTML={{ __html: '<!--/email_off-->' }} />
 
-                                <a href={`tel:${cms?.phone || '+91 8047135989'}`}
-                                    className="group flex items-center gap-4 p-5 rounded-2xl bg-white border border-gray-100 hover:border-zlendo-teal/30 hover:shadow-lg hover:shadow-zlendo-teal/5 transition-all duration-300">
-                                    <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:bg-zlendo-teal group-hover:text-white transition-all shrink-0">
-                                        <Phone className="w-5 h-5" />
-                                    </div>
-                                    <div>
-                                        <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Call us</div>
-                                        <div className="text-sm font-black text-zlendo-grey-dark">{cms?.phone || '+91 8047135989'}</div>
-                                    </div>
-                                </a>
+                                {isIndiaSite && (
+                                    <a href={`tel:${cms?.phone || '+91 8047135989'}`}
+                                        className="group flex items-center gap-4 p-5 rounded-2xl bg-white border border-gray-100 hover:border-zlendo-teal/30 hover:shadow-lg hover:shadow-zlendo-teal/5 transition-all duration-300">
+                                        <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover:bg-zlendo-teal group-hover:text-white transition-all shrink-0">
+                                            <Phone className="w-5 h-5" />
+                                        </div>
+                                        <div>
+                                            <div className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">Call us</div>
+                                            <div className="text-sm font-black text-zlendo-grey-dark">{cms?.phone || '+91 8047135989'}</div>
+                                        </div>
+                                    </a>
+                                )}
                             </div>
 
                             {/* Address */}

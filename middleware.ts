@@ -50,25 +50,29 @@ export function middleware(request: NextRequest) {
     } else {
       url.pathname = `/in${pathname}`;
     }
-    return NextResponse.redirect(url);
+    return geoRedirect(url, isIndia);
   }
 
   // Force Non-India visitors away from /in
   if (!isIndia && isOnIndiaSite) {
     const url = request.nextUrl.clone();
-    url.pathname = pathname.replace('/in', '') || '/';
-    return NextResponse.redirect(url);
+    url.pathname = pathname.replace(/^\/in/, '') || '/';
+    return geoRedirect(url, isIndia);
   }
 
   // B. Root path: REWRITE to /global or /in based on IP 
   // (Middleware runs before page, so this is instant)
   if (pathname === '/') {
-    return NextResponse.rewrite(new URL(isIndia ? '/in' : '/global', request.url));
+    const response = NextResponse.rewrite(new URL(isIndia ? '/in' : '/global', request.url));
+    setGeoHeaders(response, isIndia);
+    return response;
   }
 
   // C. Allow /in and /global paths to pass through 
   if (pathname.startsWith('/in') || pathname.startsWith('/global')) {
-    return NextResponse.next();
+    const response = NextResponse.next();
+    setGeoHeaders(response, isIndia);
+    return response;
   }
 
   // D. Handle legacy/manual country codes (e.g., /us, /uk) 
@@ -88,7 +92,34 @@ export function middleware(request: NextRequest) {
   // REWRITE to /global/[path] to serve global content at clean URLs.
   const url = request.nextUrl.clone();
   url.pathname = `/global${pathname}`;
-  return NextResponse.rewrite(url);
+  const response = NextResponse.rewrite(url);
+  setGeoHeaders(response, isIndia);
+  return response;
+}
+
+// ──────────────────────────────────────────────────────────
+// Helper: Create a geo-redirect with proper no-cache headers
+// This prevents browsers & CDNs from caching geo-based redirects,
+// which was causing users to stay on /global after turning off VPN.
+// ──────────────────────────────────────────────────────────
+function geoRedirect(url: URL, isIndia: boolean): NextResponse {
+  const response = NextResponse.redirect(url);
+  setGeoHeaders(response, isIndia);
+  return response;
+}
+
+function setGeoHeaders(response: NextResponse, isIndia: boolean): void {
+  // Prevent caching of geo-dependent responses
+  response.headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  response.headers.set('Vary', 'X-Vercel-IP-Country');
+  // Set a cookie so client-side JS can detect when the user's geo has changed
+  // (e.g., VPN turned on/off) and clear stale localStorage preferences
+  response.cookies.set('zl_geo', isIndia ? 'in' : 'global', {
+    path: '/',
+    maxAge: 60 * 30, // 30 minutes — short-lived so it stays fresh
+    httpOnly: false,  // must be readable by client JS
+    sameSite: 'lax',
+  });
 }
 
 export const config = {

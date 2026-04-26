@@ -572,9 +572,11 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                             <div className="space-y-4">
                                 <div className="flex items-center justify-between">
                                     <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-zlendo-grey-medium/40">Menu</h4>
-                                    <a href="tel:+918047135989" className="flex items-center gap-2 text-xs font-bold text-zlendo-teal">
-                                        <Phone className="w-3 h-3" /> Call Us
-                                    </a>
+                                    {isIndiaSite && (
+                                        <a href="tel:+918047135989" className="flex items-center gap-2 text-xs font-bold text-zlendo-teal">
+                                            <Phone className="w-3 h-3" /> Call Us
+                                        </a>
+                                    )}
                                 </div>
 
                                 {/* Products Mobile Dropdown */}

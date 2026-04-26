@@ -10,6 +10,14 @@ const countries: { code: CountryCode; name: string; flag: string }[] = [
     { code: 'global', name: 'Global', flag: '🌐' },
 ];
 
+/**
+ * Read a cookie value by name from document.cookie
+ */
+function getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
 const CountrySwitcher = () => {
     const { country, setCountry } = useCountry();
     const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +25,26 @@ const CountrySwitcher = () => {
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const currentCountry = countries.find(c => c.code === country) || countries[1];
+
+    // On mount, reconcile the user's ACTUAL geo (from middleware cookie)
+    // with any stored localStorage preference. This fixes the "sticky VPN" bug
+    // where a user turns off VPN but localStorage still says 'global'.
+    useEffect(() => {
+        const reconcileGeo = () => {
+            const geoCookie = getCookie('zl_geo');       // set by middleware on every request
+            const stored = localStorage.getItem('zl_country_pref');
+            const manualOverride = localStorage.getItem('zl_country_manual');
+
+            // If middleware set a geo cookie that differs from the stored preference
+            // AND the user hasn't explicitly/manually chosen a region, clear the stale pref.
+            if (geoCookie && stored && geoCookie !== stored && manualOverride !== 'true') {
+                localStorage.removeItem('zl_country_pref');
+                // Let the middleware redirect handle the rest — no client-side redirect needed.
+            }
+        };
+
+        reconcileGeo();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     // Auto-detect region on mount via lightweight IP lookup
     useEffect(() => {
@@ -31,14 +59,15 @@ const CountrySwitcher = () => {
                     const countryCode = data.country_code?.toLowerCase();
                     setDetectedRegion(data.country_name || null);
                     
-                    // If user hasn't manually chosen a region (no stored preference),
-                    // auto-set based on IP
-                    const stored = localStorage.getItem('zl_country_pref');
-                    if (!stored) {
-                        if (countryCode === 'in') {
-                            setCountry('in');
-                        } else {
-                            setCountry('global');
+                    // Only auto-set if user hasn't manually chosen a region
+                    const manualOverride = localStorage.getItem('zl_country_manual');
+                    if (manualOverride !== 'true') {
+                        const stored = localStorage.getItem('zl_country_pref');
+                        const detectedCountry: CountryCode = countryCode === 'in' ? 'in' : 'global';
+                        
+                        // If no preference stored, OR stored pref doesn't match actual IP → update
+                        if (!stored || stored !== detectedCountry) {
+                            setCountry(detectedCountry);
                         }
                     }
                 }
@@ -95,6 +124,8 @@ const CountrySwitcher = () => {
                             <button
                                 key={c.code}
                                 onClick={() => {
+                                    // Mark as manual override so auto-detection won't fight the user
+                                    localStorage.setItem('zl_country_manual', 'true');
                                     setCountry(c.code);
                                     setIsOpen(false);
                                 }}
