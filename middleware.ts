@@ -32,8 +32,12 @@ export function middleware(request: NextRequest) {
   // ──────────────────────────────────────────────────────────
 
   // A. Geo-Detection & Redirection
-  const countryHeader = request.headers.get('x-vercel-ip-country') || request.headers.get('cf-ipcountry') || 'US';
-  const isIndia = countryHeader.toUpperCase() === 'IN';
+  // Use Vercel's geo API (most reliable), then fall back to headers
+  const countryCode = (request as any).geo?.country
+    || request.headers.get('x-vercel-ip-country')
+    || request.headers.get('cf-ipcountry')
+    || 'US';
+  const isIndia = countryCode.toUpperCase() === 'IN';
   const isOnIndiaSite = pathname === '/in' || pathname.startsWith('/in/');
 
   // Force India visitors to /in if they hit the root or other paths
@@ -112,6 +116,8 @@ function setGeoHeaders(response: NextResponse, isIndia: boolean): void {
   // Prevent caching of geo-dependent responses
   response.headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   response.headers.set('Vary', 'X-Vercel-IP-Country');
+  // Debug header — check this in browser Network tab to verify geo-detection
+  response.headers.set('x-geo-debug', isIndia ? 'IN' : 'NON-IN');
   // Set a cookie so client-side JS can detect when the user's geo has changed
   // (e.g., VPN turned on/off) and clear stale localStorage preferences
   response.cookies.set('zl_geo', isIndia ? 'in' : 'global', {
