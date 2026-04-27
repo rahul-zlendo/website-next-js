@@ -881,7 +881,7 @@ export default function GlobalBusinessClient() {
                                         <button
                                             type="submit"
                                             disabled={isSubmitting}
-                                            className="w-full group/btn flex items-center justify-center gap-3 px-8 py-5.5 bg-gradient-to-r from-zlendo-teal to-emerald-400 text-white font-black text-xl rounded-2xl shadow-2xl shadow-zlendo-teal/20 hover:shadow-zlendo-teal/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 font-nunito overflow-hidden relative"
+                                            className="w-full group/btn flex items-center justify-center gap-3 px-8 py-6 bg-gradient-to-r from-zlendo-teal to-emerald-400 text-white font-black text-xl rounded-2xl shadow-2xl shadow-zlendo-teal/20 hover:shadow-zlendo-teal/40 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 font-nunito overflow-hidden relative"
                                         >
                                             <div className="absolute inset-0 bg-white/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></div>
                                             <span className="relative flex items-center gap-3">
@@ -892,7 +892,7 @@ export default function GlobalBusinessClient() {
                                                     </>
                                                 ) : (
                                                     <>
-                                                        Book My Strategy Call
+                                                        Book Demo
                                                         <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-1 transition-transform" />
                                                     </>
                                                 )}

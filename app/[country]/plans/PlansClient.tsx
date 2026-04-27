@@ -171,7 +171,7 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
                         <div className="flex flex-wrap justify-center gap-8 max-w-7xl mx-auto">
                             {plans.map((plan: any, index: any) => {
                                 const Icon = getPlanIcon(plan.planName || '');
-                                const isFree = plan.planName?.toLowerCase().includes('free');
+                                const isFree = plan.planName?.toLowerCase().includes('free') || plan.price === 0 || plan.displayOrder === 1;
                                 const isProPlus = plan.planName?.toLowerCase().includes('plus');
                                 const isPopular = !!plan.popular;
                                 const isCurrentPlan = isAuthenticated && user && user.currentPlanId === plan.planId;
