@@ -119,8 +119,8 @@ const AnimatedMetrics = () => {
             viewport={{ once: true }}
             className="flex flex-col items-center justify-center p-8 border-b md:border-b-0 md:border-r border-white/10 last:border-0"
         >
-            <div className="text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-white/50 tracking-tighter mb-4">{value}</div>
-            <div className="text-base text-slate-400 font-bold uppercase tracking-widest">{label}</div>
+            <div className="text-5xl md:text-6xl lg:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-white/50 tracking-tighter mb-4 pr-2 pb-1">{value}</div>
+            <div className="text-base text-slate-400 font-bold uppercase tracking-widest text-center">{label}</div>
         </motion.div>
     );
 

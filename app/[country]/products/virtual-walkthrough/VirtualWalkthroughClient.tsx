@@ -40,14 +40,14 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
         <div className="bg-white text-[#222222] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
             <main>
                 {/* 1. HERO SECTION */}
-                <section className="relative min-h-[95vh] flex items-center pt-24 pb-16 overflow-hidden bg-[#FAFAFC]">
+                <section className="relative min-h-[auto] lg:min-h-[95vh] flex items-center pt-12 lg:pt-20 pb-8 lg:pb-12 overflow-hidden bg-[#FAFAFC]">
                     {/* Background glows */}
                     <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-zlendo-teal/5 rounded-full blur-[140px] -translate-y-1/2 translate-x-1/3 pointer-events-none" />
                     <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[120px] translate-y-1/3 -translate-x-1/4 pointer-events-none" />
 
                     <div className="container-custom px-4 relative z-20">
-                        <div className="grid lg:grid-cols-2 gap-16 items-center">
-                            <div className="max-w-2xl space-y-8">
+                        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                            <div className="max-w-2xl space-y-6 lg:space-y-8">
                                 <motion.div
                                     initial={{ opacity: 0, y: 15 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -130,7 +130,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                 </section>
 
                 {/* 2. THREE PILLARS */}
-                <section className="py-24 relative overflow-hidden bg-white">
+                <section className="py-12 lg:py-24 relative overflow-hidden bg-white">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,191,154,0.02)_0%,transparent_70%)] pointer-events-none" />
 
                     <div className="container-custom px-4 relative z-10">
@@ -193,9 +193,9 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                 </section>
 
                 {/* 3. SCROLLING FEATURES LIST */}
-                <section className="py-20 md:py-32 relative bg-[#FAFAFC] border-t border-black/5">
+                <section className="py-12 lg:py-32 relative bg-[#FAFAFC] border-t border-black/5">
                     <div className="container-custom px-4">
-                        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+                        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-start">
                             <div className="lg:sticky lg:top-32 space-y-6 md:space-y-8">
                                 <h2 className="text-3xl md:text-[48px] font-black leading-[1.1] text-[#111] tracking-tighter">
                                     Experience the future of <br />
@@ -236,8 +236,8 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                 ].map((item, i) => (
                                     <motion.div
                                         key={i}
-                                        initial={{ opacity: 0, x: 50 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true, margin: "-100px" }}
                                         transition={{ duration: 0.6 }}
                                         className="bg-white border border-black/[0.04] shadow-sm p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] relative overflow-hidden group hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)] transition-all"
@@ -255,7 +255,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                 </section>
 
                 {/* 4. COMPARISON TABLE SECTION */}
-                <section className="py-24 bg-white">
+                <section className="py-12 lg:py-24 bg-white">
                     <div className="container-custom px-4">
                         <div className="text-center mb-16">
                             <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">Stop wasting time. Start creating.</h2>
@@ -344,13 +344,13 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                 </section>
 
                 {/* 5. FINAL CTA Section */}
-                <section className="py-32 relative overflow-hidden bg-white border-t border-black/5">
+                <section className="py-12 lg:py-32 relative overflow-hidden bg-white border-t border-black/5">
                     <div className="container-custom px-4 text-center relative z-10">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="bg-gradient-to-b from-zlendo-teal/10 to-transparent border border-zlendo-teal/20 max-w-5xl mx-auto rounded-[3rem] p-16 md:p-24 relative overflow-hidden"
+                            className="bg-gradient-to-b from-zlendo-teal/10 to-transparent border border-zlendo-teal/20 max-w-5xl mx-auto rounded-[3rem] p-8 md:p-24 relative overflow-hidden"
                         >
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 relative z-10 text-[#111] leading-tight">
                                 Start creating stunning <br className="hidden md:block" />visual representations of your ideas today!
@@ -368,12 +368,12 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                 </section>
 
                 {/* 6. FAQ SECTION */}
-                <section className="py-20 md:py-32 bg-white border-t border-black/5">
+                <section className="py-12 lg:py-32 bg-white border-t border-black/5">
                     <div className="container-custom px-6 max-w-3xl mx-auto">
                         <h2 className="text-3xl md:text-5xl font-black text-center text-[#111] mb-12">
                             {cms?.faqTitle || 'Frequently Asked Questions'}
                         </h2>
-                        <FaqAccordion 
+                        <FaqAccordion
                             faqs={resolvedFaqs && resolvedFaqs.length > 0 ? resolvedFaqs : [
                                 {
                                     q: "What is a virtual tour?",
@@ -387,7 +387,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                     q: "How do 360 Walkthroughs work?",
                                     a: "360 Walkthroughs work by using high-resolution 360-degree renders and advanced technology to create an immersive virtual environment. Users can navigate through this environment, exploring every corner of the designed space. The system uses an intelligent algorithm to generate camera placements automatically, making the creation of these walkthroughs seamless and efficient."
                                 }
-                            ]} 
+                            ]}
                         />
                     </div>
                 </section>

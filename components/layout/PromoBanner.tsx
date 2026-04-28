@@ -16,13 +16,13 @@ const PromoBanner = () => {
     useEffect(() => {
         const fetchPromoData = async () => {
             // First ensure we have country detected for filtering offers
-            if (!detectedCountryId) {
-                try {
-                    await dispatch(detectUserCountry()).unwrap();
-                } catch (e) {
-                    console.error("PromoBanner country detection failed:", e);
-                }
-            }
+            // if (!detectedCountryId) {
+            //     try {
+            //         await dispatch(detectUserCountry()).unwrap();
+            //     } catch (e) {
+            //         console.error("PromoBanner country detection failed:", e);
+            //     }
+            // }
             dispatch(getAllOffers());
         };
 

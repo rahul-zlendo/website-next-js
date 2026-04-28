@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Star, Zap, Building2, Crown, Sparkles, ArrowRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
@@ -29,24 +29,45 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    // Generation counter: when the effect re-runs (e.g. auth rehydrates),
+    // it increments the counter so any in-flight stale fetch is abandoned.
+    const fetchGenRef = useRef(0);
+
     useEffect(() => {
+        const currentGen = ++fetchGenRef.current;
+
         const fetchData = async () => {
             try {
-                setLoading(true);
-
                 // 1. Determine countryId: use profile directly if authenticated, else detect via IP
                 let countryId: number | null = null;
+
                 if (isAuthenticated && user?.countryId) {
                     countryId = Number(user.countryId);
+                    console.log('Using user country ID:', countryId);
                 } else {
                     countryId = await dispatch(detectUserCountry()).unwrap();
+                    console.log('Detected country ID:', countryId);
                 }
+
+                // If a newer effect run has started while we were awaiting, abandon this stale run
+                if (currentGen !== fetchGenRef.current) {
+                    console.log('Abandoning stale fetch (gen', currentGen, '), newer fetch is active (gen', fetchGenRef.current, ')');
+                    return;
+                }
+
+                setLoading(true);
 
                 // 2. Fetch plans using the resolved countryId
                 const [plansResponse, compareResponse] = await Promise.all([
                     getAllSubscriptionsService(countryId || undefined),
                     compareSubscriptionsService()
                 ]);
+
+                // Check again after the API call in case auth rehydrated during the network request
+                if (currentGen !== fetchGenRef.current) {
+                    console.log('Abandoning stale fetch after API (gen', currentGen, ')');
+                    return;
+                }
 
                 // We only show Residential plans (planTypeId === 1) here for end users
                 const residentialPlans = plansResponse
@@ -61,10 +82,14 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
 
                 setError(null);
             } catch (err: any) {
+                // Only set error if this is still the latest fetch
+                if (currentGen !== fetchGenRef.current) return;
                 console.error("Failed to load plans:", err);
                 setError(err.message || 'Failed to load subscription plans. Please try again later.');
             } finally {
-                setLoading(false);
+                if (currentGen === fetchGenRef.current) {
+                    setLoading(false);
+                }
             }
         };
 

@@ -1,14 +1,20 @@
 import type { MetadataRoute } from 'next';
-// import { getAllHcPostSlugs, getAllHcCategorySlugs, getAllHcTagSlugs, getTotalHcPostPages } from '@/lib/wordpress/helpcenter';
+import { headers } from 'next/headers';
 
 // Generate sitemap at runtime (not build-time) to avoid overwhelming WP API during deploy
 export const dynamic = 'force-dynamic';
 export const revalidate = 3600; // Cache for 1 hour
 
-const SUPPORTED_COUNTRIES = ['in'];
 const BASE_URL = 'https://zlendorealty.com';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const headersList = await headers();
+  // Detect country from Vercel/Cloudflare headers (matching middleware logic)
+  const countryCode = headersList.get('x-vercel-ip-country')
+    || headersList.get('cf-ipcountry')
+    || 'US';
+  const isIndia = countryCode.toUpperCase() === 'IN';
+
   const routes = [
     // Core pages
     { path: '', priority: 1.0, changeFrequency: 'daily' as const },
@@ -68,22 +74,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // { path: '/help-center', priority: 0.7, changeFrequency: 'weekly' as const, isGlobal: true },
   ];
 
-  // Generate URLs for all countries
+  // Generate URLs for contextually relevant territory
   const staticLastMod = new Date('2026-03-09T00:00:00Z');
-  const dynamicLastMod = new Date(); 
+  const dynamicLastMod = new Date();
 
   const urls: MetadataRoute.Sitemap = [];
+  const prefix = isIndia ? '/in' : '';
 
-  for (const country of SUPPORTED_COUNTRIES) {
-    for (const route of routes as any[]) {
-      if (route.isGlobal) continue;
-      urls.push({
-        url: `${BASE_URL}/${country}${route.path}`,
-        lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
-        changeFrequency: route.changeFrequency,
-        priority: route.priority,
-      });
-    }
+  for (const route of routes as any[]) {
+    if (route.isGlobal) continue;
+
+    // For global users, clean root URLs are generated. 
+    // For India users, /in prefixed URLs are generated.
+    urls.push({
+      url: `${BASE_URL}${prefix}${route.path}`,
+      lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    });
   }
 
   // Add global routes (like Help Center)
@@ -97,8 +105,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
   }
 
-  // Note: Root URL (/) is deliberately excluded — it redirects to /in via middleware.
-  // The /in entry (priority 1.0) is the canonical home page URL.
+  // Note: For India visitors, the canonical home is https://zlendorealty.com/in
+  // For Global visitors, it is https://zlendorealty.com/ 
+  // Both are handled dynamically by the root check (path: '') above.
 
   // Fetch help center articles from WordPress (Commented out to use external subdomain)
   /*
