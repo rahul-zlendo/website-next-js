@@ -94,7 +94,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
         <div className={`font-nunito transition-colors duration-700 ${timeOfDay === 'night' ? 'bg-slate-950 text-white' : 'bg-white text-zlendo-grey-dark'}`}>
             <main>
                 {/* 1. HERO SECTION */}
-                <section className="relative min-h-[90vh] flex items-center pt-20 overflow-hidden text-center">
+                <section className="relative min-h-[auto] lg:min-h-[90vh] flex items-center pt-8 lg:pt-20 pb-8 lg:pb-0 overflow-hidden text-center">
                     <div className="absolute inset-0 z-0 transition-opacity duration-1000">
                         <img
                             src={cms?.heroImage || "/assets/realistic-renders/hero-renders.webp"}
@@ -105,7 +105,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                     </div>
 
                     <div className="container-custom px-4 relative z-10 w-full">
-                        <div className="max-w-4xl mx-auto text-center py-12 px-8 rounded-[40px] bg-white/5 backdrop-blur-[4px] border border-white/10 shadow-2xl shadow-black/5">
+                        <div className="max-w-4xl mx-auto text-center py-8 lg:py-12 px-6 lg:px-8 rounded-[40px] bg-white/5 backdrop-blur-[4px] border border-white/10 shadow-2xl shadow-black/5">
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -161,9 +161,9 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                 </section>
 
                 {/* 2. TRUE PHOTOREALISM */}
-                <section className={`py-20 overflow-hidden ${timeOfDay === 'night' ? 'bg-slate-900' : 'bg-white'}`}>
+                <section className={`py-12 lg:py-20 overflow-hidden ${timeOfDay === 'night' ? 'bg-slate-900' : 'bg-white'}`}>
                     <div className="container-custom px-4">
-                        <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                             <motion.div
                                 initial={{ opacity: 0, x: -30 }}
                                 whileInView={{ opacity: 1, x: 0 }}
@@ -220,8 +220,8 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                 </section>
 
                 {/* 3. CAMERA CONTROL */}
-                <section className={`py-20 ${timeOfDay === 'night' ? 'bg-slate-950/50' : 'bg-slate-50'}`}>
-                    <div className="container-custom px-4 text-center max-w-4xl mx-auto mb-16">
+                <section className={`py-12 lg:py-20 ${timeOfDay === 'night' ? 'bg-slate-950/50' : 'bg-slate-50'}`}>
+                    <div className="container-custom px-4 text-center max-w-4xl mx-auto mb-10 lg:mb-16">
                         <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg font-bold text-xs uppercase mb-6 ${timeOfDay === 'night' ? 'bg-purple-900/30 text-purple-400' : 'bg-purple-50 text-purple-600'}`}>
                             <Camera className="w-4 h-4" />
                             <span>{cms?.cameraBadge || 'Professional Composition'}</span>
@@ -252,9 +252,9 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                 </section>
 
                 {/* 4. LIGHT & TIME SIMULATION */}
-                <section className={`py-24 transition-colors duration-1000 ${lightingStates[timeOfDay].bg}`}>
+                <section className={`py-12 lg:py-24 transition-colors duration-1000 ${lightingStates[timeOfDay].bg}`}>
                     <div className="container-custom px-4">
-                        <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
                             <div className="order-2 lg:order-1">
                                 <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg font-bold text-xs uppercase mb-6 bg-white/50 backdrop-blur-sm border border-black/5 ${lightingStates[timeOfDay].accent}`}>
                                     <Clock className="w-4 h-4" />
@@ -318,8 +318,8 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                 </section>
 
                 {/* 5. RENDERING QUALITY */}
-                <section className={`py-20 ${timeOfDay === 'night' ? 'bg-slate-900 border-t border-white/5' : 'bg-white border-t border-slate-100'}`}>
-                    <div className="container-custom px-4 text-center max-w-4xl mx-auto mb-16">
+                <section className={`py-12 lg:py-20 ${timeOfDay === 'night' ? 'bg-slate-900 border-t border-white/5' : 'bg-white border-t border-slate-100'}`}>
+                    <div className="container-custom px-4 text-center max-w-4xl mx-auto mb-10 lg:mb-16">
                         <h2 className="text-3xl md:text-5xl font-black mb-6">{cms?.qualityTitle || 'Quality for Every Purpose'}</h2>
                         <p className={`text-xl font-medium ${timeOfDay === 'night' ? 'text-slate-400' : 'text-zlendo-grey-medium'}`}>
                             {cms?.qualityDesc || 'Speed or Perfection? Choose the rendering tier that fits your workflow.'}
@@ -355,9 +355,9 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                 </section>
 
                 {/* 6. WHO THIS IS FOR */}
-                <section className={`py-20 ${timeOfDay === 'night' ? 'bg-slate-950/50' : 'bg-slate-50'}`}>
+                <section className={`py-12 lg:py-20 ${timeOfDay === 'night' ? 'bg-slate-950/50' : 'bg-slate-50'}`}>
                     <div className="container-custom px-4">
-                        <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div className="grid md:grid-cols-2 gap-10 lg:gap-12 items-center">
                             <div className="space-y-8">
                                 <h2 className="text-4xl font-black mb-4 text-center lg:text-left">{cms?.audienceTitle || 'Who Needs This Level of Detail?'}</h2>
                                 <div className="space-y-6">
@@ -387,7 +387,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                 </section>
 
                 {/* 7. FINAL CTA */}
-                <section className="py-24 relative overflow-hidden">
+                <section className="py-12 lg:py-24 relative overflow-hidden">
                     <div className={`absolute inset-0 opacity-20 pointer-events-none ${timeOfDay === 'night' ? 'bg-gradient-to-r from-purple-900 to-blue-900' : 'bg-gradient-to-r from-zlendo-teal to-blue-500'}`} />
                     <div className="container-custom px-4 text-center relative z-10">
                         <div className="max-w-4xl mx-auto text-center">
@@ -410,7 +410,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                 </section>
 
                 {/* 8. FAQ */}
-                <section className={`py-16 ${timeOfDay === 'night' ? 'bg-slate-900 border-t border-white/5' : 'bg-white border-t border-slate-100'}`}>
+                <section className={`py-12 lg:py-16 ${timeOfDay === 'night' ? 'bg-slate-900 border-t border-white/5' : 'bg-white border-t border-slate-100'}`}>
                     <div className="container-custom px-6 max-w-3xl mx-auto">
                         <h2 className="text-3xl font-black text-center mb-8">{cms?.faqTitle || 'Frequently Asked Questions'}</h2>
                         <div className="space-y-4">
@@ -431,7 +431,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                                                 exit={{ height: 0 }}
                                                 className="overflow-hidden bg-white/5"
                                             >
-                                                <p className={`px-6 pb-6 pt-2 font-medium leading-relaxed ${timeOfDay === 'night' ? 'text-slate-400 text-center' : 'text-slate-600 text-center'}`}>
+                                                <p className={`px-6 pb-6 pt-2 font-medium leading-relaxed ${timeOfDay === 'night' ? 'text-slate-400 text-left' : 'text-slate-600 text-left'}`}>
                                                     {faq.a}
                                                 </p>
                                             </motion.div>

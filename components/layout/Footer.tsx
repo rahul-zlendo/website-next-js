@@ -254,8 +254,8 @@ const Footer = ({
                         <Link href={getPath('/terms-of-service')} className="hover:text-zlendo-teal transition-colors">Terms &amp; Conditions</Link>
                         <Link href={getPath('/privacy-policy')} className="hover:text-zlendo-teal transition-colors">Privacy Policy</Link>
 
-                        <CountrySwitcher />
-                        <div className="h-4 w-px bg-black/[0.05] hidden md:block" />
+                        {/* <CountrySwitcher /> */}
+                        <div className="h-4 w-px pl-4 hidden md:block" />
                     </div>
                 </div>
             </div>
