@@ -82,26 +82,31 @@ export default async function TwoDToThreeDPage() {
         }
     ];
 
+    // SEO Optimized steps
     const defaultSteps = [
         {
             title: 'Upload Floor Plan',
             desc: 'Simply upload your 2D floor plan in JPG, PNG, or PDF format. Our AI recognizes the layout immediately.',
-            image: '/assets/2d-to-3d/upload-floorplan.png'
+            image: '/assets/2d-to-3d/upload-floorplan.png',
+            alt: 'Upload 2D floor plan sketch for AI 3D conversion'
         },
         {
             title: 'AI Processing',
             desc: 'Advanced algorithms convert lines and shapes into 3D walls, doors, and windows in seconds.',
-            image: '/assets/Home-Page/2d-to-3d-convertor.png'
+            image: '/assets/Home-Page/2d-to-3d-convertor.png',
+            alt: 'AI-powered automatic floor plan to 3D model conversion'
         },
         {
             title: 'Furnish & Decorate',
             desc: 'Drag and drop furniture from our massive 3D library to style the room to your taste.',
-            image: '/assets/2d-to-3d/furnish.webp'
+            image: '/assets/2d-to-3d/furnish.webp',
+            alt: 'Customizing 3D interior design with furniture and materials'
         },
         {
             title: 'Render & Export',
             desc: 'Generate 4K renderings or export the model to other CAD software for further refinement.',
-            image: '/assets/Home-Page/3d-export-toolkit.png'
+            image: '/assets/Home-Page/3d-export-toolkit.png',
+            alt: 'Exporting high-quality 3D renders for real estate presentation'
         }
     ];
 

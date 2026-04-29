@@ -139,7 +139,7 @@ export default function PartnersClient({
                             <div className="relative bg-slate-900 rounded-[40px] p-2 shadow-2xl overflow-hidden border border-white/10">
                                 <img
                                     src={cms?.heroImage ? urlFor(cms.heroImage).url() : "/assets/partners/hero-partners.webp"}
-                                    alt="Zlendo Realty Earnings Dashboard"
+                                    alt="Join the Zlendo Realty partner program for real estate affiliates and influencers"
                                     className="w-full h-auto rounded-[32px] opacity-90 group-hover:opacity-100 transition-opacity duration-700"
                                 />
                                 {/* Glass Overlay UI elements */}
@@ -346,7 +346,7 @@ export default function PartnersClient({
                                                 <div className="relative rounded-[40px] overflow-hidden border border-white/10 shadow-2xl bg-black aspect-square">
                                                     <img
                                                         src={cms?.partnerImage ? urlFor(cms.partnerImage).url() : "/assets/partners/partner-collaboration.webp"}
-                                                        alt="Partner Collaboration"
+                                                        alt="Lucrative commission structure for Zlendo Realty affiliate partners"
                                                         className="w-full h-full object-cover opacity-80"
                                                     />
                                                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/20 to-transparent p-10">

@@ -44,10 +44,30 @@ export default async function APISuitePage({ params }: Props) {
     ];
 
     const defaultSteps = [
-        { title: 'Get API Key', desc: 'Sign up and generate your secure API credentials.', image: '/assets/api-suite/api-key.webp' },
-        { title: 'Read Docs', desc: 'Explore our interactive API documentation.', image: '/assets/api-suite/read-docs.webp' },
-        { title: 'Connect', desc: 'Use our SDKs to connect your app to Zlendo Realty.', image: '/assets/api-suite/connect.webp' },
-        { title: 'Go Live', desc: 'Launch your powered-up application to the world.', image: '/assets/api-suite/go-live.webp' }
+        { 
+            title: 'Get API Key', 
+            desc: 'Sign up and generate your secure API credentials.', 
+            image: '/assets/api-suite/api-key.webp',
+            alt: 'Secure API key generation for Zlendo Realty enterprise suite'
+        },
+        { 
+            title: 'Read Docs', 
+            desc: 'Explore our interactive API documentation.', 
+            image: '/assets/api-suite/read-docs.webp',
+            alt: 'Interactive API documentation for developers integrating 3D engine'
+        },
+        { 
+            title: 'Connect', 
+            desc: 'Use our SDKs to connect your app to Zlendo Realty.', 
+            image: '/assets/api-suite/connect.webp',
+            alt: 'Connecting developer application to Zlendo Realty cloud API'
+        },
+        { 
+            title: 'Go Live', 
+            desc: 'Launch your powered-up application to the world.', 
+            image: '/assets/api-suite/go-live.webp',
+            alt: 'Launching enterprise prop-tech application with Zlendo Realty API'
+        }
     ];
 
     const defaultFeatures = [

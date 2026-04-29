@@ -372,13 +372,13 @@ const VisualTestimonials = () => {
                     <div className="bg-[#111] text-white p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden group">
                         <Quote className="absolute top-8 right-8 w-16 h-16 text-white/5 -rotate-12 group-hover:rotate-0 transition-transform duration-500" />
                         <div className="relative z-10 flex flex-col h-full">
-                            <div className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-400 mb-6">"We closed 3x more projects."</div>
-                            <p className="text-lg text-slate-300 font-medium leading-relaxed mb-10">"We cut our pre-pitch preparation time from three days down to an afternoon. The 60-second render alone completely justified the switch to Zlendo."</p>
+                            <div className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-400 mb-6">"One Tool That Turned Our Dream Home into Reality"</div>
+                            <p className="text-lg text-slate-300 font-medium leading-relaxed mb-10">"The biggest advantage with Zlendo Realty is that I was able to combine multiple floor plan ideas and visualize them with realistic rendering. This made it much easier for my family to understand and agree on the final design."</p>
                             <div className="mt-auto flex items-center gap-4">
-                                <img src="https://i.pravatar.cc/150?img=68" className="w-16 h-16 rounded-full border-2 border-white/20" alt="Sarah J" />
+                                <img src="/assets/global/rahul.webp" alt="Rahul R." className="w-16 h-16 rounded-full object-cover border-2 border-white/20 shadow-lg" />
                                 <div>
-                                    <div className="font-black text-lg">Sarah Jenkins</div>
-                                    <div className="text-slate-400 font-bold text-sm uppercase tracking-wider">Design Director, NY</div>
+                                    <div className="font-black text-lg">Rahul R.</div>
+                                    <div className="text-slate-400 font-bold text-sm uppercase tracking-wider">Product Manager, Computer & Network Security</div>
                                 </div>
                             </div>
                         </div>
@@ -387,13 +387,13 @@ const VisualTestimonials = () => {
                     <div className="bg-[#FAFAFC] text-[#111] p-10 rounded-[2.5rem] border border-black/5 shadow-xl group">
                         <Quote className="absolute top-8 right-8 w-16 h-16 text-black/5 -rotate-12 group-hover:rotate-0 transition-transform duration-500" />
                         <div className="relative z-10 flex flex-col h-full">
-                            <div className="text-3xl md:text-4xl font-black text-[#111] mb-6">"Clients stopped guessing."</div>
-                            <p className="text-lg text-[#666] font-medium leading-relaxed mb-10">"Before, 2D plans caused so much confusion. Now, we send a live 3D walkthrough link. They walk around, experience the space, and sign the contract instantly."</p>
+                            <div className="text-3xl md:text-4xl font-black text-[#111] mb-6">"Saved Weeks of Confusion During My House Planning"</div>
+                            <p className="text-lg text-[#666] font-medium leading-relaxed mb-10">"Zlendo helped me try multiple floor plans quickly and visualize everything in 3D. The walkthrough made it easy to explain to my parents and finalize one design without arguments. The cost estimation also gave me confidence."</p>
                             <div className="mt-auto flex items-center gap-4">
-                                <img src="https://i.pravatar.cc/150?img=11" className="w-16 h-16 rounded-full border-2 border-black/10" alt="Marcus T" />
+                                <div className="w-16 h-16 rounded-full bg-slate-200 flex items-center justify-center border-2 border-black/10 font-black text-slate-600">MB</div>
                                 <div>
-                                    <div className="font-black text-lg">Marcus Trent</div>
-                                    <div className="text-[#666] font-bold text-sm uppercase tracking-wider">Lead Architect, London</div>
+                                    <div className="font-black text-lg">Madhu B.</div>
+                                    <div className="text-[#666] font-bold text-sm uppercase tracking-wider">Design, Information Technology and Services</div>
                                 </div>
                             </div>
                         </div>

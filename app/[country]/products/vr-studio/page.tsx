@@ -44,10 +44,30 @@ export default async function VRStudioPage({ params }: Props) {
     ];
 
     const defaultSteps = [
-        { title: 'Import Model', desc: 'Load your 3D model into our VR engine.', image: '/assets/vr-studio/import-model.webp' },
-        { title: 'Configure Environment', desc: 'Set lighting, weather, and time of day.', image: '/assets/vr-studio/configure-env.webp' },
-        { title: 'Generate Link', desc: 'Create a shareable web link for instant access.', image: '/assets/vr-studio/generate-link.webp' },
-        { title: 'Enter VR', desc: 'Put on your headset and step inside.', image: '/assets/vr-studio/enter-vr.webp' }
+        { 
+            title: 'Import Model', 
+            desc: 'Load your 3D model into our VR engine.', 
+            image: '/assets/vr-studio/import-model.webp',
+            alt: 'Importing 3D architecture model into virtual reality engine'
+        },
+        { 
+            title: 'Configure Environment', 
+            desc: 'Set lighting, weather, and time of day.', 
+            image: '/assets/vr-studio/configure-env.webp',
+            alt: 'Configuring realistic lighting and environment in VR studio'
+        },
+        { 
+            title: 'Generate Link', 
+            desc: 'Create a shareable web link for instant access.', 
+            image: '/assets/vr-studio/generate-link.webp',
+            alt: 'Generating shareable 3D VR walkthrough link'
+        },
+        { 
+            title: 'Enter VR', 
+            desc: 'Put on your headset and step inside.', 
+            image: '/assets/vr-studio/enter-vr.webp',
+            alt: 'Experiencing immersive 3D house tour in virtual reality'
+        }
     ];
 
     const defaultFeatures = [

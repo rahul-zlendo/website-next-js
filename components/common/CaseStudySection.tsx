@@ -20,6 +20,7 @@ interface CaseStudySectionProps {
             value: string;
         }>;
         image: string;
+        imageAlt?: string;
     };
     accentColorClass: string;
     bgAccentClass: string;
@@ -41,7 +42,7 @@ export default function CaseStudySection({ data, accentColorClass, bgAccentClass
                         <div className="relative rounded-[60px] overflow-hidden border border-black/5 shadow-2xl shadow-black/[0.05]">
                             <img
                                 src={data.image}
-                                alt={data.title}
+                                alt={data.imageAlt || data.title}
                                 className="w-full h-[500px] object-cover scale-105 group-hover:scale-100 transition-transform duration-1000"
                             />
                             <div className="absolute bottom-10 left-10 py-3 px-6 bg-white/90 backdrop-blur-md rounded-2xl flex items-center gap-3 border border-black/5 shadow-xl">

@@ -139,7 +139,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         <div
                             className="group relative cursor-pointer"
                         >
-                             <a href={cms?.uploadButtonLink || cms?.heroCtaLink || SIGNUP_URL} className="absolute inset-0 z-20" />
+                            <a href={cms?.uploadButtonLink || cms?.heroCtaLink || SIGNUP_URL} className="absolute inset-0 z-20" />
                             {/* Animated Glow Effect behind the box */}
                             <div className="absolute -inset-1 bg-gradient-to-r from-zlendo-teal via-blue-500 to-purple-500 rounded-[2.5rem] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500" />
 
@@ -190,9 +190,9 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                                     {cms?.uploadSubtitle || 'Drag & drop your 2D sketch, image, or CAD file here to instantly generate a 3D model.'}
                                 </p>
 
-                                 <button className="px-8 py-4 bg-zlendo-teal text-white rounded-xl font-bold text-lg shadow-lg shadow-zlendo-teal/20 group-hover:scale-105 transition-transform flex items-center gap-2">
-                                     <ImageIcon className="w-5 h-5" /> {cms?.uploadButtonLabel || 'Select File to Upload'}
-                                 </button>
+                                <button className="px-8 py-4 bg-zlendo-teal text-white rounded-xl font-bold text-lg shadow-lg shadow-zlendo-teal/20 group-hover:scale-105 transition-transform flex items-center gap-2">
+                                    <ImageIcon className="w-5 h-5" /> {cms?.uploadButtonLabel || 'Select File to Upload'}
+                                </button>
 
                                 <div className="mt-8 flex items-center gap-2 text-sm font-bold text-slate-400">
                                     <ShieldCheck className="w-4 h-4" /> Secure SSL Encryption
@@ -217,7 +217,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         </div>
                         <div className="order-1 lg:order-2">
                             <h2 className="text-4xl md:text-5xl font-black font-nunito mb-6" dangerouslySetInnerHTML={{ __html: cms?.howToTitle || 'Master your design <br /> in minutes.' }} />
-                                
+
                             <p className="text-xl text-white/60 mb-10 leading-relaxed font-medium">
                                 {cms?.howToDesc || 'Our intuitive interface makes complex tasks simple. Whether you are dragging walls or estimating costs, everything happens in real-time.'}
                             </p>
@@ -240,7 +240,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                 </div>
 
                 <div className="container-custom px-6 space-y-24">
-                    {resolvedSteps.map((step, i) => (
+                    {resolvedSteps.map((step: any, i) => (
                         <div key={i} className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center group">
                             <div className={`${i % 2 === 1 ? 'lg:order-2' : ''}`}>
                                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-zlendo-teal/10 text-zlendo-teal font-black text-xl mb-6 ring-4 ring-white shadow-lg">
@@ -255,7 +255,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                                 <div className="absolute inset-0 bg-slate-100 rounded-[3rem] transform rotate-3 scale-95 group-hover:rotate-6 transition-transform duration-500" />
                                 <img
                                     src={urlFor(step.image).url() || constructFullBlobUrl(step.image)}
-                                    alt={step.title}
+                                    alt={step.alt || step.title}
                                     className="relative z-10 w-full rounded-[2rem] shadow-xl"
                                 />
                             </div>

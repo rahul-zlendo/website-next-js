@@ -54,22 +54,26 @@ export default async function RoomStylerPage() {
         {
             title: 'Select Room',
             desc: 'Choose an existing room model or upload a photo of your empty space.',
-            image: UploadRoomImg
+            image: UploadRoomImg,
+            alt: 'Select room for interior customization and design editing'
         },
         {
             title: 'Choose Style',
             desc: 'Select from our curated list of interior design styles or create your own custom mood board.',
-            image: ScandinavianImg
+            image: ScandinavianImg,
+            alt: 'Choose interior design style for personalized home layout'
         },
         {
             title: 'AI Composition',
             desc: 'Our AI engine arranges furniture and decor to match the selected style perfectly.',
-            image: AIInspirationImg
+            image: AIInspirationImg,
+            alt: 'AI composition creating realistic interior and architectural layouts'
         },
         {
             title: 'Finalize Look',
             desc: 'Adjust individual items and generate a high-quality photorealistic image.',
-            image: FinalRenderImg
+            image: FinalRenderImg,
+            alt: 'Finalize home design with materials, textures, and visual styling'
         }
     ];
 
