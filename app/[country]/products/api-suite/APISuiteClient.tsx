@@ -60,7 +60,7 @@ export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resol
 
                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="relative">
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-black/5">
-                                <img src={cms?.heroImage ? urlFor(cms.heroImage).url() : "/assets/api-suite/hero-api.webp"} alt={cms?.heroTitle} className="w-full h-auto object-cover" />
+                                <img src={cms?.heroImage ? urlFor(cms.heroImage).url() : "/assets/api-suite/hero-api.webp"} alt={cms?.heroImageAlt || "Enterprise-grade API suite for automating massive real estate design workflows"} className="w-full h-auto object-cover" />
                                 
                                 {/* Status Badge Overlay */}
                                 <motion.div 
@@ -164,7 +164,7 @@ export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resol
                                 )}
                             </div>
                             <div className={`${i % 2 === 1 ? 'lg:order-1' : ''} relative`}>
-                                <img src={step.image?.asset ? urlFor(step.image).url() : step.image} alt={step.title} className="relative z-10 w-full rounded-[2rem] shadow-xl" />
+                                <img src={step.image?.asset ? urlFor(step.image).url() : step.image} alt={step.alt || step.title} className="relative z-10 w-full rounded-[2rem] shadow-xl" />
                             </div>
                         </div>
                     ))}

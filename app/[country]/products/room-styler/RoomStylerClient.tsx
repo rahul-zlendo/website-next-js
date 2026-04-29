@@ -98,7 +98,7 @@ export default function RoomStylerClient({
 
                         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="relative">
                             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white ring-1 ring-black/5">
-                                <img src={product.heroImage} alt={product.title} className="w-full h-auto object-cover" />
+                                <img src={product.heroImage} alt="AI-powered smart room styler for interior design automation" className="w-full h-auto object-cover" />
                                 <div className="absolute top-6 left-6 bg-white/90 backdrop-blur rounded-xl p-4 shadow-lg border border-white/50 hidden md:block">
                                     <div className="flex items-center gap-3">
                                         <div className={`p-2 rounded-lg bg-gradient-to-br ${product.gradient} text-white`}>
@@ -132,7 +132,7 @@ export default function RoomStylerClient({
                                 <p className="text-lg text-zlendo-grey-medium leading-relaxed font-medium mb-8">{step.desc}</p>
                             </div>
                             <div className={`${i % 2 === 1 ? 'lg:order-1' : ''} relative`}>
-                                <img src={urlFor(step.image).url() || step.image || ScandinavianImg} alt={step.title} className="relative z-10 w-full rounded-[2rem] shadow-xl" />
+                                <img src={urlFor(step.image).url() || step.image || ScandinavianImg} alt={step.alt || step.title} className="relative z-10 w-full rounded-[2rem] shadow-xl" />
                             </div>
                         </div>
                     ))}

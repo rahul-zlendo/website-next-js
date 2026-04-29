@@ -72,9 +72,9 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
     ];
 
     const cameraCards = cms?.cameraCards || [
-        { title: 'Human Eye-Level', desc: 'Experience the room as if walking through it.', image: '/assets/realistic-renders/human-eye-level.jpg' },
-        { title: 'Wide Angle', desc: 'Capture the full scale of small spaces easily.', image: '/assets/realistic-renders/wide-angle.webp' },
-        { title: 'Top-Down Plan', desc: 'Understand flow and furniture layout clearly.', image: '/assets/realistic-renders/top-down.webp' }
+        { title: 'Human Eye-Level', desc: 'Experience the room as if walking through it.', image: '/assets/realistic-renders/human-eye-level.jpg', alt: 'Human eye-level perspective of interior home design visualization' },
+        { title: 'Wide Angle', desc: 'Capture the full scale of small spaces easily.', image: '/assets/realistic-renders/wide-angle.webp', alt: 'Wide-angle view of residential architecture and interior layout' },
+        { title: 'Top-Down Plan', desc: 'Understand flow and furniture layout clearly.', image: '/assets/realistic-renders/top-down.webp', alt: 'Top-down architectural floor plan layout visualization' }
     ];
 
     const qualityTiers = cms?.qualityTiers || [
@@ -99,7 +99,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                         <img
                             src={cms?.heroImage || "/assets/realistic-renders/hero-renders.webp"}
                             className={`w-full h-full object-cover transition-all duration-1000 ${timeOfDay === 'night' ? 'opacity-30' : 'opacity-100'}`}
-                            alt="Hero Background"
+                            alt="AI-based online tool for home interior design and visualization"
                         />
                         <div className={`absolute inset-0 bg-gradient-to-b ${timeOfDay === 'night' ? 'from-slate-950/80 via-slate-950/60 to-slate-950' : 'from-white/90 via-white/40 to-white/90'}`} />
                     </div>
@@ -173,7 +173,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                                 <div className="rounded-[40px] overflow-hidden shadow-2xl border-4 border-white aspect-[4/5] relative group">
                                     <img
                                         src={cms?.photoImage || "/assets/realistic-renders/realistic-photo.webp"}
-                                        alt="Photorealistic Living Room"
+                                        alt="Photorealistic living room interior with modern decor"
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     />
                                     <div className="absolute bottom-8 left-8 bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/20 text-white text-center">
@@ -242,7 +242,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                                 className={`rounded-[32px] p-4 border transition-all ${timeOfDay === 'night' ? 'bg-white/5 border-white/10 hover:bg-white/10' : 'bg-white border-slate-100 hover:shadow-xl'}`}
                             >
                                 <div className="h-48 rounded-2xl overflow-hidden mb-6">
-                                    <img src={cam.image} alt={cam.title} className="w-full h-full object-cover" />
+                                    <img src={cam.image} alt={cam.alt || cam.title} className="w-full h-full object-cover" />
                                 </div>
                                 <h3 className="text-xl font-black mb-2 px-2">{cam.title}</h3>
                                 <p className={`text-sm px-2 ${timeOfDay === 'night' ? 'text-slate-400' : 'text-slate-500'}`}>{cam.desc}</p>
@@ -305,7 +305,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                                 <div className="rounded-[40px] overflow-hidden shadow-2xl border-8 border-white">
                                     <img
                                         src={lightingStates[timeOfDay].img}
-                                        alt={`${timeOfDay} view`}
+                                        alt="Daytime view of home exterior with natural lighting"
                                         className="w-full h-full object-cover aspect-square"
                                     />
                                 </div>
@@ -376,10 +376,10 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                             </div>
                             <div className="relative">
                                 <div className="grid grid-cols-2 gap-4">
-                                    <img src={cms?.audienceImages?.[0] || "/assets/realistic-renders/audience-1.webp"} alt="Interior design" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
-                                    <img src={cms?.audienceImages?.[1] || "/assets/realistic-renders/audience-2.webp"} alt="Home design" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
-                                    <img src={cms?.audienceImages?.[2] || "/assets/realistic-renders/audience-3.webp"} alt="Living space" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
-                                    <img src={cms?.audienceImages?.[3] || "/assets/realistic-renders/interior.jpg"} alt="Interior style" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
+                                    <img src={cms?.audienceImages?.[0] || "/assets/realistic-renders/audience-1.webp"} alt="Interior design concepts for modern residential spaces" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
+                                    <img src={cms?.audienceImages?.[1] || "/assets/realistic-renders/audience-2.webp"} alt="Custom home design layout with modern architecture" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
+                                    <img src={cms?.audienceImages?.[2] || "/assets/realistic-renders/audience-3.webp"} alt="Modern living space interior design with furniture layout" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
+                                    <img src={cms?.audienceImages?.[3] || "/assets/realistic-renders/interior.jpg"} alt="Interior style selection for realistic 3D home rendering" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
                                 </div>
                             </div>
                         </div>

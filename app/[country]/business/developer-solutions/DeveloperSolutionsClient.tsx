@@ -50,7 +50,8 @@ export default function DeveloperSolutionsClient({ cms }: DeveloperSolutionsClie
             { label: 'Approval Speed', value: '3x Faster' },
             { label: 'Revision Reduction', value: '75%' }
         ],
-        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/use-cases/developers/developer-visual.webp'
+        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/use-cases/developers/developer-visual.webp',
+        imageAlt: 'Innovative prop-tech solution addressing gaps in home and office design workflows'
     };
 
     return (

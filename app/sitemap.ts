@@ -1,5 +1,4 @@
 import type { MetadataRoute } from 'next';
-import { headers } from 'next/headers';
 
 // Generate sitemap at runtime (not build-time) to avoid overwhelming WP API during deploy
 export const dynamic = 'force-dynamic';
@@ -8,13 +7,6 @@ export const revalidate = 3600; // Cache for 1 hour
 const BASE_URL = 'https://zlendorealty.com';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const headersList = await headers();
-  // Detect country from Vercel/Cloudflare headers (matching middleware logic)
-  const countryCode = headersList.get('x-vercel-ip-country')
-    || headersList.get('cf-ipcountry')
-    || 'US';
-  const isIndia = countryCode.toUpperCase() === 'IN';
-
   const routes = [
     // Core pages
     { path: '', priority: 1.0, changeFrequency: 'daily' as const },
@@ -74,91 +66,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // { path: '/help-center', priority: 0.7, changeFrequency: 'weekly' as const, isGlobal: true },
   ];
 
-  // Generate URLs for contextually relevant territory
+  // Generate URLs for all territories (Global and India)
   const staticLastMod = new Date('2026-03-09T00:00:00Z');
   const dynamicLastMod = new Date();
 
   const urls: MetadataRoute.Sitemap = [];
-  const prefix = isIndia ? '/in' : '';
 
   for (const route of routes as any[]) {
-    if (route.isGlobal) continue;
+    if (route.isGlobal) {
+      urls.push({
+        url: `${BASE_URL}${route.path}`,
+        lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
+        changeFrequency: route.changeFrequency,
+        priority: route.priority,
+      });
+      continue;
+    }
 
-    // For global users, clean root URLs are generated. 
-    // For India users, /in prefixed URLs are generated.
-    urls.push({
-      url: `${BASE_URL}${prefix}${route.path}`,
-      lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
-      changeFrequency: route.changeFrequency,
-      priority: route.priority,
-    });
-  }
-
-  // Add global routes (like Help Center)
-  const globalRoutes = (routes as any[]).filter(r => r.isGlobal);
-  for (const route of globalRoutes) {
+    // Add Global URL
     urls.push({
       url: `${BASE_URL}${route.path}`,
       lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
     });
+
+    // Add India URL (/in)
+    urls.push({
+      url: `${BASE_URL}/in${route.path}`,
+      lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
+      changeFrequency: route.changeFrequency,
+      priority: route.priority,
+    });
   }
-
-  // Note: For India visitors, the canonical home is https://zlendorealty.com/in
-  // For Global visitors, it is https://zlendorealty.com/ 
-  // Both are handled dynamically by the root check (path: '') above.
-
-  // Fetch help center articles from WordPress (Commented out to use external subdomain)
-  /*
-  try {
-    // Add all paginated HC listing pages
-    const { totalPages: hcTotalPages } = await getTotalHcPostPages(9);
-    for (let page = 2; page <= hcTotalPages; page++) {
-      urls.push({
-        url: `${BASE_URL}/help-center?page=${page}`,
-        lastModified: new Date(),
-        changeFrequency: 'daily',
-        priority: 0.8,
-      });
-    }
-
-    // Add individual HC article URLs
-    const hcPostSlugs = await getAllHcPostSlugs();
-    for (const slug of hcPostSlugs) {
-      urls.push({
-        url: `${BASE_URL}/help-center/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.7,
-      });
-    }
-
-    // Fetch HC categories
-    const hcCategorySlugs = await getAllHcCategorySlugs();
-    for (const slug of hcCategorySlugs) {
-      urls.push({
-        url: `${BASE_URL}/help-center/category/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.6,
-      });
-    }
-
-    // Fetch HC tags
-    const hcTagSlugs = await getAllHcTagSlugs();
-    for (const slug of hcTagSlugs) {
-      urls.push({
-        url: `${BASE_URL}/help-center/tag/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly',
-        priority: 0.5,
-      });
-    }
-  } catch (error) {
-    console.error('[Sitemap] Failed to fetch help center content:', error);
-  }
-  */
 
   return urls;
 }

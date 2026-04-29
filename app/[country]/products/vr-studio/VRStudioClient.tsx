@@ -164,7 +164,7 @@ export default function VRStudioClient({ cms, resolvedFaqs, resolvedSteps, resol
                                 )}
                             </div>
                             <div className={`${i % 2 === 1 ? 'lg:order-1' : ''} relative`}>
-                                <img src={step.image?.asset ? urlFor(step.image).url() : step.image} alt={step.title} className="relative z-10 w-full rounded-[2rem] shadow-xl" />
+                                <img src={step.image?.asset ? urlFor(step.image).url() : step.image} alt={step.alt || step.title} className="relative z-10 w-full rounded-[2rem] shadow-xl" />
                             </div>
                         </div>
                     ))}

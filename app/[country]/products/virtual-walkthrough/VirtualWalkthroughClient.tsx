@@ -110,7 +110,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                 <img
                                     src="/assets/virtual-walkthrough/hero-walkthrough.webp"
                                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-[15s] group-hover:scale-105"
-                                    alt="360 Virtual Walkthrough preview"
+                                    alt="Hyper-realistic virtual home walkthrough with photorealistic 8K textures"
                                 />
 
                                 <div className="absolute bottom-10 left-10 p-6 bg-white/90 backdrop-blur-xl border border-black/5 rounded-2xl shadow-xl">

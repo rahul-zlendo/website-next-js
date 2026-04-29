@@ -12,7 +12,8 @@ import {
     Cloud,
     RefreshCcw,
     Download,
-    Clock
+    Clock,
+    Star
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 
@@ -74,20 +75,39 @@ export default function InteractiveGlobalHero() {
                             </a>
                         </div>
 
-                        {/* Reviews */}
-                        <div className="flex flex-col sm:flex-row items-center sm:items-start lg:items-center gap-3 sm:gap-4 pt-2">
-                            <div className="flex -space-x-3 shrink-0">
+                        {/* Capterra Rating Badge */}
+                        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 pt-2">
+                            {/* <div className="flex -space-x-3 shrink-0">
                                 {[1, 2, 3, 4].map(i => (
-                                    <div key={i} className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-[#0B0C10] overflow-hidden bg-slate-800">
-                                        <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="User" />
+                                    <div key={i} className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border-2 border-[#0B0C10] overflow-hidden bg-slate-800 ring-1 ring-white/5 shadow-lg">
+                                        <img src={`https://i.pravatar.cc/100?img=${i + 15}`} alt="User" className="w-full h-full object-cover" />
                                     </div>
                                 ))}
-                            </div>
-                            <div className="text-center sm:text-left">
-                                <div className="flex items-center justify-center sm:justify-start gap-1 mb-1">
-                                    {[1, 2, 3, 4, 5].map(i => <Sparkles key={i} className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-yellow-500 fill-yellow-500" />)}
+                            </div> */}
+
+                            <div className="flex items-center gap-4 px-5 py-3 bg-white/[0.03] border border-white/10 rounded-2xl backdrop-blur-md group hover:border-[#00bf9a]/30 transition-all duration-300">
+                                {/* Capterra Logo Official Image */}
+                                <div className="flex items-center">
+                                    <img
+                                        src="/assets/capterra-logo.webp"
+                                        alt="Capterra Official Logo"
+                                        className="h-[18px] sm:h-[22px] w-auto object-contain opacity-90 group-hover:opacity-100 transition-all duration-300"
+                                    />
                                 </div>
-                                <div className="text-[10px] sm:text-[11px] font-medium text-white/60 leading-tight">Trusted by 10,000+ designers,<br className="sm:hidden" /> architects & builders</div>
+
+                                <div className="w-px h-6 bg-white/10" />
+
+                                <div className="flex flex-col">
+                                    <div className="flex items-center gap-2 mb-0.5">
+                                        <span className="text-[14px] sm:text-[15px] font-black text-white leading-none">Rated 5/5</span>
+                                        <div className="flex gap-0.5">
+                                            {[1, 2, 3, 4, 5].map(i => (
+                                                <Star key={i} className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-yellow-500 fill-yellow-500 shadow-[0_0_10px_rgba(234,179,8,0.4)]" />
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <div className="text-[10px] sm:text-[11px] font-bold text-white/30 uppercase tracking-[0.2em] leading-none pt-2">Verified Reviews</div>
+                                </div>
                             </div>
                         </div>
                     </div>
