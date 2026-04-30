@@ -346,7 +346,7 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
                                                         setFormState({ ...formState, phone: value });
                                                     }}
                                                     className={`${inputBase} ${focused === 'phone' ? inputFocused : inputIdle}`}
-                                                    placeholder="+1 (555) 000-0000"
+                                                    placeholder="Phone Number "
                                                 />
                                             </div>
                                             <div className="space-y-2">
