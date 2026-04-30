@@ -88,14 +88,14 @@ export default defineType({
       title: 'Contact Email',
       type: 'string',
       group: 'contactInfo',
-      initialValue: 'contact@zlendorealty.com',
+      initialValue: 'support@zlendorealty.com',
     }),
     defineField({
       name: 'phone',
       title: 'Contact Phone',
       type: 'string',
       group: 'contactInfo',
-      initialValue: '0452-3583474',
+      initialValue: '+91 8047135989',
     }),
     defineField({
       name: 'hqTitle',
