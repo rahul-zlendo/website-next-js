@@ -393,8 +393,8 @@ export default function PartnersClient({
             <section className="py-20 relative overflow-hidden">
                 <div className="container-custom px-4 text-center">
                     <div className="max-w-4xl mx-auto mb-12 space-y-4">
-                        <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark">{cms?.whyTitle || "Why Take Zlendo to Your Network?"}</h2>
-                        <p className="text-xl text-zlendo-grey-medium font-medium opacity-60">{cms?.whySubtitle || "Success in partnerships is built on product quality. Zlendo is India's most trusted home-tech platform."}</p>
+                        <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark">{cms?.whyTitle || "Why Take Zlendo Realty to Your Network?"}</h2>
+                        <p className="text-xl text-zlendo-grey-medium font-medium opacity-60">{cms?.whySubtitle || "Success in partnerships is built on product quality. Zlendo Realty is India's most trusted home-tech platform."}</p>
                     </div>
 
                     <div className="grid md:grid-cols-3 gap-8">

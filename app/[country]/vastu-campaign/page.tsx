@@ -205,9 +205,10 @@ const VastuRegistrationContent = () => {
                                                             type="tel"
                                                             required
                                                             placeholder="Mobile number"
+                                                            maxLength={15}
                                                             className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal transition-all font-medium text-[#1a1a1a]"
                                                             value={formState.phone}
-                                                            onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/[^\d+\-() ]/g, '') })}
+                                                            onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/[^\d+\-() ]/g, '').slice(0, 15) })}
                                                         />
                                                     </div>
                                             </div>
