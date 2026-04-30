@@ -55,7 +55,7 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
         setTimeout(() => {
             const lowerInput = userMsg.text.toLowerCase();
             const basePath = isIndia ? '/in' : '/';
-            let responseText = `I'm not sure about that. Try asking about Pricing, our 3D tools or Vastu services. Alternatively, you can reach us at contact@zlendorealty.com or visit our [Contact Page](${basePath}/contact).`;
+            let responseText = `I'm not sure about that. Try asking about Pricing, our 3D tools or Vastu services. Alternatively, you can reach us at support@zlendorealty.com or visit our [Contact Page](${basePath}/contact).`;
 
             // Keyword matching
             for (const [keyword, response] of Object.entries(keywordResponses)) {

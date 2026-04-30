@@ -75,8 +75,8 @@ const PolicyContent: React.FC<PolicyContentProps> = ({ title, description, lastU
                 <h2 className="text-2xl font-black mb-4 text-zlendo-teal">Questions?</h2>
                 <p className="text-lg text-zlendo-grey-medium">
                     If you have any questions about this policy, please contact us at{' '}
-                    <a href="mailto:contact@zlendorealty.com" className="text-zlendo-teal font-bold hover:underline">
-                        contact@zlendorealty.com
+                    <a href="mailto:support@zlendorealty.com" className="text-zlendo-teal font-bold hover:underline">
+                        support@zlendorealty.com
                     </a>
                 </p>
             </div>

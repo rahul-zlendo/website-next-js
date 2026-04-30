@@ -53,7 +53,7 @@ export default defineType({
       name: 'footerEmail',
       title: 'Contact Email',
       type: 'string',
-      initialValue: 'contact@zlendorealty.com',
+      initialValue: 'support@zlendorealty.com',
     }),
     defineField({
       name: 'footerAddress',
