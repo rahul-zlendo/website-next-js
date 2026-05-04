@@ -3,7 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     ArrowRight, Zap, ShieldCheck, Sparkles, Eye, Ruler, Calculator,
-    Box, Image, Video, Palette, Compass, Layers, Calendar
+    Box, Image, Video, Palette, Compass, Layers, Calendar,
+    CheckCircle2, Building2, HardHat, PenTool, Users
 } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
@@ -55,6 +56,7 @@ export default function HomeClient({
     const [multipleImageUrls, setMultipleImageUrls] = useState<Record<number, string[]>>({});
     const [loadingImageUrls, setLoadingImageUrls] = useState<Set<number>>(new Set());
     const [mounted, setMounted] = useState(false);
+    const [activeAudienceTab, setActiveAudienceTab] = useState(0);
 
     // Resolve labels from CMS or defaults
     const heroBadge = cms?.heroBadgeText ?? 'Create with Confidence';
@@ -516,8 +518,189 @@ export default function HomeClient({
                     </div>
                 </section>
 
+                {/* WHO IT'S FOR — AUDIENCE SEGMENTATION */}
+                {(() => {
+                    const audienceSegments = [
+                        {
+                            title: "Homeowners",
+                            icon: Users,
+                            gradient: "from-emerald-500 to-teal-600",
+                            lightGradient: "from-emerald-50 to-teal-50",
+                            accentColor: "text-emerald-600",
+                            features: [
+                                "Visualize your dream home in 3D before construction begins",
+                                "Vastu-compliant floor plans with instant scoring",
+                                "Realistic interior views for every room — bedroom, kitchen, pooja room",
+                                "Accurate cost estimation to plan your budget confidently"
+                            ]
+                        },
+                        {
+                            title: "Architects",
+                            icon: PenTool,
+                            gradient: "from-blue-500 to-indigo-600",
+                            lightGradient: "from-blue-50 to-indigo-50",
+                            accentColor: "text-blue-600",
+                            features: [
+                                "Convert DWG & 2D plans to client-ready 3D in minutes",
+                                "Render every elevation with accurate sun & shadow angles",
+                                "Share interactive browser walkthroughs — no client login needed",
+                                "Integrates seamlessly with your existing CAD workflow"
+                            ]
+                        },
+                        {
+                            title: "Interior Designers",
+                            icon: Palette,
+                            gradient: "from-purple-500 to-fuchsia-600",
+                            lightGradient: "from-purple-50 to-fuchsia-50",
+                            accentColor: "text-purple-600",
+                            features: [
+                                "Real-time material and texture switching in 3D preview",
+                                "Go from mood board to photorealistic render in one session",
+                                "10,000+ shoppable catalog items for modern Indian homes",
+                                "Shareable presentation links for instant client approvals"
+                            ]
+                        },
+                        {
+                            title: "Builders & Developers",
+                            icon: HardHat,
+                            gradient: "from-amber-500 to-orange-600",
+                            lightGradient: "from-amber-50 to-orange-50",
+                            accentColor: "text-amber-600",
+                            features: [
+                                "Showcase units with virtual walkthroughs before breaking ground",
+                                "Connect design changes to live cost impact instantly",
+                                "Win bids with interactive 3D presentations clients can explore",
+                                "Reduce revision disputes with clear visual documentation"
+                            ]
+                        }
+                    ];
+
+                    const active = audienceSegments[activeAudienceTab];
+                    const ActiveIcon = active.icon;
+
+                    return (
+                        <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+                            {/* Background decorations */}
+                            <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-zlendo-teal/5 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+                            <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-100/30 blur-[100px] rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none" />
+
+                            <div className="container-custom px-4 relative z-10">
+                                {/* Header */}
+                                <div className="text-center mb-10 md:mb-16">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-6"
+                                    >
+                                        <Users className="w-4 h-4 text-zlendo-teal" />
+                                        <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">Built For You</span>
+                                    </motion.div>
+                                    <h2 className="text-4xl md:text-6xl font-black font-nunito text-zlendo-grey-dark mb-6 tracking-tighter leading-[0.9]">
+                                        Built for every <br />
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-500">dreamer & creator</span>
+                                    </h2>
+                                    <p className="text-xl md:text-2xl text-zlendo-grey-medium font-bold max-w-2xl mx-auto leading-relaxed opacity-80">
+                                        Whether you&apos;re planning your first home or managing large-scale projects — Zlendo Realty fits your workflow.
+                                    </p>
+                                </div>
+
+                                {/* Tab Navigation */}
+                                <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-12 md:mb-16">
+                                    {audienceSegments.map((segment, idx) => {
+                                        const SegIcon = segment.icon;
+                                        return (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setActiveAudienceTab(idx)}
+                                                className={`flex items-center gap-2.5 px-6 md:px-8 py-3.5 rounded-full border text-sm md:text-base font-black transition-all duration-300 ${activeAudienceTab === idx
+                                                    ? `bg-gradient-to-r ${segment.gradient} text-white border-transparent shadow-xl scale-105`
+                                                    : 'bg-white border-black/10 text-zlendo-grey-medium hover:border-black/20 hover:bg-gray-50'
+                                                    }`}
+                                            >
+                                                <SegIcon className="w-4 h-4" />
+                                                {segment.title}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Content Panel */}
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={activeAudienceTab}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -20 }}
+                                        transition={{ duration: 0.4 }}
+                                        className="max-w-6xl mx-auto"
+                                    >
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-[40px] md:rounded-[48px] overflow-hidden border border-black/[0.04] shadow-[0_20px_80px_rgba(0,0,0,0.06)]">
+                                            {/* Left — Gradient Hero Panel */}
+                                            <div className={`bg-gradient-to-br ${active.gradient} p-10 md:p-16 flex flex-col justify-center relative overflow-hidden min-h-[280px] md:min-h-[420px]`}>
+                                                {/* Abstract decorative shapes */}
+                                                <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2" />
+                                                <div className="absolute bottom-0 left-0 w-60 h-60 bg-black/10 rounded-full blur-[80px] -translate-x-1/3 translate-y-1/3" />
+                                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-white/10 rounded-full" />
+                                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] border border-white/5 rounded-full" />
+
+                                                <div className="relative z-10">
+                                                    <div className="w-16 h-16 md:w-20 md:h-20 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center mb-8 border border-white/20 shadow-xl">
+                                                        <ActiveIcon className="w-8 h-8 md:w-10 md:h-10 text-white" />
+                                                    </div>
+                                                    <h3 className="text-3xl md:text-5xl font-black text-white mb-4 leading-[1.1] tracking-tight">
+                                                        {active.title}
+                                                    </h3>
+                                                    <p className="text-base md:text-lg text-white/70 font-bold leading-relaxed max-w-sm">
+                                                        Tailored tools and workflows designed specifically for {active.title.toLowerCase()}.
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            {/* Right — Feature Checklist */}
+                                            <div className={`bg-gradient-to-br ${active.lightGradient} p-10 md:p-16 flex flex-col justify-center`}>
+                                                <div className="mb-8">
+                                                    <div className={`text-[11px] font-black uppercase tracking-[0.3em] ${active.accentColor} mb-2`}>Key Capabilities</div>
+                                                    <div className="w-12 h-1 bg-zlendo-teal rounded-full" />
+                                                </div>
+                                                <ul className="space-y-6">
+                                                    {active.features.map((feature, fIdx) => (
+                                                        <motion.li
+                                                            key={`${activeAudienceTab}-${fIdx}`}
+                                                            initial={{ opacity: 0, x: 30 }}
+                                                            animate={{ opacity: 1, x: 0 }}
+                                                            transition={{ delay: fIdx * 0.1, duration: 0.4 }}
+                                                            className="flex items-start gap-4 group"
+                                                        >
+                                                            <div className={`mt-0.5 w-7 h-7 rounded-xl bg-gradient-to-br ${active.gradient} flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform`}>
+                                                                <CheckCircle2 className="w-4 h-4 text-white" />
+                                                            </div>
+                                                            <span className="text-base md:text-lg font-bold text-zlendo-grey-dark leading-relaxed group-hover:text-black transition-colors">
+                                                                {feature}
+                                                            </span>
+                                                        </motion.li>
+                                                    ))}
+                                                </ul>
+                                                <div className="mt-10">
+                                                    <a
+                                                        href={getPath(SIGNUP_URL)}
+                                                        className={`inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r ${active.gradient} text-white rounded-2xl font-black text-base shadow-xl hover:scale-105 transition-all group`}
+                                                    >
+                                                        Get Started as {active.title}
+                                                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+                        </section>
+                    );
+                })()}
+
                 {/* FINAL CTA */}
-                <section className="bg-white pt-12 pb-8 md:pt-24 md:pb-24 px-4">
+                <section className="bg-white pt-12 pb-8 md:pt-18 md:pb-18 px-4">
                     <div className="container-custom max-w-6xl">
                         <div className="bg-white border border-gray-100 rounded-[32px] md:rounded-[48px] p-3 md:p-16 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]">
                             <div className="flex-1 text-center md:text-left space-y-3 md:space-y-8">
@@ -537,7 +720,7 @@ export default function HomeClient({
                 </section>
 
                 {/* FAQ SECTION */}
-                <section className="py-20 md:py-32 bg-white">
+                <section className="py-18 md:py-24 bg-white">
                     <div className="container-custom px-6 max-w-3xl mx-auto">
                         <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-12">{faqTitle}</h2>
                         <FaqAccordion faqs={resolvedFaqs} />
