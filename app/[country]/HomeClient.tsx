@@ -572,6 +572,19 @@ export default function HomeClient({
                                 "Win bids with interactive 3D presentations clients can explore",
                                 "Reduce revision disputes with clear visual documentation"
                             ]
+                        },
+                        {
+                            title: "Promoters",
+                            icon: Building2,
+                            gradient: "from-rose-500 to-pink-600",
+                            lightGradient: "from-rose-50 to-pink-50",
+                            accentColor: "text-rose-600",
+                            features: [
+                                "Create compelling 3D visuals for real estate and resale marketing",
+                                "Showcase remodeling potential with dynamic before/after views",
+                                "Boost sales conversions with interactive property walkthroughs",
+                                "Enhance property listings with professional-grade renders instantly"
+                            ]
                         }
                     ];
 
