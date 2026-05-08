@@ -11,6 +11,14 @@ import { SIGNUP_URL } from '@/lib/config/env';
 export const metadata: Metadata = {
   title: 'Zlendo Realty | AI Home & Office Design Software for Professionals',
   description: 'Zlendo Realty is the complete design-to-client workflow for architecture and interior design professionals. Generate 3D models and renders in 60 seconds.',
+  alternates: {
+    canonical: 'https://zlendorealty.com',
+    languages: {
+      'en': 'https://zlendorealty.com',
+      'en-IN': 'https://zlendorealty.com/in',
+      'x-default': 'https://zlendorealty.com',
+    },
+  },
 };
 
 async function getGlobalHomePage() {

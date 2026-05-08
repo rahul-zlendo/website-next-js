@@ -8,6 +8,14 @@ import { SIGNUP_URL } from '@/lib/config/env';
 export const metadata: Metadata = {
   title: 'Zlendo Realty Products Floor Planer - Design Your Home in 3D',
   description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. Experience your space before a single brick is laid.',
+  alternates: {
+    canonical: 'https://zlendorealty.com/products/floor-planner',
+    languages: {
+      'en': 'https://zlendorealty.com/products/floor-planner',
+      'en-IN': 'https://zlendorealty.com/in/products/floor-planner',
+      'x-default': 'https://zlendorealty.com/products/floor-planner',
+    },
+  },
 };
 
 async function getGlobalPage(slug: string) {

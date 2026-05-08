@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone } from 'lucide-react';
+import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../common/Logo';
 import { SIGNUP_URL, LOGIN_URL, DASHBOARD_URL } from '@/lib/constants/urls';
@@ -98,7 +98,8 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         { label: 'Pre-built Templates', desc: 'Built-in layouts for homes, rooms, and interiors.', icon: LayoutTemplate, path: getPath('/viewalltemplates') },
         { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: getPath('/tutorials') },
         { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: 'https://helpcenter.zlendorealty.com', openInNewTab: true },
-        { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: 'https://blog.zlendorealty.com', openInNewTab: false },
+        { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: 'https://blog.zlendorealty.com', openInNewTab: true },
+        { label: 'News', desc: 'Industry Trends & Updates', icon: Newspaper, path: 'https://news.zlendorealty.com/', openInNewTab: true },
         ...(isBusinessMode ? [{ label: 'Partnership', desc: 'Affiliate & Partners', icon: Share2, path: getPath('/partners') }] : []),
     ];
 
@@ -325,23 +326,24 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute top-full left-0 mt-4 w-[340px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 flex flex-col gap-2"
+                                        className="absolute top-full left-0 mt-4 w-[640px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-8 grid grid-cols-2 gap-6 overflow-hidden"
                                     >
+                                        <div className="absolute inset-0 bg-gradient-to-br from-zlendo-teal/[0.03] to-transparent pointer-events-none" />
                                         {resourceLinks.map((item) => {
                                             const isExternal = item.path.startsWith('http');
                                             const shouldOpenInNewTab = item.openInNewTab !== undefined ? item.openInNewTab : isExternal;
                                             const content = (
                                                 <>
-                                                    <div className="w-10 h-10 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
-                                                        <item.icon className="w-4 h-4" />
+                                                    <div className="w-12 h-12 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal group-hover/item:scale-110 transition-transform">
+                                                        <item.icon className="w-5 h-5" />
                                                     </div>
                                                     <div>
                                                         <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
-                                                        <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
+                                                        <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
                                                     </div>
                                                 </>
                                             );
-                                            const className = "flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/5 transition-all group/item";
+                                            const className = "flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/[0.03] transition-all group/item relative z-10";
 
                                             if (isExternal) {
                                                 return (

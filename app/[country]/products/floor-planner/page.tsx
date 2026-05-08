@@ -45,6 +45,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             locale: 'en_IN',
             type: 'website',
         },
+        alternates: {
+            canonical: `${BASE_URL}/${country}/products/floor-planner`,
+            languages: {
+                'en-IN': `${BASE_URL}/in/products/floor-planner`,
+                'en': `${BASE_URL}/products/floor-planner`,
+                'x-default': `${BASE_URL}/products/floor-planner`,
+            },
+        },
     };
 }
 

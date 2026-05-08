@@ -79,6 +79,7 @@ const Footer = ({
         { label: 'Blog', path: 'https://blog.zlendorealty.com', external: true, newTab: false },
         { label: 'Tutorials', path: getPath('/tutorials') },
         { label: 'Help Center', path: "https://helpcenter.zlendorealty.com/", external: true, newTab: false },
+        { label: 'News', path: "https://news.zlendorealty.com/", external: true, newTab: false },
         ...(isIndiaSite ? [{ label: 'Partnership', path: getPath('/partners') }] : []),
         { label: 'Contact Us', path: getPath('/contact') },
     ];
