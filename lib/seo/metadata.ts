@@ -48,8 +48,17 @@ export function createPageMetadata({
     keywords?: string[];
     noIndex?: boolean;
 }): Metadata {
-    const canonicalUrl = `${BASE_URL}${path}`;
+    const canonicalUrl = `${BASE_URL}${path.startsWith('/') ? path : `/${path}`}`;
     const image = ogImage || defaultOgImage;
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    const isIndia = cleanPath.startsWith('/in');
+    const segment = isIndia ? cleanPath.replace(/^\/in/, '') : cleanPath;
+    
+    // Ensure segment starts with / unless it's empty
+    const normalizedSegment = segment === '/' ? '' : segment;
+    
+    const globalUrl = `${BASE_URL}${normalizedSegment}`;
+    const indiaUrl = `${BASE_URL}/in${normalizedSegment}`;
 
     return {
         title,
@@ -61,7 +70,7 @@ export function createPageMetadata({
             url: canonicalUrl,
             siteName: SITE_NAME,
             images: [image],
-            locale: 'en_IN',
+            locale: isIndia ? 'en_IN' : 'en_US',
             type: 'website',
         },
         twitter: {
@@ -72,6 +81,11 @@ export function createPageMetadata({
         },
         alternates: {
             canonical: canonicalUrl,
+            languages: {
+                'en': globalUrl,
+                'en-IN': indiaUrl,
+                'x-default': globalUrl,
+            },
         },
         ...(noIndex && {
             robots: {
