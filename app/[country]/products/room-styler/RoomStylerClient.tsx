@@ -10,10 +10,10 @@ import {
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { urlFor } from '@/lib/sanity/image';
 
-const ScandinavianImg = '/assets/room-styler/scandinavian.jpg';
-const UploadRoomImg = '/assets/2d-to-3d/upload-floorplan.png';
-const AIInspirationImg = '/assets/Home-Page/ai-room-inspirtion.png';
-const FinalRenderImg = '/assets/Home-Page/living-room/scandinavian-style.jpg';
+const ScandinavianImg = '/assets/room-styler/scandinavian.webp';
+const UploadRoomImg = '/assets/2d-to-3d/upload-floorplan.webp';
+const AIInspirationImg = '/assets/Home-Page/ai-room-inspirtion.webp';
+const FinalRenderImg = '/assets/Home-Page/living-room/scandinavian-style.webp';
 
 interface RoomStylerClientProps {
     cms: any;

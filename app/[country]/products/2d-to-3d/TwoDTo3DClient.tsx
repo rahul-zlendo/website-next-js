@@ -210,7 +210,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         <div className="order-2 lg:order-1 relative">
                             <div className="absolute -inset-10 bg-zlendo-teal opacity-20 blur-[80px] rounded-full" />
                             <img
-                                src={urlFor(cms?.howToImage).url() || constructFullBlobUrl('/assets/2d-to-3d/dashboard-interface.png')}
+                                src={urlFor(cms?.howToImage).url() || constructFullBlobUrl('/assets/2d-to-3d/dashboard-interface.webp')}
                                 alt="Dashboard Interface"
                                 className="relative z-10 rounded-2xl shadow-2xl border border-white/10 w-full"
                             />

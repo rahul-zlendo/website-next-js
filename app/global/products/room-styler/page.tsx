@@ -48,7 +48,7 @@ const GlobalRoomStylerPage = async () => {
           }
         ],
         subheading: "Smart Room Styler automatically suggests furniture layouts, colors, lighting, and décor. Visualize beautiful interiors using realistic 3D design and explore endless interior ideas.",
-        image: "/assets/room-styler/scandinavian.jpg",
+        image: "/assets/room-styler/scandinavian.webp",
         ctaText: "Start Styling Free",
         ctaLink: SIGNUP_URL,
         ctaSubtext: "14 days, full access. No credit card.",
@@ -65,25 +65,25 @@ const GlobalRoomStylerPage = async () => {
             number: "1",
             title: "Select Room",
             description: "Choose an existing room model or upload a photo of your empty space.",
-            image: "/assets/2d-to-3d/upload-floorplan.png"
+            image: "/assets/2d-to-3d/upload-floorplan.webp"
           },
           {
             number: "2",
             title: "Choose Style",
             description: "Select from our curated list of interior design styles or create your own custom mood board.",
-            image: "/assets/room-styler/scandinavian.jpg"
+            image: "/assets/room-styler/scandinavian.webp"
           },
           {
             number: "3",
             title: "AI Composition",
             description: "Our AI engine intuitively arranges furniture and decor to match the selected style perfectly.",
-            image: "/assets/Home-Page/ai-room-inspirtion.png"
+            image: "/assets/Home-Page/ai-room-inspirtion.webp"
           },
           {
             number: "4",
             title: "Finalize Look",
             description: "Adjust individual items and generate a high-quality photorealistic image.",
-            image: "/assets/Home-Page/living-room/scandinavian-style.jpg"
+            image: "/assets/Home-Page/living-room/scandinavian-style.webp"
           }
         ]
       },
@@ -97,7 +97,7 @@ const GlobalRoomStylerPage = async () => {
         ],
         statValue: "1000+",
         statLabel: "Real-world furniture items available immediately",
-        image: "/assets/Home-Page/living-room/scandinavian-style.jpg",
+        image: "/assets/Home-Page/living-room/scandinavian-style.webp",
         imageAtRight: false
       },
       {

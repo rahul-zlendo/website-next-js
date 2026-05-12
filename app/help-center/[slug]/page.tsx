@@ -7,6 +7,7 @@ import { getHcPostBySlug, getAllHcPostSlugs, getHcPosts } from '@/lib/wordpress/
 import { generateHcPostMetadata, generateHcPostJsonLd, generateBreadcrumbJsonLd, absoluteUrl, stripHtml } from '@/lib/wordpress/hc-seo';
 import { BlogPostBody, BlogBreadcrumb } from '@/components/blog';
 import { HcCard } from '@/components/helpcenter';
+import JsonLd from '@/components/common/JsonLd';
 
 interface HcPostPageProps {
     params: Promise<{ slug: string }>;
@@ -62,14 +63,8 @@ export default async function HcPostPage({ params }: HcPostPageProps) {
     return (
         <>
             {/* JSON-LD */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(hcPostJsonLd) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
+            <JsonLd schema={hcPostJsonLd} />
+            <JsonLd schema={breadcrumbJsonLd} />
 
             <article className="container-custom px-6 lg:px-12 py-12 lg:py-20">
                 {/* Breadcrumb */}

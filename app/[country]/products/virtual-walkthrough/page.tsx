@@ -2,6 +2,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import VirtualWalkthroughClient from './VirtualWalkthroughClient';
 import { client } from '@/lib/sanity/client';
 import { virtualWalkthroughPageQuery } from '@/lib/sanity/queries';
+import JsonLd from '@/components/common/JsonLd';
 
 interface PageProps {
   params: Promise<{ country: string }>;
@@ -90,10 +91,7 @@ export default async function VirtualWalkthroughPage({ params }: PageProps) {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <JsonLd schema={faqSchema} />
       <VirtualWalkthroughClient cms={cms} resolvedFaqs={resolvedFaqs} country={country} />
     </>
   );

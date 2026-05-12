@@ -6,8 +6,8 @@ import { ArrowRight, Quote, TrendingUp, Clock, ShieldCheck, MapPin, Building2, L
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { useCountry } from '@/lib/context/CountryContext';
 
-const ModernIndianHomeImg = '/assets/use-case/modern-indian-home-interior.jpg';
-const ModernArchStudioImg = '/assets/use-case/modern-architecture-studio.jpg';
+const ModernIndianHomeImg = '/assets/use-case/modern-indian-home-interior.webp';
+const ModernArchStudioImg = '/assets/use-case/modern-architecture-studio.webp';
 
 /**
  * Use Cases Page - Client Component

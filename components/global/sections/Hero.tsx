@@ -31,8 +31,8 @@ interface HeroProps {
 //
 // ⚠️  AI image quota exhausted (resets 2026-04-22). Using high-quality Unsplash
 //     URLs as placeholders — swap with generated images once quota resets.
-const IMAGE_FINISHED = '/assets/3d_hero.png';
-const IMAGE_CONSTRUCTION = '/assets/2d_hero.png';
+const IMAGE_FINISHED = '/assets/3d_hero.webp';
+const IMAGE_CONSTRUCTION = '/assets/2d_hero.webp';
 
 const PremiumHero: React.FC<HeroProps> = ({ data }) => {
   const {

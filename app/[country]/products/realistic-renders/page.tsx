@@ -2,6 +2,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import RealisticRendersClient from './RealisticRendersClient';
 import { client } from '@/lib/sanity/client';
 import { realisticRendersPageQuery } from '@/lib/sanity/queries';
+import JsonLd from '@/components/common/JsonLd';
 
 interface PageProps {
   params: Promise<{ country: string }>;
@@ -88,10 +89,7 @@ export default async function RealisticRendersPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <JsonLd schema={faqSchema} />
       <RealisticRendersClient cms={cms} resolvedFaqs={resolvedFaqs} />
     </>
   );

@@ -1,59 +1,51 @@
-
 import { Metadata } from 'next';
+import JsonLd from '@/components/common/JsonLd';
 
-type Props = {
-    params: Promise<{ productId: string }>;
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { productId } = await params;
-
-    if (productId === 'api-suite') {
-        return {
-            title: '2D-to-3D, Costing & Styling APIs | PropTech API Suite',
-            description: 'Integrate Zlendo Realty PropTech API suite to power your platform with 2D-to-3D conversion, automated costing, and interior styling engines for real estate and architecture apps.',
-            keywords: [
-                'proptech platform',
-                '2d to 3d converter',
-                'costing software',
-                'styling engines',
-                'ai applications for real estate',
-                '3d model software',
-                'planning software',
-                'AI design software',
-                'vastu analysis',
-                'vastu agent',
-                'floor planner',
-            ],
-            openGraph: {
-                title: 'Power Your PropTech Platform with Zlendo Realty API Suite ',
-                description: 'Embed powerful 2D-to-3D, construction costing, and interior styling engines into your apps with Zlendo’s PropTech API suite for real estate and architecture platforms.',
-            },
-            alternates: {
-                canonical: `https://zlendorealty.com/in/products/${productId}`,
-                languages: {
-                    'en-IN': `https://zlendorealty.com/in/products/${productId}`,
-                    'x-default': `https://zlendorealty.com/in/products/${productId}`,
-                },
-            },
-        };
-    }
-
-    return {
-        alternates: {
-            canonical: `https://zlendorealty.com/in/products/${productId}`,
-            languages: {
-                'en-IN': `https://zlendorealty.com/in/products/${productId}`,
-                'x-default': `https://zlendorealty.com/in/products/${productId}`,
-            },
-        },
-    };
+interface Props {
+  params: Promise<{ country: string; productId: string }>;
+  children: React.ReactNode;
 }
 
-export default function ProductIdLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    return <>{children}</>;
+const productData = {
+  'vr-studio': {
+    title: '8K VR Studio',
+  },
+  'api-suite': {
+    title: 'Zlendo Realty API Suite',
+  }
+};
+
+const faqs = [
+  { q: "Is this tool free to use?", a: "Yes! You can start for free and design your first project without any credit card. Premium textures and high-res renders are available in paid plans." },
+  { q: "Do I need to install any software?", a: "No, Zlendo Realty runs entirely in your browser. It works smoothly on Chrome, Firefox, and Safari on both Windows and Mac." },
+  { q: "Can I import my own CAD files?", a: "Absolutely. We support DXF, DWG, JPG, PNG, and PDF formats for seamless import." },
+  { q: "How accurately are the costs estimated?", a: "Our cost engine is updated weekly with local market rates for materials and labor, ensuring 95%+ accuracy for your zip code." }
+];
+
+export default async function ProductLayout({ params, children }: Props) {
+  const { productId } = await params;
+  const product = productData[productId as keyof typeof productData];
+
+  if (!product) return <>{children}</>;
+
+  const faqSchema = {
+    "@context": "https://schema.org/",
+    "@type": "FAQPage",
+    "name": `${product.title} - Frequently Asked Questions`,
+    "mainEntity": faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  };
+
+  return (
+    <>
+      <JsonLd schema={faqSchema} />
+      {children}
+    </>
+  );
 }

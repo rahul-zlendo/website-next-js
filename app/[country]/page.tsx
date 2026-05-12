@@ -7,6 +7,7 @@ import HomeClient from './HomeClient';
 import { getClient } from '@/lib/sanity/client';
 import { homePageQuery } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/image';
+import JsonLd from '@/components/common/JsonLd';
 
 const BASE_URL = 'https://zlendorealty.com';
 const COUNTRY = 'in';
@@ -393,10 +394,7 @@ export default async function Page() {
   return (
     <>
       {/* FAQPage structured data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <JsonLd schema={faqSchema} />
 
       <HomeClient
         cms={cms}

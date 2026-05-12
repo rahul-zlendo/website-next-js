@@ -3,6 +3,7 @@ import { draftMode } from 'next/headers';
 import { getClient } from '@/lib/sanity/client';
 import { twoDTo3DPageQuery } from '@/lib/sanity/queries';
 import TwoDTo3DClient from './TwoDTo3DClient';
+import JsonLd from '@/components/common/JsonLd';
 
 // Revalidate every 60 seconds (Incremental Static Regeneration)
 export const revalidate = 60;
@@ -87,13 +88,13 @@ export default async function TwoDToThreeDPage() {
         {
             title: 'Upload Floor Plan',
             desc: 'Simply upload your 2D floor plan in JPG, PNG, or PDF format. Our AI recognizes the layout immediately.',
-            image: '/assets/2d-to-3d/upload-floorplan.png',
+            image: '/assets/2d-to-3d/upload-floorplan.webp',
             alt: 'Upload 2D floor plan sketch for AI 3D conversion'
         },
         {
             title: 'AI Processing',
             desc: 'Advanced algorithms convert lines and shapes into 3D walls, doors, and windows in seconds.',
-            image: '/assets/Home-Page/2d-to-3d-convertor.png',
+            image: '/assets/Home-Page/2d-to-3d-convertor.webp',
             alt: 'AI-powered automatic floor plan to 3D model conversion'
         },
         {
@@ -105,7 +106,7 @@ export default async function TwoDToThreeDPage() {
         {
             title: 'Render & Export',
             desc: 'Generate 4K renderings or export the model to other CAD software for further refinement.',
-            image: '/assets/Home-Page/3d-export-toolkit.png',
+            image: '/assets/Home-Page/3d-export-toolkit.webp',
             alt: 'Exporting high-quality 3D renders for real estate presentation'
         }
     ];
@@ -146,10 +147,7 @@ export default async function TwoDToThreeDPage() {
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
+            <JsonLd schema={faqSchema} />
             <TwoDTo3DClient
                 cms={cms}
                 resolvedFaqs={resolvedFaqs}

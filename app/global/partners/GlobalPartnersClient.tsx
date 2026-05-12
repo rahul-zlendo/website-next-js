@@ -255,7 +255,7 @@ export default function GlobalPartnersClient() {
                             <div className="absolute -inset-4 bg-zlendo-teal/10 blur-3xl opacity-30 group-hover:opacity-50 transition duration-1000" />
                             <div className="relative rounded-[32px] overflow-hidden border border-slate-200 shadow-2xl bg-[#0a0a0c]">
                                 <img
-                                    src="/images/global/partner-dashboard.png"
+                                    src="/images/global/partner-dashboard.webp"
                                     alt="Partner Dashboard Preview"
                                     className="w-full h-auto opacity-95 hover:opacity-100 transition duration-700"
                                 />
@@ -378,7 +378,7 @@ export default function GlobalPartnersClient() {
                                     <div className="space-y-8">
                                         <div className="bg-white/[0.03] overflow-hidden rounded-[24px] border border-white/[0.06] relative group">
                                             <img
-                                                src="/images/global/partner-network.png"
+                                                src="/images/global/partner-network.webp"
                                                 alt="Global Network"
                                                 className="w-full h-44 object-cover opacity-60 group-hover:opacity-80 transition duration-500"
                                             />
@@ -474,7 +474,7 @@ export default function GlobalPartnersClient() {
                                         <div className="absolute -inset-4 bg-violet-600/15 blur-3xl opacity-40 rounded-full" />
                                         <div className="relative rounded-[28px] overflow-hidden border border-white/[0.08] bg-[#0a0a0c] group">
                                             <img
-                                                src="/images/global/partner-interior.png"
+                                                src="/images/global/partner-interior.webp"
                                                 alt="Partner Visualization"
                                                 className="w-full h-52 object-cover opacity-70 group-hover:opacity-90 transition duration-700"
                                             />

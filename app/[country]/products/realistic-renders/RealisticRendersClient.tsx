@@ -30,8 +30,8 @@ const IconMapper: { [key: string]: any } = {
     Sliders
 };
 
-const DayImg = '/assets/realistic-renders/day_render.png';
-const NightImg = '/assets/realistic-renders/night_render.png';
+const DayImg = '/assets/realistic-renders/day_render.webp';
+const NightImg = '/assets/realistic-renders/night_render.webp';
 
 export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticRendersClientProps) {
     const [timeOfDay, setTimeOfDay] = useState<'morning' | 'day' | 'evening' | 'night'>('day');
@@ -72,7 +72,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
     ];
 
     const cameraCards = cms?.cameraCards || [
-        { title: 'Human Eye-Level', desc: 'Experience the room as if walking through it.', image: '/assets/realistic-renders/human-eye-level.jpg', alt: 'Human eye-level perspective of interior home design visualization' },
+        { title: 'Human Eye-Level', desc: 'Experience the room as if walking through it.', image: '/assets/realistic-renders/human-eye-level.webp', alt: 'Human eye-level perspective of interior home design visualization' },
         { title: 'Wide Angle', desc: 'Capture the full scale of small spaces easily.', image: '/assets/realistic-renders/wide-angle.webp', alt: 'Wide-angle view of residential architecture and interior layout' },
         { title: 'Top-Down Plan', desc: 'Understand flow and furniture layout clearly.', image: '/assets/realistic-renders/top-down.webp', alt: 'Top-down architectural floor plan layout visualization' }
     ];
@@ -379,7 +379,7 @@ export default function RealisticRendersClient({ cms, resolvedFaqs }: RealisticR
                                     <img src={cms?.audienceImages?.[0] || "/assets/realistic-renders/audience-1.webp"} alt="Interior design concepts for modern residential spaces" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
                                     <img src={cms?.audienceImages?.[1] || "/assets/realistic-renders/audience-2.webp"} alt="Custom home design layout with modern architecture" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
                                     <img src={cms?.audienceImages?.[2] || "/assets/realistic-renders/audience-3.webp"} alt="Modern living space interior design with furniture layout" className="rounded-2xl shadow-lg w-full h-48 object-cover" />
-                                    <img src={cms?.audienceImages?.[3] || "/assets/realistic-renders/interior.jpg"} alt="Interior style selection for realistic 3D home rendering" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
+                                    <img src={cms?.audienceImages?.[3] || "/assets/realistic-renders/interior.webp"} alt="Interior style selection for realistic 3D home rendering" className="rounded-2xl shadow-lg w-full h-48 object-cover mt-8" />
                                 </div>
                             </div>
                         </div>

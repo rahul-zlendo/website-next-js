@@ -55,7 +55,7 @@ const GlobalFloorPlannerPage = async () => {
           }
         ],
         subheading: "Create accurate 2D house plans and watch them come to life in realistic 3D architecture. Built for individuals and professionals who demand speed without sacrificing precision.",
-        image: "/assets/floor-planner/3d-sketch.png",
+        image: "/assets/floor-planner/3d-sketch.webp",
         ctaText: "Start Designing Free",
         ctaLink: SIGNUP_URL,
         ctaSubtext: "14 days, full access. No credit card.",
@@ -72,25 +72,25 @@ const GlobalFloorPlannerPage = async () => {
             number: "1",
             title: "Imagine & Layout",
             description: "Start with a blank canvas or import a rough sketch. Use intelligent tools like auto-dimensioning and wall snapping to draft precise 2D layouts.",
-            image: "/assets/floor-planner/2d-sketch.png"
+            image: "/assets/floor-planner/2d-sketch.webp"
           },
           {
             number: "2",
             title: "AI Conversion",
             description: "Our proprietary engine instantly lifts your 2D lines into a fully structured 3D environment without any manual modeling.",
-            image: "/assets/Home-Page/2d-to-3d-convertor.png"
+            image: "/assets/Home-Page/2d-to-3d-convertor.webp"
           },
           {
             number: "3",
             title: "Personalize",
             description: "Drag and drop thousands of parametric doors, windows, and high-end furniture items to match your exact taste.",
-            image: "/assets/Home-Page/ai-room-inspirtion.png"
+            image: "/assets/Home-Page/ai-room-inspirtion.webp"
           },
           {
             number: "4",
             title: "Live Immersive Experience",
             description: "Take virtual walkthroughs and export your architectural house plans to share securely with contractors or clients.",
-            image: "/assets/Home-Page/3d-export-toolkit.png"
+            image: "/assets/Home-Page/3d-export-toolkit.webp"
           }
         ]
       },
@@ -105,7 +105,7 @@ const GlobalFloorPlannerPage = async () => {
         ],
         statValue: "10 Minutes",
         statLabel: "Average time to full 3D layout",
-        image: "/assets/floor-planner/3d-sketch.png",
+        image: "/assets/floor-planner/3d-sketch.webp",
         imageAtRight: true
       },
       {

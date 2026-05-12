@@ -119,25 +119,25 @@ const GlobalHomePage = async () => {
             number: "01",
             title: "2D to 3D in two minutes",
             description: "Upload any floor plan — DWG, PDF, or image — and Zlendo Realty generates a fully navigable 3D model automatically.",
-            image: '/images/global/step-01.png'
+            image: '/images/global/step-01.webp'
           },
           {
             number: "02",
             title: "Studio-quality renders instantly",
             description: "Generate photorealistic renders with physically accurate lighting and shadow detail in under 60 seconds.",
-            image: '/images/global/step-02.png'
+            image: '/images/global/step-02.webp'
           },
           {
             number: "03",
             title: "Immersive 3D walkthroughs",
             description: "Send a live walking tour that works in any browser. Let clients explore their space on any device before you sign.",
-            image: '/images/global/step-03.png'
+            image: '/images/global/step-03.webp'
           },
           {
             number: "04",
             title: "Connected cost estimation",
             description: "Generate an itemised Bill of Quantities directly from your model. When you change the design, the budget updates.",
-            image: '/images/global/step-04.png'
+            image: '/images/global/step-04.webp'
           }
         ],
         closeText: "The best client meetings end with a decision, not a follow-up."
