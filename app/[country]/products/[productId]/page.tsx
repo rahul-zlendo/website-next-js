@@ -10,6 +10,7 @@ import {
     ChevronDown, Star, ShieldCheck, ThumbsUp, X
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import { useCountry } from '@/lib/context/CountryContext';
 // Images from public folder are referenced as /assets/... not @/public/assets/...
 const DashboardInterfaceImg = '/assets/2d-to-3d/dashboard-interface.webp';
 const UploadFloorplanImg = '/assets/2d-to-3d/upload-floorplan.webp';
@@ -82,8 +83,6 @@ export default function ProductPage() {
             router.push(`/${params.country}`);
         }
     }, [product, router, params.country]);
-
-    if (!product) return null;
 
     if (!product) return null;
 
