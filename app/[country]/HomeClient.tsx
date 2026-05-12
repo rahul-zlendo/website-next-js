@@ -19,6 +19,7 @@ import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 import { urlFor } from '@/lib/sanity/image';
 import FaqAccordion from './components/FaqAccordion';
 import { detectUserRegion } from '@/lib/store/slices/enterpriseSlice';
+import RecentBlogPosts from '@/components/common/RecentBlogPosts';
 
 interface HomeClientProps {
     cms: any;
@@ -711,6 +712,9 @@ export default function HomeClient({
                         </section>
                     );
                 })()}
+
+                {/* RECENT BLOG POSTS */}
+                <RecentBlogPosts />
 
                 {/* FINAL CTA */}
                 <section className="bg-white pt-12 pb-8 md:pt-18 md:pb-18 px-4">

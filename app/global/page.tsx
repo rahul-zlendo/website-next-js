@@ -7,6 +7,7 @@ import GlobalRedesignBlocks from '@/components/global/sections/GlobalRedesignBlo
 import InteractiveGlobalHero from '@/components/global/sections/InteractiveGlobalHero';
 import { notFound } from 'next/navigation';
 import { SIGNUP_URL } from '@/lib/config/env';
+import RecentBlogPosts from '@/components/common/RecentBlogPosts';
 
 export const metadata: Metadata = {
   title: 'Zlendo Realty | AI Home & Office Design Software for Professionals',
@@ -18,6 +19,9 @@ export const metadata: Metadata = {
       'en-IN': 'https://zlendorealty.com/in',
       'x-default': 'https://zlendorealty.com',
     },
+  },
+  openGraph: {
+    url: 'https://zlendorealty.com/',
   },
 };
 
@@ -235,6 +239,7 @@ const GlobalHomePage = async () => {
         {fallbackSections.length > 1 && <SectionRenderer sections={[fallbackSections[1]]} />}
         <AdvancedFeatures />
         {fallbackSections.length > 3 && <SectionRenderer sections={[fallbackSections[3]]} />}
+        <RecentBlogPosts />
         <GlobalRedesignBlocks />
       </main>
     );
@@ -248,6 +253,7 @@ const GlobalHomePage = async () => {
       {sections.length > 1 && <SectionRenderer sections={[sections[1]]} />}
       <AdvancedFeatures />
       {sections.length > 3 && <SectionRenderer sections={[sections[3]]} />}
+      <RecentBlogPosts />
       <GlobalRedesignBlocks />
     </main>
   );
