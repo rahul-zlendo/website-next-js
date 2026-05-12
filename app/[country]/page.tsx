@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       openGraph: {
         title: ogTitle,
         description: ogDesc,
-        url: `${BASE_URL}/in`,
+        url: `${BASE_URL}/in/`,
         siteName: 'Zlendo Realty',
         images: [
           {

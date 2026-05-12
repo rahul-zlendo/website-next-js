@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://zlendorealty.com/in',
+    url: 'https://zlendorealty.com/',
     title: 'Zlendo Realty | AI Home & Office Design Software',
     description:
       'AI-powered 3D home design and floor planning software for architects, builders, interior designers, and vastu consultants.',

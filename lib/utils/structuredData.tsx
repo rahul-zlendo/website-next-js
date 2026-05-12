@@ -8,22 +8,36 @@ export interface BreadcrumbItem {
 }
 
 /**
- * Generate Organization schema
+ * Generate Organization schema for Global Website
  */
 export function generateOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Zlendo Realty',
-    url: 'https://zlendorealty.com',
-    logo: 'https://zlendorealty.com/logo.png',
-    description:
-      'Free 3D Home Design & Floor Planning Software. Explore powerful tools and resources to design your perfect space',
+    name: 'Zlendo Technologies Pvt. Ltd.',
+    url: 'https://zlendorealty.com/',
+    email: 'support@zlendorealty.com',
+    description: 'Zlendo Realty is a global real estate and design software platform offering house and office design solutions for professionals and individuals.',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '36/1, Ganapathy Street, Alagappan Nagar',
+      addressLocality: 'Madurai',
+      postalCode: '625003',
+      addressRegion: 'Tamil Nadu',
+      addressCountry: 'IN'
+    },
+    areaServed: [
+      'India',
+      'Pune',
+      'Bengaluru',
+      'Delhi',
+      'Hyderabad'
+    ],
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'support@zlendorealty.com',
-      contactType: 'Customer Support',
-      areaServed: ['IN'],
+      contactType: 'customer support',
+      availableLanguage: ['English', 'Hindi', 'Tamil']
     },
     sameAs: [
       'https://www.linkedin.com/showcase/zlendo-realty',
@@ -32,6 +46,58 @@ export function generateOrganizationSchema() {
       'https://x.com/ZlendoRealty',
       'https://www.youtube.com/@zlendorealty',
     ],
+  };
+}
+
+/**
+ * Generate LocalBusiness schema for India Website
+ */
+export function generateLocalBusinessSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'Zlendo Realty',
+    url: 'https://zlendorealty.com/in',
+    email: 'support@zlendorealty.com',
+    telephone: '+91 8047135989',
+    description: 'Zlendo Realty is a real estate and design software platform offering house and office design solutions for professionals and individuals.',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '36/1, Ganapathy Street, Alagappan Nagar',
+      addressLocality: 'Madurai',
+      postalCode: '625003',
+      addressRegion: 'Tamil Nadu',
+      addressCountry: 'IN'
+    },
+    areaServed: [
+      {
+        '@type': 'City',
+        'name': 'Pune'
+      },
+      {
+        '@type': 'City',
+        'name': 'Bengaluru'
+      },
+      {
+        '@type': 'City',
+        'name': 'Delhi'
+      },
+      {
+        '@type': 'City',
+        'name': 'Hyderabad'
+      },
+      {
+        '@type': 'Country',
+        'name': 'India'
+      }
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91 8047135989',
+      contactType: 'customer support',
+      email: 'support@zlendorealty.com',
+      availableLanguage: ['English', 'Hindi', 'Tamil']
+    }
   };
 }
 
