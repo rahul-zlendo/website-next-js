@@ -3,11 +3,12 @@ import { getClient } from '@/lib/sanity/client';
 import { roomStylerPageQuery } from '@/lib/sanity/queries';
 import RoomStylerClient from './RoomStylerClient';
 import { Metadata } from 'next';
+import JsonLd from '@/components/common/JsonLd';
 
-const ScandinavianImg = '/assets/room-styler/scandinavian.jpg';
-const UploadRoomImg = '/assets/2d-to-3d/upload-floorplan.png';
-const AIInspirationImg = '/assets/Home-Page/ai-room-inspirtion.png';
-const FinalRenderImg = '/assets/Home-Page/living-room/scandinavian-style.jpg';
+const ScandinavianImg = '/assets/room-styler/scandinavian.webp';
+const UploadRoomImg = '/assets/2d-to-3d/upload-floorplan.webp';
+const AIInspirationImg = '/assets/Home-Page/ai-room-inspirtion.webp';
+const FinalRenderImg = '/assets/Home-Page/living-room/scandinavian-style.webp';
 
 export async function generateMetadata(): Promise<Metadata> {
     const { isEnabled: preview } = await draftMode();
@@ -107,10 +108,7 @@ export default async function RoomStylerPage() {
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
+            <JsonLd schema={faqSchema} />
             <RoomStylerClient 
                 cms={cms} 
                 resolvedFaqs={resolvedFaqs}

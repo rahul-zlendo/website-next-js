@@ -4,6 +4,7 @@ import { Sparkles, PenTool, Zap, Layers, Home } from 'lucide-react';
 import { getClient } from '@/lib/sanity/client';
 import { floorPlannerPageQuery } from '@/lib/sanity/queries';
 import FloorPlannerClient from './FloorPlannerClient';
+import JsonLd from '@/components/common/JsonLd';
 
 const BASE_URL = 'https://zlendorealty.com';
 const COUNTRY = 'in';
@@ -139,10 +140,7 @@ export default async function Page({ params }: Props) {
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
+            <JsonLd schema={faqSchema} />
             <FloorPlannerClient 
                 cms={cms} 
                 resolvedFaqs={resolvedFaqs}

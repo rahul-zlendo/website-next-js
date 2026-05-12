@@ -10,10 +10,9 @@ import {
     ChevronDown, Star, ShieldCheck, ThumbsUp, X
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
-import { useCountry } from '@/lib/context/CountryContext';
 // Images from public folder are referenced as /assets/... not @/public/assets/...
-const DashboardInterfaceImg = '/assets/2d-to-3d/dashboard-interface.png';
-const UploadFloorplanImg = '/assets/2d-to-3d/upload-floorplan.png';
+const DashboardInterfaceImg = '/assets/2d-to-3d/dashboard-interface.webp';
+const UploadFloorplanImg = '/assets/2d-to-3d/upload-floorplan.webp';
 
 // Extended Product Data to fit the new rich template
 const productData = {
@@ -86,26 +85,10 @@ export default function ProductPage() {
 
     if (!product) return null;
 
-    const faqSchema = {
-        "@context": "https://schema.org/",
-        "@type": "FAQPage",
-        "name": `${product.title} - Frequently Asked Questions`,
-        "mainEntity": faqs.map(faq => ({
-            "@type": "Question",
-            "name": faq.q,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.a
-            }
-        }))
-    };
+    if (!product) return null;
 
     return (
         <div className="bg-white min-h-screen font-nunito pt-4">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
             {/* 1. HERO SECTION */}
             <section className="bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
                 <div className="container-custom px-6 py-12 lg:py-20">

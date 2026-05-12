@@ -42,10 +42,10 @@ const AiTransformation = () => {
                     onTouchMove={(e) => handleMove(e.touches[0].clientX)}
                 >
                     <div className="absolute inset-0">
-                        <img src="/assets/global/luxury-living-room.png" className="w-full h-full object-cover pointer-events-none" alt="3D Render" />
+                        <img src="/assets/global/luxury-living-room.webp" className="w-full h-full object-cover pointer-events-none" alt="3D Render" />
                     </div>
                     <div className="absolute inset-0 border-r-4 border-white/90" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
-                        <img src="/assets/global/luxury-blueprint.png" className="w-full h-full object-cover pointer-events-none" alt="2D Plan" />
+                        <img src="/assets/global/luxury-blueprint.webp" className="w-full h-full object-cover pointer-events-none" alt="2D Plan" />
                     </div>
                     <div className="absolute top-0 bottom-0 w-1 flex items-center justify-center -ml-0.5 pointer-events-none" style={{ left: `${sliderPosition}%` }}>
                         <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-2xl border border-black/10">
@@ -63,19 +63,19 @@ const ImmersiveFeatures = () => {
         {
             title: "Instantly Walk Inside.",
             desc: "Don't send flat PDFs. Send live 3D browser links instantly.",
-            img: "/assets/Home-Page/3d-export-toolkit.png",
+            img: "/assets/Home-Page/3d-export-toolkit.webp",
             icon: Play
         },
         {
             title: "Photorealism in Seconds.",
             desc: "Cloud-based 4K rendering that runs on any laptop.",
-            img: "/assets/global/office-lobby.png",
+            img: "/assets/global/office-lobby.webp",
             icon: Zap
         },
         {
             title: "AI Design Assistant.",
             desc: "Type 'Modern Scandinavian' and watch the entire room restyle.",
-            img: "/assets/Home-Page/ai-room-inspirtion.png",
+            img: "/assets/Home-Page/ai-room-inspirtion.webp",
             icon: Wand2
         }
     ];
@@ -294,17 +294,17 @@ const TabbedUseCases = () => {
     const tabs = [
         {
             name: "Architects",
-            img: "/assets/2d_hero.png",
+            img: "/assets/2d_hero.webp",
             benefits: ["Convert DWG to 3D instantly", "Accurate sun/shadow simulation", "Client-ready presentations"]
         },
         {
             name: "Interior Designers",
-            img: "/assets/Home-Page/ai-room-inspirtion.png",
+            img: "/assets/Home-Page/ai-room-inspirtion.webp",
             benefits: ["Real-time material swapping", "10k+ Shoppable catalog items", "Instantly render mood variations"]
         },
         {
             name: "Builders & Devs",
-            img: "/assets/global/villa-night.png",
+            img: "/assets/global/villa-night.webp",
             benefits: ["Showcase units before breaking ground", "Live cost-estimation tracking", "Reduce client disputes significantly"]
         }
     ];
@@ -407,7 +407,7 @@ const VisualTestimonials = () => {
 const HighContrastCTA = () => {
     return (
         <section className="py-24 bg-[#050505] text-white relative overflow-hidden">
-            <div className="absolute inset-0 bg-[url('/assets/global/luxury-living-room.png')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
+            <div className="absolute inset-0 bg-[url('/assets/global/luxury-living-room.webp')] bg-cover bg-center opacity-10 mix-blend-luminosity" />
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
 
             <div className="container-custom px-4 text-center relative z-10 max-w-4xl mx-auto">

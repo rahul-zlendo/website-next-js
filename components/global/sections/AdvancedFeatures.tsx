@@ -86,7 +86,7 @@ export default function AdvancedFeatures() {
                         <div className="relative">
                             <div className="bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-black/5 overflow-hidden p-2">
                                 <img
-                                    src="/assets/global/flow-image.png"
+                                    src="/assets/global/flow-image.webp"
                                     alt="Design Flow"
                                     className="w-full h-auto object-contain rounded-2xl"
                                 />

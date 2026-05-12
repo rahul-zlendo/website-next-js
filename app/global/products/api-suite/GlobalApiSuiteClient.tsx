@@ -65,7 +65,7 @@ const steps = [
     {
         title: 'Connect the Intelligence',
         desc: 'Obtain your enterprise API keys and authenticate via our secure OAuth 2.0 gateway. Integration takes minutes, not months.',
-        image: '/images/global/partner-network.png',
+        image: '/images/global/partner-network.webp',
         code: `const engine = new ZlendoClient({
   apiKey: 'zl_live_8kH2...9fB',
   region: 'global-west'
@@ -74,7 +74,7 @@ const steps = [
     {
         title: 'Inject Design Jobs',
         desc: 'Submit 2D floor plans, PDFs, or CAD files via simple REST endpoints. Our engine auto-processes geometry and lighting in parallel.',
-        image: '/images/global/api-suite-dashboard.png',
+        image: '/images/global/api-suite-dashboard.webp',
         code: `const job = await engine.conversion.create({
   source: 'https://bucket.com/plan.jpg',
   autoStyle: 'modern_luxe'
@@ -83,7 +83,7 @@ const steps = [
     {
         title: 'Close the Client',
         desc: 'Receive high-fidelity 3D assets and photorealistic renders. Distribute them through your platform to close enterprise design deals faster.',
-        image: '/images/global/partner-interior.png',
+        image: '/images/global/partner-interior.webp',
         code: `// Finalizing Project
 const assets = await job.getAssets();
 console.log(assets.renders[0].url);`
@@ -147,7 +147,7 @@ export default function GlobalApiSuiteClient() {
                         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative group">
                             <div className="absolute -inset-4 bg-zlendo-teal/10 blur-3xl opacity-30 group-hover:opacity-50 transition duration-1000" />
                             <div className="relative rounded-[32px] overflow-hidden border border-slate-200 shadow-2xl bg-[#0a0a0c]">
-                                <img src="/images/global/api-suite-dashboard.png" alt="API Suite Dashboard" className="w-full h-auto opacity-95 group-hover:opacity-100 transition-opacity duration-700" />
+                                <img src="/images/global/api-suite-dashboard.webp" alt="API Suite Dashboard" className="w-full h-auto opacity-95 group-hover:opacity-100 transition-opacity duration-700" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
                             </div>
                         </motion.div>

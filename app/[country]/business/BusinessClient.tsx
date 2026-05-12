@@ -312,7 +312,7 @@ export default function BusinessClient({ cms, country }: BusinessClientProps) {
                                 <div className="relative rounded-[40px] overflow-hidden shadow-2xl border border-black/5 group">
                                     <div className="absolute inset-0 bg-gradient-to-t from-zlendo-grey-dark/80 to-transparent opacity-60 z-10" />
                                     <img
-                                        src={cms?.roiImage ? urlFor(cms.roiImage).url() : "/assets/business/apex-developer.png"}
+                                        src={cms?.roiImage ? urlFor(cms.roiImage).url() : "/assets/business/apex-developer.webp"}
                                         alt={cms?.roiImage?.alt || "Apex Developers Dashboard"}
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                         loading="lazy"

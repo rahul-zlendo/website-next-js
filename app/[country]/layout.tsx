@@ -13,7 +13,6 @@ import { getClient } from '@/lib/sanity/client';
 import { siteSettingsQuery } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/image';
 import { draftMode } from 'next/headers';
-import { generateLocalBusinessSchema, getStructuredDataScript } from '@/lib/utils/structuredData';
 
 const SUPPORTED_COUNTRIES = ['in'];
 
@@ -40,31 +39,10 @@ export default async function CountryLayout({
   const { isEnabled: preview } = await draftMode();
   const settings = await getClient(preview).fetch(siteSettingsQuery).catch(() => null);
   const logoUrl = settings?.logoImage ? urlFor(settings.logoImage).url() : undefined;
-  
-  const localBusinessSchema = generateLocalBusinessSchema();
 
   return (
     <CountryProvider initialCountry={country as CountryCode}>
       <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
-        {/* LocalBusiness Schema for India */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: getStructuredDataScript(localBusinessSchema) }}
-        />
-        {/* Global JSON-LD Schema for Software Application */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "SoftwareApplication",
-              "name": "Zlendo Realty",
-              "applicationCategory": "DesignApplication",
-              "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
-              "operatingSystem": "Web"
-            })
-          }}
-        />
         <AuthSync />
         <PromoBanner />
           <Header logoUrl={logoUrl} />

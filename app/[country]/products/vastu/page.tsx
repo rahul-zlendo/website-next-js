@@ -3,6 +3,7 @@ import { getClient } from '@/lib/sanity/client';
 import { vastuPageQuery } from '@/lib/sanity/queries';
 import VastuClient from './VastuClient';
 import { Metadata } from 'next';
+import JsonLd from '@/components/common/JsonLd';
 
 export async function generateMetadata(): Promise<Metadata> {
     const { isEnabled: preview } = await draftMode();
@@ -46,10 +47,10 @@ export default async function VastuPage() {
     ];
 
     const defaultSteps = [
-        { title: 'Upload Floor Plan', desc: 'Upload your layout and orient it towards North.', image: '/assets/vastu/upload-plan.png' },
-        { title: 'Analyze', desc: 'AI scans the placement of rooms, doors, and furniture.', image: '/assets/floor-planner/3d-sketch.png' },
-        { title: 'View Issues', desc: 'Identify problem areas affecting health or wealth.', image: '/assets/floor-planner/2d-sketch.png' },
-        { title: 'Apply Remedies', desc: 'Implement suggested changes and improved layout.', image: '/assets/2d-to-3d/dashboard-interface.png' }
+        { title: 'Upload Floor Plan', desc: 'Upload your layout and orient it towards North.', image: '/assets/vastu/upload-plan.webp' },
+        { title: 'Analyze', desc: 'AI scans the placement of rooms, doors, and furniture.', image: '/assets/floor-planner/3d-sketch.webp' },
+        { title: 'View Issues', desc: 'Identify problem areas affecting health or wealth.', image: '/assets/floor-planner/2d-sketch.webp' },
+        { title: 'Apply Remedies', desc: 'Implement suggested changes and improved layout.', image: '/assets/2d-to-3d/dashboard-interface.webp' }
     ];
 
     const defaultFeatures = [
@@ -82,10 +83,7 @@ export default async function VastuPage() {
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
+            <JsonLd schema={faqSchema} />
             <VastuClient 
                 cms={cms} 
                 resolvedFaqs={resolvedFaqs}

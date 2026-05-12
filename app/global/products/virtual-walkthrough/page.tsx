@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import VirtualWalkthroughClient from '../../../[country]/products/virtual-walkthrough/VirtualWalkthroughClient';
 import { client } from '@/lib/sanity/client';
 import { virtualWalkthroughPageQuery } from '@/lib/sanity/queries';
+import JsonLd from '@/components/common/JsonLd';
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await client.fetch(virtualWalkthroughPageQuery);
@@ -65,10 +66,7 @@ export default async function GlobalVirtualWalkthroughPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <JsonLd schema={faqSchema} />
       <VirtualWalkthroughClient cms={cms} resolvedFaqs={resolvedFaqs} country={country} />
     </>
   );

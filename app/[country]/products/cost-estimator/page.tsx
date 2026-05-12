@@ -2,6 +2,7 @@ import type { Metadata, ResolvingMetadata } from 'next';
 import CostEstimatorClient from './CostEstimatorClient';
 import { client } from '@/lib/sanity/client';
 import { costEstimatorPageQuery } from '@/lib/sanity/queries';
+import JsonLd from '@/components/common/JsonLd';
 
 interface PageProps {
   params: Promise<{ country: string }>;
@@ -88,10 +89,7 @@ export default async function CostEstimatorPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <JsonLd schema={faqSchema} />
       <CostEstimatorClient cms={cms} resolvedFaqs={resolvedFaqs} />
     </>
   );

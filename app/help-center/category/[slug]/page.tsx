@@ -5,6 +5,7 @@ import { getHcPostsByCategory, getHcCategoryBySlug, getAllHcCategorySlugs } from
 import { generateHcCategoryMetadata, generateBreadcrumbJsonLd } from '@/lib/wordpress/hc-seo';
 import { HcCard } from '@/components/helpcenter';
 import { Pagination, BlogHero, BlogBreadcrumb } from '@/components/blog';
+import JsonLd from '@/components/common/JsonLd';
 
 interface CategoryPageProps {
     params: Promise<{ slug: string }>;
@@ -95,10 +96,7 @@ export default async function HcCategoryPage({ params, searchParams }: CategoryP
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
+            <JsonLd schema={breadcrumbJsonLd} />
 
             <BlogHero
                 title={category.name}

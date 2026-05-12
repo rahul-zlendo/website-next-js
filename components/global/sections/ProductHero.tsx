@@ -235,7 +235,7 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
               {/* Image card */}
               <div className="relative rounded-[32px] overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.6)] ring-1 ring-white/5">
                 <img
-                  src={image || '/assets/products/premium_3d_architecture_hero.png'}
+                  src={image || '/assets/products/premium_3d_architecture_hero.webp'}
                   alt="Product Visualization"
                   className="w-full h-auto object-cover aspect-[4/3]"
                 />

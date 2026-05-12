@@ -17,8 +17,8 @@ interface FloorPlannerClientProps {
     resolvedTemplateTags: any[];
 }
 
-const TwoDSketchImg = '/assets/floor-planner/2d-sketch.png';
-const ThreeDSketchImg = '/assets/floor-planner/3d-sketch.png';
+const TwoDSketchImg = '/assets/floor-planner/2d-sketch.webp';
+const ThreeDSketchImg = '/assets/floor-planner/3d-sketch.webp';
 
 export default function FloorPlannerClient({ 
     cms, 

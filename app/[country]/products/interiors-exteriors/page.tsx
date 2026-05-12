@@ -3,8 +3,9 @@ import { getClient } from '@/lib/sanity/client';
 import { interiorsExteriorsPageQuery } from '@/lib/sanity/queries';
 import InteriorsExteriorsClient from './InteriorsExteriorsClient';
 import { Metadata } from 'next';
+import JsonLd from '@/components/common/JsonLd';
 
-const ModernPathwayImg = '/assets/interior-exterior/modern-pathway.png';
+const ModernPathwayImg = '/assets/interior-exterior/modern-pathway.webp';
 
 export async function generateMetadata(): Promise<Metadata> {
     const { isEnabled: preview } = await draftMode();
@@ -173,10 +174,7 @@ export default async function InteriorsExteriorsPage() {
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
+            <JsonLd schema={faqSchema} />
             <InteriorsExteriorsClient 
                 cms={cms} 
                 resolvedStates={resolvedStates}

@@ -3,6 +3,7 @@ import { draftMode } from 'next/headers';
 import { getClient } from '@/lib/sanity/client';
 import { vrStudioPageQuery } from '@/lib/sanity/queries';
 import VRStudioClient from './VRStudioClient';
+import JsonLd from '@/components/common/JsonLd';
 
 export const revalidate = 60;
 
@@ -100,10 +101,7 @@ export default async function VRStudioPage({ params }: Props) {
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
+            <JsonLd schema={faqSchema} />
             <VRStudioClient
                 cms={cms}
                 resolvedFaqs={resolvedFaqs}

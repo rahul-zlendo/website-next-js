@@ -3,6 +3,7 @@ import { draftMode } from 'next/headers';
 import { getClient } from '@/lib/sanity/client';
 import { apiSuitePageQuery } from '@/lib/sanity/queries';
 import APISuiteClient from './APISuiteClient';
+import JsonLd from '@/components/common/JsonLd';
 
 export const revalidate = 60;
 
@@ -100,10 +101,7 @@ export default async function APISuitePage({ params }: Props) {
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
+            <JsonLd schema={faqSchema} />
             <APISuiteClient
                 cms={cms}
                 resolvedFaqs={resolvedFaqs}

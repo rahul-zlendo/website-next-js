@@ -133,7 +133,7 @@ export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resol
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <div className="order-2 lg:order-1 relative">
                             <div className="absolute -inset-10 bg-zlendo-teal opacity-20 blur-[80px] rounded-full" />
-                            <img src={cms?.howToImage ? urlFor(cms.howToImage).url() : "/assets/2d-to-3d/dashboard-interface.png"} alt="Dashboard Interface" className="relative z-10 rounded-2xl shadow-2xl border border-white/10 w-full" />
+                            <img src={cms?.howToImage ? urlFor(cms.howToImage).url() : "/assets/2d-to-3d/dashboard-interface.webp"} alt="Dashboard Interface" className="relative z-10 rounded-2xl shadow-2xl border border-white/10 w-full" />
                         </div>
                         <div className="order-1 lg:order-2">
                             <h2 className="text-4xl md:text-5xl font-black mb-6 whitespace-pre-line">{cms?.howToTitle || "Master your design \n in minutes."}</h2>
