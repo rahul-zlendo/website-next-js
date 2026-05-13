@@ -1,6 +1,5 @@
 import { createPageMetadata } from '@/lib/seo/metadata';
 import PlansClient from './PlansClient';
-import JsonLd from '@/components/common/JsonLd';
 
 export const metadata = createPageMetadata({
     title: 'Subscription Plans | Zlendo Realty',
@@ -68,7 +67,10 @@ export default async function PlansPage() {
 
     return (
         <>
-            <JsonLd schema={jsonLd} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <PlansClient />
         </>
     );

@@ -1,6 +1,5 @@
 import { createPageMetadata } from '@/lib/seo/metadata';
 import PlansClient from '@/app/[country]/plans/PlansClient';
-import JsonLd from '@/components/common/JsonLd';
 
 export const metadata = createPageMetadata({
     title: 'Subscription Plans | Zlendo Realty',
@@ -24,14 +23,14 @@ export default async function GlobalPlansPage() {
             {
                 "@type": "Offer",
                 "name": "Starter Plan",
-                "price": "1250",
-                "priceCurrency": "INR",
+                "price": "15",
+                "priceCurrency": "USD",
                 "availability": "https://schema.org/InStock",
                 "url": "https://zlendorealty.com/plans",
                 "priceSpecification": {
                     "@type": "UnitPriceSpecification",
-                    "price": "1250",
-                    "priceCurrency": "INR",
+                    "price": "15",
+                    "priceCurrency": "USD",
                     "billingDuration": 1,
                     "billingIncrement": 1,
                     "unitCode": "MON"
@@ -41,14 +40,14 @@ export default async function GlobalPlansPage() {
             {
                 "@type": "Offer",
                 "name": "Pro Plan",
-                "price": "2450",
-                "priceCurrency": "INR",
+                "price": "29",
+                "priceCurrency": "USD",
                 "availability": "https://schema.org/InStock",
                 "url": "https://zlendorealty.com/plans",
                 "priceSpecification": {
                     "@type": "UnitPriceSpecification",
-                    "price": "2450",
-                    "priceCurrency": "INR",
+                    "price": "29",
+                    "priceCurrency": "USD",
                     "billingDuration": 1,
                     "billingIncrement": 1,
                     "unitCode": "MON"
@@ -58,7 +57,7 @@ export default async function GlobalPlansPage() {
             {
                 "@type": "Offer",
                 "name": "Enterprise Plan",
-                "priceCurrency": "INR",
+                "priceCurrency": "USD",
                 "availability": "https://schema.org/InStock",
                 "url": "https://zlendorealty.com/plans",
                 "description": "Custom pricing for enterprise and large-scale operations."
@@ -68,7 +67,10 @@ export default async function GlobalPlansPage() {
 
     return (
         <>
-            <JsonLd schema={jsonLd} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <PlansClient isGlobal={true} />
         </>
     );
