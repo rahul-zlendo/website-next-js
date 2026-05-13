@@ -20,7 +20,7 @@ const ChatWidget = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
-            text: "Hi! I'm your Zlendo AI assistant. How can I help you today? You can ask about our Pricing, 3D Tools, or Vastu services.",
+            text: "Hi! I'm your Zlendo AI assistant. How can I help you today? You can ask about our Pricing, 3D Tools, or Virtual Walkthrough.",
             sender: 'bot',
             timestamp: new Date()
         }
