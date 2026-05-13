@@ -124,7 +124,7 @@ export function generateWebSiteSchema() {
 /**
  * Generate SoftwareApplication schema (enables software rich results)
  */
-export function generateSoftwareApplicationSchema() {
+export function generateSoftwareApplicationSchema(isGlobal: boolean = false) {
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
@@ -134,11 +134,11 @@ export function generateSoftwareApplicationSchema() {
     offers: {
       '@type': 'Offer',
       price: '0',
-      priceCurrency: 'INR',
+      priceCurrency: isGlobal ? 'USD' : 'INR',
     },
     description:
-      'AI-powered 3D home design and floor planning software for architects, builders, interior designers, and vastu consultants.',
-    url: 'https://zlendorealty.com/in',
+      'Zlendo Realty is an AI-powered design software platform offering house and office design solutions for professionals and individuals.',
+    url: isGlobal ? 'https://zlendorealty.com/' : 'https://zlendorealty.com/in',
     screenshot: 'https://zlendorealty.com/og-image.jpg',
     creator: {
       '@type': 'Organization',

@@ -88,14 +88,21 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
 };
 
-export default function RootLayout({
+import { headers } from 'next/headers';
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const host = headersList.get('host') || '';
+  // Global if host is zlendorealty.com (without .in)
+  const isGlobal = host.includes('zlendorealty.com') && !host.includes('.in');
+  
   const organizationSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
-  const softwareAppSchema = generateSoftwareApplicationSchema();
+  const softwareAppSchema = generateSoftwareApplicationSchema(isGlobal);
   const localBusinessSchema = generateLocalBusinessSchema();
 
   return (
