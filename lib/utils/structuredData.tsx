@@ -17,7 +17,7 @@ export function generateOrganizationSchema() {
     name: 'Zlendo Technologies Pvt. Ltd.',
     url: 'https://zlendorealty.com/',
     email: 'support@zlendorealty.com',
-    description: 'Zlendo Realty is a global real estate and design software platform offering house and office design solutions for professionals and individuals.',
+    description: 'Zlendo Realty is an AI-powered design software platform offering house and office design solutions for professionals and individuals.',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '36/1, Ganapathy Street, Alagappan Nagar',
