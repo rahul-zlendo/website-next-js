@@ -9,9 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           '/api/',
           '/temp',
-          '/register',
           '/user-profile',
-          '/vastu-campaign',
         ],
       },
     ],
