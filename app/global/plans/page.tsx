@@ -51,6 +51,49 @@ export default async function GlobalPlansPage() {
             },
             "description": "Powerful design features for renovation and single-room projects."
         },
+        {
+            "@type": "Offer",
+            "name": "Discover",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "description": "Free discovery plan for individuals in Europe."
+        },
+        {
+            "@type": "Offer",
+            "name": "Design Pro",
+            "price": "27",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "27",
+                "priceCurrency": "EUR",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "Professional design tools for European creators."
+        },
+        {
+            "@type": "Offer",
+            "name": "Studio Elite",
+            "price": "55",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "55",
+                "priceCurrency": "EUR",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "The ultimate design package for professional studios in Europe."
+        }
 
     ];
 
