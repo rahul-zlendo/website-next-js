@@ -1,5 +1,8 @@
 import { createPageMetadata } from '@/lib/seo/metadata';
 import PlansClient from './PlansClient';
+import { getAllSubscriptionsService, Subscription } from '@/lib/services/subscriptionService';
+import { getAllOffersService, Offer } from '@/lib/services/offerService';
+import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
 
 export const metadata = createPageMetadata({
     title: 'Subscription Plans | Zlendo Realty',
@@ -7,7 +10,99 @@ export const metadata = createPageMetadata({
     path: '/in/plans',
 });
 
-export default async function PlansPage() {
+interface PageProps {
+    params: Promise<{ country: string }>;
+}
+
+const isOfferValid = (offer: Offer): boolean => {
+    if (offer.isActive === false) return false;
+    if (!offer.validFrom || !offer.validTo) return true;
+    try {
+        const now = new Date();
+        const validFrom = new Date(offer.validFrom);
+        const validTo = new Date(offer.validTo);
+        return now >= validFrom && now <= validTo;
+    } catch {
+        return true;
+    }
+};
+
+export default async function PlansPage({ params }: PageProps) {
+    const { country } = await params;
+    const isIndia = country.toLowerCase() === 'in';
+
+    const offers = [
+        {
+            "@type": "Offer",
+            "name": "Free Plan",
+            "price": "0",
+            "priceCurrency": isIndia ? "INR" : "USD",
+            "availability": "https://schema.org/InStock",
+            "url": `https://zlendorealty.com/${country}/plans`,
+            "description": "Essential AI design tools for individuals getting started."
+        },
+        {
+            "@type": "Offer",
+            "name": "Basic Plan",
+            "price": isIndia ? "499" : "15",
+            "priceCurrency": isIndia ? "INR" : "USD",
+            "availability": "https://schema.org/InStock",
+            "url": `https://zlendorealty.com/${country}/plans`,
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": isIndia ? "499" : "15",
+                "priceCurrency": isIndia ? "INR" : "USD",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "Powerful design features for renovation and single-room projects."
+        },
+        {
+            "@type": "Offer",
+            "name": "Power User Plan",
+            "price": isIndia ? "999" : "29",
+            "priceCurrency": isIndia ? "INR" : "USD",
+            "availability": "https://schema.org/InStock",
+            "url": `https://zlendorealty.com/${country}/plans`,
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": isIndia ? "999" : "29",
+                "priceCurrency": isIndia ? "INR" : "USD",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "Advanced tools for high-volume designers and professionals."
+        },
+        {
+            "@type": "Offer",
+            "name": "Designer Plus Plan",
+            "price": isIndia ? "1599" : "49",
+            "priceCurrency": isIndia ? "INR" : "USD",
+            "availability": "https://schema.org/InStock",
+            "url": `https://zlendorealty.com/${country}/plans`,
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": isIndia ? "1599" : "49",
+                "priceCurrency": isIndia ? "INR" : "USD",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "The ultimate package with premium renders and unlimited walkthroughs."
+        },
+        {
+            "@type": "Offer",
+            "name": "Enterprise Plan",
+            "price": "0",
+            "priceCurrency": isIndia ? "INR" : "USD",
+            "availability": "https://schema.org/InStock",
+            "url": `https://zlendorealty.com/${country}/plans`,
+            "description": "Custom solutions for large-scale real estate and retail businesses."
+        }
+    ];
+
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Product",
@@ -18,51 +113,8 @@ export default async function PlansPage() {
             "@type": "Brand",
             "name": "Zlendo Realty"
         },
-        "url": "https://zlendorealty.com/in/plans",
-        "offers": [
-            {
-                "@type": "Offer",
-                "name": "Starter Plan",
-                "price": "1250",
-                "priceCurrency": "INR",
-                "availability": "https://schema.org/InStock",
-                "url": "https://zlendorealty.com/in/plans",
-                "priceSpecification": {
-                    "@type": "UnitPriceSpecification",
-                    "price": "1250",
-                    "priceCurrency": "INR",
-                    "billingDuration": 1,
-                    "billingIncrement": 1,
-                    "unitCode": "MON"
-                },
-                "description": "Perfect for individuals and freelancers with essential AI design tools."
-            },
-            {
-                "@type": "Offer",
-                "name": "Pro Plan",
-                "price": "2450",
-                "priceCurrency": "INR",
-                "availability": "https://schema.org/InStock",
-                "url": "https://zlendorealty.com/in/plans",
-                "priceSpecification": {
-                    "@type": "UnitPriceSpecification",
-                    "price": "2450",
-                    "priceCurrency": "INR",
-                    "billingDuration": 1,
-                    "billingIncrement": 1,
-                    "unitCode": "MON"
-                },
-                "description": "Advanced plan for professionals and teams with walkthroughs and premium features."
-            },
-            {
-                "@type": "Offer",
-                "name": "Enterprise Plan",
-                "priceCurrency": "INR",
-                "availability": "https://schema.org/InStock",
-                "url": "https://zlendorealty.com/in/plans",
-                "description": "Custom pricing for enterprise and large-scale operations."
-            }
-        ]
+        "url": `https://zlendorealty.com/${country}/plans`,
+        "offers": offers
     };
 
     return (
