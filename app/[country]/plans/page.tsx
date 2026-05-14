@@ -92,15 +92,6 @@ export default async function PlansPage({ params }: PageProps) {
             },
             "description": "The ultimate package with premium renders and unlimited walkthroughs."
         },
-        {
-            "@type": "Offer",
-            "name": "Enterprise Plan",
-            "price": "0",
-            "priceCurrency": isIndia ? "INR" : "USD",
-            "availability": "https://schema.org/InStock",
-            "url": `https://zlendorealty.com/${country}/plans`,
-            "description": "Custom solutions for large-scale real estate and retail businesses."
-        }
     ];
 
     const jsonLd = {
