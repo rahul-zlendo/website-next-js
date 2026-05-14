@@ -1,5 +1,8 @@
 import { createPageMetadata } from '@/lib/seo/metadata';
 import PlansClient from '@/app/[country]/plans/PlansClient';
+import { getAllSubscriptionsService, Subscription } from '@/lib/services/subscriptionService';
+import { getAllOffersService, Offer } from '@/lib/services/offerService';
+import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
 
 export const metadata = createPageMetadata({
     title: 'Subscription Plans | Zlendo Realty',
@@ -7,7 +10,50 @@ export const metadata = createPageMetadata({
     path: '/plans',
 });
 
+const isOfferValid = (offer: Offer): boolean => {
+    if (offer.isActive === false) return false;
+    if (!offer.validFrom || !offer.validTo) return true;
+    try {
+        const now = new Date();
+        const validFrom = new Date(offer.validFrom);
+        const validTo = new Date(offer.validTo);
+        return now >= validFrom && now <= validTo;
+    } catch {
+        return true;
+    }
+};
+
 export default async function GlobalPlansPage() {
+    const offers = [
+        {
+            "@type": "Offer",
+            "name": "Explore",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "description": "Essential AI design tools for individuals getting started."
+        },
+        {
+            "@type": "Offer",
+            "name": "Builder",
+            "price": "12",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "12",
+                "priceCurrency": "USD",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "Powerful design features for renovation and single-room projects."
+        },
+
+    ];
+
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Product",
@@ -19,50 +65,7 @@ export default async function GlobalPlansPage() {
             "name": "Zlendo Realty"
         },
         "url": "https://zlendorealty.com/plans",
-        "offers": [
-            {
-                "@type": "Offer",
-                "name": "Starter Plan",
-                "price": "15",
-                "priceCurrency": "USD",
-                "availability": "https://schema.org/InStock",
-                "url": "https://zlendorealty.com/plans",
-                "priceSpecification": {
-                    "@type": "UnitPriceSpecification",
-                    "price": "15",
-                    "priceCurrency": "USD",
-                    "billingDuration": 1,
-                    "billingIncrement": 1,
-                    "unitCode": "MON"
-                },
-                "description": "Perfect for individuals and freelancers with essential AI design tools."
-            },
-            {
-                "@type": "Offer",
-                "name": "Pro Plan",
-                "price": "29",
-                "priceCurrency": "USD",
-                "availability": "https://schema.org/InStock",
-                "url": "https://zlendorealty.com/plans",
-                "priceSpecification": {
-                    "@type": "UnitPriceSpecification",
-                    "price": "29",
-                    "priceCurrency": "USD",
-                    "billingDuration": 1,
-                    "billingIncrement": 1,
-                    "unitCode": "MON"
-                },
-                "description": "Advanced plan for professionals and teams with walkthroughs and premium features."
-            },
-            {
-                "@type": "Offer",
-                "name": "Enterprise Plan",
-                "priceCurrency": "USD",
-                "availability": "https://schema.org/InStock",
-                "url": "https://zlendorealty.com/plans",
-                "description": "Custom pricing for enterprise and large-scale operations."
-            }
-        ]
+        "offers": offers
     };
 
     return (
