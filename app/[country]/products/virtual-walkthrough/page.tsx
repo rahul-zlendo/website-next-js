@@ -1,4 +1,5 @@
-import type { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import VirtualWalkthroughClient from './VirtualWalkthroughClient';
 import { client } from '@/lib/sanity/client';
 import { virtualWalkthroughPageQuery } from '@/lib/sanity/queries';
@@ -12,31 +13,18 @@ interface PageProps {
  * Generate dynamic metadata for the Virtual Walkthrough page from Sanity content.
  */
 export async function generateMetadata(
-  { params }: PageProps,
-  parent: ResolvingMetadata
+  { params }: PageProps
 ): Promise<Metadata> {
   const { country: countryCode } = await params;
   const data = await client.fetch(virtualWalkthroughPageQuery);
-  const country = countryCode.toUpperCase();
+  const isGlobal = countryCode === 'global';
+  const path = isGlobal ? '/products/virtual-walkthrough' : `/${countryCode}/products/virtual-walkthrough`;
 
-  return {
-    title: data?.seoTitle || `3D Virtual Walkthrough for Homes | Immersive VR Tours ${country}`,
+  return createPageMetadata({
+    title: data?.seoTitle || `3D Virtual Walkthrough for Homes | Immersive VR Tours`,
     description: data?.seoDescription || 'Experience immersive 3D virtual walkthroughs that showcase space, flow, and finishes. Close deals faster with 8K cinematic storytelling.',
-    keywords: [
-      '3d virtual walkthrough',
-      'immersive vr tours',
-      '360 property visualization',
-      '8k walkthrough rendering',
-    ],
-    openGraph: {
-      title: data?.seoTitle,
-      description: data?.seoDescription,
-      type: 'website',
-    },
-    alternates: {
-      canonical: `https://zlendorealty.com/${countryCode}/products/virtual-walkthrough`,
-    },
-  };
+    path: path,
+  });
 }
 
 export default async function VirtualWalkthroughPage({ params }: PageProps) {

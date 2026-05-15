@@ -3,8 +3,23 @@ import { getClient } from '@/lib/sanity/client';
 import SectionRenderer from '@/components/global/SectionRenderer';
 import { notFound } from 'next/navigation';
 
+import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
+
 interface GlobalPageProps {
   params: Promise<{ slug: string[] }>;
+}
+
+export async function generateMetadata({ params }: GlobalPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const slugPath = slug.join('/');
+  const pageData = await getGlobalPage(slugPath);
+
+  return createPageMetadata({
+    title: pageData?.title ? `${pageData.title} | Zlendo Realty` : 'Zlendo Realty | Professional 3D Design',
+    description: pageData?.description || 'Zlendo Realty - The professional workflow for design and architecture.',
+    path: `/${slugPath}`,
+  });
 }
 
 async function getGlobalPage(slug: string) {

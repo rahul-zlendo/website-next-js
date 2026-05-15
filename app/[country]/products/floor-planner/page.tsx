@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import { draftMode } from 'next/headers';
 import { Sparkles, PenTool, Zap, Layers, Home } from 'lucide-react';
 import { getClient } from '@/lib/sanity/client';
@@ -7,18 +8,9 @@ import FloorPlannerClient from './FloorPlannerClient';
 import JsonLd from '@/components/common/JsonLd';
 
 const BASE_URL = 'https://zlendorealty.com';
-const COUNTRY = 'in';
 
 // Revalidate every 60 seconds (Incremental Static Regeneration)
 export const revalidate = 60;
-
-// Helper to build country-prefixed paths
-function getPath(path: string): string {
-    if (path.startsWith('http://') || path.startsWith('https://')) return path;
-    const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    if (cleanPath === '/') return `/${COUNTRY}`;
-    return `/${COUNTRY}${cleanPath}`;
-}
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -32,29 +24,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cmsSeo = await getClient(false).fetch(floorPlannerPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cmsSeo?.seoTitle ?? 'Zlendo Realty Products Floor Planer - Design Your Home in 3D';
+    const seoTitle = cmsSeo?.seoTitle ?? 'Zlendo Realty Products Floor Planner - Design Your Home in 3D';
     const seoDesc = cmsSeo?.seoDescription ?? 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. Experience your space before a single brick is laid.';
 
-    return {
+    const isGlobal = country === 'global';
+    const cleanPath = isGlobal ? `/products/floor-planner` : `/${country}/products/floor-planner`;
+
+    return createPageMetadata({
         title: seoTitle,
         description: seoDesc,
-        openGraph: {
-            title: seoTitle,
-            description: seoDesc,
-            url: `${BASE_URL}/${country}/products/floor-planner`,
-            siteName: 'Zlendo Realty',
-            locale: 'en_IN',
-            type: 'website',
-        },
-        alternates: {
-            canonical: `${BASE_URL}/${country}/products/floor-planner`,
-            languages: {
-                'en-IN': `${BASE_URL}/in/products/floor-planner`,
-                'en': `${BASE_URL}/products/floor-planner`,
-                'x-default': `${BASE_URL}/products/floor-planner`,
-            },
-        },
-    };
+        path: cleanPath,
+    });
 }
 
 // Static Defaults
@@ -103,6 +83,10 @@ const defaultDraftingFeatures = [
 const defaultTemplateTags = ['3BHK North Facing', '2BHK Compact', 'Luxury Villa', 'Pooja Room Added'];
 
 export default async function Page({ params }: Props) {
+    const { country } = await params;
+    const isGlobal = country === 'global';
+    const cleanPath = isGlobal ? `/products/floor-planner` : `/${country}/products/floor-planner`;
+    const fullUrl = `${BASE_URL}${cleanPath}`;
     const { isEnabled: preview } = await draftMode();
     const cms: Record<string, any> | null = await getClient(preview).fetch(floorPlannerPageQuery).catch(() => null);
 
@@ -127,7 +111,7 @@ export default async function Page({ params }: Props) {
     const faqSchema = {
         "@context": "https://schema.org/",
         "@type": "FAQPage",
-        "name": cms?.seoTitle ?? "Zlendo Realty Products Floor Planer - Frequently Asked Questions",
+        "name": cms?.seoTitle ?? "Zlendo Realty Products Floor Planner - Frequently Asked Questions",
         "mainEntity": resolvedFaqs.map((faq: { q: string; a: string }) => ({
             "@type": "Question",
             "name": faq.q,
@@ -138,9 +122,35 @@ export default async function Page({ params }: Props) {
         }))
     };
 
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": BASE_URL
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Products",
+                "item": `${BASE_URL}/products/floor-planner`
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Floor Planner",
+                "item": fullUrl
+            }
+        ]
+    };
+
     return (
         <>
             <JsonLd schema={faqSchema} />
+            <JsonLd schema={breadcrumbSchema} />
             <FloorPlannerClient 
                 cms={cms} 
                 resolvedFaqs={resolvedFaqs}

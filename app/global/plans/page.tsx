@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { createPageMetadata } from '@/lib/seo/metadata';
 import PlansClient from '@/app/[country]/plans/PlansClient';
 import { getAllSubscriptionsService, Subscription } from '@/lib/services/subscriptionService';
