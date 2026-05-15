@@ -59,6 +59,14 @@ export const metadata: Metadata = {
       },
     ],
   },
+  alternates: {
+    canonical: 'https://zlendorealty.com/',
+    languages: {
+      'en-IN': 'https://zlendorealty.com/in',
+      'en': 'https://zlendorealty.com/',
+      'x-default': 'https://zlendorealty.com/',
+    },
+  },
   twitter: {
     card: 'summary_large_image',
     title: 'Zlendo Realty | AI Home & Office Design Software',

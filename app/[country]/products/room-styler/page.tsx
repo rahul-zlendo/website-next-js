@@ -1,8 +1,9 @@
+import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import { draftMode } from 'next/headers';
 import { getClient } from '@/lib/sanity/client';
 import { roomStylerPageQuery } from '@/lib/sanity/queries';
 import RoomStylerClient from './RoomStylerClient';
-import { Metadata } from 'next';
 import JsonLd from '@/components/common/JsonLd';
 
 const ScandinavianImg = '/assets/room-styler/scandinavian.webp';
@@ -10,17 +11,26 @@ const UploadRoomImg = '/assets/2d-to-3d/upload-floorplan.webp';
 const AIInspirationImg = '/assets/Home-Page/ai-room-inspirtion.webp';
 const FinalRenderImg = '/assets/Home-Page/living-room/scandinavian-style.webp';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface PageProps {
+    params: Promise<{ country: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(roomStylerPageQuery).catch(() => null);
 
-    return {
+    const isGlobal = country === 'global';
+    const path = isGlobal ? '/products/room-styler' : `/${country}/products/room-styler`;
+
+    return createPageMetadata({
         title: cms?.seoTitle || 'Smart Room Styler - AI-driven Interior Design',
         description: cms?.seoDescription || 'AI-driven interior design at your fingertips. Visualize different styles, furniture layouts, and color palettes instantly.',
-    };
+        path: path,
+    });
 }
 
-export default async function RoomStylerPage() {
+export default async function RoomStylerPage({ params }: PageProps) {
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(roomStylerPageQuery).catch(() => null);
 

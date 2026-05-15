@@ -1,23 +1,33 @@
+import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import { draftMode } from 'next/headers';
 import { getClient } from '@/lib/sanity/client';
 import { interiorsExteriorsPageQuery } from '@/lib/sanity/queries';
 import InteriorsExteriorsClient from './InteriorsExteriorsClient';
-import { Metadata } from 'next';
 import JsonLd from '@/components/common/JsonLd';
 
 const ModernPathwayImg = '/assets/interior-exterior/modern-pathway.webp';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface PageProps {
+    params: Promise<{ country: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(interiorsExteriorsPageQuery).catch(() => null);
 
-    return {
+    const isGlobal = country === 'global';
+    const path = isGlobal ? '/products/interiors-exteriors' : `/${country}/products/interiors-exteriors`;
+
+    return createPageMetadata({
         title: cms?.seoTitle || 'Interiors & Exteriors - Indian Homes. Indian Lifestyles.',
         description: cms?.seoDescription || 'Experience interior and exterior design intelligence that respects your culture, climate, and religious preferences across India.',
-    };
+        path: path,
+    });
 }
 
-export default async function InteriorsExteriorsPage() {
+export default async function InteriorsExteriorsPage({ params }: PageProps) {
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(interiorsExteriorsPageQuery).catch(() => null);
 

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import { draftMode } from 'next/headers';
 import { getClient } from '@/lib/sanity/client';
 import { apiSuitePageQuery } from '@/lib/sanity/queries';
@@ -23,13 +24,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const title = cmsSeo?.seoTitle || "Zlendo Realty API Suite - Enterprise Prop-Tech Solutions";
     const description = cmsSeo?.seoDescription || "Integrate our core 2D-to-3D, costing, and styling engines directly into your own applications.";
 
-    return {
+    const isGlobal = country === 'global';
+    const path = isGlobal ? '/products/api-suite' : `/${country}/products/api-suite`;
+
+    return createPageMetadata({
         title,
         description,
-        alternates: {
-            canonical: `https://zlendorealty.com/${country}/products/api-suite`,
-        },
-    };
+        path: path,
+    });
 }
 
 export default async function APISuitePage({ params }: Props) {

@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import { draftMode } from 'next/headers';
 import { getClient } from '@/lib/sanity/client';
 import { twoDTo3DPageQuery } from '@/lib/sanity/queries';
@@ -14,9 +15,10 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
+    const isGlobal = country === 'global';
+    const path = isGlobal ? '/products/2d-to-3d' : `/${country}/products/2d-to-3d`;
 
     // Fetch SEO data from Sanity
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let cmsSeo: Record<string, any> | null = null;
     try {
         cmsSeo = await getClient(false).fetch(twoDTo3DPageQuery);
@@ -25,29 +27,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const title = cmsSeo?.seoTitle || "2D to 3D Converter - Instant Architectural Visualization";
     const description = cmsSeo?.seoDescription || "Instantly convert 2D floor plans into interactive 3D models. Best online 3D home design software for architects, builders, and individuals. Start free today!";
 
-    return {
+    return createPageMetadata({
         title,
         description,
-        alternates: {
-            canonical: `https://zlendorealty.com/${country}/products/2d-to-3d`,
-        },
-        openGraph: {
-            title,
-            description,
-            url: `https://zlendorealty.com/${country}/products/2d-to-3d`,
-            siteName: 'Zlendo Realty',
-            images: [
-                {
-                    url: '/assets/2d-to-3d/hero-visual-localized.webp', // Default ogImage
-                    width: 1200,
-                    height: 630,
-                    alt: 'Zlendo Realty 2D to 3D Converter',
-                },
-            ],
-            locale: 'en_IN',
-            type: 'website',
-        },
-    };
+        path: path,
+    });
 }
 
 export default async function TwoDToThreeDPage() {

@@ -3,19 +3,29 @@ import { getClient } from '@/lib/sanity/client';
 import { vastuPageQuery } from '@/lib/sanity/queries';
 import VastuClient from './VastuClient';
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import JsonLd from '@/components/common/JsonLd';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface PageProps {
+    params: Promise<{ country: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(vastuPageQuery).catch(() => null);
 
-    return {
+    const isGlobal = country === 'global';
+    const path = isGlobal ? '/products/vastu' : `/${country}/products/vastu`;
+
+    return createPageMetadata({
         title: cms?.seoTitle || 'Vastu Optimizer - Align Your Home with Ancient Wisdom',
         description: cms?.seoDescription || 'Combine modern design with Vastu Shastra principles. Our automated analysis ensures your home brings health, wealth, and harmony.',
-    };
+        path: path,
+    });
 }
 
-export default async function VastuPage() {
+export default async function VastuPage({ params }: PageProps) {
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(vastuPageQuery).catch(() => null);
 

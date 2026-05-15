@@ -4,27 +4,16 @@ import { client } from '@/lib/sanity/client';
 import { virtualWalkthroughPageQuery } from '@/lib/sanity/queries';
 import JsonLd from '@/components/common/JsonLd';
 
+import { createPageMetadata } from '@/lib/seo/metadata';
+
 export async function generateMetadata(): Promise<Metadata> {
   const data = await client.fetch(virtualWalkthroughPageQuery);
 
-  return {
+  return createPageMetadata({
     title: data?.seoTitle || `Professional 360° Virtual Walkthroughs for Interior Design - Zlendo Realty`,
     description: data?.seoDescription || `Improve your design presentations with Zlendo's 360 Walkthrough tool. Offer clients realistic, interactive tours to effectively communicate your vision.`,
-    keywords: [
-      '3d virtual walkthrough',
-      'immersive vr tours',
-      '360 property visualization',
-      '8k walkthrough rendering',
-    ],
-    openGraph: {
-      title: data?.seoTitle,
-      description: data?.seoDescription,
-      type: 'website',
-    },
-    alternates: {
-      canonical: `https://zlendorealty.com/global/products/virtual-walkthrough`,
-    },
-  };
+    path: '/products/virtual-walkthrough',
+  });
 }
 
 export default async function GlobalVirtualWalkthroughPage() {

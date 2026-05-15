@@ -1,4 +1,5 @@
-import type { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import RealisticRendersClient from './RealisticRendersClient';
 import { client } from '@/lib/sanity/client';
 import { realisticRendersPageQuery } from '@/lib/sanity/queries';
@@ -12,31 +13,18 @@ interface PageProps {
  * Generate dynamic metadata for the Realistic Renders page from Sanity content.
  */
 export async function generateMetadata(
-  { params }: PageProps,
-  parent: ResolvingMetadata
+  { params }: PageProps
 ): Promise<Metadata> {
   const { country: countryCode } = await params;
   const data = await client.fetch(realisticRendersPageQuery);
-  const country = countryCode.toUpperCase();
+  const isGlobal = countryCode === 'global';
+  const path = isGlobal ? '/products/realistic-renders' : `/${countryCode}/products/realistic-renders`;
 
-  return {
-    title: data?.seoTitle || `Realistic Renders | 8K Interior Visualization ${country}`,
+  return createPageMetadata({
+    title: data?.seoTitle || `Realistic Renders | 8K Interior Visualization`,
     description: data?.seoDescription || 'Experience your future home with 8K photorealism and intelligent light simulation.',
-    keywords: [
-      'realistic renders',
-      '8k interior visualization',
-      'photorealistic 3d rendering',
-      'light simulation design',
-    ],
-    openGraph: {
-      title: data?.seoTitle,
-      description: data?.seoDescription,
-      type: 'website',
-    },
-    alternates: {
-      canonical: `https://zlendorealty.com/${countryCode}/products/realistic-renders`,
-    },
-  };
+    path: path,
+  });
 }
 
 export default async function RealisticRendersPage() {

@@ -4,12 +4,14 @@ import SectionRenderer from '@/components/global/SectionRenderer';
 import AiWorkflowsSection from '@/components/global/sections/AiWorkflowsSection';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import { SIGNUP_URL } from '@/lib/config/env';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: 'Smart Room Styler - AI-driven Interior Design | Zlendo Realty',
   description: 'AI-driven interior design at your fingertips. Visualize different styles, furniture layouts, and color palettes instantly.',
-};
+  path: '/products/room-styler',
+});
 
 async function getGlobalPage(slug: string) {
   const query = `*[_type == "globalPage" && slug.current == $slug][0]`;
