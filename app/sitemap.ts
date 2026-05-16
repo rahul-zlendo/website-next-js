@@ -32,18 +32,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/viewalltemplates', priority: 0.8, changeFrequency: 'daily' as const },
 
     // Use case pages
-    { path: '/use-cases', priority: 0.8, changeFrequency: 'weekly' as const },
-    { path: '/use-case/home-remodeling', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/use-case/interior-design', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/use-case/vastu-optimization', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/use-case/new-home-building', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/use-cases', priority: 0.8, changeFrequency: 'weekly' as const, isIndiaOnly: true },
+    { path: '/use-case/home-remodeling', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/use-case/interior-design', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/use-case/vastu-optimization', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/use-case/new-home-building', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
 
     // Business use cases
-    { path: '/business/commercial-spaces', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/business/builder-and-promoter', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/business/nri-remote-planning', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/business/developer-solutions', priority: 0.7, changeFrequency: 'monthly' as const },
-    { path: '/business/real-estate-brokers', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/business/commercial-spaces', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/business/builder-and-promoter', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/business/nri-remote-planning', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/business/developer-solutions', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/business/real-estate-brokers', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
 
     // Landing / Campaign pages
     { path: '/vastu-campaign', priority: 0.8, changeFrequency: 'weekly' as const },
@@ -83,13 +83,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       continue;
     }
 
-    // Add Global URL
-    urls.push({
-      url: `${BASE_URL}${route.path}`,
-      lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
-      changeFrequency: route.changeFrequency,
-      priority: route.priority,
-    });
+    // Add Global URL (Skip if India Only)
+    if (!route.isIndiaOnly) {
+      urls.push({
+        url: `${BASE_URL}${route.path}`,
+        lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
+        changeFrequency: route.changeFrequency,
+        priority: route.priority,
+      });
+    }
 
     // Add India URL (/in)
     urls.push({
