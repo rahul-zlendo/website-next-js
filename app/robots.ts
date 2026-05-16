@@ -5,7 +5,11 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: [
+          '/',
+          '/register',
+          '/vastu-campaign',
+        ],
         disallow: [
           '/api/',
           '/temp',

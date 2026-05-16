@@ -19,10 +19,41 @@ export function middleware(request: NextRequest) {
   // ──────────────────────────────────────────────────────────
   // 1.5. Redirect Help Center to subdomain
   // ──────────────────────────────────────────────────────────
-  if (pathname.startsWith('/help-center')) {
+  const isHelpCenter = pathname === '/help-center' ||
+    pathname.startsWith('/help-center/') ||
+    pathname.startsWith('/in/help-center') ||
+    pathname.startsWith('/global/help-center');
+
+  if (isHelpCenter) {
     const searchParams = request.nextUrl.search;
+    const cleanPath = pathname
+      .replace('/in/help-center', '')
+      .replace('/global/help-center', '')
+      .replace('/help-center', '');
+
     return NextResponse.redirect(
-      new URL(`https://helpcenter.zlendorealty.com${pathname.replace('/help-center', '')}${searchParams}`),
+      new URL(`https://helpcenter.zlendorealty.com${cleanPath}${searchParams}`),
+      301
+    );
+  }
+
+  // ──────────────────────────────────────────────────────────
+  // 1.6. Redirect Blog to subdomain
+  // ──────────────────────────────────────────────────────────
+  const isBlog = pathname === '/blog' ||
+    pathname.startsWith('/blog/') ||
+    pathname.startsWith('/in/blog') ||
+    pathname.startsWith('/global/blog');
+
+  if (isBlog) {
+    const searchParams = request.nextUrl.search;
+    const cleanPath = pathname
+      .replace('/in/blog', '')
+      .replace('/global/blog', '')
+      .replace('/blog', '');
+
+    return NextResponse.redirect(
+      new URL(`https://blog.zlendorealty.com${cleanPath}${searchParams}`),
       301
     );
   }
@@ -36,7 +67,7 @@ export function middleware(request: NextRequest) {
   const countryCode = (request as any).geo?.country
     || request.headers.get('x-vercel-ip-country')
     || request.headers.get('cf-ipcountry')
-    || 'US';
+    || 'IN';
   const isIndia = countryCode.toUpperCase() === 'IN';
   const isOnIndiaSite = pathname === '/in' || pathname.startsWith('/in/');
 

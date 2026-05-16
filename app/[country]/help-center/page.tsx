@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default function HelpCenterCountryRedirect() {
-    redirect('/help-center');
+    redirect('https://helpcenter.zlendorealty.com/');
 }

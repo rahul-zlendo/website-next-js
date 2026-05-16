@@ -93,7 +93,7 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
             enterprise: `${prefix}/business`,
             plans: `${prefix}/plans`,
             contact: `${prefix}/contact`,
-            helpCenter: `${prefix}/help-center`,
+            helpCenter: 'https://helpcenter.zlendorealty.com',
             partners: `${prefix}/partners`,
         };
     }, [country]);
