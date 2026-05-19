@@ -108,7 +108,7 @@ export default function HomeClient({
                 // 2. Load templates filtered by region
                 dispatch(getAllTemplates(regionId || undefined));
             } catch (error) {
-                console.error("Error loading initial data:", error);
+                // console.error("Error loading initial data:", error);
                 // Fallback to load all templates if region detection fails
                 dispatch(getAllTemplates());
             }

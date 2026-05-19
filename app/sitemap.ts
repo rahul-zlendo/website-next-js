@@ -45,6 +45,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/business/developer-solutions', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
     { path: '/business/real-estate-brokers', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
 
+    // Service pages
+    { path: '/services/floor-plan-design', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/services/floor-plan-design/consultation', priority: 0.7, changeFrequency: 'monthly' as const },
+
     // Landing / Campaign pages
     { path: '/vastu-campaign', priority: 0.8, changeFrequency: 'weekly' as const },
     { path: '/register', priority: 0.7, changeFrequency: 'monthly' as const },

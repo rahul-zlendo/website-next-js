@@ -60,11 +60,11 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: 'https://zlendorealty.com/',
+    canonical: 'https://zlendorealty.com',
     languages: {
       'en-IN': 'https://zlendorealty.com/in',
-      'en': 'https://zlendorealty.com/',
-      'x-default': 'https://zlendorealty.com/',
+      'en': 'https://zlendorealty.com',
+      'x-default': 'https://zlendorealty.com',
     },
   },
   twitter: {

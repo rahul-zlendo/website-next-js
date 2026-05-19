@@ -93,7 +93,7 @@ async function getCachedUrl(url: string): Promise<string | null> {
       request.onerror = () => resolve(null);
     });
   } catch (error) {
-    console.error('Error getting cached URL:', error);
+    // console.error('Error getting cached URL:', error);
     return null;
   }
 }
@@ -108,7 +108,7 @@ async function cacheUrl(url: string, blobUrl: string): Promise<void> {
     const store = transaction.objectStore(STORE_NAME);
     store.put({ url, blobUrl, timestamp: Date.now() });
   } catch (error) {
-    console.error('Error caching URL:', error);
+    // console.error('Error caching URL:', error);
   }
 }
 
@@ -179,7 +179,7 @@ export async function fetchBlobUrl(relativeUrl: any): Promise<string> {
 
     return blobUrl;
   } catch (error) {
-    console.error('Error fetching blob URL:', error);
+    // console.error('Error fetching blob URL:', error);
     return fullUrl; // Fallback to original URL
   }
 }
@@ -215,6 +215,6 @@ export async function clearExpiredCache(): Promise<void> {
       }
     };
   } catch (error) {
-    console.error('Error clearing expired cache:', error);
+    // console.error('Error clearing expired cache:', error);
   }
 }
