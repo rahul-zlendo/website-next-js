@@ -71,8 +71,23 @@ export function middleware(request: NextRequest) {
   const isIndia = countryCode.toUpperCase() === 'IN';
   const isOnIndiaSite = pathname === '/in' || pathname.startsWith('/in/');
 
-  // Force India visitors to /in if they hit the root or other paths
-  if (isIndia && !isOnIndiaSite) {
+  // Detect search engine bots to bypass forced geo-redirection.
+  // This ensures Google Bot (usually US-based) can crawl and index the /in path
+  // without being redirected to the root domain.
+  const userAgent = request.headers.get('user-agent')?.toLowerCase() || '';
+  const isBot = userAgent.includes('googlebot') ||
+    userAgent.includes('bingbot') ||
+    userAgent.includes('yandexbot') ||
+    userAgent.includes('applebot') ||
+    userAgent.includes('duckduckbot') ||
+    userAgent.includes('slurp') ||
+    userAgent.includes('baiduspider') ||
+    userAgent.includes('twitterbot') ||
+    userAgent.includes('facebookexternalhit') ||
+    userAgent.includes('linkedinbot');
+
+  // Force India visitors to /in if they hit the root or other paths (skip for bots)
+  if (isIndia && !isOnIndiaSite && !isBot) {
     const url = request.nextUrl.clone();
     const countryMatch = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
 
@@ -88,8 +103,8 @@ export function middleware(request: NextRequest) {
     return geoRedirect(url, isIndia);
   }
 
-  // Force Non-India visitors away from /in
-  if (!isIndia && isOnIndiaSite) {
+  // Force Non-India visitors away from /in (skip for bots)
+  if (!isIndia && isOnIndiaSite && !isBot) {
     const url = request.nextUrl.clone();
     url.pathname = pathname.replace(/^\/in/, '') || '/';
     return geoRedirect(url, isIndia);

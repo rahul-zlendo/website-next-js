@@ -4,10 +4,67 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Compass, CheckCircle, ArrowRight } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import JsonLd from '@/components/common/JsonLd';
 
 export default function VastuOptimizerPage() {
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Vastu Shastra Optimizer - Frequently Asked Questions",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is the Vastu Optimizer?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The Vastu Optimizer provides layout recommendations based on traditional Vastu house plan design principles, helping align home planning with spatial harmony."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is it mandatory to use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Using Vastu suggestions is completely optional. You decide which recommendations to follow while designing your home."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What suggestions does it provide?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "It suggests room placements, door alignments, and directional balances in accordance with Vastu principles."
+                }
+            }
+        ]
+    };
+
+    const productSchema = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Zlendo Realty Vastu Optimizer",
+        "image": "https://zlendorealty.com/assets/vastu-product/hero-vastu.webp",
+        "description": "An AI-powered online Vastu compliance checker and floor plan optimizer that helps align home planning with traditional Vastu Shastra principles.",
+        "brand": {
+            "@type": "Brand",
+            "name": "Zlendo Realty"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": "https://zlendorealty.com/products/vastu",
+            "priceCurrency": "USD",
+            "price": "0",
+            "valueAddedService": {
+                "@type": "Service",
+                "name": "AI Vastu Analysis"
+            }
+        }
+    };
+
     return (
         <div className="min-h-screen bg-white text-[#222222] font-nunito selection:bg-orange-500/20 selection:text-orange-600">
+            <JsonLd schema={faqSchema} />
+            <JsonLd schema={productSchema} />
             <main>
                 <div className="container-custom px-4 py-24 lg:py-32 grid lg:grid-cols-2 gap-16 items-center">
                     <div className="max-w-xl space-y-8">

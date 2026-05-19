@@ -20,10 +20,23 @@ export default function VastuOptimizationClient({ cms }: VastuOptimizationClient
 
     // Set document title and meta tags for SEO from CMS or defaults
     useEffect(() => {
-        document.title = cms?.seoTitle ?? 'Vastu Optimization Use Cases';
+        let seoTitle = cms?.seoTitle ?? 'Vastu House Plan Design & Vastu Solutions | Zlendo Realty';
+        
+        // Clean up brand name duplication if present in the CMS
+        if (seoTitle.includes('Zlendo Realty – Design Now | Zlendo Realty') || 
+            seoTitle.includes('Zlendo Realty - Design Now | Zlendo Realty') ||
+            seoTitle.includes('Design Now | Zlendo Realty')) {
+            seoTitle = 'Vastu House Plan Design & Vastu Solutions | Zlendo Realty';
+        } else if (seoTitle.includes('Zlendo Realty') && (seoTitle.match(/Zlendo Realty/g) || []).length > 1) {
+            // Strip duplicate trailing brand name
+            seoTitle = seoTitle.replace(/\s*\|\s*Zlendo Realty\s*$/, '').trim();
+        }
+        
+        document.title = seoTitle;
+        
         const metaDescription = document.querySelector('meta[name="description"]');
         if (metaDescription) {
-            metaDescription.setAttribute('content', cms?.seoDescription ?? 'Ensure your home supports peace, health, and prosperity through data-driven Vastu optimization and visual clarity.');
+            metaDescription.setAttribute('content', cms?.seoDescription ?? 'Ensure your home supports peace, health, and prosperity through data-driven Vastu optimization and visual clarity. Get expert Vastu layout tips.');
         }
         const metaKeywords = document.querySelector('meta[name="keywords"]');
         if (metaKeywords) {

@@ -18,14 +18,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const isGlobal = country === 'global';
     const path = isGlobal ? '/products/vastu' : `/${country}/products/vastu`;
 
+    let seoTitle = cms?.seoTitle || 'Vastu-Compliant House Plans & Floor Designs | Zlendo Realty';
+    
+    // Clean up brand name duplication if present in the CMS
+    if (seoTitle.includes('Zlendo Realty – Design Now | Zlendo Realty') || 
+        seoTitle.includes('Zlendo Realty - Design Now | Zlendo Realty') ||
+        seoTitle.includes('Design Now | Zlendo Realty')) {
+        seoTitle = 'Vastu House Plans & Vastu-Compliant Home Designs | Zlendo Realty';
+    } else if (seoTitle.includes('Zlendo Realty') && (seoTitle.match(/Zlendo Realty/g) || []).length > 1) {
+        // Strip duplicate trailing brand name
+        seoTitle = seoTitle.replace(/\s*\|\s*Zlendo Realty\s*$/, '').trim();
+    }
+
+    const seoDescription = cms?.seoDescription || 'Create Vastu-compliant house plans online with Zlendo Realty’s Vastu Optimizer. Instantly analyze and correct layouts, room placement, and main entrances.';
+
     return createPageMetadata({
-        title: cms?.seoTitle || 'Vastu Optimizer - Align Your Home with Ancient Wisdom',
-        description: cms?.seoDescription || 'Combine modern design with Vastu Shastra principles. Our automated analysis ensures your home brings health, wealth, and harmony.',
+        title: seoTitle,
+        description: seoDescription,
         path: path,
     });
 }
 
 export default async function VastuPage({ params }: PageProps) {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(vastuPageQuery).catch(() => null);
 
@@ -91,9 +106,32 @@ export default async function VastuPage({ params }: PageProps) {
         }))
     };
 
+    const productSchema = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Zlendo Realty Vastu Optimizer",
+        "image": "https://zlendorealty.com/assets/vastu-product/hero-vastu.webp",
+        "description": "An AI-powered online Vastu compliance checker and floor plan optimizer that helps align home planning with traditional Vastu Shastra principles.",
+        "brand": {
+            "@type": "Brand",
+            "name": "Zlendo Realty"
+        },
+        "offers": {
+            "@type": "Offer",
+            "url": `https://zlendorealty.com/${country}/products/vastu`,
+            "priceCurrency": "INR",
+            "price": "0",
+            "valueAddedService": {
+                "@type": "Service",
+                "name": "AI Vastu Analysis"
+            }
+        }
+    };
+
     return (
         <>
             <JsonLd schema={faqSchema} />
+            <JsonLd schema={productSchema} />
             <VastuClient 
                 cms={cms} 
                 resolvedFaqs={resolvedFaqs}

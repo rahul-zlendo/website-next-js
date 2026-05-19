@@ -21,8 +21,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cms = await getClient(false).fetch(vastuOptimizationPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cms?.seoTitle ?? 'Vastu Optimization Use Cases';
-    const seoDesc = cms?.seoDescription ?? 'Ensure your home supports peace, health, and prosperity through data-driven Vastu optimization and visual clarity.';
+    let seoTitle = cms?.seoTitle ?? 'Vastu House Plan Design & Vastu Solutions | Zlendo Realty';
+    
+    // Clean up brand name duplication if present in the CMS
+    if (seoTitle.includes('Zlendo Realty – Design Now | Zlendo Realty') || 
+        seoTitle.includes('Zlendo Realty - Design Now | Zlendo Realty') ||
+        seoTitle.includes('Design Now | Zlendo Realty')) {
+        seoTitle = 'Vastu House Plan Design & Vastu Solutions | Zlendo Realty';
+    } else if (seoTitle.includes('Zlendo Realty') && (seoTitle.match(/Zlendo Realty/g) || []).length > 1) {
+        // Strip duplicate trailing brand name
+        seoTitle = seoTitle.replace(/\s*\|\s*Zlendo Realty\s*$/, '').trim();
+    }
+
+    const seoDesc = cms?.seoDescription ?? 'Ensure your home supports peace, health, and prosperity through data-driven Vastu optimization and visual clarity. Get expert Vastu layout tips.';
 
     return {
         title: seoTitle,
@@ -38,12 +49,32 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
 }
 
+import JsonLd from '@/components/common/JsonLd';
+
 export default async function Page({ params }: Props) {
+    const { country } = await params;
     const { isEnabled: preview } = await draftMode();
     const cms: Record<string, any> | null = await getClient(preview).fetch(vastuOptimizationPageQuery).catch(() => null);
 
+    const serviceSchema = {
+        "@context": "https://schema.org/",
+        "@type": "Service",
+        "name": "Zlendo Realty Vastu Optimization",
+        "provider": {
+            "@type": "LocalBusiness",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "description": "Align your modern home with ancient wisdom using our data-driven Vastu house plan design services. Get expert Vastu layout tips and corrective energy solutions.",
+        "areaServed": "IN",
+        "url": `https://zlendorealty.com/${country}/use-case/vastu-optimization`
+    };
+
     return (
-        <VastuOptimizationClient cms={cms} />
+        <>
+            <JsonLd schema={serviceSchema} />
+            <VastuOptimizationClient cms={cms} />
+        </>
     );
 }
 

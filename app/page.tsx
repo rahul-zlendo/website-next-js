@@ -10,7 +10,8 @@ export const metadata: Metadata = {
     canonical: 'https://zlendorealty.com',
     languages: {
       'en-IN': 'https://zlendorealty.com/in',
-      'x-default': 'https://zlendorealty.com/in',
+      'en': 'https://zlendorealty.com',
+      'x-default': 'https://zlendorealty.com',
     },
   },
 };
