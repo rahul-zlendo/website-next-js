@@ -236,6 +236,160 @@ export function generateWebPageSchema(page: {
 }
 
 /**
+ * Generate Plans Product schema
+ */
+export function generatePlansSchema(isGlobal: boolean, country: string = 'in') {
+  const isIndia = !isGlobal;
+  
+  const offers = isGlobal ? [
+        {
+            "@type": "Offer",
+            "name": "Explore",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "description": "Essential AI design tools for individuals getting started."
+        },
+        {
+            "@type": "Offer",
+            "name": "Builder",
+            "price": "12",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "12",
+                "priceCurrency": "USD",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "Powerful design features for renovation and single-room projects."
+        },
+        {
+            "@type": "Offer",
+            "name": "Discover",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "description": "Free discovery plan for individuals in Europe."
+        },
+        {
+            "@type": "Offer",
+            "name": "Design Pro",
+            "price": "27",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "27",
+                "priceCurrency": "EUR",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "Professional design tools for European creators."
+        },
+        {
+            "@type": "Offer",
+            "name": "Studio Elite",
+            "price": "55",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://zlendorealty.com/plans",
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "55",
+                "priceCurrency": "EUR",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "The ultimate design package for professional studios in Europe."
+        }
+    ] : [
+        {
+            "@type": "Offer",
+            "name": "Free Plan",
+            "price": "0",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock",
+            "url": `https://zlendorealty.com/${country}/plans`,
+            "description": "Essential AI design tools for individuals getting started."
+        },
+        {
+            "@type": "Offer",
+            "name": "Basic Plan",
+            "price": "499",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock",
+            "url": `https://zlendorealty.com/${country}/plans`,
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "499",
+                "priceCurrency": "INR",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "Powerful design features for renovation and single-room projects."
+        },
+        {
+            "@type": "Offer",
+            "name": "Power User Plan",
+            "price": "999",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock",
+            "url": `https://zlendorealty.com/${country}/plans`,
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "999",
+                "priceCurrency": "INR",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "Advanced tools for high-volume designers and professionals."
+        },
+        {
+            "@type": "Offer",
+            "name": "Designer Plus Plan",
+            "price": "1599",
+            "priceCurrency": "INR",
+            "availability": "https://schema.org/InStock",
+            "url": `https://zlendorealty.com/${country}/plans`,
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "1599",
+                "priceCurrency": "INR",
+                "billingDuration": 1,
+                "billingIncrement": 1,
+                "unitCode": "MON"
+            },
+            "description": "The ultimate package with premium renders and unlimited walkthroughs."
+        },
+    ];
+
+  return {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Zlendo Realty Subscription Plans",
+      "image": "https://zlendorealty.com/assets/og-image.png",
+      "description": "AI-powered home design and visualization software with 2D planning, 3D conversion, walkthroughs, renders, BOQ estimation, and Vastu optimization.",
+      "brand": {
+          "@type": "Brand",
+          "name": "Zlendo Realty"
+      },
+      "url": isGlobal ? "https://zlendorealty.com/plans" : `https://zlendorealty.com/${country}/plans`,
+      "offers": offers
+  };
+}
+
+/**
  * Render JSON-LD script tag
  * Returns a JSON string suitable for dangerouslySetInnerHTML
  */
