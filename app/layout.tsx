@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 import './globals.css';
 import { Providers } from './providers';
-import { generateOrganizationSchema, generateWebSiteSchema, generateSoftwareApplicationSchema, generateLocalBusinessSchema, getStructuredDataScript } from '@/lib/utils/structuredData';
+import { generateOrganizationSchema, generateWebSiteSchema, generateSoftwareApplicationSchema, generateLocalBusinessSchema, getStructuredDataScript, generatePlansSchema } from '@/lib/utils/structuredData';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -105,6 +105,8 @@ export default async function RootLayout({
 }>) {
   const headersList = await headers();
   const host = headersList.get('host') || '';
+  const pathname = headersList.get('x-pathname') || '';
+  
   // Global if host is zlendorealty.com (without .in)
   const isGlobal = host.includes('zlendorealty.com') && !host.includes('.in');
   
@@ -112,6 +114,13 @@ export default async function RootLayout({
   const webSiteSchema = generateWebSiteSchema();
   const softwareAppSchema = generateSoftwareApplicationSchema(isGlobal);
   const localBusinessSchema = generateLocalBusinessSchema();
+
+  // Dynamically attach specific JSON-LD schemas based on pathname
+  let plansSchema: any = null;
+  if (pathname.includes('/plans')) {
+    const isIndiaPlans = pathname.startsWith('/in');
+    plansSchema = generatePlansSchema(isGlobal, isIndiaPlans ? 'in' : 'global');
+  }
 
   return (
     <html lang="en" className={`${outfit.variable} ${nunito.variable}`}>
@@ -132,6 +141,12 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: getStructuredDataScript(localBusinessSchema) }}
         />
+        {plansSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(plansSchema) }}
+          />
+        )}
         <link rel="image_src" href="https://zlendorealty.com/og-image.jpg" />
       </head>
       <body>

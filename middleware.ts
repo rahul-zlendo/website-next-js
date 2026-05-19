@@ -113,14 +113,28 @@ export function middleware(request: NextRequest) {
   // B. Root path: REWRITE to /global or /in based on IP 
   // (Middleware runs before page, so this is instant)
   if (pathname === '/') {
-    const response = NextResponse.rewrite(new URL(isIndia ? '/in' : '/global', request.url));
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-pathname', '/');
+
+    const response = NextResponse.rewrite(new URL(isIndia ? '/in' : '/global', request.url), {
+      request: {
+        headers: requestHeaders,
+      },
+    });
     setGeoHeaders(response, isIndia);
     return response;
   }
 
   // C. Allow /in and /global paths to pass through 
   if (pathname.startsWith('/in') || pathname.startsWith('/global')) {
-    const response = NextResponse.next();
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-pathname', pathname);
+
+    const response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
     setGeoHeaders(response, isIndia);
     return response;
   }
@@ -138,11 +152,56 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // E. For all other paths (e.g., /partners, /about), 
+  // E. Handle India-only use cases that might be accessed on the global site (prevent 404s)
+  if (pathname.startsWith('/use-case')) {
+    const url = request.nextUrl.clone();
+    if (pathname === '/use-cases' || pathname === '/use-case') {
+      url.pathname = '/';
+      return NextResponse.redirect(url, 301);
+    }
+    if (pathname.includes('/vastu-optimization')) {
+      url.pathname = '/products/vastu';
+      return NextResponse.redirect(url, 301);
+    }
+    if (pathname.includes('/home-remodeling') || pathname.includes('/interior-design')) {
+      url.pathname = '/products/interiors-exteriors';
+      return NextResponse.redirect(url, 301);
+    }
+    if (pathname.includes('/new-home-building')) {
+      url.pathname = '/products/floor-planner';
+      return NextResponse.redirect(url, 301);
+    }
+  }
+
+  // Handle India-only business use cases accessed globally
+  if (pathname.startsWith('/business/')) {
+    if (
+      pathname.includes('/commercial-spaces') ||
+      pathname.includes('/builder-and-promoter') ||
+      pathname.includes('/nri-remote-planning') ||
+      pathname.includes('/developer-solutions') ||
+      pathname.includes('/real-estate-brokers')
+    ) {
+      const url = request.nextUrl.clone();
+      url.pathname = '/business';
+      return NextResponse.redirect(url, 301);
+    }
+  }
+
+  // F. For all other paths (e.g., /partners, /about), 
   // REWRITE to /global/[path] to serve global content at clean URLs.
   const url = request.nextUrl.clone();
   url.pathname = `/global${pathname}`;
-  const response = NextResponse.rewrite(url);
+
+  // Attach x-pathname header so layout.tsx knows the active route
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', pathname);
+
+  const response = NextResponse.rewrite(url, {
+    request: {
+      headers: requestHeaders,
+    },
+  });
   setGeoHeaders(response, isIndia);
   return response;
 }
