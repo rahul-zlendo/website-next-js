@@ -1,10 +1,9 @@
 import { Metadata } from 'next';
 import { createPageMetadata } from '@/lib/seo/metadata';
 import PlansClient from './PlansClient';
-import { getAllSubscriptionsService, Subscription } from '@/lib/services/subscriptionService';
-import { getAllOffersService, Offer } from '@/lib/services/offerService';
+import { Subscription } from '@/lib/services/subscriptionService';
+import { Offer } from '@/lib/services/offerService';
 import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
-import JsonLd from '@/components/common/JsonLd';
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { country } = await params;
@@ -35,15 +34,45 @@ const isOfferValid = (offer: Offer): boolean => {
     }
 };
 
+/**
+ * Server-side fetch for subscription plans.
+ * Uses direct fetch() instead of axiosInstance (which depends on js-cookie, a client-only lib).
+ */
+async function fetchPlansServerSide(countryId: number = 1): Promise<Subscription[]> {
+    try {
+        const url = `${API_BASE_URL}/SubscriptionMaster/GetSubscriptionPlansWithFeatures?CountryId=${countryId}&PlanTypeId=1`;
+        const response = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'zrealtyserviceapikey': DEFAULT_API_TOKEN,
+            },
+            next: { revalidate: 300 }, // Cache for 5 minutes
+        });
+
+        if (!response.ok) return [];
+
+        const data: Subscription[] = await response.json();
+        return data
+            .filter(p => p.planTypeId === 1 && p.isActive !== false)
+            .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
+    } catch (error) {
+        console.error('Server-side plans fetch failed:', error);
+        return [];
+    }
+}
+
 export default async function PlansPage({ params }: PageProps) {
     const { country } = await params;
     const isIndia = country.toLowerCase() === 'in';
 
-
+    // Fetch plans server-side so pricing cards are visible in page source for SEO
+    const countryId = isIndia ? 1 : undefined;
+    const initialPlans = await fetchPlansServerSide(countryId);
 
     return (
         <>
-            <PlansClient />
+            <PlansClient initialPlans={initialPlans} />
         </>
     );
 }

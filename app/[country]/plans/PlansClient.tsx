@@ -14,9 +14,10 @@ import { FRONTEND_URL } from '@/lib/config/env';
 
 interface PlansClientProps {
     isGlobal?: boolean;
+    initialPlans?: Subscription[];
 }
 
-const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
+const PlansClient = ({ isGlobal = false, initialPlans = [] }: PlansClientProps) => {
     const dispatch = useAppDispatch();
     const { getPath } = useCountry();
     const { activeOffer } = useAppSelector((state) => state.offer);
@@ -24,9 +25,9 @@ const PlansClient = ({ isGlobal = false }: PlansClientProps) => {
     const { detectedCountryId, isDetectingCountry } = useAppSelector((state) => state.enterprise);
     const [isYearly, setIsYearly] = useState(false);
     const [isSubscriptionChecked, setIsSubscriptionChecked] = useState(false);
-    const [plans, setPlans] = useState<Subscription[]>([]);
+    const [plans, setPlans] = useState<Subscription[]>(initialPlans);
     const [compareData, setCompareData] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(initialPlans.length === 0);
     const [error, setError] = useState<string | null>(null);
 
     // Generation counter: when the effect re-runs (e.g. auth rehydrates),
