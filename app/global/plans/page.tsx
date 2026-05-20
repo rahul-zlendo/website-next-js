@@ -1,10 +1,9 @@
 import { Metadata } from 'next';
 import { createPageMetadata } from '@/lib/seo/metadata';
 import PlansClient from '@/app/[country]/plans/PlansClient';
-import { getAllSubscriptionsService, Subscription } from '@/lib/services/subscriptionService';
-import { getAllOffersService, Offer } from '@/lib/services/offerService';
+import { Subscription } from '@/lib/services/subscriptionService';
+import { Offer } from '@/lib/services/offerService';
 import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
-import JsonLd from '@/components/common/JsonLd';
 
 export const metadata = createPageMetadata({
     title: 'Subscription Plans | Zlendo Realty',
@@ -25,12 +24,41 @@ const isOfferValid = (offer: Offer): boolean => {
     }
 };
 
-export default async function GlobalPlansPage() {
+/**
+ * Server-side fetch for subscription plans (global).
+ */
+async function fetchPlansServerSide(countryId?: number): Promise<Subscription[]> {
+    try {
+        const cid = countryId || 1;
+        const url = `${API_BASE_URL}/SubscriptionMaster/GetSubscriptionPlansWithFeatures?CountryId=${cid}&PlanTypeId=1`;
+        const response = await fetch(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'zrealtyserviceapikey': DEFAULT_API_TOKEN,
+            },
+            next: { revalidate: 300 },
+        });
 
+        if (!response.ok) return [];
+
+        const data: Subscription[] = await response.json();
+        return data
+            .filter(p => p.planTypeId === 1 && p.isActive !== false)
+            .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
+    } catch (error) {
+        console.error('Server-side plans fetch failed:', error);
+        return [];
+    }
+}
+
+export default async function GlobalPlansPage() {
+    // Fetch plans server-side so pricing cards are visible in page source for SEO
+    const initialPlans = await fetchPlansServerSide();
 
     return (
         <>
-            <PlansClient isGlobal={true} />
+            <PlansClient isGlobal={true} initialPlans={initialPlans} />
         </>
     );
 }

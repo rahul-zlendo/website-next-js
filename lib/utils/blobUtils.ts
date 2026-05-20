@@ -59,32 +59,18 @@ async function getCachedUrl(url: string): Promise<string | null> {
       request.onsuccess = async () => {
         const result = request.result;
         if (result && Date.now() - result.timestamp < CACHE_EXPIRY_MS) {
-          // Validate that the blob URL is still alive (blob URLs are session-scoped)
-          if (result.blobUrl && result.blobUrl.startsWith('blob:')) {
-            try {
-              const testResponse = await fetch(result.blobUrl);
-              if (testResponse.ok) {
-                resolve(result.blobUrl);
-              } else {
-                // Stale blob URL — delete from cache and signal re-fetch
-                try {
-                  const db2 = await initDB();
-                  const tx = db2.transaction(STORE_NAME, 'readwrite');
-                  tx.objectStore(STORE_NAME).delete(url);
-                } catch (_) { /* ignore cleanup errors */ }
-                resolve(null);
-              }
-            } catch (_) {
-              // fetch threw (e.g. network error or revoked blob) — treat as stale
-              try {
-                const db2 = await initDB();
-                const tx = db2.transaction(STORE_NAME, 'readwrite');
-                tx.objectStore(STORE_NAME).delete(url);
-              } catch (_) { /* ignore cleanup errors */ }
-              resolve(null);
-            }
+          if (result.blob instanceof Blob) {
+            // New format: create a fresh session-scoped blob URL from the cached Blob
+            resolve(URL.createObjectURL(result.blob));
           } else {
-            resolve(result.blobUrl);
+            // Legacy format (stored string blobUrl) which causes browser console ERR_FILE_NOT_FOUND when tested.
+            // Consider it invalid and clean it up.
+            try {
+              const db2 = await initDB();
+              const tx = db2.transaction(STORE_NAME, 'readwrite');
+              tx.objectStore(STORE_NAME).delete(url);
+            } catch (_) { /* ignore cleanup errors */ }
+            resolve(null);
           }
         } else {
           resolve(null);
@@ -101,12 +87,12 @@ async function getCachedUrl(url: string): Promise<string | null> {
 /**
  * Cache blob URL in IndexedDB
  */
-async function cacheUrl(url: string, blobUrl: string): Promise<void> {
+async function cacheUrl(url: string, blob: Blob): Promise<void> {
   try {
     const db = await initDB();
     const transaction = db.transaction(STORE_NAME, 'readwrite');
     const store = transaction.objectStore(STORE_NAME);
-    store.put({ url, blobUrl, timestamp: Date.now() });
+    store.put({ url, blob, timestamp: Date.now() });
   } catch (error) {
     // console.error('Error caching URL:', error);
   }
@@ -174,7 +160,7 @@ export async function fetchBlobUrl(relativeUrl: any): Promise<string> {
 
     // Cache the result (client-side only)
     if (typeof window !== 'undefined') {
-      await cacheUrl(fullUrl, blobUrl);
+      await cacheUrl(fullUrl, blob);
     }
 
     return blobUrl;
