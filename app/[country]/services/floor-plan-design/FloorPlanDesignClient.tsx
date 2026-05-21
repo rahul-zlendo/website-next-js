@@ -80,12 +80,15 @@ export default function FloorPlanDesignClient() {
                                 Get Your Dream Home Floor Plan{' '}
                                 <span className="text-zlendo-teal italic">Designed by Experts</span>
                             </motion.h1>
-                            <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-4">
+                            {/* <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-4">
                                 From plot planning to complete house layouts, Zlendo Realty helps homeowners create smart, functional, and Vastu-friendly floor plans tailored to their lifestyle and budget.
-                            </motion.p>
-                            <motion.p {...fadeUp} transition={{ delay: 0.25 }} className="text-base md:text-lg text-zlendo-grey-medium/80 font-medium mb-8">
+                            </motion.p> */}
+                            <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-8">
                                 Whether you&apos;re building a new home, renovating, or planning a duplex, our design experts turn your ideas into professional 2D &amp; 3D floor plans.
                             </motion.p>
+                            {/* <motion.p {...fadeUp} transition={{ delay: 0.25 }} className="text-base md:text-lg text-zlendo-grey-medium font-medium mb-8">
+                                Whether you&apos;re building a new home, renovating, or planning a duplex, our design experts turn your ideas into professional 2D &amp; 3D floor plans.
+                            </motion.p> */}
                             <motion.div {...fadeUp} transition={{ delay: 0.3 }} className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-10">
                                 <Link href={getPath('/services/floor-plan-design/consultation')} className="btn-primary py-4 px-8 text-base md:text-lg rounded-2xl text-center inline-flex items-center justify-center gap-2 font-bold shadow-lg shadow-zlendo-teal/15 hover:shadow-xl hover:shadow-zlendo-teal/25 transition-all">
                                     Book Free Consultation <ArrowRight className="w-5 h-5" />
@@ -198,7 +201,7 @@ export default function FloorPlanDesignClient() {
                             <p className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                 A well-designed floor plan improves space utilization, natural lighting, ventilation, privacy, and future functionality.
                             </p>
-                            <p className="text-base md:text-lg text-zlendo-grey-medium/80 font-medium leading-relaxed mb-6">
+                            <p className="text-base md:text-lg text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                 At Zlendo Realty, we work directly with homeowners to design practical and visually optimized floor plans that match your family needs and plot dimensions.
                             </p>
                             <p className="text-base md:text-lg text-zlendo-grey-dark font-bold mb-8">
