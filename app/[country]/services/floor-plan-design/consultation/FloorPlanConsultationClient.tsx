@@ -32,19 +32,111 @@ export default function FloorPlanConsultationClient() {
         { icon: Clock, label: 'Fast Design Turnaround' },
     ];
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(formState.email)) {
-            setEmailError(true);
-            return;
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    //     if (!emailRegex.test(formState.email)) {
+    //         setEmailError(true);
+    //         return;
+    //     }
+    //     setIsSubmitting(true);
+    //     // Simulate API call
+    //     await new Promise(resolve => setTimeout(resolve, 1500));
+    //     setIsSubmitting(false);
+    //     setIsSubmitted(true);
+    // };
+
+   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(formState, "inputs");
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formState.email)) {
+        setEmailError(true);
+        return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+        const PORTAL_ID = "YOUR_PORTAL_ID";        // 🔁 Replace this
+        const FORM_ID = "YOUR_FORM_GUID";           // 🔁 Replace this
+        const HS_ACCESS_TOKEN = "YOUR_PRIVATE_APP_TOKEN"; // 🔁 Replace this
+
+        // ── Step 1: Upload file if selected ──────────────────────────────
+        let sitePhotoUrl = "";
+
+        if (formState.sitePhotos instanceof File) {
+            const fileData = new FormData();
+            fileData.append("file", formState.sitePhotos);
+            fileData.append("folderPath", "/site-photos");
+            fileData.append(
+                "options",
+                JSON.stringify({
+                    access: "PUBLIC_INDEXABLE",
+                    overwrite: false,
+                })
+            );
+
+            const uploadRes = await fetch("https://api.hubapi.com/files/v3/files", {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${HS_ACCESS_TOKEN}`,
+                },
+                body: fileData,
+            });
+
+            if (!uploadRes.ok) throw new Error("File upload failed");
+
+            const uploadData = await uploadRes.json();
+            sitePhotoUrl = uploadData.url;
+            console.log("File uploaded:", sitePhotoUrl);
         }
-        setIsSubmitting(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsSubmitting(false);
+
+        // ── Step 2: Build fields array ────────────────────────────────────
+        const fields: { name: string; value: string }[] = [
+            { name: "firstname", value: formState.name },
+            { name: "email",     value: formState.email },
+            { name: "phone",     value: formState.phone },
+            { name: "city",      value: formState.location },
+            { name: "message",   value: formState.requirements },
+        ];
+
+        if (sitePhotoUrl) {
+            fields.push({ name: "site_photo_url", value: sitePhotoUrl });
+        }
+
+        // ── Step 3: Submit to HubSpot form ────────────────────────────────
+        const payload = {
+            fields,
+            context: {
+                pageUri: window.location.href,
+                pageName: document.title,
+            },
+        };
+
+        console.log(payload, "Submitting to HubSpot");
+
+        const res = await fetch(
+            `https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_ID}`,
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            }
+        );
+
+        if (!res.ok) throw new Error("HubSpot submission failed");
+
         setIsSubmitted(true);
-    };
+
+    } catch (error) {
+        console.error("Form error:", error);
+    } finally {
+        setIsSubmitting(false);
+    }
+};
+
 
     return (
         <div className="min-h-screen bg-white font-nunito">
