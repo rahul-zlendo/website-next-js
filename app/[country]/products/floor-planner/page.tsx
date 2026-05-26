@@ -147,12 +147,54 @@ export default async function Page({ params }: Props) {
         ]
     };
 
+    const softwareApplicationSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Zlendo Realty AI Floor Planner",
+        "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "Floor Planning Software",
+        "operatingSystem": "Web",
+        "url": fullUrl,
+        "description": "AI-powered floor planning software that helps users create accurate 2D house plans, instantly convert them into immersive 3D designs, personalize layouts, and generate walkthrough-ready architectural visualizations.",
+        "image": "https://zlendorealty.com/favicon.ico",
+        "softwareVersion": "1.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "14-day free trial with full access and no credit card required"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "featureList": [
+            "2D floor plan drafting",
+            "Instant 3D conversion",
+            "AI-powered layout generation",
+            "Live 3D preview",
+            "Virtual walkthroughs",
+            "Auto-dimensioning",
+            "Multi-story planning",
+            "CAD export support",
+            "Drag-and-drop furniture placement",
+            "Architectural visualization"
+        ]
+    };
+
     return (
         <>
             <JsonLd schema={faqSchema} />
             <JsonLd schema={breadcrumbSchema} />
-            <FloorPlannerClient 
-                cms={cms} 
+            <JsonLd schema={softwareApplicationSchema} />
+            <FloorPlannerClient
+                cms={cms}
                 resolvedFaqs={resolvedFaqs}
                 resolvedWorkflowSteps={resolvedWorkflowSteps}
                 resolvedDraftingFeatures={resolvedDraftingFeatures}

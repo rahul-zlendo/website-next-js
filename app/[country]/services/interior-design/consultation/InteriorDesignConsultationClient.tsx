@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     User, Mail, Phone, MapPin, Upload, FileText,
     CheckCircle2, ArrowRight, Sparkles, Home, Layers,
-    Eye, Shield, Clock, PenTool
+    Eye, Shield, Box, Briefcase, PaintBucket
 } from 'lucide-react';
 
 const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
-export default function FloorPlanConsultationClient() {
+export default function InteriorDesignConsultationClient() {
     const [formState, setFormState] = useState({
         name: '',
         email: '',
@@ -24,32 +24,16 @@ export default function FloorPlanConsultationClient() {
     const [emailError, setEmailError] = useState(false);
 
     const highlights = [
-        { icon: PenTool, label: 'Customized Floor Plan Design' },
-        { icon: Home, label: 'Smart Space Optimization' },
-        { icon: Layers, label: '2D + 3D Visualization' },
-        { icon: Shield, label: 'Vastu-Friendly Layouts' },
-        { icon: Eye, label: 'Expert Design Consultation' },
-        { icon: Clock, label: 'Fast Design Turnaround' },
+        { icon: Home, label: 'Residential Interior Design' },
+        { icon: Briefcase, label: 'Commercial Interior Design' },
+        { icon: Box, label: 'Modular Kitchen Design' },
+        { icon: Layers, label: 'Space Planning & Layouts' },
+        { icon: Eye, label: '3D Interior Visualization' },
+        { icon: PaintBucket, label: 'Turnkey Interior Solutions' },
     ];
-
-    // const handleSubmit = async (e: React.FormEvent) => {
-    //     e.preventDefault();
-    //     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    //     if (!emailRegex.test(formState.email)) {
-    //         setEmailError(true);
-    //         return;
-    //     }
-    //     setIsSubmitting(true);
-    //     // Simulate API call
-    //     await new Promise(resolve => setTimeout(resolve, 1500));
-    //     setIsSubmitting(false);
-    //     setIsSubmitted(true);
-    // };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(formState, "inputs");
-
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(formState.email)) {
             setEmailError(true);
@@ -60,9 +44,8 @@ export default function FloorPlanConsultationClient() {
 
         try {
             const PORTAL_ID = "245231518";
-            const FORM_ID = "d9122d98-5891-44bd-841c-bdab4d7370c0";
+            const FORM_ID = "2883eb50-affe-47d3-9563-46b9ba08bc58";
 
-            // ── Step 1: Upload file if selected ──────────────────────────────
             let sitePhotoUrl = "";
 
             if (formState.sitePhotos instanceof File) {
@@ -86,10 +69,8 @@ export default function FloorPlanConsultationClient() {
 
                 const uploadData = await uploadRes.json();
                 sitePhotoUrl = uploadData.url;
-                console.log("File uploaded:", sitePhotoUrl);
             }
 
-            // ── Step 2: Build fields array ────────────────────────────────────
             const fields: { name: string; value: string }[] = [
                 { name: "firstname", value: formState.name },
                 { name: "email", value: formState.email },
@@ -102,7 +83,6 @@ export default function FloorPlanConsultationClient() {
                 fields.push({ name: "site_photo_url", value: sitePhotoUrl });
             }
 
-            // ── Step 3: Submit to HubSpot form ────────────────────────────────
             const payload = {
                 fields,
                 context: {
@@ -110,8 +90,6 @@ export default function FloorPlanConsultationClient() {
                     pageName: document.title,
                 },
             };
-
-            console.log(payload, "Submitting to HubSpot");
 
             const res = await fetch(
                 `https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_ID}`,
@@ -146,17 +124,17 @@ export default function FloorPlanConsultationClient() {
                             <motion.div {...fadeUp}>
                                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-zlendo-teal/10 shadow-sm mb-8">
                                     <Sparkles className="w-4 h-4 text-zlendo-teal animate-pulse" />
-                                    <span className="text-xs font-black uppercase tracking-widest text-zlendo-teal">Expert Floor Planning</span>
+                                    <span className="text-xs font-black uppercase tracking-widest text-zlendo-teal">Expert Interior Design</span>
                                 </div>
                                 <h1 className="text-3xl md:text-[44px] font-black text-zlendo-grey-dark leading-tight mb-6">
-                                    Design Your Dream Home with{' '}
-                                    <span className="text-zlendo-teal italic">Expert Floor Planning</span>
+                                    Transform Your Space with{' '}
+                                    <span className="text-zlendo-teal italic">Professional Design Services</span>
                                 </h1>
                                 <p className="text-lg text-zlendo-grey-medium font-medium mb-4 leading-relaxed">
-                                    Get customized 2D &amp; 3D floor plans tailored to your plot, lifestyle, and family needs.
+                                    Create stylish, functional, and modern interiors tailored to your lifestyle and business needs.
                                 </p>
                                 <p className="text-base text-zlendo-grey-medium/80 font-medium mb-10 leading-relaxed">
-                                    We help homeowners create smart, spacious, and Vastu-friendly home layouts before construction begins.
+                                    Our expert interior designers provide customized solutions for homes, offices, retail spaces, and commercial properties.
                                 </p>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
@@ -185,8 +163,8 @@ export default function FloorPlanConsultationClient() {
                                 className="bg-[#F8FBFA] rounded-[40px] p-6 lg:p-10 border border-[#eee] shadow-xl shadow-black/[0.02]"
                             >
                                 <div className="text-center mb-8">
-                                    <h2 className="text-2xl lg:text-3xl font-black text-zlendo-grey-dark mb-3">Get Floor Plan Consultation</h2>
-                                    <p className="text-zlendo-grey-medium font-medium">Fill the form to get a personalized floor planning consultation.</p>
+                                    <h2 className="text-2xl lg:text-3xl font-black text-zlendo-grey-dark mb-3">Get a Free Consultation</h2>
+                                    <p className="text-zlendo-grey-medium font-medium">Fill the form to get personalized interior design solutions.</p>
                                 </div>
 
                                 <AnimatePresence mode="wait">
@@ -270,7 +248,7 @@ export default function FloorPlanConsultationClient() {
                                                 <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Requirements</label>
                                                 <div className="relative">
                                                     <FileText className="absolute left-5 top-5 w-4 h-4 text-zlendo-grey-medium/30" />
-                                                    <textarea rows={4} placeholder="Describe your plot dimensions, room preferences, budget, Vastu needs..."
+                                                    <textarea rows={4} placeholder="Describe your interior needs, style preferences, budget..."
                                                         className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal transition-all font-medium text-[#1a1a1a] resize-none"
                                                         value={formState.requirements} onChange={e => setFormState({ ...formState, requirements: e.target.value })}
                                                     />

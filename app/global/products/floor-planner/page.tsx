@@ -1,5 +1,6 @@
 import React from 'react';
 import { getClient } from '@/lib/sanity/client';
+import JsonLd from '@/components/common/JsonLd';
 import SectionRenderer from '@/components/global/SectionRenderer';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
@@ -30,6 +31,47 @@ async function getGlobalPage(slug: string) {
   const query = `*[_type == "globalPage" && slug.current == $slug][0]`;
   return await getClient().fetch(query, { slug });
 }
+
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Zlendo Realty AI Floor Planner",
+  "applicationCategory": "DesignApplication",
+  "applicationSubCategory": "Floor Planning Software",
+  "operatingSystem": "Web",
+  "url": "https://zlendorealty.com/products/floor-planner",
+  "description": "AI-powered floor planning software that helps users create accurate 2D house plans, instantly convert them into immersive 3D designs, personalize layouts, and generate walkthrough-ready architectural visualizations.",
+  "image": "https://zlendorealty.com/favicon.ico",
+  "softwareVersion": "1.0",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD",
+    "description": "14-day free trial with full access and no credit card required"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "Zlendo Realty",
+    "url": "https://zlendorealty.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Zlendo Realty",
+    "url": "https://zlendorealty.com"
+  },
+  "featureList": [
+    "2D floor plan drafting",
+    "Instant 3D conversion",
+    "AI-powered layout generation",
+    "Live 3D preview",
+    "Virtual walkthroughs",
+    "Auto-dimensioning",
+    "Multi-story planning",
+    "CAD export support",
+    "Drag-and-drop furniture placement",
+    "Architectural visualization"
+  ]
+};
 
 const GlobalFloorPlannerPage = async () => {
   const slug = "products/floor-planner";
@@ -193,6 +235,7 @@ const GlobalFloorPlannerPage = async () => {
 
     return (
       <main className="min-h-screen">
+        <JsonLd schema={softwareApplicationSchema} />
         <SectionRenderer sections={fallbackSections} />
       </main>
     );
@@ -200,6 +243,7 @@ const GlobalFloorPlannerPage = async () => {
 
   return (
     <main className="min-h-screen">
+      <JsonLd schema={softwareApplicationSchema} />
       <SectionRenderer sections={pageData.sections} />
     </main>
   );

@@ -34,7 +34,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-export default async function TwoDToThreeDPage() {
+export default async function TwoDToThreeDPage({ params }: Props) {
+    const { country } = await params;
+    const isGlobal = country === 'global';
+    const cleanPath = isGlobal ? '/products/2d-to-3d' : `/${country}/products/2d-to-3d`;
+    const fullUrl = `https://zlendorealty.com${cleanPath}`;
+
     const { isEnabled: preview } = await draftMode();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -129,9 +134,51 @@ export default async function TwoDToThreeDPage() {
         }))
     };
 
+    const softwareApplicationSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Zlendo Realty 2D to 3D Converter",
+        "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "3D Home Design Software",
+        "operatingSystem": "Web",
+        "url": fullUrl,
+        "description": "AI-powered 2D to 3D conversion software that transforms floor plans, sketches, PDFs, and architectural drawings into immersive 3D home designs, walkthroughs, and realistic visualizations instantly.",
+        "image": "https://zlendorealty.com/favicon.ico",
+        "softwareVersion": "1.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free online 2D to 3D conversion tool"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "featureList": [
+            "AI-powered 2D to 3D conversion",
+            "Floor plan to 3D visualization",
+            "PDF and image upload support",
+            "Interactive 3D walkthroughs",
+            "Smart room detection",
+            "Automatic wall and door generation",
+            "High-fidelity 3D rendering",
+            "Editable 3D layouts",
+            "Export-ready 3D models",
+            "Realistic materials and lighting"
+        ]
+    };
+
     return (
         <>
             <JsonLd schema={faqSchema} />
+            <JsonLd schema={softwareApplicationSchema} />
             <TwoDTo3DClient
                 cms={cms}
                 resolvedFaqs={resolvedFaqs}

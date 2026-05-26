@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import JsonLd from '@/components/common/JsonLd';
 import {
   Clock,
   TrendingUp,
@@ -98,6 +99,49 @@ export default function TwoDToThreeDPage() {
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 0.2], [0, 150]);
 
+  const softwareApplicationSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zlendo Realty 2D to 3D Converter",
+    "applicationCategory": "DesignApplication",
+    "applicationSubCategory": "3D Home Design Software",
+    "operatingSystem": "Web",
+    "url": "https://zlendorealty.com/products/2d-to-3d",
+    "description": "AI-powered 2D to 3D conversion software that transforms floor plans, sketches, PDFs, and architectural drawings into immersive 3D home designs, walkthroughs, and realistic visualizations instantly.",
+    "image": "https://zlendorealty.com/favicon.ico",
+    "softwareVersion": "1.0",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free online 2D to 3D conversion tool"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Zlendo Realty",
+      "url": "https://zlendorealty.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zlendo Realty",
+      "url": "https://zlendorealty.com"
+    },
+    "featureList": [
+      "AI-powered 2D to 3D conversion",
+      "Floor plan to 3D visualization",
+      "PDF and image upload support",
+      "Interactive 3D walkthroughs",
+      "Smart room detection",
+      "Automatic wall and door generation",
+      "High-fidelity 3D rendering",
+      "Editable 3D layouts",
+      "Export-ready 3D models",
+      "Realistic materials and lighting"
+    ]
+  };
+
+
+
   const [activeUseCase, setActiveUseCase] = useState(0);
   const useCases = [
     { title: 'Architects', icon: Building2, img: '/assets/2d-to-3d/before-plan.webp', outcome: 'Stop rendering. Start presenting.' },
@@ -108,6 +152,7 @@ export default function TwoDToThreeDPage() {
 
   return (
     <div className="min-h-screen bg-white text-[#111] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
+      <JsonLd schema={softwareApplicationSchema} />
       <main>
         {/* 1. HERO (Visual Impact First) */}
         <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-black">
