@@ -11,6 +11,8 @@
  * - NEXT_PUBLIC_BACKEND_URL
  */
 
+export const enableGTM = 'prod';
+
 // Determine environment (dev or prod)
 const env = process.env.NEXT_PUBLIC_ENV || 'prod';
 const isDev = env === 'dev';
@@ -67,6 +69,9 @@ export const DEFAULT_API_TOKEN_PROD = 'zrsk_beta_8a1d4c7e6f2b9a5d3c1e0f8b6a4d';
 
 // Use environment variable if provided, otherwise fallback to hardcoded defaults
 export const DEFAULT_API_TOKEN = process.env.NEXT_PUBLIC_ZREALTY_SERVICE_API_KEY || (isDev ? DEFAULT_API_TOKEN_DEV : DEFAULT_API_TOKEN_PROD);
+
+// HubSpot Configuration
+export const HUBSPOT_ACCESS_TOKEN = process.env.HUBSPOT_ACCESS_TOKEN || '';
 
 // Export environment info
 export const IS_DEV = isDev;

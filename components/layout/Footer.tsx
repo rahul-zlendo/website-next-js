@@ -97,7 +97,7 @@ const Footer = ({
     return (
         <FooterClient hideCTA={hideCTA}>
             <div className="container-custom px-6 lg:px-12 relative z-10">
-                <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-20">
+                <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-5">
                     {/* Brand Section */}
                     <div className="lg:w-1/4 space-y-6">
                         <Logo className="h-14" />
@@ -116,6 +116,28 @@ const Footer = ({
                                     <social.icon className="w-5 h-5" strokeWidth={2.5} />
                                 </a>
                             ))}
+                        </div>
+
+                        {/* VAPT Certification — no background, just divider + content */}
+                        <div className="pt-3 border-t border-black/10">
+                            <div className="flex flex-col items-center gap-2 text-center">
+                                <img
+                                    src="/assets/global/einshield-badge.svg"
+                                    alt="EINShield VAPT Secured"
+                                    className="h-24 w-24 object-contain"
+                                />
+                                <div>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.1em] text-emerald-600 mb-0.5">
+                                        VAPT Certified
+                                    </p>
+                                    <p className="text-[13px] font-bold text-zlendo-grey-dark leading-snug">
+                                        Secure Your Account
+                                    </p>
+                                    {/* <p className="text-[11px] font-medium text-gray-400">
+                                        Enterprise-Grade Protection
+                                    </p> */}
+                                </div>
+                            </div>
                         </div>
                     </div>
 

@@ -91,7 +91,7 @@ export default function InteractiveGlobalHero() {
                                     <img
                                         src="/assets/capterra-logo.webp"
                                         alt="Capterra Official Logo"
-                                        className="h-[18px] sm:h-[22px] w-auto object-contain opacity-90 group-hover:opacity-100 transition-all duration-300"
+                                        className="h-[18px] sm:h-[30px] w-auto object-contain opacity-90 group-hover:opacity-100 transition-all duration-300"
                                     />
                                 </div>
 
