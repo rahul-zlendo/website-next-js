@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Layout, Sun, Shield, Leaf, ArrowRight, ChevronDown } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import JsonLd from '@/components/common/JsonLd';
 
 export default function InteriorsExteriorsPage() {
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -27,6 +28,29 @@ export default function InteriorsExteriorsPage() {
                     "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "featureList": ["AI-powered interior design", "Exterior elevation visualization", "2D to 3D conversion", "Photorealistic rendering", "Interactive virtual walkthroughs", "Material and texture customization", "Furniture and decor placement", "Landscape visualization", "Lighting and shadow simulation", "Modern and traditional design themes", "Real-time design previews", "Export-ready architectural visuals"]
                 })
+            }} />
+            <JsonLd schema={{
+                "@context": "https://schema.org/",
+                "@type": "FAQPage",
+                "name": "Interiors & Exteriors - Frequently Asked Questions",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Can I design both simultaneously?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes, our engine allows you to jump between interior wireframes and exterior landscaping in one cohesive environment."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Are the plants geographically accurate?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "We offer region-specific vegetation packs so your exterior renders look authentic to the project location."
+                        }
+                    }
+                ]
             }} />
             <main>
                 {/* HERO SECTION */}

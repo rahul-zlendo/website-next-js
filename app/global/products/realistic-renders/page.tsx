@@ -22,6 +22,7 @@ import {
     Monitor
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import JsonLd from '@/components/common/JsonLd';
 
 export default function RealisticRendersPage() {
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -45,6 +46,45 @@ export default function RealisticRendersPage() {
                     "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "featureList": ["AI-powered photorealistic rendering", "4K and 8K architectural visualization", "Ray-traced lighting simulation", "Global illumination rendering", "Physically based materials", "Cinematic depth of field", "Interior and exterior rendering", "Time-of-day sunlight simulation", "Realistic shadow and reflection rendering", "Professional camera angle controls", "Ultra-fast cloud rendering", "Marketing-ready architectural visuals", "Client presentation render generation", "Photorealistic texture mapping"]
                 })
+            }} />
+            <JsonLd schema={{
+                "@context": "https://schema.org/",
+                "@type": "FAQPage",
+                "name": "Realistic Renders - Frequently Asked Questions",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "What file formats do you support?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "We support all project designs from our 3D Floor Planner directly, as well as external imports in common formats like JPG, PNG (for sketches), and soon DWG."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Do I need a powerful GPU to render?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "No. All rendering is processed on our high-performance cloud servers. You can render studio-quality images even on a basic laptop or an iPad."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Can I use the renders for commercial projects?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Absolutely. All renders generated on professional plans come with full commercial rights for use in client presentations and marketing."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Is the lighting physically accurate?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Yes. Our AI engine is trained on thousands of studio-grade renders and uses proprietary models to ensure shadows, reflections, and global illumination are photorealistic."
+                        }
+                    }
+                ]
             }} />
             <main>
                 {/* 1. HERO SECTION */}
