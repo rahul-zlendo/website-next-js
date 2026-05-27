@@ -9,6 +9,7 @@ import FloatingContactButton from '@/components/common/FloatingContactButton';
 import CookieConsent from '@/components/common/CookieConsent';
 import LaunchOfferPopup from '@/components/common/LaunchOfferPopup';
 import ScrollToTopOnNavigate from '@/components/common/ScrollToTopOnNavigate';
+import DynamicBreadcrumb from '@/components/common/DynamicBreadcrumb';
 import { getClient } from '@/lib/sanity/client';
 import { siteSettingsQuery } from '@/lib/sanity/queries';
 import { urlFor } from '@/lib/sanity/image';
@@ -43,9 +44,10 @@ export default async function CountryLayout({
   return (
     <CountryProvider initialCountry={country as CountryCode}>
       <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
+        <DynamicBreadcrumb />
         <AuthSync />
         <PromoBanner />
-          <Header logoUrl={logoUrl} />
+        <Header logoUrl={logoUrl} />
         {/* <LaunchOfferPopup /> */}
         <ScrollToTopOnNavigate />
         <main>{children}</main>
