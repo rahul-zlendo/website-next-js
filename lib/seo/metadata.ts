@@ -53,10 +53,10 @@ export function createPageMetadata({
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
     const isIndia = cleanPath.startsWith('/in');
     const segment = isIndia ? cleanPath.replace(/^\/in/, '') : cleanPath;
-    
+
     // Ensure segment starts with / unless it's empty
     const normalizedSegment = segment === '/' ? '' : segment;
-    
+
     const globalUrl = `${BASE_URL}${normalizedSegment}`;
     const indiaUrl = `${BASE_URL}/in${normalizedSegment}`;
 

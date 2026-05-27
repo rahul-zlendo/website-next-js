@@ -8,10 +8,28 @@ import { SIGNUP_URL } from '@/lib/constants/urls';
 export default function CostEstimatorPage() {
     return (
         <div className="min-h-screen bg-white text-[#222222] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    "name": "Zlendo Realty Smart Cost Estimator",
+                    "applicationCategory": "BusinessApplication",
+                    "applicationSubCategory": "Construction Cost Estimation Software",
+                    "operatingSystem": "Web",
+                    "url": "https://zlendorealty.com/products/cost-estimator",
+                    "description": "AI-powered construction cost estimation software that provides engineering-grade building cost analysis using soil conditions, seismic zones, local material rates, labor costs, and real-time market data for accurate home construction budgeting.",
+                    "image": "https://zlendorealty.com/favicon.ico",
+                    "softwareVersion": "1.0",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free construction cost estimation tool for individual homeowners" },
+                    "creator": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
+                    "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
+                    "featureList": ["AI-powered construction cost estimation", "Engineering-grade BOQ generation", "Real-time material price analysis", "Soil type cost adjustment", "Seismic zone calculation", "Foundation cost estimation", "Labor and material breakdown", "Component-wise budget analysis", "City-based construction pricing", "Material comparison and impact analysis", "Construction quality benchmarking", "Transparent budget recommendations", "Instant home building cost reports", "Budget optimization insights"]
+                })
+            }} />
             <main>
                 <section className="relative min-h-[85vh] flex items-center pt-24 pb-16 overflow-hidden bg-[#FAFAFC]">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(ellipse_at_center,rgba(0,191,154,0.05)_0%,transparent_60%)] pointer-events-none" />
-                    
+
                     <div className="container-custom px-4 relative z-20 text-center max-w-4xl mx-auto">
                         <motion.div
                             initial={{ opacity: 0, y: 15 }}

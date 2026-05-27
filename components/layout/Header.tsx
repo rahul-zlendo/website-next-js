@@ -117,6 +117,11 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         { label: 'New Home Building', desc: 'From plot to perfection', icon: User, path: getPath('/use-case/new-home-building') },
     ];
 
+    const serviceLinks = [
+        { label: 'Interior Design Services', desc: 'Professional interior planning', icon: Sparkles, path: getPath('/services/interior-design') },
+        { label: 'Home Elevation Services', desc: 'Stunning exterior elevations', icon: Layout, path: getPath('/services/floor-plan-design') },
+    ];
+
     const businessMenuLinks = [
         { label: 'Business Free Trial', desc: 'Try enterprise features', icon: CheckCircle, path: getPath('/business') + '#demo-form' },
         { label: 'Affiliate & Partner Program', desc: 'Collaborate and grow together', icon: Share2, path: getPath('/partners') },
@@ -272,7 +277,47 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                             </div>
                         )}
 
-                        {/* Use Cases Dropdown (Dynamic) */}
+                        {/* Services Dropdown (India Only) */}
+                        {isIndiaSite && (
+                            <div className="relative group">
+                                <button
+                                    onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
+                                    className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'services' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
+                                >
+                                    Services <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'services' ? 'rotate-180' : ''}`} />
+                                </button>
+                                <AnimatePresence>
+                                    {activeDropdown === 'services' && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            className="absolute top-full left-0 mt-4 w-[340px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 flex flex-col gap-2"
+                                        >
+                                            {serviceLinks.map((item) => (
+                                                <Link
+                                                    key={item.label}
+                                                    href={item.path}
+                                                    prefetch={true}
+                                                    onClick={toggleMode}
+                                                    className="flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/5 transition-all group/item"
+                                                >
+                                                    <div className="w-10 h-10 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
+                                                        <item.icon className="w-4 h-4" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
+                                                        <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
+                                                    </div>
+                                                </Link>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        )}
+
+                        {/* Use Cases Dropdown (Commented for future use)
                         {isIndiaSite && (
                             <div className="relative group">
                                 <button
@@ -311,6 +356,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                 </AnimatePresence>
                             </div>
                         )}
+                        */}
 
                         {/* Resources Dropdown */}
                         <div className="relative group">
@@ -650,7 +696,41 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                     </div>
                                 )}
 
-                                {/* Use Cases Mobile Dropdown */}
+                                {/* Services Mobile Dropdown */}
+                                {isIndiaSite && (
+                                    <div>
+                                        <button
+                                            onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
+                                            className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
+                                        >
+                                            Services
+                                            <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'services' ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        <AnimatePresence>
+                                            {activeDropdown === 'services' && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10"
+                                                >
+                                                    {serviceLinks.map(link => (
+                                                        <Link
+                                                            key={link.label}
+                                                            href={link.path}
+                                                            onClick={() => setIsMobileMenuOpen(false)}
+                                                            className="block text-base font-medium text-zlendo-grey-medium hover:text-zlendo-teal"
+                                                        >
+                                                            {link.label}
+                                                        </Link>
+                                                    ))}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                )}
+
+                                {/* Use Cases Mobile Dropdown (Commented for future use)
                                 {isIndiaSite && (
                                     <div>
                                         <button
@@ -683,6 +763,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                         </AnimatePresence>
                                     </div>
                                 )}
+                                */}
 
                                 {/* Resources Mobile Dropdown */}
                                 <div>

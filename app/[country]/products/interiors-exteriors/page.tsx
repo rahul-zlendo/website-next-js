@@ -157,15 +157,15 @@ export default async function InteriorsExteriorsPage({ params }: PageProps) {
     ];
 
     const resolvedStates = cms?.regionalStates?.length ? cms.regionalStates.map((s: any) => s.state) : indianStates;
-    const resolvedDetails = cms?.regionalStates?.length 
+    const resolvedDetails = cms?.regionalStates?.length
         ? Object.fromEntries(cms.regionalStates.map((s: any) => [s.state, s]))
         : regionalDetails;
 
     const resolvedInteriorCards = cms?.interiorCards?.length ? cms.interiorCards : defaultInteriorCards;
     const resolvedLandscapeCards = cms?.landscapeCards?.length ? cms.landscapeCards : defaultLandscapeCards;
     const resolvedCulturePoints = cms?.culturePoints?.length ? cms.culturePoints : defaultCulturePoints;
-    const resolvedFaqs = cms?.faqs?.length 
-        ? cms.faqs.map((f: any) => ({ q: f.question, a: f.answer })) 
+    const resolvedFaqs = cms?.faqs?.length
+        ? cms.faqs.map((f: any) => ({ q: f.question, a: f.answer }))
         : defaultFaqs;
 
     const faqSchema = {
@@ -182,11 +182,60 @@ export default async function InteriorsExteriorsPage({ params }: PageProps) {
         }))
     };
 
+    const { country } = await params;
+    const isGlobal = country === 'global';
+    const cleanPath = isGlobal ? '/products/interiors-exteriors' : `/${country}/products/interiors-exteriors`;
+    const fullUrl = `https://zlendorealty.com${cleanPath}`;
+
+    const softwareApplicationSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Zlendo Realty Interiors & Exteriors",
+        "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "AI Interior and Exterior Design Software",
+        "operatingSystem": "Web",
+        "url": fullUrl,
+        "description": "AI-powered interior and exterior home design software that helps homeowners, architects, and builders create realistic 3D visualizations, customize layouts, explore materials, generate photorealistic renders, and preview immersive walkthroughs instantly.",
+        "image": "https://zlendorealty.com/favicon.ico",
+        "softwareVersion": "1.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free online AI-powered interior and exterior design platform"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "featureList": [
+            "AI-powered interior design",
+            "Exterior elevation visualization",
+            "2D to 3D conversion",
+            "Photorealistic rendering",
+            "Interactive virtual walkthroughs",
+            "Material and texture customization",
+            "Furniture and decor placement",
+            "Landscape visualization",
+            "Lighting and shadow simulation",
+            "Modern and traditional design themes",
+            "Real-time design previews",
+            "Export-ready architectural visuals"
+        ]
+    };
+
     return (
         <>
             <JsonLd schema={faqSchema} />
-            <InteriorsExteriorsClient 
-                cms={cms} 
+            <JsonLd schema={softwareApplicationSchema} />
+            <InteriorsExteriorsClient
+                cms={cms}
                 resolvedStates={resolvedStates}
                 resolvedDetails={resolvedDetails}
                 resolvedInteriorCards={resolvedInteriorCards}

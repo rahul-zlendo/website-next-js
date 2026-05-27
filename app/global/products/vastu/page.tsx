@@ -63,6 +63,24 @@ export default function VastuOptimizerPage() {
 
     return (
         <div className="min-h-screen bg-white text-[#222222] font-nunito selection:bg-orange-500/20 selection:text-orange-600">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    "name": "Zlendo Realty Vastu Optimizer",
+                    "applicationCategory": "LifestyleApplication",
+                    "applicationSubCategory": "Vastu Analysis Software",
+                    "operatingSystem": "Web",
+                    "url": "https://zlendorealty.com/products/vastu",
+                    "description": "AI-powered Vastu analysis software that evaluates floor plans using Vastu Shastra principles, generates energy heatmaps, provides directional analysis, identifies layout imbalances, and suggests practical remedies for healthier and harmonious living spaces.",
+                    "image": "https://zlendorealty.com/favicon.ico",
+                    "softwareVersion": "1.0",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free AI-powered Vastu analysis and optimization tool" },
+                    "creator": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
+                    "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
+                    "featureList": ["AI-powered Vastu analysis", "Floor plan energy heatmaps", "Directional alignment checks", "Room-wise Vastu scorecard", "Compass orientation analysis", "Vastu compliance scoring", "Energy imbalance detection", "Non-destructive remedy suggestions", "Satellite-based directional mapping", "Apartment and home Vastu evaluation", "AI-generated layout correction suggestions", "Health and harmony optimization insights"]
+                })
+            }} />
             <JsonLd schema={faqSchema} />
             <JsonLd schema={productSchema} />
             <main>

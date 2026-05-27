@@ -39,7 +39,12 @@ export async function generateMetadata(
   };
 }
 
-export default async function CostEstimatorPage() {
+export default async function CostEstimatorPage({ params }: PageProps) {
+  const { country: countryCode } = await params;
+  const isGlobal = countryCode === 'global';
+  const cleanPath = isGlobal ? '/products/cost-estimator' : `/${countryCode}/products/cost-estimator`;
+  const fullUrl = `https://zlendorealty.com${cleanPath}`;
+
   const cms = await client.fetch(costEstimatorPageQuery);
 
   // FAQ Schema for SEO
@@ -47,31 +52,31 @@ export default async function CostEstimatorPage() {
     q: f.question,
     a: f.answer
   })) || [
-    {
+      {
         q: "What does this tool provide?",
         a: "This tool provides an estimated project cost based on your house plan design, helping with early budgeting and financial planning before construction."
-    },
-    {
+      },
+      {
         q: "How is the cost calculated?",
         a: "The estimate is calculated based on total built-up area, layout complexity, and selected materials, offering a practical cost overview for residential building plans."
-    },
-    {
+      },
+      {
         q: "Can I adjust the design to match my budget?",
         a: "Yes. When you modify your layout or materials, the estimated cost updates automatically, helping balance design decisions with budget limits."
-    },
-    {
+      },
+      {
         q: "Is this the final construction cost?",
         a: "No. The amount shown is an approximate estimate for planning purposes. However, it provides strong financial clarity before engaging civil and architectural design services."
-    },
-    {
+      },
+      {
         q: "Does it include interiors in the estimate?",
         a: "Yes. Depending on your selections, the estimate can reflect both structural components and basic interior features."
-    },
-    {
+      },
+      {
         q: "Why is this useful before hiring a contractor?",
         a: "It helps you understand realistic pricing ranges, reducing the risk of over-quoting and improving confidence while discussing costs with contractors or builders."
-    }
-  ];
+      }
+    ];
 
   const faqSchema = {
     "@context": "https://schema.org/",
@@ -87,8 +92,54 @@ export default async function CostEstimatorPage() {
     }))
   };
 
+  const softwareApplicationSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zlendo Realty Smart Cost Estimator",
+    "applicationCategory": "BusinessApplication",
+    "applicationSubCategory": "Construction Cost Estimation Software",
+    "operatingSystem": "Web",
+    "url": fullUrl,
+    "description": "AI-powered construction cost estimation software that provides engineering-grade building cost analysis using soil conditions, seismic zones, local material rates, labor costs, and real-time market data for accurate home construction budgeting.",
+    "image": "https://zlendorealty.com/favicon.ico",
+    "softwareVersion": "1.0",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free construction cost estimation tool for individual homeowners"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Zlendo Realty",
+      "url": "https://zlendorealty.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zlendo Realty",
+      "url": "https://zlendorealty.com"
+    },
+    "featureList": [
+      "AI-powered construction cost estimation",
+      "Engineering-grade BOQ generation",
+      "Real-time material price analysis",
+      "Soil type cost adjustment",
+      "Seismic zone calculation",
+      "Foundation cost estimation",
+      "Labor and material breakdown",
+      "Component-wise budget analysis",
+      "City-based construction pricing",
+      "Material comparison and impact analysis",
+      "Construction quality benchmarking",
+      "Transparent budget recommendations",
+      "Instant home building cost reports",
+      "Budget optimization insights"
+    ]
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
       <JsonLd schema={faqSchema} />
       <CostEstimatorClient cms={cms} resolvedFaqs={resolvedFaqs} />
     </>

@@ -10,11 +10,29 @@ export default function InteriorsExteriorsPage() {
 
     return (
         <div className="min-h-screen bg-white text-[#222222] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    "name": "Zlendo Realty Interiors & Exteriors",
+                    "applicationCategory": "DesignApplication",
+                    "applicationSubCategory": "AI Interior and Exterior Design Software",
+                    "operatingSystem": "Web",
+                    "url": "https://zlendorealty.com/products/interiors-exteriors",
+                    "description": "AI-powered interior and exterior home design software that helps homeowners, architects, and builders create realistic 3D visualizations, customize layouts, explore materials, generate photorealistic renders, and preview immersive walkthroughs instantly.",
+                    "image": "https://zlendorealty.com/favicon.ico",
+                    "softwareVersion": "1.0",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free online AI-powered interior and exterior design platform" },
+                    "creator": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
+                    "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
+                    "featureList": ["AI-powered interior design", "Exterior elevation visualization", "2D to 3D conversion", "Photorealistic rendering", "Interactive virtual walkthroughs", "Material and texture customization", "Furniture and decor placement", "Landscape visualization", "Lighting and shadow simulation", "Modern and traditional design themes", "Real-time design previews", "Export-ready architectural visuals"]
+                })
+            }} />
             <main>
                 {/* HERO SECTION */}
                 <section className="relative min-h-[90vh] flex items-center pt-24 pb-16 overflow-hidden bg-[#FAFAFC]">
                     <div className="absolute top-0 right-1/4 w-[800px] h-[800px] bg-zlendo-teal/5 rounded-full blur-[100px] pointer-events-none" />
-                    
+
                     <div className="container-custom px-4 relative z-20">
                         <div className="grid lg:grid-cols-2 gap-16 items-center">
                             <div className="max-w-xl space-y-8">
@@ -97,7 +115,7 @@ export default function InteriorsExteriorsPage() {
                         ))}
                     </div>
                 </section>
-                
+
                 {/* FAQs */}
                 <section className="py-24 border-t border-black/5 bg-[#FAFAFC]">
                     <div className="container-custom px-6 max-w-4xl mx-auto">

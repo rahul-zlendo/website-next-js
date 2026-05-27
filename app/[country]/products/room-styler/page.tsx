@@ -31,6 +31,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function RoomStylerPage({ params }: PageProps) {
+    const { country } = await params;
+    const isGlobal = country === 'global';
+    const cleanPath = isGlobal ? '/products/room-styler' : `/${country}/products/room-styler`;
+    const fullUrl = `https://zlendorealty.com${cleanPath}`;
+
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(roomStylerPageQuery).catch(() => null);
 
@@ -95,8 +100,8 @@ export default async function RoomStylerPage({ params }: PageProps) {
         { title: 'Material Swapping', desc: 'Instantly change flooring, wall paints, and textures.' }
     ];
 
-    const resolvedFaqs = cms?.faqs?.length 
-        ? cms.faqs.map((f: any) => ({ q: f.question, a: f.answer })) 
+    const resolvedFaqs = cms?.faqs?.length
+        ? cms.faqs.map((f: any) => ({ q: f.question, a: f.answer }))
         : defaultFaqs;
 
     const resolvedSteps = cms?.steps?.length ? cms.steps : defaultSteps;
@@ -116,11 +121,53 @@ export default async function RoomStylerPage({ params }: PageProps) {
         }))
     };
 
+    const softwareApplicationSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Zlendo Realty Smart Room Styler",
+        "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "AI Interior Design Software",
+        "operatingSystem": "Web",
+        "url": fullUrl,
+        "description": "AI-powered room styling software that helps homeowners, architects, and interior designers instantly redesign rooms with smart furniture placement, realistic materials, color themes, and immersive 3D visualizations.",
+        "image": "https://zlendorealty.com/favicon.ico",
+        "softwareVersion": "1.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free online AI room styling and interior visualization tool"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "featureList": [
+            "AI-powered room styling",
+            "Instant interior redesign",
+            "Smart furniture arrangement",
+            "Realistic material previews",
+            "Color palette customization",
+            "3D room visualization",
+            "Interactive walkthroughs",
+            "Modern and traditional style themes",
+            "Drag-and-drop interior editing",
+            "Photorealistic rendering"
+        ]
+    };
+
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
             <JsonLd schema={faqSchema} />
-            <RoomStylerClient 
-                cms={cms} 
+            <RoomStylerClient
+                cms={cms}
                 resolvedFaqs={resolvedFaqs}
                 resolvedSteps={resolvedSteps}
                 resolvedFeatures={resolvedFeatures}

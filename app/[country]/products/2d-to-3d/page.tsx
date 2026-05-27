@@ -177,8 +177,8 @@ export default async function TwoDToThreeDPage({ params }: Props) {
 
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
             <JsonLd schema={faqSchema} />
-            <JsonLd schema={softwareApplicationSchema} />
             <TwoDTo3DClient
                 cms={cms}
                 resolvedFaqs={resolvedFaqs}
