@@ -122,30 +122,7 @@ export default async function Page({ params }: Props) {
         }))
     };
 
-    const breadcrumbSchema = {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": BASE_URL
-            },
-            {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Products",
-                "item": `${BASE_URL}/products/floor-planner`
-            },
-            {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "Floor Planner",
-                "item": fullUrl
-            }
-        ]
-    };
+
 
     const softwareApplicationSchema = {
         "@context": "https://schema.org",
@@ -192,7 +169,6 @@ export default async function Page({ params }: Props) {
         <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
             <JsonLd schema={faqSchema} />
-            <JsonLd schema={breadcrumbSchema} />
             <FloorPlannerClient
                 cms={cms}
                 resolvedFaqs={resolvedFaqs}

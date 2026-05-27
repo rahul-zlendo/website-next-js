@@ -10,6 +10,7 @@ import { CountryProvider } from '@/lib/context/CountryContext';
 import AuthSync from '@/components/layout/AuthSync';
 import CookieConsent from '@/components/common/CookieConsent';
 import FloatingContactButton from '@/components/common/FloatingContactButton';
+import DynamicBreadcrumb from '@/components/common/DynamicBreadcrumb';
 
 export default async function GlobalLayout({
   children,
@@ -23,6 +24,7 @@ export default async function GlobalLayout({
   return (
     <CountryProvider initialCountry="global">
       <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal font-nunito">
+        <DynamicBreadcrumb />
         <AuthSync />
         <PromoBanner />
         <Header logoUrl={logoUrl} />
