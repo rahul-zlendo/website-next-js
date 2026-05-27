@@ -13,6 +13,7 @@ import ProductFeatureDetail from './sections/ProductFeatureDetail';
 import ProductHero from './sections/ProductHero';
 import HowItWorks from './sections/HowItWorks';
 import TemplateGallery from './sections/TemplateGallery';
+import JsonLd from '@/components/common/JsonLd';
 
 interface SectionRendererProps {
   sections: any[];
@@ -39,8 +40,29 @@ const componentMap: Record<string, React.FC<any>> = {
 const SectionRenderer: React.FC<SectionRendererProps> = ({ sections }) => {
   if (!sections || !Array.isArray(sections)) return null;
 
+  // Extract FAQ Schema automatically from sections if it exists
+  const faqSection = sections.find(s => s._type === 'globalFAQ' && s.faqs?.length > 0);
+  let faqSchema: any = null;
+
+  if (faqSection) {
+    faqSchema = {
+      "@context": "https://schema.org/",
+      "@type": "FAQPage",
+      "name": faqSection.title || "Frequently Asked Questions",
+      "mainEntity": faqSection.faqs.map((faq: any) => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    };
+  }
+
   return (
     <>
+      {faqSchema && <JsonLd schema={faqSchema} />}
       {sections.map((section, index) => {
         const Component = componentMap[section._type];
         if (!Component) {
