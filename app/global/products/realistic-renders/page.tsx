@@ -28,6 +28,24 @@ export default function RealisticRendersPage() {
 
     return (
         <div className="min-h-screen bg-white text-[#222222] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
+            <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "SoftwareApplication",
+                    "name": "Zlendo Realty Realistic Renders",
+                    "applicationCategory": "DesignApplication",
+                    "applicationSubCategory": "Photorealistic Rendering Software",
+                    "operatingSystem": "Web",
+                    "url": "https://zlendorealty.com/products/realistic-renders",
+                    "description": "AI-powered photorealistic rendering software that creates ultra-realistic 4K and 8K architectural visualizations with ray-traced lighting, cinematic depth of field, realistic materials, global illumination, and immersive interior and exterior scenes.",
+                    "image": "https://zlendorealty.com/favicon.ico",
+                    "softwareVersion": "1.0",
+                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free AI-powered realistic rendering platform for architectural visualization" },
+                    "creator": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
+                    "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
+                    "featureList": ["AI-powered photorealistic rendering", "4K and 8K architectural visualization", "Ray-traced lighting simulation", "Global illumination rendering", "Physically based materials", "Cinematic depth of field", "Interior and exterior rendering", "Time-of-day sunlight simulation", "Realistic shadow and reflection rendering", "Professional camera angle controls", "Ultra-fast cloud rendering", "Marketing-ready architectural visuals", "Client presentation render generation", "Photorealistic texture mapping"]
+                })
+            }} />
             <main>
                 {/* 1. HERO SECTION */}
                 <section className="relative pt-24 pb-24 overflow-hidden bg-[#FAFAFC]">

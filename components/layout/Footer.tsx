@@ -209,6 +209,12 @@ const Footer = ({
                             <li><Link href={getPath('/refund-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Refund Policy</Link></li>
                             <li><Link href={getPath('/sla')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">SLA</Link></li>
                         </ul>
+
+                        <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-5 mt-5">Service</h4>
+                        <ul className="space-y-3.5 text-[15px]">
+                            <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design Services</Link></li>
+                            <li><Link href={getPath('/services/floor-plan-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Home Elevation Services</Link></li>
+                        </ul>
                     </div>
 
                     {/* Contact */}

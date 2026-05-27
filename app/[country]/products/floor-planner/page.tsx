@@ -190,9 +190,9 @@ export default async function Page({ params }: Props) {
 
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
             <JsonLd schema={faqSchema} />
             <JsonLd schema={breadcrumbSchema} />
-            <JsonLd schema={softwareApplicationSchema} />
             <FloorPlannerClient
                 cms={cms}
                 resolvedFaqs={resolvedFaqs}

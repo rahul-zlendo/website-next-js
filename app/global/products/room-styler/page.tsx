@@ -177,23 +177,111 @@ const GlobalRoomStylerPage = async () => {
       }
     ];
 
+    const softwareApplicationSchema = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Zlendo Realty Smart Room Styler",
+      "applicationCategory": "DesignApplication",
+      "applicationSubCategory": "AI Interior Design Software",
+      "operatingSystem": "Web",
+      "url": "https://zlendorealty.com/products/room-styler",
+      "description": "AI-powered room styling software that helps homeowners, architects, and interior designers instantly redesign rooms with smart furniture placement, realistic materials, color themes, and immersive 3D visualizations.",
+      "image": "https://zlendorealty.com/favicon.ico",
+      "softwareVersion": "1.0",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free online AI room styling and interior visualization tool"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Zlendo Realty",
+        "url": "https://zlendorealty.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Zlendo Realty",
+        "url": "https://zlendorealty.com"
+      },
+      "featureList": [
+        "AI-powered room styling",
+        "Instant interior redesign",
+        "Smart furniture arrangement",
+        "Realistic material previews",
+        "Color palette customization",
+        "3D room visualization",
+        "Interactive walkthroughs",
+        "Modern and traditional style themes",
+        "Drag-and-drop interior editing",
+        "Photorealistic rendering"
+      ]
+    };
+
     return (
-      <main className="min-h-screen">
-        {fallbackSections.length > 0 && <SectionRenderer sections={[fallbackSections[0]]} />}
-        <AiWorkflowsSection />
-        {fallbackSections.length > 1 && <SectionRenderer sections={fallbackSections.slice(1)} />}
-      </main>
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
+        <main className="min-h-screen">
+          {fallbackSections.length > 0 && <SectionRenderer sections={[fallbackSections[0]]} />}
+          <AiWorkflowsSection />
+          {fallbackSections.length > 1 && <SectionRenderer sections={fallbackSections.slice(1)} />}
+        </main>
+      </>
     );
   }
 
   const sections = pageData?.sections || [];
 
+  const softwareApplicationSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zlendo Realty Smart Room Styler",
+    "applicationCategory": "DesignApplication",
+    "applicationSubCategory": "AI Interior Design Software",
+    "operatingSystem": "Web",
+    "url": "https://zlendorealty.com/products/room-styler",
+    "description": "AI-powered room styling software that helps homeowners, architects, and interior designers instantly redesign rooms with smart furniture placement, realistic materials, color themes, and immersive 3D visualizations.",
+    "image": "https://zlendorealty.com/favicon.ico",
+    "softwareVersion": "1.0",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free online AI room styling and interior visualization tool"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Zlendo Realty",
+      "url": "https://zlendorealty.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Zlendo Realty",
+      "url": "https://zlendorealty.com"
+    },
+    "featureList": [
+      "AI-powered room styling",
+      "Instant interior redesign",
+      "Smart furniture arrangement",
+      "Realistic material previews",
+      "Color palette customization",
+      "3D room visualization",
+      "Interactive walkthroughs",
+      "Modern and traditional style themes",
+      "Drag-and-drop interior editing",
+      "Photorealistic rendering"
+    ]
+  };
+
   return (
-    <main className="min-h-screen">
-      {sections.length > 0 && <SectionRenderer sections={[sections[0]]} />}
-      <AiWorkflowsSection />
-      {sections.length > 1 && <SectionRenderer sections={sections.slice(1)} />}
-    </main>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
+      <main className="min-h-screen">
+        {sections.length > 0 && <SectionRenderer sections={[sections[0]]} />}
+        <AiWorkflowsSection />
+        {sections.length > 1 && <SectionRenderer sections={sections.slice(1)} />}
+      </main>
+    </>
   );
 };
 

@@ -305,6 +305,13 @@ export function middleware(request: NextRequest) {
     );
   }
 
+  if (pathname === '/wp-content/themes/zlendo-realty/' || pathname === '/wp-content/uploads/' || pathname.startsWith('/wp-admin') || pathname.startsWith('/wp-content/')) {
+    return NextResponse.redirect(
+      new URL('https://zlendorealty.com'),
+      301
+    );
+  }
+
   // ──────────────────────────────────────────────────────────
   // 1.5. Redirect Help Center to subdomain
   // ──────────────────────────────────────────────────────────

@@ -19,9 +19,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const path = isGlobal ? '/products/vastu' : `/${country}/products/vastu`;
 
     let seoTitle = cms?.seoTitle || 'Vastu-Compliant House Plans & Floor Designs | Zlendo Realty';
-    
+
     // Clean up brand name duplication if present in the CMS
-    if (seoTitle.includes('Zlendo Realty – Design Now | Zlendo Realty') || 
+    if (seoTitle.includes('Zlendo Realty – Design Now | Zlendo Realty') ||
         seoTitle.includes('Zlendo Realty - Design Now | Zlendo Realty') ||
         seoTitle.includes('Design Now | Zlendo Realty')) {
         seoTitle = 'Vastu House Plans & Vastu-Compliant Home Designs | Zlendo Realty';
@@ -85,8 +85,8 @@ export default async function VastuPage({ params }: PageProps) {
         { title: 'Scorecard', desc: 'Get a Vastu compliance score for every room.' }
     ];
 
-    const resolvedFaqs = cms?.faqs?.length 
-        ? cms.faqs.map((f: any) => ({ q: f.question, a: f.answer })) 
+    const resolvedFaqs = cms?.faqs?.length
+        ? cms.faqs.map((f: any) => ({ q: f.question, a: f.answer }))
         : defaultFaqs;
 
     const resolvedSteps = cms?.steps?.length ? cms.steps : defaultSteps;
@@ -128,12 +128,56 @@ export default async function VastuPage({ params }: PageProps) {
         }
     };
 
+    const softwareApplicationSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Zlendo Realty Vastu Optimizer",
+        "applicationCategory": "LifestyleApplication",
+        "applicationSubCategory": "Vastu Analysis Software",
+        "operatingSystem": "Web",
+        "url": `https://zlendorealty.com/${country}/products/vastu`,
+        "description": "AI-powered Vastu analysis software that evaluates floor plans using Vastu Shastra principles, generates energy heatmaps, provides directional analysis, identifies layout imbalances, and suggests practical remedies for healthier and harmonious living spaces.",
+        "image": "https://zlendorealty.com/favicon.ico",
+        "softwareVersion": "1.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free AI-powered Vastu analysis and optimization tool"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "featureList": [
+            "AI-powered Vastu analysis",
+            "Floor plan energy heatmaps",
+            "Directional alignment checks",
+            "Room-wise Vastu scorecard",
+            "Compass orientation analysis",
+            "Vastu compliance scoring",
+            "Energy imbalance detection",
+            "Non-destructive remedy suggestions",
+            "Satellite-based directional mapping",
+            "Apartment and home Vastu evaluation",
+            "AI-generated layout correction suggestions",
+            "Health and harmony optimization insights"
+        ]
+    };
+
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
             <JsonLd schema={faqSchema} />
             <JsonLd schema={productSchema} />
-            <VastuClient 
-                cms={cms} 
+            <VastuClient
+                cms={cms}
                 resolvedFaqs={resolvedFaqs}
                 resolvedSteps={resolvedSteps}
                 resolvedFeatures={resolvedFeatures}

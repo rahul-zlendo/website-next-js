@@ -152,7 +152,7 @@ export default function TwoDToThreeDPage() {
 
   return (
     <div className="min-h-screen bg-white text-[#111] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
-      <JsonLd schema={softwareApplicationSchema} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
       <main>
         {/* 1. HERO (Visual Impact First) */}
         <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-black">

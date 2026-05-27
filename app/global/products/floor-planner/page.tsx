@@ -234,18 +234,22 @@ const GlobalFloorPlannerPage = async () => {
     ];
 
     return (
-      <main className="min-h-screen">
-        <JsonLd schema={softwareApplicationSchema} />
-        <SectionRenderer sections={fallbackSections} />
-      </main>
+      <>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
+        <main className="min-h-screen">
+          <SectionRenderer sections={fallbackSections} />
+        </main>
+      </>
     );
   }
 
   return (
-    <main className="min-h-screen">
-      <JsonLd schema={softwareApplicationSchema} />
-      <SectionRenderer sections={pageData.sections} />
-    </main>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
+      <main className="min-h-screen">
+        <SectionRenderer sections={pageData.sections} />
+      </main>
+    </>
   );
 };
 
