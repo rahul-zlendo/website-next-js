@@ -119,20 +119,22 @@ const Footer = ({
                         </div>
 
                         {/* VAPT Certification — no background, just divider + content */}
-                        <div className="pt-3 border-t border-black/10">
-                            <div className="flex flex-col items-center gap-2 text-center">
+                        <div className="pt-1 border-t border-black/10">
+                            <div className="flex flex-col items-center gap-0 text-center">
                                 <img
                                     src="/assets/global/einshield-badge.svg"
                                     alt="EINShield VAPT Secured"
-                                    className="h-24 w-24 object-contain"
+                                    width={150}
+                                    height={150}
+                                    className="object-contain"
                                 />
                                 <div>
                                     <p className="text-[10px] font-black uppercase tracking-[0.1em] text-emerald-600 mb-0.5">
-                                        VAPT Certified
+                                        VAPT Secured
                                     </p>
-                                    <p className="text-[13px] font-bold text-zlendo-grey-dark leading-snug">
+                                    {/* <p className="text-[13px] font-bold text-zlendo-grey-dark leading-snug">
                                         Secure Your Account
-                                    </p>
+                                    </p> */}
                                     {/* <p className="text-[11px] font-medium text-gray-400">
                                         Enterprise-Grade Protection
                                     </p> */}
