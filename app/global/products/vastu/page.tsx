@@ -53,11 +53,7 @@ export default function VastuOptimizerPage() {
             "@type": "Offer",
             "url": "https://zlendorealty.com/products/vastu",
             "priceCurrency": "USD",
-            "price": "0",
-            "valueAddedService": {
-                "@type": "Service",
-                "name": "AI Vastu Analysis"
-            }
+            "price": "0"
         }
     };
 

@@ -50,6 +50,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/services/floor-plan-design/consultation', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/services/interior-design', priority: 0.8, changeFrequency: 'weekly' as const },
     { path: '/services/interior-design/consultation', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/services/2d-to-3d', priority: 0.8, changeFrequency: 'weekly' as const },
+    { path: '/services/2d-to-3d/consultation', priority: 0.7, changeFrequency: 'monthly' as const },
 
     // Landing / Campaign pages
     { path: '/vastu-campaign', priority: 0.8, changeFrequency: 'weekly' as const },

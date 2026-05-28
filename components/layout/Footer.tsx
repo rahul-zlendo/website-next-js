@@ -216,6 +216,7 @@ const Footer = ({
                         <ul className="space-y-3.5 text-[15px]">
                             <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design Services</Link></li>
                             <li><Link href={getPath('/services/floor-plan-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Home Elevation Services</Link></li>
+                            <li><Link href={getPath('/services/2d-to-3d')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">2D to 3D Services</Link></li>
                         </ul>
                     </div>
 
@@ -278,7 +279,7 @@ const Footer = ({
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-10 border-t border-black/[0.05] flex flex-col md:flex-row items-center justify-between gap-8 text-[#666666] text-[13px] font-medium">
+                <div className="pt-6 border-t border-black/[0.05] flex flex-col md:flex-row items-center justify-between gap-8 text-[#666666] text-[13px] font-medium">
                     <p>{settings?.copyrightText ?? 'Copyright © 2026 Zlendo Technologies Pvt. Ltd. | All Rights Reserved.'}</p>
                     <div className="flex items-center gap-8">
                         <Link href={getPath('/cookie-policy')} className="hover:text-zlendo-teal transition-colors">Cookie Policy</Link>
