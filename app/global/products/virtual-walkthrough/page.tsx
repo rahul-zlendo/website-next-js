@@ -60,7 +60,7 @@ export default async function GlobalVirtualWalkthroughPage() {
     "applicationCategory": "DesignApplication",
     "applicationSubCategory": "Virtual Reality Architectural Visualization Software",
     "operatingSystem": "Web",
-    "url": "https://zlendorealty.com/products/vastu",
+    "url": "https://zlendorealty.com/products/virtual-walkthrough",
     "description": "AI-powered virtual walkthrough software that transforms 2D floor plans into immersive 3D experiences with cinematic visualization, 360-degree navigation, realistic lighting, interactive room exploration, and real-time architectural walkthroughs before construction begins.",
     "image": "https://zlendorealty.com/favicon.ico",
     "softwareVersion": "1.0",
