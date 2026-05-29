@@ -214,9 +214,10 @@ const Footer = ({
 
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-5 mt-5">Service</h4>
                         <ul className="space-y-3.5 text-[15px]">
-                            <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design Services</Link></li>
-                            <li><Link href={getPath('/services/floor-plan-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Home Elevation Services</Link></li>
+                            <li><Link href={getPath('/services/floor-plan-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Floor Plan Design</Link></li>
                             <li><Link href={getPath('/services/2d-to-3d')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">2D to 3D Services</Link></li>
+                            <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design Services</Link></li>
+
                         </ul>
                     </div>
 

@@ -118,9 +118,10 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
     ];
 
     const serviceLinks = [
-        { label: 'Interior Design Services', desc: 'Professional interior planning', icon: Sparkles, path: getPath('/services/interior-design') },
-        { label: 'Home Elevation Services', desc: 'Stunning exterior elevations', icon: Layout, path: getPath('/services/floor-plan-design') },
+        { label: 'Floor Plan Design', desc: 'Professional floor planning', icon: Layout, path: getPath('/services/floor-plan-design') },
         { label: '2D to 3D Conversion', desc: 'Transform your plans to 3D', icon: Box, path: getPath('/services/2d-to-3d') },
+        { label: 'Interior Design Services', desc: 'Professional interior planning', icon: Sparkles, path: getPath('/services/interior-design') },
+
     ];
 
     const businessMenuLinks = [
