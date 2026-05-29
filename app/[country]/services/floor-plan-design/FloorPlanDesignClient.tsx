@@ -93,8 +93,8 @@ export default function FloorPlanDesignClient() {
                                 <Link href={getPath('/services/floor-plan-design/consultation')} className="btn-primary py-4 px-8 text-base md:text-lg rounded-2xl text-center inline-flex items-center justify-center gap-2 font-bold shadow-lg shadow-zlendo-teal/15 hover:shadow-xl hover:shadow-zlendo-teal/25 transition-all">
                                     Book Free Consultation <ArrowRight className="w-5 h-5" />
                                 </Link>
-                                <Link href={getPath('/services/floor-plan-design/consultation')} className="btn-orange py-4 px-8 text-base md:text-lg rounded-2xl text-center font-bold shadow-lg shadow-zlendo-orange/10 hover:shadow-xl transition-all">
-                                    Upload Plot Details
+                                <Link href={getPath('/contact')} className="btn-orange py-4 px-8 text-base md:text-lg rounded-2xl text-center font-bold shadow-lg shadow-zlendo-orange/10 hover:shadow-xl transition-all">
+                                    Contact Our Experts
                                 </Link>
                             </motion.div>
                             <motion.div {...fadeUp} transition={{ delay: 0.4 }} className="flex flex-wrap gap-3">
@@ -424,8 +424,8 @@ export default function FloorPlanDesignClient() {
                         <Link href={getPath('/services/floor-plan-design/consultation')} className="btn-primary py-5 px-12 text-lg rounded-3xl text-center inline-flex items-center justify-center gap-2">
                             Book Free Consultation <ArrowRight className="w-5 h-5" />
                         </Link>
-                        <Link href={getPath('/services/floor-plan-design/consultation')} className="btn-orange py-5 px-12 text-lg rounded-3xl text-center">
-                            Upload Your Plot Now
+                        <Link href={getPath('/contact')} className="btn-orange py-5 px-12 text-lg rounded-3xl text-center">
+                            Contact Us Now
                         </Link>
                     </motion.div>
                 </div>

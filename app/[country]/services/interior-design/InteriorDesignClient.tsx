@@ -85,7 +85,7 @@ export default function InteriorDesignClient() {
                                 <Link href={getPath('/services/interior-design/consultation')} className="btn-primary py-4 px-8 text-base md:text-lg rounded-2xl text-center inline-flex items-center justify-center gap-2 font-bold shadow-lg shadow-zlendo-teal/15 hover:shadow-xl hover:shadow-zlendo-teal/25 transition-all">
                                     Book Design Consultation <ArrowRight className="w-5 h-5" />
                                 </Link>
-                                <Link href={getPath('/services/interior-design/consultation')} className="btn-orange py-4 px-8 text-base md:text-lg rounded-2xl text-center font-bold shadow-lg shadow-zlendo-orange/10 hover:shadow-xl transition-all">
+                                <Link href={getPath('/contact')} className="btn-orange py-4 px-8 text-base md:text-lg rounded-2xl text-center font-bold shadow-lg shadow-zlendo-orange/10 hover:shadow-xl transition-all">
                                     Contact Our Experts
                                 </Link>
                             </motion.div>
@@ -206,9 +206,9 @@ export default function InteriorDesignClient() {
                             Our Core <span className="text-zlendo-teal italic">Interior Expertise</span>
                         </h2>
                     </motion.div>
-                    
+
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                        
+
                         {/* Service 1 */}
                         <div className="bg-white rounded-[32px] border border-black/[0.04] shadow-xl shadow-black/[0.02] p-8">
                             <div className="w-14 h-14 rounded-2xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal mb-6">
@@ -400,8 +400,8 @@ export default function InteriorDesignClient() {
                         <Link href={getPath('/services/interior-design/consultation')} className="btn-primary py-5 px-12 text-lg rounded-3xl text-center inline-flex items-center justify-center gap-2">
                             Book Free Consultation <ArrowRight className="w-5 h-5" />
                         </Link>
-                        <Link href={getPath('/services/interior-design/consultation')} className="btn-orange py-5 px-12 text-lg rounded-3xl text-center">
-                            Request a Quote
+                        <Link href={getPath('/contact')} className="btn-orange py-5 px-12 text-lg rounded-3xl text-center">
+                            Contact Us Now
                         </Link>
                     </motion.div>
                 </div>
