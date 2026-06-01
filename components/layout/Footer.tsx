@@ -217,6 +217,7 @@ const Footer = ({
                             <li><Link href={getPath('/services/floor-plan-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Floor Plan Design</Link></li>
                             <li><Link href={getPath('/services/2d-to-3d')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">2D to 3D Services</Link></li>
                             <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design Services</Link></li>
+                            {isIndiaSite && <li><Link href={getPath('/services/vastu-consultation')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Vastu Consultation Services</Link></li>}
 
                         </ul>
                     </div>

@@ -14,7 +14,7 @@ export default function FooterClient({
 }) {
     const pathname = usePathname();
 
-    const shouldHideCTA = hideCTA || pathname?.includes('/register') || (pathname?.includes('/vastu') && !pathname?.includes('/products/'));
+    const shouldHideCTA = hideCTA || pathname?.includes('/register') || pathname?.includes('/vastu-campaign');
 
     return (
         <footer className="bg-[#f9fafb] pt-4 md:pt-10 pb-12 border-t border-black/[0.03] relative overflow-hidden font-nunito">
