@@ -82,6 +82,7 @@ const Footer = ({
         { label: 'News', path: "https://news.zlendorealty.com/", external: true, newTab: false },
         ...(isIndiaSite ? [{ label: 'Partnership', path: getPath('/partners') }] : []),
         { label: 'Contact Us', path: getPath('/contact') },
+        { label: 'About Us', path: getPath('/about-us') },
     ];
 
     const businessMenuLinks = [
