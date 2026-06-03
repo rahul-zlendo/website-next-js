@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/contact', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/plans', priority: 0.9, changeFrequency: 'weekly' as const },
     { path: '/partners', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/about-us', priority: 0.7, changeFrequency: 'monthly' as const },
 
     // Product pages
     { path: '/products/floor-planner', priority: 0.9, changeFrequency: 'weekly' as const },
@@ -52,6 +53,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/services/interior-design/consultation', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/services/2d-to-3d', priority: 0.8, changeFrequency: 'weekly' as const },
     { path: '/services/2d-to-3d/consultation', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/services/vastu-consultation', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/services/vastu-consultation/consultation', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
 
     // Landing / Campaign pages
     { path: '/vastu-campaign', priority: 0.8, changeFrequency: 'weekly' as const },

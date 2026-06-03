@@ -270,7 +270,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                                     </div>
                                                     <div>
                                                         <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
-                                                        <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
+                                                        <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
                                                     </div>
                                                 </Link>
                                             ))}
@@ -309,7 +309,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                                 </div>
                                                 <div>
                                                     <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
-                                                    <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
+                                                    <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
                                                 </div>
                                             </Link>
                                         ))}
@@ -465,7 +465,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                                     </div>
                                                     <div>
                                                         <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
-                                                        <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
+                                                        <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
                                                     </div>
                                                 </Link>
                                             ))}
