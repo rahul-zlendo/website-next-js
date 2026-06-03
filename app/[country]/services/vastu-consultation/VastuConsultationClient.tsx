@@ -166,7 +166,7 @@ export default function VastuConsultationClient() {
             </section>
 
             {/* ═══ WHY CHOOSE SECTION ═══ */}
-            <section className="py-6 lg:py-6 bg-slate-50 relative overflow-hidden">
+            <section className="py-12 lg:py-16 bg-slate-50 relative overflow-hidden">
                 <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-zlendo-teal/[0.03] blur-[100px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
                 <div className="container-custom px-6 lg:px-12 relative z-10">
                     <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -435,7 +435,7 @@ export default function VastuConsultationClient() {
                                 {existingHomeRemedies.map((item, i) => (
                                     <div key={i} className="flex items-center gap-4 p-4 bg-slate-50/50 rounded-2xl border border-black/[0.04] shadow-sm hover:shadow-md hover:bg-white hover:border-zlendo-teal/15 transition-all duration-300">
                                         <div className="w-10 h-10 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal shrink-0">
-                                            <Move className="w-5 h-5" />
+                                            <Sparkles className="w-5 h-5" />
                                         </div>
                                         <span className="text-base font-bold text-zlendo-grey-dark">{item}</span>
                                     </div>
