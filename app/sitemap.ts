@@ -55,6 +55,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/services/2d-to-3d/consultation', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/services/vastu-consultation', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
     { path: '/services/vastu-consultation/consultation', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/services/virtual-walkthrough', priority: 0.7, changeFrequency: 'monthly' as const },
+    { path: '/services/virtual-walkthrough/consultation', priority: 0.7, changeFrequency: 'monthly' as const },
 
     // Landing / Campaign pages
     { path: '/vastu-campaign', priority: 0.8, changeFrequency: 'weekly' as const },
