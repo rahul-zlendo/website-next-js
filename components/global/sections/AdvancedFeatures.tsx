@@ -127,7 +127,7 @@ export default function AdvancedFeatures() {
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             {[
-                                { icon: Users, num: "5K+", label: "Happy Users", color: "text-blue-500" },
+                                { icon: Users, num: "10K+", label: "Happy Users", color: "text-blue-500" },
                                 { icon: Home, num: "20K+", label: "Projects Designed", color: "text-indigo-500" },
                                 { icon: Download, num: "2K+", label: "CAD Exports", color: "text-purple-500" },
                                 { icon: Globe, num: "10+", label: "Countries", color: "text-blue-600" }

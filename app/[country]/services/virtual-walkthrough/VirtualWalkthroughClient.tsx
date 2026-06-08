@@ -138,10 +138,10 @@ export default function VirtualWalkthroughClient() {
                             transition={{ duration: 0.6, delay: 0.2 }}
                             className="lg:col-span-5 relative w-full flex justify-center mt-6 lg:mt-0"
                         >
-                            <div className="relative w-full max-w-[480px]">
+                            <div className="relative w-full max-w-[500px]">
                                 <div className="relative rounded-[36px] overflow-hidden shadow-2xl border-4 border-white ring-1 ring-black/5 bg-white z-10">
                                     <img
-                                        src="/assets/global/interior-design-walkthrough.webp"
+                                        src="/assets/global/interior-design-walkthrough-client.webp"
                                         alt="Virtual walkthrough visualization"
                                         className="w-full h-auto object-cover aspect-[4/3] hover:scale-102 transition-transform duration-500"
                                     />

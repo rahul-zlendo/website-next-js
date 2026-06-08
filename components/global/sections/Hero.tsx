@@ -29,7 +29,7 @@ interface HeroProps {
 // Image B (cover div → default visible state):
 //   Under-construction blueprint / concrete shell scene
 //
-// ⚠️  AI image quota exhausted (resets 2026-04-22). Using high-quality Unsplash
+// ⚠️  AI image quota exhausted (resets 2026-04-22). Using high-quality
 //     URLs as placeholders — swap with generated images once quota resets.
 const IMAGE_FINISHED = '/assets/3d_hero.webp';
 const IMAGE_CONSTRUCTION = '/assets/2d_hero.webp';

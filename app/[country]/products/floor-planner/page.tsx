@@ -6,6 +6,7 @@ import { getClient } from '@/lib/sanity/client';
 import { floorPlannerPageQuery } from '@/lib/sanity/queries';
 import FloorPlannerClient from './FloorPlannerClient';
 import JsonLd from '@/components/common/JsonLd';
+import Head from 'next/head'
 
 const BASE_URL = 'https://zlendorealty.com';
 
@@ -24,8 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cmsSeo = await getClient(false).fetch(floorPlannerPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cmsSeo?.seoTitle ?? 'Zlendo Realty Products Floor Planner - Design Your Home in 3D';
-    const seoDesc = cmsSeo?.seoDescription ?? 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. Experience your space before a single brick is laid.';
+    const seoTitle = cmsSeo?.seoTitle ?? 'AI Floor Planner – Create 2D & 3D Floor Plans Online | Zlendo Realty';
+    const seoDesc = cmsSeo?.seoDescription ?? "Design accurate 2D & 3D floor plans in minutes with Zlendo Realty's AI floor planner. No experience needed. Auto-dimensioning, live 3D preview & easy export. Start free today.";
 
     const isGlobal = country === 'global';
     const cleanPath = isGlobal ? `/products/floor-planner` : `/${country}/products/floor-planner`;

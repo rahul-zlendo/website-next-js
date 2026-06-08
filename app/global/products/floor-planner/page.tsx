@@ -7,11 +7,11 @@ import { Metadata } from 'next';
 import { SIGNUP_URL } from '@/lib/config/env';
 
 export const metadata: Metadata = {
-  title: 'Zlendo Realty Products Floor Planner - Design Your Home in 3D',
-  description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. Experience your space before a single brick is laid.',
+  title: 'AI Floor Planner – Create 2D & 3D Floor Plans Online | Zlendo Realty',
+  description: "Design accurate 2D & 3D floor plans in minutes with Zlendo Realty's AI floor planner. No experience needed. Auto-dimensioning, live 3D preview & easy export. Start free today.",
   openGraph: {
-    title: 'Zlendo Realty Products Floor Planner - Design Your Home in 3D',
-    description: 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. Experience your space before a single brick is laid.',
+    title: 'AI Floor Planner – Create 2D & 3D Floor Plans Online | Zlendo Realty',
+    description: "Design accurate 2D & 3D floor plans in minutes with Zlendo Realty's AI floor planner. No experience needed. Auto-dimensioning, live 3D preview & easy export. Start free today.",
     url: 'https://zlendorealty.com/products/floor-planner',
     siteName: 'Zlendo Realty',
     locale: 'en_US',
