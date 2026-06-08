@@ -20,33 +20,33 @@ interface FloorPlannerClientProps {
 const TwoDSketchImg = '/assets/floor-planner/2d-sketch.webp';
 const ThreeDSketchImg = '/assets/floor-planner/3d-sketch.webp';
 
-export default function FloorPlannerClient({ 
-    cms, 
-    resolvedFaqs, 
-    resolvedWorkflowSteps, 
-    resolvedDraftingFeatures, 
-    resolvedTemplateTags 
+export default function FloorPlannerClient({
+    cms,
+    resolvedFaqs,
+    resolvedWorkflowSteps,
+    resolvedDraftingFeatures,
+    resolvedTemplateTags
 }: FloorPlannerClientProps) {
-    
+
     // Resolve labels and static text from CMS or defaults
     const heroBadge = cms?.heroBadgeText ?? 'AI-First Design Engine';
-    const heroTitle = cms?.heroTitle ?? 'Design. Visualize.';
-    const heroHighlight = cms?.heroTitleHighlight ?? 'Experience.';
+    const heroTitle = cms?.heroTitle ?? 'AI Floor Planner – Design Professional';
+    const heroHighlight = cms?.heroTitleHighlight ?? ' 2D & 3D Floor Plans Instantly';
     const heroSubtitlePath1 = cms?.heroSubtitle ?? 'Your Home — Before a Single Brick Is Laid.';
     const heroSubtitlePath2 = cms?.heroSubtitleAfter ?? "Experience the world's most advanced AI floor planner, built for Indian homes.";
     const heroPrimaryLabel = cms?.heroPrimaryCtaLabel ?? 'Design Your Home';
     const heroSecondaryLabel = cms?.heroSecondaryCtaLabel ?? 'Request Your Demo';
-    
-    const workflowTitle = cms?.workflowSectionTitle ?? 'From Imagination to Realty';
+
+    const workflowTitle = cms?.workflowSectionTitle ?? 'How Our Online Floor Planner Works – From Sketch to 3D in Minutes';
     const workflowSubtitle = cms?.workflowSectionSubtitle ?? 'A seamless journey powered by artificial intelligence.';
-    
-    const draftingTitle = cms?.draftingSectionTitle ?? 'Draw like a pro. No degree required.';
+
+    const draftingTitle = cms?.draftingSectionTitle ?? 'Floor Planner Features Built for Precision & Speed';
     const draftingDesc = cms?.draftingSectionDescription ?? 'Our intelligent snapping system and AI-assisted drafting make drawing floor plans as easy as sketching on a napkin. Define exact dimensions to the millimeter.';
     const draftingButtonLabel = cms?.draftingButtonLabel ?? 'Try Drafting Now';
 
     const magicTitle = cms?.magicSectionTitle ?? "Don't draw. Just upload.";
     const magicSubtitle = cms?.magicSectionSubtitle ?? 'Our proprietary Vision AI understands your hand-drawn sketches or architect PDFs and converts them into editable 3D models in seconds.';
-    
+
     const templatesTitle = cms?.templatesSectionTitle ?? 'Ready-made templates for Indian Families.';
     const templatesSubtitle = cms?.templatesSectionSubtitle ?? "Don't start from scratch. Choose from thousands of pre-designed layouts optimized for 2BHK, 3BHK, and villa configurations tailored to modern homes.";
     const templatesButtonLabel = cms?.templatesButtonLabel ?? 'Explore Templates';
@@ -280,7 +280,7 @@ export default function FloorPlannerClient({
             <section className="pt-24 pb-4 md:py-24 bg-slate-50">
                 <div className="container-custom px-6">
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.ctaSectionTitle ?? 'Choose your path'}</h2>
+                        <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.ctaSectionTitle ?? "Who Uses Zlendo Realty's Floor Planner?"}</h2>
                         <p className="text-xl text-slate-500 font-medium">{cms?.ctaSectionSubtitle ?? 'Tailored experiences for every need.'}</p>
                     </div>
 
@@ -343,6 +343,20 @@ export default function FloorPlannerClient({
                             </div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            {/* Final Conversion CTA SEO */}
+            <section className="py-16 bg-zlendo-teal text-white">
+                <div className="container-custom px-6 text-center max-w-3xl mx-auto">
+                    <h2 className="text-4xl md:text-5xl font-black mb-6">Start Building Your Floor Plan for Free Today</h2>
+                    <p className="text-xl opacity-90 mb-8">Join thousands of users designing their dream spaces. No credit card required.</p>
+                    <a
+                        href={SIGNUP_URL}
+                        className="inline-flex items-center gap-2 px-8 py-4 bg-white text-zlendo-teal rounded-xl font-black text-lg hover:scale-105 transition-transform shadow-xl"
+                    >
+                        Create Your Free Plan <ArrowRight className="w-5 h-5" />
+                    </a>
                 </div>
             </section>
 
