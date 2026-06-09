@@ -152,15 +152,15 @@ export default function InteractiveGlobalHero() {
                             <div className="overflow-x-auto no-scrollbar pb-2 -mx-1 px-1">
                                 <div className="flex gap-1.5 sm:gap-2 min-w-[400px]">
                                     {[
-                                        "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=200&auto=format&fit=crop",
-                                        "https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=200&auto=format&fit=crop",
-                                        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=200&auto=format&fit=crop",
-                                        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=200&auto=format&fit=crop",
-                                        "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?q=80&w=200&auto=format&fit=crop"
+                                        "/assets/home/plan-blueprint.webp",
+                                        "/assets/home/blueprint-hand.webp",
+                                        "/assets/home/modern-kitchen.webp",
+                                        "/assets/home/modern-kitchen.webp",
+                                        "/assets/home/living-room-3d.webp"
                                     ].map((img, i) => (
                                         <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
                                             <div className="w-full aspect-[4/3] rounded-lg bg-white/5 border border-white/10 overflow-hidden">
-                                                <img src={img} className="w-full h-full object-cover opacity-60 grayscale" alt="" />
+                                                <img src={img} className="w-full h-full object-cover opacity-60 grayscale" alt={`Time-consuming legacy design process example ${i + 1}`} />
                                             </div>
                                             <div className="text-[8px] font-medium text-white/40">{i === 4 ? '1 Day+' : '1-2 Days'}</div>
                                         </div>
@@ -198,7 +198,7 @@ export default function InteractiveGlobalHero() {
                                         <div className="text-[8px] sm:text-[9px] lg:text-[10px] text-[#00bf9a] font-bold mb-1">1. UPLOAD / CREATE</div>
                                         <div className="text-[8px] text-white/40 mb-2">Your floor plan</div>
                                         <div className="w-full flex-1 rounded-lg bg-white p-1 border border-white/10">
-                                            <img src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-contain opacity-90 grayscale" alt="Floor plan input" />
+                                            <img src="/assets/home/blueprint-hand.webp" className="w-full h-full object-contain opacity-90 grayscale" alt="Floor plan input" />
                                         </div>
                                     </div>
 
@@ -227,12 +227,12 @@ export default function InteractiveGlobalHero() {
                                         </div>
                                         <div className="flex gap-1 lg:gap-1.5 h-[65%] mb-2 lg:mb-3 mt-1">
                                             {[
-                                                { label: "3D MODEL", img: "https://images.unsplash.com/photo-1593696140826-c58b021acf8b?q=80&w=150&auto=format&fit=crop" },
-                                                { label: "RENDER (D5)", img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=150&auto=format&fit=crop" },
-                                                { label: "RENDER (V-RAY)", img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=150&auto=format&fit=crop" },
-                                                { label: "WALKTHROUGH", img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=150&auto=format&fit=crop" },
-                                                { label: "2D PLAN", img: "https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=150&auto=format&fit=crop" },
-                                                { label: "SITE PLAN", img: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=150&auto=format&fit=crop" }
+                                                { label: "3D MODEL", img: "/assets/home/living-room-3d.webp" },
+                                                { label: "RENDER (D5)", img: "/assets/home/modern-kitchen.webp" },
+                                                { label: "RENDER (V-RAY)", img: "/assets/home/modern-kitchen.webp" },
+                                                { label: "WALKTHROUGH", img: "/assets/home/modern-kitchen.webp" },
+                                                { label: "2D PLAN", img: "/assets/home/blueprint-hand.webp" },
+                                                { label: "SITE PLAN", img: "/assets/home/plan-blueprint.webp" }
                                             ].map((item, i) => (
                                                 <div key={i} className="flex-1 flex flex-col rounded bg-white/5 border border-white/10 overflow-hidden relative group">
                                                     <img src={item.img} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt={item.label} />

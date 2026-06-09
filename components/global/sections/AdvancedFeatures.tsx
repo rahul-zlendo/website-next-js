@@ -166,14 +166,14 @@ export default function AdvancedFeatures() {
                                 {/* Left: 2D */}
                                 <div className="w-1/2 relative bg-white border-r border-black/10">
                                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:10px_10px]" />
-                                    <img src="https://images.unsplash.com/photo-1628624747186-a941c476b7ef?q=80&w=400&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-50 grayscale" alt="" />
+                                    <img src="/assets/home/blueprint-hand.webp" className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-50 grayscale" alt="Hand-drawn 2D blueprint floor plan" />
                                     <div className="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur-sm text-[8px] font-bold text-slate-600 rounded shadow-sm flex items-center gap-1">
                                         <Box className="w-2.5 h-2.5" /> AutoCAD
                                     </div>
                                 </div>
                                 {/* Right: 3D */}
                                 <div className="w-1/2 relative">
-                                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=400&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover" alt="" />
+                                    <img src="/assets/home/modern-kitchen.webp" className="absolute inset-0 w-full h-full object-cover" alt="Modern 3D kitchen design generated from floor plan" />
                                     <div className="absolute top-3 right-3 px-2 py-1 bg-[#00bf9a]/90 backdrop-blur-sm text-[8px] font-bold text-white rounded shadow-sm flex items-center gap-1">
                                         <Sparkles className="w-2.5 h-2.5" /> Zlendo
                                     </div>
@@ -204,7 +204,7 @@ export default function AdvancedFeatures() {
                     >
                         <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-slate-900 border border-black/5">
                             <div className="relative w-full h-full overflow-hidden group-hover:scale-[1.02] transition-transform duration-700">
-                                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=600&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-90 brightness-110 contrast-125" alt="" />
+                                <img src="/assets/home/luxury-interior.webp" className="absolute inset-0 w-full h-full object-cover opacity-90 brightness-110 contrast-125" alt="Realistic 3D interior design walkthrough visualization" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                                 {/* Play UI Overlay */}
@@ -244,7 +244,7 @@ export default function AdvancedFeatures() {
                         <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-slate-50 border border-black/5">
                             <div className="relative w-full h-full overflow-hidden flex items-center justify-center transition-colors duration-700">
                                 {/* Faint Render Background */}
-                                <img src="https://images.unsplash.com/photo-1593696140826-c58b021acf8b?q=80&w=600&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-[0.15] blur-sm transition-all duration-700 group-hover:blur-0 group-hover:opacity-40" alt="" />
+                                <img src="/assets/home/living-room-3d.webp" className="absolute inset-0 w-full h-full object-cover opacity-[0.15] blur-sm transition-all duration-700 group-hover:blur-0 group-hover:opacity-40" alt="Seamless 3D living room rendering" />
                                 <div className="absolute inset-0 bg-white/40 group-hover:bg-white/10 transition-colors duration-700" />
 
                                 <div className="relative z-10 flex flex-col items-center w-full px-4">
@@ -342,14 +342,14 @@ export default function AdvancedFeatures() {
                                 {/* Left: Inspiration Grid */}
                                 <div className="w-[35%] p-2 grid grid-cols-1 gap-2 bg-[#f4f4f5] border-r border-black/5 relative z-10">
                                     <div className="text-[7px] font-bold text-slate-400 uppercase tracking-widest text-center">Inspiration</div>
-                                    <div className="h-[30%] bg-slate-200 rounded-lg overflow-hidden border border-white/50 shadow-sm"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" alt="" /></div>
-                                    <div className="h-[30%] bg-slate-200 rounded-lg overflow-hidden border border-white/50 shadow-sm"><img src="https://images.unsplash.com/photo-1593696140826-c58b021acf8b?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" alt="" /></div>
-                                    <div className="h-[30%] bg-slate-200 rounded-lg overflow-hidden border border-white/50 shadow-sm"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=200&auto=format&fit=crop" className="w-full h-full object-cover" alt="" /></div>
+                                    <div className="h-[30%] bg-slate-200 rounded-lg overflow-hidden border border-white/50 shadow-sm"><img src="/assets/home/bedroom-cozy.webp" className="w-full h-full object-cover" alt="Cozy bedroom design inspiration" /></div>
+                                    <div className="h-[30%] bg-slate-200 rounded-lg overflow-hidden border border-white/50 shadow-sm"><img src="/assets/home/living-room-3d.webp" className="w-full h-full object-cover" alt="Contemporary living room 3D style reference" /></div>
+                                    <div className="h-[30%] bg-slate-200 rounded-lg overflow-hidden border border-white/50 shadow-sm"><img src="/assets/home/modern-kitchen.webp" className="w-full h-full object-cover" alt="Modern kitchen reference material" /></div>
                                 </div>
 
                                 {/* Right: Applied Design */}
                                 <div className="w-[65%] relative">
-                                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=400&auto=format&fit=crop" className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt="" />
+                                    <img src="/assets/home/modern-lounge.webp" className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" alt="AI applied interior design styling for modern lounge" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
                                     {/* AI Applied Badge */}
