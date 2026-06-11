@@ -130,7 +130,16 @@ const TemplateGallery: React.FC<TemplateGalleryProps> = () => {
 
     const designInspirationData = useMemo(() => {
         if (!activeTemplates || activeTemplates.length === 0) {
-            return { "All Spaces": [], "Full House": [] };
+            // SEO Fallback: Provide Googlebot & first paint with actual imagery before JS fetch
+            return {
+                "All Spaces": [
+                    { title: "Modern Living Room Experience", count: "120+ Designs", img: "/assets/home/living-room-3d.webp", colSpan: "md:col-span-2", rowSpan: "md:row-span-2", isLarge: true, templateId: 0 },
+                    { title: "Cozy Master Bedroom", count: "75+ Designs", img: "/assets/home/bedroom-cozy.webp", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: 0 },
+                    { title: "Modular Kitchen Layout", count: "90+ Designs", img: "/assets/home/modern-kitchen.webp", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: 0 },
+                    { title: "Luxury Office & Lounge", count: "50+ Designs", img: "/assets/home/modern-lounge.webp", colSpan: "md:col-span-2", rowSpan: "md:row-span-1", isLarge: true, templateId: 0 }
+                ],
+                "Full House": []
+            };
         }
 
         const createGridItems = (templates: typeof activeTemplates): DesignInspirationItem[] => {
