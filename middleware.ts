@@ -305,7 +305,7 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  if (pathname === '/wp-content/themes/zlendo-realty/' || pathname === '/wp-content/uploads/' || pathname.startsWith('/wp-admin') || pathname.startsWith('/wp-content/')) {
+  if (pathname.includes('/wp-admin') || pathname.includes('/wp-content')) {
     return NextResponse.redirect(
       new URL('https://zlendorealty.com'),
       301
