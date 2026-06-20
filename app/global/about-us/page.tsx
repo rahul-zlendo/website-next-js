@@ -7,11 +7,11 @@ export const revalidate = 60;
 export async function generateMetadata(): Promise<Metadata> {
     return createPageMetadata({
         title: 'About Us | Building the Future of Real Estate Design | Zlendo Realty',
-        description: 'Learn about Zlendo Realty, an AI-powered real estate design platform by Zendoo Technologies. We simplify floor planning, 3D visualization, Vastu analysis, and cost estimation.',
+        description: 'Learn about Zlendo Realty, an AI-powered real estate design platform by Zlendo Technologies. We simplify floor planning, 3D visualization, Vastu analysis, and cost estimation.',
         path: '/about-us',
         keywords: [
             'About Zlendo Realty',
-            'Zendoo Technologies',
+            'Zlendo Technologies',
             'AI real estate design',
             'Architectural planning software',
             'Vastu analysis tools',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import { getClient } from '@/lib/sanity/client';
+import { defaultOgImage } from '@/lib/seo/metadata';
 import SectionRenderer from '@/components/global/SectionRenderer';
 import AdvancedFeatures from '@/components/global/sections/AdvancedFeatures';
 import GlobalRedesignBlocks from '@/components/global/sections/GlobalRedesignBlocks';
@@ -11,7 +12,7 @@ import RecentBlogPosts from '@/components/common/RecentBlogPosts';
 
 export const metadata: Metadata = {
   title: 'Zlendo Realty | AI Home & Office Design Software for Professionals',
-  description: 'Zlendo Realty is the complete design-to-client workflow for architecture and interior design professionals. Generate 3D models and renders in 60 seconds.',
+  description: 'Turn floor plans into 3D models and renders in 60 seconds. Zlendo Realty is the AI design workflow built for architecture and interior design professionals.',
   alternates: {
     canonical: 'https://zlendorealty.com',
     languages: {
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     url: 'https://zlendorealty.com/',
+    images: [defaultOgImage],
   },
 };
 
