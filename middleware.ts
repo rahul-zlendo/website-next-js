@@ -334,24 +334,23 @@ export function middleware(request: NextRequest) {
   }
 
   // ──────────────────────────────────────────────────────────
-  // 1.6. Redirect Blog to subdomain
+  // 1.6. Blog — served locally from Sanity (migrated off WordPress)
   // ──────────────────────────────────────────────────────────
-  const isBlog = pathname === '/blog' ||
-    pathname.startsWith('/blog/') ||
-    pathname.startsWith('/in/blog') ||
-    pathname.startsWith('/global/blog');
-
-  if (isBlog) {
-    const searchParams = request.nextUrl.search;
-    const cleanPath = pathname
-      .replace('/in/blog', '')
-      .replace('/global/blog', '')
-      .replace('/blog', '');
-
-    return NextResponse.redirect(
-      new URL(`https://blog.zlendorealty.com${cleanPath}${searchParams}`),
-      301
-    );
+  // Flat, locale-neutral URLs: /blog and /blog/<slug> for everyone (no /in
+  // prefix, no geo redirect). Rendered by the app/global/blog route group via
+  // an internal rewrite. Any locale-prefixed variant 301s to the flat URL so
+  // there is a single canonical blog URL.
+  if (pathname.startsWith('/in/blog') || pathname.startsWith('/global/blog')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace('/in/blog', '/blog').replace('/global/blog', '/blog');
+    return NextResponse.redirect(url, 301);
+  }
+  if (pathname === '/blog' || pathname.startsWith('/blog/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/global${pathname}`;
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-pathname', pathname);
+    return NextResponse.rewrite(url, { request: { headers: requestHeaders } });
   }
 
   // ──────────────────────────────────────────────────────────

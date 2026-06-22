@@ -39,3 +39,24 @@ export function urlFor(source: any) {
   // 4. Default fallback for everything else
   return { url: () => '', toString: () => '' };
 }
+
+/**
+ * Build a resized Sanity image URL as a plain string.
+ * Returns '' when the source isn't a valid image (safe to use with `||` fallback).
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function imageUrl(
+  source: any,
+  width?: number,
+  height?: number,
+  fit: 'max' | 'crop' = 'max',
+): string {
+  if (!source) return '';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const b = urlFor(source) as any;
+  if (typeof b.width !== 'function') return '';
+  let img = b.fit(fit).auto('format');
+  if (width) img = img.width(width);
+  if (height) img = img.height(height);
+  return img.url();
+}

@@ -17,4 +17,9 @@ import apiSuitePage from './apiSuitePage';
 import partnersPage from './partnersPage';
 import contactPage from './contactPage';
 
-export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage, vrStudioPage, apiSuitePage, partnersPage, contactPage];
+// Blog / News content model (WordPress migration → Sanity)
+import author from './author';
+import category from './category';
+import post from './post';
+
+export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage, vrStudioPage, apiSuitePage, partnersPage, contactPage, author, category, post];
