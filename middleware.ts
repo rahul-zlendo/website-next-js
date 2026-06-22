@@ -358,61 +358,35 @@ export function middleware(request: NextRequest) {
   // 2. Navigation & Internationalization
   // ──────────────────────────────────────────────────────────
 
-  // A. Geo-Detection & Redirection
-  // Use Vercel's geo API (most reliable), then fall back to headers
+  // Geo is used ONLY to (a) choose which homepage to serve at the bare domain
+  // and (b) drive a *suggestion banner* (components/common/GeoSuggestionBanner)
+  // via the zl_geo cookie. We deliberately DO NOT redirect visitors between the
+  // global site and /in based on IP. Forced geo-redirects block both users and
+  // crawlers from reaching the other locale and are a known SEO/AEO liability —
+  // Google explicitly warns against auto-redirecting on perceived location, and
+  // it forces a fragile, cloaking-adjacent "skip the redirect for bots" hack.
+  // Instead, hreflang + canonical (lib/seo/metadata.ts, app/**/page.tsx) tell
+  // search engines which locale to surface per region, and the banner lets
+  // humans switch when they actually want to. Every URL stays reachable by
+  // everyone, from any IP — which is exactly what improves SEO/AEO here.
+
+  // Detect the visitor's country (Vercel geo first, then CDN headers). Used only
+  // to set the zl_geo cookie the banner reads — never to redirect.
   const countryCode = (request as any).geo?.country
     || request.headers.get('x-vercel-ip-country')
     || request.headers.get('cf-ipcountry')
     || 'IN';
   const isIndia = countryCode.toUpperCase() === 'IN';
-  const isOnIndiaSite = pathname === '/in' || pathname.startsWith('/in/');
 
-  // Detect search engine bots to bypass forced geo-redirection.
-  // This ensures Google Bot (usually US-based) can crawl and index the /in path
-  // without being redirected to the root domain.
-  const userAgent = request.headers.get('user-agent')?.toLowerCase() || '';
-  const isBot = userAgent.includes('googlebot') ||
-    userAgent.includes('bingbot') ||
-    userAgent.includes('yandexbot') ||
-    userAgent.includes('applebot') ||
-    userAgent.includes('duckduckbot') ||
-    userAgent.includes('slurp') ||
-    userAgent.includes('baiduspider') ||
-    userAgent.includes('twitterbot') ||
-    userAgent.includes('facebookexternalhit') ||
-    userAgent.includes('linkedinbot');
-
-  // Force India visitors to /in if they hit the root or other paths (skip for bots)
-  if (isIndia && !isOnIndiaSite && !isBot) {
-    const url = request.nextUrl.clone();
-    const countryMatch = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
-
-    if (pathname.startsWith('/global')) {
-      url.pathname = pathname.replace(/^\/global/, '/in');
-    } else if (countryMatch && countryMatch[1] !== 'in') {
-      url.pathname = `/in${countryMatch[2] || ''}`;
-    } else if (pathname === '/') {
-      url.pathname = '/in';
-    } else {
-      url.pathname = `/in${pathname}`;
-    }
-    return geoRedirect(url, isIndia);
-  }
-
-  // Force Non-India visitors away from /in (skip for bots)
-  if (!isIndia && isOnIndiaSite && !isBot) {
-    const url = request.nextUrl.clone();
-    url.pathname = pathname.replace(/^\/in/, '') || '/';
-    return geoRedirect(url, isIndia);
-  }
-
-  // B. Root path: REWRITE to /global or /in based on IP 
-  // (Middleware runs before page, so this is instant)
+  // A. Root path: serve the GLOBAL homepage at the bare domain for EVERYONE
+  // (stable URL + stable content + canonical https://zlendorealty.com, matching
+  // the hreflang x-default). India visitors get a dismissible banner offering
+  // the /in site rather than being redirected away from the URL they landed on.
   if (pathname === '/') {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-pathname', '/');
 
-    const response = NextResponse.rewrite(new URL(isIndia ? '/in' : '/global', request.url), {
+    const response = NextResponse.rewrite(new URL('/global', request.url), {
       request: {
         headers: requestHeaders,
       },
@@ -421,7 +395,7 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // C. Allow /in and /global paths to pass through 
+  // B. Allow /in and /global paths to pass through
   if (pathname.startsWith('/in') || pathname.startsWith('/global')) {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-pathname', pathname);
@@ -498,17 +472,6 @@ export function middleware(request: NextRequest) {
       headers: requestHeaders,
     },
   });
-  setGeoHeaders(response, isIndia);
-  return response;
-}
-
-// ──────────────────────────────────────────────────────────
-// Helper: Create a geo-redirect with proper no-cache headers
-// This prevents browsers & CDNs from caching geo-based redirects,
-// which was causing users to stay on /global after turning off VPN.
-// ──────────────────────────────────────────────────────────
-function geoRedirect(url: URL, isIndia: boolean): NextResponse {
-  const response = NextResponse.redirect(url);
   setGeoHeaders(response, isIndia);
   return response;
 }

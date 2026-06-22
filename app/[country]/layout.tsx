@@ -3,6 +3,7 @@ import { CountryProvider, type CountryCode } from '@/lib/context/CountryContext'
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import PromoBanner from '@/components/layout/PromoBanner';
+import GeoSuggestionBanner from '@/components/common/GeoSuggestionBanner';
 import AuthSync from '@/components/layout/AuthSync';
 import ScrollToTop from '@/components/common/ScrollToTop';
 import FloatingContactButton from '@/components/common/FloatingContactButton';
@@ -46,6 +47,7 @@ export default async function CountryLayout({
       <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
         <DynamicBreadcrumb />
         <AuthSync />
+        <GeoSuggestionBanner />
         <PromoBanner />
         <Header logoUrl={logoUrl} />
         {/* <LaunchOfferPopup /> */}
