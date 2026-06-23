@@ -77,6 +77,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Help center (Commented out to use external subdomain)
     // { path: '/help-center', priority: 0.7, changeFrequency: 'weekly' as const, isGlobal: true },
+
+    // Compare pages
+    { path: '/compare/zlendo-vs-foyr-neo', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/zlendo-vs-roomsketcher', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/zlendo-vs-coohom', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/best-foyr-neo-alternatives', priority: 0.8, changeFrequency: 'monthly' as const },
+    { path: '/compare/best-roomsketcher-alternatives', priority: 0.8, changeFrequency: 'monthly' as const },
+
+    // Guide pages
+    { path: '/guides/vastu-design-software', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/guides/how-to-create-floor-plan-online', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/guides/9d-visualization', priority: 0.8, changeFrequency: 'monthly' as const },
+
+    // Segment pages (India only)
+    { path: '/for/interior-designers', priority: 0.9, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/for/architects', priority: 0.9, changeFrequency: 'monthly' as const, isIndiaOnly: true },
+    { path: '/for/vastu-consultants', priority: 0.8, changeFrequency: 'monthly' as const, isIndiaOnly: true },
   ];
 
   // Generate URLs for all territories (Global and India)

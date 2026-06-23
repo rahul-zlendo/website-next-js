@@ -16,5 +16,8 @@ import vrStudioPage from './vrStudioPage';
 import apiSuitePage from './apiSuitePage';
 import partnersPage from './partnersPage';
 import contactPage from './contactPage';
+import comparePage from './comparePage';
+import articlePage from './articlePage';
+import segmentPage from './segmentPage';
 
-export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage, vrStudioPage, apiSuitePage, partnersPage, contactPage];
+export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage, vrStudioPage, apiSuitePage, partnersPage, contactPage, comparePage, articlePage, segmentPage];

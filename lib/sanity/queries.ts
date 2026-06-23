@@ -1179,3 +1179,53 @@ export const apiSuitePageQuery = groq`
   }
 `;
 
+
+/**
+ * Fetch a Compare Page document by slug.
+ */
+export const comparePageQuery = groq`
+  *[_type == "comparePage" && slug.current == $slug][0]{
+    pageType, heroTitle, heroSubtitle, heroBadge, heroCtaLabel,
+    competitorName, competitorTagline, competitorFounded, competitorPricing, competitorBestFor,
+    zlendoPricing, zlendoBestFor,
+    comparisonRows[]{ feature, zlendo, competitor, zlendoNote },
+    winnerSections[]{ category, winner, explanation },
+    zlendoPros, zlendoCons, competitorPros, competitorCons,
+    verdictTitle, verdictBody, whoShouldChooseZlendo, whoShouldChooseCompetitor,
+    alternativesIntro,
+    alternatives[]{ name, tagline, bestFor, pricing, pros, cons, verdict },
+    faqs[]{ question, answer },
+    ctaTitle, ctaBody,
+    seoTitle, seoDescription, seoKeywords
+  }
+`;
+
+/**
+ * Fetch an Article Page document by slug.
+ */
+export const articlePageQuery = groq`
+  *[_type == "articlePage" && slug.current == $slug][0]{
+    articleType, heroBadge, heroTitle, heroTitleHighlight, heroSubtitle, heroCtaLabel,
+    keyTakeaways, stats[]{ value, label },
+    sections[]{ heading, subheading, body, imageAlt },
+    faqs[]{ question, answer },
+    ctaTitle, ctaTitleHighlight, ctaBody, ctaLabel,
+    seoTitle, seoDescription, seoKeywords
+  }
+`;
+
+/**
+ * Fetch a Segment Page document by slug.
+ */
+export const segmentPageQuery = groq`
+  *[_type == "segmentPage" && slug.current == $slug][0]{
+    heroBadge, heroTitle, heroTitleHighlight, heroSubtitle, heroCtaLabel,
+    painPointsTitle, painPoints[]{ title, desc, iconName },
+    featuresTitle, features[]{ title, desc },
+    workflowTitle, workflowSteps[]{ step, title, desc },
+    stats[]{ value, label },
+    faqs[]{ question, answer },
+    ctaTitle, ctaBody,
+    seoTitle, seoDescription, seoKeywords
+  }
+`;
