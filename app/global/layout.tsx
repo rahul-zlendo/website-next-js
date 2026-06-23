@@ -1,6 +1,5 @@
 import React from 'react';
 import PromoBanner from '@/components/layout/PromoBanner';
-import GeoSuggestionBanner from '@/components/common/GeoSuggestionBanner';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { getClient } from '@/lib/sanity/client';
@@ -27,7 +26,6 @@ export default async function GlobalLayout({
       <div className="min-h-screen bg-white text-zlendo-grey-dark selection:bg-zlendo-teal/10 selection:text-zlendo-teal font-nunito">
         <DynamicBreadcrumb />
         <AuthSync />
-        <GeoSuggestionBanner />
         <PromoBanner />
         <Header logoUrl={logoUrl} />
         <main>{children}</main>
