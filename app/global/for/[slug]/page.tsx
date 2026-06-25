@@ -16,11 +16,12 @@ export async function generateStaticParams() {
 }
 
 interface Props {
-  params: Promise<{ country: string; slug: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { country, slug } = await params;
+  const { slug } = await params;
+  const country = 'global';
   const cms = await getClient(false).fetch(segmentPageQuery, { slug }).catch(() => null);
   const defaults = getSegmentDefaults(slug, country);
   const title = cms?.seoTitle ?? defaults.seoTitle;
@@ -35,7 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const { country, slug } = await params;
+  const { slug } = await params;
+  const country = 'global';
   const { isEnabled: preview } = await draftMode();
   const cms = await getClient(preview).fetch(segmentPageQuery, { slug }).catch(() => null);
   const defaults = getSegmentDefaults(slug, country);
