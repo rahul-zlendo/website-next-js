@@ -153,7 +153,7 @@ export default function ArticlePageClient({ cms, slug, defaults, signupUrl }: Ar
       {faqs.length > 0 && (
         <section className="py-16 md:py-24 px-4 bg-white">
           <div className="container-custom px-6 max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-black font-nunito text-center mb-10 text-zlendo-grey-dark">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions</h2>
             <div className="space-y-4">
               {faqs.map((faq, i) => (
                 <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors">
@@ -172,7 +172,7 @@ export default function ArticlePageClient({ cms, slug, defaults, signupUrl }: Ar
                         exit={{ height: 0 }}
                         className="overflow-hidden bg-slate-50"
                       >
-                        <p className="px-6 pb-6 pt-2 text-base text-zlendo-grey-medium font-bold leading-relaxed whitespace-pre-line">
+                        <p className="px-6 pb-6 pt-2 text-zlendo-grey-medium font-medium leading-relaxed whitespace-pre-line">
                           {faq.answer}
                         </p>
                       </motion.div>
