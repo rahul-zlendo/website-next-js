@@ -399,6 +399,9 @@ export default function ComparePageClient({ cms, slug, defaults, signupUrl }: Co
                 </div>
               ))}
             </div>
+            <p className="text-xs text-slate-400 mt-8 text-center px-4 leading-relaxed">
+              Disclaimer: This comparison is for informational purposes only and is based on publicly available information; all third-party names, logos, trademarks, features, and pricing belong to their respective owners and should be verified directly before any decision.
+            </p>
           </div>
         </section>
       )}
