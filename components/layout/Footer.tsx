@@ -161,6 +161,19 @@ const Footer = ({
                         </ul>
                     </div>
 
+                    {/* Service */}
+                    <div className="lg:w-[14%]">
+                        <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Services</h4>
+                        <ul className="space-y-3.5 text-[15px]">
+                            <li><Link href={getPath('/services/floor-plan-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Floor Plan Design</Link></li>
+                            <li><Link href={getPath('/services/2d-to-3d')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">2D to 3D Services</Link></li>
+                            <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design Services</Link></li>
+                            <li><Link href={getPath('/services/virtual-walkthrough')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Virtual Walkthrough</Link></li>
+                            {isIndiaSite && <li><Link href={getPath('/services/vastu-consultation')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Vastu Consultation Services</Link></li>}
+
+                        </ul>
+                    </div>
+
                     {/* Use Cases / Enterprise */}
                     <div className="lg:w-[14%]">
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">
@@ -206,26 +219,47 @@ const Footer = ({
                     <div className="lg:w-[14%]">
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Legal</h4>
                         <ul className="space-y-3.5 text-[15px]">
-                            <li><Link href={getPath('/privacy-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Privacy Policy</Link></li>
+                            {/* <li><Link href={getPath('/privacy-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Privacy Policy</Link></li>
                             <li><Link href={getPath('/terms-of-service')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Terms of Service</Link></li>
-                            <li><Link href={getPath('/cookie-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Cookie Policy</Link></li>
-                            <li><Link href={getPath('/refund-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Refund Policy</Link></li>
-                            <li><Link href={getPath('/sla')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">SLA</Link></li>
+                            <li><Link href={getPath('/cookie-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Cookie Policy</Link></li> */}
+                            <li><Link href={getPath('/general-terms')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">General Terms</Link></li>
+                            <li><Link href={getPath('/community-guidelines')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Community Guidelines</Link></li>
+                            <li><Link href={getPath('/nda-vendors')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">NDA For Vendors</Link></li>
+                            <li><Link href={getPath('/refund-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Refund & Cancellation Policy</Link></li>
+                            <li><Link href={getPath('/sla')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Service Level Agreement</Link></li>
                         </ul>
 
-                        <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-5 mt-5">Services</h4>
-                        <ul className="space-y-3.5 text-[15px]">
-                            <li><Link href={getPath('/services/floor-plan-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Floor Plan Design</Link></li>
-                            <li><Link href={getPath('/services/2d-to-3d')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">2D to 3D Services</Link></li>
-                            <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design Services</Link></li>
-                            <li><Link href={getPath('/services/virtual-walkthrough')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Virtual Walkthrough</Link></li>
-                            {isIndiaSite && <li><Link href={getPath('/services/vastu-consultation')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Vastu Consultation Services</Link></li>}
-
-                        </ul>
+                        {/* <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-5 mt-7">Contact Our Team</h4>
+                        <ul className="space-y-4 text-[15px]">
+                            <li>
+                                <span dangerouslySetInnerHTML={{ __html: '<!--email_off-->' }} />
+                                <a href={`mailto:${settings?.footerEmail ?? "support@zlendorealty.com"}`} className="flex items-center gap-2.5 group whitespace-nowrap">
+                                    <div className="w-7 h-7 rounded-lg bg-zlendo-teal/5 flex items-center justify-center text-zlendo-teal shrink-0 group-hover:bg-zlendo-teal group-hover:text-white transition-all">
+                                        <Mail className="w-3.5 h-3.5" />
+                                    </div>
+                                    <span className="text-[15px] text-[#666666] font-medium group-hover:text-zlendo-teal transition-colors">
+                                        support@zlendorealty.com
+                                    </span>
+                                </a>
+                                <span dangerouslySetInnerHTML={{ __html: '<!--/email_off-->' }} />
+                            </li>
+                            {isIndiaSite && (
+                                <li>
+                                    <a href="tel:+918047135989" className="flex items-center gap-2.5 group whitespace-nowrap">
+                                        <div className="w-7 h-7 rounded-lg bg-zlendo-teal/5 flex items-center justify-center text-zlendo-teal shrink-0 group-hover:bg-zlendo-teal group-hover:text-white transition-all">
+                                            <Phone className="w-3.5 h-3.5" />
+                                        </div>
+                                        <span className="text-[15px] text-[#666666] font-bold group-hover:text-zlendo-teal transition-colors">
+                                            +91 8047135989
+                                        </span>
+                                    </a>
+                                </li>
+                            )}
+                        </ul> */}
                     </div>
 
                     {/* Contact */}
-                    <div className="lg:w-[20%]">
+                    {/* <div className="lg:w-[20%]">
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Contact Us</h4>
                         <ul className="space-y-4 text-[15px]">
                             <li>
@@ -279,7 +313,7 @@ const Footer = ({
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </div> */}
                 </div>
 
                 {/* Bottom Bar */}
@@ -287,7 +321,7 @@ const Footer = ({
                     <p>{settings?.copyrightText ?? 'Copyright © 2026 Zlendo Technologies Pvt. Ltd. | All Rights Reserved.'}</p>
                     <div className="flex items-center gap-8">
                         <Link href={getPath('/cookie-policy')} className="hover:text-zlendo-teal transition-colors">Cookie Policy</Link>
-                        <Link href={getPath('/terms-of-service')} className="hover:text-zlendo-teal transition-colors">Terms &amp; Conditions</Link>
+                        <Link href={getPath('/terms-of-service')} className="hover:text-zlendo-teal transition-colors">Terms of Service</Link>
                         <Link href={getPath('/privacy-policy')} className="hover:text-zlendo-teal transition-colors">Privacy Policy</Link>
 
                         {/* <CountrySwitcher /> */}
