@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, ChevronUp } from 'lucide-react';
 import ChatWidget from './ChatWidget';
@@ -9,6 +9,7 @@ const ScrollToTop = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [hasConsent, setHasConsent] = useState(true);
     const [isChatOpen, setIsChatOpen] = useState(false);
+    const hasInteractedRef = useRef<boolean>(false);
 
     // Show button when page is scrolled down
     const toggleVisibility = () => {
@@ -49,10 +50,11 @@ const ScrollToTop = () => {
 
                 setTimeout(() => {
                     setIsChatOpen((prev) => {
+                        if (hasInteractedRef.current) return prev;
                         if (prev) return false;
                         return prev;
                     });
-                }, 10000);
+                }, 15000);
             }, 1000);
 
             return () => clearTimeout(openTimer);
@@ -74,7 +76,10 @@ const ScrollToTop = () => {
                     {/* Chat Bot Button (Toggles Widget) */}
                     <motion.button
                         key="chat-btn"
-                        onClick={() => setIsChatOpen(!isChatOpen)}
+                        onClick={() => {
+                            hasInteractedRef.current = true;
+                            setIsChatOpen(!isChatOpen);
+                        }}
                         initial={{ opacity: 0, scale: 0.5, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 10 }}
                         whileHover={{ scale: 1.05 }}
@@ -86,7 +91,7 @@ const ScrollToTop = () => {
                         aria-label="Chat with us"
                     >
                         {!isChatOpen && (
-                            <div className="absolute inset-0 rounded-full bg-[#f97316]/10 animate-ping opacity-50" />
+                            <div className="absolute inset-0 rounded-full bg-[#ea580c]/30 animate-ping opacity-75" />
                         )}
                         <MessageCircle
                             className={`relative z-10 w-8 h-8 group-hover:scale-110 transition-transform duration-300 ${isChatOpen ? 'text-white' : 'text-[#f97316]'}`}
@@ -128,7 +133,14 @@ const ScrollToTop = () => {
             </div>
 
             {/* Chat Widget Modal */}
-            <ChatWidget isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+            <div
+                onMouseEnter={() => { hasInteractedRef.current = true; }}
+                onClickCapture={() => { hasInteractedRef.current = true; }}
+                onFocusCapture={() => { hasInteractedRef.current = true; }}
+                onTouchStartCapture={() => { hasInteractedRef.current = true; }}
+            >
+                <ChatWidget isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+            </div>
         </>
     );
 };
