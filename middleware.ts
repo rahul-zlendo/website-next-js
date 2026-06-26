@@ -327,10 +327,15 @@ export function middleware(request: NextRequest) {
       .replace('/global/help-center', '')
       .replace('/help-center', '');
 
-    return NextResponse.redirect(
-      new URL(`https://helpcenter.zlendorealty.com${cleanPath}${searchParams}`),
+      return NextResponse.redirect(
+      new URL(`https://helpcenter.zlendorealty.com`),
       301
     );
+
+    // return NextResponse.redirect(
+    //   new URL(`https://helpcenter.zlendorealty.com${cleanPath}${searchParams}`),
+    //   301
+    // );
   }
 
   // ──────────────────────────────────────────────────────────
@@ -350,63 +355,68 @@ export function middleware(request: NextRequest) {
 
     const slug = cleanPath.replace(/^\//, '').replace(/\/$/, '');
 
-    const newsSlugs = new Set([
-      'compound-wall-explained-guide', 'private-rooms-in-tirumala-a-complete-guide',
-      'west-facing-house-suitable-for-your-rashi', 'quad-sharing-meaning-what-it-is-features',
-      'cat-on-the-wall-meaning-usage', 'tiruchendur-devasthanam-contact',
-      'bangla-sahib-room-booking', 'bhubaneswar-railway-station',
-      'retiring-room-at-new-delhi', 'jyoti-chowk-jalandhar-punjab-heart-of-city',
-      'manilaxmi-jain-tirth-room-book', 'stilt-floor-explained-a-quick-clear-guide',
-      'bathroom-under-stairs-vastu-your-home', 'palani-devasthanam-room-booking-guide',
-      'nakodaji-room-booking-contact', 'gurudwara-sis-ganj-sahib-roombook',
-      'kabita-net-worth-success-story-the-growth', 'wall-magazine-for-your-class',
-      'bangla-sahib-contact-number-booking', 'parapet-wall-steel-design-smart-ideas',
-      'railway-cloakroom-guide-understand', 'delhi-gymkhana-club-room-rates',
-      'hindu-prayer-room-design-thoughtful-ideas', 'retiring-room-at-vijayawada-railway-station',
-      'ramachandra-hospital-room-charges-pricing', 'gurudwara-bala-sahib-room-booking-guide',
-      'fluted-glass-price-guide-uses-and-cost', 'mantralayam-temple-room-booking-guide',
-      'deluxe-room-what-it-really-means', 'adjacent-room-in-hotel-meaning-benefits',
-      'how-to-book-room-at-isha-yoga-centre', 'l-shaped-house-vastu-practical-design',
-      'cell-walls-explained-human-cells-built', 'chennai-egmore-railway-station-retiringroom',
-      'irctc-retiring-room-contact', 'plinth-wall-explained-purpose-benefits',
-      'oyo-rooms-explained-a-quickguide', 'kwality-walls-quick-guide',
-      'ttd-srinivasam-room-booking', 'jyoti-chowk-jalandhar-shopping',
-      'lucky-numbers-what-they-mean', 'raghavendra-swamy-mantralayam-completeguide',
-      'aluminium-jali-stylish-choice', 'velankanni-church-room-booking-your-guide',
-      'manekshaw-centre-guest-room', 'gorai-beach-rooms-safe-for-couples',
-      'dark-firozi-colour-in-interior-design-style', 'cumbala-hill',
-      'using-an-air-cooler-in-a-room-the-right-way', 'one-ton-ac-room-size',
-      'rashtreeya-vidyalaya-road', 'royal-paint-design-idea-for-home',
-      'ton-window-ac-price-guide-cost', 'saifee-hospital-room-charges',
-      'profile-light-price-guide', 'navy-blue-and-light-blue-a-elegant-colour',
-      'paula-deen-living-room-furniture-warmdesign', 'room-booking-at-gurudwara-sis-ganj-sahib',
-      'almari-design-in-smart-rooms', 'armani-hotel-dubai-room-price-guide',
-      'bajaj-wall-mount-fan-for-cooling', 'understanding-room-in-square-feet-a-guide',
-      'fluted-panel-price-guide-costs', 'understanding-italian-kitchen-prices-guide',
-      '5-inspiring-wall-almirah-design-ideas', 'groove-handles-a-smart-and-stylish-choice',
-      'softboard-decoration-ideas-simple-creative', 'kabita-singh-net-worth-success',
-      'dark-firozi-colour-a-deep-dive', 'lilac-lavender-room-colour-a-stylish-choice',
-      'retiring-room-at-ujjain-railway-station', 'iskcon-temple-direction-guide-your-path',
-      'hettich-modular-kitchen-pricing-features', 'the-great-indian-kitchen-where-to-watch',
-      'ac-waiting-room-rules-everything-you-need', 'modular-kitchen-sink-price-guide',
-      'daily-room-rent-in-bangalore-price-insights', 'aventura-floor-plans-smart-studio-design',
-      'bathtub-height-a-simple-guide-to-choose', 'anandpur-sahib-gurudwara-room-booking-guide',
-      'the-great-wall-download-in-tamil-a-guide', 'himachal-bhavan-delhi-room-booking-guide',
-      'lakshmi-ganesh-saraswati-guide', 'sri-chowdeshwari-temple-sigandur-room-book',
-      'plasma-membrane-and-cell-wall-understanding', 'the-great-indian-kitchen-online'
-    ]);
-
-    if (newsSlugs.has(slug)) {
-      return NextResponse.redirect(
-        new URL(`https://news.zlendorealty.com/${slug}/${searchParams}`),
-        301
-      );
-    }
-
     return NextResponse.redirect(
-      new URL(`https://blog.zlendorealty.com${cleanPath}${searchParams}`),
+      new URL(`https://blog.zlendorealty.com`),
       301
     );
+
+    // const newsSlugs = new Set([
+    //   'compound-wall-explained-guide', 'private-rooms-in-tirumala-a-complete-guide',
+    //   'west-facing-house-suitable-for-your-rashi', 'quad-sharing-meaning-what-it-is-features',
+    //   'cat-on-the-wall-meaning-usage', 'tiruchendur-devasthanam-contact',
+    //   'bangla-sahib-room-booking', 'bhubaneswar-railway-station',
+    //   'retiring-room-at-new-delhi', 'jyoti-chowk-jalandhar-punjab-heart-of-city',
+    //   'manilaxmi-jain-tirth-room-book', 'stilt-floor-explained-a-quick-clear-guide',
+    //   'bathroom-under-stairs-vastu-your-home', 'palani-devasthanam-room-booking-guide',
+    //   'nakodaji-room-booking-contact', 'gurudwara-sis-ganj-sahib-roombook',
+    //   'kabita-net-worth-success-story-the-growth', 'wall-magazine-for-your-class',
+    //   'bangla-sahib-contact-number-booking', 'parapet-wall-steel-design-smart-ideas',
+    //   'railway-cloakroom-guide-understand', 'delhi-gymkhana-club-room-rates',
+    //   'hindu-prayer-room-design-thoughtful-ideas', 'retiring-room-at-vijayawada-railway-station',
+    //   'ramachandra-hospital-room-charges-pricing', 'gurudwara-bala-sahib-room-booking-guide',
+    //   'fluted-glass-price-guide-uses-and-cost', 'mantralayam-temple-room-booking-guide',
+    //   'deluxe-room-what-it-really-means', 'adjacent-room-in-hotel-meaning-benefits',
+    //   'how-to-book-room-at-isha-yoga-centre', 'l-shaped-house-vastu-practical-design',
+    //   'cell-walls-explained-human-cells-built', 'chennai-egmore-railway-station-retiringroom',
+    //   'irctc-retiring-room-contact', 'plinth-wall-explained-purpose-benefits',
+    //   'oyo-rooms-explained-a-quickguide', 'kwality-walls-quick-guide',
+    //   'ttd-srinivasam-room-booking', 'jyoti-chowk-jalandhar-shopping',
+    //   'lucky-numbers-what-they-mean', 'raghavendra-swamy-mantralayam-completeguide',
+    //   'aluminium-jali-stylish-choice', 'velankanni-church-room-booking-your-guide',
+    //   'manekshaw-centre-guest-room', 'gorai-beach-rooms-safe-for-couples',
+    //   'dark-firozi-colour-in-interior-design-style', 'cumbala-hill',
+    //   'using-an-air-cooler-in-a-room-the-right-way', 'one-ton-ac-room-size',
+    //   'rashtreeya-vidyalaya-road', 'royal-paint-design-idea-for-home',
+    //   'ton-window-ac-price-guide-cost', 'saifee-hospital-room-charges',
+    //   'profile-light-price-guide', 'navy-blue-and-light-blue-a-elegant-colour',
+    //   'paula-deen-living-room-furniture-warmdesign', 'room-booking-at-gurudwara-sis-ganj-sahib',
+    //   'almari-design-in-smart-rooms', 'armani-hotel-dubai-room-price-guide',
+    //   'bajaj-wall-mount-fan-for-cooling', 'understanding-room-in-square-feet-a-guide',
+    //   'fluted-panel-price-guide-costs', 'understanding-italian-kitchen-prices-guide',
+    //   '5-inspiring-wall-almirah-design-ideas', 'groove-handles-a-smart-and-stylish-choice',
+    //   'softboard-decoration-ideas-simple-creative', 'kabita-singh-net-worth-success',
+    //   'dark-firozi-colour-a-deep-dive', 'lilac-lavender-room-colour-a-stylish-choice',
+    //   'retiring-room-at-ujjain-railway-station', 'iskcon-temple-direction-guide-your-path',
+    //   'hettich-modular-kitchen-pricing-features', 'the-great-indian-kitchen-where-to-watch',
+    //   'ac-waiting-room-rules-everything-you-need', 'modular-kitchen-sink-price-guide',
+    //   'daily-room-rent-in-bangalore-price-insights', 'aventura-floor-plans-smart-studio-design',
+    //   'bathtub-height-a-simple-guide-to-choose', 'anandpur-sahib-gurudwara-room-booking-guide',
+    //   'the-great-wall-download-in-tamil-a-guide', 'himachal-bhavan-delhi-room-booking-guide',
+    //   'lakshmi-ganesh-saraswati-guide', 'sri-chowdeshwari-temple-sigandur-room-book',
+    //   'plasma-membrane-and-cell-wall-understanding', 'the-great-indian-kitchen-online'
+    // ]);
+
+    // if (newsSlugs.has(slug)) {
+    //   return NextResponse.redirect(
+    //     new URL(`https://news.zlendorealty.com/${slug}/${searchParams}`),
+    //     301
+    //   );
+    // }
+
+    // return NextResponse.redirect(
+    //   new URL(`https://blog.zlendorealty.com${cleanPath}${searchParams}`),
+    //   301
+    // );
   }
 
   // ──────────────────────────────────────────────────────────
@@ -418,7 +428,7 @@ export function middleware(request: NextRequest) {
   const countryCode = (request as any).geo?.country
     || request.headers.get('x-vercel-ip-country')
     || request.headers.get('cf-ipcountry')
-    || 'US';
+    || 'IN';
   const isIndia = countryCode.toUpperCase() === 'IN';
   const isOnIndiaSite = pathname === '/in' || pathname.startsWith('/in/');
 
