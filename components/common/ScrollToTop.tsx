@@ -39,6 +39,26 @@ const ScrollToTop = () => {
         };
     }, []);
 
+    // Auto-open chat bot for 10 seconds on first visit (session based)
+    useEffect(() => {
+        const hasAutoOpened = sessionStorage.getItem('zlendo_chat_auto_opened');
+        if (!hasAutoOpened) {
+            const openTimer = setTimeout(() => {
+                setIsChatOpen(true);
+                sessionStorage.setItem('zlendo_chat_auto_opened', 'true');
+
+                setTimeout(() => {
+                    setIsChatOpen((prev) => {
+                        if (prev) return false;
+                        return prev;
+                    });
+                }, 10000);
+            }, 1000);
+
+            return () => clearTimeout(openTimer);
+        }
+    }, []);
+
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -48,8 +68,8 @@ const ScrollToTop = () => {
 
     return (
         <>
-            <div className="fixed right-8 z-[6000] flex flex-col gap-4 items-center transition-all duration-300" 
-                 style={{ bottom: !hasConsent ? '160px' : '32px' }}>
+            <div className="fixed right-8 z-[6000] flex flex-col gap-4 items-center transition-all duration-300"
+                style={{ bottom: !hasConsent ? '160px' : '32px' }}>
                 <AnimatePresence>
                     {/* Chat Bot Button (Toggles Widget) */}
                     <motion.button
@@ -57,25 +77,31 @@ const ScrollToTop = () => {
                         onClick={() => setIsChatOpen(!isChatOpen)}
                         initial={{ opacity: 0, scale: 0.5, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 10 }}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 border ${
-                            isChatOpen 
-                                ? 'bg-zlendo-grey-dark text-white border-white/10' 
-                                : 'bg-white text-zlendo-teal shadow-emerald-500/20 border-emerald-500/10'
-                        }`}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className={`relative w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 border-2 group ${isChatOpen
+                            ? 'bg-zlendo-grey-dark text-white border-white/10'
+                            : 'bg-white text-[#f97316] border-white shadow-[#f97316]/30'
+                            }`}
                         aria-label="Chat with us"
                     >
-                        <MessageCircle className={`w-7 h-7 group-hover:scale-110 transition-transform duration-300 ${isChatOpen ? 'text-white' : 'text-[#25D366]'}`} fill={isChatOpen ? 'none' : '#25D36622'} />
-                        
+                        {!isChatOpen && (
+                            <div className="absolute inset-0 rounded-full bg-[#f97316]/10 animate-ping opacity-50" />
+                        )}
+                        <MessageCircle
+                            className={`relative z-10 w-8 h-8 group-hover:scale-110 transition-transform duration-300 ${isChatOpen ? 'text-white' : 'text-[#f97316]'}`}
+                            fill={isChatOpen ? 'none' : '#fff7ed'}
+                            strokeWidth={2}
+                        />
+
                         {/* Tooltip */}
-                        <span className="absolute right-full mr-4 px-4 py-2 bg-zlendo-grey-dark text-white text-xs font-black rounded-xl opacity-0 hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl border border-white/10">
+                        <span className="absolute right-full mr-5 px-4 py-2 bg-zlendo-grey-dark text-white text-xs font-black rounded-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl border border-white/10">
                             Chat Assistant
                         </span>
-                        
+
                         {/* Badge */}
                         {!isChatOpen && (
-                            <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pulse" />
+                            <span className="absolute top-1 right-2 w-3.5 h-3.5 bg-[#ff6b6b] rounded-full border-2 border-white" />
                         )}
                     </motion.button>
 
@@ -93,7 +119,7 @@ const ScrollToTop = () => {
                             aria-label="Scroll to top"
                         >
                             <ChevronUp className="w-7 h-7 group-hover:-translate-y-1 transition-transform duration-300" />
-                            
+
                             {/* Ring animation */}
                             <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-100 group-hover:scale-110 opacity-0 group-hover:opacity-100 transition-all duration-300" />
                         </motion.button>
@@ -108,4 +134,4 @@ const ScrollToTop = () => {
 };
 
 export default ScrollToTop;
- 
+
