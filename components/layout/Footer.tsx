@@ -217,7 +217,7 @@ const Footer = ({
 
                     {/* Legal */}
                     <div className="lg:w-[14%]">
-                        <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Legal</h4>
+                        <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Legal & Policies</h4>
                         <ul className="space-y-3.5 text-[15px]">
                             {/* <li><Link href={getPath('/privacy-policy')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Privacy Policy</Link></li>
                             <li><Link href={getPath('/terms-of-service')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Terms of Service</Link></li>

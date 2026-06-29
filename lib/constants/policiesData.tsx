@@ -21,7 +21,7 @@ export const POLICIES: PolicyMetadata[] = [
         slug: 'privacy-policy',
         title: 'Privacy Policy',
         icon: Lock,
-        category: 'privacy',
+        category: 'legal',
         description: 'Zlendo Technologies Privacy Policy - Learn how we collect, use, and protect your personal information.',
         lastUpdated: 'April 2026',
         sections: privacyPolicySections
