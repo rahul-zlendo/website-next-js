@@ -86,17 +86,17 @@ const ScrollToTop = () => {
                         whileTap={{ scale: 0.95 }}
                         className={`relative w-16 h-16 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 border-2 group ${isChatOpen
                             ? 'bg-zlendo-grey-dark text-white border-white/10'
-                            : 'bg-white text-[#f97316] border-white shadow-[#f97316]/30'
+                            : 'bg-[#f97316] text-white border-[#f97316] shadow-[#f97316]/30'
                             }`}
                         aria-label="Chat with us"
                     >
                         {!isChatOpen && (
-                            <div className="absolute inset-0 rounded-full bg-[#ea580c]/30 animate-ping opacity-75" />
+                            <div className="absolute inset-0 rounded-full bg-[#f97316] animate-ping opacity-75" />
                         )}
                         <MessageCircle
-                            className={`relative z-10 w-8 h-8 group-hover:scale-110 transition-transform duration-300 ${isChatOpen ? 'text-white' : 'text-[#f97316]'}`}
-                            fill={isChatOpen ? 'none' : '#fff7ed'}
-                            strokeWidth={2}
+                            className={`relative z-10 w-8 h-8 group-hover:scale-110 transition-transform duration-300 ${isChatOpen ? 'text-white' : 'text-white'}`}
+                            fill="currentColor"
+                            strokeWidth={0}
                         />
 
                         {/* Tooltip */}
