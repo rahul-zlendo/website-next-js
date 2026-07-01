@@ -5,6 +5,7 @@ import { getClient } from '@/lib/sanity/client';
 import { interiorsExteriorsPageQuery } from '@/lib/sanity/queries';
 import InteriorsExteriorsClient from './InteriorsExteriorsClient';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 const ModernPathwayImg = '/assets/interior-exterior/modern-pathway.webp';
 
@@ -204,6 +205,7 @@ export default async function InteriorsExteriorsPage({ params }: PageProps) {
             "priceCurrency": "USD",
             "description": "Free online AI-powered interior and exterior design platform"
         },
+        "aggregateRating": ZLENDO_AGGREGATE_RATING,
         "creator": {
             "@type": "Organization",
             "name": "Zlendo Realty",

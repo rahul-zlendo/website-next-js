@@ -3,6 +3,7 @@ import CostEstimatorClient from './CostEstimatorClient';
 import { client } from '@/lib/sanity/client';
 import { costEstimatorPageQuery } from '@/lib/sanity/queries';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 interface PageProps {
   params: Promise<{ country: string }>;
@@ -109,6 +110,7 @@ export default async function CostEstimatorPage({ params }: PageProps) {
       "priceCurrency": "USD",
       "description": "Free construction cost estimation tool for individual homeowners"
     },
+    "aggregateRating": ZLENDO_AGGREGATE_RATING,
     "creator": {
       "@type": "Organization",
       "name": "Zlendo Realty",

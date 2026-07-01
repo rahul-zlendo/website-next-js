@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Compass, CheckCircle, ArrowRight } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 export default function VastuOptimizerPage() {
     const faqSchema = {
@@ -72,6 +73,7 @@ export default function VastuOptimizerPage() {
                     "image": "https://zlendorealty.com/favicon.ico",
                     "softwareVersion": "1.0",
                     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free AI-powered Vastu analysis and optimization tool" },
+                    "aggregateRating": ZLENDO_AGGREGATE_RATING,
                     "creator": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "featureList": ["AI-powered Vastu analysis", "Floor plan energy heatmaps", "Directional alignment checks", "Room-wise Vastu scorecard", "Compass orientation analysis", "Vastu compliance scoring", "Energy imbalance detection", "Non-destructive remedy suggestions", "Satellite-based directional mapping", "Apartment and home Vastu evaluation", "AI-generated layout correction suggestions", "Health and harmony optimization insights"]

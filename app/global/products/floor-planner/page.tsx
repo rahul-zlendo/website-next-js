@@ -1,6 +1,7 @@
 import React from 'react';
 import { getClient } from '@/lib/sanity/client';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 import SectionRenderer from '@/components/global/SectionRenderer';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
@@ -49,6 +50,7 @@ const softwareApplicationSchema = {
     "priceCurrency": "USD",
     "description": "14-day free trial with full access and no credit card required"
   },
+  "aggregateRating": ZLENDO_AGGREGATE_RATING,
   "creator": {
     "@type": "Organization",
     "name": "Zlendo Realty",
@@ -233,9 +235,22 @@ const GlobalFloorPlannerPage = async () => {
       }
     ];
 
+    const fallbackFaqSection: any = fallbackSections.find((s: any) => s._type === 'globalFAQ');
+    const faqSchema = fallbackFaqSection ? {
+      "@context": "https://schema.org/",
+      "@type": "FAQPage",
+      "name": "Zlendo Realty Floor Planner - Frequently Asked Questions",
+      "mainEntity": fallbackFaqSection.faqs.map((f: { question: string; answer: string }) => ({
+        "@type": "Question",
+        "name": f.question,
+        "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+      }))
+    } : null;
+
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
+        {faqSchema && <JsonLd schema={faqSchema} />}
         <main className="min-h-screen">
           <SectionRenderer sections={fallbackSections} />
         </main>
@@ -243,9 +258,22 @@ const GlobalFloorPlannerPage = async () => {
     );
   }
 
+  const cmsFaqSection: any = pageData.sections?.find((s: any) => s._type === 'globalFAQ');
+  const cmsFaqSchema = cmsFaqSection?.faqs?.length ? {
+    "@context": "https://schema.org/",
+    "@type": "FAQPage",
+    "name": "Zlendo Realty Floor Planner - Frequently Asked Questions",
+    "mainEntity": cmsFaqSection.faqs.map((f: { question: string; answer: string }) => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+    }))
+  } : null;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
+      {cmsFaqSchema && <JsonLd schema={cmsFaqSchema} />}
       <main className="min-h-screen">
         <SectionRenderer sections={pageData.sections} />
       </main>

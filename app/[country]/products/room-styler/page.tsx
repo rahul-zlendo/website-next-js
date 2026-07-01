@@ -5,6 +5,7 @@ import { getClient } from '@/lib/sanity/client';
 import { roomStylerPageQuery } from '@/lib/sanity/queries';
 import RoomStylerClient from './RoomStylerClient';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 const ScandinavianImg = '/assets/room-styler/scandinavian.webp';
 const UploadRoomImg = '/assets/2d-to-3d/upload-floorplan.webp';
@@ -138,6 +139,7 @@ export default async function RoomStylerPage({ params }: PageProps) {
             "priceCurrency": "USD",
             "description": "Free online AI room styling and interior visualization tool"
         },
+        "aggregateRating": ZLENDO_AGGREGATE_RATING,
         "creator": {
             "@type": "Organization",
             "name": "Zlendo Realty",

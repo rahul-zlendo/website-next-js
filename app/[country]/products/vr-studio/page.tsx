@@ -4,6 +4,7 @@ import { getClient } from '@/lib/sanity/client';
 import { vrStudioPageQuery } from '@/lib/sanity/queries';
 import VRStudioClient from './VRStudioClient';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 export const revalidate = 60;
 
@@ -34,6 +35,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function VRStudioPage({ params }: Props) {
     const { country } = await params;
+    const isGlobal = country === 'global';
+    const cleanPath = isGlobal ? '/products/vr-studio' : `/${country}/products/vr-studio`;
+    const fullUrl = `https://zlendorealty.com${cleanPath}`;
     const { isEnabled: preview } = await draftMode();
     const cms: any = await getClient(preview).fetch(vrStudioPageQuery).catch(() => null);
 
@@ -99,8 +103,47 @@ export default async function VRStudioPage({ params }: Props) {
         }))
     };
 
+    const softwareApplicationSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Zlendo Realty 8K VR Studio",
+        "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "Virtual Reality Visualization Software",
+        "operatingSystem": "Web",
+        "url": fullUrl,
+        "description": "8K virtual reality studio that lets users step inside their 3D home designs with full 6DOF movement, real-time material swapping, cloud rendering, and multi-user walkthroughs, compatible with Meta Quest, Apple Vision Pro, and web browsers.",
+        "image": "https://zlendorealty.com/favicon.ico",
+        "softwareVersion": "1.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free to start with premium high-res VR rendering on paid plans"
+        },
+        "aggregateRating": ZLENDO_AGGREGATE_RATING,
+        "creator": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "featureList": [
+            "Immersive 6DOF VR walkthroughs",
+            "Real-time material swapping",
+            "Cloud-streamed high-fidelity rendering",
+            "Multi-user shared VR sessions",
+            "Meta Quest and Apple Vision Pro support",
+            "Browser-based VR access"
+        ]
+    };
+
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
             <JsonLd schema={faqSchema} />
             <VRStudioClient
                 cms={cms}

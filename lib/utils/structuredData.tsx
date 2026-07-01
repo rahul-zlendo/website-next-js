@@ -8,6 +8,20 @@ export interface BreadcrumbItem {
 }
 
 /**
+ * Verified Capterra rating for Zlendo Realty (https://www.capterra.com/p/10036307/Zlendo-Realty/).
+ * Update ratingCount/reviewCount when new reviews are published — must reflect the real, current count.
+ * No G2 profile exists yet for Zlendo Realty, so G2 is intentionally not cited here.
+ */
+export const ZLENDO_AGGREGATE_RATING = {
+  '@type': 'AggregateRating',
+  ratingValue: '5.0',
+  bestRating: '5',
+  worstRating: '1',
+  ratingCount: '5',
+  reviewCount: '5',
+};
+
+/**
  * Generate Organization schema for Global Website
  */
 export function generateOrganizationSchema() {
@@ -144,6 +158,7 @@ export function generateSoftwareApplicationSchema(isGlobal: boolean = false) {
       '@type': 'Organization',
       name: 'Zlendo Realty',
     },
+    aggregateRating: ZLENDO_AGGREGATE_RATING,
   };
 }
 

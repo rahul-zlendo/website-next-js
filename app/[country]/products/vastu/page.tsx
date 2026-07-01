@@ -5,6 +5,7 @@ import VastuClient from './VastuClient';
 import { Metadata } from 'next';
 import { createPageMetadata } from '@/lib/seo/metadata';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 interface PageProps {
     params: Promise<{ country: string }>;
@@ -145,6 +146,7 @@ export default async function VastuPage({ params }: PageProps) {
             "priceCurrency": "USD",
             "description": "Free AI-powered Vastu analysis and optimization tool"
         },
+        "aggregateRating": ZLENDO_AGGREGATE_RATING,
         "creator": {
             "@type": "Organization",
             "name": "Zlendo Realty",

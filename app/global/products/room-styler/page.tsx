@@ -5,6 +5,7 @@ import AiWorkflowsSection from '@/components/global/sections/AiWorkflowsSection'
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { createPageMetadata } from '@/lib/seo/metadata';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 import { SIGNUP_URL } from '@/lib/config/env';
 
 export const metadata: Metadata = createPageMetadata({
@@ -194,6 +195,7 @@ const GlobalRoomStylerPage = async () => {
         "priceCurrency": "USD",
         "description": "Free online AI room styling and interior visualization tool"
       },
+      "aggregateRating": ZLENDO_AGGREGATE_RATING,
       "creator": {
         "@type": "Organization",
         "name": "Zlendo Realty",

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Layout, Sun, Shield, Leaf, ArrowRight, ChevronDown } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 export default function InteriorsExteriorsPage() {
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -24,6 +25,7 @@ export default function InteriorsExteriorsPage() {
                     "image": "https://zlendorealty.com/favicon.ico",
                     "softwareVersion": "1.0",
                     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free online AI-powered interior and exterior design platform" },
+                    "aggregateRating": ZLENDO_AGGREGATE_RATING,
                     "creator": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "featureList": ["AI-powered interior design", "Exterior elevation visualization", "2D to 3D conversion", "Photorealistic rendering", "Interactive virtual walkthroughs", "Material and texture customization", "Furniture and decor placement", "Landscape visualization", "Lighting and shadow simulation", "Modern and traditional design themes", "Real-time design previews", "Export-ready architectural visuals"]
