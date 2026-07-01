@@ -24,9 +24,9 @@ const PolicySidebar: React.FC<PolicySidebarProps> = ({ activeSlug }) => {
     }, {} as Record<string, PolicyMetadata[]>);
 
     return (
-        <div className="bg-white rounded-2xl border border-zlendo-grey-medium/10 p-6 sticky top-24">
+        <div className="bg-white rounded-2xl border border-zlendo-grey-medium/10 p-6 sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
             <h3 className="text-lg font-black text-zlendo-grey-dark mb-6 uppercase tracking-wider">
-                All Policies
+                Legal & Other Policies
             </h3>
 
             <div className="space-y-6">
