@@ -1,0 +1,51 @@
+import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
+import ComparisonClient from '@/components/compare/ComparisonClient';
+import JsonLd from '@/components/common/JsonLd';
+
+interface Props {
+    params: Promise<{ country: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { country } = await params;
+    const cleanPath = `/${country}/compare/zlendo-vs-sketchup`;
+
+    return createPageMetadata({
+        title: 'Zlendo Realty vs. SketchUp: Fast AI-Driven Spatial Design',
+        description: 'Skip the steep 100-hour learning curve of SketchUp. Design instantly with Zlendo Realty’s native cloud rendering, AI styling, and automatic costing.',
+        path: cleanPath,
+        keywords: ['Zlendo Realty vs SketchUp', 'SketchUp alternative', 'easy 3D home modeling', 'automated cost estimation', 'native cloud rendering'],
+    });
+}
+
+export default async function Page({ params }: Props) {
+    const { country } = await params;
+    const pageUrl = `https://zlendorealty.com/${country}/compare/zlendo-vs-sketchup`;
+
+    const compareSchema = {
+        "@context": "https://schema.org",
+        "@type": "ProductCompareDocument",
+        "name": "Zlendo Realty vs SketchUp Comparison",
+        "description": "Comparison of Zlendo Realty and SketchUp, demonstrating the benefit of automated AI spatial styling and costing over manual geometry-based modeling.",
+        "url": pageUrl,
+        "mainEntity": {
+            "@type": "SoftwareApplication",
+            "name": "Zlendo Realty",
+            "applicationCategory": "DesignApplication",
+            "operatingSystem": "Web",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        }
+    };
+
+    return (
+        <>
+            <JsonLd schema={compareSchema} />
+            <ComparisonClient competitor="sketchup" />
+        </>
+    );
+}

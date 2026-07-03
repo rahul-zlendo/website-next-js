@@ -1179,7 +1179,6 @@ export const apiSuitePageQuery = groq`
   }
 `;
 
-
 /**
  * Fetch a Compare Page document by slug.
  */
@@ -1227,5 +1226,53 @@ export const segmentPageQuery = groq`
     faqs[]{ question, answer },
     ctaTitle, ctaBody,
     seoTitle, seoDescription, seoKeywords
+  }
+`;
+
+// ── Blog / News (migrated from WordPress) ────────────────────────────────────
+
+export const POSTS_PER_PAGE = 12;
+
+/** All blog slugs — for generateStaticParams. */
+export const blogPostSlugsQuery = groq`
+  *[_type == "post" && section == "blog" && defined(slug.current)].slug.current
+`;
+
+/** Total blog post count — for pagination. */
+export const blogPostsCountQuery = groq`
+  count(*[_type == "post" && section == "blog"])
+`;
+
+/** One page of blog posts (params: $start, $end), newest first. */
+export const blogPostsPageQuery = groq`
+  *[_type == "post" && section == "blog"] | order(publishedAt desc) [$start...$end]{
+    "slug": slug.current,
+    title,
+    excerpt,
+    publishedAt,
+    "mainImage": { "asset": mainImage.asset, "alt": mainImage.alt },
+    "categories": categories[]->title,
+    "author": author->name
+  }
+`;
+
+/** A single blog post by slug (param: $slug). */
+export const blogPostBySlugQuery = groq`
+  *[_type == "post" && section == "blog" && slug.current == $slug][0]{
+    "slug": slug.current,
+    title,
+    excerpt,
+    publishedAt,
+    updatedAt,
+    originalUrl,
+    seoTitle,
+    seoDescription,
+    ogTitle,
+    ogDescription,
+    "mainImage": { "asset": mainImage.asset, "alt": mainImage.alt },
+    "categories": categories[]->{ title, "slug": slug.current },
+    "author": author->{ name, role, bio, "image": image.asset->url, sameAs },
+    "reviewedBy": reviewedBy->{ name, role },
+    body
   }
 `;

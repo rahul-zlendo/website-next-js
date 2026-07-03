@@ -193,6 +193,34 @@ export default defineConfig([
                     .documentId('singleton-contactPage')
                 ),
               S.divider(),
+              // ── Blog & News (collections, not singletons) ──────────────
+              S.listItem()
+                .title('📝 Blog Posts')
+                .schemaType('post')
+                .child(
+                  S.documentList()
+                    .title('Blog Posts')
+                    .filter('_type == "post" && section == "blog"')
+                    .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
+                ),
+              S.listItem()
+                .title('📰 News Posts')
+                .schemaType('post')
+                .child(
+                  S.documentList()
+                    .title('News Posts')
+                    .filter('_type == "post" && section == "news"')
+                    .defaultOrdering([{ field: 'publishedAt', direction: 'desc' }])
+                ),
+              S.listItem()
+                .title('Categories')
+                .schemaType('category')
+                .child(S.documentTypeList('category').title('Categories')),
+              S.listItem()
+                .title('Authors / Reviewers')
+                .schemaType('author')
+                .child(S.documentTypeList('author').title('Authors / Reviewers')),
+              S.divider(),
               S.listItem()
                 .title('Site Settings')
                 .child(

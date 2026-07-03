@@ -2,9 +2,11 @@ import type { MetadataRoute } from 'next';
 // import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
 // import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 
-// Generate sitemap at runtime (not build-time) to avoid overwhelming WP API during deploy
-export const dynamic = 'force-dynamic';
-export const revalidate = 3600; // Cache for 1 hour
+// The sitemap is a static route table (no CMS/API calls), so it can be
+// statically generated and refreshed hourly. `force-dynamic` was left over
+// from a WordPress-era implementation that fetched posts at request time and
+// is no longer needed — it only added per-request rendering cost.
+export const revalidate = 3600; // Regenerate at most once per hour
 
 const BASE_URL = 'https://zlendorealty.com';
 
@@ -28,7 +30,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/products/2d-to-3d', priority: 0.9, changeFrequency: 'weekly' as const },
     { path: '/products/vastu', priority: 0.8, changeFrequency: 'weekly' as const },
     { path: '/products/room-styler', priority: 0.8, changeFrequency: 'weekly' as const },
-    { path: '/products/vr-studio', priority: 0.9, changeFrequency: 'weekly' as const },
+    // India-only: there is no app/global/products/vr-studio route, so the
+    // global /products/vr-studio URL 404s. Only advertise the /in variant.
+    { path: '/products/vr-studio', priority: 0.9, changeFrequency: 'weekly' as const, isIndiaOnly: true },
     { path: '/products/api-suite', priority: 0.8, changeFrequency: 'weekly' as const },
 
     // Template pages

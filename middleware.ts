@@ -339,7 +339,12 @@ export function middleware(request: NextRequest) {
   }
 
   // ──────────────────────────────────────────────────────────
-  // 1.6. Redirect Blog to subdomain
+  // 1.6. Blog — STILL LIVE ON blog.zlendorealty.com (WordPress) today.
+  // The Sanity-backed replacement (app/global/blog/*) exists in the codebase
+  // but is intentionally NOT wired up here yet — flipping this redirect to a
+  // local rewrite is the production cutover step and must only happen after
+  // the 301 map + sitemap + GSC steps in the migration plan are complete.
+  // See scripts/migration/blog-migration-audit-report.md.
   // ──────────────────────────────────────────────────────────
   const isBlog = pathname === '/blog' ||
     pathname.startsWith('/blog/') ||
@@ -418,6 +423,25 @@ export function middleware(request: NextRequest) {
     //   301
     // );
   }
+
+  // ── CUTOVER TARGET (do not enable until the migration plan's Phase 4 is
+  // executed — see scripts/migration/blog-migration-audit-report.md) ──
+  // Once ready, replace the isBlog block above with this: flat, locale-
+  // neutral URLs (/blog, /blog/<slug>) served by app/global/blog/* via an
+  // internal rewrite; /in/blog and /global/blog 301 to the flat URL.
+  //
+  // if (pathname.startsWith('/in/blog') || pathname.startsWith('/global/blog')) {
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = pathname.replace('/in/blog', '/blog').replace('/global/blog', '/blog');
+  //   return NextResponse.redirect(url, 301);
+  // }
+  // if (pathname === '/blog' || pathname.startsWith('/blog/')) {
+  //   const url = request.nextUrl.clone();
+  //   url.pathname = `/global${pathname}`;
+  //   const requestHeaders = new Headers(request.headers);
+  //   requestHeaders.set('x-pathname', pathname);
+  //   return NextResponse.rewrite(url, { request: { headers: requestHeaders } });
+  // }
 
   // ──────────────────────────────────────────────────────────
   // 2. Navigation & Internationalization

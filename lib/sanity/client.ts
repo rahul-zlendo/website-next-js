@@ -18,6 +18,20 @@ export const client = createClient({
 });
 
 /**
+ * Server-side read client with a viewer token.
+ * This project's public dataset only exposes the known page singletons to
+ * anonymous reads, so blog content (post / author / category) requires a token.
+ * Safe for published content and CDN-cached. Use this for blog/news fetches.
+ */
+export const readClient = createClient({
+  projectId,
+  dataset,
+  apiVersion,
+  useCdn: true,
+  token: process.env.SANITY_API_READ_TOKEN,
+});
+
+/**
  * Preview / draft-mode client — bypasses CDN, uses read token.
  * Used inside Next.js Draft Mode to show unpublished changes.
  */

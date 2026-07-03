@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import JsonLd from '@/components/common/JsonLd';
 
 interface Props {
@@ -14,6 +15,25 @@ const productData = {
     title: 'Zlendo Realty API Suite',
   }
 };
+
+// The dynamic product page is a Client Component (useParams) and cannot export
+// metadata, so it was inheriting the root layout's homepage canonical. Build a
+// per-slug canonical + hreflang here so each product URL is indexed distinctly.
+export async function generateMetadata({ params }: Pick<Props, 'params'>): Promise<Metadata> {
+  const { country, productId } = await params;
+  const segment = `/products/${productId}`;
+  const path = country === 'global' ? segment : `/${country}${segment}`;
+
+  const known = productData[productId as keyof typeof productData];
+  const name = known?.title
+    ?? productId.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+
+  return createPageMetadata({
+    title: `${name} | Zlendo Realty`,
+    description: `Explore ${name} by Zlendo Realty — AI-powered 2D & 3D home and office design tools. Start free today.`,
+    path,
+  });
+}
 
 const faqs = [
   { q: "Is this tool free to use?", a: "Yes! You can start for free and design your first project without any credit card. Premium textures and high-res renders are available in paid plans." },

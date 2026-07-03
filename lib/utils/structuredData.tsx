@@ -251,6 +251,130 @@ export function generateWebPageSchema(page: {
 }
 
 /**
+ * Shape of an author/reviewer resolved from Sanity, used to build a
+ * schema.org Person node. Project `image` to a URL string in your GROQ query.
+ */
+export interface PersonInput {
+  name?: string;
+  role?: string;
+  worksFor?: string;
+  bio?: string;
+  credentials?: string[];
+  image?: string;
+  url?: string;
+  sameAs?: string[];
+}
+
+/** Remove the top-level @context so a schema can be safely nested in another. */
+function stripContext<T extends Record<string, unknown>>(node: T): Omit<T, '@context'> {
+  const { ['@context']: _omit, ...rest } = node;
+  return rest;
+}
+
+/**
+ * Generate a schema.org Person node (EEAT author / reviewer).
+ * Returns null when there is no name, so callers can conditionally render.
+ */
+export function generatePersonSchema(input?: PersonInput | null) {
+  if (!input || !input.name) return null;
+
+  const schema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: input.name,
+  };
+  if (input.role) schema.jobTitle = input.role;
+  if (input.bio) schema.description = input.bio;
+  if (input.url) schema.url = input.url;
+  if (input.image) schema.image = input.image;
+  if (input.worksFor) {
+    schema.worksFor = { '@type': 'Organization', name: input.worksFor };
+  }
+  if (input.credentials?.length) {
+    schema.hasCredential = input.credentials.map((name) => ({
+      '@type': 'EducationalOccupationalCredential',
+      name,
+    }));
+  }
+  if (input.sameAs?.length) schema.sameAs = input.sameAs;
+  return schema;
+}
+
+/**
+ * Generate a WebPage schema that carries freshness + EEAT signals
+ * (datePublished/dateModified and nested author / reviewer Person nodes).
+ */
+export function generateWebPageSchemaWithDates(page: {
+  name: string;
+  description: string;
+  url: string;
+  datePublished?: string;
+  dateModified?: string;
+  author?: Record<string, unknown>;
+  reviewedBy?: Record<string, unknown>;
+}) {
+  const schema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: page.name,
+    description: page.description,
+    url: page.url,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Zlendo Realty',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://zlendorealty.com/logo.png',
+      },
+    },
+  };
+  if (page.datePublished) schema.datePublished = page.datePublished;
+  if (page.dateModified) schema.dateModified = page.dateModified;
+  if (page.author) schema.author = stripContext(page.author);
+  if (page.reviewedBy) schema.reviewedBy = stripContext(page.reviewedBy);
+  return schema;
+}
+
+/**
+ * Generate Article structured data for a blog/news post.
+ * Uses BlogPosting for the blog and NewsArticle for news, with EEAT author +
+ * freshness dates. Ready for the /blog and /news routes (migration Phase 3).
+ */
+export function generateArticleSchema(post: {
+  title: string;
+  description?: string;
+  url: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+  author?: PersonInput | null;
+  section?: string;
+}) {
+  const authorNode = generatePersonSchema(post.author);
+  const schema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': post.section === 'news' ? 'NewsArticle' : 'BlogPosting',
+    headline: post.title,
+    url: post.url,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': post.url },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Zlendo Realty',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://zlendorealty.com/logo.png',
+      },
+    },
+  };
+  if (post.description) schema.description = post.description;
+  if (post.image) schema.image = post.image;
+  if (post.datePublished) schema.datePublished = post.datePublished;
+  if (post.dateModified) schema.dateModified = post.dateModified;
+  if (authorNode) schema.author = stripContext(authorNode);
+  return schema;
+}
+
+/**
  * Generate Plans Product schema
  */
 export function generatePlansSchema(isGlobal: boolean, country: string = 'in') {
