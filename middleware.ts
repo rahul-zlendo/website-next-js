@@ -305,7 +305,7 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  if (pathname.includes('/wp-admin') || pathname.includes('/wp-content')) {
+  if (pathname.includes('/wp-admin') || pathname.includes('/wp-content') || pathname.includes('/wp-login') || pathname.includes('wp-admin/install.php')) {
     return NextResponse.redirect(
       new URL('https://zlendorealty.com'),
       301
@@ -327,7 +327,7 @@ export function middleware(request: NextRequest) {
       .replace('/global/help-center', '')
       .replace('/help-center', '');
 
-      return NextResponse.redirect(
+    return NextResponse.redirect(
       new URL(`https://helpcenter.zlendorealty.com`),
       301
     );
