@@ -1,4 +1,6 @@
 import type { MetadataRoute } from 'next';
+import { readClient } from '@/lib/sanity/client';
+import { blogPostsSitemapQuery } from '@/lib/sanity/queries';
 // import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
 // import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 
@@ -179,6 +181,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // } catch (err) {
   //   console.error("Sitemap: Failed to fetch templates for sitemap generation", err);
   // }
+
+  // Blog — flat, locale-neutral URLs (no /in variant), migrated from WordPress.
+  urls.push({
+    url: `${BASE_URL}/blog`,
+    lastModified: dynamicLastMod,
+    changeFrequency: 'daily',
+    priority: 0.8,
+  });
+
+  try {
+    const posts = await readClient.fetch<{ slug: string; publishedAt?: string; updatedAt?: string }[]>(
+      blogPostsSitemapQuery
+    );
+    for (const post of posts) {
+      urls.push({
+        url: `${BASE_URL}/blog/${post.slug}`,
+        lastModified: post.updatedAt ? new Date(post.updatedAt) : post.publishedAt ? new Date(post.publishedAt) : dynamicLastMod,
+        changeFrequency: 'monthly',
+        priority: 0.7,
+      });
+    }
+  } catch (err) {
+    console.error('Sitemap: Failed to fetch blog posts from Sanity', err);
+  }
 
   return urls;
 }

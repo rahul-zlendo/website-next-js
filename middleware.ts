@@ -339,109 +339,31 @@ export function middleware(request: NextRequest) {
   }
 
   // ──────────────────────────────────────────────────────────
-  // 1.6. Blog — STILL LIVE ON blog.zlendorealty.com (WordPress) today.
-  // The Sanity-backed replacement (app/global/blog/*) exists in the codebase
-  // but is intentionally NOT wired up here yet — flipping this redirect to a
-  // local rewrite is the production cutover step and must only happen after
-  // the 301 map + sitemap + GSC steps in the migration plan are complete.
-  // See scripts/migration/blog-migration-audit-report.md.
-  // ──────────────────────────────────────────────────────────
-  const isBlog = pathname === '/blog' ||
-    pathname.startsWith('/blog/') ||
-    pathname.startsWith('/in/blog') ||
-    pathname.startsWith('/global/blog');
-
-  if (isBlog) {
-    const searchParams = request.nextUrl.search;
-    let cleanPath = pathname
-      .replace('/in/blog', '')
-      .replace('/global/blog', '')
-      .replace('/blog', '');
-
-    const slug = cleanPath.replace(/^\//, '').replace(/\/$/, '');
-
-    return NextResponse.redirect(
-      new URL(`https://blog.zlendorealty.com`),
-      301
-    );
-
-    // const newsSlugs = new Set([
-    //   'compound-wall-explained-guide', 'private-rooms-in-tirumala-a-complete-guide',
-    //   'west-facing-house-suitable-for-your-rashi', 'quad-sharing-meaning-what-it-is-features',
-    //   'cat-on-the-wall-meaning-usage', 'tiruchendur-devasthanam-contact',
-    //   'bangla-sahib-room-booking', 'bhubaneswar-railway-station',
-    //   'retiring-room-at-new-delhi', 'jyoti-chowk-jalandhar-punjab-heart-of-city',
-    //   'manilaxmi-jain-tirth-room-book', 'stilt-floor-explained-a-quick-clear-guide',
-    //   'bathroom-under-stairs-vastu-your-home', 'palani-devasthanam-room-booking-guide',
-    //   'nakodaji-room-booking-contact', 'gurudwara-sis-ganj-sahib-roombook',
-    //   'kabita-net-worth-success-story-the-growth', 'wall-magazine-for-your-class',
-    //   'bangla-sahib-contact-number-booking', 'parapet-wall-steel-design-smart-ideas',
-    //   'railway-cloakroom-guide-understand', 'delhi-gymkhana-club-room-rates',
-    //   'hindu-prayer-room-design-thoughtful-ideas', 'retiring-room-at-vijayawada-railway-station',
-    //   'ramachandra-hospital-room-charges-pricing', 'gurudwara-bala-sahib-room-booking-guide',
-    //   'fluted-glass-price-guide-uses-and-cost', 'mantralayam-temple-room-booking-guide',
-    //   'deluxe-room-what-it-really-means', 'adjacent-room-in-hotel-meaning-benefits',
-    //   'how-to-book-room-at-isha-yoga-centre', 'l-shaped-house-vastu-practical-design',
-    //   'cell-walls-explained-human-cells-built', 'chennai-egmore-railway-station-retiringroom',
-    //   'irctc-retiring-room-contact', 'plinth-wall-explained-purpose-benefits',
-    //   'oyo-rooms-explained-a-quickguide', 'kwality-walls-quick-guide',
-    //   'ttd-srinivasam-room-booking', 'jyoti-chowk-jalandhar-shopping',
-    //   'lucky-numbers-what-they-mean', 'raghavendra-swamy-mantralayam-completeguide',
-    //   'aluminium-jali-stylish-choice', 'velankanni-church-room-booking-your-guide',
-    //   'manekshaw-centre-guest-room', 'gorai-beach-rooms-safe-for-couples',
-    //   'dark-firozi-colour-in-interior-design-style', 'cumbala-hill',
-    //   'using-an-air-cooler-in-a-room-the-right-way', 'one-ton-ac-room-size',
-    //   'rashtreeya-vidyalaya-road', 'royal-paint-design-idea-for-home',
-    //   'ton-window-ac-price-guide-cost', 'saifee-hospital-room-charges',
-    //   'profile-light-price-guide', 'navy-blue-and-light-blue-a-elegant-colour',
-    //   'paula-deen-living-room-furniture-warmdesign', 'room-booking-at-gurudwara-sis-ganj-sahib',
-    //   'almari-design-in-smart-rooms', 'armani-hotel-dubai-room-price-guide',
-    //   'bajaj-wall-mount-fan-for-cooling', 'understanding-room-in-square-feet-a-guide',
-    //   'fluted-panel-price-guide-costs', 'understanding-italian-kitchen-prices-guide',
-    //   '5-inspiring-wall-almirah-design-ideas', 'groove-handles-a-smart-and-stylish-choice',
-    //   'softboard-decoration-ideas-simple-creative', 'kabita-singh-net-worth-success',
-    //   'dark-firozi-colour-a-deep-dive', 'lilac-lavender-room-colour-a-stylish-choice',
-    //   'retiring-room-at-ujjain-railway-station', 'iskcon-temple-direction-guide-your-path',
-    //   'hettich-modular-kitchen-pricing-features', 'the-great-indian-kitchen-where-to-watch',
-    //   'ac-waiting-room-rules-everything-you-need', 'modular-kitchen-sink-price-guide',
-    //   'daily-room-rent-in-bangalore-price-insights', 'aventura-floor-plans-smart-studio-design',
-    //   'bathtub-height-a-simple-guide-to-choose', 'anandpur-sahib-gurudwara-room-booking-guide',
-    //   'the-great-wall-download-in-tamil-a-guide', 'himachal-bhavan-delhi-room-booking-guide',
-    //   'lakshmi-ganesh-saraswati-guide', 'sri-chowdeshwari-temple-sigandur-room-book',
-    //   'plasma-membrane-and-cell-wall-understanding', 'the-great-indian-kitchen-online'
-    // ]);
-
-    // if (newsSlugs.has(slug)) {
-    //   return NextResponse.redirect(
-    //     new URL(`https://news.zlendorealty.com/${slug}/${searchParams}`),
-    //     301
-    //   );
-    // }
-
-    // return NextResponse.redirect(
-    //   new URL(`https://blog.zlendorealty.com${cleanPath}${searchParams}`),
-    //   301
-    // );
-  }
-
-  // ── CUTOVER TARGET (do not enable until the migration plan's Phase 4 is
-  // executed — see scripts/migration/blog-migration-audit-report.md) ──
-  // Once ready, replace the isBlog block above with this: flat, locale-
-  // neutral URLs (/blog, /blog/<slug>) served by app/global/blog/* via an
-  // internal rewrite; /in/blog and /global/blog 301 to the flat URL.
+  // 1.6. Blog — served locally from Sanity (migrated off WordPress).
+  // Flat, locale-neutral URLs: /blog and /blog/<slug> for everyone (no /in
+  // prefix, no geo redirect). Rendered by the app/global/blog route group via
+  // an internal rewrite. Any locale-prefixed variant 301s to the flat URL so
+  // there is a single canonical blog URL.
   //
-  // if (pathname.startsWith('/in/blog') || pathname.startsWith('/global/blog')) {
-  //   const url = request.nextUrl.clone();
-  //   url.pathname = pathname.replace('/in/blog', '/blog').replace('/global/blog', '/blog');
-  //   return NextResponse.redirect(url, 301);
-  // }
-  // if (pathname === '/blog' || pathname.startsWith('/blog/')) {
-  //   const url = request.nextUrl.clone();
-  //   url.pathname = `/global${pathname}`;
-  //   const requestHeaders = new Headers(request.headers);
-  //   requestHeaders.set('x-pathname', pathname);
-  //   return NextResponse.rewrite(url, { request: { headers: requestHeaders } });
-  // }
+  // CUTOVER STATUS: code-flipped on this branch (migration Phase 4). Do NOT
+  // deploy this to production until the Cloudflare edge redirects from
+  // blog.zlendorealty.com/* -> zlendorealty.com/blog/* (Phase 2, using
+  // scripts/migration/blog-redirect-map.csv) are live — otherwise the old
+  // WordPress URLs keep serving old content in parallel with these new ones
+  // instead of 301ing into them. See scripts/migration/blog-production-cutover-plan.md.
+  // ──────────────────────────────────────────────────────────
+  if (pathname.startsWith('/in/blog') || pathname.startsWith('/global/blog')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace('/in/blog', '/blog').replace('/global/blog', '/blog');
+    return NextResponse.redirect(url, 301);
+  }
+  if (pathname === '/blog' || pathname.startsWith('/blog/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/global${pathname}`;
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-pathname', pathname);
+    return NextResponse.rewrite(url, { request: { headers: requestHeaders } });
+  }
 
   // ──────────────────────────────────────────────────────────
   // 2. Navigation & Internationalization

@@ -1256,6 +1256,15 @@ export const blogPostsPageQuery = groq`
   }
 `;
 
+/** All blog posts with slug + dates only — for the sitemap (no pagination). */
+export const blogPostsSitemapQuery = groq`
+  *[_type == "post" && section == "blog" && defined(slug.current)]{
+    "slug": slug.current,
+    publishedAt,
+    updatedAt
+  }
+`;
+
 /** A single blog post by slug (param: $slug). */
 export const blogPostBySlugQuery = groq`
   *[_type == "post" && section == "blog" && slug.current == $slug][0]{
