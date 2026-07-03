@@ -162,11 +162,11 @@ export default function ComparePageClient({ cms, slug, defaults, signupUrl }: Co
                       {comparisonRows.map((row, i) => (
                         <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                           <td className="p-4 font-bold text-zlendo-grey-dark">{row.feature}</td>
-                          <td className="p-4 text-center">
+                          <td className="p-4 text-left">
                             <span className="text-base font-bold">{row.zlendo}</span>
                             {row.zlendoNote && <p className="text-sm text-zlendo-grey-medium mt-1 font-bold">{row.zlendoNote}</p>}
                           </td>
-                          <td className="p-4 text-center text-base font-bold">{row.competitor}</td>
+                          <td className="p-4 text-left text-base font-bold">{row.competitor}</td>
                         </tr>
                       ))}
                     </tbody>
