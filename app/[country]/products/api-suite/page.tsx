@@ -5,6 +5,7 @@ import { getClient } from '@/lib/sanity/client';
 import { apiSuitePageQuery } from '@/lib/sanity/queries';
 import APISuiteClient from './APISuiteClient';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 export const revalidate = 60;
 
@@ -36,6 +37,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function APISuitePage({ params }: Props) {
     const { country } = await params;
+    const isGlobal = country === 'global';
+    const cleanPath = isGlobal ? '/products/api-suite' : `/${country}/products/api-suite`;
+    const fullUrl = `https://zlendorealty.com${cleanPath}`;
     const { isEnabled: preview } = await draftMode();
     const cms: any = await getClient(preview).fetch(apiSuitePageQuery).catch(() => null);
 
@@ -101,8 +105,48 @@ export default async function APISuitePage({ params }: Props) {
         }))
     };
 
+    const softwareApplicationSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Zlendo Realty API Suite",
+        "applicationCategory": "DeveloperApplication",
+        "applicationSubCategory": "Design Engine API",
+        "operatingSystem": "Web",
+        "url": fullUrl,
+        "description": "Enterprise API suite that lets prop-tech platforms integrate Zlendo Realty's 2D-to-3D conversion, photorealistic rendering, spatial AI, and automated styling engines directly into their own applications.",
+        "image": "https://zlendorealty.com/favicon.ico",
+        "softwareVersion": "1.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free developer access with paid enterprise usage tiers"
+        },
+        "aggregateRating": ZLENDO_AGGREGATE_RATING,
+        "creator": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "featureList": [
+            "RESTful API endpoints",
+            "White-label integration",
+            "Scalable cloud infrastructure",
+            "Real-time webhooks",
+            "2D to 3D conversion engine",
+            "Photorealistic rendering API",
+            "Automated interior styling"
+        ]
+    };
+
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
             <JsonLd schema={faqSchema} />
             <APISuiteClient
                 cms={cms}

@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 import {
   Clock,
   TrendingUp,
@@ -116,6 +117,7 @@ export default function TwoDToThreeDPage() {
       "priceCurrency": "USD",
       "description": "Free online 2D to 3D conversion tool"
     },
+    "aggregateRating": ZLENDO_AGGREGATE_RATING,
     "creator": {
       "@type": "Organization",
       "name": "Zlendo Realty",

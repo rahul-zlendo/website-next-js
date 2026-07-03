@@ -4,6 +4,7 @@ import VirtualWalkthroughClient from './VirtualWalkthroughClient';
 import { client } from '@/lib/sanity/client';
 import { virtualWalkthroughPageQuery } from '@/lib/sanity/queries';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 interface PageProps {
   params: Promise<{ country: string }>;
@@ -97,6 +98,7 @@ export default async function VirtualWalkthroughPage({ params }: PageProps) {
       "priceCurrency": "USD",
       "description": "Free AI-powered virtual walkthrough and 3D visualization platform"
     },
+    "aggregateRating": ZLENDO_AGGREGATE_RATING,
     "creator": {
       "@type": "Organization",
       "name": "Zlendo Realty",

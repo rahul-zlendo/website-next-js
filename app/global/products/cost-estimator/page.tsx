@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calculator, BarChart, FileText, ArrowRight } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 export default function CostEstimatorPage() {
     return (
@@ -21,6 +22,7 @@ export default function CostEstimatorPage() {
                     "image": "https://zlendorealty.com/favicon.ico",
                     "softwareVersion": "1.0",
                     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free construction cost estimation tool for individual homeowners" },
+                    "aggregateRating": ZLENDO_AGGREGATE_RATING,
                     "creator": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "featureList": ["AI-powered construction cost estimation", "Engineering-grade BOQ generation", "Real-time material price analysis", "Soil type cost adjustment", "Seismic zone calculation", "Foundation cost estimation", "Labor and material breakdown", "Component-wise budget analysis", "City-based construction pricing", "Material comparison and impact analysis", "Construction quality benchmarking", "Transparent budget recommendations", "Instant home building cost reports", "Budget optimization insights"]

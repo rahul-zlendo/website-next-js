@@ -4,6 +4,7 @@ import RealisticRendersClient from './RealisticRendersClient';
 import { client } from '@/lib/sanity/client';
 import { realisticRendersPageQuery } from '@/lib/sanity/queries';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 interface PageProps {
   params: Promise<{ country: string }>;
@@ -97,6 +98,7 @@ export default async function RealisticRendersPage({ params }: PageProps) {
       "priceCurrency": "USD",
       "description": "Free AI-powered realistic rendering platform for architectural visualization"
     },
+    "aggregateRating": ZLENDO_AGGREGATE_RATING,
     "creator": {
       "@type": "Organization",
       "name": "Zlendo Realty",

@@ -6,6 +6,7 @@ import { getClient } from '@/lib/sanity/client';
 import { floorPlannerPageQuery } from '@/lib/sanity/queries';
 import FloorPlannerClient from './FloorPlannerClient';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 import Head from 'next/head'
 
 const BASE_URL = 'https://zlendorealty.com';
@@ -142,6 +143,7 @@ export default async function Page({ params }: Props) {
             "priceCurrency": "USD",
             "description": "14-day free trial with full access and no credit card required"
         },
+        "aggregateRating": ZLENDO_AGGREGATE_RATING,
         "creator": {
             "@type": "Organization",
             "name": "Zlendo Realty",

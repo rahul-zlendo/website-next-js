@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 export default function RealisticRendersPage() {
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -42,6 +43,7 @@ export default function RealisticRendersPage() {
                     "image": "https://zlendorealty.com/favicon.ico",
                     "softwareVersion": "1.0",
                     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free AI-powered realistic rendering platform for architectural visualization" },
+                    "aggregateRating": ZLENDO_AGGREGATE_RATING,
                     "creator": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "publisher": { "@type": "Organization", "name": "Zlendo Realty", "url": "https://zlendorealty.com" },
                     "featureList": ["AI-powered photorealistic rendering", "4K and 8K architectural visualization", "Ray-traced lighting simulation", "Global illumination rendering", "Physically based materials", "Cinematic depth of field", "Interior and exterior rendering", "Time-of-day sunlight simulation", "Realistic shadow and reflection rendering", "Professional camera angle controls", "Ultra-fast cloud rendering", "Marketing-ready architectural visuals", "Client presentation render generation", "Photorealistic texture mapping"]

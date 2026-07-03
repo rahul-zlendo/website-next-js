@@ -5,6 +5,7 @@ import { getClient } from '@/lib/sanity/client';
 import { twoDTo3DPageQuery } from '@/lib/sanity/queries';
 import TwoDTo3DClient from './TwoDTo3DClient';
 import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 // Revalidate every 60 seconds (Incremental Static Regeneration)
 export const revalidate = 60;
@@ -151,6 +152,7 @@ export default async function TwoDToThreeDPage({ params }: Props) {
             "priceCurrency": "USD",
             "description": "Free online 2D to 3D conversion tool"
         },
+        "aggregateRating": ZLENDO_AGGREGATE_RATING,
         "creator": {
             "@type": "Organization",
             "name": "Zlendo Realty",
