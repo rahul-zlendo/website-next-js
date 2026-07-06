@@ -13,6 +13,47 @@ function escapeAttr(s: string): string {
  * - `image` blocks resolve to the Sanity CDN (auto format, max 1200px wide).
  * - `link` marks open external URLs in a new tab.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function renderLink(href: string, text: string, extraClass = ''): string {
+  const isExternal = /^https?:\/\//.test(href) && !href.includes('zlendorealty.com');
+  const attrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+  const cls = extraClass ? ` class="${extraClass}"` : '';
+  return `<a href="${escapeAttr(href)}"${attrs}${cls}>${text}</a>`;
+}
+
+/**
+ * Some migrated WordPress posts end with a "Try Now / Get Demo" CTA widget
+ * that, after HTML->Portable Text conversion, degrades to a plain block of
+ * bare linked text (styling/button markup doesn't survive the conversion).
+ * Detect that specific shape here -- a short block where every non-blank
+ * span is link-marked -- and render it as styled buttons instead of prose.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function renderIfCtaRow(value: any): string | null {
+  const children = value?.children || [];
+  const markDefs = value?.markDefs || [];
+  const textSpans = children.filter((c: any) => c.text?.trim());
+  if (textSpans.length < 2) return null;
+
+  const totalText = textSpans.map((c: any) => c.text).join('');
+  if (totalText.length > 60) return null; // too long to be a button label row
+
+  const links = textSpans.map((c: any) => {
+    const linkMarkKey = (c.marks || []).find((m: string) =>
+      markDefs.some((d: any) => d._key === m && d._type === 'link'),
+    );
+    const def = linkMarkKey && markDefs.find((d: any) => d._key === linkMarkKey);
+    return def ? { href: def.href, text: c.text.trim() } : null;
+  });
+
+  if (links.some((l) => !l)) return null; // every span must be a link
+
+  const buttons = links
+    .map((l, i) => renderLink(l!.href, l!.text, i === 0 ? 'blog-cta-btn blog-cta-btn-primary' : 'blog-cta-btn blog-cta-btn-secondary'))
+    .join('');
+  return `<div class="blog-cta-row">${buttons}</div>`;
+}
+
 const components: Partial<PortableTextHtmlComponents> = {
   types: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,14 +65,16 @@ const components: Partial<PortableTextHtmlComponents> = {
       return `<figure><img src="${src}" alt="${alt}" loading="lazy" />${caption}</figure>`;
     },
   },
+  block: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    normal: ({ children, value }: { children?: string; value?: any }) => {
+      const cta = renderIfCtaRow(value);
+      return cta ?? `<p>${children ?? ''}</p>`;
+    },
+  },
   marks: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    link: ({ children, value }: { children: string; value?: any }) => {
-      const href = value?.href || '#';
-      const isExternal = /^https?:\/\//.test(href) && !href.includes('zlendorealty.com');
-      const attrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
-      return `<a href="${escapeAttr(href)}"${attrs}>${children}</a>`;
-    },
+    link: ({ children, value }: { children: string; value?: any }) => renderLink(value?.href || '#', children),
   },
 };
 
