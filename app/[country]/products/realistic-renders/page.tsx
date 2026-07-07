@@ -25,6 +25,13 @@ export async function generateMetadata(
     title: data?.seoTitle || `Realistic Renders | 8K Interior Visualization`,
     description: data?.seoDescription || 'Experience your future home with 8K photorealism and intelligent light simulation.',
     path: path,
+    ogImage: {
+      url: 'https://zlendorealty.com/assets/realistic-renders/hero-renders.webp',
+      width: 1200,
+      height: 630,
+      alt: 'Zlendo Realty Realistic Renders',
+      type: 'image/webp',
+    },
   });
 }
 

@@ -25,6 +25,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: cms?.seoTitle || 'Interiors & Exteriors - Indian Homes. Indian Lifestyles.',
         description: cms?.seoDescription || 'Experience interior and exterior design intelligence that respects your culture, climate, and religious preferences across India.',
         path: path,
+        ogImage: {
+            url: 'https://zlendorealty.com/assets/interior-exterior/exterior-1.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Zlendo Realty Interiors & Exteriors',
+            type: 'image/webp',
+        },
     });
 }
 

@@ -32,6 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title,
         description,
         path: path,
+        ogImage: {
+            url: 'https://zlendorealty.com/assets/api-suite/hero-api.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Zlendo Realty API Suite',
+            type: 'image/webp',
+        },
     });
 }
 

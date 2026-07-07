@@ -28,6 +28,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: cms?.seoTitle || 'Smart Room Styler - AI-driven Interior Design',
         description: cms?.seoDescription || 'AI-driven interior design at your fingertips. Visualize different styles, furniture layouts, and color palettes instantly.',
         path: path,
+        ogImage: {
+            url: 'https://zlendorealty.com/assets/room-styler/scandinavian.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Zlendo Realty Smart Room Styler',
+            type: 'image/webp',
+        },
     });
 }
 

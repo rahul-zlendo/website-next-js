@@ -37,6 +37,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title: seoTitle,
         description: seoDescription,
         path: path,
+        ogImage: {
+            url: 'https://zlendorealty.com/assets/vastu-product/hero-vastu.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Zlendo Realty Vastu Optimizer',
+            type: 'image/webp',
+        },
     });
 }
 

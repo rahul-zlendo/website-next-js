@@ -74,8 +74,7 @@ const GlobalHomePage = async () => {
         _type: 'globalLogoStrip',
         title: 'Industry Leaders & Recognition',
         logos: [
-          { name: 'G2 Leader' },
-          { name: 'Capterra' },
+          { name: 'Capterra', link: 'https://www.capterra.com/p/10036307/Zlendo-Realty/' },
           { name: 'Product Hunt' },
           { name: 'Wallpaper*' }
         ]

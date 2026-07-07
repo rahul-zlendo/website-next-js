@@ -86,7 +86,7 @@ export default function RoomStylerClient({
                                 <div className="h-4 w-px bg-slate-300" />
                                 <div className="flex items-center gap-1">
                                     <Star className="w-5 h-5 text-amber-500 fill-current" />
-                                    <span className="font-bold text-sm">4.9/5 Rating</span>
+                                    <span className="font-bold text-sm">5/5 Rating</span>
                                 </div>
                                 <div className="h-4 w-px bg-slate-300" />
                                 <div className="flex items-center gap-1">

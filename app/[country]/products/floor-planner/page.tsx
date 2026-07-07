@@ -36,6 +36,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: seoTitle,
         description: seoDesc,
         path: cleanPath,
+        ogImage: {
+            url: 'https://zlendorealty.com/assets/floor-planner/3d-sketch.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Zlendo Realty AI Floor Planner',
+            type: 'image/webp',
+        },
     });
 }
 

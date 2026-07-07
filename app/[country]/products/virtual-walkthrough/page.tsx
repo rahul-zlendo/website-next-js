@@ -25,6 +25,13 @@ export async function generateMetadata(
     title: data?.seoTitle || `3D Virtual Walkthrough for Homes | Immersive VR Tours`,
     description: data?.seoDescription || 'Experience immersive 3D virtual walkthroughs that showcase space, flow, and finishes. Close deals faster with 8K cinematic storytelling.',
     path: path,
+    ogImage: {
+      url: 'https://zlendorealty.com/assets/virtual-walkthrough/hero-walkthrough.webp',
+      width: 1200,
+      height: 630,
+      alt: 'Zlendo Realty Virtual Walkthrough',
+      type: 'image/webp',
+    },
   });
 }
 
