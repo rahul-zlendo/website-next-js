@@ -8,7 +8,9 @@ export interface BreadcrumbItem {
 }
 
 /**
- * Verified Capterra rating for Zlendo Realty (https://www.capterra.com/p/10036307/Zlendo-Realty/).
+ * Verified Capterra rating for Zlendo Realty. Same 5.0/5 from 5 reviews on both
+ * listings: capterra.in/software/1085377/Zlendo-Realty (India, linked on-site)
+ * and capterra.com/p/10036307/Zlendo-Realty (global).
  * Update ratingCount/reviewCount when new reviews are published — must reflect the real, current count.
  * No G2 profile exists yet for Zlendo Realty, so G2 is intentionally not cited here.
  */
