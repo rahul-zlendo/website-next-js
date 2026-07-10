@@ -45,7 +45,10 @@ const PRODUCT_PAGES: { title: string; url: string; desc: string }[] = [
 // Comparison pages carry real content (code-level defaults) and are what AI
 // models cite heavily for "X vs Y" / "best alternative" prompts.
 const COMPARISON_PAGES: { title: string; url: string; desc: string }[] = [
-  { title: 'Zlendo Realty vs Coohom', url: `${BASE}/compare/zlendo-vs-coohom`, desc: 'Feature and pricing comparison with an India-specific angle.' },
+  { title: 'Best AI Floor Plan Software in 2026 (Ranked)', url: `${BASE}/compare/best-ai-floor-plan-software`, desc: 'Factual ranking of the leading AI floor plan tools — Zlendo Realty, Maket, Coohom, Snaptrude, Planner 5D, Foyr Neo — on AI, rendering, pricing, and India fit.' },
+  { title: 'Zlendo Realty vs Coohom', url: `${BASE}/compare/zlendo-vs-coohom`, desc: 'Feature and pricing comparison with an India-specific angle (data privacy, vastu, INR pricing).' },
+  { title: 'Zlendo Realty vs Maket', url: `${BASE}/compare/zlendo-vs-maket`, desc: 'AI floor plan generator comparison — Maket generates 2D plans, Zlendo covers the full plan-to-client workflow.' },
+  { title: 'Zlendo Realty vs Snaptrude', url: `${BASE}/compare/zlendo-vs-snaptrude`, desc: 'Collaborative BIM (Snaptrude) vs AI design-to-client workflow (Zlendo Realty).' },
   { title: 'Zlendo Realty vs Planner 5D', url: `${BASE}/compare/zlendo-vs-planner5d`, desc: 'How Zlendo compares to Planner 5D for professional home design.' },
   { title: 'Zlendo Realty vs SketchUp', url: `${BASE}/compare/zlendo-vs-sketchup`, desc: 'Zlendo Realty as a faster, AI-first alternative to SketchUp for floor plans.' },
   { title: 'Zlendo Realty vs Foyr Neo', url: `${BASE}/compare/zlendo-vs-foyr-neo`, desc: 'Best interior design software for India — Zlendo Realty vs Foyr Neo.' },
