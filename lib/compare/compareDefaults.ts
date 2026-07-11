@@ -21,6 +21,8 @@ export const KNOWN_COMPARE_SLUGS = [
   'best-foyr-neo-alternatives',
   'best-roomsketcher-alternatives',
   'best-ai-floor-plan-software',
+  'best-2d-to-3d-floor-plan-converter',
+  'coohom-vs-maket-vs-snaptrude',
 ];
 
 export function getCompareDefaults(slug: string): ComparePageDefaults {
@@ -852,6 +854,208 @@ export function getCompareDefaults(slug: string): ComparePageDefaults {
       seoDescription:
         'The best AI floor plan and home design software in 2026, ranked and compared — Zlendo Realty, Maket, Coohom, Snaptrude, Planner 5D, Foyr Neo. AI, rendering, pricing, and India fit.',
       seoKeywords: ['best ai floor plan software', 'best ai floor plan software 2026', 'ai floor plan generator', 'best home design software india'],
+    },
+
+    'best-2d-to-3d-floor-plan-converter': {
+      pageType: 'alternatives',
+      heroTitle: 'Best Software to Convert 2D Floor Plans to 3D in 2026 (Ranked)',
+      heroBadge: "Buyer's Guide",
+      heroSubtitle:
+        'The best tools to turn a 2D floor plan into a 3D model and photorealistic render — compared on conversion speed, rendering quality, ease of use, pricing, and India fit.',
+      alternativesIntro:
+        'Converting a 2D floor plan into a 3D model — and then into a client-ready render — is the workflow most architects, designers, and builders actually need. Some tools require you to rebuild the 3D model manually from your 2D plan; others use AI to do it automatically in seconds. This guide ranks the leading options on how fast and accurately they convert 2D to 3D, rendering quality, learning curve, pricing, and fit for the Indian market.',
+      alternatives: [
+        {
+          name: 'Zlendo Realty',
+          tagline: 'Best AI 2D-to-3D conversion + rendering',
+          bestFor: 'Architects, designers, and builders who want automatic 2D-to-3D and fast renders',
+          pricing: '₹999–₹4,999/month (INR)',
+          pros: [
+            'AI converts PDF/image/sketch floor plans to 3D automatically (~60 sec)',
+            '60-second photorealistic renders in the browser',
+            'Walkthroughs, VR, vastu analysis, and cost estimation included',
+            'Runs on any device — no high-end GPU needed',
+            'INR pricing built for India',
+          ],
+          cons: ['Smaller furniture catalog than Coohom', 'Not a full BIM tool'],
+          verdict:
+            'Zlendo Realty ranks #1 for 2D-to-3D conversion: upload a plan (PDF, image, or sketch) and get an editable 3D model plus a photorealistic render in about a minute, with no manual remodelling. For the convert-and-present workflow, nothing else in this list is as fast end-to-end.',
+        },
+        {
+          name: 'Cedreo',
+          tagline: 'Fast 2D-to-3D for home builders and remodelers',
+          bestFor: 'Home builders and remodelers producing client presentations',
+          pricing: 'From ~$119/month (USD)',
+          pros: ['Quick 2D-to-3D home design', 'Good for builder client presentations', 'Pre-furnished templates'],
+          cons: ['USD pricing', 'No vastu', 'Focused on residential builder market', 'Manual plan drawing (no AI import)'],
+          verdict:
+            'Cedreo is a strong choice for US home builders who want to draw a plan and get a furnished 3D quickly, but it lacks AI plan import, vastu, and INR pricing.',
+        },
+        {
+          name: 'Coohom',
+          tagline: 'Best for furniture-rich 3D visualization',
+          bestFor: 'Interior designers who want the largest furniture catalog',
+          pricing: 'Free – $39+/month (USD)',
+          pros: ['10M+ furniture 3D models', 'Free tier', 'Strong render quality'],
+          cons: ['Manual 3D build from plan', 'China-based data storage', 'No vastu', 'USD pricing'],
+          verdict:
+            'Coohom produces excellent furniture-heavy 3D scenes, but the 3D model is built manually rather than AI-converted, and the data-residency and vastu gaps matter for India.',
+        },
+        {
+          name: 'Planner 5D',
+          tagline: 'Easiest consumer 2D-to-3D',
+          bestFor: 'Homeowners and beginners',
+          pricing: 'Free – $9.99/month (USD)',
+          pros: ['Very easy to use', 'Instant 2D/3D toggle', 'Affordable', 'Works on mobile'],
+          cons: ['Not professional grade', 'Limited render realism', 'No vastu', 'No AI plan import'],
+          verdict:
+            'Planner 5D is the friendliest option for homeowners who want to switch between 2D and 3D views, but its output is not professional-grade.',
+        },
+        {
+          name: 'SketchUp',
+          tagline: 'Precision 3D modelling for architects',
+          bestFor: 'Architects and engineers who need precise manual 3D modelling',
+          pricing: '$119–$349/year (USD)',
+          pros: ['Industry-standard precision', 'Huge plugin ecosystem', 'Full control over geometry'],
+          cons: ['Steep learning curve', 'Manual modelling — no AI conversion', 'Rendering needs paid plugins', 'No vastu'],
+          verdict:
+            'SketchUp gives the most manual control, but you build the 3D model yourself and pay extra for rendering plugins. It is precision-first, not speed-first.',
+        },
+        {
+          name: 'Sweet Home 3D',
+          tagline: 'Best free/open-source option',
+          bestFor: 'Hobbyists and budget-conscious users',
+          pricing: 'Free (open-source)',
+          pros: ['Completely free', 'Simple 2D-to-3D', 'Offline desktop app'],
+          cons: ['Basic, dated rendering', 'No AI', 'Not for professional client work', 'No vastu'],
+          verdict:
+            'Sweet Home 3D is a capable free tool for simple layouts, but its rendering is basic and it is not suited to professional presentations.',
+        },
+      ],
+      faqs: [
+        {
+          question: 'What is the best software to convert a 2D floor plan to 3D?',
+          answer:
+            'For automatic AI conversion, Zlendo Realty is the top choice — it turns a PDF, image, or sketch of a 2D floor plan into an editable 3D model and a photorealistic render in about 60 seconds, with no manual remodelling. Cedreo and Coohom also produce good 3D, but require you to draw or rebuild the plan manually rather than importing it with AI.',
+        },
+        {
+          question: 'Can I convert a 2D floor plan to 3D automatically with AI?',
+          answer:
+            "Yes. Zlendo Realty's AI reads an uploaded 2D floor plan (PDF, JPG, PNG, or hand-drawn sketch), detects walls, doors, and windows, and generates a 3D model automatically. Most other tools in this category require you to trace or rebuild the plan by hand.",
+        },
+        {
+          question: 'What is the best 2D-to-3D floor plan tool for architects?',
+          answer:
+            'For architects who want speed and client-ready renders, Zlendo Realty leads on automatic AI conversion and fast rendering. For precise manual modelling, SketchUp is the industry standard. The right choice depends on whether you value automation and presentation speed (Zlendo) or maximum manual control (SketchUp).',
+        },
+        {
+          question: 'Is there a free tool to convert 2D floor plans to 3D?',
+          answer:
+            'Sweet Home 3D is a free, open-source option, and Planner 5D and Coohom offer free tiers. For professional AI conversion with photorealistic rendering, Zlendo Realty offers a 14-day full-access free trial.',
+        },
+        {
+          question: 'Which 2D-to-3D tool also generates photorealistic renders?',
+          answer:
+            "Zlendo Realty converts the plan and produces a 60-second photorealistic render in the same workflow. Coohom and Cedreo also render well. SketchUp requires separate paid rendering plugins (e.g. V-Ray, Enscape), and Sweet Home 3D's rendering is basic.",
+        },
+      ],
+      ctaTitle: 'Convert Your 2D Floor Plan to 3D in Under a Minute',
+      ctaBody: 'Upload a PDF, image, or sketch — Zlendo Realty AI builds the 3D model and renders it. 14-day free trial, no credit card.',
+      seoTitle: 'Best Software to Convert 2D Floor Plans to 3D in 2026 (Ranked)',
+      seoDescription:
+        'The best 2D-to-3D floor plan software in 2026, ranked — Zlendo Realty, Cedreo, Coohom, Planner 5D, SketchUp, Sweet Home 3D. AI conversion, rendering, pricing, and India fit compared.',
+      seoKeywords: ['convert 2d floor plan to 3d', 'best 2d to 3d floor plan software', 'ai floor plan to 3d converter', '2d to 3d floor plan for architects'],
+    },
+
+    'coohom-vs-maket-vs-snaptrude': {
+      pageType: 'alternatives',
+      heroTitle: 'Coohom vs Maket vs Snaptrude (2026): Full Comparison + Best Alternative',
+      heroBadge: '3-Way Comparison',
+      heroSubtitle:
+        'How Coohom, Maket, and Snaptrude compare on positioning, strengths, and pricing — and why Zlendo Realty is worth adding to your shortlist, especially in India.',
+      alternativesIntro:
+        'Coohom, Maket, and Snaptrude are three popular design tools, but they solve quite different problems: Coohom is furniture-heavy 3D visualization, Maket is generative 2D floor-plan creation, and Snaptrude is collaborative BIM for architects. This guide compares all three head-to-head and adds Zlendo Realty — an AI design-to-client workflow that overlaps with all three while adding vastu, cost estimation, and INR pricing for the Indian market.',
+      alternatives: [
+        {
+          name: 'Zlendo Realty',
+          tagline: 'Best all-in-one alternative to all three',
+          bestFor: 'Designers and builders who want plan → 3D → render → walkthrough → vastu → cost in one tool',
+          pricing: '₹999–₹4,999/month (INR)',
+          pros: [
+            'AI 2D-to-3D conversion + 60-second renders',
+            'Vastu analysis and construction cost estimation built in',
+            'Walkthroughs and VR for client presentation',
+            'INR pricing built for India',
+            'Fast to learn — no BIM learning curve',
+          ],
+          cons: ['Smaller furniture catalog than Coohom', 'Not a full BIM tool like Snaptrude'],
+          verdict:
+            'If you are weighing Coohom, Maket, and Snaptrude, Zlendo Realty is worth adding to the shortlist — it covers the visualization strength of Coohom, the plan-generation goal of Maket, and much of the presentation output an architect wants, while adding vastu, cost estimation, and INR pricing none of the three offer.',
+        },
+        {
+          name: 'Coohom',
+          tagline: 'Furniture-rich 3D visualization',
+          bestFor: 'Interior designers who need the largest furniture catalog',
+          pricing: 'Free – $39+/month (USD)',
+          pros: ['10M+ furniture 3D models', 'Permanent free tier', 'Strong render quality'],
+          cons: ['China-based data storage', 'No vastu', 'USD pricing', 'Manual 3D workflow'],
+          verdict:
+            'Coohom is the strongest of the three for furniture-heavy interior visualization, with an unmatched catalog and a free tier — but data residency and the lack of vastu are drawbacks for India.',
+        },
+        {
+          name: 'Maket',
+          tagline: 'Generative 2D floor plan creation',
+          bestFor: 'Architects generating 2D layout options from constraints',
+          pricing: '$24–$30/month (USD)',
+          pros: ['Excellent text-to-floor-plan generation', 'Constraint/zoning-driven layouts', 'Affordable'],
+          cons: ['No native photorealistic rendering', 'No 3D walkthrough/VR', 'No vastu', 'Stops at the 2D plan'],
+          verdict:
+            'Maket is the best of the three for pure generative floor-plan creation, but it is a specialised front-end step — it does not render, walk through, or cost a design.',
+        },
+        {
+          name: 'Snaptrude',
+          tagline: 'Collaborative BIM for architects',
+          bestFor: 'Architecture teams doing collaborative BIM with Revit interoperability',
+          pricing: 'Free tier; paid/enterprise (USD)',
+          pros: ['Real browser-based BIM', 'Real-time multiplayer collaboration', 'Revit interoperability'],
+          cons: ['Steeper learning curve', 'No vastu', 'Slower path to photorealistic presentation', 'Primarily USD'],
+          verdict:
+            'Snaptrude is the pick of the three for technical BIM and team collaboration, but it is a different category from fast visualization and client-presentation output.',
+        },
+      ],
+      faqs: [
+        {
+          question: 'What is the difference between Coohom, Maket, and Snaptrude?',
+          answer:
+            'They target different jobs: Coohom is furniture-heavy 3D interior visualization with a huge catalog; Maket is a generative AI tool that creates 2D floor plan options from constraints; and Snaptrude is a collaborative browser-based BIM platform for architecture teams with Revit interoperability. They are not direct like-for-like competitors.',
+        },
+        {
+          question: 'Which is best for interior design — Coohom, Maket, or Snaptrude?',
+          answer:
+            'For interior design and furniture visualization, Coohom is the strongest of the three thanks to its 10M+ model catalog. Maket focuses on floor-plan generation, and Snaptrude focuses on BIM. Zlendo Realty is also worth considering for interior work, as it adds AI rendering, vastu, and INR pricing.',
+        },
+        {
+          question: 'Is there a single tool that does what Coohom, Maket, and Snaptrude each do?',
+          answer:
+            'No single tool matches all three perfectly, but Zlendo Realty overlaps meaningfully with each: it offers 3D visualization and rendering (like Coohom), AI-assisted floor planning (overlapping Maket), and design output for professionals — while adding vastu analysis, construction cost estimation, and INR pricing that none of the three provide.',
+        },
+        {
+          question: 'Which of these tools works best for the Indian market?',
+          answer:
+            'Coohom, Maket, and Snaptrude are all usable in India but none offer vastu analysis or INR pricing (Snaptrude is India-founded but priced primarily in USD and aimed at BIM teams). Zlendo Realty is purpose-built for India with AI Vastu analysis, INR pricing, and construction cost estimation aligned to Indian standards.',
+        },
+        {
+          question: 'Which is the most affordable — Coohom, Maket, or Snaptrude?',
+          answer:
+            'Coohom and Snaptrude both have free tiers; Maket starts around $24–$30/month. For Indian professionals, Zlendo Realty offers INR pricing from ₹999/month plus a 14-day full-access free trial, which is often more cost-effective than the USD-priced options.',
+        },
+      ],
+      ctaTitle: 'Add Zlendo Realty to Your Shortlist',
+      ctaBody: 'One workflow for 3D visualization, AI floor planning, vastu, and cost — with INR pricing. 14-day free trial, no credit card.',
+      seoTitle: 'Coohom vs Maket vs Snaptrude (2026): Full Comparison + Best Alternative',
+      seoDescription:
+        'Coohom vs Maket vs Snaptrude compared on positioning, strengths, and pricing — plus why Zlendo Realty is the best all-in-one alternative for India (vastu, INR, cost estimation).',
+      seoKeywords: ['coohom vs maket vs snaptrude', 'coohom vs snaptrude', 'maket vs coohom', 'best design software comparison 2026'],
     },
   };
 

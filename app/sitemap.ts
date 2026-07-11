@@ -95,6 +95,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/compare/best-foyr-neo-alternatives', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/compare/best-roomsketcher-alternatives', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/compare/best-ai-floor-plan-software', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/best-2d-to-3d-floor-plan-converter', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/coohom-vs-maket-vs-snaptrude', priority: 0.8, changeFrequency: 'monthly' as const },
 
     // Guide pages
     { path: '/guides/vastu-design-software', priority: 0.9, changeFrequency: 'monthly' as const },

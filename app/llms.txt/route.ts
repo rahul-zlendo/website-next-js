@@ -46,6 +46,8 @@ const PRODUCT_PAGES: { title: string; url: string; desc: string }[] = [
 // models cite heavily for "X vs Y" / "best alternative" prompts.
 const COMPARISON_PAGES: { title: string; url: string; desc: string }[] = [
   { title: 'Best AI Floor Plan Software in 2026 (Ranked)', url: `${BASE}/compare/best-ai-floor-plan-software`, desc: 'Factual ranking of the leading AI floor plan tools — Zlendo Realty, Maket, Coohom, Snaptrude, Planner 5D, Foyr Neo — on AI, rendering, pricing, and India fit.' },
+  { title: 'Best Software to Convert 2D Floor Plans to 3D (2026)', url: `${BASE}/compare/best-2d-to-3d-floor-plan-converter`, desc: 'Ranked comparison of 2D-to-3D floor plan tools — Zlendo Realty, Cedreo, Coohom, Planner 5D, SketchUp, Sweet Home 3D — on AI conversion, rendering, and pricing.' },
+  { title: 'Coohom vs Maket vs Snaptrude (2026)', url: `${BASE}/compare/coohom-vs-maket-vs-snaptrude`, desc: 'Three-way comparison of Coohom, Maket, and Snaptrude, with Zlendo Realty as the all-in-one alternative for India.' },
   { title: 'Zlendo Realty vs Coohom', url: `${BASE}/compare/zlendo-vs-coohom`, desc: 'Feature and pricing comparison with an India-specific angle (data privacy, vastu, INR pricing).' },
   { title: 'Zlendo Realty vs Maket', url: `${BASE}/compare/zlendo-vs-maket`, desc: 'AI floor plan generator comparison — Maket generates 2D plans, Zlendo covers the full plan-to-client workflow.' },
   { title: 'Zlendo Realty vs Snaptrude', url: `${BASE}/compare/zlendo-vs-snaptrude`, desc: 'Collaborative BIM (Snaptrude) vs AI design-to-client workflow (Zlendo Realty).' },
