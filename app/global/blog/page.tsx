@@ -107,7 +107,7 @@ export default async function BlogIndexPage({
                     {post.title}
                   </h2>
                   {post.excerpt && (
-                    <p className="text-sm font-medium text-zlendo-grey-medium opacity-60 line-clamp-3 mb-4 flex-1">
+                    <p className="text-sm font-medium text-zlendo-grey-medium line-clamp-3 mb-4 flex-1">
                       {post.excerpt}
                     </p>
                   )}

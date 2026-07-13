@@ -140,12 +140,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           )}
         </div>
 
-        {heroImg && (
+        {/* {heroImg && (
           <div className="rounded-3xl overflow-hidden mb-10 shadow-xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+            {/* eslint-disable-next-line @next/next/no-img-element 
             <img src={heroImg} alt={post.mainImage?.alt || post.title} className="w-full h-auto" />
           </div>
-        )}
+        )} */}
 
         <BlogPostBody content={html} />
 
