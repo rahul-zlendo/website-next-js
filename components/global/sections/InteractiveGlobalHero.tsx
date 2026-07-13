@@ -154,9 +154,9 @@ export default function InteractiveGlobalHero() {
                                     {[
                                         "/assets/home/plan-blueprint.webp",
                                         "/assets/home/blueprint-hand.webp",
-                                        "/assets/home/modern-kitchen.webp",
-                                        "/assets/home/modern-kitchen.webp",
-                                        "/assets/home/living-room-3d.webp"
+                                        "/assets/home/d5-render-kitchen.webp",
+                                        "/assets/home/vray-render-living-room.webp",
+                                        "/assets/home/legacy-rendering-step.webp"
                                     ].map((img, i) => (
                                         <div key={i} className="flex-1 flex flex-col items-center gap-1.5">
                                             <div className="w-full aspect-[4/3] rounded-lg bg-white/5 border border-white/10 overflow-hidden">

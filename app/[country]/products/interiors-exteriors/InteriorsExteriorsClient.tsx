@@ -360,6 +360,72 @@ export default function InteriorsExteriorsClient({
                     </div>
                 </section>
 
+                {/* 5.5. DESIGN LIBRARY */}
+                <section className="py-20 bg-slate-50 relative overflow-hidden">
+                    <div className="container-custom px-4 relative z-10">
+                        <div className="max-w-4xl mx-auto text-center mb-16">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-zlendo-teal/10 text-zlendo-teal font-bold text-xs uppercase mb-6">
+                                <Box className="w-4 h-4" />
+                                <span>3D Design Library</span>
+                            </div>
+                            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-zlendo-grey-dark mb-6 leading-tight">
+                                Instant Interiors. <br />
+                                <span className="text-zlendo-teal">Drag. Drop. Done.</span>
+                            </h2>
+                            <p className="text-xl text-zlendo-grey-medium font-medium leading-relaxed max-w-2xl mx-auto">
+                                Skip the modeling phase. Access thousands of ready-to-use 3D assets to create stunning, accurate spaces in minutes instead of hours.
+                            </p>
+                        </div>
+
+                        <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+                            {/* Feature 1 */}
+                            <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow text-center">
+                                <div className="w-16 h-16 mx-auto bg-zlendo-teal/10 rounded-2xl flex items-center justify-center mb-6">
+                                    <Box className="w-8 h-8 text-zlendo-teal" />
+                                </div>
+                                <h3 className="text-xl font-black text-zlendo-grey-dark mb-3">10,000+ Assets</h3>
+                                <p className="text-zlendo-grey-medium font-medium text-sm leading-relaxed">
+                                    From luxury sofas to standard bathroom fixtures. Everything you need to furnish a complete home.
+                                </p>
+                            </div>
+
+                            {/* Feature 2 */}
+                            <div className="bg-zlendo-grey-dark rounded-[2rem] p-8 shadow-xl text-center relative overflow-hidden">
+                                <div className="absolute inset-0 bg-gradient-to-br from-zlendo-teal/20 to-transparent opacity-50" />
+                                <div className="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center mb-6 relative z-10">
+                                    <Sparkles className="w-8 h-8 text-white" />
+                                </div>
+                                <h3 className="text-xl font-black text-white mb-3 relative z-10">One-Click Styling</h3>
+                                <p className="text-white/70 font-medium text-sm leading-relaxed relative z-10">
+                                    Drag and drop elements directly into your floorplan. Zero complex 3D modeling required.
+                                </p>
+                            </div>
+
+                            {/* Feature 3 */}
+                            <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow text-center">
+                                <div className="w-16 h-16 mx-auto bg-zlendo-orange/10 rounded-2xl flex items-center justify-center mb-6">
+                                    <CheckCircle2 className="w-8 h-8 text-zlendo-orange" />
+                                </div>
+                                <h3 className="text-xl font-black text-zlendo-grey-dark mb-3">Instant Budgets</h3>
+                                <p className="text-zlendo-grey-medium font-medium text-sm leading-relaxed">
+                                    Standard items map directly to real-world costs—generating accurate budget estimates automatically.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="text-center">
+                            <a
+                                href="https://app.zlendorealty.com/design-library"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-2 px-10 py-5 bg-zlendo-teal text-white font-black text-lg rounded-2xl hover:scale-105 transition-all shadow-2xl shadow-zlendo-teal/30"
+                            >
+                                Explore the Library <ChevronRight className="w-6 h-6" />
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
                 {/* 6. CULTURE & RELIGION AWARENESS */}
                 <section className="py-16 bg-white">
                     <div className="container-custom px-4 text-center">
