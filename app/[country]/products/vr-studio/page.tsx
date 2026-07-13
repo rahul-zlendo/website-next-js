@@ -5,6 +5,7 @@ import { vrStudioPageQuery } from '@/lib/sanity/queries';
 import VRStudioClient from './VRStudioClient';
 import JsonLd from '@/components/common/JsonLd';
 import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
+import { createPageMetadata } from '@/lib/seo/metadata';
 
 export const revalidate = 60;
 
@@ -14,6 +15,8 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
+    const isGlobal = country === 'global';
+    const path = isGlobal ? '/products/vr-studio' : `/${country}/products/vr-studio`;
     const { isEnabled: preview } = await draftMode();
 
     let cmsSeo: any = null;
@@ -24,13 +27,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const title = cmsSeo?.seoTitle || "8K VR Studio - Immersive Home Experiences";
     const description = cmsSeo?.seoDescription || "Step inside your design with hyper-realistic VR. Compatible with Meta Quest, Apple Vision Pro, and web browsers.";
 
-    return {
+    return createPageMetadata({
         title,
         description,
-        alternates: {
-            canonical: `https://zlendorealty.com/${country}/products/vr-studio`,
+        path,
+        ogImage: {
+            url: 'https://zlendorealty.com/assets/vr-studio/hero-vr.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Zlendo Realty 8K VR Studio',
+            type: 'image/webp',
         },
-    };
+    });
 }
 
 export default async function VRStudioPage({ params }: Props) {

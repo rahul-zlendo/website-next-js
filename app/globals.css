@@ -228,4 +228,70 @@
         transparent);
     animation: shimmer 3s infinite;
   }
+
+  /*
+   * Blog post CTA row: some migrated posts end with a "Try Now / Get Demo"
+   * pair that degrades to bare linked text after WP -> Portable Text
+   * conversion (see lib/sanity/portableToHtml.ts renderIfCtaRow). Styled
+   * here as real buttons instead of prose links. Plain CSS (not Tailwind
+   * utilities) since this markup is generated at runtime from CMS content,
+   * so it wouldn't survive Tailwind's build-time class purge.
+   */
+  .blog-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    padding: 1.75rem;
+    background: linear-gradient(135deg, var(--zlendo-mint) 0%, rgba(41, 176, 161, 0.06) 100%);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(41, 176, 161, 0.15);
+  }
+
+  .blog-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.75rem;
+    border-radius: 0.9rem;
+    font-weight: 800;
+    font-size: 1rem;
+    text-decoration: none !important;
+    border: none !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .blog-cta-btn-primary {
+    background: var(--zlendo-teal);
+    color: #fff !important;
+    box-shadow: 0 8px 24px rgba(41, 176, 161, 0.3);
+  }
+
+  .blog-cta-btn-primary:hover {
+    background: #229286;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(41, 176, 161, 0.4);
+  }
+
+  .blog-cta-btn-secondary {
+    background: #fff;
+    color: var(--zlendo-grey-dark) !important;
+    border: 2px solid rgba(41, 176, 161, 0.25) !important;
+  }
+
+  .blog-cta-btn-secondary:hover {
+    border-color: var(--zlendo-teal) !important;
+    background: var(--zlendo-mint);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .blog-cta-btn::after {
+    content: "→";
+    transition: transform 0.2s ease;
+  }
+
+  .blog-cta-btn:hover::after {
+    transform: translateX(3px);
+  }
 }

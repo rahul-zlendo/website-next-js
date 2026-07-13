@@ -1265,6 +1265,15 @@ export const blogPostsSitemapQuery = groq`
   }
 `;
 
+/** All blog posts with slug/title/excerpt — for the AI-facing llms.txt, newest first. */
+export const blogPostsLlmsQuery = groq`
+  *[_type == "post" && section == "blog" && defined(slug.current)] | order(publishedAt desc){
+    "slug": slug.current,
+    title,
+    excerpt
+  }
+`;
+
 /** A single blog post by slug (param: $slug). */
 export const blogPostBySlugQuery = groq`
   *[_type == "post" && section == "blog" && slug.current == $slug][0]{

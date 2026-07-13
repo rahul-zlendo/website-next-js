@@ -111,7 +111,7 @@ export default function RealisticRendersPage() {
                                     </div>
                                     <div className="flex items-center gap-1 text-[#F97316]">
                                         {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-                                        <span className="ml-2 text-sm font-bold text-[#666]">4.9/5 stars</span>
+                                        <span className="ml-2 text-sm font-bold text-[#666]">5/5 stars</span>
                                     </div>
                                 </motion.div>
 

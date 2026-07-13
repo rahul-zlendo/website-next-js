@@ -10,6 +10,7 @@ interface LogoStripProps {
     logos?: {
       name?: string;
       image?: any;
+      link?: string;
     }[];
   };
 }
@@ -57,24 +58,33 @@ const LogoStrip: React.FC<LogoStripProps> = ({ data }) => {
             ease: "linear"
           }}
         >
-          {marqueeLogos.map((logo, index) => (
-            <div 
-              key={index}
-              className="px-6 opacity-50 grayscale contrast-125 brightness-150 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700 flex items-center justify-center min-w-[150px]"
-            >
-              {logo.image ? (
-                <img 
-                  src={urlFor(logo.image).url()} 
-                  alt={logo.name || 'Partner Logo'} 
-                  className="h-6 md:h-10 w-auto object-contain"
-                />
-              ) : (
-                <span className="text-lg md:text-2xl font-black text-gray-300 uppercase tracking-[0.2em] leading-none select-none italic">
-                  {logo.name}
-                </span>
-              )}
-            </div>
-          ))}
+          {marqueeLogos.map((logo, index) => {
+            const content = logo.image ? (
+              <img
+                src={urlFor(logo.image).url()}
+                alt={logo.name || 'Partner Logo'}
+                className="h-6 md:h-10 w-auto object-contain"
+              />
+            ) : (
+              <span className="text-lg md:text-2xl font-black text-gray-300 uppercase tracking-[0.2em] leading-none select-none italic">
+                {logo.name}
+              </span>
+            );
+            return (
+              <div
+                key={index}
+                className="px-6 opacity-50 grayscale contrast-125 brightness-150 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700 flex items-center justify-center min-w-[150px]"
+              >
+                {logo.link ? (
+                  <a href={logo.link} target="_blank" rel="noopener noreferrer" className="pointer-events-auto">
+                    {content}
+                  </a>
+                ) : (
+                  content
+                )}
+              </div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

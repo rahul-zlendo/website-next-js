@@ -32,6 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title,
         description,
         path: path,
+        ogImage: {
+            url: 'https://zlendorealty.com/assets/2d-to-3d/after-render.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Zlendo Realty 2D to 3D Converter',
+            type: 'image/webp',
+        },
     });
 }
 

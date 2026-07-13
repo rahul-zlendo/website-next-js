@@ -32,6 +32,14 @@ const SECTION = getArg('section', 'blog'); // 'blog' | 'news'
 const SOURCE = getArg('source', SECTION === 'news' ? 'news.zlendorealty.com' : 'blog.zlendorealty.com');
 const LIMIT = parseInt(getArg('limit', '0'), 10) || 0; // 0 = all
 const WRITE = args.includes('--write');
+// --slugs a,b,c restricts processing to exactly these WP slugs, regardless of
+// --limit/pagination. Use this to backfill specific new posts without
+// re-touching (and reverting any manual fixes on) everything already imported.
+const SLUGS_FILTER = getArg('slugs', '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+const SLUGS_SET = SLUGS_FILTER.length ? new Set(SLUGS_FILTER) : null;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PREVIEW_DIR = join(__dirname, '.preview', SECTION);
@@ -244,6 +252,7 @@ async function main() {
     const { data: posts, totalPages: tp } = await wpFetchJson(url);
     totalPages = tp;
     for (const wp of posts) {
+      if (SLUGS_SET && !SLUGS_SET.has(wp.slug)) continue;
       const doc = await mapPost(wp);
       if (WRITE) {
         await client.createOrReplace(doc);

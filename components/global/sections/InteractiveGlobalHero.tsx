@@ -85,7 +85,13 @@ export default function InteractiveGlobalHero() {
                                 ))}
                             </div> */}
 
-                            <div className="flex items-center gap-4 px-5 py-3 bg-white/[0.03] border border-white/10 rounded-2xl backdrop-blur-md group hover:border-[#00bf9a]/30 transition-all duration-300">
+                            <a
+                                href="https://www.capterra.in/software/1085377/Zlendo-Realty"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Read Zlendo Realty reviews on Capterra"
+                                className="flex items-center gap-4 px-5 py-3 bg-white/[0.03] border border-white/10 rounded-2xl backdrop-blur-md group hover:border-[#00bf9a]/30 transition-all duration-300"
+                            >
                                 {/* Capterra Logo Official Image */}
                                 <div className="flex items-center">
                                     <img
@@ -108,7 +114,7 @@ export default function InteractiveGlobalHero() {
                                     </div>
                                     <div className="text-[10px] sm:text-[11px] font-bold text-white/30 uppercase tracking-[0.2em] leading-none pt-2">Verified Reviews</div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
 

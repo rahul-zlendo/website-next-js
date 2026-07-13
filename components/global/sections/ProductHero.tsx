@@ -212,7 +212,7 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
                 <div className="h-3 w-px bg-white/20" />
                 <div className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-amber-400 fill-current" />
-                  <span className="font-black text-[10px] uppercase tracking-widest text-gray-300">4.9 / 5 Rating</span>
+                  <span className="font-black text-[10px] uppercase tracking-widest text-gray-300">5 / 5 Rating</span>
                 </div>
                 <div className="h-3 w-px bg-white/20" />
                 <div className="flex items-center gap-2">

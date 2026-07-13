@@ -3,6 +3,7 @@ import CostEstimatorClient from './CostEstimatorClient';
 import { client } from '@/lib/sanity/client';
 import { costEstimatorPageQuery } from '@/lib/sanity/queries';
 import JsonLd from '@/components/common/JsonLd';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 interface PageProps {
@@ -19,25 +20,21 @@ export async function generateMetadata(
   const { country: countryCode } = await params;
   const data = await client.fetch(costEstimatorPageQuery);
   const country = countryCode.toUpperCase();
+  const isGlobal = countryCode === 'global';
+  const path = isGlobal ? '/products/cost-estimator' : `/${countryCode}/products/cost-estimator`;
 
-  return {
+  return createPageMetadata({
     title: data?.seoTitle || `Smart Construction Cost Estimator ${country}`,
     description: data?.seoDescription || 'Estimate residential construction costs accurately with AI-driven insights.',
-    keywords: [
-      'construction cost calculator',
-      'home building estimate',
-      'cost estimator india',
-      'real-time construction costs',
-    ],
-    openGraph: {
-      title: data?.seoTitle,
-      description: data?.seoDescription,
-      type: 'website',
+    path,
+    ogImage: {
+      url: 'https://zlendorealty.com/assets/features/cost-clarity.webp',
+      width: 1200,
+      height: 630,
+      alt: 'Zlendo Realty Smart Construction Cost Estimator',
+      type: 'image/webp',
     },
-    alternates: {
-      canonical: `https://zlendorealty.com/${countryCode}/products/cost-estimator`,
-    },
-  };
+  });
 }
 
 export default async function CostEstimatorPage({ params }: PageProps) {
