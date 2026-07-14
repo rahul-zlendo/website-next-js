@@ -53,6 +53,13 @@ const UNCATEGORIZED_FIXES = {
   'sofa-colour-ideas-for-a-stylish-room': 'category.wp.15', // Decor
   'bathroom-doors-design-latest-trends': 'category.wp.16', // Interior and Home design
   'l-type-kitchen-design-a-smart-efficient': 'category.wp.16', // Interior and Home design
+  // Second batch (posts imported after the original migration snapshot)
+  'high-paying-draftsman-jobs-2026-ai-design': 'category.wp.29', // Zlendo Realty
+  'build-house-in-india-from-abroad-nri-guide': 'category.wp.17', // Construction
+  '1500-sq-ft-house-construction-cost-india': 'category.wp.4', // property cost estimation
+  'best-interior-design-software-for-beginners': 'category.wp.29', // Zlendo Realty
+  'vastu-for-house-entrance-best-direction-mistakes': 'category.wp.11', // Vasthu and Spiritual Guide
+  'ai-house-design-vs-traditional-architecture-2026': 'category.wp.12', // Architecture
 };
 
 function randomKey() {

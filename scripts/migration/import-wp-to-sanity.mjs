@@ -96,7 +96,7 @@ const blockSchema = compileSchema(
     ],
     lists: [{ name: 'bullet' }, { name: 'number' }],
     inlineObjects: [],
-    blockObjects: [{ name: 'image' }],
+    blockObjects: [{ name: 'image' }, { name: 'table' }],
   }),
 );
 
@@ -116,10 +116,37 @@ const imageRule = {
   },
 };
 
+// Turn <table> into a `table` block (rows of string cells). Without this,
+// htmlToBlocks flattens table text into line-by-line paragraphs.
+const tableRule = {
+  deserialize(el, _next, _createBlock) {
+    if (el.nodeName !== 'TABLE') return undefined;
+    const trs = Array.from(el.querySelectorAll('tr'));
+    const rows = [];
+    for (const tr of trs) {
+      const cells = Array.from(tr.querySelectorAll('th,td')).map((c) =>
+        (c.textContent || '').replace(/\s+/g, ' ').trim(),
+      );
+      if (cells.length) rows.push({ _type: 'tableRow', _key: randomKey(12), cells });
+    }
+    if (!rows.length) return undefined;
+    // WP content tables mark the header row with either <th> or a styled first
+    // <td> row. Treat any multi-row table's first row as a header (editable in
+    // Studio via the hasHeaderRow toggle for the rare exception).
+    const hasHeaderRow = trs[0]?.querySelector('th') != null || rows.length > 1;
+    return {
+      _type: 'table',
+      _key: randomKey(12),
+      rows,
+      hasHeaderRow,
+    };
+  },
+};
+
 function toPortableText(html) {
   return htmlToBlocks(html || '', blockSchema, {
     parseHtml: (h) => new JSDOM(h).window.document,
-    rules: [imageRule],
+    rules: [tableRule, imageRule],
   });
 }
 

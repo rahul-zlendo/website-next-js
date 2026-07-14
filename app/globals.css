@@ -294,4 +294,18 @@
   .blog-cta-btn:hover::after {
     transform: translateX(3px);
   }
+
+  /* Blog tables (migrated from WordPress) — horizontal scroll on narrow
+     screens so a wide comparison table never breaks the page layout. The
+     table cells themselves are styled by the prose classes on BlogPostBody. */
+  .blog-table-wrap {
+    overflow-x: auto;
+    margin: 2rem 0;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .blog-table-wrap table {
+    margin: 0;
+    min-width: 100%;
+  }
 }
