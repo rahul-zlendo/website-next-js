@@ -9,6 +9,7 @@
  */
 import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
+import { table } from '@sanity/table';
 import { schemaTypes } from './sanity/schemas';
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'cvwqqd27';
@@ -23,5 +24,6 @@ export default defineConfig({
   },
   plugins: [
     structureTool(),
+    table(),
   ],
 });

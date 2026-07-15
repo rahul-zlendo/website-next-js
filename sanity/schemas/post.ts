@@ -51,6 +51,7 @@ export default defineType({
       group: 'content',
       of: [
         { type: 'block' },
+        { type: 'table' },
         {
           type: 'image',
           options: { hotspot: true },
