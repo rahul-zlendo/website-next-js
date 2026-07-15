@@ -11,7 +11,7 @@
     "deploy": "sanity deploy"
   },
   "dependencies": {
-    "@sanity/table": "^3.1.8",
+    "@sanity/table": "^1.1.4",
     "@sanity/vision": "^3.68.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

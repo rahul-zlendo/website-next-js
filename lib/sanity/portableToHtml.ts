@@ -64,6 +64,26 @@ const components: Partial<PortableTextHtmlComponents> = {
       const caption = value?.caption ? `<figcaption>${escapeAttr(value.caption)}</figcaption>` : '';
       return `<figure><img src="${src}" alt="${alt}" loading="lazy" />${caption}</figure>`;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    youtube: ({ value }: { value: any }) => {
+      const url = value?.url;
+      if (!url) return '';
+
+      let embedUrl = escapeAttr(url);
+      try {
+        if (url.includes('youtube.com/watch?v=')) {
+          const videoId = new URL(url).searchParams.get('v');
+          if (videoId) embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        } else if (url.includes('youtu.be/')) {
+          const videoId = url.split('youtu.be/')[1].split('?')[0];
+          if (videoId) embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        }
+      } catch (e) {
+        // ignore URL parsing errors
+      }
+
+      return `<div style="aspect-ratio: 16/9;" class="my-8 w-full"><iframe src="${embedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="w-full h-full rounded-xl shadow-lg border border-slate-100"></iframe></div>`;
+    },
   },
   block: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

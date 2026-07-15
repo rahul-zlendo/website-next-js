@@ -60,6 +60,18 @@ export default defineType({
             defineField({ name: 'caption', title: 'Caption', type: 'string' }),
           ],
         },
+        {
+          name: 'youtube',
+          type: 'object',
+          title: 'YouTube Embed',
+          fields: [
+            defineField({
+              name: 'url',
+              type: 'url',
+              title: 'YouTube video URL',
+            }),
+          ],
+        },
       ],
     }),
 

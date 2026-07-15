@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   } catch { /* fallback to defaults */ }
 
   if (country === 'in') {
-    const seoTitle = cmsSeo?.seoTitle ?? 'AI Home & Office Design Software for Builders and Architects';
+    const seoTitle = cmsSeo?.seoTitle ?? 'Zlendo Realty | AI Home Design Software';
     const seoDesc = cmsSeo?.seoDescription ?? 'Zlendo Realty AI Floor Planner and 2D-to-3D Designs in Minutes. All-in-One Software for Architects, Builders, Interior Designers, and Vastu Consultants. Start Your Free Trial Now!';
     const ogTitle = cmsSeo?.ogTitle ?? 'AI-Powered Home & Office Design Software';
     const ogDesc = cmsSeo?.ogDescription ?? 'Create professional 2D and 3D floor plans in minutes with Zlendo Realty AI. The all-in-one design software for Architects, Builders, Interior designers, and Vastu Consultants. Start your free trial today!';
