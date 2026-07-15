@@ -10,16 +10,6 @@ export async function generateMetadata(): Promise<Metadata> {
         title: 'Floor Plan Design Services for Homeowners | Zlendo Realty',
         description: 'Get customized 2D & 3D floor plan design services for your dream home. Zlendo Realty helps homeowners create smart, Vastu-friendly house layouts with expert guidance.',
         path: '/services/floor-plan-design',
-        keywords: [
-            'floor plan design services',
-            'house floor plan design',
-            '2D floor plan for home',
-            '3D house layout design',
-            'vastu floor plan',
-            'duplex floor plan design',
-            'home planning services',
-            'residential floor planner',
-        ],
     });
 }
 

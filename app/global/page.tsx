@@ -11,7 +11,7 @@ import { SIGNUP_URL } from '@/lib/config/env';
 import RecentBlogPosts from '@/components/common/RecentBlogPosts';
 
 export const metadata: Metadata = {
-  title: 'Zlendo Realty | AI Home & Office Design Software for Professionals',
+  title: 'Zlendo Realty | AI Home Design Software',
   description: 'Turn floor plans into 3D models and renders in 60 seconds. Zlendo Realty is the AI design workflow built for architecture and interior design professionals.',
   alternates: {
     canonical: 'https://zlendorealty.com',
