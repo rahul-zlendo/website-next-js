@@ -72,6 +72,17 @@ export default defineType({
             }),
           ],
         },
+        {
+          name: 'cta',
+          type: 'object',
+          title: 'CTA Buttons',
+          fields: [
+            defineField({ name: 'primaryButtonText', title: 'Primary Button Text', type: 'string', initialValue: 'Try Now' }),
+            defineField({ name: 'primaryButtonUrl', title: 'Primary Button URL', type: 'string', initialValue: 'https://app.zlendorealty.com/signup' }),
+            defineField({ name: 'secondaryButtonText', title: 'Secondary Button Text', type: 'string', initialValue: 'Get Demo' }),
+            defineField({ name: 'secondaryButtonUrl', title: 'Secondary Button URL', type: 'string', initialValue: 'https://zlendorealty.com/business#demo-form' }),
+          ],
+        },
       ],
     }),
 
