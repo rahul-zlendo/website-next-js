@@ -84,6 +84,17 @@ const components: Partial<PortableTextHtmlComponents> = {
 
       return `<div style="aspect-ratio: 16/9;" class="my-8 w-full"><iframe src="${embedUrl}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen class="w-full h-full rounded-xl shadow-lg border border-slate-100"></iframe></div>`;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    cta: ({ value }: { value: any }) => {
+      let buttons = '';
+      if (value?.primaryButtonText && value?.primaryButtonUrl) {
+        buttons += renderLink(value.primaryButtonUrl, value.primaryButtonText, 'blog-cta-btn blog-cta-btn-primary');
+      }
+      if (value?.secondaryButtonText && value?.secondaryButtonUrl) {
+        buttons += renderLink(value.secondaryButtonUrl, value.secondaryButtonText, 'blog-cta-btn blog-cta-btn-secondary');
+      }
+      return buttons ? `<div class="blog-cta-row mt-12 mb-16">${buttons}</div>` : '';
+    },
   },
   block: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
