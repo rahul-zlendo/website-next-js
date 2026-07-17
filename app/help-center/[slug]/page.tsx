@@ -52,7 +52,7 @@ export default async function HcPostPage({ params }: HcPostPageProps) {
     // JSON-LD Schemas
     const hcPostJsonLd = generateHcPostJsonLd(post);
     const breadcrumbJsonLd = generateBreadcrumbJsonLd([
-        { name: 'Home', url: 'https://zlendorealty.com/' },
+        { name: 'Home', url: 'https://zlendorealty.com' },
         { name: 'Help Center', url: '/help-center' },
         { name: stripHtml(post.title), url: `/help-center/${post.slug}` },
     ]);

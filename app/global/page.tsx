@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    url: 'https://zlendorealty.com/',
+    url: 'https://zlendorealty.com',
     images: [defaultOgImage],
   },
 };
