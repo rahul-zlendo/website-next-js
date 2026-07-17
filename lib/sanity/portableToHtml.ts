@@ -95,6 +95,10 @@ const components: Partial<PortableTextHtmlComponents> = {
       }
       return buttons ? `<div class="blog-cta-row mt-12 mb-16">${buttons}</div>` : '';
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    htmlTable: ({ value }: { value: any }) => {
+      return value?.htmlCode ? `<div>${value.htmlCode}</div>` : '';
+    },
   },
   block: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
