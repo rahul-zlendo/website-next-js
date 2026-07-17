@@ -53,6 +53,19 @@ export default defineType({
         { type: 'block' },
         { type: 'table' },
         {
+          name: 'htmlTable',
+          title: 'HTML Table Code',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'htmlCode',
+              title: 'HTML Code',
+              type: 'text',
+              description: 'Paste your HTML table code here. This is an alternative to the standard table builder.',
+            }),
+          ],
+        },
+        {
           type: 'image',
           options: { hotspot: true },
           fields: [
