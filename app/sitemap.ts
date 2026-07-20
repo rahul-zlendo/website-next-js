@@ -4,6 +4,13 @@ import { blogPostsSitemapQuery } from '@/lib/sanity/queries';
 import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
 import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 
+// Helper safely parses dates from external APIs. Returning fallback if invalid.
+function parseSafeDate(dateString: string | undefined | null, fallback: Date): Date {
+  if (!dateString) return fallback;
+  const parsed = new Date(dateString);
+  return isNaN(parsed.getTime()) ? fallback : parsed;
+}
+
 // The sitemap is a static route table (no CMS/API calls), so it can be
 // statically generated and refreshed hourly. `force-dynamic` was left over
 // from a WordPress-era implementation that fetched posts at request time and
@@ -163,7 +170,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       for (const template of templates) {
         if (template && template.template_Id) {
           const encryptedId = encryptProjectId(template.template_Id);
-          const templateLastMod = template.updatedOn ? new Date(template.updatedOn) : dynamicLastMod;
+          const templateLastMod = parseSafeDate(template.updatedOn, dynamicLastMod);
 
           // Add Global Template URL
           urls.push({
@@ -200,9 +207,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       blogPostsSitemapQuery
     );
     for (const post of posts) {
+      const bestDate = post.updatedAt || post.publishedAt;
       urls.push({
         url: `${BASE_URL}/blog/${post.slug}`,
-        lastModified: post.updatedAt ? new Date(post.updatedAt) : post.publishedAt ? new Date(post.publishedAt) : dynamicLastMod,
+        lastModified: parseSafeDate(bestDate, dynamicLastMod),
         changeFrequency: 'monthly',
         priority: 0.7,
       });
