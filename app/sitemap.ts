@@ -1,8 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { readClient } from '@/lib/sanity/client';
 import { blogPostsSitemapQuery } from '@/lib/sanity/queries';
-// import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
-// import { encryptProjectId } from '@/lib/utils/encryptionUtils';
+import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
+import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 
 // The sitemap is a static route table (no CMS/API calls), so it can be
 // statically generated and refreshed hourly. `force-dynamic` was left over
@@ -146,46 +146,46 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // Fetch dynamic template routes for sitemap
-  // try {
-  //   const res = await fetch(`${API_BASE_URL}/TemplateMaster/GetAllActiveTemplate?RegionId=0`, {
-  //     method: 'GET',
-  //     headers: {
-  //       'zrealtyserviceapikey': DEFAULT_API_TOKEN,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     next: { revalidate: 3600 }
-  //   });
+  try {
+    const res = await fetch(`${API_BASE_URL}/TemplateMaster/GetAllActiveTemplate?RegionId=0`, {
+      method: 'GET',
+      headers: {
+        'zrealtyserviceapikey': DEFAULT_API_TOKEN,
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 3600 }
+    });
 
-  //   if (res.ok) {
-  //     const data = await res.json();
-  //     const templates = data.templateList || [];
+    if (res.ok) {
+      const data = await res.json();
+      const templates = data.templateList || [];
 
-  //     for (const template of templates) {
-  //       if (template && template.template_Id) {
-  //         const encryptedId = encryptProjectId(template.template_Id);
-  //         const templateLastMod = template.updatedOn ? new Date(template.updatedOn) : dynamicLastMod;
+      for (const template of templates) {
+        if (template && template.template_Id) {
+          const encryptedId = encryptProjectId(template.template_Id);
+          const templateLastMod = template.updatedOn ? new Date(template.updatedOn) : dynamicLastMod;
 
-  //         // Add Global Template URL
-  //         urls.push({
-  //           url: `${BASE_URL}/template-detail?templateId=${encryptedId}`,
-  //           lastModified: templateLastMod,
-  //           changeFrequency: 'weekly',
-  //           priority: 0.8,
-  //         });
+          // Add Global Template URL
+          urls.push({
+            url: `${BASE_URL}/template-detail?templateId=${encryptedId}`,
+            lastModified: templateLastMod,
+            changeFrequency: 'weekly',
+            priority: 0.8,
+          });
 
-  //         // Add Indian Template URL
-  //         urls.push({
-  //           url: `${BASE_URL}/in/template-detail?templateId=${encryptedId}`,
-  //           lastModified: templateLastMod,
-  //           changeFrequency: 'weekly',
-  //           priority: 0.8,
-  //         });
-  //       }
-  //     }
-  //   }
-  // } catch (err) {
-  //   console.error("Sitemap: Failed to fetch templates for sitemap generation", err);
-  // }
+          // Add Indian Template URL
+          urls.push({
+            url: `${BASE_URL}/in/template-detail?templateId=${encryptedId}`,
+            lastModified: templateLastMod,
+            changeFrequency: 'weekly',
+            priority: 0.8,
+          });
+        }
+      }
+    }
+  } catch (err) {
+    console.error("Sitemap: Failed to fetch templates for sitemap generation", err);
+  }
 
   // Blog — flat, locale-neutral URLs (no /in variant), migrated from WordPress.
   urls.push({
