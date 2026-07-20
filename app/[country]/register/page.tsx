@@ -115,8 +115,8 @@ const RegistrationContent = () => {
         switch (type) {
             case 'training':
                 return {
-                    title: "Level Up Your Design Career.",
-                    subtitle: "Master AI-powered architectural visualization and get certified by Zlendo Realty.",
+                    title: "Enroll in Zlendo Realty AI Design Training.",
+                    subtitle: "Learn. Design. Build.",
                     features: [
                         { icon: Cpu, title: "AI Workflows", desc: "Learn to generate layouts in seconds." },
                         { icon: CheckCircle2, title: "Certification", desc: "Official Zlendo certified professional badge." },
@@ -263,30 +263,67 @@ const RegistrationContent = () => {
                 >
 
                     <div className="max-w-xl">
-                        <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-[#1a1a1a] leading-[1.05] mb-8 tracking-tight">
-                            {content.title.split('.').map((p, i) => (
-                                <span key={i} className={i === 1 ? 'text-zlendo-teal' : ''}>
-                                    {p}{i === 0 && '.'}
-                                </span>
-                            ))}
-                        </h1>
-                        <p className="text-xl text-zlendo-grey-medium font-medium mb-12 leading-relaxed">
-                            {content.subtitle}
-                        </p>
+                        {type === 'training' ? (
+                            <div>
+                                <h1 className="text-[28px] md:text-[36px] lg:text-[44px] font-black text-[#1a1a1a] leading-[1.1] mb-6 tracking-tight">
+                                    Enroll in <span className="text-zlendo-teal">Zlendo Realty</span> AI Design Training
+                                </h1>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-                            {content.features.map((feature, i) => (
-                                <div key={i} className="flex gap-4 group">
-                                    <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-zlendo-teal shrink-0 group-hover:scale-110 transition-transform">
-                                        <feature.icon className="w-6 h-6" />
-                                    </div>
-                                    <div className="space-y-1">
-                                        <h3 className="font-bold text-[#1a1a1a]">{feature.title}</h3>
-                                        <p className="text-sm text-zlendo-grey-medium leading-tight">{feature.desc}</p>
-                                    </div>
+                                <div className="space-y-3 mb-8 text-zlendo-grey-medium font-medium">
+                                    <p className="text-xl font-bold text-[#1a1a1a]">Learn. Design. Build.</p>
+                                    <p className="leading-relaxed">Master AI-powered tools for Home Planning, Interior Design, and 3D Visualization.</p>
+                                    <p className="leading-relaxed">Develop industry-ready skills with our hands-on training tailored for students, architects, builders, and entrepreneurs.</p>
                                 </div>
-                            ))}
-                        </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                                    {[
+                                        { title: "AI Floor Planning & Pre-Design", desc: "Master 2D to 3D conversion workflows.", icon: Cpu },
+                                        { title: "Cloud-Based Learning", desc: "No expensive hardware required—learn anywhere.", icon: Globe },
+                                        { title: "Hands-on Experience", desc: "Practical training tailored for pros and students.", icon: Users },
+                                        { title: "Certificate of Completion", desc: "Build industry-ready skills and get certified.", icon: CheckCircle2 }
+                                    ].map((feature, i) => (
+                                        <div key={i} className="bg-white p-5 rounded-[24px] shadow-sm border border-gray-100 flex gap-4 group items-start hover:shadow-md transition-all">
+                                            <div className="w-10 h-10 rounded-xl bg-[#f8fbfa] border border-[#eee] flex items-center justify-center text-zlendo-teal shrink-0 group-hover:scale-110 transition-transform">
+                                                <feature.icon className="w-5 h-5" />
+                                            </div>
+                                            <div className="space-y-1 mt-0.5">
+                                                <h3 className="font-bold text-[#1a1a1a] text-[15px] leading-tight">{feature.title}</h3>
+                                                <p className="text-sm text-zlendo-grey-medium leading-relaxed">{feature.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <p className="text-lg font-bold text-zlendo-teal">Start your AI-powered design journey today!</p>
+                            </div>
+                        ) : (
+                            <>
+                                <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-[#1a1a1a] leading-[1.05] mb-8 tracking-tight">
+                                    {content.title.split('.').map((p, i) => (
+                                        <span key={i} className={i === 1 ? 'text-zlendo-teal' : ''}>
+                                            {p}{i === 0 && '.'}
+                                        </span>
+                                    ))}
+                                </h1>
+                                <p className="text-xl text-zlendo-grey-medium font-medium mb-12 leading-relaxed">
+                                    {content.subtitle}
+                                </p>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                                    {content.features.map((feature, i) => (
+                                        <div key={i} className="flex gap-4 group">
+                                            <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-zlendo-teal shrink-0 group-hover:scale-110 transition-transform">
+                                                <feature.icon className="w-6 h-6" />
+                                            </div>
+                                            <div className="space-y-1">
+                                                <h3 className="font-bold text-[#1a1a1a]">{feature.title}</h3>
+                                                <p className="text-sm text-zlendo-grey-medium leading-tight">{feature.desc}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                        )}
                     </div>
                 </motion.div>
 
@@ -402,16 +439,16 @@ const RegistrationContent = () => {
                                     <div className="space-y-1.5">
                                         <label className="text-[11px] font-medium uppercase tracking-widest text-zlendo-grey-medium opacity-60 ml-2">Mobile Number *</label>
                                         <div className="relative flex-1">
-                                                <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
-                                                <input
-                                                    type="tel"
-                                                    required
-                                                    className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
-                                                    value={formState.phone}
-                                                    onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/[^\d+\-() ]/g, '') })}
-                                                />
-                                            </div>
+                                            <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/40" />
+                                            <input
+                                                type="tel"
+                                                required
+                                                className="w-full bg-[#f9fafb] border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-zlendo-teal focus:bg-white transition-all font-normal text-[#1a1a1a]"
+                                                value={formState.phone}
+                                                onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/[^\d+\-() ]/g, '') })}
+                                            />
                                         </div>
+                                    </div>
 
                                     {type === 'partnership' ? (
                                         <>
