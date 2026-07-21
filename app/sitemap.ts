@@ -94,6 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // { path: '/help-center', priority: 0.7, changeFrequency: 'weekly' as const, isGlobal: true },
 
     // Compare pages
+    { path: '/compare', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/compare/zlendo-vs-foyr-neo', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/compare/zlendo-vs-roomsketcher', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/compare/zlendo-vs-coohom', priority: 0.9, changeFrequency: 'monthly' as const },

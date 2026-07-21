@@ -234,6 +234,7 @@ const Footer = ({
                             <li><Link href={getPath('/compare/zlendo-vs-foyr-neo')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Zlendo vs Foyr Neo</Link></li>
                             <li><Link href={getPath('/compare/zlendo-vs-roomsketcher')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Zlendo vs Roomsketcher</Link></li>
                             <li><Link href={getPath('/compare/zlendo-vs-coohom')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Zlendo vs Coohom</Link></li>
+                            <li><Link href={getPath('/compare')} className="font-semibold text-zlendo-teal hover:text-zlendo-teal-dark transition-colors whitespace-nowrap">Compare all tools →</Link></li>
                         </ul>
 
                         {/* <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-5 mt-7">Contact Our Team</h4>

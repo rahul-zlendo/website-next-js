@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/config/env';
 import { comparisonData } from './comparisonData';
+import { useCountry } from '@/lib/context/CountryContext';
 
 // Map icon name string to Lucide icon component
 const iconMap: Record<string, any> = {
@@ -31,6 +32,7 @@ interface ComparisonClientProps {
 export default function ComparisonClient({ competitor }: ComparisonClientProps) {
     const data = comparisonData[competitor];
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
+    const { getPath } = useCountry();
 
     if (!data) return null;
 
@@ -376,6 +378,9 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                                     <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                                 </a>
                                 <div className="text-xs font-bold text-slate-400">No credit card required</div>
+                                <a href={getPath('/compare')} className="mt-2 text-xs font-bold text-slate-400 hover:text-white transition-colors underline underline-offset-4">
+                                    See all comparisons →
+                                </a>
                             </div>
                         </div>
                     </div>

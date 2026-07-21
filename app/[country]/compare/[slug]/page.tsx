@@ -34,7 +34,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const { slug } = await params;
+  const { country, slug } = await params;
+  const hubPath = country === 'global' ? '/compare' : `/${country}/compare`;
   const { isEnabled: preview } = await draftMode();
   const cms = await getClient(preview).fetch(comparePageQuery, { slug }).catch(() => null);
   const defaults = getCompareDefaults(slug);
@@ -54,7 +55,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
       <JsonLd schema={faqSchema} />
-      <ComparePageClient cms={cms} slug={slug} defaults={defaults} signupUrl={SIGNUP_URL} />
+      <ComparePageClient cms={cms} slug={slug} defaults={defaults} signupUrl={SIGNUP_URL} hubPath={hubPath} />
     </>
   );
 }

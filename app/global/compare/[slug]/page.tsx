@@ -53,7 +53,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
       <JsonLd schema={faqSchema} />
-      <ComparePageClient cms={cms} slug={slug} defaults={defaults} signupUrl={SIGNUP_URL} />
+      <ComparePageClient cms={cms} slug={slug} defaults={defaults} signupUrl={SIGNUP_URL} hubPath="/compare" />
     </>
   );
 }

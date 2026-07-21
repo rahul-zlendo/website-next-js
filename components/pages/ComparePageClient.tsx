@@ -50,6 +50,7 @@ interface ComparePageClientProps {
   slug: string;
   defaults: ComparePageDefaults;
   signupUrl: string;
+  hubPath?: string;
 }
 
 function get<T>(cms: any, defaults: ComparePageDefaults, key: keyof ComparePageDefaults): T {
@@ -60,7 +61,7 @@ function get<T>(cms: any, defaults: ComparePageDefaults, key: keyof ComparePageD
   return defaults[key] as T;
 }
 
-export default function ComparePageClient({ cms, slug, defaults, signupUrl }: ComparePageClientProps) {
+export default function ComparePageClient({ cms, slug, defaults, signupUrl, hubPath = '/compare' }: ComparePageClientProps) {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const pageType = get<string>(cms, defaults, 'pageType') as 'comparison' | 'alternatives';
   const heroTitle = get<string>(cms, defaults, 'heroTitle');
@@ -417,6 +418,11 @@ export default function ComparePageClient({ cms, slug, defaults, signupUrl }: Co
           >
             Start Free — No Credit Card Required
           </a>
+          <div className="mt-8">
+            <a href={hubPath} className="text-sm font-bold text-gray-400 hover:text-white transition-colors underline underline-offset-4">
+              See all Zlendo Realty comparisons →
+            </a>
+          </div>
         </div>
       </section>
     </main>
