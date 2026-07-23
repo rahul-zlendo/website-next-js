@@ -40,10 +40,14 @@ const ScrollToTop = () => {
         };
     }, []);
 
-    // Auto-open chat bot for 10 seconds on first visit (session based)
+    // Auto-open chat bot for 10 seconds on first visit (session based), except on mobile
     useEffect(() => {
         const hasAutoOpened = sessionStorage.getItem('zlendo_chat_auto_opened');
-        if (!hasAutoOpened) {
+
+        // Don't auto-open on mobile devices (width < 768px)
+        const isMobile = window.innerWidth < 768;
+
+        if (!hasAutoOpened && !isMobile) {
             const openTimer = setTimeout(() => {
                 setIsChatOpen(true);
                 sessionStorage.setItem('zlendo_chat_auto_opened', 'true');
@@ -58,6 +62,9 @@ const ScrollToTop = () => {
             }, 1000);
 
             return () => clearTimeout(openTimer);
+        } else if (!hasAutoOpened && isMobile) {
+            // Mark as opened so we don't open it if the user resizes the window later
+            sessionStorage.setItem('zlendo_chat_auto_opened', 'true');
         }
     }, []);
 

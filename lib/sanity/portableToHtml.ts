@@ -112,14 +112,16 @@ const components: Partial<PortableTextHtmlComponents> = {
       const hasHeader = value?.hasHeaderRow !== false;
       const headerRow = hasHeader ? rows[0] : null;
       const bodyRows = headerRow ? rows.slice(1) : rows;
-      const cell = (t: string, tag: 'th' | 'td') => `<${tag}>${escapeAttr(t ?? '')}</${tag}>`;
+
       const thead = headerRow
-        ? `<thead><tr>${(headerRow.cells || []).map((c) => cell(c, 'th')).join('')}</tr></thead>`
+        ? `<thead class="bg-zlendo-teal/5"><tr>${(headerRow.cells || []).map((c) => `<th class="p-4 border border-black/10 text-zlendo-grey-dark font-bold text-left">${escapeAttr(c ?? '')}</th>`).join('')}</tr></thead>`
         : '';
+
       const tbody = `<tbody>${bodyRows
-        .map((r) => `<tr>${(r.cells || []).map((c) => cell(c, 'td')).join('')}</tr>`)
+        .map((r) => `<tr>${(r.cells || []).map((c) => `<td class="p-4 border border-black/10 text-zlendo-grey-medium">${escapeAttr(c ?? '')}</td>`).join('')}</tr>`)
         .join('')}</tbody>`;
-      return `<div class="blog-table-wrap"><table>${thead}${tbody}</table></div>`;
+
+      return `<div class="blog-table-wrap overflow-x-auto my-8 w-full rounded-xl border border-black/5"><table class="w-full border-collapse text-sm md:text-base">${thead}${tbody}</table></div>`;
     },
   },
   block: {
