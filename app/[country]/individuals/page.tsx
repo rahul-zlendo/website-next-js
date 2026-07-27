@@ -1,14 +1,29 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { ArrowRight, CheckCircle2, Palette, Layers, Box, Sparkles, Zap, ChevronDown, Phone } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import FaqAccordion from '../components/FaqAccordion';
+import JsonLd from '@/components/common/JsonLd';
+
+export const metadata: Metadata = {
+    title: '3D Home Visualization for Individuals | Zlendo Realty',
+    description: 'Experience your future home in 8K immersive 3D visualization. Get precise budgets and eliminate construction guesswork with Zlendo Realty.',
+    alternates: {
+        canonical: 'https://zlendorealty.com/in/individuals',
+    },
+};
 
 const COUNTRY = 'in';
 
 const services = [
-    'Interior Design', 'Architecture', 'Construction', 'Renovation',
-    'Vastu Consultation', 'Landscape Design', 'Electrical & Plumbing',
-    'Furniture & Decor'
+    { name: 'Interior Design', href: '/in/use-case/interior-design' },
+    { name: 'Architecture', href: '/in/products/floor-planner' },
+    { name: 'Construction', href: '/in/use-case/new-home-building' },
+    { name: 'Renovation', href: '/in/use-case/home-remodeling' },
+    { name: 'Vastu Consultation', href: '/in/use-case/vastu-optimization' },
+    { name: 'Landscape Design', href: '/in/products/interiors-exteriors' },
+    { name: 'Virtual Walkthrough', href: '/in/products/virtual-walkthrough' },
+    { name: 'Furniture & Decor', href: '/in/products/room-styler' }
 ];
 
 const steps = [
@@ -52,8 +67,22 @@ const faqs = [
 ];
 
 export default function IndividualsPage() {
+    const faqSchema = {
+        '@context': 'https://schema.org/',
+        '@type': 'FAQPage',
+        'mainEntity': faqs.map(faq => ({
+            '@type': 'Question',
+            'name': faq.q,
+            'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': faq.a
+            }
+        }))
+    };
+
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
+            <JsonLd schema={faqSchema} />
             <main className="pt-8 md:pt-12">
                 {/* Hero Section */}
                 <section className="container-custom px-4 mb-12 relative z-10">
@@ -122,9 +151,9 @@ export default function IndividualsPage() {
                         <h2 className="text-2xl md:text-3xl font-black font-nunito text-zlendo-grey-dark mb-8 opacity-80">Everything you need to build better</h2>
                         <div className="flex flex-wrap justify-center gap-3 md:gap-6">
                             {services.map((service) => (
-                                <div key={service} className="px-5 py-2.5 bg-white rounded-full border border-black/[0.05] shadow-sm text-sm md:text-base font-bold text-zlendo-grey-dark hover:border-zlendo-teal/30 hover:text-zlendo-teal transition-colors cursor-default">
-                                    {service}
-                                </div>
+                                <Link key={service.name} href={service.href} className="px-5 py-2.5 bg-white rounded-full border border-black/[0.05] shadow-sm text-sm md:text-base font-bold text-zlendo-grey-dark hover:border-zlendo-teal/30 hover:text-zlendo-teal transition-colors">
+                                    {service.name}
+                                </Link>
                             ))}
                         </div>
                     </div>
@@ -157,7 +186,7 @@ export default function IndividualsPage() {
                                     {/* Image Side */}
                                     <div className={`${index % 2 !== 0 ? 'md:order-1' : ''} relative`}>
                                         <div className="aspect-[4/3] rounded-[32px] overflow-hidden shadow-lg border border-black/5 group">
-                                            <img src={step.img} alt={step.tag} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                                            <img src={step.img} alt={`${step.title} - Zlendo Realty 3D Platform`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                                         </div>
                                         {/* Center Dot */}
                                         <div className="absolute top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-white border-2 border-zlendo-teal shadow-lg z-20" style={{ [index % 2 === 0 ? 'left' : 'right']: '-32px', transform: 'translateX(32px) translateX(-50%)' }}>

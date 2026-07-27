@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Quote, TrendingUp, Clock, ShieldCheck, MapPin, Building2, Layout } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { useCountry } from '@/lib/context/CountryContext';
+import FaqAccordion from '../components/FaqAccordion';
+import JsonLd from '@/components/common/JsonLd';
 
 const ModernIndianHomeImg = '/assets/use-case/modern-indian-home-interior.webp';
 const ModernArchStudioImg = '/assets/use-case/modern-architecture-studio.webp';
@@ -19,8 +21,36 @@ const ModernArchStudioImg = '/assets/use-case/modern-architecture-studio.webp';
 export default function UseCasesPage() {
     const { getPath } = useCountry();
 
+    const faqs = [
+        { q: "Who can benefit from Zlendo Realty's use cases?", a: "Our platform is built for a wide range of users, from individual first-time homebuilders seeking visual clarity, to professional architectural studios looking to automate BOQ generation and scale their workflow effortlessly." },
+        { q: "Are the features localized for the Indian market?", a: "Yes, our tools incorporate Indian architectural standards, Vastu Shastra integrations, and local Schedule of Rates (SOR) for accurate Cost Estimation and BOQ generation in your specific region." },
+        { q: "Can I switch between personal and professional tools?", a: "Absolutely. While we showcase distinct use cases, users can easily access both intuitive design tools and professional-grade rendering features directly from their dashboard." }
+    ];
+
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
+    const webPageSchema = {
+        "@context": "https://schema.org/",
+        "@type": "WebPage",
+        "name": "Industry Solutions for Indian Construction | Zlendo Realty",
+        "description": "Explore how real architects, contractors, and individual builders use Zlendo Realty to eliminate rework, ensure Vastu compliance, and create 3D home designs instantly."
+    };
+
     return (
         <div className="bg-white selection:bg-zlendo-teal/10">
+            <JsonLd schema={faqSchema} />
+            <JsonLd schema={webPageSchema} />
             <div className="min-h-screen relative pt-12">
                 {/* Global Background Accents */}
                 <div className="fixed inset-0 pointer-events-none opacity-[0.02]"
@@ -72,7 +102,7 @@ export default function UseCasesPage() {
                                 <div className="relative rounded-[60px] overflow-hidden border border-black/5 shadow-2xl shadow-black/[0.05]">
                                     <img
                                         src={ModernIndianHomeImg}
-                                        alt="Modern Indian Home Interior"
+                                        alt="Individual builder using 3D visualization for a modern Indian residential home"
                                         className="w-full h-auto scale-105 group-hover:scale-100 transition-transform duration-1000"
                                     />
                                     <div className="absolute bottom-10 left-10 py-3 px-6 bg-white/90 backdrop-blur-md rounded-2xl flex items-center gap-3 border border-black/5 shadow-xl">
@@ -205,7 +235,7 @@ export default function UseCasesPage() {
                                 <div className="relative rounded-[60px] overflow-hidden border border-black/5 shadow-2xl shadow-black/[0.05]">
                                     <img
                                         src={ModernArchStudioImg}
-                                        alt="Modern Architecture Studio"
+                                        alt="Boutique Architectural Studio accelerating client approvals through Automated BOQ generation"
                                         className="w-full h-auto scale-105 group-hover:scale-100 transition-transform duration-1000"
                                     />
                                     <div className="absolute top-10 right-10 py-3 px-6 bg-zlendo-grey-dark/90 backdrop-blur-md rounded-2xl flex items-center gap-3 border border-white/10 shadow-xl">
@@ -215,6 +245,14 @@ export default function UseCasesPage() {
                                 </div>
                             </motion.div>
                         </div>
+                    </div>
+                </section>
+
+                {/* FAQ Block */}
+                <section className="py-16 bg-white">
+                    <div className="container-custom px-6 max-w-3xl mx-auto">
+                        <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions</h2>
+                        <FaqAccordion faqs={faqs} />
                     </div>
                 </section>
 

@@ -99,7 +99,7 @@ export default function BusinessFeatureTabs({ featureContent }: { featureContent
                                     <div className="aspect-video w-full overflow-hidden rounded-[38px]">
                                         <img
                                             src={featureContent[activeTab]?.features[activeSubIndex]?.image}
-                                            alt={featureContent[activeTab]?.features[activeSubIndex]?.title}
+                                            alt={`${featureContent[activeTab]?.features[activeSubIndex]?.title} - Zlendo Realty Business Features`}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms]"
                                         />
                                     </div>

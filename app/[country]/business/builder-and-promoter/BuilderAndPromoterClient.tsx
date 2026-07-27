@@ -8,6 +8,8 @@ import { SIGNUP_URL } from '@/lib/constants/urls';
 import { useCountry } from '@/lib/context/CountryContext';
 import CaseStudySection from '@/components/common/CaseStudySection';
 import { urlFor } from '@/lib/sanity/image';
+import FaqAccordion from '@/app/[country]/components/FaqAccordion';
+import JsonLd from '@/components/common/JsonLd';
 
 interface BuilderAndPromoterClientProps {
     cms: any;
@@ -57,11 +59,38 @@ export default function BuilderAndPromoterClient({ cms }: BuilderAndPromoterClie
             { label: 'Sales Conversion', value: '+45%' },
             { label: 'Approval Time', value: '2x Faster' }
         ],
-        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/use-cases/builders/builder-visual.webp'
+        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/use-cases/builders/builder-visual.webp',
+        imageAlt: cms?.caseStudyImage?.alt || 'Zlendo Realty 3D Visualization Tool for Builders and Promoters'
+    };
+
+    const faqs = [
+        { q: "How quickly can we convert our 2D floor plans to 3D?", a: "Zlendo Realty's AI instantly converts standard 2D floor plans to immersive 3D within 30 seconds." },
+        { q: "Can buyers interact with the 3D walkthroughs?", a: "Yes, our interactive links allow your clients to explore the property independently via any browser, no app required." },
+        { q: "Do you support under-construction projects?", a: "Absolutely. We specialize in giving visual confidence to buyers well before the first brick is laid." },
+        { q: "Is integration with our sales team difficult?", a: "Not at all. We provide a central dashboard for your sales team to manage projects and instantly share presentation links." }
+    ];
+
+    const builderSchema = {
+        '@context': 'https://schema.org/',
+        '@type': 'WebPage',
+        'name': 'Zlendo Realty for Builders and Promoters',
+        'description': 'Empower your buyers to visualize their future home instantly, reducing sales friction and accelerating your commission cycle.',
+        'mainEntity': {
+            '@type': 'FAQPage',
+            'mainEntity': faqs.map(faq => ({
+                '@type': 'Question',
+                'name': faq.q,
+                'acceptedAnswer': {
+                    '@type': 'Answer',
+                    'text': faq.a
+                }
+            }))
+        }
     };
 
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
+            <JsonLd schema={builderSchema} />
             <div className="min-h-screen relative pt-12">
                 {/* Global Background Accents */}
                 <div className="fixed inset-0 pointer-events-none opacity-[0.02]"
@@ -148,6 +177,14 @@ export default function BuilderAndPromoterClient({ cms }: BuilderAndPromoterClie
                                 );
                             })}
                         </div>
+                    </div>
+                </section>
+
+                {/* FAQs */}
+                <section className="py-10 bg-white">
+                    <div className="container-custom max-w-3xl mx-auto px-6">
+                        <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-10 leading-tight">Common Questions</h2>
+                        <FaqAccordion faqs={faqs} />
                     </div>
                 </section>
 

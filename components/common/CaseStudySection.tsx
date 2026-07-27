@@ -72,14 +72,14 @@ export default function CaseStudySection({ data, accentColorClass, bgAccentClass
 
                         <div className="space-y-8">
                             <div className={`p-8 rounded-[40px] ${bgAccentClass} border border-${accentColorClass}/10`}>
-                                <h4 className="text-xs font-black uppercase tracking-widest text-zlendo-grey-medium mb-4">The Challenge</h4>
+                                <h3 className="text-xs font-black uppercase tracking-widest text-zlendo-grey-medium mb-4">The Challenge</h3>
                                 <p className="text-lg text-zlendo-grey-medium font-medium leading-relaxed">
                                     {data.challenge.description}
                                 </p>
                             </div>
 
                             <div className="p-8 rounded-[40px] bg-white border border-black/5 shadow-xl shadow-black/[0.02]">
-                                <h4 className={`text-xs font-black uppercase tracking-widest text-${accentColorClass} mb-4`}>The Solution</h4>
+                                <h3 className={`text-xs font-black uppercase tracking-widest text-${accentColorClass} mb-4`}>The Solution</h3>
                                 <p className="text-lg text-zlendo-grey-dark font-medium leading-relaxed">
                                     {data.solution.description}
                                 </p>
