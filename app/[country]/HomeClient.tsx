@@ -396,7 +396,7 @@ export default function HomeClient({
                                             onClick={() => item.templateId && handleTemplateClick(item.templateId)}
                                             className={`${item.colSpan} ${item.rowSpan} relative group rounded-[24px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-lg block h-[260px] md:h-full`}
                                         >
-                                            <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                            <img src={item.img} alt={`${item.title} - Zlendo Realty 3D Design`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                                             <div className={`absolute inset-0 transition-opacity duration-500 ${item.isLarge ? 'bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100' : 'bg-black/40 opacity-0 group-hover:opacity-100'}`} />
                                             <div className={`absolute left-0 p-6 md:p-8 transition-all duration-500 ${item.isLarge ? 'bottom-0 translate-y-4 md:translate-y-8 group-hover:translate-y-0 opacity-100 md:opacity-0 group-hover:opacity-100' : 'bottom-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100'}`}>
                                                 {item.isLarge && <h3 className="text-white text-xl md:text-2xl font-black mb-2">{item.title}</h3>}
@@ -465,7 +465,7 @@ export default function HomeClient({
                                     <div className="mt-12 rounded-2xl overflow-hidden bg-gray-50 aspect-[4/3] group relative">
                                         <img
                                             src={feature.imageUrl ? urlFor(feature.imageUrl).url() : constructFullBlobUrl(feature.img)}
-                                            alt={feature.title}
+                                            alt={`${feature.title} - Zlendo Realty 3D Home Design Feature`}
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
                                         />
                                     </div>
@@ -739,7 +739,7 @@ export default function HomeClient({
                                 </div>
                             </div>
                             <div className="flex-1 w-full max-w-md">
-                                <img src={ctaImageUrl.startsWith('http') ? ctaImageUrl : constructFullBlobUrl(ctaImageUrl)} alt="Zlendo Realty" className="w-full h-auto drop-shadow-2xl" loading="lazy" />
+                                <img src={ctaImageUrl.startsWith('http') ? ctaImageUrl : constructFullBlobUrl(ctaImageUrl)} alt={ctaSubtitle || "Start designing your house with Zlendo Realty 3D Platform"} className="w-full h-auto drop-shadow-2xl" loading="lazy" />
                             </div>
                         </div>
                     </div>

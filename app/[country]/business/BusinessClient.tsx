@@ -9,6 +9,15 @@ import {
 import BusinessDemoForm from '../components/BusinessDemoForm';
 import BusinessFeatureTabs from '../components/BusinessFeatureTabs';
 import { urlFor } from '@/lib/sanity/image';
+import FaqAccordion from '../components/FaqAccordion';
+import JsonLd from '@/components/common/JsonLd';
+
+const faqs = [
+    { q: "How does Zlendo Realty integrate with our existing CRM?", a: "Zlendo Realty offers comprehensive API integration and native webhooks that connect seamlessly with Salesforce, HubSpot, and custom enterprise CRMs." },
+    { q: "Can we use our own proprietary material libraries?", a: "Yes. Enterprise accounts include dedicated cloud storage to upload, manage, and restrict permission to your proprietary 3D materials and assets." },
+    { q: "What is the implementation timeline for a large team?", a: "Most enterprise teams are fully onboarded within 2-4 weeks, including custom library setup, workflow integration, and team training." },
+    { q: "Is the data secure and compliant?", a: "Zlendo Realty is VAPT certified, GDPR compliant, and stores enterprise data in isolated, regionally-compliant server clusters with end-to-end encryption." }
+];
 
 const heroIcons = [Layers, Video, Smartphone, BarChart3];
 const personaIcons = [Briefcase, Layers, Sparkles, BarChart3];
@@ -76,7 +85,7 @@ export default function BusinessClient({ cms, country }: BusinessClientProps) {
         }
     ];
 
-    const featureContent = cms?.industryFeatures?.length > 0 ? 
+    const featureContent = cms?.industryFeatures?.length > 0 ?
         cms.industryFeatures.reduce((acc: any, item: any) => {
             acc[item.industryName] = {
                 title: item.industryName,
@@ -88,63 +97,63 @@ export default function BusinessClient({ cms, country }: BusinessClientProps) {
             };
             return acc;
         }, {}) : {
-        'Interior Design Companies': {
-            title: 'Interior Design Companies',
-            features: [
-                { title: '2D-3D', desc: 'Convert sketches into editable 3D models instantly with AI-powered precision.', image: '/assets/business/2d-to-3d.webm' },
-                { title: 'Estimation quote for interiors', desc: 'Generate accurate BOQs and professional quotations in seconds as you design.', image: '/assets/business/cost-estimation.webm' },
-                { title: '360 Walkthrough', desc: "Immersive VR experiences that let clients experience their future home before it's built.", image: '/assets/business/360-walkthrough.webm' }
-            ]
-        },
-        'Architects': {
-            title: 'Architects',
-            features: [
-                { title: 'High-End Visualization', desc: 'Create photo-realistic 8K renders and cinematic walkthroughs for large-scale projects.', image: '/assets/business/image-render.webm' },
-                { title: 'Detailed BIM Support', desc: 'Integrate architectural details and structural elements into a unified cloud model.', image: '/assets/business/bim-support.webm' },
-                { title: 'Sunlight & Shadow Analysis', desc: 'Simulate real-world environment conditions to optimize building performance.', image: '/assets/business/sunlight-shadow-analysis.webm' }
-            ]
-        },
-        'Realtors for Marketing': {
-            title: 'Realtors for Marketing',
-            features: [
-                { title: 'Marketing Content Packs', desc: 'Generate high-quality images and social media layouts to attract potential buyers.', image: '/assets/business/marketing-content-packs.webm' },
-                { title: 'Interactive Sales Tool', desc: 'Enable sales teams to customize interiors on-the-fly during client presentations.', image: '/assets/business/interactive-sales-tool.webm' },
-                { title: 'AR Home Preview', desc: 'Let buyers visualize future homes on empty sites using advanced Augmented Reality.', image: '/assets/business/ar.webm' }
-            ]
-        },
-        'Experience Centers': {
-            title: 'Experience Centers',
-            features: [
-                { title: 'Digital Showroom', desc: 'Replace physical sample flats with cost-effective, high-impact digital experiences.', image: '/assets/business/digital-showroom.webm' },
-                { title: 'Multi-Terminal Sync', desc: 'Synchronize designs across multiple screens and devices for a seamless visitor journey.', image: '/assets/business/multi-terminal-sync.webm' },
-                { title: 'Visitor Analytics', desc: 'Track which designs and layouts resonate most with your prospects.', image: '/assets/business/visitors-analytics.webm' }
-            ]
-        },
-        'Civil Contractors': {
-            title: 'Civil Contractors',
-            features: [
-                { title: 'Production Drawings', desc: 'Auto-generate accurate 2D CAD drawings from your 3D models for site execution.', image: '/assets/business/2d-cad-drawing.webm' },
-                { title: 'Material Optimization', desc: 'Maximize yield and reduce wastage with intelligent panel nesting and material lists.', image: '/assets/business/material-optimization.webm' },
-                { title: 'Project Coordination', desc: 'One source of truth for all stakeholders to minimize errors during construction.', image: '/assets/business/project-coordination.webm' }
-            ]
-        },
-        'Paint industry': {
-            title: 'Paint industry',
-            features: [
-                { title: 'Color Visualization', desc: 'Accurately simulate thousands of shades and textures in realistic lighting.', image: '/assets/business/color-visualization.webm' },
-                { title: 'Quantity Calculator', desc: 'Automatically estimate the amount of paint required based on wall area.', image: '/assets/business/quantity-calculator.webm' },
-                { title: 'Trend Forecasting', desc: 'Showcase seasonal color palettes and design trends to inspire customers.', image: '/assets/business/trend-forecasting.webm' }
-            ]
-        },
-        'False Ceiling': {
-            title: 'False Ceiling',
-            features: [
-                { title: 'Ceiling Design Library', desc: 'Access a vast library of modern false ceiling patterns and configurations.', image: '/assets/business/ceiling-design-library.webm' },
-                { title: 'Lighting Integration', desc: 'Visualize COB lights, strip lights, and chandeliers within your ceiling designs.', image: '/assets/business/lighting-integration.webm' },
-                { title: 'Installation Guides', desc: 'Generate detailed layout plans for precise on-site installation.', image: '/assets/business/installation-guides.webm' }
-            ]
-        }
-    };
+            'Interior Design Companies': {
+                title: 'Interior Design Companies',
+                features: [
+                    { title: '2D-3D', desc: 'Convert sketches into editable 3D models instantly with AI-powered precision.', image: '/assets/business/2d-to-3d.webm' },
+                    { title: 'Estimation quote for interiors', desc: 'Generate accurate BOQs and professional quotations in seconds as you design.', image: '/assets/business/cost-estimation.webm' },
+                    { title: '360 Walkthrough', desc: "Immersive VR experiences that let clients experience their future home before it's built.", image: '/assets/business/360-walkthrough.webm' }
+                ]
+            },
+            'Architects': {
+                title: 'Architects',
+                features: [
+                    { title: 'High-End Visualization', desc: 'Create photo-realistic 8K renders and cinematic walkthroughs for large-scale projects.', image: '/assets/business/image-render.webm' },
+                    { title: 'Detailed BIM Support', desc: 'Integrate architectural details and structural elements into a unified cloud model.', image: '/assets/business/bim-support.webm' },
+                    { title: 'Sunlight & Shadow Analysis', desc: 'Simulate real-world environment conditions to optimize building performance.', image: '/assets/business/sunlight-shadow-analysis.webm' }
+                ]
+            },
+            'Realtors for Marketing': {
+                title: 'Realtors for Marketing',
+                features: [
+                    { title: 'Marketing Content Packs', desc: 'Generate high-quality images and social media layouts to attract potential buyers.', image: '/assets/business/marketing-content-packs.webm' },
+                    { title: 'Interactive Sales Tool', desc: 'Enable sales teams to customize interiors on-the-fly during client presentations.', image: '/assets/business/interactive-sales-tool.webm' },
+                    { title: 'AR Home Preview', desc: 'Let buyers visualize future homes on empty sites using advanced Augmented Reality.', image: '/assets/business/ar.webm' }
+                ]
+            },
+            'Experience Centers': {
+                title: 'Experience Centers',
+                features: [
+                    { title: 'Digital Showroom', desc: 'Replace physical sample flats with cost-effective, high-impact digital experiences.', image: '/assets/business/digital-showroom.webm' },
+                    { title: 'Multi-Terminal Sync', desc: 'Synchronize designs across multiple screens and devices for a seamless visitor journey.', image: '/assets/business/multi-terminal-sync.webm' },
+                    { title: 'Visitor Analytics', desc: 'Track which designs and layouts resonate most with your prospects.', image: '/assets/business/visitors-analytics.webm' }
+                ]
+            },
+            'Civil Contractors': {
+                title: 'Civil Contractors',
+                features: [
+                    { title: 'Production Drawings', desc: 'Auto-generate accurate 2D CAD drawings from your 3D models for site execution.', image: '/assets/business/2d-cad-drawing.webm' },
+                    { title: 'Material Optimization', desc: 'Maximize yield and reduce wastage with intelligent panel nesting and material lists.', image: '/assets/business/material-optimization.webm' },
+                    { title: 'Project Coordination', desc: 'One source of truth for all stakeholders to minimize errors during construction.', image: '/assets/business/project-coordination.webm' }
+                ]
+            },
+            'Paint industry': {
+                title: 'Paint industry',
+                features: [
+                    { title: 'Color Visualization', desc: 'Accurately simulate thousands of shades and textures in realistic lighting.', image: '/assets/business/color-visualization.webm' },
+                    { title: 'Quantity Calculator', desc: 'Automatically estimate the amount of paint required based on wall area.', image: '/assets/business/quantity-calculator.webm' },
+                    { title: 'Trend Forecasting', desc: 'Showcase seasonal color palettes and design trends to inspire customers.', image: '/assets/business/trend-forecasting.webm' }
+                ]
+            },
+            'False Ceiling': {
+                title: 'False Ceiling',
+                features: [
+                    { title: 'Ceiling Design Library', desc: 'Access a vast library of modern false ceiling patterns and configurations.', image: '/assets/business/ceiling-design-library.webm' },
+                    { title: 'Lighting Integration', desc: 'Visualize COB lights, strip lights, and chandeliers within your ceiling designs.', image: '/assets/business/lighting-integration.webm' },
+                    { title: 'Installation Guides', desc: 'Generate detailed layout plans for precise on-site installation.', image: '/assets/business/installation-guides.webm' }
+                ]
+            }
+        };
 
     const personas = cms?.personas?.length > 0 ? cms.personas.map((p: any) => ({
         ...p,
@@ -164,6 +173,18 @@ export default function BusinessClient({ cms, country }: BusinessClientProps) {
 
     return (
         <div className="bg-white selection:bg-zlendo-orange/10 selection:text-zlendo-orange">
+            <JsonLd schema={{
+                '@context': 'https://schema.org/',
+                '@type': 'FAQPage',
+                'mainEntity': faqs.map(faq => ({
+                    '@type': 'Question',
+                    'name': faq.q,
+                    'acceptedAnswer': {
+                        '@type': 'Answer',
+                        'text': faq.a
+                    }
+                }))
+            }} />
             <div className="min-h-screen relative overflow-hidden font-nunito">
                 {/* Visual Background Elements */}
                 <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-zlendo-orange/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/4 -z-10" />
@@ -285,10 +306,10 @@ export default function BusinessClient({ cms, country }: BusinessClientProps) {
                                         <TrendingUp className="w-4 h-4" />
                                         <span>{cms?.roiBadge || "Enterprise Case Study"}</span>
                                     </div>
-                                    <h3 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark leading-tight mb-8">
+                                    <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark leading-tight mb-8">
                                         {cms?.roiTitle || "Real Results."} <br />
                                         <span className="text-zlendo-teal">{cms?.roiTitleHighlight || "Real ROI."}</span>
-                                    </h3>
+                                    </h2>
                                     <p className="text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                         {cms?.roiDesc1 || "Apex Developers saved ₹15Cr by replacing physical sample flats with Zlendo Realty Digital Experience Centers."}
                                     </p>
@@ -313,7 +334,7 @@ export default function BusinessClient({ cms, country }: BusinessClientProps) {
                                     <div className="absolute inset-0 bg-gradient-to-t from-zlendo-grey-dark/80 to-transparent opacity-60 z-10" />
                                     <img
                                         src={cms?.roiImage ? urlFor(cms.roiImage).url() : "/assets/business/apex-developer.webp"}
-                                        alt={cms?.roiImage?.alt || "Apex Developers Dashboard"}
+                                        alt={cms?.roiImage?.alt || "Zlendo Realty Enterprise Architectural Dashboard"}
                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                         loading="lazy"
                                     />
@@ -360,6 +381,14 @@ export default function BusinessClient({ cms, country }: BusinessClientProps) {
                                 );
                             })}
                         </div>
+                    </div>
+                </section>
+
+                {/* FAQs */}
+                <section className="py-12 md:py-20 bg-zlendo-grey-light/30">
+                    <div className="container-custom px-4 max-w-3xl">
+                        <h2 className="text-3xl md:text-4xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions</h2>
+                        <FaqAccordion faqs={faqs} />
                     </div>
                 </section>
 

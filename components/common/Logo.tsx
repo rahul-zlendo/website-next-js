@@ -3,14 +3,14 @@
 import Link from 'next/link';
 import { useCountry } from '@/lib/context/CountryContext';
 
-const Logo = ({ 
-    className = "h-12", 
+const Logo = ({
+    className = "h-12",
     onClick,
     imageUrl
-}: { 
-    className?: string, 
+}: {
+    className?: string,
     onClick?: () => void,
-    imageUrl?: string 
+    imageUrl?: string
 }) => {
     const { getPath } = useCountry();
 
@@ -22,7 +22,7 @@ const Logo = ({
         >
             <img
                 src={imageUrl || "/logo.png"}
-                alt="Zlendo Realty"
+                alt="Zlendo Realty 3D Home Design and Floor Planner Software Logo"
                 className="h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 loading="eager"
             />

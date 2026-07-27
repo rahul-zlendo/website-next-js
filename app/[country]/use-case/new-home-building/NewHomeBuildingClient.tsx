@@ -8,6 +8,9 @@ import { SIGNUP_URL } from '@/lib/constants/urls';
 import { useCountry } from '@/lib/context/CountryContext';
 import CaseStudySection from '@/components/common/CaseStudySection';
 import { urlFor } from '@/lib/sanity/image';
+import FaqAccordion from '../../components/FaqAccordion';
+import JsonLd from '@/components/common/JsonLd';
+import { ArrowRight, Box } from 'lucide-react';
 
 interface NewHomeBuildingClientProps {
     cms: any;
@@ -50,11 +53,40 @@ export default function NewHomeBuildingClient({ cms }: NewHomeBuildingClientProp
             { label: 'Decision Speed', value: '2x Faster' },
             { label: 'Construction Rework', value: '0%' }
         ],
-        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/new-home/new-home-case-study.webp'
+        image: cms?.caseStudyImage ? urlFor(cms.caseStudyImage).url() : '/assets/new-home/new-home-case-study.webp',
+        imageAlt: cms?.caseStudyImage?.alt || 'Visualizing a New Home Construction in 3D to Avoid Blueprint Errors'
+    };
+
+    const faqs = [
+        { q: "Can I visualize real-world sunlight in my new home?", a: "Yes, our Realistic Renders tool allows you to simulate natural sunlight at different times of the day based on your exact geographical location and window placements." },
+        { q: "How do I know if my planned furniture will fit?", a: "By using our Floor Planner, you can drop standard-sized furniture models directly into your 3D layout to accurately gauge walking clearance and room proportionality before construction." },
+        { q: "Will this help me communicate with my contractor?", a: "Absolutely. Providing your contractor with a photorealistic 3D render eliminates the ambiguity of 2D plans, ensuring you both share the exact same vision for materials, finishes, and layout." }
+    ];
+
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "mainEntity": faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
+    const webPageSchema = {
+        "@context": "https://schema.org/",
+        "@type": "WebPage",
+        "name": cms?.seoTitle ?? 'New Home Building 3D Visualization Use Case',
+        "description": cms?.seoDescription ?? 'From foundation to final finishes, visualize every detail of your new home construction. Ensure zero rework and perfect alignment with contractors.'
     };
 
     return (
         <div className="bg-white selection:bg-zlendo-teal/10">
+            <JsonLd schema={faqSchema} />
+            <JsonLd schema={webPageSchema} />
             <div className="min-h-screen relative pt-12">
                 {/* Global Background Accents */}
                 <div className="fixed inset-0 pointer-events-none opacity-[0.02]"
@@ -103,12 +135,62 @@ export default function NewHomeBuildingClient({ cms }: NewHomeBuildingClientProp
                     bgAccentClass={bgAccentClass}
                 />
 
+                {/* Internal Cross-Linking: Integrated Solutions */}
+                <section className="py-16 bg-slate-50 relative overflow-hidden">
+                    <div className="container-custom px-6 relative z-10">
+                        <div className="text-center max-w-2xl mx-auto mb-12">
+                            <h2 className="text-3xl md:text-4xl font-black font-nunito text-zlendo-grey-dark mb-4">
+                                Empower Your New Build
+                            </h2>
+                            <p className="text-lg text-zlendo-grey-medium font-medium">
+                                Eliminate construction rework by pairing these tools to secure approvals and finalize materials proactively.
+                            </p>
+                        </div>
+                        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                            <Link href="/in/products/floor-planner" className="group block bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl border border-slate-100 transition-all">
+                                <div className={`w-12 h-12 rounded-xl bg-${accentColorClass}/10 flex items-center justify-center text-${accentColorClass} mb-6`}>
+                                    <Sparkles className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-xl font-black text-zlendo-grey-dark mb-3 group-hover:text-zlendo-teal transition-colors">AI Floor Planner</h3>
+                                <p className="text-sm font-medium text-slate-500 mb-6">Convert manual architectural blueprints directly into interactive 3D floor plans.</p>
+                                <span className="text-zlendo-teal font-black text-sm uppercase tracking-widest flex items-center gap-2">Try Planner <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+                            </Link>
+
+                            <Link href="/in/products/realistic-renders" className="group block bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl border border-slate-100 transition-all">
+                                <div className={`w-12 h-12 rounded-xl bg-${accentColorClass}/10 flex items-center justify-center text-${accentColorClass} mb-6`}>
+                                    <Home className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-xl font-black text-zlendo-grey-dark mb-3 group-hover:text-zlendo-teal transition-colors">Realistic Renders</h3>
+                                <p className="text-sm font-medium text-slate-500 mb-6">Give your contractor an 8K visual reference for paint colors and floor tiles.</p>
+                                <span className="text-zlendo-teal font-black text-sm uppercase tracking-widest flex items-center gap-2">View Tool <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+                            </Link>
+
+                            <Link href="/in/products/interiors-exteriors" className="group block bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl border border-slate-100 transition-all">
+                                <div className={`w-12 h-12 rounded-xl bg-${accentColorClass}/10 flex items-center justify-center text-${accentColorClass} mb-6`}>
+                                    <Box className="w-6 h-6" />
+                                </div>
+                                <h3 className="text-xl font-black text-zlendo-grey-dark mb-3 group-hover:text-zlendo-teal transition-colors">Interiors & Exteriors</h3>
+                                <p className="text-sm font-medium text-slate-500 mb-6">Ensure your building's exterior elevation matches your interior styling.</p>
+                                <span className="text-zlendo-teal font-black text-sm uppercase tracking-widest flex items-center gap-2">View Tool <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+
+                {/* FAQ Block */}
+                <section className="py-16 bg-white">
+                    <div className="container-custom px-6 max-w-3xl mx-auto">
+                        <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions</h2>
+                        <FaqAccordion faqs={faqs} />
+                    </div>
+                </section>
+
                 {/* Final CTA Banner */}
                 <section className="section-padding py-12 bg-zlendo-grey-dark relative overflow-hidden rounded-[80px_80px_0_0]">
                     <div className={`absolute inset-0 bg-${accentColorClass}/5 blur-[100px]`} />
                     <div className="container-custom relative z-10 text-center space-y-12">
                         <h2 className="text-5xl sm:text-7xl font-black font-nunito text-white leading-tight tracking-tight max-w-4xl mx-auto">
-                            {cms?.ctaTitle ?? 'Ready to '} 
+                            {cms?.ctaTitle ?? 'Ready to '}
                             <span className={`text-${accentColorClass} italic`}>
                                 {cms?.ctaTitleHighlight ?? 'Build with Confidence?'}
                             </span>
