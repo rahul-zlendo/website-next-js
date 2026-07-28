@@ -16,9 +16,10 @@ export const metadata: Metadata = {
   },
 };
 
-// Safety-net fallback: if middleware rewrite somehow doesn't intercept,
-// redirect to /in (primary market). In practice, middleware's rewrite() runs first,
-// so this component rarely renders.
+// Safety-net fallback: if the middleware rewrite somehow doesn't intercept,
+// serve the GLOBAL homepage — matching `/`'s canonical (en / x-default) and the
+// new no-geo-redirect model. In practice middleware's rewrite() runs first, so
+// this rarely executes. (Was redirect('/in') under the old India-default model.)
 export default function RootPage() {
-  redirect('/in');
+  redirect('/global');
 }

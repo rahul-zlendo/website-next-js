@@ -40,6 +40,13 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
     // to prevent path-based navigation from creating stale geo preferences
     // that persist across VPN/network changes.
     useEffect(() => {
+        // The bare root `/` is ambiguous: middleware may rewrite it to /in
+        // content (for a user who chose India) while the browser URL stays `/`.
+        // Deriving country from the URL here would wrongly flip an India root to
+        // 'global' and make getPath() emit global links on an India page — so on
+        // `/` we trust the layout-provided initialCountry instead of overriding.
+        if (pathname === '/') return;
+
         const pathParts = pathname?.split('/') || [];
         const pathCountry = pathParts[1] as CountryCode;
         if (pathCountry && SUPPORTED_COUNTRIES.includes(pathCountry)) {
@@ -54,6 +61,9 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
         if (SUPPORTED_COUNTRIES.includes(code)) {
             setCountryState(code);
             localStorage.setItem(COUNTRY_COOKIE_NAME, code);
+            // Authoritative manual choice the middleware reads (edge-visible, so
+            // it decides what the bare root `/` serves and survives reloads).
+            document.cookie = `zl_country_choice=${code}; path=/; max-age=31536000; samesite=lax`;
 
             // Redirect to the same path but with the new country code
             const currentPathWithoutCountry = pathname?.replace(/^\/in/, '') || '';
