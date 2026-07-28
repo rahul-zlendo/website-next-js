@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { createPageMetadata } from '@/lib/seo/metadata';
 import ComparisonClient from '@/components/compare/ComparisonClient';
 import JsonLd from '@/components/common/JsonLd';
+import { comparisonData } from '@/components/compare/comparisonData';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -22,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
     const { country } = await params;
     const pageUrl = `https://zlendorealty.com/${country}/compare/zlendo-vs-sketchup`;
+    const data = comparisonData.sketchup;
 
     const compareSchema = {
         "@context": "https://schema.org",
@@ -42,9 +44,23 @@ export default async function Page({ params }: Props) {
         }
     };
 
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": data.faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+            }
+        }))
+    };
+
     return (
         <>
             <JsonLd schema={compareSchema} />
+            <JsonLd schema={faqSchema} />
             <ComparisonClient competitor="sketchup" />
         </>
     );

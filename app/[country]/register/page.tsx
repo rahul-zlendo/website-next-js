@@ -270,7 +270,7 @@ const RegistrationContent = () => {
                                 </h1>
 
                                 <div className="space-y-3 mb-8 text-zlendo-grey-medium font-medium">
-                                    <p className="text-xl font-bold text-[#1a1a1a]">Learn. Design. Build.</p>
+                                    <h2 className="text-xl font-bold text-[#1a1a1a]">Learn. Design. Build.</h2>
                                     <p className="leading-relaxed">Master AI-powered tools for Home Planning, Interior Design, and 3D Visualization.</p>
                                     <p className="leading-relaxed">Develop industry-ready skills with our hands-on training tailored for students, architects, builders, and entrepreneurs.</p>
                                 </div>
@@ -305,9 +305,9 @@ const RegistrationContent = () => {
                                         </span>
                                     ))}
                                 </h1>
-                                <p className="text-xl text-zlendo-grey-medium font-medium mb-12 leading-relaxed">
+                                <h2 className="text-xl text-zlendo-grey-medium font-medium mb-12 leading-relaxed">
                                     {content.subtitle}
-                                </p>
+                                </h2>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
                                     {content.features.map((feature, i) => (

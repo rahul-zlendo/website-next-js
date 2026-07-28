@@ -390,7 +390,7 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
                                                 {processedImageUrl ? (
                                                     <img
                                                         src={processedImageUrl}
-                                                        alt={template.template_Name || "Template"}
+                                                        alt={template.template_Name ? `Design Template: ${template.template_Name}` : "Template Thumbnail"}
                                                         loading="lazy"
                                                         style={{
                                                             position: "absolute",
@@ -425,9 +425,9 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
 
                                     {/* Content Section */}
                                     <div className="p-4 flex flex-col gap-1">
-                                        <h3 className="text-zlendo-grey-dark font-black text-base leading-tight line-clamp-2 min-h-[2.5rem] mb-0">
+                                        <h2 className="text-zlendo-grey-dark font-black text-base leading-tight line-clamp-2 min-h-[2.5rem] mb-0">
                                             {template.template_Name || "Untitled Template"}
-                                        </h3>
+                                        </h2>
 
                                         <div className="flex items-center justify-between mt-auto pt-1">
                                             <div className="flex items-center gap-2 flex-wrap">
@@ -466,7 +466,7 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
                                                         return displayProfileUrl ? (
                                                             <img
                                                                 src={displayProfileUrl}
-                                                                alt={template.userName}
+                                                                alt={template.userName || "User profile"}
                                                                 className="w-full h-full object-cover"
                                                                 onError={(e) => {
                                                                     const target = e.currentTarget;

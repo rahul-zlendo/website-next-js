@@ -90,9 +90,9 @@ export default function TutorialsClient({ cms }: { cms: any }) {
                         </motion.div>
 
                         <div className="mt-5">
-                            <h1 className="text-xl md:text-2xl font-black text-zlendo-grey-dark leading-tight">
+                            <h2 className="text-xl md:text-2xl font-black text-zlendo-grey-dark leading-tight">
                                 {activeVideo.title}
-                            </h1>
+                            </h2>
                         </div>
                     </div>
 

@@ -83,12 +83,12 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                         initial={{ opacity: 0, y: 25 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto"
+                        className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto"
                     >
                         <a
                             href={SIGNUP_URL}
                             id="hero-signup-btn"
-                            className="w-full sm:w-auto px-8 py-4.5 bg-zlendo-teal hover:bg-teal-700 text-white rounded-xl font-black text-lg shadow-xl shadow-zlendo-teal/20 transition-all hover:scale-105 flex items-center justify-center gap-2 group"
+                            className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal hover:bg-teal-700 text-white rounded-xl font-black text-lg shadow-xl shadow-zlendo-teal/20 transition-all hover:scale-105 flex items-center justify-center gap-2 group"
                         >
                             Start Designing Free
                             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -96,7 +96,7 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                         <a
                             href="/business#demo-form"
                             id="hero-demo-btn"
-                            className="w-full sm:w-auto px-8 py-4.5 bg-white border-2 border-slate-200 text-slate-800 rounded-xl font-bold text-lg hover:border-slate-300 hover:bg-slate-50 transition-all flex items-center justify-center"
+                            className="w-full sm:w-auto px-8 py-4 bg-white border-2 border-slate-200 text-slate-800 rounded-xl font-bold text-lg hover:border-slate-300 hover:bg-slate-50 transition-all flex items-center justify-center"
                         >
                             Request Business Demo
                         </a>
