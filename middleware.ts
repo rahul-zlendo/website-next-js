@@ -369,66 +369,41 @@ export function middleware(request: NextRequest) {
   // 2. Navigation & Internationalization
   // ──────────────────────────────────────────────────────────
 
-  // A. Geo-Detection & Redirection
-  // Use Vercel's geo API (most reliable), then fall back to headers
-  const countryCode = (request as any).geo?.country
+  // A. Country resolution — NO geo redirects.
+  //
+  // We used to 307-redirect users between `/` (global) and `/in` (India) by IP.
+  // A 307 is not directly indexable by Google, and non-listed crawlers (and any
+  // request with missing geo headers, which used to default to IN) got bounced,
+  // hurting indexation. Google's recommended i18n pattern is to serve the URL
+  // that was requested at 200 and let the user switch — so we no longer redirect.
+  //
+  // The ONLY thing that changes what the bare root `/` serves is an explicit
+  // manual choice stored in the `zl_country_choice` cookie (set by the country
+  // switcher / suggestion banner). IP is used only for the client-side
+  // suggestion banner (via the `zl_geo` cookie below), never for routing — so
+  // crawlers (no cookie) always get the global representation that matches `/`'s
+  // canonical, and no URL ever returns a geo 307.
+  const ipCountry = (request as any).geo?.country
     || request.headers.get('x-vercel-ip-country')
     || request.headers.get('cf-ipcountry')
-    || 'IN';
-  const isIndia = countryCode.toUpperCase() === 'IN';
-  const isOnIndiaSite = pathname === '/in' || pathname.startsWith('/in/');
+    || '';
+  const ipIsIndia = ipCountry.toUpperCase() === 'IN';
+  const manualChoice = request.cookies.get('zl_country_choice')?.value; // 'in' | 'global' | undefined
 
-  // Detect search engine bots to bypass forced geo-redirection.
-  // This ensures Google Bot (usually US-based) can crawl and index the /in path
-  // without being redirected to the root domain.
-  const userAgent = request.headers.get('user-agent')?.toLowerCase() || '';
-  const isBot = userAgent.includes('googlebot') ||
-    userAgent.includes('bingbot') ||
-    userAgent.includes('yandexbot') ||
-    userAgent.includes('applebot') ||
-    userAgent.includes('duckduckbot') ||
-    userAgent.includes('slurp') ||
-    userAgent.includes('baiduspider') ||
-    userAgent.includes('twitterbot') ||
-    userAgent.includes('facebookexternalhit') ||
-    userAgent.includes('linkedinbot');
-
-  // Force India visitors to /in if they hit the root or other paths (skip for bots)
-  if (isIndia && !isOnIndiaSite && !isBot) {
-    const url = request.nextUrl.clone();
-    const countryMatch = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
-
-    if (pathname.startsWith('/global')) {
-      url.pathname = pathname.replace(/^\/global/, '/in');
-    } else if (countryMatch && countryMatch[1] !== 'in') {
-      url.pathname = `/in${countryMatch[2] || ''}`;
-    } else if (pathname === '/') {
-      url.pathname = '/in';
-    } else {
-      url.pathname = `/in${pathname}`;
-    }
-    return geoRedirect(url, isIndia);
-  }
-
-  // Force Non-India visitors away from /in (skip for bots)
-  if (!isIndia && isOnIndiaSite && !isBot) {
-    const url = request.nextUrl.clone();
-    url.pathname = pathname.replace(/^\/in/, '') || '/';
-    return geoRedirect(url, isIndia);
-  }
-
-  // B. Root path: REWRITE to /global or /in based on IP 
-  // (Middleware runs before page, so this is instant)
+  // B. Root path: REWRITE (200, never a redirect) to /global by default, or to
+  // /in only when the user has explicitly chosen India. Global-default keeps `/`
+  // deterministic for crawlers.
   if (pathname === '/') {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-pathname', '/');
 
-    const response = NextResponse.rewrite(new URL(isIndia ? '/in' : '/global', request.url), {
+    const target = manualChoice === 'in' ? '/in' : '/global';
+    const response = NextResponse.rewrite(new URL(target, request.url), {
       request: {
         headers: requestHeaders,
       },
     });
-    setGeoHeaders(response, isIndia);
+    setGeoHeaders(response, ipIsIndia);
     return response;
   }
 
@@ -442,11 +417,11 @@ export function middleware(request: NextRequest) {
         headers: requestHeaders,
       },
     });
-    setGeoHeaders(response, isIndia);
+    setGeoHeaders(response, ipIsIndia);
     return response;
   }
 
-  // D. Handle legacy/manual country codes (e.g., /us, /uk) 
+  // D. Handle legacy/manual country codes (e.g., /us, /uk)
   // Redirect them to the global (non-prefixed) version
   const countryMatch = pathname.match(/^\/([a-z]{2})(\/.*)?$/);
   if (countryMatch) {
@@ -509,30 +484,28 @@ export function middleware(request: NextRequest) {
       headers: requestHeaders,
     },
   });
-  setGeoHeaders(response, isIndia);
+  setGeoHeaders(response, ipIsIndia);
   return response;
 }
 
 // ──────────────────────────────────────────────────────────
-// Helper: Create a geo-redirect with proper no-cache headers
-// This prevents browsers & CDNs from caching geo-based redirects,
-// which was causing users to stay on /global after turning off VPN.
+// Helper: attach geo signalling to a response.
+// No longer redirects (see section A) — this only exposes the IP-derived geo
+// to client JS (via the `zl_geo` cookie) so the country switcher and the
+// India suggestion banner can react, and marks the root response as varying
+// by the manual-choice cookie so a CDN keys on it correctly.
 // ──────────────────────────────────────────────────────────
-function geoRedirect(url: URL, isIndia: boolean): NextResponse {
-  const response = NextResponse.redirect(url);
-  setGeoHeaders(response, isIndia);
-  return response;
-}
-
-function setGeoHeaders(response: NextResponse, isIndia: boolean): void {
-  // Prevent caching of geo-dependent responses
+function setGeoHeaders(response: NextResponse, ipIsIndia: boolean): void {
+  // The bare root `/` serves different content per `zl_country_choice` cookie,
+  // so it must not be shared-cached across users.
   response.headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-  response.headers.set('Vary', 'X-Vercel-IP-Country');
+  response.headers.set('Vary', 'Cookie');
   // Debug header — check this in browser Network tab to verify geo-detection
-  response.headers.set('x-geo-debug', isIndia ? 'IN' : 'NON-IN');
-  // Set a cookie so client-side JS can detect when the user's geo has changed
-  // (e.g., VPN turned on/off) and clear stale localStorage preferences
-  response.cookies.set('zl_geo', isIndia ? 'in' : 'global', {
+  response.headers.set('x-geo-debug', ipIsIndia ? 'IN' : 'NON-IN');
+  // IP-derived geo signal for client JS only (never used for routing). Powers
+  // the "you appear to be in India" suggestion banner and lets the switcher
+  // detect VPN/network changes.
+  response.cookies.set('zl_geo', ipIsIndia ? 'in' : 'global', {
     path: '/',
     maxAge: 60 * 30, // 30 minutes — short-lived so it stays fresh
     httpOnly: false,  // must be readable by client JS
