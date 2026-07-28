@@ -332,7 +332,7 @@ export default function PartnersClient({
                                                                     <Icon className="w-5 h-5" />
                                                                 </div>
                                                                 <div>
-                                                                    <h5 className="font-bold text-white text-sm">{item.title}</h5>
+                                                                    <h4 className="font-bold text-white text-sm">{item.title}</h4>
                                                                     <p className="text-white/40 text-xs mt-1">{item.desc}</p>
                                                                 </div>
                                                             </div>
@@ -424,9 +424,9 @@ export default function PartnersClient({
                             <Zap className="w-32 h-32" />
                         </div>
                         <div className="text-left relative z-10">
-                            <h4 className="text-2xl font-black font-nunito mb-2">
+                            <h3 className="text-2xl font-black font-nunito mb-2">
                                 {cms?.growthQuoteTitle || "Built in India. Built for India."}
-                            </h4>
+                            </h3>
                             <p className="text-white/60 font-medium">
                                 {cms?.growthQuoteDesc || "Standardizing excellence in the world's fastest growing residential economy."}
                             </p>
@@ -463,7 +463,7 @@ export default function PartnersClient({
                                             <div className="w-12 h-12 rounded-xl bg-zlendo-orange/10 flex items-center justify-center text-zlendo-orange">
                                                 <Icon className="w-6 h-6" />
                                             </div>
-                                            <h5 className="text-2xl font-black font-nunito text-zlendo-grey-dark leading-tight">{point.title}</h5>
+                                            <h3 className="text-2xl font-black font-nunito text-zlendo-grey-dark leading-tight">{point.title}</h3>
                                             <p className="text-zlendo-grey-medium font-medium leading-relaxed">{point.desc}</p>
                                         </div>
                                     );

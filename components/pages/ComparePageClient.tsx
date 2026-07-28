@@ -324,7 +324,7 @@ export default function ComparePageClient({ cms, slug, defaults, signupUrl, hubP
                     <div>
                       <div className="flex items-center gap-3">
                         <span className="bg-zlendo-grey-dark text-white text-xs font-black px-2 py-1 rounded">#{i + 1}</span>
-                        <h3 className="font-black text-2xl text-zlendo-grey-dark">{alt.name}</h3>
+                        <h2 className="font-black text-2xl text-zlendo-grey-dark">{alt.name}</h2>
                         {i === 0 && <span className="bg-zlendo-teal text-white text-xs font-black px-2 py-1 rounded">Top Pick</span>}
                       </div>
                       <p className="text-zlendo-grey-medium text-base font-bold mt-1">{alt.tagline}</p>

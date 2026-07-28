@@ -107,7 +107,7 @@ function CommentItem({
                     {displayProfileUrl ? (
                         <img
                             src={displayProfileUrl}
-                            alt={comment.userName}
+                            alt={comment.userName ? `${comment.userName}'s profile picture` : "User profile picture"}
                             className="w-full h-full object-cover"
                             onError={(e) => {
                                 const target = e.currentTarget;
@@ -183,7 +183,7 @@ function CommentItem({
                                         return displayProfileUrl ? (
                                             <img
                                                 src={displayProfileUrl}
-                                                alt={user?.userName || 'User'}
+                                                alt={user?.userName ? `${user.userName}'s profile picture` : "Your profile picture"}
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => {
                                                     const target = e.currentTarget;
@@ -1039,7 +1039,7 @@ function TemplateDetailContent() {
                                         >
                                             <img
                                                 src={templateData.mainImage}
-                                                alt={templateData.title}
+                                                alt={templateData.title ? `Full view of ${templateData.title}` : "Main template view"}
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => {
                                                     const target = e.currentTarget;
@@ -1117,7 +1117,7 @@ function TemplateDetailContent() {
                                         ) : (
                                             <img
                                                 src={thumb}
-                                                alt={`View ${idx + 1}`}
+                                                alt={templateData.title ? `${templateData.title} - View ${idx + 1}` : `Template view ${idx + 1}`}
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => {
                                                     const target = e.currentTarget;
@@ -1202,7 +1202,7 @@ function TemplateDetailContent() {
                                                     return displayProfileUrl ? (
                                                         <img
                                                             src={displayProfileUrl}
-                                                            alt={selectedTemplate.userName}
+                                                            alt={selectedTemplate.userName ? `${selectedTemplate.userName}'s profile picture` : "User profile picture"}
                                                             className="w-full h-full object-cover"
                                                             onError={(e) => {
                                                                 const target = e.currentTarget;
@@ -1327,11 +1327,10 @@ function TemplateDetailContent() {
                                         isAuthenticated && user?.userId === selectedTemplate?.userId
                                             ? "You cannot report your own template."
                                             : hasReportedTemplate
-                                            ? 'You have already reported this template.'
-                                            : 'Report this template'
+                                                ? 'You have already reported this template.'
+                                                : 'Report this template'
                                     }
-                                    className={`relative flex items-center justify-center gap-2 py-3 border rounded-xl font-bold w-full transition-colors ${
-                                        hasReportedTemplate || (isAuthenticated && user?.userId === selectedTemplate?.userId)
+                                    className={`relative flex items-center justify-center gap-2 py-3 border rounded-xl font-bold w-full transition-colors ${hasReportedTemplate || (isAuthenticated && user?.userId === selectedTemplate?.userId)
                                             ? 'bg-gray-100 border-gray-200 text-zlendo-grey-medium cursor-not-allowed opacity-70'
                                             : 'bg-gray-50 border-black/5 text-zlendo-grey-dark hover:bg-gray-100'
                                         }`}
@@ -1376,7 +1375,7 @@ function TemplateDetailContent() {
                                         return displayProfileUrl ? (
                                             <img
                                                 src={displayProfileUrl}
-                                                alt={user?.userName || 'User'}
+                                                alt={user?.userName ? `${user.userName}'s profile picture` : "Your profile picture"}
                                                 className="w-full h-full object-cover"
                                                 onError={(e) => {
                                                     const target = e.currentTarget;
@@ -1472,7 +1471,7 @@ function TemplateDetailContent() {
                                         {similarTemplateImageUrls[item.id] || item.img ? (
                                             <img
                                                 src={similarTemplateImageUrls[item.id] || item.img}
-                                                alt={item.title}
+                                                alt={item.title ? `Similar design: ${item.title}` : "Similar design template"}
                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                                 onError={(e) => {
                                                     const target = e.currentTarget;
@@ -1552,7 +1551,7 @@ function TemplateDetailContent() {
                                     exit={{ opacity: 0, scale: 0.95 }}
                                     transition={{ duration: 0.3 }}
                                     src={templateData.mainImage}
-                                    alt={templateData.title}
+                                    alt={templateData.title ? `Fullscreen view of ${templateData.title}` : "Fullscreen template view"}
                                     className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
                                     onError={(e) => {
                                         const target = e.currentTarget;

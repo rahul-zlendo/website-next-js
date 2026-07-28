@@ -288,7 +288,7 @@ const PlansClient = ({ isGlobal = false, initialPlans = [] }: PlansClientProps) 
                                         )}
 
                                         <div className="mb-6">
-                                            <h3 className="text-2xl font-black text-zlendo-grey-dark">{plan.planName}</h3>
+                                            <h2 className="text-2xl font-black text-zlendo-grey-dark">{plan.planName}</h2>
                                             <p className="text-sm font-bold text-gray-400 mt-1 line-clamp-2">{plan.description}</p>
                                         </div>
 
