@@ -12,6 +12,7 @@ import CookieConsent from '@/components/common/CookieConsent';
 import FloatingContactButton from '@/components/common/FloatingContactButton';
 import DynamicBreadcrumb from '@/components/common/DynamicBreadcrumb';
 import GeoSuggestBanner from '@/components/common/GeoSuggestBanner';
+import GeoSuggestModal from '@/components/common/GeoSuggestModal';
 
 export default async function GlobalLayout({
   children,
@@ -28,6 +29,7 @@ export default async function GlobalLayout({
         <DynamicBreadcrumb />
         <AuthSync />
         <GeoSuggestBanner />
+        <GeoSuggestModal />
         <PromoBanner />
         <Header logoUrl={logoUrl} />
         <main>{children}</main>
