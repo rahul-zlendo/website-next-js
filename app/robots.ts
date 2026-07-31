@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: [
           '/api/',
-          '/temp',
+          '/temp/',
           // Authenticated app surface — block across every locale prefix
           // (clean URLs rewrite to /global, India users see /in).
           '/user-profile',
@@ -32,7 +32,7 @@ export default function robots(): MetadataRoute.Robots {
           'Applebot-Extended',
         ],
         allow: '/',
-        disallow: ['/api/', '/temp', '/user-profile', '/in/user-profile', '/global/user-profile'],
+        disallow: ['/api/', '/temp/', '/user-profile', '/in/user-profile', '/global/user-profile'],
       },
     ],
     sitemap: [
