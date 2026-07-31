@@ -10,10 +10,11 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
+    const isGlobal = country === "global";
     const cleanPath = `/${country}/compare/zlendo-vs-coohom`;
 
     return createPageMetadata({
-        title: 'Zlendo Realty vs. Coohom: Professional 3D Design Comparison',
+        title: isGlobal ? 'Zlendo Realty vs. Coohom: Professional 3D Design Comparison' : `Zlendo Realty vs. Coohom: Professional 3D Design Comparison Online`,
         description: 'See why interior designers and builders are switching from Coohom to Zlendo Realty. Get unlimited 8K renders and instant AI 2D-to-3D floor planning.',
         path: cleanPath,
         keywords: ['Zlendo Realty vs Coohom', 'Coohom alternative', 'AI floor planner', '3D home design software', 'unlimited rendering software'],

@@ -13,7 +13,8 @@ import { useCountry } from '@/lib/context/CountryContext';
 const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function FloorPlanDesignClient() {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const trustHighlights = [
@@ -291,7 +292,7 @@ export default function FloorPlanDesignClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Why Homeowners Choose{' '}
-                            <span className="text-zlendo-teal italic">Zlendo Realty</span>
+                            <span className="text-zlendo-teal italic">Zlendo Realty{isIndiaSite && <span className="sr-only"> Local</span>}</span>
                         </h2>
                     </motion.div>
                     <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto mb-10">
@@ -361,7 +362,7 @@ export default function FloorPlanDesignClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Homeowners Trust{' '}
-                            <span className="text-zlendo-teal italic">Zlendo Realty</span>
+                            <span className="text-zlendo-teal italic">Zlendo Realty{isIndiaSite && <span className="sr-only"> Local</span>}</span>
                         </h2>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">

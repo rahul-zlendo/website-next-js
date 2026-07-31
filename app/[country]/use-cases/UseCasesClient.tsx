@@ -19,7 +19,8 @@ const ModernArchStudioImg = '/assets/use-case/modern-architecture-studio.webp';
  */
 
 export default function UseCasesPage() {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
 
     const faqs = [
         { q: "Who can benefit from Zlendo Realty's use cases?", a: "Our platform is built for a wide range of users, from individual first-time homebuilders seeking visual clarity, to professional architectural studios looking to automate BOQ generation and scale their workflow effortlessly." },
@@ -251,7 +252,7 @@ export default function UseCasesPage() {
                 {/* FAQ Block */}
                 <section className="py-16 bg-white">
                     <div className="container-custom px-6 max-w-3xl mx-auto">
-                        <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions</h2>
+                        <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions{isIndiaSite && <span className="sr-only"> Local</span>}</h2>
                         <FaqAccordion faqs={faqs} />
                     </div>
                 </section>

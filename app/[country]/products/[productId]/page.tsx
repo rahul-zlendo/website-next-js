@@ -69,7 +69,8 @@ const faqs = [
 ];
 
 export default function ProductPage() {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const router = useRouter();
     const params = useParams();
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -296,7 +297,7 @@ export default function ProductPage() {
             {/* 4. ZIG-ZAG STEPS */}
             <section className="py-12 lg:py-20 bg-white">
                 <div className="container-custom px-6 text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">How It Works</h2>
+                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">How It Works{isIndiaSite && <span className="sr-only"> Local</span>}</h2>
                     <p className="text-xl text-zlendo-grey-medium font-medium">Four simple steps to your dream result.</p>
                 </div>
 
@@ -389,7 +390,7 @@ export default function ProductPage() {
                             <thead>
                                 <tr>
                                     <th className="p-4 border-b-2 border-slate-200 w-1/3">Features</th>
-                                    <th className="p-4 border-b-2 border-zlendo-teal text-zlendo-teal font-black text-xl text-center shadow-[0_4px_0_0_rgba(13,148,136,0.1)] bg-white rounded-t-xl">Zlendo Realty</th>
+                                    <th className="p-4 border-b-2 border-zlendo-teal text-zlendo-teal font-black text-xl text-center shadow-[0_4px_0_0_rgba(13,148,136,0.1)] bg-white rounded-t-xl">Zlendo Realty{isIndiaSite && <span className="sr-only"> Local</span>}</th>
                                     <th className="p-4 border-b-2 border-slate-200 text-slate-400 font-bold text-center">Typical CAD</th>
                                     <th className="p-4 border-b-2 border-slate-200 text-slate-400 font-bold text-center">Agencies</th>
                                 </tr>
@@ -418,7 +419,7 @@ export default function ProductPage() {
             {/* 8. FAQ */}
             <section className="py-16 bg-white">
                 <div className="container-custom px-6 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions{isIndiaSite && <span className="sr-only"> Local</span>}</h2>
                     <div className="space-y-4">
                         {faqs.map((faq, i) => (
                             <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors">

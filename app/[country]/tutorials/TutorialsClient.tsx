@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Play } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 interface PlaylistVideo {
     videoId: string;
@@ -14,6 +15,8 @@ interface PlaylistVideo {
 export default function TutorialsClient({ cms }: { cms: any }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [autoplay, setAutoplay] = useState(false);
+    const pathname = usePathname();
+    const isIndiaSite = pathname?.startsWith('/in');
 
     // Default Playlist Data
     const defaultVideos: PlaylistVideo[] = [
@@ -57,6 +60,7 @@ export default function TutorialsClient({ cms }: { cms: any }) {
                     className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-zlendo-teal mb-4"
                 >
                     {cms?.heroTitleHighlight || "Tutorials"}
+                    {isIndiaSite && <span className="sr-only"> Videos</span>}
                 </motion.h1>
                 <motion.p
                     initial={{ opacity: 0, y: 20 }}

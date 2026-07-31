@@ -1,12 +1,14 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Calculator, BarChart, FileText, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calculator, BarChart, FileText, ArrowRight, ChevronDown } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 export default function CostEstimatorPage() {
+    const [activeFaq, setActiveFaq] = useState<number | null>(null);
+
     return (
         <div className="min-h-screen bg-white text-[#222222] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
             <script type="application/ld+json" dangerouslySetInnerHTML={{
@@ -91,6 +93,63 @@ export default function CostEstimatorPage() {
                         ))}
                     </div>
                 </section>
+
+                {/* LOCALIZED PROCUREMENT DATA */}
+                <section className="py-12 bg-[#FAFAFC] border-t border-black/5">
+                    <div className="container-custom px-4 text-center max-w-4xl mx-auto">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-orange-100/50 text-orange-600 font-bold text-xs uppercase mb-6 border border-orange-200">
+                            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+                            Real-Time Procurement Insights
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6 tracking-tight">Track Local Material Rates</h2>
+                        <p className="text-xl text-[#666] font-medium leading-relaxed mb-16">
+                            A major hurdle in reliable construction estimation is volatile raw material pricing. Zlendo Realty solves this by monitoring hyper-local market indices. Whether cement rates surge or steel prices drop, our estimator automatically calibrates its baseline to give you the most accurate real-time procurement insights available, drastically reducing the chances of unforeseen budget overruns.
+                        </p>
+
+                        <div className="grid md:grid-cols-3 gap-8 text-left">
+                            <div className="bg-white p-8 rounded-3xl border border-black/5 shadow-sm hover:shadow-md transition-shadow">
+                                <h3 className="font-black text-2xl text-[#111] mb-3">Live Cost Indices</h3>
+                                <p className="text-[#666] font-medium leading-relaxed">We stream daily aggregate pricing for Cement, TMT Steel Rebars, Sand, and Bricks directly from regional wholesale pipelines to ensure accurate baselines.</p>
+                            </div>
+                            <div className="bg-white p-8 rounded-3xl border border-black/5 shadow-sm hover:shadow-md transition-shadow">
+                                <h3 className="font-black text-2xl text-[#111] mb-3">Labor Variability</h3>
+                                <p className="text-[#666] font-medium leading-relaxed">Labor shortage impacts costs. We calculate daily wage fluctuations mapped strictly to standard government minimum wages and local contractor markup averages.</p>
+                            </div>
+                            <div className="bg-white p-8 rounded-3xl border border-black/5 shadow-sm hover:shadow-md transition-shadow">
+                                <h3 className="font-black text-2xl text-[#111] mb-3">Brand Grade Maps</h3>
+                                <p className="text-[#666] font-medium leading-relaxed">Select between Tier A, B, and C brands for piping and electrical. See exactly how switching from local pipes to premium CPVC impacts the final plumbing BOQ.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* FAQs */}
+                <section className="py-12 border-t border-black/5 bg-[#FAFAFC]">
+                    <div className="container-custom px-6 max-w-4xl mx-auto">
+                        <h2 className="text-3xl lg:text-4xl font-black text-center mb-12 text-[#111]">Frequently Asked Questions</h2>
+                        <div className="space-y-4">
+                            {[
+                                { q: "How exact is the cost estimation?", a: "Our AI engine factors in live local material indices, localized labor wages, and even specific soil types for calculating isolated versus pile foundations. Thus providing engineering-grade granular estimates rather than generic sq.ft estimates." },
+                                { q: "Can I export my BoQ to my contractor?", a: "Yes, you can generate detailed Bill of Quantities (BoQ) PDFs or Excel files perfectly formatted for contractor procurement or bank loan approvals." }
+                            ].map((faq, i) => (
+                                <div key={i} className="border border-black/[0.05] rounded-2xl overflow-hidden hover:bg-white transition-colors bg-white/50">
+                                    <button onClick={() => setActiveFaq(activeFaq === i ? null : i)} className="w-full px-8 py-6 flex items-center justify-between text-left">
+                                        <span className="text-xl font-bold text-[#111]">{faq.q}</span>
+                                        <ChevronDown className={`w-5 h-5 text-[#999] transition-transform ${activeFaq === i ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    <AnimatePresence>
+                                        {activeFaq === i && (
+                                            <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }}>
+                                                <p className="px-8 pb-8 text-[#666] font-medium">{faq.a}</p>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
             </main>
         </div>
     );

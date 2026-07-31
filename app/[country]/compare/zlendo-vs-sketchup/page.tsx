@@ -10,10 +10,11 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
+    const isGlobal = country === "global";
     const cleanPath = `/${country}/compare/zlendo-vs-sketchup`;
 
     return createPageMetadata({
-        title: 'Zlendo Realty vs. SketchUp: Fast AI-Driven Spatial Design',
+        title: isGlobal ? 'Zlendo Realty vs. SketchUp: Fast AI-Driven Spatial Design' : `Zlendo Realty vs. SketchUp: Fast AI-Driven Spatial Design Online`,
         description: 'Skip the steep 100-hour learning curve of SketchUp. Design instantly with Zlendo Realty’s native cloud rendering, AI styling, and automatic costing.',
         path: cleanPath,
         keywords: ['Zlendo Realty vs SketchUp', 'SketchUp alternative', 'easy 3D home modeling', 'automated cost estimation', 'native cloud rendering'],

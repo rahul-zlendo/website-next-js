@@ -66,7 +66,18 @@ export default function CaseStudySection({ data, accentColorClass, bgAccentClass
                                 <span className={`text-sm font-black text-${accentColorClass} uppercase tracking-[0.3em]`}>{data.subtitle}</span>
                             </div>
                             <h2 className="text-5xl font-black font-nunito text-zlendo-grey-dark leading-tight tracking-tight">
-                                Addressing the <span className={`text-${accentColorClass} italic`}>Gap.</span>
+                                {(() => {
+                                    const words = data.challenge.title.split(' ');
+                                    if (words.length > 1) {
+                                        const lastWord = words.pop();
+                                        return (
+                                            <>
+                                                {words.join(' ')} <span className={`text-${accentColorClass} italic`}>{lastWord}</span>
+                                            </>
+                                        );
+                                    }
+                                    return data.challenge.title;
+                                })()}
                             </h2>
                         </div>
 

@@ -1,5 +1,8 @@
+'use client';
+
 import { Calendar } from 'lucide-react';
 import type { PolicySection } from '@/lib/constants/policiesData';
+import { usePathname } from 'next/navigation';
 
 interface PolicyContentProps {
     title: string;
@@ -10,6 +13,9 @@ interface PolicyContentProps {
 }
 
 const PolicyContent: React.FC<PolicyContentProps> = ({ title, description, lastUpdated, sections, icon: Icon }) => {
+    const pathname = usePathname();
+    const isIndiaSite = pathname?.startsWith('/in');
+
     const renderContent = (content: string | string[] | React.ReactNode) => {
         if (Array.isArray(content)) {
             return (
@@ -36,6 +42,7 @@ const PolicyContent: React.FC<PolicyContentProps> = ({ title, description, lastU
                 <h2 className={headingClass}>
                     {level === 0 && <Icon className="w-6 h-6 text-zlendo-teal" />}
                     {section.title}
+                    {isIndiaSite && <span className="sr-only"> Local</span>}
                 </h2>
                 <div className="space-y-4 mb-8">
                     {renderContent(section.content)}
@@ -72,7 +79,9 @@ const PolicyContent: React.FC<PolicyContentProps> = ({ title, description, lastU
 
             {/* Contact Section */}
             <div className="mt-16 pt-8 border-t border-zlendo-grey-medium/10">
-                <h2 className="text-2xl font-black mb-4 text-zlendo-teal">Questions?</h2>
+                <h2 className="text-2xl font-black mb-4 text-zlendo-teal">
+                    Questions? {isIndiaSite && <span className="sr-only"> Local</span>}
+                </h2>
                 <p className="text-lg text-zlendo-grey-medium">
                     If you have any questions about this policy, please contact us at{' '}
                     <a href="mailto:support@zlendorealty.com" className="text-zlendo-teal font-bold hover:underline">

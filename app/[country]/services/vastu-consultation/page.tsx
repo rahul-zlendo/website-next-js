@@ -12,10 +12,16 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = isGlobal ? '/services/vastu-consultation' : `/${country}/services/vastu-consultation`;
+    const cleanPath = '/services/vastu-consultation';
 
-    return createPageMetadata({
-        title: 'Vastu Consultation Services | Expert Home & Office Vastu Guidance',
+    let title = 'Vastu Consultation Services | Expert Home & Office Vastu Guidance';
+  if (country === 'in') {
+      if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+      else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+      else title += ' Online';
+  }
+  return createPageMetadata({
+    title,
         description: 'Get expert Vastu consultation services for homes, apartments, villas, offices, and commercial spaces. Upload your floor plan and receive personalized Vastu recommendations online.',
         path: cleanPath,
         keywords: [

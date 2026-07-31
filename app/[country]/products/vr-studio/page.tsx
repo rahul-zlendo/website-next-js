@@ -16,7 +16,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const path = isGlobal ? '/products/vr-studio' : `/${country}/products/vr-studio`;
+    const path = '/products/vr-studio';
     const { isEnabled: preview } = await draftMode();
 
     let cmsSeo: any = null;
@@ -24,9 +24,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cmsSeo = await getClient(preview).fetch(vrStudioPageQuery);
     } catch { /* fallback */ }
 
-    const title = cmsSeo?.seoTitle || "8K VR Studio - Immersive Home Experiences";
+    let title = cmsSeo?.seoTitle || "8K VR Studio - Immersive Home Experiences";
     const description = cmsSeo?.seoDescription || "Step inside your design with hyper-realistic VR. Compatible with Meta Quest, Apple Vision Pro, and web browsers.";
 
+    if (country === 'in') {
+        if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+        else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+        else title += ' Online';
+    }
     return createPageMetadata({
         title,
         description,
@@ -44,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function VRStudioPage({ params }: Props) {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = isGlobal ? '/products/vr-studio' : `/${country}/products/vr-studio`;
+    const cleanPath = '/products/vr-studio';
     const fullUrl = `https://zlendorealty.com${cleanPath}`;
     const { isEnabled: preview } = await draftMode();
     const cms: any = await getClient(preview).fetch(vrStudioPageQuery).catch(() => null);

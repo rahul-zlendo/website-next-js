@@ -21,10 +21,16 @@ export async function generateMetadata(
   const data = await client.fetch(costEstimatorPageQuery);
   const country = countryCode.toUpperCase();
   const isGlobal = countryCode === 'global';
-  const path = isGlobal ? '/products/cost-estimator' : `/${countryCode}/products/cost-estimator`;
+  const path = '/products/cost-estimator';
 
+  let title = data?.seoTitle || `Smart Construction Cost Estimator ${country}`;
+  if (country === 'in') {
+    if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+    else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+    else title += ' Online';
+  }
   return createPageMetadata({
-    title: data?.seoTitle || `Smart Construction Cost Estimator ${country}`,
+    title: title,
     description: data?.seoDescription || 'Estimate residential construction costs accurately with AI-driven insights.',
     path,
     ogImage: {
@@ -40,7 +46,7 @@ export async function generateMetadata(
 export default async function CostEstimatorPage({ params }: PageProps) {
   const { country: countryCode } = await params;
   const isGlobal = countryCode === 'global';
-  const cleanPath = isGlobal ? '/products/cost-estimator' : `/${countryCode}/products/cost-estimator`;
+  const cleanPath = '/products/cost-estimator';
   const fullUrl = `https://zlendorealty.com${cleanPath}`;
 
   const cms = await client.fetch(costEstimatorPageQuery);

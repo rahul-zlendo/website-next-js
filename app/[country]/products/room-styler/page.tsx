@@ -22,10 +22,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const cms = await getClient(preview).fetch(roomStylerPageQuery).catch(() => null);
 
     const isGlobal = country === 'global';
-    const path = isGlobal ? '/products/room-styler' : `/${country}/products/room-styler`;
+    const path = '/products/room-styler';
 
+    let title = cms?.seoTitle || 'Smart Room Styler - AI-driven Interior Design';
+  if (country === 'in') {
+        if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+        else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+        else title += ' Online';
+    }
     return createPageMetadata({
-        title: cms?.seoTitle || 'Smart Room Styler - AI-driven Interior Design',
+        title: title,
         description: cms?.seoDescription || 'AI-driven interior design at your fingertips. Visualize different styles, furniture layouts, and color palettes instantly.',
         path: path,
         ogImage: {
@@ -41,7 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function RoomStylerPage({ params }: PageProps) {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = isGlobal ? '/products/room-styler' : `/${country}/products/room-styler`;
+    const cleanPath = '/products/room-styler';
     const fullUrl = `https://zlendorealty.com${cleanPath}`;
 
     const { isEnabled: preview } = await draftMode();

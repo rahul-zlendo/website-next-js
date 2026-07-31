@@ -9,6 +9,7 @@ import {
     CheckCircle2, ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 const stagger = {
@@ -18,6 +19,9 @@ const stagger = {
 };
 
 export default function AboutClient() {
+    const pathname = usePathname();
+    const isIndia = pathname?.startsWith('/in');
+
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10 selection:text-zlendo-teal">
             {/* ═══ HERO SECTION ═══ */}
@@ -32,6 +36,7 @@ export default function AboutClient() {
                     <motion.h1 {...fadeUp} transition={{ delay: 0.1 }} className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-zlendo-grey-dark leading-[1.05] tracking-tight mb-8">
                         Building the Future of Real Estate Design with{' '}
                         <span className="text-zlendo-teal italic">AI & Innovation</span>
+                        {isIndia && <span className="sr-only"> Platform</span>}
                     </motion.h1>
                     <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                         Zlendo Realty is an AI-powered real estate design and visualization platform created by <span className="font-bold text-zlendo-teal">Zlendo Technologies</span> to make architectural planning, 3D visualization, photorealistic rendering, Vastu analysis, and cost estimation faster, smarter, and easier for everyone.

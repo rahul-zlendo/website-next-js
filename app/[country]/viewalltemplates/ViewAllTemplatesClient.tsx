@@ -70,7 +70,8 @@ const processProfileUrl = (profileUrl: string | null | undefined): string | null
 };
 
 export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
+    const isIndiaSite = country === 'in';
     const dispatch = useAppDispatch();
     const router = useRouter();
     const { activeTemplates, isLoading, error } = useAppSelector((state) => state.template);
@@ -238,6 +239,7 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
                     >
                         {cms?.heroTitle || "All Design"}{' '}
                         <span className="text-zlendo-teal">{cms?.heroTitleHighlight || "Templates"}</span>
+                        {isIndiaSite && <span className="sr-only"> Gallery</span>}
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}

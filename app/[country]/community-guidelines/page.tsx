@@ -14,7 +14,7 @@ const CommunityGuidelinesPage = () => {
     const policy = {
         id: 'community-guidelines',
         slug: 'community-guidelines',
-        title: 'Community Guidelines',
+        title: country === 'in' ? 'Platform Community Guidelines' : 'Community Guidelines',
         icon: ShieldAlert,
         category: 'legal' as const,
         description: 'Rules and standards governing the conduct of all users on the Zlendo Realty platform.',

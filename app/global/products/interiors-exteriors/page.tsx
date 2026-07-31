@@ -142,6 +142,68 @@ export default function InteriorsExteriorsPage() {
                     </div>
                 </section>
 
+                {/* ADVANCED MATERIAL & LIGHTING */}
+                <section className="py-24 px-4 bg-white border-t border-black/5">
+                    <div className="container-custom max-w-6xl mx-auto">
+                        <div className="text-center mb-20 max-w-3xl mx-auto">
+                            <h2 className="text-4xl md:text-5xl font-black text-[#111] mb-6 tracking-tight">
+                                Photorealistic Lighting & <br /><span className="text-zlendo-teal">Vast Material Catalog</span>
+                            </h2>
+                            <p className="text-xl text-[#666] font-medium leading-relaxed">
+                                To perfectly conceptualize the feel of a home, the accuracy of natural light and regional materials is paramount. Our engine calculates millions of light paths to reproduce stunning graphical fidelity.
+                            </p>
+                        </div>
+
+                        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+                            <div className="space-y-12">
+                                <div className="space-y-4">
+                                    <h3 className="text-3xl font-black text-[#111]">Hyper-Localized Material Textures</h3>
+                                    <p className="text-[#666] leading-relaxed font-medium text-lg">Elevate your visualization with regionally accurate textures representing real-world materials. Apply 4K resolution textures of authentic Red Oxide flooring, intricate tiles, local Teak and Rosewood variations, or premium Italian marbles. Each material possesses physical rendering properties (PBR), ensuring they react to light organically—reflecting and refracting just as they would in reality.</p>
+                                </div>
+                                <div className="space-y-4">
+                                    <h3 className="text-3xl font-black text-[#111]">Dynamic Day-Night Cycle & Lighting</h3>
+                                    <p className="text-[#666] leading-relaxed font-medium text-lg">Examine how geographical solar alignment interacts with your chosen layout. Zlendo Realty accurately models real-world sun trajectories based on your specific city coordinates. Cycle seamlessly from dawn to dusk to analyze shadow lengths, glare, and ambient occlusion, ensuring your Vastu orientations translate into naturally well-lit and thermally comfortable spaces before investing in construction.</p>
+                                </div>
+                            </div>
+                            <div className="relative p-2 h-full flex flex-col justify-center">
+                                <div className="absolute inset-0 bg-gradient-to-tr from-zlendo-teal/10 to-blue-500/10 rounded-[3rem] transform -rotate-3 blur-[2px]"></div>
+                                <div className="bg-white p-10 rounded-[3rem] shadow-2xl border border-black/5 relative z-10 space-y-8">
+                                    <h4 className="font-black text-2xl text-[#111] border-b border-black/5 pb-6">Render Engine Capabilities</h4>
+                                    <ul className="space-y-6">
+                                        <li className="flex items-start gap-5">
+                                            <div className="w-10 h-10 rounded-full bg-zlendo-teal/10 flex items-center justify-center shrink-0">
+                                                <Sun className="w-5 h-5 text-zlendo-teal" />
+                                            </div>
+                                            <div>
+                                                <div className="font-black text-[#111] text-lg">Global Illumination (GI)</div>
+                                                <div className="text-[#666] font-medium">Accurate indirect light bounce calculation.</div>
+                                            </div>
+                                        </li>
+                                        <li className="flex items-start gap-5">
+                                            <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
+                                                <Layout className="w-5 h-5 text-blue-500" />
+                                            </div>
+                                            <div>
+                                                <div className="font-black text-[#111] text-lg">Physically Based Rendering (PBR)</div>
+                                                <div className="text-[#666] font-medium">True-to-life surface micro-geometry and reflectivity.</div>
+                                            </div>
+                                        </li>
+                                        <li className="flex items-start gap-5">
+                                            <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center shrink-0">
+                                                <Leaf className="w-5 h-5 text-purple-500" />
+                                            </div>
+                                            <div>
+                                                <div className="font-black text-[#111] text-lg">Volumetric Scattering</div>
+                                                <div className="text-[#666] font-medium">Fog, dust, and realistic sky atmospheric coloration.</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 {/* FAQs */}
                 <section className="py-24 border-t border-black/5 bg-[#FAFAFC]">
                     <div className="container-custom px-6 max-w-4xl mx-auto">

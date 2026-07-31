@@ -21,8 +21,15 @@ export async function generateMetadata(
   const isGlobal = countryCode === 'global';
   const path = isGlobal ? '/products/virtual-walkthrough' : `/${countryCode}/products/virtual-walkthrough`;
 
+  let title = data?.seoTitle || `3D Virtual Walkthrough for Homes | Immersive VR Tours`;
+  if (countryCode === 'in') {
+    if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+    else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+    else title += ' Online';
+  }
+
   return createPageMetadata({
-    title: data?.seoTitle || `3D Virtual Walkthrough for Homes | Immersive VR Tours`,
+    title: title,
     description: data?.seoDescription || 'Experience immersive 3D virtual walkthroughs that showcase space, flow, and finishes. Close deals faster with 8K cinematic storytelling.',
     path: path,
     ogImage: {

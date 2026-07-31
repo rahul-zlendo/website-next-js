@@ -17,7 +17,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const path = isGlobal ? '/products/2d-to-3d' : `/${country}/products/2d-to-3d`;
+    const path = '/products/2d-to-3d';
 
     // Fetch SEO data from Sanity
     let cmsSeo: Record<string, any> | null = null;
@@ -25,9 +25,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cmsSeo = await getClient(false).fetch(twoDTo3DPageQuery);
     } catch { /* fallback */ }
 
-    const title = cmsSeo?.seoTitle || "2D to 3D Converter - Instant Architectural Visualization";
+    let title = cmsSeo?.seoTitle || "2D to 3D Converter - Instant Architectural Visualization";
     const description = cmsSeo?.seoDescription || "Instantly convert 2D floor plans into interactive 3D models. Best online 3D home design software for architects, builders, and individuals. Start free today!";
 
+    if (country === 'in') {
+        if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+        else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+        else title += ' Online';
+    }
     return createPageMetadata({
         title,
         description,
@@ -45,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function TwoDToThreeDPage({ params }: Props) {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = isGlobal ? '/products/2d-to-3d' : `/${country}/products/2d-to-3d`;
+    const cleanPath = '/products/2d-to-3d';
     const fullUrl = `https://zlendorealty.com${cleanPath}`;
 
     const { isEnabled: preview } = await draftMode();

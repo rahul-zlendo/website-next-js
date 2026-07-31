@@ -22,7 +22,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { country, slug } = await params;
   const cms = await getClient(false).fetch(comparePageQuery, { slug }).catch(() => null);
   const defaults = getCompareDefaults(slug);
-  const title = cms?.seoTitle ?? defaults.seoTitle;
+  let title = cms?.seoTitle ?? defaults.seoTitle;
+  if (country === 'in') {
+    if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+    else title += ' Guide';
+  }
   const description = cms?.seoDescription ?? defaults.seoDescription;
   const path = country === 'global' ? `/compare/${slug}` : `/${country}/compare/${slug}`;
   return createPageMetadata({

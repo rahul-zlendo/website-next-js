@@ -8,12 +8,12 @@ import { ChevronRight, Home, Scale } from 'lucide-react';
 import { generalTermsSections } from '@/lib/constants/policies/general-terms';
 
 export default function GeneralTermsPage() {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
 
     const policy = {
         id: 'general-terms',
         slug: 'general-terms',
-        title: 'General Terms',
+        title: country === 'in' ? 'Platform General Terms' : 'General Terms',
         icon: Scale,
         category: 'legal' as const,
         description: 'General terms and conditions for using our platform.',

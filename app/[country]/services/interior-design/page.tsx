@@ -12,10 +12,16 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = isGlobal ? '/services/interior-design' : `/${country}/services/interior-design`;
+    const cleanPath = '/services/interior-design';
 
-    return createPageMetadata({
-        title: 'Professional Interior Design Services for Homes & Offices | Zlendo Realty',
+    let title = 'Professional Interior Design Services for Homes & Offices | Zlendo Realty';
+  if (country === 'in') {
+      if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+      else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+      else title += ' Online';
+  }
+  return createPageMetadata({
+    title,
         description: 'Looking for professional interior design services? We create stylish, functional, and customized interiors for homes, offices, and commercial spaces. Contact us today for a free consultation.',
         path: cleanPath,
         keywords: [
