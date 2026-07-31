@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const cms = await getClient(preview).fetch(vastuPageQuery).catch(() => null);
 
     const isGlobal = country === 'global';
-    const path = isGlobal ? '/products/vastu' : `/${country}/products/vastu`;
+    const path = '/products/vastu';
 
     let seoTitle = cms?.seoTitle || 'Vastu-Compliant House Plans & Floor Designs | Zlendo Realty';
 
@@ -33,6 +33,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     const seoDescription = cms?.seoDescription || 'Create Vastu-compliant house plans online with Zlendo Realty’s Vastu Optimizer. Instantly analyze and correct layouts, room placement, and main entrances.';
 
+    if (country === 'in') {
+        if (seoTitle.endsWith(' | Zlendo Realty')) seoTitle = seoTitle.replace(' | Zlendo Realty', ' - Zlendo Portal');
+        else if (seoTitle.endsWith(')')) seoTitle = seoTitle.replace(')', ' Guide)');
+        else seoTitle += ' Online';
+    }
     return createPageMetadata({
         title: seoTitle,
         description: seoDescription,

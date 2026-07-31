@@ -27,7 +27,8 @@ export default function VastuClient({
 }: VastuClientProps) {
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
     const [isVideoOpen, setIsVideoOpen] = useState(false);
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
 
     const product = {
         title: 'Vastu Optimizer',
@@ -160,7 +161,7 @@ export default function VastuClient({
             {/* 3. ZIG-ZAG STEPS */}
             <section className="py-12 lg:py-20 bg-white">
                 <div className="container-custom px-6 text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || 'How It Works'}</h2>
+                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || "'How It Works'"}{isIndiaSite && <span className="sr-only"> Local</span>}</h2>
                     <p className="text-xl text-zlendo-grey-medium font-medium">{cms?.stepsSectionSubtitle || 'Four simple steps to a Vastu-compliant home.'}</p>
                 </div>
 
@@ -201,7 +202,7 @@ export default function VastuClient({
             {/* 5. FAQ */}
             <section className="py-16 bg-white">
                 <div className="container-custom px-6 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || 'Frequently Asked Questions'}</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || "'Frequently Asked Questions'"}{isIndiaSite && <span className="sr-only"> Local</span>}</h2>
                     <div className="space-y-4">
                         {resolvedFaqs.map((faq, i) => (
                             <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors">

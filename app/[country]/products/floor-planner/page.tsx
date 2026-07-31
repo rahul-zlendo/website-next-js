@@ -26,12 +26,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cmsSeo = await getClient(false).fetch(floorPlannerPageQuery);
     } catch { /* fallback to defaults */ }
 
-    const seoTitle = cmsSeo?.seoTitle ?? 'AI Floor Planner – Create 2D & 3D Floor Plans Online | Zlendo Realty';
+    let seoTitle = cmsSeo?.seoTitle ?? 'AI Floor Planner – Create 2D & 3D Floor Plans Online | Zlendo Realty';
     const seoDesc = cmsSeo?.seoDescription ?? "Design accurate 2D & 3D floor plans in minutes with Zlendo Realty's AI floor planner. No experience needed. Auto-dimensioning, live 3D preview & easy export. Start free today.";
 
     const isGlobal = country === 'global';
     const cleanPath = isGlobal ? `/products/floor-planner` : `/${country}/products/floor-planner`;
 
+    if (country === 'in') {
+        if (seoTitle.endsWith(' | Zlendo Realty')) seoTitle = seoTitle.replace(' | Zlendo Realty', ' - Zlendo Portal');
+        else if (seoTitle.endsWith(')')) seoTitle = seoTitle.replace(')', ' Guide)');
+        else seoTitle += ' Online';
+    }
     return createPageMetadata({
         title: seoTitle,
         description: seoDesc,

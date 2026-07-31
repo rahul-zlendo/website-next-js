@@ -7,13 +7,13 @@ import PolicySidebar from '@/components/policies/PolicySidebar';
 import { ChevronRight, Home, Lock } from 'lucide-react';
 
 export default function PrivacyPolicyPage() {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
 
     // Privacy Policy content embedded directly in the page
     const policy = {
         id: 'privacy-policy',
         slug: 'privacy-policy',
-        title: 'Privacy Policy',
+        title: country === 'in' ? 'Platform Privacy Policy' : 'Privacy Policy',
         icon: Lock,
         category: 'privacy' as const,
         description: 'Zlendo Technologies Privacy Policy - Learn how we collect, use, and protect your personal information.',

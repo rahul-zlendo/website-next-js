@@ -261,7 +261,8 @@ function CommentItem({
 }
 
 function TemplateDetailContent() {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
+    const isIndiaSite = country === 'in';
     const router = useRouter();
     const searchParams = useSearchParams();
     const [isCopied, setIsCopied] = useState(false);
@@ -1248,6 +1249,7 @@ function TemplateDetailContent() {
 
                             <h1 className="text-2xl font-black text-zlendo-grey-dark leading-tight mb-3">
                                 {templateData.title}
+                                {isIndiaSite && <span className="sr-only"> Details</span>}
                             </h1>
 
                             <p className="text-base text-zlendo-grey-medium font-medium opacity-80 leading-relaxed mb-4">
@@ -1331,8 +1333,8 @@ function TemplateDetailContent() {
                                                 : 'Report this template'
                                     }
                                     className={`relative flex items-center justify-center gap-2 py-3 border rounded-xl font-bold w-full transition-colors ${hasReportedTemplate || (isAuthenticated && user?.userId === selectedTemplate?.userId)
-                                            ? 'bg-gray-100 border-gray-200 text-zlendo-grey-medium cursor-not-allowed opacity-70'
-                                            : 'bg-gray-50 border-black/5 text-zlendo-grey-dark hover:bg-gray-100'
+                                        ? 'bg-gray-100 border-gray-200 text-zlendo-grey-medium cursor-not-allowed opacity-70'
+                                        : 'bg-gray-50 border-black/5 text-zlendo-grey-dark hover:bg-gray-100'
                                         }`}
                                 >
                                     <Flag className="w-4 h-4" /> {hasReportedTemplate ? 'Reported' : 'Report'}

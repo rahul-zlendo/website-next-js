@@ -141,6 +141,7 @@ const PlansClient = ({ isGlobal = false, initialPlans = [] }: PlansClientProps) 
 
                     <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black text-zlendo-grey-dark mb-6">
                         Plans for every <span className="text-zlendo-teal">individual.</span>
+                        {!isGlobal && <span className="sr-only"> Online</span>}
                     </h1>
                     <p className="text-xl text-zlendo-grey-medium font-bold opacity-60 mb-10 max-w-2xl mx-auto">
                         Whether you are renovating a single room or building a professional portfolio, we have a plan for you.

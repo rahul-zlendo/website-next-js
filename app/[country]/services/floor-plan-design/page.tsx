@@ -12,10 +12,16 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = isGlobal ? '/services/floor-plan-design' : `/${country}/services/floor-plan-design`;
+    const cleanPath = '/services/floor-plan-design';
 
-    return createPageMetadata({
-        title: 'Floor Plan Design Services for Homeowners | Zlendo Realty',
+    let title = 'Floor Plan Design Services for Homeowners | Zlendo Realty';
+  if (country === 'in') {
+      if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+      else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+      else title += ' Online';
+  }
+  return createPageMetadata({
+    title,
         description: 'Get customized 2D & 3D floor plan design services for your dream home. Zlendo Realty helps homeowners create smart, Vastu-friendly house layouts with expert guidance.',
         path: cleanPath,
     });

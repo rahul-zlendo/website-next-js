@@ -44,6 +44,7 @@ const RegistrationContent = () => {
     const searchParams = useSearchParams();
     const router = useRouter();
     const params = useParams();
+    const isIndiaSite = params?.country === 'in';
     const [type, setType] = useState<FormType>('partnership');
     const [formState, setFormState] = useState<FormData>({
         name: '',
@@ -266,7 +267,8 @@ const RegistrationContent = () => {
                         {type === 'training' ? (
                             <div>
                                 <h1 className="text-[28px] md:text-[36px] lg:text-[44px] font-black text-[#1a1a1a] leading-[1.1] mb-6 tracking-tight">
-                                    Enroll in <span className="text-zlendo-teal">Zlendo Realty</span> AI Design Training
+                                    Enroll in <span className="text-zlendo-teal">Zlendo Realty{isIndiaSite && <span className="sr-only"> Local</span>}</span> AI Design Training
+                                    {isIndiaSite && <span className="sr-only"> Portal</span>}
                                 </h1>
 
                                 <div className="space-y-3 mb-8 text-zlendo-grey-medium font-medium">
@@ -304,6 +306,7 @@ const RegistrationContent = () => {
                                             {p}{i === 0 && '.'}
                                         </span>
                                     ))}
+                                    {isIndiaSite && <span className="sr-only"> Portal</span>}
                                 </h1>
                                 <h2 className="text-xl text-zlendo-grey-medium font-medium mb-12 leading-relaxed">
                                     {content.subtitle}

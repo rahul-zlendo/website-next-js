@@ -19,10 +19,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const cms = await getClient(preview).fetch(interiorsExteriorsPageQuery).catch(() => null);
 
     const isGlobal = country === 'global';
-    const path = isGlobal ? '/products/interiors-exteriors' : `/${country}/products/interiors-exteriors`;
+    const path = '/products/interiors-exteriors';
 
+    let title = cms?.seoTitle || 'Interiors & Exteriors - Indian Homes. Indian Lifestyles.';
+  if (country === 'in') {
+        if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+        else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+        else title += ' Online';
+    }
     return createPageMetadata({
-        title: cms?.seoTitle || 'Interiors & Exteriors - Indian Homes. Indian Lifestyles.',
+        title: title,
         description: cms?.seoDescription || 'Experience interior and exterior design intelligence that respects your culture, climate, and religious preferences across India.',
         path: path,
         ogImage: {
@@ -192,7 +198,7 @@ export default async function InteriorsExteriorsPage({ params }: PageProps) {
 
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = isGlobal ? '/products/interiors-exteriors' : `/${country}/products/interiors-exteriors`;
+    const cleanPath = '/products/interiors-exteriors';
     const fullUrl = `https://zlendorealty.com${cleanPath}`;
 
     const softwareApplicationSchema = {

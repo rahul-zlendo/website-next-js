@@ -28,7 +28,7 @@ export default async function CookiePolicyPage(props: CookiePolicyPageProps) {
     const policy = {
         id: 'cookie-policy',
         slug: 'cookie-policy',
-        title: 'Cookie Policy',
+        title: country === 'in' ? 'Platform Cookie Policy' : 'Cookie Policy',
         icon: Cookie,
         category: 'privacy' as const,
         description: 'Information about how we use cookies and similar technologies.',

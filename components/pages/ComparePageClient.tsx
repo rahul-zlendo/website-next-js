@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export interface ComparePageDefaults {
   pageType: 'comparison' | 'alternatives';
@@ -63,8 +64,12 @@ function get<T>(cms: any, defaults: ComparePageDefaults, key: keyof ComparePageD
 
 export default function ComparePageClient({ cms, slug, defaults, signupUrl, hubPath = '/compare' }: ComparePageClientProps) {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const pathname = usePathname();
+  const isIndia = pathname?.startsWith('/in');
+
   const pageType = get<string>(cms, defaults, 'pageType') as 'comparison' | 'alternatives';
-  const heroTitle = get<string>(cms, defaults, 'heroTitle');
+  const heroTitleBase = get<string>(cms, defaults, 'heroTitle');
+  const heroTitle = isIndia ? `${heroTitleBase} Guide` : heroTitleBase;
   const heroSubtitle = get<string | undefined>(cms, defaults, 'heroSubtitle');
   const heroBadge = get<string>(cms, defaults, 'heroBadge');
   const heroCtaLabel = (get<string | undefined>(cms, defaults, 'heroCtaLabel')) ?? 'Start Free Trial';

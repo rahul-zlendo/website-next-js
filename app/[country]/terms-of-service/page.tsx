@@ -8,13 +8,13 @@ import { ChevronRight, Home, FileText } from 'lucide-react';
 import type { PolicySection } from '@/lib/constants/policiesData';
 
 const TermsPage = () => {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
 
     // Terms of Service content embedded directly in the page
     const policy = {
         id: 'terms-of-service',
         slug: 'terms-of-service',
-        title: 'Terms of Service',
+        title: country === 'in' ? 'Platform Terms of Service' : 'Terms of Service',
         icon: FileText,
         category: 'legal' as const,
         description: 'Zlendo Realty Terms of Service - Understand the rules and regulations for using our services.',

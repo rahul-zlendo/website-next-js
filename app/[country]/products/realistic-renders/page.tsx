@@ -21,8 +21,15 @@ export async function generateMetadata(
   const isGlobal = countryCode === 'global';
   const path = isGlobal ? '/products/realistic-renders' : `/${countryCode}/products/realistic-renders`;
 
+  let title = data?.seoTitle || `Realistic Renders | 8K Interior Visualization`;
+  if (countryCode === 'in') {
+    if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
+    else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
+    else title += ' Online';
+  }
+
   return createPageMetadata({
-    title: data?.seoTitle || `Realistic Renders | 8K Interior Visualization`,
+    title: title,
     description: data?.seoDescription || 'Experience your future home with 8K photorealism and intelligent light simulation.',
     path: path,
     ogImage: {

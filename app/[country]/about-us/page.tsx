@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const cleanPath = isGlobal ? '/about-us' : `/${country}/about-us`;
 
     return createPageMetadata({
-        title: 'About Us | Building the Future of Real Estate Design | Zlendo Realty',
+        title: isGlobal ? 'About Us | Building the Future of Real Estate Design | Zlendo Realty' : `About Us | Building the Future of Real Estate Design - Zlendo Portal`,
         description: 'Learn about Zlendo Realty, an AI-powered real estate design platform by Zlendo Technologies. We simplify floor planning, 3D visualization, Vastu analysis, and cost estimation.',
         path: cleanPath,
         keywords: [

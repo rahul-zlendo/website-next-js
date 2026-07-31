@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const path = isGlobal ? '/plans' : `/${country}/plans`;
 
     return createPageMetadata({
-        title: 'Subscription Plans | Zlendo Realty',
+        title: isGlobal ? 'Subscription Plans | Zlendo Realty' : `Subscription Plans - Zlendo Portal`,
         description: `Choose a Zlendo Realty plan that fits your needs. Enterprise-grade solutions for individuals and businesses${isGlobal ? '' : ' in India'}.`,
         path: path,
     });
