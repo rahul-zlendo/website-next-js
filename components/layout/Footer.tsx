@@ -4,6 +4,7 @@ import Logo from '../common/Logo';
 import { designLibrary } from '@/lib/config/env';
 import FooterClient from './FooterClient';
 import CountrySwitcher from '../common/CountrySwitcher';
+import AskAIButtons from '../common/AskAIButtons';
 
 
 
@@ -118,6 +119,8 @@ const Footer = ({
                                 </a>
                             ))}
                         </div>
+
+                        <AskAIButtons />
 
                         {/* VAPT Certification — no background, just divider + content */}
                         <div className="pt-1 border-t border-black/10">
