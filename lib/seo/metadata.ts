@@ -60,13 +60,22 @@ export function createPageMetadata({
     const globalUrl = `${BASE_URL}${normalizedSegment}`;
     const indiaUrl = `${BASE_URL}/in${normalizedSegment}`;
 
+    let finalDesc = description;
+    if (isIndia) {
+        if (!finalDesc.toLowerCase().includes('india')) {
+            finalDesc += ' - India region.';
+        } else {
+            finalDesc += ' (Regional)';
+        }
+    }
+
     return {
         title,
-        description,
+        description: finalDesc,
         ...(keywords && { keywords }),
         openGraph: {
             title: ogTitle || title,
-            description: ogDescription || description,
+            description: ogDescription || finalDesc,
             url: canonicalUrl,
             siteName: SITE_NAME,
             images: [image],
@@ -76,7 +85,7 @@ export function createPageMetadata({
         twitter: {
             card: 'summary_large_image',
             title: ogTitle || title,
-            description: ogDescription || description,
+            description: ogDescription || finalDesc,
             images: [image.url],
         },
         alternates: {

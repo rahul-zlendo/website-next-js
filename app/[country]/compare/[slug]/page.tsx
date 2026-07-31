@@ -23,6 +23,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cms = await getClient(false).fetch(comparePageQuery, { slug }).catch(() => null);
   const defaults = getCompareDefaults(slug);
   let title = cms?.seoTitle ?? defaults.seoTitle;
+  if (!title.includes('Zlendo Realty') && !title.includes('Zlendo Compare')) {
+    title += ' | Zlendo Compare';
+  } else if (!title.includes('|')) {
+    title += ' | Compare';
+  }
+
   if (country === 'in') {
     if (title.endsWith(')')) title = title.replace(')', ' Guide)');
     else title += ' Guide';
