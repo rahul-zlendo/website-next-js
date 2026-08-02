@@ -23,7 +23,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = [
     // Core pages
     { path: '', priority: 1.0, changeFrequency: 'daily' as const },
-    { path: '/individuals', priority: 0.9, changeFrequency: 'weekly' as const },
+    // India-only: there is no app/global/individuals route, so the global
+    // /individuals URL has no page to resolve to. Only advertise /in.
+    { path: '/individuals', priority: 0.9, changeFrequency: 'weekly' as const, isIndiaOnly: true },
     { path: '/business', priority: 0.9, changeFrequency: 'weekly' as const },
     { path: '/contact', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/plans', priority: 0.9, changeFrequency: 'weekly' as const },
@@ -74,8 +76,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/services/virtual-walkthrough/consultation', priority: 0.7, changeFrequency: 'monthly' as const },
 
     // Landing / Campaign pages
-    { path: '/vastu-campaign', priority: 0.8, changeFrequency: 'weekly' as const },
-    { path: '/register', priority: 0.7, changeFrequency: 'monthly' as const },
+    // India-only: neither has an app/global equivalent, so the global URL 404s.
+    { path: '/vastu-campaign', priority: 0.8, changeFrequency: 'weekly' as const, isIndiaOnly: true },
+    { path: '/register', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
     { path: '/tutorials', priority: 0.7, changeFrequency: 'weekly' as const },
 
     // Policy pages
