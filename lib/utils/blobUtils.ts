@@ -11,7 +11,10 @@ export const BLOB_SAS_TOKEN = process.env.NEXT_PUBLIC_BLOB_SAS_TOKEN || 'sv=2024
 /**
  * IndexedDB cache for blob URLs
  */
-const DB_NAME = 'BlobCache';
+// Bump the database name when the cached blob format changes. BlobCache v1
+// contains Azure responses stored as application/octet-stream, which browsers
+// cannot reliably decode when used through a blob: image URL.
+const DB_NAME = 'BlobCacheV2';
 const STORE_NAME = 'urls';
 const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -59,7 +62,7 @@ async function getCachedUrl(url: string): Promise<string | null> {
       request.onsuccess = async () => {
         const result = request.result;
         if (result && Date.now() - result.timestamp < CACHE_EXPIRY_MS) {
-          if (result.blob instanceof Blob) {
+          if (result.blob instanceof Blob && result.blob.type.startsWith('image/')) {
             // New format: create a fresh session-scoped blob URL from the cached Blob
             resolve(URL.createObjectURL(result.blob));
           } else {
@@ -117,6 +120,23 @@ export function constructFullBlobUrl(relativeUrl: string): string {
 }
 
 /**
+ * Azure returns some image blobs as application/octet-stream. Once that
+ * response is converted to a blob: URL, browsers use the blob MIME type and
+ * may refuse to decode otherwise-valid image bytes. Infer the correct type
+ * from the source path when storage metadata is missing.
+ */
+function inferImageMimeType(url: string): string {
+  const pathname = url.split('?')[0].toLowerCase();
+  if (pathname.endsWith('.webp')) return 'image/webp';
+  if (pathname.endsWith('.png')) return 'image/png';
+  if (pathname.endsWith('.jpg') || pathname.endsWith('.jpeg')) return 'image/jpeg';
+  if (pathname.endsWith('.avif')) return 'image/avif';
+  if (pathname.endsWith('.gif')) return 'image/gif';
+  if (pathname.endsWith('.svg')) return 'image/svg+xml';
+  return 'application/octet-stream';
+}
+
+/**
  * Fetch blob URL with caching
  */
 export async function fetchBlobUrl(relativeUrl: any): Promise<string> {
@@ -155,7 +175,15 @@ export async function fetchBlobUrl(relativeUrl: any): Promise<string> {
       throw new Error(`Failed to fetch blob: ${response.statusText}`);
     }
 
-    const blob = await response.blob();
+    const responseType = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
+    const inferredType = inferImageMimeType(fullUrl);
+    const imageType = responseType?.startsWith('image/') ? responseType : inferredType;
+    const buffer = await response.arrayBuffer();
+    const blob = new Blob([buffer], { type: imageType });
+
+    if (!blob.type.startsWith('image/')) {
+      throw new Error(`Unsupported image content type: ${responseType || 'missing'}`);
+    }
     const blobUrl = URL.createObjectURL(blob);
 
     // Cache the result (client-side only)

@@ -6,7 +6,7 @@ import {
     Box, Image, Video, Palette, Compass, Layers, Calendar,
     CheckCircle2, Building2, HardHat, PenTool, Users
 } from 'lucide-react';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCountry } from '@/lib/context/CountryContext';
@@ -53,9 +53,9 @@ export default function HomeClient({
     const { activeTemplates } = useAppSelector((state) => state.template);
 
     const [activeDesignFilter, setActiveDesignFilter] = useState("All Spaces");
-    const [imageUrls, setImageUrls] = useState<Record<number, string>>({});
-    const [multipleImageUrls, setMultipleImageUrls] = useState<Record<number, string[]>>({});
-    const [loadingImageUrls, setLoadingImageUrls] = useState<Set<number>>(new Set());
+    const [resolvedTemplateImages, setResolvedTemplateImages] = useState<Record<string, string>>({});
+    const resolvedTemplateImagesRef = useRef<Record<string, string>>({});
+    const loadingTemplateImages = useRef<Set<string>>(new Set());
     const [mounted, setMounted] = useState(false);
     const [activeAudienceTab, setActiveAudienceTab] = useState(0);
 
@@ -135,57 +135,63 @@ export default function HomeClient({
         return BLOB_SAS_TOKEN ? (fullUrl.includes('?') ? `${fullUrl}&${BLOB_SAS_TOKEN}` : `${fullUrl}?${BLOB_SAS_TOKEN}`) : fullUrl;
     };
 
-    const loadTemplateImage = async (templateId: number, thumbnailUrl: string) => {
-        if (imageUrls[templateId] || loadingImageUrls.has(templateId) || !thumbnailUrl) return;
-        setLoadingImageUrls((prev) => new Set(prev).add(templateId));
-        try {
-            const blobUrl = await fetchBlobUrl(thumbnailUrl);
-            const urlToUse = (blobUrl && blobUrl.startsWith('blob:')) ? blobUrl : constructFullBlobUrl(thumbnailUrl);
-            setImageUrls((prev) => ({ ...prev, [templateId]: urlToUse }));
-        } catch (error) {
-            setImageUrls((prev) => ({ ...prev, [templateId]: constructFullBlobUrl(thumbnailUrl) }));
-        } finally {
-            setLoadingImageUrls((prev) => {
-                const newSet = new Set(prev);
-                newSet.delete(templateId);
-                return newSet;
-            });
-        }
-    };
+    // Resolve only the four image sources visible in the active gallery. The
+    // previous implementation downloaded every image for every template on
+    // mount, even though the grid can display only four cards.
+    const visibleTemplateImageSources = useMemo(() => {
+        const templates = activeDesignFilter === 'All Spaces'
+            ? activeTemplates
+            : activeDesignFilter === 'Full House'
+                ? activeTemplates.filter((template) => template.template_TypeName === 'Full House')
+                : activeTemplates.filter((template) => template.room_TypeName === activeDesignFilter);
 
-    const loadMultipleThumbnails = async (templateId: number, thumbnailUrls: string[]) => {
-        if (multipleImageUrls[templateId] || loadingImageUrls.has(templateId) || !thumbnailUrls || thumbnailUrls.length === 0) return;
-        setLoadingImageUrls((prev) => new Set(prev).add(templateId));
-        try {
-            const loadPromises = thumbnailUrls.map(async (url) => {
-                try {
-                    const blobUrl = await fetchBlobUrl(url);
-                    return (blobUrl && blobUrl.startsWith('blob:')) ? blobUrl : constructFullBlobUrl(url);
-                } catch (error) {
-                    return constructFullBlobUrl(url);
-                }
-            });
-            const loadedUrls = await Promise.all(loadPromises);
-            setMultipleImageUrls((prev) => ({ ...prev, [templateId]: loadedUrls }));
-        } finally {
-            setLoadingImageUrls((prev) => {
-                const newSet = new Set(prev);
-                newSet.delete(templateId);
-                return newSet;
-            });
+        const sources: string[] = [];
+        for (const template of templates) {
+            if (template.thumbnail_Url) sources.push(template.thumbnail_Url);
+            for (const thumbnailUrl of template.multiple_ThumbnailUrls || []) {
+                if (thumbnailUrl) sources.push(thumbnailUrl);
+                if (sources.length >= 4) break;
+            }
+            if (sources.length >= 4) break;
         }
-    };
+        return sources.slice(0, 4);
+    }, [activeTemplates, activeDesignFilter]);
 
     useEffect(() => {
-        activeTemplates.forEach((template) => {
-            if (template.thumbnail_Url && !imageUrls[template.template_Id] && !loadingImageUrls.has(template.template_Id)) {
-                loadTemplateImage(template.template_Id, template.thumbnail_Url);
-            }
-            if (template.multiple_ThumbnailUrls && template.multiple_ThumbnailUrls.length > 0 && !multipleImageUrls[template.template_Id]) {
-                loadMultipleThumbnails(template.template_Id, template.multiple_ThumbnailUrls);
+        let cancelled = false;
+
+        visibleTemplateImageSources.forEach(async (sourceUrl) => {
+            if (resolvedTemplateImagesRef.current[sourceUrl] || loadingTemplateImages.current.has(sourceUrl)) return;
+            loadingTemplateImages.current.add(sourceUrl);
+
+            try {
+                const blobUrl = await fetchBlobUrl(sourceUrl);
+                if (!cancelled) {
+                    const resolvedUrl = blobUrl?.startsWith('blob:') ? blobUrl : constructFullBlobUrl(sourceUrl);
+                    resolvedTemplateImagesRef.current[sourceUrl] = resolvedUrl;
+                    setResolvedTemplateImages((prev) => ({
+                        ...prev,
+                        [sourceUrl]: resolvedUrl,
+                    }));
+                }
+            } catch {
+                if (!cancelled) {
+                    const fallbackUrl = constructFullBlobUrl(sourceUrl);
+                    resolvedTemplateImagesRef.current[sourceUrl] = fallbackUrl;
+                    setResolvedTemplateImages((prev) => ({
+                        ...prev,
+                        [sourceUrl]: fallbackUrl,
+                    }));
+                }
+            } finally {
+                loadingTemplateImages.current.delete(sourceUrl);
             }
         });
-    }, [activeTemplates]);
+
+        return () => {
+            cancelled = true;
+        };
+    }, [visibleTemplateImageSources]);
 
     const designInspirationData = useMemo(() => {
         if (!activeTemplates || activeTemplates.length === 0) {
@@ -203,22 +209,30 @@ export default function HomeClient({
 
         const createGridItems = (templates: typeof activeTemplates): DesignInspirationItem[] => {
             if (templates.length === 0) return [];
+            const fallbackImages = [
+                '/assets/home/living-room-3d.webp',
+                '/assets/home/bedroom-cozy.webp',
+                '/assets/home/modern-kitchen.webp',
+                '/assets/home/modern-lounge.webp',
+            ];
             const allImages: any[] = [];
             templates.forEach((template: any) => {
-                const mainImg = imageUrls[template.template_Id] || template.thumbnail_Url || "";
-                if (mainImg) allImages.push({ img: mainImg, title: template.template_Name, templateId: template.template_Id, originalUrl: template.thumbnail_Url });
-                const multipleThumbs = multipleImageUrls[template.template_Id] || [];
-                const originalMultipleThumbs = template.multiple_ThumbnailUrls || [];
-                multipleThumbs.forEach((thumbUrl, idx) => {
-                    if (thumbUrl) allImages.push({ img: thumbUrl, title: template.template_Name, templateId: template.template_Id, originalUrl: originalMultipleThumbs[idx] });
+                if (template.thumbnail_Url) allImages.push({ title: template.template_Name, templateId: template.template_Id, originalUrl: template.thumbnail_Url });
+                (template.multiple_ThumbnailUrls || []).forEach((thumbnailUrl: string) => {
+                    if (thumbnailUrl) allImages.push({ title: template.template_Name, templateId: template.template_Id, originalUrl: thumbnailUrl });
                 });
             });
 
+            const visibleImages = allImages.slice(0, 4).map((item, index) => ({
+                ...item,
+                img: resolvedTemplateImages[item.originalUrl] || fallbackImages[index],
+            }));
+
             const items: DesignInspirationItem[] = [];
-            if (allImages[0]) items.push({ title: allImages[0].title, count: `${templates.length}+ Designs`, img: allImages[0].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-2", isLarge: true, templateId: allImages[0].templateId, originalUrl: allImages[0].originalUrl });
-            if (allImages[1]) items.push({ title: allImages[1].title, count: `${templates.length}+ Designs`, img: allImages[1].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: allImages[1].templateId, originalUrl: allImages[1].originalUrl });
-            if (allImages[2]) items.push({ title: allImages[2].title, count: `${templates.length}+ Designs`, img: allImages[2].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: allImages[2].templateId, originalUrl: allImages[2].originalUrl });
-            if (allImages[3]) items.push({ title: allImages[3].title, count: `${templates.length}+ Designs`, img: allImages[3].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-1", isLarge: true, templateId: allImages[3].templateId, originalUrl: allImages[3].originalUrl });
+            if (visibleImages[0]) items.push({ title: visibleImages[0].title, count: `${templates.length}+ Designs`, img: visibleImages[0].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-2", isLarge: true, templateId: visibleImages[0].templateId, originalUrl: visibleImages[0].originalUrl });
+            if (visibleImages[1]) items.push({ title: visibleImages[1].title, count: `${templates.length}+ Designs`, img: visibleImages[1].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: visibleImages[1].templateId, originalUrl: visibleImages[1].originalUrl });
+            if (visibleImages[2]) items.push({ title: visibleImages[2].title, count: `${templates.length}+ Designs`, img: visibleImages[2].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: visibleImages[2].templateId, originalUrl: visibleImages[2].originalUrl });
+            if (visibleImages[3]) items.push({ title: visibleImages[3].title, count: `${templates.length}+ Designs`, img: visibleImages[3].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-1", isLarge: true, templateId: visibleImages[3].templateId, originalUrl: visibleImages[3].originalUrl });
             return items;
         };
 
@@ -229,7 +243,7 @@ export default function HomeClient({
         };
         uniqueRoomTypes.forEach(rt => { data[rt as string] = createGridItems(activeTemplates.filter(t => t.room_TypeName === rt)); });
         return data;
-    }, [activeTemplates, imageUrls, multipleImageUrls]);
+    }, [activeTemplates, resolvedTemplateImages]);
 
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
@@ -396,7 +410,19 @@ export default function HomeClient({
                                             onClick={() => item.templateId && handleTemplateClick(item.templateId)}
                                             className={`${item.colSpan} ${item.rowSpan} relative group rounded-[24px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-lg block h-[260px] md:h-full`}
                                         >
-                                            <img src={item.img} alt={`${item.title} - Zlendo Realty 3D Design`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                            <img
+                                                src={item.img}
+                                                alt={`${item.title} - Zlendo Realty 3D Design`}
+                                                width={1200}
+                                                height={800}
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                onError={(event) => {
+                                                    event.currentTarget.onerror = null;
+                                                    event.currentTarget.src = '/assets/home/living-room-3d.webp';
+                                                }}
+                                            />
                                             <div className={`absolute inset-0 transition-opacity duration-500 ${item.isLarge ? 'bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100' : 'bg-black/40 opacity-0 group-hover:opacity-100'}`} />
                                             <div className={`absolute left-0 p-6 md:p-8 transition-all duration-500 ${item.isLarge ? 'bottom-0 translate-y-4 md:translate-y-8 group-hover:translate-y-0 opacity-100 md:opacity-0 group-hover:opacity-100' : 'bottom-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100'}`}>
                                                 {item.isLarge && <h3 className="text-white text-xl md:text-2xl font-black mb-2">{item.title}</h3>}
