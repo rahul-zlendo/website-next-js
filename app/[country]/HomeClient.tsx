@@ -6,14 +6,14 @@ import {
     Box, Image, Video, Palette, Compass, Layers, Calendar,
     CheckCircle2, Building2, HardHat, PenTool, Users
 } from 'lucide-react';
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCountry } from '@/lib/context/CountryContext';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { getAllTemplates } from '@/lib/store/slices/templateSlice';
-import { fetchBlobUrl, BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
+import { BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
 import { addTemplateViewService } from '@/lib/services/templateService';
 import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 import { urlFor } from '@/lib/sanity/image';
@@ -53,9 +53,6 @@ export default function HomeClient({
     const { activeTemplates } = useAppSelector((state) => state.template);
 
     const [activeDesignFilter, setActiveDesignFilter] = useState("All Spaces");
-    const [resolvedTemplateImages, setResolvedTemplateImages] = useState<Record<string, string>>({});
-    const resolvedTemplateImagesRef = useRef<Record<string, string>>({});
-    const loadingTemplateImages = useRef<Set<string>>(new Set());
     const [mounted, setMounted] = useState(false);
     const [activeAudienceTab, setActiveAudienceTab] = useState(0);
 
@@ -135,64 +132,6 @@ export default function HomeClient({
         return BLOB_SAS_TOKEN ? (fullUrl.includes('?') ? `${fullUrl}&${BLOB_SAS_TOKEN}` : `${fullUrl}?${BLOB_SAS_TOKEN}`) : fullUrl;
     };
 
-    // Resolve only the four image sources visible in the active gallery. The
-    // previous implementation downloaded every image for every template on
-    // mount, even though the grid can display only four cards.
-    const visibleTemplateImageSources = useMemo(() => {
-        const templates = activeDesignFilter === 'All Spaces'
-            ? activeTemplates
-            : activeDesignFilter === 'Full House'
-                ? activeTemplates.filter((template) => template.template_TypeName === 'Full House')
-                : activeTemplates.filter((template) => template.room_TypeName === activeDesignFilter);
-
-        const sources: string[] = [];
-        for (const template of templates) {
-            if (template.thumbnail_Url) sources.push(template.thumbnail_Url);
-            for (const thumbnailUrl of template.multiple_ThumbnailUrls || []) {
-                if (thumbnailUrl) sources.push(thumbnailUrl);
-                if (sources.length >= 4) break;
-            }
-            if (sources.length >= 4) break;
-        }
-        return sources.slice(0, 4);
-    }, [activeTemplates, activeDesignFilter]);
-
-    useEffect(() => {
-        let cancelled = false;
-
-        visibleTemplateImageSources.forEach(async (sourceUrl) => {
-            if (resolvedTemplateImagesRef.current[sourceUrl] || loadingTemplateImages.current.has(sourceUrl)) return;
-            loadingTemplateImages.current.add(sourceUrl);
-
-            try {
-                const blobUrl = await fetchBlobUrl(sourceUrl);
-                if (!cancelled) {
-                    const resolvedUrl = blobUrl?.startsWith('blob:') ? blobUrl : constructFullBlobUrl(sourceUrl);
-                    resolvedTemplateImagesRef.current[sourceUrl] = resolvedUrl;
-                    setResolvedTemplateImages((prev) => ({
-                        ...prev,
-                        [sourceUrl]: resolvedUrl,
-                    }));
-                }
-            } catch {
-                if (!cancelled) {
-                    const fallbackUrl = constructFullBlobUrl(sourceUrl);
-                    resolvedTemplateImagesRef.current[sourceUrl] = fallbackUrl;
-                    setResolvedTemplateImages((prev) => ({
-                        ...prev,
-                        [sourceUrl]: fallbackUrl,
-                    }));
-                }
-            } finally {
-                loadingTemplateImages.current.delete(sourceUrl);
-            }
-        });
-
-        return () => {
-            cancelled = true;
-        };
-    }, [visibleTemplateImageSources]);
-
     const designInspirationData = useMemo(() => {
         if (!activeTemplates || activeTemplates.length === 0) {
             // SEO Fallback: Provide Googlebot & first paint with actual imagery before JS fetch
@@ -223,13 +162,14 @@ export default function HomeClient({
                 });
             });
 
+            // The API returns thumbnail_Url as a relative blob path
+            // (e.g. "prod-templates/119/render.webp"). constructFullBlobUrl
+            // turns it into the full SAS-signed URL the private container
+            // requires. Use it directly — the fetchBlobUrl/blob: approach is
+            // unreliable here (blob: URLs fail to render), so we skip it.
             const visibleImages = allImages.slice(0, 4).map((item, index) => ({
                 ...item,
-                // Prefer the cached blob: URL once resolved, but fall back to the
-                // SAS-signed direct blob URL (not a static default) so the real
-                // template image still loads in production before/without the
-                // async fetchBlobUrl resolution. Static default is last resort.
-                img: resolvedTemplateImages[item.originalUrl] || constructFullBlobUrl(item.originalUrl) || fallbackImages[index],
+                img: constructFullBlobUrl(item.originalUrl) || fallbackImages[index],
             }));
 
             const items: DesignInspirationItem[] = [];
@@ -247,7 +187,7 @@ export default function HomeClient({
         };
         uniqueRoomTypes.forEach(rt => { data[rt as string] = createGridItems(activeTemplates.filter(t => t.room_TypeName === rt)); });
         return data;
-    }, [activeTemplates, resolvedTemplateImages]);
+    }, [activeTemplates]);
 
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
@@ -423,20 +363,8 @@ export default function HomeClient({
                                                 decoding="async"
                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                 onError={(event) => {
-                                                    const target = event.currentTarget;
-                                                    // In production the blob container is private, so a failed
-                                                    // blob:/relative src must retry with a SAS-signed direct URL
-                                                    // (same recovery the template pages use) before we give up
-                                                    // and show the static default.
-                                                    if (item.originalUrl) {
-                                                        const signedUrl = constructFullBlobUrl(item.originalUrl);
-                                                        if (signedUrl && target.src !== signedUrl && signedUrl.includes('sig=')) {
-                                                            target.src = signedUrl;
-                                                            return;
-                                                        }
-                                                    }
-                                                    target.onerror = null;
-                                                    target.src = '/assets/home/living-room-3d.webp';
+                                                    event.currentTarget.onerror = null;
+                                                    event.currentTarget.src = '/assets/home/living-room-3d.webp';
                                                 }}
                                             />
                                             <div className={`absolute inset-0 transition-opacity duration-500 ${item.isLarge ? 'bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100' : 'bg-black/40 opacity-0 group-hover:opacity-100'}`} />

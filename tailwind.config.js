@@ -45,8 +45,12 @@ export default {
                 'zlendo-gradient': 'linear-gradient(297deg, #FF603A 47.4%, #FDC091 133.17%)',
             },
             fontFamily: {
-                outfit: ['Outfit', 'sans-serif'],
-                nunito: ['Nunito', 'sans-serif'],
+                // Use the self-hosted next/font faces (defined in app/layout.tsx
+                // with display: 'swap' and preloading). Keeps the literal names
+                // as fallbacks. This replaces the render-blocking Google Fonts
+                // @import that used to live in globals.css.
+                outfit: ['var(--font-outfit)', 'Outfit', 'sans-serif'],
+                nunito: ['var(--font-nunito)', 'Nunito', 'sans-serif'],
             },
             animation: {
                 'float': 'float 6s ease-in-out infinite',
