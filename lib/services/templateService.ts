@@ -29,6 +29,7 @@ export interface Template {
   isCustomer?: boolean; // Optional field
   viewCount?: number; // Optional template view count
   likeCount?: number; // Optional template like count
+  isCommunity?: boolean; // Flag to identify community templates
 }
 
 export interface TemplateComment {
@@ -79,9 +80,13 @@ export const getAllTemplatesService = async (regionId?: number): Promise<Templat
           userId: communityData.userId,
           userName: communityData.userName,
           profileUrl: communityData.profileUrl,
+          isCommunity: true,
         };
       }
-      return template;
+      return {
+        ...template,
+        isCommunity: false,
+      };
     });
 
     return mergedTemplates;

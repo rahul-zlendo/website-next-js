@@ -135,6 +135,10 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
             filtered = activeTemplates.filter((template) => {
                 return template.template_TypeName === 'Full House';
             });
+        } else if (selectedFilter === 'community') {
+            filtered = activeTemplates.filter((template) => {
+                return template.isCommunity === true;
+            });
         } else {
             filtered = activeTemplates.filter((template) => {
                 return template.room_TypeName === selectedFilter;
@@ -277,6 +281,15 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
                                     }`}
                             >
                                 Full House
+                            </button>
+                            <button
+                                onClick={() => setSelectedFilter('community')}
+                                className={`px-6 py-2.5 rounded-full font-black text-sm uppercase tracking-wider transition-all duration-200 ${selectedFilter === 'community'
+                                    ? 'bg-zlendo-teal text-white shadow-lg shadow-zlendo-teal/30 scale-105'
+                                    : 'bg-gray-100 text-zlendo-grey-medium hover:bg-gray-200 hover:text-zlendo-grey-dark'
+                                    }`}
+                            >
+                                Community Templates
                             </button>
                             {uniqueRoomTypes.map((roomType) => (
                                 <button
