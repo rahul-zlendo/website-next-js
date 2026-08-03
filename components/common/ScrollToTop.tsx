@@ -2,10 +2,33 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import { MessageCircle, ChevronUp } from 'lucide-react';
 import ChatWidget from './ChatWidget';
 
+function getCookie(name: string): string | null {
+    if (typeof document === 'undefined') return null;
+    const match = document.cookie.match(new RegExp(`(?:^|;\\s*)${name}=([^;]*)`));
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
+/**
+ * Mirrors GeoSuggestModal's show condition. When the India welcome popup is
+ * eligible to appear, the chat widget must not also auto-open, so only one
+ * popup competes for attention. Keep in sync with GeoSuggestModal.tsx.
+ */
+function isIndiaPopupEligible(pathname: string | null): boolean {
+    const onIndiaSite = pathname === '/in' || (pathname?.startsWith('/in/') ?? false);
+    return (
+        getCookie('zl_geo') === 'in' &&
+        !onIndiaSite &&
+        getCookie('zl_country_choice') !== 'global' &&
+        getCookie('zl_geo_modal_shown') !== '1'
+    );
+}
+
 const ScrollToTop = () => {
+    const pathname = usePathname();
     const [isVisible, setIsVisible] = useState(false);
     const [hasConsent, setHasConsent] = useState(true);
     const [isChatOpen, setIsChatOpen] = useState(false);
@@ -47,6 +70,11 @@ const ScrollToTop = () => {
         // Don't auto-open on mobile devices (width < 768px)
         const isMobile = window.innerWidth < 768;
 
+        // Don't auto-open when the India welcome popup will show — one popup at a time
+        if (isIndiaPopupEligible(pathname)) {
+            return;
+        }
+
         if (!hasAutoOpened && !isMobile) {
             const openTimer = setTimeout(() => {
                 setIsChatOpen(true);
@@ -66,7 +94,7 @@ const ScrollToTop = () => {
             // Mark as opened so we don't open it if the user resizes the window later
             sessionStorage.setItem('zlendo_chat_auto_opened', 'true');
         }
-    }, []);
+    }, [pathname]);
 
     const scrollToTop = () => {
         window.scrollTo({
