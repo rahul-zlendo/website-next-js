@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Nunito:wght@300;400;600;700;800&display=swap');
+/*
+ * Fonts (Outfit + Nunito) are loaded via next/font/google in app/layout.tsx —
+ * self-hosted, preloaded, and set to display: swap. The previous render-blocking
+ * @import from fonts.googleapis.com was removed to eliminate the blank-text
+ * delay (FCP) and the duplicate font download.
+ */
 
 @tailwind base;
 @tailwind components;
