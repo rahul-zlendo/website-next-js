@@ -77,7 +77,7 @@ const AskAIButtons = () => {
                         key={name}
                         href={href}
                         target="_blank"
-                        rel="noopener noreferrer"
+                        rel="noopener noreferrer nofollow"
                         aria-label={`Ask ${name} about Zlendo Realty`}
                         title={`Ask ${name} about Zlendo Realty`}
                         className="text-zlendo-grey-dark opacity-85 hover:opacity-100 hover:-translate-y-0.5 transition-all duration-300"
