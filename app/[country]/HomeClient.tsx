@@ -225,7 +225,11 @@ export default function HomeClient({
 
             const visibleImages = allImages.slice(0, 4).map((item, index) => ({
                 ...item,
-                img: resolvedTemplateImages[item.originalUrl] || fallbackImages[index],
+                // Prefer the cached blob: URL once resolved, but fall back to the
+                // SAS-signed direct blob URL (not a static default) so the real
+                // template image still loads in production before/without the
+                // async fetchBlobUrl resolution. Static default is last resort.
+                img: resolvedTemplateImages[item.originalUrl] || constructFullBlobUrl(item.originalUrl) || fallbackImages[index],
             }));
 
             const items: DesignInspirationItem[] = [];
@@ -419,8 +423,20 @@ export default function HomeClient({
                                                 decoding="async"
                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                                 onError={(event) => {
-                                                    event.currentTarget.onerror = null;
-                                                    event.currentTarget.src = '/assets/home/living-room-3d.webp';
+                                                    const target = event.currentTarget;
+                                                    // In production the blob container is private, so a failed
+                                                    // blob:/relative src must retry with a SAS-signed direct URL
+                                                    // (same recovery the template pages use) before we give up
+                                                    // and show the static default.
+                                                    if (item.originalUrl) {
+                                                        const signedUrl = constructFullBlobUrl(item.originalUrl);
+                                                        if (signedUrl && target.src !== signedUrl && signedUrl.includes('sig=')) {
+                                                            target.src = signedUrl;
+                                                            return;
+                                                        }
+                                                    }
+                                                    target.onerror = null;
+                                                    target.src = '/assets/home/living-room-3d.webp';
                                                 }}
                                             />
                                             <div className={`absolute inset-0 transition-opacity duration-500 ${item.isLarge ? 'bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100' : 'bg-black/40 opacity-0 group-hover:opacity-100'}`} />
