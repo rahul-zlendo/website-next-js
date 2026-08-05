@@ -53,7 +53,13 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: {
+        'x-default': url,
+        'en': url,
+      }
+    },
     openGraph: {
       type: 'article',
       title: post.ogTitle || title,
@@ -100,7 +106,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   ]);
 
   return (
-    <main>
+    <div>
       <JsonLd schema={articleSchema} />
       <JsonLd schema={breadcrumbSchema} />
 
@@ -171,6 +177,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         )}
       </article>
-    </main>
+    </div>
   );
 }

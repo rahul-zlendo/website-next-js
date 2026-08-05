@@ -14,7 +14,13 @@ export const metadata: Metadata = {
   title: 'Blog | Zlendo Realty',
   description:
     'Home design, vastu, interiors, construction and AI design insights from the Zlendo Realty team.',
-  alternates: { canonical: `${BASE_URL}/blog` },
+  alternates: {
+    canonical: `${BASE_URL}/blog`,
+    languages: {
+      'x-default': `${BASE_URL}/blog`,
+      'en': `${BASE_URL}/blog`,
+    }
+  },
   openGraph: {
     title: 'Blog | Zlendo Realty',
     description:
@@ -59,7 +65,7 @@ export default async function BlogIndexPage({
   const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
 
   return (
-    <main>
+    <div className="flex-1 w-full bg-white">
       <BlogHero
         title="The Zlendo Realty Blog"
         subtitle="Home design, vastu, interiors and construction insights — from our team to your next project."
@@ -129,6 +135,6 @@ export default async function BlogIndexPage({
           <Pagination currentPage={current} totalPages={totalPages} basePath="/blog" />
         </div>
       </section>
-    </main>
+    </div>
   );
 }
