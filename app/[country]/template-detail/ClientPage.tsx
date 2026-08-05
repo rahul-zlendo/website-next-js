@@ -1193,9 +1193,12 @@ function TemplateDetailContent() {
                             {selectedTemplate?.userName && (
                                 <div className="mb-4 pb-4 border-b border-gray-100">
                                     <div className="flex items-center gap-3 justify-between">
-                                        <Link
+                                        {/* <Link
                                             href={getPath(`/user-profile?userId=${encryptProjectId(selectedTemplate.userId)}`)}
                                             className="flex items-center gap-3 flex-1 hover:opacity-80 transition-opacity"
+                                        > */}
+                                        <div
+                                            className="flex items-center gap-3 flex-1 mt-1"
                                         >
                                             <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 bg-gray-100">
                                                 {(() => {
@@ -1223,12 +1226,16 @@ function TemplateDetailContent() {
                                                 <span className="text-sm font-bold text-zlendo-grey-dark">
                                                     {selectedTemplate.userName}
                                                 </span>
+                                                <span className="text-xs font-medium text-zlendo-grey-medium opacity-80 mt-0.5">
+                                                    Zlendo Realty Community Creator
+                                                </span>
                                                 {/* <div className="flex items-center gap-3 text-xs font-bold text-zlendo-grey-medium opacity-60">
                                                     <span>{followers} Followers</span>
                                                     <span>{followings} Followings</span>
                                                 </div> */}
                                             </div>
-                                        </Link>
+                                        </div>
+                                        {/* </Link> */}
                                         {/* {isAuthenticated && user?.userId !== selectedTemplate.userId && (
                                             <button
                                                 onClick={handleFollow}
