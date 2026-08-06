@@ -16,7 +16,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const path = '/products/vr-studio';
+    const path = isGlobal ? '/products/vr-studio' : '/in/products/vr-studio';
     const { isEnabled: preview } = await draftMode();
 
     let cmsSeo: any = null;
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function VRStudioPage({ params }: Props) {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = '/products/vr-studio';
+    const cleanPath = isGlobal ? '/products/vr-studio' : '/in/products/vr-studio';
     const fullUrl = `https://zlendorealty.com${cleanPath}`;
     const { isEnabled: preview } = await draftMode();
     const cms: any = await getClient(preview).fetch(vrStudioPageQuery).catch(() => null);

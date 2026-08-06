@@ -3,13 +3,27 @@ import { client } from '@/lib/sanity/client';
 import { tutorialsPageQuery } from '@/lib/sanity/queries';
 import TutorialsClient from './TutorialsClient';
 
-export const metadata = createPageMetadata({
-    title: 'Video Tutorials & Learning Center | Zlendo Realty',
-    description: 'Master Zlendo Realty with our step-by-step video tutorials. Learn how to create floor plans, generate 3D renders, and style your home like a pro.',
-    path: '/in/tutorials',
-});
+import { Metadata } from 'next';
 
-export default async function TutorialsPage() {
+interface Props {
+    params: Promise<{ country: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { country } = await params;
+    const isIndia = country === 'in';
+    const baseTitle = 'Video Tutorials & Learning Center | Zlendo Realty';
+    const baseDesc = 'Master Zlendo Realty with our step-by-step video tutorials. Learn how to create floor plans, generate 3D renders, and style your home like a pro.';
+
+    return createPageMetadata({
+        title: isIndia ? `${baseTitle} - India` : baseTitle,
+        description: isIndia ? `${baseDesc} Perfect for users across India.` : baseDesc,
+        path: `/${country}/tutorials`,
+    });
+}
+
+export default async function TutorialsPage({ params }: Props) {
+    const { country } = await params;
     // Fetch CMS data for the Tutorials page
     let cmsData = null;
     try {

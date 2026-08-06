@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const cms = await getClient(preview).fetch(vastuPageQuery).catch(() => null);
 
     const isGlobal = country === 'global';
-    const path = '/products/vastu';
+    const path = isGlobal ? '/products/vastu' : '/in/products/vastu';
 
     let seoTitle = cms?.seoTitle || 'Vastu-Compliant House Plans & Floor Designs | Zlendo Realty';
 

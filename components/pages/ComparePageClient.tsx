@@ -104,7 +104,10 @@ export default function ComparePageClient({ cms, slug, defaults, signupUrl, hubP
           <span className="inline-block bg-zlendo-teal text-white text-xs font-black uppercase tracking-[0.2em] px-4 py-1.5 rounded-full mb-5">
             {heroBadge}
           </span>
-          <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito leading-[1.1] md:leading-[1.05] mb-5 tracking-tight md:tracking-tighter">{heroTitle}</h1>
+          <h1 className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito leading-[1.1] md:leading-[1.05] mb-5 tracking-tight md:tracking-tighter">
+            {heroTitle}
+            {isIndia && <span className="sr-only"> (India)</span>}
+          </h1>
           {heroSubtitle && (
             <p className="text-base md:text-lg text-gray-300 font-bold max-w-2xl mx-auto mb-8 leading-relaxed opacity-90">{heroSubtitle}</p>
           )}
@@ -122,7 +125,10 @@ export default function ComparePageClient({ cms, slug, defaults, signupUrl, hubP
           {/* ── Quick Overview ── */}
           <section className="py-16 px-4 bg-gray-50">
             <div className="max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-5xl font-black font-nunito text-center mb-10 text-zlendo-grey-dark">Quick Overview</h2>
+              <h2 className="text-3xl md:text-5xl font-black font-nunito text-center mb-10 text-zlendo-grey-dark">
+                Quick Overview
+                <span className="sr-only"> - Zlendo Realty vs {competitorName} {isIndia ? '(India)' : ''}</span>
+              </h2>
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Zlendo Card */}
                 <div className="bg-white border-2 border-zlendo-teal rounded-xl p-6 shadow-sm">

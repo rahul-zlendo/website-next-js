@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const cms = await getClient(preview).fetch(roomStylerPageQuery).catch(() => null);
 
     const isGlobal = country === 'global';
-    const path = '/products/room-styler';
+    const path = isGlobal ? '/products/room-styler' : '/in/products/room-styler';
 
     let title = cms?.seoTitle || 'Smart Room Styler - AI-driven Interior Design';
   if (country === 'in') {
@@ -47,7 +47,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function RoomStylerPage({ params }: PageProps) {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = '/products/room-styler';
+    const cleanPath = isGlobal ? '/products/room-styler' : '/in/products/room-styler';
     const fullUrl = `https://zlendorealty.com${cleanPath}`;
 
     const { isEnabled: preview } = await draftMode();

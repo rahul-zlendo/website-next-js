@@ -19,7 +19,7 @@ interface PlansClientProps {
 
 const PlansClient = ({ isGlobal = false, initialPlans = [] }: PlansClientProps) => {
     const dispatch = useAppDispatch();
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
     const { activeOffer } = useAppSelector((state) => state.offer);
     const { user, isAuthenticated } = useAppSelector((state) => state.auth);
     const { detectedCountryId, isDetectingCountry } = useAppSelector((state) => state.enterprise);
@@ -289,7 +289,10 @@ const PlansClient = ({ isGlobal = false, initialPlans = [] }: PlansClientProps) 
                                         )}
 
                                         <div className="mb-6">
-                                            <h2 className="text-2xl font-black text-zlendo-grey-dark">{plan.planName}</h2>
+                                            <h2 className="text-2xl font-black text-zlendo-grey-dark">
+                                                {plan.planName}
+                                                {country === 'in' && <span className="sr-only"> (India)</span>}
+                                            </h2>
                                             <p className="text-sm font-bold text-gray-400 mt-1 line-clamp-2">{plan.description}</p>
                                         </div>
 

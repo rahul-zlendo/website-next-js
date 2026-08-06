@@ -117,6 +117,7 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
                         <span className="bg-gradient-to-r from-zlendo-teal to-emerald-500 bg-clip-text text-transparent">
                             {cms?.heroTitlePart2 || "your project."}
                         </span>
+                        {isIndiaSite && <span className="sr-only"> in India</span>}
                     </motion.h1>
 
                     <motion.p
@@ -155,6 +156,7 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
                             <div>
                                 <h2 className="text-2xl font-black text-zlendo-grey-dark mb-3">
                                     {cms?.directContactTitle || "Reach us directly"}
+                                    {isIndiaSite && <span className="sr-only"> (India)</span>}
                                 </h2>
                                 <p className="text-base text-zlendo-grey-medium font-medium leading-relaxed opacity-70">
                                     {cms?.directContactSubtitle || "Prefer speaking to someone? Our team is available Mon–Fri, 9am–6pm IST."}

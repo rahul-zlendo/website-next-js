@@ -54,7 +54,7 @@ export default function PartnersClient({
     resolvedWhyCards,
     resolvedGrowthPoints
 }: PartnersClientProps) {
-    const { paths } = useCountry();
+    const { paths, country } = useCountry();
     const [activeProgram, setActiveProgram] = useState<ProgramType>('affiliate');
 
     const scrollToProgram = (type: ProgramType) => {
@@ -154,7 +154,10 @@ export default function PartnersClient({
             <section id="program-section" className="py-16 bg-zlendo-mint/10">
                 <div className="container-custom px-4">
                     <div className="text-center mb-12">
-                        <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-4">{cms?.programsTitle || "Choose Your Growth Path"}</h2>
+                        <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-4">
+                            {cms?.programsTitle || "Choose Your Growth Path"}
+                            {country === 'in' && <span className="sr-only"> (India)</span>}
+                        </h2>
                         <p className="text-lg text-zlendo-grey-medium font-bold opacity-60">{cms?.programsSubtitle || "Whether you're an individual creator or a professional studio, we have a place for you."}</p>
                     </div>
 
@@ -449,7 +452,10 @@ export default function PartnersClient({
                             className="bg-white p-16 rounded-[60px] border border-black/5 shadow-2xl relative"
                         >
                             <div className="mb-8">
-                                <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-6">{cms?.growthTitle || "Let's Grow Together."}</h2>
+                                <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-6">
+                                    {cms?.growthTitle || "Let's Grow Together."}
+                                    {country === 'in' && <span className="sr-only"> (India)</span>}
+                                </h2>
                                 <p className="text-xl text-zlendo-grey-medium font-medium max-w-2xl mx-auto leading-relaxed opacity-60">
                                     {cms?.growthSubtitle || "Zlendo isn't just a tool; it's a movement toward digital-first construction and interiors. We have a long-term partnership mindset."}
                                 </p>

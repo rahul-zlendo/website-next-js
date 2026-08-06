@@ -86,6 +86,7 @@ export default function AboutClient() {
                         <motion.div {...fadeUp} className="order-1 lg:order-2">
                             <h2 className="text-[28px] md:text-[40px] font-black text-zlendo-grey-dark leading-tight mb-6">
                                 Why We Created Zlendo Realty
+                                {isIndia && <span className="sr-only"> (India)</span>}
                             </h2>
                             <p className="text-lg text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                 We started with one strong belief: real estate design should not be complicated, time-consuming, or dependent on multiple disconnected tools.

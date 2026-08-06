@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
     ArrowRight, Zap, ShieldCheck, Sparkles, Eye, Ruler, Calculator,
     Box, Image, Video, Palette, Compass, Layers, Calendar,
-    CheckCircle2, Building2, HardHat, PenTool, Users
+    CheckCircle2, Building2, HardHat, PenTool, Users, Star
 } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
@@ -242,10 +242,69 @@ export default function HomeClient({
                             {heroSecondaryLabel} <Calendar className="w-6 h-6 text-zlendo-grey-medium group-hover:text-zlendo-teal transition-colors" />
                         </Link>
                     </motion.div>
+
+                    {/* Rating Badges Light Mode */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="flex flex-col sm:flex-row items-stretch justify-center gap-4 sm:gap-6 pt-8 pb-2 max-w-2xl mx-auto"
+                    >
+                        <a
+                            href="https://www.capterra.in/software/1085377/Zlendo-Realty"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Read Zlendo Realty reviews on Capterra"
+                            className="flex-1 flex flex-col items-center justify-center gap-2.5 px-5 py-4 bg-white border border-black/[0.05] shadow-lg shadow-black/[0.02] rounded-[20px] group hover:border-[#00bf9a]/30 hover:shadow-xl hover:shadow-[#00bf9a]/10 transition-all duration-300"
+                        >
+                            {/* Top: Logo */}
+                            <div className="flex items-center opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                                <img
+                                    src="/assets/capterra-logo.webp"
+                                    alt="Capterra Official Logo"
+                                    className="h-[22px] sm:h-[26px] w-auto object-contain"
+                                />
+                            </div>
+
+                            {/* Bottom: Rating */}
+                            <div className="flex items-center gap-2 pt-1">
+                                <span className="text-[14px] sm:text-[15px] font-black text-zlendo-grey-dark leading-none whitespace-nowrap">Rated 5/5</span>
+                                <div className="flex gap-0.5">
+                                    {[1, 2, 3, 4, 5].map(i => (
+                                        <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00bf9a] fill-[#00bf9a]" />
+                                    ))}
+                                </div>
+                            </div>
+                        </a>
+
+                        <a
+                            href="https://www.producthunt.com/products/zlendo-realty/reviews"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Read Zlendo Realty reviews on Product Hunt"
+                            className="flex-1 flex flex-col items-center justify-center gap-2.5 px-5 py-4 bg-white border border-black/[0.05] shadow-lg shadow-black/[0.02] rounded-[20px] group hover:border-[#da552f]/30 hover:shadow-xl hover:shadow-[#da552f]/10 transition-all duration-300"
+                        >
+                            {/* Top: Logo */}
+                            <div className="flex items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                                <div className="w-5 h-5 sm:w-6 sm:h-6 bg-[#da552f] rounded-full flex items-center justify-center text-white font-bold text-[10px] sm:text-xs pt-0.5 shrink-0">P</div>
+                                <span className="text-[#da552f] font-bold text-[15px] sm:text-base tracking-tight leading-none whitespace-nowrap">Product Hunt</span>
+                            </div>
+
+                            {/* Bottom: Rating */}
+                            <div className="flex items-center gap-2 pt-1">
+                                <span className="text-[14px] sm:text-[15px] font-black text-zlendo-grey-dark leading-none whitespace-nowrap">Rated 4.8/5</span>
+                                <div className="flex gap-0.5">
+                                    {[1, 2, 3, 4, 5].map(i => (
+                                        <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#da552f] fill-[#da552f]" />
+                                    ))}
+                                </div>
+                            </div>
+                        </a>
+                    </motion.div>
                 </section>
 
                 {/* 9D INTELLIGENCE HUB */}
-                <section className="py-16 md:py-24 relative bg-white overflow-hidden border-b border-black/[0.03]">
+                <section className="py-12 md:py-16 relative bg-white overflow-hidden border-b border-black/[0.03]">
                     <div className="container-custom px-4 relative z-10">
                         <div className="max-w-4xl mx-auto text-center mb-6 md:mb-8">
                             <motion.div
@@ -362,9 +421,20 @@ export default function HomeClient({
                                                 loading="lazy"
                                                 decoding="async"
                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                                onError={(event) => {
-                                                    event.currentTarget.onerror = null;
-                                                    event.currentTarget.src = '/assets/home/living-room-3d.webp';
+                                                onError={(e) => {
+                                                    const target = e.currentTarget;
+                                                    if (item.img?.startsWith('blob:') && item.originalUrl) {
+                                                        const directUrl = item.originalUrl.startsWith('http')
+                                                            ? item.originalUrl
+                                                            : `${process.env.NEXT_PUBLIC_AZURE_BLOB_URL || 'https://zlendoappstorage.blob.core.windows.net/'}${item.originalUrl}${item.originalUrl.includes('?') ? '&' : '?'}${process.env.NEXT_PUBLIC_AZURE_SAS_TOKEN || ''}`;
+                                                        if (target.src !== directUrl) {
+                                                            target.onerror = null;
+                                                            target.src = directUrl;
+                                                            return;
+                                                        }
+                                                    }
+                                                    target.onerror = null;
+                                                    target.src = '/assets/home/living-room-3d.webp';
                                                 }}
                                             />
                                             <div className={`absolute inset-0 transition-opacity duration-500 ${item.isLarge ? 'bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100' : 'bg-black/40 opacity-0 group-hover:opacity-100'}`} />

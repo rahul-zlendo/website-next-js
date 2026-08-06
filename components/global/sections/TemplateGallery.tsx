@@ -144,22 +144,37 @@ const TemplateGallery: React.FC<TemplateGalleryProps> = () => {
 
         const createGridItems = (templates: typeof activeTemplates): DesignInspirationItem[] => {
             if (templates.length === 0) return [];
+
+            const fallbackImages = [
+                '/assets/home/living-room-3d.webp',
+                '/assets/home/bedroom-cozy.webp',
+                '/assets/home/modern-kitchen.webp',
+                '/assets/home/modern-lounge.webp',
+            ];
+
             const allImages: any[] = [];
             templates.forEach((template: any) => {
-                const mainImg = imageUrls[template.template_Id] || template.thumbnail_Url || "";
-                if (mainImg) allImages.push({ img: mainImg, title: template.template_Name, templateId: template.template_Id, originalUrl: template.thumbnail_Url });
-                const multipleThumbs = multipleImageUrls[template.template_Id] || [];
-                const originalMultipleThumbs = template.multiple_ThumbnailUrls || [];
-                multipleThumbs.forEach((thumbUrl, idx) => {
-                    if (thumbUrl) allImages.push({ img: thumbUrl, title: template.template_Name, templateId: template.template_Id, originalUrl: originalMultipleThumbs[idx] });
+                if (template.thumbnail_Url) allImages.push({ title: template.template_Name, templateId: template.template_Id, originalUrl: template.thumbnail_Url });
+                (template.multiple_ThumbnailUrls || []).forEach((thumbnailUrl: string) => {
+                    if (thumbnailUrl) allImages.push({ title: template.template_Name, templateId: template.template_Id, originalUrl: thumbnailUrl });
                 });
             });
 
+            // The API returns thumbnail_Url as a relative blob path
+            // (e.g. "prod-templates/119/render.webp"). constructFullBlobUrl
+            // turns it into the full SAS-signed URL the private container
+            // requires. Use it directly — the fetchBlobUrl/blob: approach is
+            // unreliable here (blob: URLs fail to render), so we skip it.
+            const visibleImages = allImages.slice(0, 4).map((item, index) => ({
+                ...item,
+                img: constructFullBlobUrl(item.originalUrl) || fallbackImages[index],
+            }));
+
             const items: DesignInspirationItem[] = [];
-            if (allImages[0]) items.push({ title: allImages[0].title, count: `${templates.length}+ Designs`, img: allImages[0].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-2", isLarge: true, templateId: allImages[0].templateId, originalUrl: allImages[0].originalUrl });
-            if (allImages[1]) items.push({ title: allImages[1].title, count: `${templates.length}+ Designs`, img: allImages[1].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: allImages[1].templateId, originalUrl: allImages[1].originalUrl });
-            if (allImages[2]) items.push({ title: allImages[2].title, count: `${templates.length}+ Designs`, img: allImages[2].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: allImages[2].templateId, originalUrl: allImages[2].originalUrl });
-            if (allImages[3]) items.push({ title: allImages[3].title, count: `${templates.length}+ Designs`, img: allImages[3].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-1", isLarge: true, templateId: allImages[3].templateId, originalUrl: allImages[3].originalUrl });
+            if (visibleImages[0]) items.push({ title: visibleImages[0].title, count: `${templates.length}+ Designs`, img: visibleImages[0].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-2", isLarge: true, templateId: visibleImages[0].templateId, originalUrl: visibleImages[0].originalUrl });
+            if (visibleImages[1]) items.push({ title: visibleImages[1].title, count: `${templates.length}+ Designs`, img: visibleImages[1].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: visibleImages[1].templateId, originalUrl: visibleImages[1].originalUrl });
+            if (visibleImages[2]) items.push({ title: visibleImages[2].title, count: `${templates.length}+ Designs`, img: visibleImages[2].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: visibleImages[2].templateId, originalUrl: visibleImages[2].originalUrl });
+            if (visibleImages[3]) items.push({ title: visibleImages[3].title, count: `${templates.length}+ Designs`, img: visibleImages[3].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-1", isLarge: true, templateId: visibleImages[3].templateId, originalUrl: visibleImages[3].originalUrl });
             return items;
         };
 
@@ -219,7 +234,26 @@ const TemplateGallery: React.FC<TemplateGalleryProps> = () => {
                                     onClick={() => item.templateId && handleTemplateClick(item.templateId)}
                                     className={`${item.colSpan} ${item.rowSpan} relative group rounded-[24px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-2xl hover:shadow-[#00bf9a]/20 transition-all block h-[260px] md:h-full`}
                                 >
-                                    <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                    <img
+                                        src={item.img}
+                                        alt={item.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                        onError={(e) => {
+                                            const target = e.currentTarget;
+                                            if (item.img?.startsWith('blob:') && item.originalUrl) {
+                                                const directUrl = item.originalUrl.startsWith('http')
+                                                    ? item.originalUrl
+                                                    : `${process.env.NEXT_PUBLIC_AZURE_BLOB_URL || 'https://zlendoappstorage.blob.core.windows.net/'}${item.originalUrl}${item.originalUrl.includes('?') ? '&' : '?'}${process.env.NEXT_PUBLIC_AZURE_SAS_TOKEN || ''}`;
+                                                if (target.src !== directUrl) {
+                                                    target.onerror = null;
+                                                    target.src = directUrl;
+                                                    return;
+                                                }
+                                            }
+                                            target.onerror = null;
+                                            target.src = '/assets/home/living-room-3d.webp';
+                                        }}
+                                    />
                                     <div className={`absolute inset-0 transition-opacity duration-500 ${item.isLarge ? 'bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100' : 'bg-black/40 opacity-0 group-hover:opacity-100'}`} />
                                     <div className={`absolute left-0 p-6 md:p-8 transition-all duration-500 ${item.isLarge ? 'bottom-0 translate-y-4 md:translate-y-8 group-hover:translate-y-0 opacity-100 md:opacity-0 group-hover:opacity-100' : 'bottom-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100'}`}>
                                         {item.isLarge && <h3 className="text-white text-xl md:text-2xl font-black mb-2 drop-shadow-md">{item.title}</h3>}

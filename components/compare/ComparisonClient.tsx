@@ -32,7 +32,8 @@ interface ComparisonClientProps {
 export default function ComparisonClient({ competitor }: ComparisonClientProps) {
     const data = comparisonData[competitor];
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
+    const isIndia = country === 'in';
 
     if (!data) return null;
 
@@ -110,6 +111,7 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                     <div className="text-center mb-16">
                         <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4">
                             Performance & Capability Index
+                            <span className="sr-only"> - Zlendo vs {data.competitorName} {isIndia ? '(India)' : ''}</span>
                         </h2>
                         <p className="text-lg text-slate-500 font-semibold max-w-2xl mx-auto">
                             How Zlendo Realty stacks up against {data.competitorName} across key operational benchmarks.

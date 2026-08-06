@@ -21,7 +21,7 @@ export async function generateMetadata(
   const data = await client.fetch(costEstimatorPageQuery);
   const country = countryCode.toUpperCase();
   const isGlobal = countryCode === 'global';
-  const path = '/products/cost-estimator';
+  const path = isGlobal ? '/products/cost-estimator' : '/in/products/cost-estimator';
 
   let title = data?.seoTitle || `Smart Construction Cost Estimator ${country}`;
   if (country === 'in') {
@@ -46,7 +46,7 @@ export async function generateMetadata(
 export default async function CostEstimatorPage({ params }: PageProps) {
   const { country: countryCode } = await params;
   const isGlobal = countryCode === 'global';
-  const cleanPath = '/products/cost-estimator';
+  const cleanPath = isGlobal ? '/products/cost-estimator' : '/in/products/cost-estimator';
   const fullUrl = `https://zlendorealty.com${cleanPath}`;
 
   const cms = await client.fetch(costEstimatorPageQuery);

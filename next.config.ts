@@ -70,7 +70,6 @@ const nextConfig: NextConfig = {
       'maid-room-concept-explained-meaning',
       'chennai-international-aiport',
       'suhagrat-decoration-ideas-for-small-bedroom',
-      'understanding-average-room-dimensions',
       'sange-mar-mar-stone-price-guide-cost',
       'max-hospital-saket-room-charges',
       'vishnu-nivasam-quick-guide-to-booking',
