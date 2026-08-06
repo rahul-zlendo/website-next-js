@@ -362,7 +362,17 @@ export function middleware(request: NextRequest) {
     url.pathname = `/global${pathname}`;
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-pathname', pathname);
-    return NextResponse.rewrite(url, { request: { headers: requestHeaders } });
+
+    // We need geo variables for the banner to show on the blog too.
+    const ipCountry = (request as any).geo?.country
+      || request.headers.get('x-vercel-ip-country')
+      || request.headers.get('cf-ipcountry')
+      || '';
+    const ipIsIndia = ipCountry.toUpperCase() === 'IN';
+
+    const response = NextResponse.rewrite(url, { request: { headers: requestHeaders } });
+    setGeoHeaders(response, ipIsIndia);
+    return response;
   }
 
   // ──────────────────────────────────────────────────────────

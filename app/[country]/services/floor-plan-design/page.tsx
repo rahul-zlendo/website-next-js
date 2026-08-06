@@ -12,7 +12,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = '/services/floor-plan-design';
+    const cleanPath = isGlobal ? '/services/floor-plan-design' : '/in/services/floor-plan-design';
 
     let title = 'Floor Plan Design Services for Homeowners | Zlendo Realty';
   if (country === 'in') {

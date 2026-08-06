@@ -990,7 +990,10 @@ function TemplateDetailContent() {
         return (
             <div className="min-h-screen bg-white font-nunito pt-20 flex items-center justify-center">
                 <div className="text-center">
-                    <h1 className="text-2xl font-black text-zlendo-grey-dark mb-4">Template Not Found</h1>
+                    <h1 className="text-2xl font-black text-zlendo-grey-dark mb-4">
+                        Template Not Found
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}
+                    </h1>
                     <Link href={getPath('/viewalltemplates')} className="text-zlendo-teal font-bold hover:underline">
                         Back to Templates
                     </Link>

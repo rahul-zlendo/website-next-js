@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 export interface SegmentDefaults {
   heroBadge: string;
@@ -62,6 +63,8 @@ function get<T>(cms: any, defaults: SegmentDefaults, key: keyof SegmentDefaults)
 
 export default function SegmentPageClient({ cms, slug, defaults, signupUrl }: SegmentPageClientProps) {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const pathname = usePathname();
+  const isIndiaSite = pathname?.startsWith('/in');
   const heroBadge = get<string>(cms, defaults, 'heroBadge');
   const heroTitle = get<string>(cms, defaults, 'heroTitle');
   const heroTitleHighlight = get<string>(cms, defaults, 'heroTitleHighlight');
@@ -104,7 +107,10 @@ export default function SegmentPageClient({ cms, slug, defaults, signupUrl }: Se
       {painPoints.length > 0 && (
         <section className="py-16 px-4 bg-red-50">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-black font-nunito text-center mb-10 text-zlendo-grey-dark">{painPointsTitle}</h2>
+            <h2 className="text-3xl md:text-5xl font-black font-nunito text-center mb-10 text-zlendo-grey-dark">
+              {painPointsTitle}
+              {isIndiaSite && <span className="sr-only"> (India)</span>}
+            </h2>
             <div className="grid md:grid-cols-3 gap-6">
               {painPoints.map((point, i) => (
                 <div key={i} className="bg-white border border-red-100 rounded-[24px] p-6 shadow-sm">

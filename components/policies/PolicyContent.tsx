@@ -42,7 +42,7 @@ const PolicyContent: React.FC<PolicyContentProps> = ({ title, description, lastU
                 <h2 className={headingClass}>
                     {level === 0 && <Icon className="w-6 h-6 text-zlendo-teal" />}
                     {section.title}
-                    {isIndiaSite && <span className="sr-only"> Local</span>}
+                    <span className="sr-only"> - {title} {isIndiaSite ? '(India)' : ''}</span>
                 </h2>
                 <div className="space-y-4 mb-8">
                     {renderContent(section.content)}
@@ -64,7 +64,10 @@ const PolicyContent: React.FC<PolicyContentProps> = ({ title, description, lastU
                     <Icon className="w-4 h-4" />
                     <span className="text-[11px] font-black uppercase tracking-[0.3em]">Legal Document</span>
                 </div>
-                <h1 className="text-3xl md:text-5xl font-black text-zlendo-grey-dark mb-4">{title}</h1>
+                <h1 className="text-3xl md:text-5xl font-black text-zlendo-grey-dark mb-4">
+                    {title}
+                    {isIndiaSite && <span className="sr-only"> (India)</span>}
+                </h1>
                 <p className="text-xl text-zlendo-grey-medium font-medium mb-6">{description}</p>
                 <div className="flex items-center gap-2 text-sm text-zlendo-grey-medium font-bold">
                     <Calendar className="w-4 h-4" />

@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const cms = await getClient(preview).fetch(interiorsExteriorsPageQuery).catch(() => null);
 
     const isGlobal = country === 'global';
-    const path = '/products/interiors-exteriors';
+    const path = isGlobal ? '/products/interiors-exteriors' : '/in/products/interiors-exteriors';
 
     let title = cms?.seoTitle || 'Interiors & Exteriors - Indian Homes. Indian Lifestyles.';
   if (country === 'in') {
@@ -198,7 +198,7 @@ export default async function InteriorsExteriorsPage({ params }: PageProps) {
 
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = '/products/interiors-exteriors';
+    const cleanPath = isGlobal ? '/products/interiors-exteriors' : '/in/products/interiors-exteriors';
     const fullUrl = `https://zlendorealty.com${cleanPath}`;
 
     const softwareApplicationSchema = {

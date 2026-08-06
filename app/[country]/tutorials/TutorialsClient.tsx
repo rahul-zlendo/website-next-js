@@ -96,6 +96,7 @@ export default function TutorialsClient({ cms }: { cms: any }) {
                         <div className="mt-5">
                             <h2 className="text-xl md:text-2xl font-black text-zlendo-grey-dark leading-tight">
                                 {activeVideo.title}
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}
                             </h2>
                         </div>
                     </div>
@@ -106,6 +107,7 @@ export default function TutorialsClient({ cms }: { cms: any }) {
                             <div className="p-4 border-b border-black/5">
                                 <h2 className="font-black text-zlendo-grey-dark text-[15px] leading-snug">
                                     {playlistTitle}
+                                    {isIndiaSite && <span className="sr-only"> (India)</span>}
                                 </h2>
                                 <p className="text-[12px] text-zlendo-grey-medium font-semibold opacity-50 mt-1">
                                     {playlistVideos.length} videos

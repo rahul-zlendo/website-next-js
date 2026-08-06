@@ -36,7 +36,8 @@ export default function GeoSuggestBanner() {
 
     // Suggest India only when: IP says India, they're on a global page, they
     // haven't dismissed it, and they haven't explicitly chosen Global.
-    setShow(geo === 'in' && !onIndiaSite && dismissed !== '1' && choice !== 'global');
+    // Explicitly hide on all /blog paths.
+    setShow(geo === 'in' && !onIndiaSite && dismissed !== '1' && choice !== 'global' && !pathname.startsWith('/blog'));
   }, [pathname]);
 
   // Build the /in equivalent of the current path (root and clean paths both

@@ -17,7 +17,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const path = '/products/2d-to-3d';
+    const path = isGlobal ? '/products/2d-to-3d' : '/in/products/2d-to-3d';
 
     // Fetch SEO data from Sanity
     let cmsSeo: Record<string, any> | null = null;
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function TwoDToThreeDPage({ params }: Props) {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = '/products/2d-to-3d';
+    const cleanPath = isGlobal ? '/products/2d-to-3d' : '/in/products/2d-to-3d';
     const fullUrl = `https://zlendorealty.com${cleanPath}`;
 
     const { isEnabled: preview } = await draftMode();

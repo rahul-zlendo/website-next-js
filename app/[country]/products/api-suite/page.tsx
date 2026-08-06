@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const description = cmsSeo?.seoDescription || "Integrate our core 2D-to-3D, costing, and styling engines directly into your own applications.";
 
     const isGlobal = country === 'global';
-    const path = '/products/api-suite';
+    const path = isGlobal ? '/products/api-suite' : '/in/products/api-suite';
 
     if (country === 'in') {
         if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function APISuitePage({ params }: Props) {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = '/products/api-suite';
+    const cleanPath = isGlobal ? '/products/api-suite' : '/in/products/api-suite';
     const fullUrl = `https://zlendorealty.com${cleanPath}`;
     const { isEnabled: preview } = await draftMode();
     const cms: any = await getClient(preview).fetch(apiSuitePageQuery).catch(() => null);

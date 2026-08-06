@@ -9,7 +9,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = '/services/vastu-consultation/consultation';
+    const cleanPath = isGlobal ? '/services/vastu-consultation/consultation' : '/in/services/vastu-consultation/consultation';
 
     let title = 'Book Vastu Consultation | Expert Guidance | Zlendo Realty';
   if (country === 'in') {

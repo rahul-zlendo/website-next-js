@@ -16,9 +16,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { isEnabled: preview } = await draftMode();
     const cms = await getClient(preview).fetch(contactPageQuery).catch(() => null);
 
+    const baseTitle = cms?.seoTitle || 'Contact Zlendo Realty | Get Expert Guidance & Support';
+    const isIndia = country === 'in';
+    const finalTitle = isIndia ? `${baseTitle} - India` : baseTitle;
+
+    const baseDesc = cms?.seoDescription || 'Get in touch with Zlendo Realty experts for product guidance, support, or partnership opportunities.';
+    const finalDesc = isIndia ? `${baseDesc} Serving users across India.` : baseDesc;
+
     return {
-        title: cms?.seoTitle || 'Contact Zlendo Realty | Get Expert Guidance & Support',
-        description: cms?.seoDescription || 'Get in touch with Zlendo Realty experts for product guidance, support, or partnership opportunities.',
+        title: finalTitle,
+        description: finalDesc,
         alternates: {
             canonical: `https://zlendorealty.com/${country}/contact`,
         },

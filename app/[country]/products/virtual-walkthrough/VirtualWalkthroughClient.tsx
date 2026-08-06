@@ -68,6 +68,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-500">
                                         Virtual Walkthroughs
                                     </span>
+                                    {country === 'in' && <span className="sr-only"> (India)</span>}
                                 </motion.h1>
 
                                 <motion.p
@@ -200,6 +201,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                                 <h2 className="text-3xl md:text-[48px] font-black leading-[1.1] text-[#111] tracking-tighter">
                                     Experience the future of <br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-[#111]">interior design.</span>
+                                    {country === 'in' && <span className="sr-only"> (India)</span>}
                                 </h2>
                                 <p className="text-lg md:text-xl text-[#666] font-medium leading-relaxed">
                                     Empower yourself to showcase your designs with unparalleled realism and interactivity. Reveal the true potential of your concepts.

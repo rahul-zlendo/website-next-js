@@ -9,7 +9,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === 'global';
-    const cleanPath = '/services/virtual-walkthrough/consultation';
+    const cleanPath = isGlobal ? '/services/virtual-walkthrough/consultation' : '/in/services/virtual-walkthrough/consultation';
 
     let title = 'Request a Virtual Walkthrough Consultation | Zlendo Realty';
   if (country === 'in') {

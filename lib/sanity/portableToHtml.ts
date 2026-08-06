@@ -15,10 +15,33 @@ function escapeAttr(s: string): string {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function renderLink(href: string, text: string, extraClass = ''): string {
-  const isExternal = /^https?:\/\//.test(href) && !href.includes('zlendorealty.com');
+  let cleanHref = href;
+  if (cleanHref.includes('bing.com/ck/a')) {
+    const urlMatch = cleanHref.match(/&u=([^&]+)/);
+    if (urlMatch && urlMatch[1]) {
+      try {
+        let base64Segment = urlMatch[1];
+        if (base64Segment.startsWith('a1')) {
+          base64Segment = base64Segment.substring(2);
+        }
+        base64Segment = base64Segment.replace(/-/g, '+').replace(/_/g, '/');
+        while (base64Segment.length % 4) {
+          base64Segment += '=';
+        }
+        const decodedUrl = Buffer.from(base64Segment, 'base64').toString('utf8');
+        if (decodedUrl.startsWith('http')) {
+          cleanHref = decodedUrl;
+        }
+      } catch (e) {
+        // Fallback to original
+      }
+    }
+  }
+
+  const isExternal = /^https?:\/\//.test(cleanHref) && !cleanHref.includes('zlendorealty.com');
   const attrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
   const cls = extraClass ? ` class="${extraClass}"` : '';
-  return `<a href="${escapeAttr(href)}"${attrs}${cls}>${text}</a>`;
+  return `<a href="${escapeAttr(cleanHref)}"${attrs}${cls}>${text}</a>`;
 }
 
 /**
