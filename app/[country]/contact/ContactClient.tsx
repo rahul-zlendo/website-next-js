@@ -442,7 +442,7 @@ const ContactClient = ({ cms, resolvedHelpItems }: ContactClientProps) => {
                     <div className="text-center mb-14">
                         <h2 className="text-4xl font-black text-zlendo-grey-dark mb-3">
                             {cms?.helpCenterTitle || "Quick Help Center"}
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <p className="text-lg text-zlendo-grey-medium font-medium opacity-60">
                             {cms?.helpCenterSubtitle || "Common starting points for your Zlendo Realty journey."}
                         </p>

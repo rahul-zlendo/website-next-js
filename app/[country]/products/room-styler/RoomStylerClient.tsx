@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useCountry } from "@/lib/context/CountryContext";
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Sparkles,
@@ -28,6 +29,8 @@ export default function RoomStylerClient({
     resolvedSteps,
     resolvedFeatures
 }: RoomStylerClientProps) {
+    const { country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
     const [isVideoOpen, setIsVideoOpen] = useState(false);
 
@@ -120,7 +123,7 @@ export default function RoomStylerClient({
             {/* 2. ZIG-ZAG STEPS */}
             <section className="py-12 lg:py-20 bg-white">
                 <div className="container-custom px-6 text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || 'How It Works'}</h2>
+                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || 'How It Works'}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     <p className="text-xl text-zlendo-grey-medium font-medium">{cms?.stepsSectionSubtitle || 'Four simple steps to your dream result.'}</p>
                 </div>
                 <div className="container-custom px-6 space-y-24">
@@ -159,7 +162,7 @@ export default function RoomStylerClient({
             {/* 4. FAQ */}
             <section className="py-16 bg-white">
                 <div className="container-custom px-6 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || 'Frequently Asked Questions'}</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || 'Frequently Asked Questions'}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     <div className="space-y-4">
                         {resolvedFaqs.map((faq, i) => (
                             <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors">

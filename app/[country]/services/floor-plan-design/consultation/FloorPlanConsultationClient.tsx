@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useCountry } from "@/lib/context/CountryContext";
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     User, Mail, Phone, MapPin, Upload, FileText,
@@ -11,6 +12,8 @@ import {
 const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function FloorPlanConsultationClient() {
+    const { country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [formState, setFormState] = useState({
         name: '',
         email: '',
@@ -151,7 +154,7 @@ export default function FloorPlanConsultationClient() {
                                 <h1 className="text-3xl md:text-[44px] font-black text-zlendo-grey-dark leading-tight mb-6">
                                     Design Your Dream Home with{' '}
                                     <span className="text-zlendo-teal italic">Expert Floor Planning</span>
-                                </h1>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h1>
                                 <p className="text-lg text-zlendo-grey-medium font-medium mb-4 leading-relaxed">
                                     Get customized 2D &amp; 3D floor plans tailored to your plot, lifestyle, and family needs.
                                 </p>
@@ -185,7 +188,7 @@ export default function FloorPlanConsultationClient() {
                                 className="bg-[#F8FBFA] rounded-[40px] p-6 lg:p-10 border border-[#eee] shadow-xl shadow-black/[0.02]"
                             >
                                 <div className="text-center mb-8">
-                                    <h2 className="text-2xl lg:text-3xl font-black text-zlendo-grey-dark mb-3">Get Floor Plan Consultation</h2>
+                                    <h2 className="text-2xl lg:text-3xl font-black text-zlendo-grey-dark mb-3">Get Floor Plan Consultation{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                                     <p className="text-zlendo-grey-medium font-medium">Fill the form to get a personalized floor planning consultation.</p>
                                 </div>
 

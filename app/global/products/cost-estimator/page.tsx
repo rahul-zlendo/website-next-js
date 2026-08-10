@@ -1,12 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useCountry } from "@/lib/context/CountryContext";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calculator, BarChart, FileText, ArrowRight, ChevronDown } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 export default function CostEstimatorPage() {
+    const { country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
     return (
@@ -101,7 +104,7 @@ export default function CostEstimatorPage() {
                             <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
                             Real-Time Procurement Insights
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6 tracking-tight">Track Local Material Rates</h2>
+                        <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6 tracking-tight">Track Local Material Rates{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <p className="text-xl text-[#666] font-medium leading-relaxed mb-16">
                             A major hurdle in reliable construction estimation is volatile raw material pricing. Zlendo Realty solves this by monitoring hyper-local market indices. Whether cement rates surge or steel prices drop, our estimator automatically calibrates its baseline to give you the most accurate real-time procurement insights available, drastically reducing the chances of unforeseen budget overruns.
                         </p>
@@ -126,7 +129,7 @@ export default function CostEstimatorPage() {
                 {/* FAQs */}
                 <section className="py-12 border-t border-black/5 bg-[#FAFAFC]">
                     <div className="container-custom px-6 max-w-4xl mx-auto">
-                        <h2 className="text-3xl lg:text-4xl font-black text-center mb-12 text-[#111]">Frequently Asked Questions</h2>
+                        <h2 className="text-3xl lg:text-4xl font-black text-center mb-12 text-[#111]">Frequently Asked Questions{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <div className="space-y-4">
                             {[
                                 { q: "How exact is the cost estimation?", a: "Our AI engine factors in live local material indices, localized labor wages, and even specific soil types for calculating isolated versus pile foundations. Thus providing engineering-grade granular estimates rather than generic sq.ft estimates." },

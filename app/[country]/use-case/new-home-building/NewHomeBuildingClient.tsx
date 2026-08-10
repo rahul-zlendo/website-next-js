@@ -17,7 +17,8 @@ interface NewHomeBuildingClientProps {
 }
 
 export default function NewHomeBuildingClient({ cms }: NewHomeBuildingClientProps) {
-    const { paths } = useCountry();
+    const { country, paths } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const accentColorClass = 'zlendo-teal';
     const bgAccentClass = 'bg-zlendo-teal/5';
 
@@ -141,7 +142,7 @@ export default function NewHomeBuildingClient({ cms }: NewHomeBuildingClientProp
                         <div className="text-center max-w-2xl mx-auto mb-12">
                             <h2 className="text-3xl md:text-4xl font-black font-nunito text-zlendo-grey-dark mb-4">
                                 Empower Your New Build
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-lg text-zlendo-grey-medium font-medium">
                                 Eliminate construction rework by pairing these tools to secure approvals and finalize materials proactively.
                             </p>
@@ -180,7 +181,7 @@ export default function NewHomeBuildingClient({ cms }: NewHomeBuildingClientProp
                 {/* FAQ Block */}
                 <section className="py-16 bg-white">
                     <div className="container-custom px-6 max-w-3xl mx-auto">
-                        <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions</h2>
+                        <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <FaqAccordion faqs={faqs} />
                     </div>
                 </section>
@@ -194,7 +195,7 @@ export default function NewHomeBuildingClient({ cms }: NewHomeBuildingClientProp
                             <span className={`text-${accentColorClass} italic`}>
                                 {cms?.ctaTitleHighlight ?? 'Build with Confidence?'}
                             </span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center">
                             <a
                                 href={SIGNUP_URL}

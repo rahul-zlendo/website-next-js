@@ -246,7 +246,7 @@ export default function ProductPage() {
 
                                 <h2 className="text-3xl md:text-4xl font-black font-nunito text-zlendo-grey-dark mb-4 group-hover:text-zlendo-teal transition-colors">
                                     Upload your floor plan
-                                </h2>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                                 <p className="text-lg text-slate-500 font-medium mb-8 max-w-lg">
                                     Drag & drop your 2D sketch, image, or CAD file here to instantly generate a 3D model.
                                 </p>
@@ -279,7 +279,7 @@ export default function ProductPage() {
                         <div className="order-1 lg:order-2">
                             <h2 className="text-4xl md:text-5xl font-black font-nunito mb-6">
                                 Master your design <br /> in minutes.
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-xl text-white/60 mb-10 leading-relaxed font-medium">
                                 Our intuitive interface makes complex tasks simple. Whether you are dragging walls or estimating costs, everything happens in real-time.
                             </p>
@@ -355,7 +355,7 @@ export default function ProductPage() {
                 <div className="container-custom px-6">
                     <div className="flex justify-between items-end mb-8">
                         <div>
-                            <h2 className="text-3xl font-black text-zlendo-grey-dark mb-2">Popular Templates</h2>
+                            <h2 className="text-3xl font-black text-zlendo-grey-dark mb-2">Popular Templates{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-slate-500 font-medium">Get started quickly with pre-made designs</p>
                         </div>
                         <Link href={getPath('/template-detail')} className="text-zlendo-teal font-black hover:underline hidden md:block">View All</Link>
@@ -384,7 +384,7 @@ export default function ProductPage() {
             {/* 7. COMPARISON TABLE */}
             <section className="py-16 bg-slate-50">
                 <div className="container-custom px-6 max-w-5xl">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-10">Compare with others</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-10">Compare with others{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
                             <thead>
@@ -455,7 +455,7 @@ export default function ProductPage() {
                 <div className="container-custom px-6 text-center">
                     <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-[3rem] p-12 lg:p-20 shadow-2xl relative overflow-hidden">
                         <div className="relative z-10 max-w-2xl mx-auto">
-                            <h2 className="text-4xl lg:text-5xl font-black font-nunito mb-6">Start designing for free</h2>
+                            <h2 className="text-4xl lg:text-5xl font-black font-nunito mb-6">Start designing for free{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-xl text-white/80 font-medium mb-10">
                                 Join over 4 million users who are already designing their dream homes with Zlendo Realty.
                             </p>

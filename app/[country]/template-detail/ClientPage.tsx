@@ -993,7 +993,7 @@ function TemplateDetailContent() {
                     <h1 className="text-2xl font-black text-zlendo-grey-dark mb-4">
                         Template Not Found
                         {isIndiaSite && <span className="sr-only"> (India)</span>}
-                    </h1>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h1>
                     <Link href={getPath('/viewalltemplates')} className="text-zlendo-teal font-bold hover:underline">
                         Back to Templates
                     </Link>
@@ -1260,7 +1260,7 @@ function TemplateDetailContent() {
                             <h1 className="text-2xl font-black text-zlendo-grey-dark leading-tight mb-3">
                                 {templateData.title}
                                 {isIndiaSite && <span className="sr-only"> Details</span>}
-                            </h1>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h1>
 
                             <p className="text-base text-zlendo-grey-medium font-medium opacity-80 leading-relaxed mb-4">
                                 {templateData.description}
@@ -1358,6 +1358,7 @@ function TemplateDetailContent() {
                 <div className="mt-20">
                     <h2 className="text-2xl md:text-3xl font-black text-zlendo-grey-dark mb-8">
                         Comments {comments.length > 0 ? getTotalCommentsCount(comments) : 0}
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}
                     </h2>
 
                     {/* Add Comment Form */}

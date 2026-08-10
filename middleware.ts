@@ -417,8 +417,15 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // C. Allow /in and /global paths to pass through 
-  if (pathname.startsWith('/in') || pathname.startsWith('/global')) {
+  // Redirect explicit `/global...` requests back to the clean URL
+  if (pathname === '/global' || pathname.startsWith('/global/')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace(/^\/global/, '') || '/';
+    return NextResponse.redirect(url, 301);
+  }
+
+  // C. Allow /in paths to pass through 
+  if (pathname === '/in' || pathname.startsWith('/in/')) {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-pathname', pathname);
 

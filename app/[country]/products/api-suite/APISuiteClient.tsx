@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useCountry } from "@/lib/context/CountryContext";
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Cpu, Play, Zap, X, ChevronDown, CheckCircle2, ShieldCheck, Upload, Image as ImageIcon, ArrowRight
@@ -16,6 +17,8 @@ interface APISuiteClientProps {
 }
 
 export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resolvedFeatures }: APISuiteClientProps) {
+    const { country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
     const [isVideoOpen, setIsVideoOpen] = useState(false);
 
@@ -113,7 +116,7 @@ export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resol
                                         </motion.div>
                                     ))}
                                 </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-zlendo-grey-dark mb-4 group-hover:text-zlendo-teal transition-colors">{cms?.uploadTitle || "Upload your floor plan"}</h2>
+                                <h2 className="text-3xl md:text-4xl font-black text-zlendo-grey-dark mb-4 group-hover:text-zlendo-teal transition-colors">{cms?.uploadTitle || "Upload your floor plan"}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                                 <p className="text-lg text-slate-500 font-medium mb-8 max-w-lg">{cms?.uploadSubtitle || "Drag & drop your 2D sketch, image, or CAD file here to instantly generate a 3D model."}</p>
                                 <button className="px-8 py-4 bg-zlendo-teal text-white rounded-xl font-bold text-lg shadow-lg group-hover:scale-105 transition-transform flex items-center gap-2">
                                     <ImageIcon className="w-5 h-5" /> Select File to Upload
@@ -136,7 +139,7 @@ export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resol
                             <img src={cms?.howToImage ? urlFor(cms.howToImage).url() : "/assets/2d-to-3d/dashboard-interface.webp"} alt="Dashboard Interface" className="relative z-10 rounded-2xl shadow-2xl border border-white/10 w-full" />
                         </div>
                         <div className="order-1 lg:order-2">
-                            <h2 className="text-4xl md:text-5xl font-black mb-6 whitespace-pre-line">{cms?.howToTitle || "Master your design \n in minutes."}</h2>
+                            <h2 className="text-4xl md:text-5xl font-black mb-6 whitespace-pre-line">{cms?.howToTitle || "Master your design \n in minutes."}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-xl text-white/60 mb-10 leading-relaxed font-medium">{cms?.howToDesc || "Our intuitive interface makes complex tasks simple. Whether you are dragging walls or estimating costs, everything happens in real-time."}</p>
                             <a href={SIGNUP_URL} className="px-8 py-4 bg-zlendo-teal text-white rounded-xl font-black hover:bg-white hover:text-zlendo-teal transition-colors inline-block">Create Project Now</a>
                         </div>
@@ -147,7 +150,7 @@ export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resol
             {/* 4. ZIG-ZAG STEPS */}
             <section className="py-12 lg:py-20 bg-white">
                 <div className="container-custom px-6 text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || "How It Works"}</h2>
+                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || "How It Works"}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     <p className="text-xl text-zlendo-grey-medium font-medium">{cms?.stepsSectionSubtitle || "Simple steps to integrate."}</p>
                 </div>
                 <div className="container-custom px-6 space-y-24">
@@ -191,7 +194,7 @@ export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resol
             {/* 7. COMPARISON TABLE */}
             <section className="py-16 bg-slate-50">
                 <div className="container-custom px-6 max-w-5xl">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-10">{cms?.comparisonTitle || "Compare with others"}</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-10">{cms?.comparisonTitle || "Compare with others"}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
                             <thead>
@@ -220,7 +223,7 @@ export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resol
             {/* 8. FAQ */}
             <section className="py-16 bg-white">
                 <div className="container-custom px-6 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || "Frequently Asked Questions"}</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || "Frequently Asked Questions"}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     <div className="space-y-4">
                         {resolvedFaqs.map((faq: any, i: number) => (
                             <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors">
@@ -246,7 +249,7 @@ export default function APISuiteClient({ cms, resolvedFaqs, resolvedSteps, resol
                 <div className="container-custom px-6 text-center">
                     <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-[3rem] p-12 lg:p-20 shadow-2xl relative overflow-hidden">
                         <div className="relative z-10 max-w-2xl mx-auto">
-                            <h2 className="text-4xl lg:text-5xl font-black mb-6">{cms?.finalCtaTitle || "Start designing for free"}</h2>
+                            <h2 className="text-4xl lg:text-5xl font-black mb-6">{cms?.finalCtaTitle || "Start designing for free"}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-xl text-white/80 font-medium mb-10">{cms?.finalCtaSubtitle || "Join over 4 million users who are already designing their dream homes with Zlendo Realty."}</p>
                             <a href={SIGNUP_URL} className="px-10 py-5 bg-white text-blue-600 rounded-xl font-black text-xl hover:shadow-lg hover:scale-105 transition-all inline-block">{cms?.finalCtaLabel || "Create Free Account"}</a>
                         </div>

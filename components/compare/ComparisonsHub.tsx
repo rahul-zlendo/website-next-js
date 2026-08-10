@@ -18,7 +18,7 @@ export default function ComparisonsHub({ prefix }: { prefix: string }) {
             Compare
           </span>
           <h1 className="text-3xl md:text-5xl font-black text-zlendo-grey-dark leading-tight mb-5">
-            Zlendo Realty vs the alternatives
+            Zlendo Realty vs the alternatives{prefix.startsWith('/in') && <span className="sr-only"> (India)</span>}
           </h1>
           <p className="text-lg md:text-xl text-zlendo-grey-medium font-medium max-w-2xl mx-auto">
             Honest, side-by-side comparisons and buyer’s guides across the AI floor plan
@@ -33,7 +33,7 @@ export default function ComparisonsHub({ prefix }: { prefix: string }) {
         {COMPARE_INDEX.map((group) => (
           <div key={group.heading}>
             <div className="mb-8">
-              <h2 className="text-2xl md:text-3xl font-black text-zlendo-grey-dark mb-2">{group.heading}</h2>
+              <h2 className="text-2xl md:text-3xl font-black text-zlendo-grey-dark mb-2">{group.heading}{prefix.startsWith("/in") && <span className="sr-only"> (India)</span>}</h2>
               <p className="text-zlendo-grey-medium font-medium">{group.description}</p>
             </div>
             <div className="grid sm:grid-cols-2 gap-5">

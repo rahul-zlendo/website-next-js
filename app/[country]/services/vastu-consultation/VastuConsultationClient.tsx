@@ -14,7 +14,8 @@ import { useCountry } from '@/lib/context/CountryContext';
 const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function VastuConsultationClient() {
-    const { getPath } = useCountry();
+    const { country, getPath } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const heroHighlights = [
@@ -95,7 +96,7 @@ export default function VastuConsultationClient() {
                             <motion.h1 {...fadeUp} transition={{ delay: 0.1 }} className="text-[32px] md:text-[48px] lg:text-[60px] font-black text-zlendo-grey-dark leading-[1.05] tracking-tight mb-6">
                                 Design a Vastu-Compliant Home with{' '}
                                 <span className="text-zlendo-teal italic">Expert Guidance</span>
-                            </motion.h1>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h1>
                             <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-8">
                                 Get personalized Vastu consultation for your home, apartment, villa, office, or commercial space.
                                 Our certified Vastu experts help you create balanced, harmonious, and positive living spaces aligned with traditional Indian architectural principles.
@@ -196,7 +197,7 @@ export default function VastuConsultationClient() {
                             <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-6">
                                 Why Choose Zlendo Realty for{' '}
                                 <span className="text-zlendo-teal italic">Vastu Consultation?</span>
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <h3 className="text-lg md:text-xl text-zlendo-teal font-bold mb-4">Traditional Wisdom + Modern Technology</h3>
                             <p className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                 At Zlendo Realty, we combine ancient Vastu Shastra principles with AI-powered floor planning and 3D visualization tools to help you make confident decisions before construction or renovation.
@@ -221,7 +222,7 @@ export default function VastuConsultationClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Benefits of Our{' '}
                             <span className="text-zlendo-teal italic">Vastu Consultation</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto mb-10">
                         {benefits.map((item, i) => (
@@ -251,7 +252,7 @@ export default function VastuConsultationClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-6">
                             Our Vastu{' '}<span className="text-zlendo-teal italic">Consultation Services</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
@@ -325,7 +326,7 @@ export default function VastuConsultationClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             How Our Vastu Consultation{' '}
                             <span className="text-zlendo-teal italic">Works</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                         {steps.map((step, i) => (
@@ -358,7 +359,7 @@ export default function VastuConsultationClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             What You&apos;ll{' '}
                             <span className="text-zlendo-teal italic">Receive</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {deliverables.map((item, i) => (
@@ -380,7 +381,7 @@ export default function VastuConsultationClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-4">
                             Why Homeowners{' '}
                             <span className="text-zlendo-teal italic">Trust Us</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <p className="text-lg text-zlendo-grey-medium font-medium">Trusted by Families, Architects & Builders</p>
                     </motion.div>
 
@@ -419,7 +420,7 @@ export default function VastuConsultationClient() {
                             <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-4">
                                 Vastu Consultation for{' '}
                                 <span className="text-zlendo-teal italic">Existing Homes</span>
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-lg text-zlendo-grey-medium font-medium leading-relaxed mb-2">Already living in your home?</p>
                             <p className="text-xl text-zlendo-grey-dark font-bold mb-6">No problem.</p>
                             <p className="text-base text-zlendo-grey-medium font-medium leading-relaxed mb-8">
@@ -453,7 +454,7 @@ export default function VastuConsultationClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Frequently Asked{' '}
                             <span className="text-zlendo-teal italic">Questions</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-3xl mx-auto space-y-4">
                         {faqs.map((faq, i) => (
@@ -483,7 +484,7 @@ export default function VastuConsultationClient() {
                     <motion.h2 {...fadeUp} className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight max-w-4xl mx-auto">
                         Build a Home with Balance,{' '}
                         <span className="text-zlendo-teal italic">Positivity & Peace</span>
-                    </motion.h2>
+                    {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h2>
                     <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-xl text-white/60 font-medium max-w-2xl mx-auto">
                         Get expert Vastu consultation tailored to your property and lifestyle.
                     </motion.p>

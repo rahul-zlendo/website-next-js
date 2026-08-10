@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useCountry } from "@/lib/context/CountryContext";
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     User, Mail, Phone, Building2, Upload, FileText,
@@ -20,6 +21,8 @@ const PROJECT_TYPES = [
 ];
 
 export default function TwoDToThreeDConsultationClient() {
+    const { country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [formState, setFormState] = useState({
         name: '',
         email: '',
@@ -147,7 +150,7 @@ export default function TwoDToThreeDConsultationClient() {
                                 <h1 className="text-3xl md:text-[44px] font-black text-zlendo-grey-dark leading-tight mb-6">
                                     Convert Your 2D Floor Plan Into{' '}
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-600">Stunning 3D Designs</span>
-                                </h1>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h1>
                                 <p className="text-lg text-zlendo-grey-medium font-medium mb-4 leading-relaxed">
                                     Upload your house or office floor plan and get realistic 3D visualizations, walkthroughs, and high-quality renders for better planning and presentation.
                                 </p>
@@ -189,7 +192,7 @@ export default function TwoDToThreeDConsultationClient() {
                                 className="bg-[#F8FBFA] rounded-[40px] p-6 lg:p-10 border border-[#eee] shadow-xl shadow-black/[0.02]"
                             >
                                 <div className="text-center mb-8">
-                                    <h2 className="text-2xl lg:text-3xl font-black text-zlendo-grey-dark mb-3">Request Free 2D to 3D Consultation</h2>
+                                    <h2 className="text-2xl lg:text-3xl font-black text-zlendo-grey-dark mb-3">Request Free 2D to 3D Consultation{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                                     <p className="text-zlendo-grey-medium font-medium">Fill out the form and upload your floor plan to get started.</p>
                                 </div>
 

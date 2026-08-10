@@ -260,7 +260,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                 <section className="py-12 lg:py-24 bg-white">
                     <div className="container-custom px-4">
                         <div className="text-center mb-16">
-                            <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">Stop wasting time. Start creating.</h2>
+                            <h2 className="text-3xl md:text-5xl font-black text-[#111] mb-6">Stop wasting time. Start creating.{country === 'in' && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-[#666] text-lg font-medium">Why top designers are ditching legacy tools for Zlendo Realty AI workflow.</p>
                         </div>
 
@@ -356,7 +356,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                         >
                             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 relative z-10 text-[#111] leading-tight">
                                 Start creating stunning <br className="hidden md:block" />visual representations of your ideas today!
-                            </h2>
+                            {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
                             <div className="flex justify-center relative z-10 pt-4">
                                 <a
                                     href={SIGNUP_URL}
@@ -374,7 +374,7 @@ export default function VirtualWalkthroughClient({ cms, resolvedFaqs, country }:
                     <div className="container-custom px-6 max-w-3xl mx-auto">
                         <h2 className="text-3xl md:text-5xl font-black text-center text-[#111] mb-12">
                             {cms?.faqTitle || 'Frequently Asked Questions'}
-                        </h2>
+                        {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
                         <FaqAccordion
                             faqs={resolvedFaqs && resolvedFaqs.length > 0 ? resolvedFaqs : [
                                 {

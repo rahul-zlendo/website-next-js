@@ -144,7 +144,7 @@ export default function VastuClient({
 
                                 <h2 className="text-3xl md:text-4xl font-black font-nunito text-zlendo-grey-dark mb-4 group-hover:text-orange-600 transition-colors">
                                     {cms?.uploadTitle || 'Analyze your floor plan'}
-                                </h2>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                                 <p className="text-lg text-slate-500 font-medium mb-8 max-w-lg">
                                     {cms?.uploadSubtitle || 'Upload your plan to see a complete heatmap of Vastu energy zones and receive expert layout corrections.'}
                                 </p>

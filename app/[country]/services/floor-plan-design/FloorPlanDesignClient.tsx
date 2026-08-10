@@ -80,7 +80,7 @@ export default function FloorPlanDesignClient() {
                             <motion.h1 {...fadeUp} transition={{ delay: 0.1 }} className="text-[32px] md:text-[48px] lg:text-[60px] font-black text-zlendo-grey-dark leading-[1.05] tracking-tight mb-6">
                                 Get Your Dream Home Floor Plan{' '}
                                 <span className="text-zlendo-teal italic">Designed by Experts</span>
-                            </motion.h1>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h1>
                             {/* <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-4">
                                 From plot planning to complete house layouts, Zlendo Realty helps homeowners create smart, functional, and Vastu-friendly floor plans tailored to their lifestyle and budget.
                             </motion.p> */}
@@ -198,7 +198,7 @@ export default function FloorPlanDesignClient() {
                             <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-6">
                                 Designing a Home Starts with the{' '}
                                 <span className="text-zlendo-teal italic">Right Floor Plan</span>
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                 A well-designed floor plan improves space utilization, natural lighting, ventilation, privacy, and future functionality.
                             </p>
@@ -225,7 +225,7 @@ export default function FloorPlanDesignClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-6">
                             Our Floor Plan <span className="text-zlendo-teal italic">Design Services</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-6xl mx-auto">
                         <div className="grid lg:grid-cols-12 gap-8 items-center">
@@ -323,7 +323,7 @@ export default function FloorPlanDesignClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             How Our Floor Plan Design{' '}
                             <span className="text-zlendo-teal italic">Process Works</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                         {steps.map((step, i) => (
@@ -387,7 +387,7 @@ export default function FloorPlanDesignClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Frequently Asked <span className="text-zlendo-teal italic">Questions</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-3xl mx-auto space-y-4">
                         {faqs.map((faq, i) => (
@@ -417,7 +417,7 @@ export default function FloorPlanDesignClient() {
                     <motion.h2 {...fadeUp} className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight max-w-4xl mx-auto">
                         Plan Your Dream Home with{' '}
                         <span className="text-zlendo-teal italic">Confidence</span>
-                    </motion.h2>
+                    {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h2>
                     <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-xl text-white/60 font-medium max-w-2xl mx-auto">
                         Get expert-designed floor plans that combine functionality, comfort, and modern living aesthetics.
                     </motion.p>
