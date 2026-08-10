@@ -13,7 +13,8 @@ import { useCountry } from '@/lib/context/CountryContext';
 const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function InteriorDesignClient() {
-    const { getPath } = useCountry();
+    const { country, getPath } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const trustHighlights = [
@@ -77,7 +78,7 @@ export default function InteriorDesignClient() {
                             <motion.h1 {...fadeUp} transition={{ delay: 0.1 }} className="text-[32px] md:text-[48px] lg:text-[60px] font-black text-zlendo-grey-dark leading-[1.05] tracking-tight mb-6">
                                 Modern Interior Design for{' '}
                                 <span className="text-zlendo-teal italic">Homes &amp; Commercial Spaces</span>
-                            </motion.h1>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h1>
                             <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-8">
                                 From concept planning to turnkey execution, we create interiors tailored to your lifestyle, vision, and business identity.
                             </motion.p>
@@ -177,7 +178,7 @@ export default function InteriorDesignClient() {
                             <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-6">
                                 Interior Design Services for{' '}
                                 <span className="text-zlendo-teal italic">Every Need</span>
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                 Transform your home, office, or commercial space with thoughtfully planned interiors that combine style, comfort, and functionality.
                             </p>
@@ -204,7 +205,7 @@ export default function InteriorDesignClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-6">
                             Our Core <span className="text-zlendo-teal italic">Interior Expertise</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
@@ -274,7 +275,7 @@ export default function InteriorDesignClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Why Choose Our{' '}
                             <span className="text-zlendo-teal italic">Interior Services?</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto mb-10">
                         {whyChoose.map((item, i) => (
@@ -304,7 +305,7 @@ export default function InteriorDesignClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Our Interior Design{' '}
                             <span className="text-zlendo-teal italic">Process</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                         {steps.map((step, i) => (
@@ -338,7 +339,7 @@ export default function InteriorDesignClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Happy <span className="text-zlendo-teal italic">Clients</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                         {testimonials.map((t, i) => (
@@ -362,7 +363,7 @@ export default function InteriorDesignClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Frequently Asked <span className="text-zlendo-teal italic">Questions</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-3xl mx-auto space-y-4">
                         {faqs.map((faq, i) => (
@@ -392,7 +393,7 @@ export default function InteriorDesignClient() {
                     <motion.h2 {...fadeUp} className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight max-w-4xl mx-auto">
                         Ready to Transform Your{' '}
                         <span className="text-zlendo-teal italic">Space?</span>
-                    </motion.h2>
+                    {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h2>
                     <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-xl text-white/60 font-medium max-w-2xl mx-auto">
                         Create interiors that combine elegance, comfort, and functionality with professional solutions tailored to your needs.
                     </motion.p>

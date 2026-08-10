@@ -16,7 +16,8 @@ interface NRIRemotePlanningClientProps {
 }
 
 export default function NRIRemotePlanningClient({ cms }: NRIRemotePlanningClientProps) {
-    const { paths, getPath } = useCountry();
+    const { country, paths, getPath } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const accentColorClass = 'zlendo-orange';
     const bgAccentClass = 'bg-zlendo-orange/5';
 
@@ -177,7 +178,7 @@ export default function NRIRemotePlanningClient({ cms }: NRIRemotePlanningClient
                 {/* FAQs */}
                 <section className="py-10 md:py-14 bg-zlendo-grey-light/30">
                     <div className="container-custom max-w-3xl mx-auto px-6">
-                        <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-10 leading-tight">Common Questions</h2>
+                        <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-10 leading-tight">Common Questions{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <FaqAccordion faqs={faqs} />
                     </div>
                 </section>
@@ -191,7 +192,7 @@ export default function NRIRemotePlanningClient({ cms }: NRIRemotePlanningClient
                             <span className={`text-${accentColorClass} italic`}>
                                 {cms?.ctaTitleHighlight ?? 'Go Global?'}
                             </span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center">
                             <a
                                 href={SIGNUP_URL}

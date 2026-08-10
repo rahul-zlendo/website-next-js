@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useCountry } from "@/lib/context/CountryContext";
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     User, Mail, Phone, MapPin, Upload, FileText,
@@ -27,6 +28,8 @@ const PROJECT_STAGES = [
 ];
 
 export default function VastuConsultationFormClient() {
+    const { country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [formState, setFormState] = useState({
         name: '',
         email: '',
@@ -148,7 +151,7 @@ export default function VastuConsultationFormClient() {
                                 <h1 className="text-3xl md:text-[44px] font-black text-zlendo-grey-dark leading-tight mb-6">
                                     Expert Vastu Consultation for{' '}
                                     <span className="text-zlendo-teal italic">Your Home & Office</span>
-                                </h1>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h1>
                                 <p className="text-lg text-zlendo-grey-medium font-medium mb-4 leading-relaxed">
                                     Get personalized Vastu guidance for apartments, villas, independent homes, offices, and commercial spaces.
                                 </p>
@@ -183,7 +186,7 @@ export default function VastuConsultationFormClient() {
                                 className="bg-[#F8FBFA] rounded-[40px] p-6 lg:p-10 border border-[#eee] shadow-xl shadow-black/[0.02]"
                             >
                                 <div className="text-center mb-8">
-                                    <h2 className="text-2xl lg:text-3xl font-black text-zlendo-grey-dark mb-3">Request Free Consultation</h2>
+                                    <h2 className="text-2xl lg:text-3xl font-black text-zlendo-grey-dark mb-3">Request Free Consultation{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                                     <p className="text-zlendo-grey-medium font-medium">Fill the form to get personalized Vastu guidance.</p>
                                 </div>
 

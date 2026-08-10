@@ -23,7 +23,8 @@ const fadeUp = (delay = 0) => ({
 });
 
 export default function BuilderAndPromoterClient({ cms }: BuilderAndPromoterClientProps) {
-    const { paths, getPath } = useCountry();
+    const { country, paths, getPath } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const accentColorClass = 'zlendo-teal';
     const bgAccentClass = 'bg-zlendo-teal/5';
 
@@ -151,7 +152,7 @@ export default function BuilderAndPromoterClient({ cms }: BuilderAndPromoterClie
                                 <span className="text-zlendo-teal">
                                     {cms?.featuresTitleHighlight ?? 'Choose Zlendo Realty'}
                                 </span>
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         </motion.div>
 
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -183,7 +184,7 @@ export default function BuilderAndPromoterClient({ cms }: BuilderAndPromoterClie
                 {/* FAQs */}
                 <section className="py-10 bg-white">
                     <div className="container-custom max-w-3xl mx-auto px-6">
-                        <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-10 leading-tight">Common Questions</h2>
+                        <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-10 leading-tight">Common Questions{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <FaqAccordion faqs={faqs} />
                     </div>
                 </section>
@@ -197,7 +198,7 @@ export default function BuilderAndPromoterClient({ cms }: BuilderAndPromoterClie
                             <span className={`text-${accentColorClass} italic`}>
                                 {cms?.ctaTitleHighlight ?? 'Boost Your Project Sales?'}
                             </span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center">
                             <a
                                 href={SIGNUP_URL}

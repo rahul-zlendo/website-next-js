@@ -122,7 +122,7 @@ export default function TwoDToThreeDClient() {
                             <motion.h1 {...fadeUp} transition={{ delay: 0.1 }} className="text-[32px] md:text-[48px] lg:text-[60px] font-black text-zlendo-grey-dark leading-[1.05] tracking-tight mb-6">
                                 Transform Your 2D House &amp; Office Plans Into{' '}
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-600">Stunning 3D Designs</span>
-                            </motion.h1>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h1>
                             <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-8">
                                 Bring your architectural ideas to life with realistic 3D visualization, interior rendering, and professional design conversion services for residential and commercial spaces.
                             </motion.p>
@@ -227,7 +227,7 @@ export default function TwoDToThreeDClient() {
                             <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-6">
                                 Bring Your House &amp; Office{' '}
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-600">Designs to Life</span>
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                 Have a floor plan, sketch, or CAD drawing? We convert your 2D architectural plans into realistic, high-quality 3D visualizations that help you see the final space before construction begins.
                             </p>
@@ -254,7 +254,7 @@ export default function TwoDToThreeDClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-4">
                             Our 2D to 3D <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-600">Conversion Services</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-10">
                         {services.map((s, i) => (
@@ -308,7 +308,7 @@ export default function TwoDToThreeDClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Perfect <span className="text-zlendo-teal italic">For</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-5xl mx-auto">
                         {perfectFor.map((item, i) => (
@@ -331,7 +331,7 @@ export default function TwoDToThreeDClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Our <span className="text-zlendo-teal italic">Process</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                         {steps.map((step, i) => (
@@ -363,7 +363,7 @@ export default function TwoDToThreeDClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             What Our Clients <span className="text-zlendo-teal italic">Say</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                         {testimonials.map((t, i) => (
@@ -388,7 +388,7 @@ export default function TwoDToThreeDClient() {
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Frequently Asked <span className="text-zlendo-teal italic">Questions</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-3xl mx-auto space-y-4">
                         {faqs.map((faq, i) => (
@@ -418,7 +418,7 @@ export default function TwoDToThreeDClient() {
                     <motion.h2 {...fadeUp} className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight max-w-4xl mx-auto">
                         Turn Your Vision Into{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-400">Reality</span>
-                    </motion.h2>
+                    {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h2>
                     <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-xl text-white/60 font-medium max-w-2xl mx-auto">
                         See your future home or office before construction starts. Our professional 2D to 3D conversion services help you make smarter design decisions with confidence.
                     </motion.p>

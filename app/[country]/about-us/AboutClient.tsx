@@ -139,7 +139,7 @@ export default function AboutClient() {
                     <motion.div {...fadeUp} className="text-center max-w-3xl mx-auto mb-16">
                         <h2 className="text-[28px] md:text-[40px] font-black text-zlendo-grey-dark leading-tight mb-4">
                             Designed for Industry Professionals & Homeowners
-                        </h2>
+                        {isIndia && <span className="sr-only"> (India)</span>}</h2>
                         <p className="text-lg text-zlendo-grey-medium font-medium">
                             Zlendo Realty is built for everyone involved in property design and construction.
                         </p>
@@ -178,7 +178,7 @@ export default function AboutClient() {
                     </motion.div>
                     <motion.h2 {...fadeUp} className="text-[32px] md:text-[48px] font-black leading-tight mb-8">
                         AI Everywhere: Our Innovation Direction
-                    </motion.h2>
+                    {isIndia && <span className="sr-only"> (India)</span>}</motion.h2>
                     <motion.p {...fadeUp} className="text-xl text-gray-300 font-medium leading-relaxed mb-6">
                         At Zlendo Realty, AI is not treated as just a feature. It is part of our long-term innovation strategy. Our vision is to make AI a creative assistant for every architect, civil engineer, builder, designer, and homeowner.
                     </motion.p>
@@ -207,7 +207,7 @@ export default function AboutClient() {
                             <h3 className="text-sm font-black uppercase tracking-widest text-zlendo-teal mb-3">Our History</h3>
                             <h2 className="text-3xl lg:text-4xl font-black text-zlendo-grey-dark leading-tight mb-6">
                                 Our Journey: 2020 to 2026
-                            </h2>
+                            {isIndia && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-base text-zlendo-grey-medium font-medium leading-relaxed mb-4">
                                 Zlendo Realty started with a mission to simplify real estate design. Over the years, we have continuously improved our platform by listening to users, collaborating with industry experts, and investing in modern technology.
                             </p>
@@ -232,7 +232,7 @@ export default function AboutClient() {
                             <h3 className="text-sm font-black uppercase tracking-widest text-zlendo-teal mb-3">Collaboration</h3>
                             <h2 className="text-3xl lg:text-4xl font-black text-zlendo-grey-dark leading-tight mb-6">
                                 Expert-Backed Innovation
-                            </h2>
+                            {isIndia && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-base text-zlendo-grey-medium font-medium leading-relaxed mb-4">
                                 Innovation is not based on assumptions. We work closely with domain experts, builders, architects, civil engineers, and structural engineering experts to make sure our platform solves real-world problems.
                             </p>
@@ -252,7 +252,7 @@ export default function AboutClient() {
                 <div className="container-custom px-6 lg:px-12 text-center max-w-4xl mx-auto">
                     <motion.h2 {...fadeUp} className="text-2xl md:text-4xl font-black text-zlendo-grey-dark mb-6">
                         The Future of Real Estate Design Starts Here
-                    </motion.h2>
+                    {isIndia && <span className="sr-only"> (India)</span>}</motion.h2>
                     <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-lg text-zlendo-grey-medium font-medium mb-10 leading-relaxed">
                         From a simple floor plan to a complete visual experience, Zlendo Realty helps users design, visualize, estimate, and present with confidence. Choose a platform that brings together technology, expert knowledge, and AI innovation.
                     </motion.p>

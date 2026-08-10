@@ -15,7 +15,8 @@ import { useCountry } from '@/lib/context/CountryContext';
 const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
 export default function VirtualWalkthroughClient() {
-    const { getPath } = useCountry();
+    const { country, getPath } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const [openFaq, setOpenFaq] = useState<number | null>(null);
 
     const heroHighlights = [
@@ -110,7 +111,7 @@ export default function VirtualWalkthroughClient() {
                             <motion.h1 {...fadeUp} transition={{ delay: 0.1 }} className="text-[32px] md:text-[48px] lg:text-[60px] font-black text-zlendo-grey-dark leading-[1.05] tracking-tight mb-6">
                                 Transform Your Floor Plans into{' '}
                                 <span className="text-zlendo-teal italic">Immersive Virtual Walkthroughs</span>
-                            </motion.h1>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h1>
                             <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-8">
                                 Bring your designs to life with professional Virtual Walkthrough Services. Whether you have a 2D floor plan, CAD file, or 3D model, our visualization experts create realistic virtual walkthroughs that help clients experience the space before construction begins.
                             </motion.p>
@@ -210,7 +211,7 @@ export default function VirtualWalkthroughClient() {
                             <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-6">
                                 Turn Your Floor Plan into a{' '}
                                 <span className="text-zlendo-teal italic">Realistic Virtual Experience</span>
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                 Traditional floor plans often make it difficult for clients to understand space, flow, and design intent. Virtual walkthroughs bridge this gap by transforming technical drawings into immersive visual experiences.
                             </p>
@@ -236,7 +237,7 @@ export default function VirtualWalkthroughClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Our Virtual Walkthrough{' '}
                             <span className="text-zlendo-teal italic">Services</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto mb-10">
                         {services.map((item, i) => (
@@ -267,7 +268,7 @@ export default function VirtualWalkthroughClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Why Choose Zlendo Realty for{' '}
                             <span className="text-zlendo-teal italic">Virtual Walkthroughs?</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto mb-10">
                         {benefits.map((item, i) => (
@@ -292,7 +293,7 @@ export default function VirtualWalkthroughClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Our Simple{' '}
                             <span className="text-zlendo-teal italic">Process</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                         {steps.map((step, i) => (
@@ -325,7 +326,7 @@ export default function VirtualWalkthroughClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Industries We{' '}
                             <span className="text-zlendo-teal italic">Serve</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                         {industries.map((item, i) => (
@@ -352,7 +353,7 @@ export default function VirtualWalkthroughClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-4">
                             Benefits of{' '}
                             <span className="text-zlendo-teal italic">Virtual Walkthroughs</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                         {benefitsList.map((item, i) => (
@@ -386,7 +387,7 @@ export default function VirtualWalkthroughClient() {
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Frequently Asked{' '}
                             <span className="text-zlendo-teal italic">Questions</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-3xl mx-auto space-y-4">
                         {faqs.map((faq, i) => (
@@ -416,7 +417,7 @@ export default function VirtualWalkthroughClient() {
                     <motion.h2 {...fadeUp} className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight max-w-4xl mx-auto">
                         Ready to Convert Your Floor Plan into a{' '}
                         <span className="text-zlendo-teal italic">Virtual Walkthrough?</span>
-                    </motion.h2>
+                    {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h2>
                     <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-xl text-white/60 font-medium max-w-2xl mx-auto">
                         Get started in 3 easy steps: Submit your floor plan, receive a project estimate, and get your custom virtual walkthrough.
                     </motion.p>

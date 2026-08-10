@@ -24,6 +24,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
     const [isVideoOpen, setIsVideoOpen] = useState(false);
     const { country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const heroGradient = cms?.heroGradient || 'from-blue-500 to-cyan-400';
 
     return (
@@ -185,7 +186,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
 
                                 <h2 className="text-3xl md:text-4xl font-black font-nunito text-zlendo-grey-dark mb-4 group-hover:text-zlendo-teal transition-colors">
                                     {cms?.uploadTitle || 'Upload your floor plan'}
-                                </h2>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                                 <p className="text-lg text-slate-500 font-medium mb-8 max-w-lg">
                                     {cms?.uploadSubtitle || 'Drag & drop your 2D sketch, image, or CAD file here to instantly generate a 3D model.'}
                                 </p>
@@ -235,7 +236,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
             {/* 4. ZIG-ZAG STEPS */}
             <section className="py-12 lg:py-20 bg-white">
                 <div className="container-custom px-6 text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || 'How It Works'}</h2>
+                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || 'How It Works'}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     <p className="text-xl text-zlendo-grey-medium font-medium">{cms?.stepsSectionSubtitle || 'Four simple steps to your dream result.'}</p>
                 </div>
 
@@ -294,7 +295,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-zlendo-grey-dark mb-6 leading-tight">
                             Instant Interiors. <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Drag. Drop. Done.</span>
-                        </h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <p className="text-xl text-zlendo-grey-medium font-medium leading-relaxed max-w-2xl mx-auto">
                             Skip the modeling phase. Access thousands of ready-to-use 3D assets to create stunning, accurate spaces in minutes directly from your 2D plans.
                         </p>
@@ -352,7 +353,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
             {/* 6. FAQ */}
             <section className="py-16 bg-slate-50">
                 <div className="container-custom px-6 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || 'Frequently Asked Questions'}</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || 'Frequently Asked Questions'}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     <div className="space-y-4">
                         {resolvedFaqs.map((faq, i) => (
                             <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors">

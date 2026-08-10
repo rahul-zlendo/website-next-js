@@ -69,10 +69,15 @@ export function createPageMetadata({
         }
     }
 
+    let finalKeywords = keywords ? [...keywords] : undefined;
+    if (isIndia && finalKeywords) {
+        finalKeywords = finalKeywords.map(k => k.toLowerCase().includes('india') || k.toLowerCase().includes(' in ') ? k : `${k} in india`);
+    }
+
     return {
         title,
         description: finalDesc,
-        ...(keywords && { keywords }),
+        ...(finalKeywords && { keywords: finalKeywords }),
         openGraph: {
             title: ogTitle || title,
             description: ogDescription || finalDesc,
