@@ -4,19 +4,19 @@ import ComparisonClient from '@/components/compare/ComparisonClient';
 import JsonLd from '@/components/common/JsonLd';
 
 export const metadata: Metadata = createPageMetadata({
-    title: 'Zlendo Realty vs. Coohom: Professional 3D Design Comparison',
-    description: 'See why interior designers and builders are switching from Coohom to Zlendo Realty. Get unlimited 8K renders and instant AI 2D-to-3D floor planning.',
-    path: '/compare/zlendo-vs-coohom',
-    keywords: ['Zlendo Realty vs Coohom', 'Coohom alternative', 'AI floor planner', '3D home design software', 'unlimited rendering software'],
+    title: 'Zlendo Realty vs. SketchUp: Fast AI-Driven Spatial Design',
+    description: 'Skip the steep 100-hour learning curve of SketchUp. Design instantly with Zlendo Realty’s native cloud rendering, AI styling, and automatic costing.',
+    path: '/compare/zlendo-realty-vs-sketchup',
+    keywords: ['Zlendo Realty vs SketchUp', 'SketchUp alternative', 'easy 3D home modeling', 'automated cost estimation', 'native cloud rendering'],
 });
 
 export default function Page() {
     const compareSchema = {
         "@context": "https://schema.org",
         "@type": "ProductCompareDocument",
-        "name": "Zlendo Realty vs Coohom Comparison",
-        "description": "Comparison of Zlendo Realty and Coohom interior design software, highlighting speed, rendering quality, pricing transparency, and cost estimation capabilities.",
-        "url": "https://zlendorealty.com/compare/zlendo-vs-coohom",
+        "name": "Zlendo Realty vs SketchUp Comparison",
+        "description": "Comparison of Zlendo Realty and SketchUp, demonstrating the benefit of automated AI spatial styling and costing over manual geometry-based modeling.",
+        "url": "https://zlendorealty.com/compare/zlendo-realty-vs-sketchup",
         "mainEntity": {
             "@type": "SoftwareApplication",
             "name": "Zlendo Realty",
@@ -33,7 +33,7 @@ export default function Page() {
     return (
         <>
             <JsonLd schema={compareSchema} />
-            <ComparisonClient competitor="coohom" />
+            <ComparisonClient competitor="sketchup" />
         </>
     );
 }

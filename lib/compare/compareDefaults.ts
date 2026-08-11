@@ -13,11 +13,11 @@ import type { ComparePageDefaults } from '@/components/pages/ComparePageClient';
  */
 
 export const KNOWN_COMPARE_SLUGS = [
-  'zlendo-vs-foyr-neo',
-  'zlendo-vs-roomsketcher',
-  'zlendo-vs-coohom',
-  'zlendo-vs-maket',
-  'zlendo-vs-snaptrude',
+  'zlendo-realty-vs-foyr-neo',
+  'zlendo-realty-vs-roomsketcher',
+  'zlendo-realty-vs-coohom',
+  'zlendo-realty-vs-maket',
+  'zlendo-realty-vs-snaptrude',
   'best-foyr-neo-alternatives',
   'best-roomsketcher-alternatives',
   'best-ai-floor-plan-software',
@@ -27,7 +27,7 @@ export const KNOWN_COMPARE_SLUGS = [
 
 export function getCompareDefaults(slug: string): ComparePageDefaults {
   const map: Record<string, ComparePageDefaults> = {
-    'zlendo-vs-foyr-neo': {
+    'zlendo-realty-vs-foyr-neo': {
       pageType: 'comparison',
       heroTitle: 'Zlendo Realty vs Foyr Neo (2025): Best Interior Design Software for India?',
       heroBadge: 'Zlendo Realty Wins for India',
@@ -141,7 +141,7 @@ export function getCompareDefaults(slug: string): ComparePageDefaults {
       seoKeywords: ['foyr neo alternative india', 'zlendo vs foyr neo', 'interior design software india', 'vastu design software'],
     },
 
-    'zlendo-vs-roomsketcher': {
+    'zlendo-realty-vs-roomsketcher': {
       pageType: 'comparison',
       heroTitle: 'Zlendo Realty vs RoomSketcher (2025): Best Floor Plan Software for India?',
       heroBadge: 'Zlendo Wins for AI & India Market',
@@ -243,7 +243,7 @@ export function getCompareDefaults(slug: string): ComparePageDefaults {
       seoKeywords: ['roomsketcher alternative india', 'zlendo vs roomsketcher', 'floor plan software india', 'ai floor plan tool india'],
     },
 
-    'zlendo-vs-coohom': {
+    'zlendo-realty-vs-coohom': {
       pageType: 'comparison',
       heroTitle: 'Zlendo Realty vs Coohom (2025): Which Is Better for Indian Interior Designers?',
       heroBadge: 'Zlendo Wins for India Privacy & Vastu',
@@ -345,7 +345,7 @@ export function getCompareDefaults(slug: string): ComparePageDefaults {
       seoKeywords: ['coohom alternative india', 'zlendo vs coohom', 'interior design software india data privacy', 'vastu software india'],
     },
 
-    'zlendo-vs-maket': {
+    'zlendo-realty-vs-maket': {
       pageType: 'comparison',
       heroTitle: 'Zlendo Realty vs Maket (2026): AI Floor Plan Generator Comparison',
       heroBadge: 'Zlendo Wins for the Full Workflow',
@@ -445,7 +445,7 @@ export function getCompareDefaults(slug: string): ComparePageDefaults {
       seoKeywords: ['maket alternative', 'zlendo vs maket', 'ai floor plan generator', 'maket ai floor plan india'],
     },
 
-    'zlendo-vs-snaptrude': {
+    'zlendo-realty-vs-snaptrude': {
       pageType: 'comparison',
       heroTitle: 'Zlendo Realty vs Snaptrude (2026): Which Design Tool Is Right for You?',
       heroBadge: 'Different Tools for Different Jobs',
@@ -1059,5 +1059,5 @@ export function getCompareDefaults(slug: string): ComparePageDefaults {
     },
   };
 
-  return map[slug] ?? map['zlendo-vs-foyr-neo'];
+  return map[slug] ?? map['zlendo-realty-vs-foyr-neo'];
 }

@@ -11,7 +11,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === "global";
-    const cleanPath = `/${country}/compare/zlendo-vs-sketchup`;
+    const cleanPath = `/${country}/compare/zlendo-realty-vs-sketchup`;
 
     return createPageMetadata({
         title: isGlobal ? 'Zlendo Realty vs. SketchUp: Fast AI-Driven Spatial Design' : `Zlendo Realty vs. SketchUp: Fast AI-Driven Spatial Design Online`,
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
     const { country } = await params;
-    const pageUrl = `https://zlendorealty.com/${country}/compare/zlendo-vs-sketchup`;
+    const pageUrl = `https://zlendorealty.com/${country}/compare/zlendo-realty-vs-sketchup`;
     const data = comparisonData.sketchup;
 
     const compareSchema = {

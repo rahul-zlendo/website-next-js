@@ -11,7 +11,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === "global";
-    const cleanPath = `/${country}/compare/zlendo-vs-planner5d`;
+    const cleanPath = `/${country}/compare/zlendo-realty-vs-planner5d`;
 
     return createPageMetadata({
         title: isGlobal ? 'Zlendo Realty vs. Planner 5D: Professional Design Made Simple' : `Zlendo Realty vs. Planner 5D: Professional Design Made Simple Online`,
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
     const { country } = await params;
-    const pageUrl = `https://zlendorealty.com/${country}/compare/zlendo-vs-planner5d`;
+    const pageUrl = `https://zlendorealty.com/${country}/compare/zlendo-realty-vs-planner5d`;
     const data = comparisonData.planner5d;
 
     const compareSchema = {
