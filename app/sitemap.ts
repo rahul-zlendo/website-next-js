@@ -98,11 +98,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Compare pages
     { path: '/compare', priority: 0.9, changeFrequency: 'monthly' as const },
-    { path: '/compare/zlendo-vs-foyr-neo', priority: 0.9, changeFrequency: 'monthly' as const },
-    { path: '/compare/zlendo-vs-roomsketcher', priority: 0.9, changeFrequency: 'monthly' as const },
-    { path: '/compare/zlendo-vs-coohom', priority: 0.9, changeFrequency: 'monthly' as const },
-    { path: '/compare/zlendo-vs-maket', priority: 0.9, changeFrequency: 'monthly' as const },
-    { path: '/compare/zlendo-vs-snaptrude', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/zlendo-realty-vs-foyr-neo', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/zlendo-realty-vs-roomsketcher', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/zlendo-realty-vs-coohom', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/zlendo-realty-vs-maket', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/zlendo-realty-vs-snaptrude', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/compare/best-foyr-neo-alternatives', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/compare/best-roomsketcher-alternatives', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/compare/best-ai-floor-plan-software', priority: 0.9, changeFrequency: 'monthly' as const },

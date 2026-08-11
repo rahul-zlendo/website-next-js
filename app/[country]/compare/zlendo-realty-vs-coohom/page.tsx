@@ -11,7 +11,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { country } = await params;
     const isGlobal = country === "global";
-    const cleanPath = `/${country}/compare/zlendo-vs-coohom`;
+    const cleanPath = `/${country}/compare/zlendo-realty-vs-coohom`;
 
     return createPageMetadata({
         title: isGlobal ? 'Zlendo Realty vs. Coohom: Professional 3D Design Comparison' : `Zlendo Realty vs. Coohom: Professional 3D Design Comparison Online`,
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
     const { country } = await params;
-    const pageUrl = `https://zlendorealty.com/${country}/compare/zlendo-vs-coohom`;
+    const pageUrl = `https://zlendorealty.com/${country}/compare/zlendo-realty-vs-coohom`;
     const data = comparisonData.coohom;
 
     // Schema markup for comparison page

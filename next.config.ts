@@ -89,7 +89,63 @@ const nextConfig: NextConfig = {
       'ac-waiting-room-rules-everything-you-need',
       'sports-day-decoration-ideas-creative-ways',
       'bathroom-dimensions-guide',
-
+      '5-inspiring-wall-almirah-design-ideas',
+      'almari-design-in-smart-rooms',
+      'aluminium-jali-stylish-choice',
+      'anandpur-sahib-gurudwara-room-booking-guide',
+      'armani-hotel-dubai-room-price-guide',
+      'athangudi-tiles-disadvantages',
+      'bajaj-wall-mount-fan-for-cooling',
+      'bathtub-height-a-simple-guide-to-choose',
+      'best-curtain-ideas-for-peach-walls',
+      'compound-wall-explained-guide',
+      'cumbala-hill',
+      'dark-firozi-colour-a-deep-dive',
+      'dark-firozi-colour-in-interior-design-style',
+      'deluxe-room-what-it-really-means',
+      'fluted-panel-price-guide-costs',
+      'gurudwara-rakabganj-road-complete-guide',
+      'hettich-modular-kitchen-pricing-features',
+      'hindu-prayer-room-design-thoughtful-ideas',
+      'lucky-numbers-what-they-mean',
+      'manekshaw-centre-guest-room',
+      'marble-pathar-price-guide-tips',
+      'navy-blue-and-light-blue-a-elegant-colour',
+      'one-ton-ac-room-size',
+      'profile-light-price-guide',
+      'room-booking-at-gurudwara-sis-ganj-sahib',
+      'softboard-decoration-ideas-simple-creative',
+      'sweep-the-floor-meaning-daily-use',
+      'ton-window-ac-price-guide-cost',
+      'understanding-italian-kitchen-prices-guide',
+      'understanding-room-in-square-feet-a-guide',
+      'using-an-air-cooler-in-a-room-the-right-way',
+      'wall-magazine-for-your-class',
+      'wall-moulding-types-prices-in-india-ideas',
+      'gorai-beach-rooms-safe-for-couples',
+      'groove-handles-a-smart-and-stylish-choice',
+      'irctc-retiring-room-contact',
+      'jyoti-chowk-jalandhar-punjab-heart-of-city',
+      'jyoti-chowk-jalandhar-shopping',
+      'oyo-rooms-explained-a-quickguide',
+      'raghavendra-swamy-mantralayam-completeguide',
+      'railway-cloakroom-guide-understand',
+      'rashtreeya-vidyalaya-road',
+      'retiring-room-at-new-delhi',
+      'retiring-room-at-ujjain-railway-station',
+      'retiring-room-at-vijayawada-railway-station',
+      'saifee-hospital-room-charges',
+      'daily-room-rent-in-bangalore-price-insights',
+      'false-ceiling-lights-cost-room',
+      'false-ceiling-lights-cost-room/',
+      'lilac-lavender-room-colour-a-stylish-choice/',
+      'modular-kitchen-sink-price-guide',
+      'parapet-wall-steel-design-smart-ideas',
+      'parapet-wall-steel-design-smart-ideas/',
+      'royal-paint-design-idea-for-home/',
+      'saifee-hospital-contact-number-quick-guide/',
+      'stilt-floor-explained-a-quick-clear-guide',
+      'student-room-option-in-malsalami-patna-city/',
     ];
 
     const blogHomeRedirects = [
@@ -108,6 +164,22 @@ const nextConfig: NextConfig = {
       'minimum-bedroom-size-indian-standards-vastu/feed/',
       'test',
       'all',
+      'category/architecture/',
+      'category/cell-structure-and-function/',
+      'category/fashion-style',
+      'category/fashion-style/',
+      'category/metro-development',
+      'category/travel-infrastructure/',
+      'home-furnishing-ideas-living-room/feed/',
+      'ledge-wall-thickness-how-to-design-smart/feed/',
+      'flat-50-off-on-zlendo-realty/',
+      'page/2/',
+      'page/25/',
+      'page/27/',
+      'page/29',
+      'room-ceiling-design-latest-ideas/feed',
+      'room-design-ideas-to-refresh/feed/',
+      'sample-page',
     ];
 
     const redirectsList = [
@@ -147,7 +219,31 @@ const nextConfig: NextConfig = {
         source: path,
         destination: `https://zlendorealty.com`,
         permanent: true,
-      }))
+      })),
+      ...[3, 9, 15, 18, 46, 56].map(page => ({
+        source: '/blog',
+        has: [
+          {
+            type: 'query',
+            key: 'page',
+            value: String(page)
+          }
+        ],
+        destination: 'https://zlendorealty.com/blog',
+        permanent: true,
+      })),
+      {
+        source: '/blog/page/2',
+        has: [
+          {
+            type: 'query',
+            key: 'page',
+            value: '3'
+          }
+        ],
+        destination: 'https://zlendorealty.com/blog',
+        permanent: true,
+      }
     ];
 
     return redirectsList;
