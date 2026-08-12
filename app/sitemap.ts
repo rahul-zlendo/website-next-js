@@ -105,6 +105,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/compare/zlendo-realty-vs-foyr-neo', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/compare/zlendo-realty-vs-roomsketcher', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/compare/zlendo-realty-vs-coohom', priority: 0.9, changeFrequency: 'monthly' as const },
+    // Added in 5bc6936 as hardcoded routes (not KNOWN_COMPARE_SLUGS entries, so
+    // the [slug] route never advertised them). Both locales verified 200.
+    { path: '/compare/zlendo-realty-vs-planner5d', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/compare/zlendo-realty-vs-sketchup', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/compare/zlendo-realty-vs-maket', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/compare/zlendo-realty-vs-snaptrude', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/compare/best-foyr-neo-alternatives', priority: 0.8, changeFrequency: 'monthly' as const },
@@ -207,6 +211,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${BASE_URL}/blog`,
     lastModified: dynamicLastMod,
     changeFrequency: 'daily',
+    priority: 0.8,
+  });
+
+  // Design Battle campaign — locale-neutral like the blog (middleware serves it
+  // at the flat URL with no /in variant), so it cannot go through the
+  // global + /in route loop above without advertising an /in URL that 404s.
+  urls.push({
+    url: `${BASE_URL}/design-battle`,
+    lastModified: dynamicLastMod,
+    changeFrequency: 'weekly',
     priority: 0.8,
   });
 
