@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: 'Home Remodeling & Renovation Services',
@@ -36,13 +37,7 @@ export const metadata: Metadata = {
         title: 'Home Remodeling & Renovation',
         description: 'AI-powered renovation planning. Visualize changes in 3D before construction.',
     },
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/use-case/home-remodeling',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/use-case/home-remodeling',
-            'x-default': 'https://zlendorealty.com/in/use-case/home-remodeling',
-        },
-    },
+    alternates: indiaOnlyAlternates('/use-case/home-remodeling'),
 };
 
 export default function HomeRemodelingLayout({

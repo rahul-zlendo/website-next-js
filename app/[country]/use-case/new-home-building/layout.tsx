@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
   title: 'Custom Home Plans & Modern House Elevation',
@@ -38,13 +39,7 @@ export const metadata: Metadata = {
     title: 'Custom Home Plans & Modern House Elevation',
     description: 'Design your dream home with custom home plans and see your new build in 3D before construction begins.',
   },
-  alternates: {
-    canonical: 'https://zlendorealty.com/in/use-case/new-home-building',
-    languages: {
-      'en-IN': 'https://zlendorealty.com/in/use-case/new-home-building',
-      'x-default': 'https://zlendorealty.com/in/use-case/new-home-building',
-    },
-  },
+  alternates: indiaOnlyAlternates('/use-case/new-home-building'),
 };
 
 export default function NewHomeBuildingLayout({

@@ -3,6 +3,7 @@ import { getClient } from '@/lib/sanity/client';
 import { contactPageQuery } from '@/lib/sanity/queries';
 import ContactClient from './ContactClient';
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 // ISR: re-fetch Sanity data every 60 seconds so CMS edits go live quickly
 export const revalidate = 60;
@@ -26,9 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: finalTitle,
         description: finalDesc,
-        alternates: {
-            canonical: `https://zlendorealty.com/${country}/contact`,
-        },
+        alternates: localeAlternates('/contact', isIndia ? 'in' : 'global'),
     };
 }
 

@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -29,13 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Plans for Every Individual',
                 description: 'Whether you’re renovating a single room or creating a professional portfolio, Zlendo Realty offers flexible plans designed to suit every individual’s needs.',
             },
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/plans',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/plans',
-                    'x-default': 'https://zlendorealty.com/in/plans',
-                },
-            },
+            alternates: localeAlternates('/plans', 'in'),
         };
     }
 

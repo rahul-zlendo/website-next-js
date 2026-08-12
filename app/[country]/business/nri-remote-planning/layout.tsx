@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
   title: 'Design and Build Services & Remote Home Planning',
@@ -39,13 +40,7 @@ export const metadata: Metadata = {
     title: 'NRI & Remote Home Planning Solutions',
     description: 'Empower your NRI clients with 3D visualization and seamless remote collaboration for home design projects.',
   },
-  alternates: {
-    canonical: 'https://zlendorealty.com/in/business/nri-remote-planning',
-    languages: {
-      'en-IN': 'https://zlendorealty.com/in/business/nri-remote-planning',
-      'x-default': 'https://zlendorealty.com/in/business/nri-remote-planning',
-    },
-  },
+  alternates: indiaOnlyAlternates('/business/nri-remote-planning'),
 };
 
 export default function NRIRemotePlanningLayout({

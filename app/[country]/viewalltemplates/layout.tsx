@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -41,13 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 locale: 'en_IN',
                 type: 'website',
             },
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/viewalltemplates',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/viewalltemplates',
-                    'x-default': 'https://zlendorealty.com/in/viewalltemplates',
-                },
-            },
+            alternates: localeAlternates('/viewalltemplates', 'in'),
         };
     }
 

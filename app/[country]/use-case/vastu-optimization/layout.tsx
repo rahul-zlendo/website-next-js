@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: 'Vastu House Plan Design & Vastu Solutions',
@@ -26,13 +27,7 @@ export const metadata: Metadata = {
         title: 'Vastu Optimization',
         description: 'Get AI-powered vastu scores and energy-balanced home layouts.',
     },
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/use-case/vastu-optimization',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/use-case/vastu-optimization',
-            'x-default': 'https://zlendorealty.com/in/use-case/vastu-optimization',
-        },
-    },
+    alternates: indiaOnlyAlternates('/use-case/vastu-optimization'),
 };
 
 export default function VastuOptimizationLayout({

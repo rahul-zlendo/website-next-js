@@ -48,14 +48,15 @@ export const metadata: Metadata = {
       },
     ],
   },
-  alternates: {
-    canonical: 'https://zlendorealty.com',
-    languages: {
-      'en-IN': 'https://zlendorealty.com/in',
-      'en': 'https://zlendorealty.com',
-      'x-default': 'https://zlendorealty.com',
-    },
-  },
+  // NOTE: deliberately NO `alternates` here.
+  //
+  // Next.js inherits metadata from parent segments, so a root-level
+  // `alternates.canonical` is silently adopted by every page that doesn't
+  // declare its own — which made `/viewalltemplates` canonicalise to the
+  // homepage and told Google to fold it away. The homepage sets its own
+  // canonical in app/page.tsx and app/global/page.tsx; every other route must
+  // set its own via localeAlternates() / indiaOnlyAlternates() in
+  // lib/seo/metadata.ts. Do not reintroduce a canonical at this level.
   twitter: {
     card: 'summary_large_image',
     title: 'Zlendo Realty | AI Home & Office Design Software',

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
   title: 'Interior Design Use Cases',
@@ -37,13 +38,7 @@ export const metadata: Metadata = {
     title: 'Interior Design Use Cases',
     description: 'See how Zlendo Realty transforms interior design with 3D visualization and space planning.',
   },
-  alternates: {
-    canonical: 'https://zlendorealty.com/in/use-case/interior-design',
-    languages: {
-      'en-IN': 'https://zlendorealty.com/in/use-case/interior-design',
-      'x-default': 'https://zlendorealty.com/in/use-case/interior-design',
-    },
-  },
+  alternates: indiaOnlyAlternates('/use-case/interior-design'),
 };
 
 export default function InteriorDesignLayout({

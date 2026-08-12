@@ -85,9 +85,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/privacy-policy', priority: 0.3, changeFrequency: 'monthly' as const },
     { path: '/terms-of-service', priority: 0.3, changeFrequency: 'monthly' as const },
     { path: '/cookie-policy', priority: 0.3, changeFrequency: 'monthly' as const },
-    { path: '/dpa', priority: 0.3, changeFrequency: 'monthly' as const },
+    // /dpa and /nda-customers have no global content (they're absent from
+    // policiesData), so the global URLs 308 to the homepage. A sitemap must
+    // never advertise a redirecting URL — list only the /in variant, which is
+    // where the actual document lives.
+    { path: '/dpa', priority: 0.3, changeFrequency: 'monthly' as const, isIndiaOnly: true },
     { path: '/general-terms', priority: 0.3, changeFrequency: 'monthly' as const },
-    { path: '/nda-customers', priority: 0.3, changeFrequency: 'monthly' as const },
+    { path: '/nda-customers', priority: 0.3, changeFrequency: 'monthly' as const, isIndiaOnly: true },
     { path: '/nda-vendors', priority: 0.3, changeFrequency: 'monthly' as const },
     { path: '/refund-policy', priority: 0.3, changeFrequency: 'monthly' as const },
     { path: '/sla', priority: 0.3, changeFrequency: 'monthly' as const },

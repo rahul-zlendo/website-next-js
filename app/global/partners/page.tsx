@@ -1,5 +1,6 @@
 import GlobalPartnersClient from './GlobalPartnersClient';
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: 'Partner with Zlendo Realty | Global Affiliate & Agency Programs',
@@ -13,9 +14,7 @@ export const metadata: Metadata = {
         'zlendo realty commissions',
         'design visualization partner',
     ],
-    alternates: {
-        canonical: 'https://zlendorealty.com/partners',
-    },
+    alternates: localeAlternates('/partners'),
 };
 
 export default async function GlobalPartnersPage() {

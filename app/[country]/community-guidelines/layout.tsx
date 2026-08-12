@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -30,13 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty Community Guidelines',
                 description: 'Read the Zlendo Realty Community Guidelines outlining the rules, standards, and expectations governing user conduct on our platform.',
             },
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/community-guidelines',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/community-guidelines',
-                    'x-default': 'https://zlendorealty.com/in/community-guidelines',
-                },
-            },
+            alternates: localeAlternates('/community-guidelines', 'in'),
         };
     }
 

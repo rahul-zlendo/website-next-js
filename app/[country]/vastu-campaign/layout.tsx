@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: 'AI-Powered Vastu Analysis',
@@ -11,13 +12,7 @@ export const metadata: Metadata = {
         'floor plan vastu check',
         'vastu remedies',
     ],
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/vastu-campaign',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/vastu-campaign',
-            'x-default': 'https://zlendorealty.com/in/vastu-campaign',
-        },
-    },
+    alternates: indiaOnlyAlternates('/vastu-campaign'),
 };
 
 export default function VastuCampaignLayout({

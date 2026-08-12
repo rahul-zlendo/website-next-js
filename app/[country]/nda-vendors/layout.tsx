@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -28,13 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Technologies Vendor Non-Disclosure Agreement (NDA)',
                 description: 'Access the official NDA for vendors partnering with Zlendo Technologies. Learn about confidentiality requirements and terms governing vendor collaborations.',
             },
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/nda-vendors',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/nda-vendors',
-                    'x-default': 'https://zlendorealty.com/in/nda-vendors',
-                },
-            },
+            alternates: localeAlternates('/nda-vendors', 'in'),
         };
     }
 

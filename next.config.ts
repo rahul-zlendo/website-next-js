@@ -65,9 +65,6 @@ const nextConfig: NextConfig = {
       'seminar-room-meaning-purpose-key-features',
       'plus-minus-pop-design-for-gallery',
       'seven-kitchen-concept-a-unique-dining',
-      'podium-decoration-ideas-simple-ways',
-      'owl-in-house-vastu-meaning-beliefs',
-      'maid-room-concept-explained-meaning',
       'chennai-international-aiport',
       'suhagrat-decoration-ideas-for-small-bedroom',
       'sange-mar-mar-stone-price-guide-cost',
@@ -88,7 +85,6 @@ const nextConfig: NextConfig = {
       'gurudwara-sis-ganj-sahib-visitor',
       'ac-waiting-room-rules-everything-you-need',
       'sports-day-decoration-ideas-creative-ways',
-      'bathroom-dimensions-guide',
       '5-inspiring-wall-almirah-design-ideas',
       'almari-design-in-smart-rooms',
       'aluminium-jali-stylish-choice',
@@ -180,6 +176,14 @@ const nextConfig: NextConfig = {
       'room-ceiling-design-latest-ideas/feed',
       'room-design-ideas-to-refresh/feed/',
       'sample-page',
+      // These four were in the news-redirect list but were never republished on
+      // news.zlendorealty.com — the 301 landed on news' own /404, so Google saw
+      // "Redirect error" instead of a resolved move. Point them at /blog until
+      // (or unless) the posts come back.
+      'bathroom-dimensions-guide',
+      'maid-room-concept-explained-meaning',
+      'owl-in-house-vastu-meaning-beliefs',
+      'podium-decoration-ideas-simple-ways',
     ];
 
     const redirectsList = [

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: 'Developer Design Solutions',
@@ -36,13 +37,7 @@ export const metadata: Metadata = {
         title: 'Developer Solutions | Zlendo Realty',
         description: 'Comprehensive design platform for real estate developers.',
     },
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/business/developer-solutions',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/business/developer-solutions',
-            'x-default': 'https://zlendorealty.com/in/business/developer-solutions',
-        },
-    },
+    alternates: indiaOnlyAlternates('/business/developer-solutions'),
 };
 
 export default function DeveloperSolutionsLayout({

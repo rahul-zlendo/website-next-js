@@ -3,6 +3,7 @@ import { getClient } from '@/lib/sanity/client';
 import { partnersPageQuery } from '@/lib/sanity/queries';
 import PartnersClient from './PartnersClient';
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 // ISR: re-fetch Sanity data every 60 seconds so CMS edits go live quickly
 export const revalidate = 60;
@@ -19,9 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
         title: cms?.seoTitle || 'Partner with Zlendo Realty - Affiliate & Agent Programs',
         description: cms?.seoDescription || 'Turn your network into revenue. Join the Zlendo Realty partner or affiliate program and earn by sharing the future of PropTech.',
-        alternates: {
-            canonical: `https://zlendorealty.com/${country}/partners`,
-        },
+        alternates: localeAlternates('/partners', 'in'),
     };
 }
 

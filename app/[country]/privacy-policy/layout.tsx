@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-
 import { createPageMetadata } from '@/lib/seo/metadata';
 
 export async function generateMetadata({ params }: { params: Promise<{ country: string }> }): Promise<Metadata> {
@@ -34,4 +33,3 @@ export default function PrivacyPolicyLayout({
 }) {
     return <>{children}</>;
 }
-

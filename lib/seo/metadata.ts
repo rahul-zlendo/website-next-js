@@ -111,6 +111,59 @@ export function createPageMetadata({
 }
 
 /**
+ * Build a reciprocal canonical + hreflang cluster for a locale-neutral segment.
+ *
+ * Every page that exists at both `/<segment>` and `/in/<segment>` MUST emit the
+ * same three-entry `languages` map on BOTH URLs, differing only in which one it
+ * self-canonicalises to. Google discards a whole hreflang cluster when the
+ * annotations aren't reciprocal (or when two URLs both claim `x-default`), and
+ * then falls back to picking a canonical itself — which is how `/general-terms`
+ * ended up folded into `/in/general-terms` in Search Console.
+ *
+ * @param segment locale-neutral path, e.g. '/sla' or '/business/commercial-spaces'
+ * @param locale  which of the two variants this page is
+ */
+export function localeAlternates(
+    segment: string,
+    locale: 'global' | 'in' = 'global'
+): NonNullable<Metadata['alternates']> {
+    const clean = !segment || segment === '/' ? '' : segment.startsWith('/') ? segment : `/${segment}`;
+    const globalUrl = `${BASE_URL}${clean}`;
+    const indiaUrl = `${BASE_URL}/in${clean}`;
+
+    return {
+        canonical: locale === 'in' ? indiaUrl : globalUrl,
+        languages: {
+            'en': globalUrl,
+            'en-IN': indiaUrl,
+            'x-default': globalUrl,
+        },
+    };
+}
+
+/**
+ * Alternates for a page that exists ONLY in the India tree (no global twin).
+ *
+ * These must NOT get the reciprocal cluster from `localeAlternates` — the
+ * corresponding global URL either 404s (`/individuals`, `/register`,
+ * `/vastu-campaign`) or 301s elsewhere (`/use-cases`, `/business/*` sub-pages),
+ * and an hreflang pointing at a redirect or a 404 invalidates the annotation.
+ * A single-locale page just self-canonicalises.
+ */
+export function indiaOnlyAlternates(segment: string): NonNullable<Metadata['alternates']> {
+    const clean = !segment || segment === '/' ? '' : segment.startsWith('/') ? segment : `/${segment}`;
+    const indiaUrl = `${BASE_URL}/in${clean}`;
+
+    return {
+        canonical: indiaUrl,
+        languages: {
+            'en-IN': indiaUrl,
+            'x-default': indiaUrl,
+        },
+    };
+}
+
+/**
  * SEO constants for reuse across the app.
  */
 export const SEO = {

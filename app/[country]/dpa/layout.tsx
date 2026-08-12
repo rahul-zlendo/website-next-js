@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -11,13 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         return {
             title: 'Data Processing Agreement (DPA)',
             description: 'Read the Data Processing Agreement (DPA) between Zlendo Technologies and its processors. Understand the obligations regarding personal data protection and processing.',
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/dpa',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/dpa',
-                    'x-default': 'https://zlendorealty.com/in/dpa',
-                },
-            },
+            alternates: indiaOnlyAlternates('/dpa'),
         };
     }
 

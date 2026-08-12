@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: 'Real Estate Broker Tools',
@@ -39,13 +40,7 @@ export const metadata: Metadata = {
         title: 'Real Estate Broker Tools',
         description: 'Immersive 3D property tours for faster deal closures.',
     },
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/business/real-estate-brokers',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/business/real-estate-brokers',
-            'x-default': 'https://zlendorealty.com/in/business/real-estate-brokers',
-        },
-    },
+    alternates: indiaOnlyAlternates('/business/real-estate-brokers'),
 };
 
 export default function RealEstateBrokersLayout({

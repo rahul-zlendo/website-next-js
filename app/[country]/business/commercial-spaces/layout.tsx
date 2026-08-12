@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: 'Commercial Space Design Software',
@@ -38,13 +39,7 @@ export const metadata: Metadata = {
         title: 'Commercial Space Design',
         description: 'Professional commercial space planning with 3D visualization.',
     },
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/business/commercial-spaces',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/business/commercial-spaces',
-            'x-default': 'https://zlendorealty.com/in/business/commercial-spaces',
-        },
-    },
+    alternates: indiaOnlyAlternates('/business/commercial-spaces'),
 };
 
 export default function CommercialSpacesLayout({

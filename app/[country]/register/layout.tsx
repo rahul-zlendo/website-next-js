@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: 'Register & Partner with Zlendo Realty',
@@ -10,13 +11,7 @@ export const metadata: Metadata = {
         'vastu analysis request',
         'real estate training',
     ],
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/register',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/register',
-            'x-default': 'https://zlendorealty.com/in/register',
-        },
-    },
+    alternates: indiaOnlyAlternates('/register'),
 };
 
 export default function RegisterLayout({

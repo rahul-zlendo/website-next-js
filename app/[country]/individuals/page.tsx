@@ -4,13 +4,12 @@ import { ArrowRight, CheckCircle2, Palette, Layers, Box, Sparkles, Zap, ChevronD
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import FaqAccordion from '../components/FaqAccordion';
 import JsonLd from '@/components/common/JsonLd';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: '3D Home Visualization for Individuals | Zlendo Realty',
     description: 'Experience your future home in 8K immersive 3D visualization. Get precise budgets and eliminate construction guesswork with Zlendo Realty.',
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/individuals',
-    },
+    alternates: indiaOnlyAlternates('/individuals'),
 };
 
 const COUNTRY = 'in';

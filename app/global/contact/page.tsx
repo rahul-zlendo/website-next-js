@@ -3,6 +3,7 @@ import { getClient } from '@/lib/sanity/client';
 import { contactPageQuery } from '@/lib/sanity/queries';
 import ContactClient from '@/app/[country]/contact/ContactClient';
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 // ISR: re-fetch Sanity data every 60 seconds
 export const revalidate = 60;
@@ -14,9 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
         title: cms?.seoTitle || 'Contact Zlendo Realty | Get Expert Guidance & Support',
         description: cms?.seoDescription || 'Get in touch with Zlendo Realty experts for product guidance, support, or partnership opportunities.',
-        alternates: {
-            canonical: `https://zlendorealty.com/contact`,
-        },
+        alternates: localeAlternates('/contact'),
     };
 }
 

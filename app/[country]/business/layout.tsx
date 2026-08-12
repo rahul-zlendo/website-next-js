@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -28,13 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty – All-in-One Cloud Platform for Designers & Architects',
                 description: 'Discover Zlendo Realty, India’s leading cloud platform for designers, architects, and interior professionals. Manage projects, collaborate effortlessly, and bring your design vision to life.',
             },
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/business',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/business',
-                    'x-default': 'https://zlendorealty.com/in/business',
-                },
-            },
+            alternates: localeAlternates('/business', 'in'),
         };
     }
 

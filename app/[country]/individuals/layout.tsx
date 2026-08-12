@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
     title: 'For Homeowners & Individuals',
@@ -36,13 +37,7 @@ export const metadata: Metadata = {
         title: 'For Homeowners',
         description: 'Visualize your dream home in 8K 3D. Accurate estimates, zero guesswork.',
     },
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/individuals',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/individuals',
-            'x-default': 'https://zlendorealty.com/in/individuals',
-        },
-    },
+    alternates: indiaOnlyAlternates('/individuals'),
 };
 
 export default function IndividualsLayout({
