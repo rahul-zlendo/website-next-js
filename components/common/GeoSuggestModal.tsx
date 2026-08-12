@@ -192,111 +192,145 @@ export default function GeoSuggestModal() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
             transition={{ type: 'spring', damping: 26, stiffness: 300 }}
-            className="flex flex-col relative w-full sm:max-w-3xl md:max-w-4xl bg-[#FBF7F0] rounded-[32px] shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto"
+            className="flex relative w-full max-w-4xl lg:max-w-5xl bg-[#FBF7F0] rounded-[32px] shadow-2xl overflow-hidden max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between px-6 pt-6">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-black/[0.08] text-[12px] font-bold text-zlendo-grey-dark">
-                <Globe2 className="w-3.5 h-3.5 text-zlendo-teal" />
-                India &middot; INR
-              </span>
-              <button
-                onClick={close}
-                aria-label="Dismiss"
-                className="w-8 h-8 rounded-full bg-white border border-black/[0.08] flex items-center justify-center hover:bg-black/[0.03] transition-colors"
+            {/* Region chip + close, floating over the card */}
+            <span className="absolute z-20 top-5 left-5 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/95 backdrop-blur border border-black/[0.06] shadow-sm text-[13px] font-bold text-zlendo-grey-dark">
+              <Globe2 className="w-4 h-4 text-zlendo-teal" />
+              India &middot; INR
+            </span>
+            <button
+              onClick={close}
+              aria-label="Dismiss"
+              className="absolute z-20 top-5 right-5 w-9 h-9 rounded-full bg-white/95 backdrop-blur border border-black/[0.06] shadow-sm flex items-center justify-center hover:bg-white transition-colors"
+            >
+              <X className="w-4 h-4 text-zlendo-grey-medium" />
+            </button>
+
+            {/* Image showcase — dimensioned 2D plan / 3D view split */}
+            <div className="relative w-[52%] shrink-0 min-h-[540px] bg-[#F6F0E4] overflow-hidden">
+              <div className="absolute inset-0 flex">
+                <div className="relative w-1/2 h-full bg-[#F6F0E4]">
+                  <img
+                    src="/assets/global/india-floor-plan-2d.svg"
+                    alt="Dimensioned 2D floor plan of a 22ft by 31ft Indian home"
+                    width={1180}
+                    height={1629}
+                    className="w-full h-full object-contain p-2"
+                  />
+                  <span className="absolute bottom-4 left-4 px-3 py-1.5 rounded-lg bg-zlendo-grey-dark/85 text-white text-[11px] font-black tracking-wider">
+                    2D PLAN
+                  </span>
+                </div>
+                <div className="relative w-1/2 h-full">
+                  <img
+                    src="/assets/floor-planner/3d-sketch.webp"
+                    alt="3D top-down render of the same home"
+                    width={1088}
+                    height={960}
+                    className="w-full h-full object-cover"
+                  />
+                  <span className="absolute bottom-4 right-4 px-3 py-1.5 rounded-lg bg-zlendo-grey-dark/85 text-white text-[11px] font-black tracking-wider">
+                    3D VIEW
+                  </span>
+                </div>
+              </div>
+
+              {/* Tricolour ribbon */}
+              <svg
+                className="absolute inset-x-0 bottom-[14%] w-full h-[26%] pointer-events-none"
+                viewBox="0 0 400 150"
+                preserveAspectRatio="none"
+                aria-hidden="true"
               >
-                <X className="w-4 h-4 text-zlendo-grey-medium" />
-              </button>
+                <path d="M-10,52 C70,12 150,92 230,60 C300,32 350,70 410,50" fill="none" stroke="#FF9933" strokeWidth="15" strokeLinecap="round" opacity="0.8" />
+                <path d="M-10,76 C70,36 150,116 230,84 C300,56 350,94 410,74" fill="none" stroke="#ffffff" strokeWidth="13" strokeLinecap="round" opacity="0.85" />
+                <path d="M-10,100 C70,60 150,140 230,108 C300,80 350,118 410,98" fill="none" stroke="#138808" strokeWidth="15" strokeLinecap="round" opacity="0.8" />
+              </svg>
+
+              {/* Ashoka Chakra */}
+              <svg
+                viewBox="0 0 100 100"
+                className="absolute left-[26%] bottom-[23%] w-9 h-9 -translate-x-1/2 pointer-events-none"
+                aria-hidden="true"
+              >
+                <circle cx="50" cy="50" r="47" fill="#ffffff" />
+                <circle cx="50" cy="50" r="44" fill="none" stroke="#0A3B8C" strokeWidth="4.5" />
+                {Array.from({ length: 24 }).map((_, i) => (
+                  <line
+                    key={i}
+                    x1="50"
+                    y1="50"
+                    x2="50"
+                    y2="9"
+                    stroke="#0A3B8C"
+                    strokeWidth="1.8"
+                    transform={`rotate(${i * 15} 50 50)`}
+                  />
+                ))}
+                <circle cx="50" cy="50" r="6" fill="#0A3B8C" />
+              </svg>
+
+              {/* Split handle */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center pointer-events-none">
+                <ChevronLeft className="w-3.5 h-3.5 text-zlendo-grey-dark -mr-1" />
+                <ChevronRight className="w-3.5 h-3.5 text-zlendo-grey-dark -ml-1" />
+              </div>
             </div>
 
-            <div className="md:flex md:flex-1 md:min-h-0">
-              {/* Image showcase — 2D plan / 3D view split */}
-              <div className="relative w-full md:w-[40%] h-[230px] md:h-auto shrink-0 bg-zlendo-teal-900 overflow-hidden">
-                <div className="absolute inset-0 flex">
-                  <div className="relative w-1/2 h-full">
-                    <img
-                      src="/assets/floor-planner/2d-sketch.webp"
-                      alt="2D floor plan"
-                      width={1152}
-                      height={896}
-                      className="w-full h-full object-cover"
-                    />
-                    <span className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full bg-black/60 text-white text-[10px] font-black tracking-wide">
-                      2D PLAN
-                    </span>
-                  </div>
-                  <div className="relative w-1/2 h-full">
-                    <img
-                      src="/assets/floor-planner/3d-sketch.webp"
-                      alt="3D render"
-                      width={1088}
-                      height={960}
-                      className="w-full h-full object-cover"
-                    />
-                    <span className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-black/60 text-white text-[10px] font-black tracking-wide">
-                      3D VIEW
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-white shadow-lg flex items-center justify-center pointer-events-none">
-                  <ChevronLeft className="w-3 h-3 text-zlendo-grey-dark -mr-0.5" />
-                  <ChevronRight className="w-3 h-3 text-zlendo-grey-dark -ml-0.5" />
-                </div>
+            {/* Content panel */}
+            <div className="flex-1 flex flex-col justify-center p-9 lg:p-11 overflow-y-auto">
+              <div className="flex items-center gap-3 mb-5">
+                <img src="/favicon.png" alt="" width={40} height={40} className="w-10 h-10 rounded-full border border-black/[0.06] bg-white" />
+                <span className="text-[19px] font-bold text-zlendo-grey-dark">Namaste!</span>
               </div>
 
-              {/* Content panel */}
-              <div className="flex-1 p-8 md:p-10 md:overflow-y-auto">
-                <div className="flex items-center gap-2.5 mb-3">
-                  <img src="/favicon.png" alt="" width={32} height={32} className="w-8 h-8 rounded-full border border-black/[0.06]" />
-                  <span className="text-[15px] font-bold text-zlendo-grey-dark">Namaste!</span>
-                </div>
+              <h3 className="font-serif text-[36px] lg:text-[40px] font-black text-zlendo-grey-dark leading-[1.12] tracking-tight mb-4">
+                Design your Indian home, faster.
+              </h3>
+              <p className="text-[16px] text-zlendo-grey-medium font-medium leading-relaxed mb-7">
+                Plans, 3D views and walkthroughs — tailored for India.
+              </p>
 
-                <h3 className="font-serif text-[30px] font-black text-zlendo-grey-dark leading-[1.15] mb-3">
-                  Design your Indian home, faster.
-                </h3>
-                <p className="text-[14px] text-zlendo-grey-medium font-medium leading-relaxed mb-6">
-                  Plans, 3D views and walkthroughs — tailored for India.
-                </p>
-
-                <div className="flex flex-wrap gap-2.5 mb-7">
-                  {features.map(({ label, Icon, bg, text }) => (
-                    <div
-                      key={label}
-                      className="flex flex-col items-center justify-center gap-1.5 w-[104px] p-3 rounded-2xl border border-black/[0.06] bg-white text-center"
-                    >
-                      <span className={`w-8 h-8 rounded-full ${bg} flex items-center justify-center`}>
-                        <Icon className={`w-4 h-4 ${text}`} />
-                      </span>
-                      <span className="text-[11px] font-bold text-zlendo-grey-dark leading-tight">{label}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <button
-                  onClick={goToIndia}
-                  className="w-full flex items-center justify-center gap-2 py-4 rounded-full bg-zlendo-teal-800 text-white font-black text-[15px] shadow-lg shadow-zlendo-teal-800/25 hover:bg-zlendo-teal-900 active:scale-[0.98] transition-all mb-3"
-                >
-                  See my India experience
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-
-                <button
-                  onClick={continueGlobal}
-                  className="w-full text-center text-[13px] font-bold text-zlendo-teal underline underline-offset-4 hover:text-zlendo-teal-700 transition-colors mb-5"
-                >
-                  Continue to global site
-                </button>
-
-                <a
-                  href="https://wa.me/918047135989?text=Hi%2C%20I%27d%20like%20a%20free%20project%20consultation%20for%20my%20home%20design."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-full border border-black/[0.08] text-[13px] font-bold text-zlendo-grey-dark hover:bg-black/[0.02] transition-colors"
-                >
-                  <MessageCircle className="w-4 h-4 text-[#25D366]" />
-                  Free project consultation on WhatsApp
-                </a>
+              <div className="grid grid-cols-3 gap-3 mb-8">
+                {features.map(({ label, Icon, bg, text }) => (
+                  <div
+                    key={label}
+                    className="flex flex-col items-center justify-start gap-2.5 py-4 px-2 rounded-2xl border border-black/[0.06] bg-white text-center"
+                  >
+                    <span className={`w-10 h-10 rounded-full ${bg} flex items-center justify-center shrink-0`}>
+                      <Icon className={`w-5 h-5 ${text}`} />
+                    </span>
+                    <span className="text-[12.5px] font-bold text-zlendo-grey-dark leading-tight">{label}</span>
+                  </div>
+                ))}
               </div>
+
+              <button
+                onClick={goToIndia}
+                className="w-full flex items-center justify-center gap-2.5 py-[1.15rem] rounded-full bg-zlendo-teal-800 text-white font-black text-[17px] shadow-lg shadow-zlendo-teal-800/25 hover:bg-zlendo-teal-900 active:scale-[0.98] transition-all mb-4"
+              >
+                See my India experience
+                <ArrowRight className="w-5 h-5" />
+              </button>
+
+              <button
+                onClick={continueGlobal}
+                className="w-full text-center text-[15px] font-bold text-zlendo-teal-800 underline underline-offset-4 hover:text-zlendo-teal-900 transition-colors mb-6"
+              >
+                Continue to global site
+              </button>
+
+              <a
+                href="https://wa.me/918047135989?text=Hi%2C%20I%27d%20like%20a%20free%20project%20consultation%20for%20my%20home%20design."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2.5 w-full py-4 rounded-2xl border border-black/[0.08] bg-white/60 text-[15px] font-bold text-zlendo-grey-dark hover:bg-white transition-colors"
+              >
+                <MessageCircle className="w-[18px] h-[18px] text-[#25D366]" />
+                Free project consultation on WhatsApp
+              </a>
             </div>
           </motion.div>
           )}

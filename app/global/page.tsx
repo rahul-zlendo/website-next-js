@@ -29,7 +29,9 @@ export const metadata: Metadata = {
 
 async function getGlobalHomePage() {
   const query = `*[_type == "globalPage" && slug.current == "home"][0]`;
-  return await getClient().fetch(query);
+  // The homepage has a complete static fallback below, so a temporary Sanity
+  // outage must not turn the public root route into a 500 response.
+  return await getClient().fetch(query).catch(() => null);
 }
 
 const GlobalHomePage = async () => {

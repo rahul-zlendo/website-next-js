@@ -375,6 +375,17 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
+  // Locale-neutral campaign route. This page owns its complete event
+  // experience and must not fall through to the generic /global/[slug] CMS
+  // rewrite below.
+  if (pathname === '/design-battle') {
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-pathname', pathname);
+    const response = NextResponse.next({ request: { headers: requestHeaders } });
+    setGeoHeaders(response, false);
+    return response;
+  }
+
   // ──────────────────────────────────────────────────────────
   // 2. Navigation & Internationalization
   // ──────────────────────────────────────────────────────────
