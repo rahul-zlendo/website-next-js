@@ -102,7 +102,7 @@ const Footer = ({
                 <div className="flex flex-col lg:flex-row justify-between gap-12 lg:gap-8 mb-5">
                     {/* Brand Section */}
                     <div className="lg:w-1/4 space-y-6">
-                        <Logo className="h-16" />
+                        <Logo className="h-14" />
                         <p className="text-[15px] text-zlendo-grey-medium font-medium leading-relaxed opacity-80">
                             {settings?.footerDescription ?? "The world's first Design-to-Sales engine. Experience your space in 360° ultra-realistic 8K, AR/MR."}
                         </p>
