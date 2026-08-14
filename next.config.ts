@@ -249,30 +249,6 @@ const nextConfig: NextConfig = {
         destination: `https://zlendorealty.com`,
         permanent: true,
       })),
-      ...[3, 9, 15, 18, 46, 56].map(page => ({
-        source: '/blog',
-        has: [
-          {
-            type: 'query',
-            key: 'page',
-            value: String(page)
-          }
-        ],
-        destination: 'https://zlendorealty.com/blog',
-        permanent: true,
-      })),
-      {
-        source: '/blog/page/2',
-        has: [
-          {
-            type: 'query',
-            key: 'page',
-            value: '3'
-          }
-        ],
-        destination: 'https://zlendorealty.com/blog',
-        permanent: true,
-      }
     ];
 
     return redirectsList;
