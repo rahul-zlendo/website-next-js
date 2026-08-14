@@ -196,8 +196,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         >
             <div className="container-custom h-20 flex items-center justify-between px-6 lg:px-12">
                 <div className="flex items-center gap-10">
-                    <Logo className="h-14" onClick={toggleMode} imageUrl="/Media.png" />
-                    {/* <Logo className="h-14" onClick={toggleMode} imageUrl={logoUrl} /> */}
+                    <Logo className="h-14" onClick={toggleMode} imageUrl={logoUrl} />
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center gap-6">
