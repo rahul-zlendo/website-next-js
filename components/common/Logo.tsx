@@ -21,7 +21,8 @@ const Logo = ({
             onClick={onClick}
         >
             <img
-                src={imageUrl || "/logo.png"}
+                // src={imageUrl || "/logo.png"}
+                src={"/Media.png"}
                 alt="Zlendo Realty 3D Home Design and Floor Planner Software Logo"
                 className="h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                 loading="eager"
