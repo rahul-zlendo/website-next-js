@@ -8,11 +8,11 @@ import { Metadata } from 'next';
 import { SIGNUP_URL } from '@/lib/config/env';
 
 export const metadata: Metadata = {
-  title: 'AI Floor Planner – Create 2D & 3D Floor Plans Online | Zlendo Realty',
-  description: "Design accurate 2D & 3D floor plans in minutes with Zlendo Realty's AI floor planner. No experience needed. Auto-dimensioning, live 3D preview & easy export. Start free today.",
+  title: 'Floor Planner Online – AI 2D & 3D Floor Plan Maker | Zlendo Realty',
+  description: "Create accurate 2D and 3D floor plans online with Zlendo Realty’s AI floor planner. Design, visualize, customize and export house plans in minutes.",
   openGraph: {
-    title: 'AI Floor Planner – Create 2D & 3D Floor Plans Online | Zlendo Realty',
-    description: "Design accurate 2D & 3D floor plans in minutes with Zlendo Realty's AI floor planner. No experience needed. Auto-dimensioning, live 3D preview & easy export. Start free today.",
+    title: 'Floor Planner Online – AI 2D & 3D Floor Plan Maker | Zlendo Realty',
+    description: "Create accurate 2D and 3D floor plans online with Zlendo Realty’s AI floor planner. Design, visualize, customize and export house plans in minutes.",
     url: 'https://zlendorealty.com/products/floor-planner',
     siteName: 'Zlendo Realty',
     locale: 'en_US',
@@ -75,6 +75,18 @@ const softwareApplicationSchema = {
   ]
 };
 
+const SeoContent = () => (
+  <section className="py-10 md:py-16 bg-white border-t border-black/5">
+    <div className="container-custom px-4 max-w-4xl mx-auto text-center">
+      <h2 className="text-3xl md:text-4xl font-black text-[#111] mb-6">Powerful AI Floor Planning Made Simple</h2>
+      <div className="text-lg text-[#666] font-medium leading-relaxed space-y-6 text-left md:text-center">
+        <p>Design accurate floor plans online with Zlendo Realty&apos;s AI-powered floor planner. Create detailed 2D house plans, convert them into realistic 3D spaces, customize rooms and furniture, and visualize your design before construction.</p>
+        <p>Whether you&apos;re a homeowner, architect, interior designer, builder, or real estate professional, our online floor planner makes it easy to create, edit, visualize, and share professional floor plans.</p>
+      </div>
+    </div>
+  </section>
+);
+
 const GlobalFloorPlannerPage = async () => {
   const slug = "products/floor-planner";
   const pageData = await getGlobalPage(slug);
@@ -93,20 +105,20 @@ const GlobalFloorPlannerPage = async () => {
               {
                 _key: 'c1',
                 _type: 'span',
-                text: "Draft professional plans. "
+                text: "AI Floor Planner "
               },
               {
                 _key: 'c2',
                 _type: 'span',
                 marks: ['strong'],
-                text: "Visualize instantly in 3D."
+                text: "Design 2D & 3D Floor Plans"
               }
             ],
             markDefs: [],
             style: 'normal'
           }
         ],
-        subheading: "Create accurate 2D house plans and watch them come to life in realistic 3D architecture. Built for individuals and professionals who demand speed without sacrificing precision.",
+        subheading: "Create accurate floor plans online with our AI-powered floor planner. Design, customize, and visualize your space in 2D and 3D—all in one place.",
         image: "/assets/floor-planner/3d-sketch.webp",
         ctaText: "Start Designing Free",
         ctaLink: SIGNUP_URL,
@@ -189,31 +201,39 @@ const GlobalFloorPlannerPage = async () => {
       },
       {
         _type: 'globalFAQ',
-        title: "Frequently Asked Questions",
+        title: "Frequently Asked Questions About Floor Planners",
         faqs: [
           {
-            question: "What is the AI Floor Planner used for?",
-            answer: "The AI Floor Planner helps create accurate house plans and residential home plans digitally. Using professional floor plan design services, you can design rooms, walls, doors, and windows while visualizing the layout through realistic 3D house design and 3D architectural visualization."
+            question: "What is a floor planner?",
+            answer: "A floor planner is a digital tool that allows you to create and visualize the layout of a home, apartment, office, or other space. It can be used to plan rooms, walls, doors, windows, furniture, and dimensions."
           },
           {
-            question: "Do I need architectural knowledge to use it?",
-            answer: "No. Our platform is designed as a home plan designer online, making it easy for beginners to create layouts using intuitive online home plan services without any architectural background."
+            question: "Is there an AI floor planner I can use online?",
+            answer: "Yes. Zlendo Realty offers an AI-powered floor planner that lets you create 2D layouts and convert them into 3D environments online."
           },
           {
-            question: "Can I change the layout after creating the plan?",
-            answer: "Yes. You can modify your 2D house plan design anytime by resizing rooms, moving walls, or adjusting layouts. All changes are updated instantly, helping finalize accurate residential building plans."
+            question: "Can I create a floor plan online without architectural experience?",
+            answer: "Yes. Zlendo Realty is designed for both beginners and professionals. Intelligent features such as wall snapping, automatic dimensioning, and drag-and-drop elements simplify the floor planning process."
           },
           {
-            question: "Does it show a real-time 3D preview?",
-            answer: "Yes. The design updates instantly with a live 3D floor plan design, allowing you to experience realistic space planning through advanced 3D architectural visualization."
+            question: "Can I create both 2D and 3D floor plans?",
+            answer: "Yes. You can create a 2D floor plan and switch to a 3D view to visualize your design and understand the space more clearly."
           },
           {
-            question: "Can I share this with architects or contractors?",
-            answer: "Yes. You can save and share your architectural house plans and 3D layouts with architects, engineers, or contractors, supporting smooth coordination during civil and architectural design services."
+            question: "Can I create multi-story floor plans?",
+            answer: "Yes. The floor planner supports multi-story residential layouts, allowing you to create and manage multiple levels within a project."
           },
           {
-            question: "Can I save multiple design options?",
-            answer: "Yes. You can store multiple versions of your custom floor plans online and compare layouts before finalizing the most suitable option for your modern custom home plans or residential project."
+            question: "Can I edit my floor plan after creating it?",
+            answer: "Yes. You can modify walls, dimensions, rooms, doors, windows, furniture, and other design elements as your project evolves."
+          },
+          {
+            question: "Can I share my floor plan with an architect or contractor?",
+            answer: "Yes. Completed plans can be exported and shared with architects, contractors, clients, and other project stakeholders."
+          },
+          {
+            question: "Is Zlendo Realty's floor planner free?",
+            answer: "Zlendo Realty currently offers a 14-day free trial with full access and no credit card requirement, according to the product page."
           }
         ]
       },
@@ -253,6 +273,7 @@ const GlobalFloorPlannerPage = async () => {
         {faqSchema && <JsonLd schema={faqSchema} />}
         <main className="min-h-screen">
           <SectionRenderer sections={fallbackSections} />
+          <SeoContent />
         </main>
       </>
     );
@@ -276,6 +297,7 @@ const GlobalFloorPlannerPage = async () => {
       {cmsFaqSchema && <JsonLd schema={cmsFaqSchema} />}
       <main className="min-h-screen">
         <SectionRenderer sections={pageData.sections} />
+        <SeoContent />
       </main>
     </>
   );

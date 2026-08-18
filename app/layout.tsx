@@ -142,6 +142,26 @@ export default async function RootLayout({
       </head>
       <body>
         {enableGTM === 'prod' && (
+          <>
+            <Script
+              strategy="afterInteractive"
+              src="https://www.googletagmanager.com/gtag/js?id=G-9ZSCR4TS9W"
+            />
+            <Script
+              id="gtag-init"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag() { dataLayer.push(arguments); }
+                  gtag('js', new Date());
+                  gtag('config', 'G-9ZSCR4TS9W');
+                `,
+              }}
+            />
+          </>
+        )}
+        {enableGTM === 'prod' && (
           <noscript>
             <iframe
               src="https://www.googletagmanager.com/ns.html?id=GTM-PBBNR2XS"

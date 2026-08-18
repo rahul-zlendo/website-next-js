@@ -249,6 +249,11 @@ const nextConfig: NextConfig = {
         destination: `https://zlendorealty.com`,
         permanent: true,
       })),
+      {
+        source: '/in/compare/:slug*',
+        destination: '/compare/:slug*',
+        permanent: true,
+      }
     ];
 
     return redirectsList;

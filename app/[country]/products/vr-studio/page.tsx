@@ -55,34 +55,34 @@ export default async function VRStudioPage({ params }: Props) {
     const cms: any = await getClient(preview).fetch(vrStudioPageQuery).catch(() => null);
 
     const defaultFaqs = [
-        { q: "Is this tool free to use?", a: "Yes! You can start for free and design your first project without any credit card. Premium textures and high-res renders are available in paid plans." },
-        { q: "Do I need to install any software?", a: "No, Zlendo Realty runs entirely in your browser. It works smoothly on Chrome, Firefox, and Safari on both Windows and Mac." },
-        { q: "Can I import my own CAD files?", a: "Absolutely. We support DXF, DWG, JPG, PNG, and PDF formats for seamless import." },
-        { q: "How accurately are the costs estimated?", a: "Our cost engine is updated weekly with local market rates for materials and labor, ensuring 95%+ accuracy for your zip code." }
+        { q: "What hardware headsets are compatible?", a: "We natively support the Meta Quest series and Apple Vision Pro. You can also view VR links on any modern web browser using desktop navigation." },
+        { q: "Is the VR environment rendered locally or in the cloud?", a: "To ensure maximum visual fidelity without requiring a powerful gaming PC, our 8K environments are rendered on our secure cloud architecture and streamed instantly." },
+        { q: "Can I swap materials while inside the VR headset?", a: "Yes! Our platform supports dynamic real-time texture and fixture swapping so you and your clients can experiment with different finishes natively in VR." },
+        { q: "Are multi-user sessions supported?", a: "Absolutely. You can invite your clients into the same virtual environment remotely and guide them through the space." }
     ];
 
     const defaultSteps = [
-        { 
-            title: 'Import Model', 
-            desc: 'Load your 3D model into our VR engine.', 
+        {
+            title: 'Import Model',
+            desc: 'Load your 3D model into our VR engine.',
             image: '/assets/vr-studio/import-model.webp',
             alt: 'Importing 3D architecture model into virtual reality engine'
         },
-        { 
-            title: 'Configure Environment', 
-            desc: 'Set lighting, weather, and time of day.', 
+        {
+            title: 'Configure Environment',
+            desc: 'Set lighting, weather, and time of day.',
             image: '/assets/vr-studio/configure-env.webp',
             alt: 'Configuring realistic lighting and environment in VR studio'
         },
-        { 
-            title: 'Generate Link', 
-            desc: 'Create a shareable web link for instant access.', 
+        {
+            title: 'Generate Link',
+            desc: 'Create a shareable web link for instant access.',
             image: '/assets/vr-studio/generate-link.webp',
             alt: 'Generating shareable 3D VR walkthrough link'
         },
-        { 
-            title: 'Enter VR', 
-            desc: 'Put on your headset and step inside.', 
+        {
+            title: 'Enter VR',
+            desc: 'Put on your headset and step inside.',
             image: '/assets/vr-studio/enter-vr.webp',
             alt: 'Experiencing immersive 3D house tour in virtual reality'
         }

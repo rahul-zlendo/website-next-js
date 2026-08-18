@@ -88,9 +88,9 @@ export default function VirtualWalkthroughClient() {
     ];
 
     const faqs = [
-        { q: 'What is a virtual walkthrough?', a: 'A virtual walkthrough is a realistic digital experience that allows viewers to explore a property or design before it is built.' },
+        { q: 'What exactly is a virtual walkthrough service?', a: 'A virtual walkthrough is a realistic digital experience that allows viewers to explore a property or design before it is built.' },
         { q: 'Can you create a walkthrough from a floor plan?', a: 'Yes. We can convert 2D floor plans, CAD drawings, architectural plans, and sketches into realistic virtual walkthroughs.' },
-        { q: 'What file formats do you accept?', a: 'We accept PDF, DWG, DXF, CAD files, images, sketches, and 3D model formats.' },
+        { q: 'What file formats do your experts accept?', a: 'We accept PDF, DWG, DXF, CAD files, images, sketches, and 3D model formats.' },
         { q: 'How long does the process take?', a: 'Project timelines vary based on size and complexity. We provide a detailed schedule after reviewing your files.' },
         { q: "Who uses virtual walkthroughs?", a: 'Architects, builders, developers, interior designers, homeowners, and real estate professionals regularly use virtual walkthroughs.' },
     ];
@@ -111,7 +111,7 @@ export default function VirtualWalkthroughClient() {
                             <motion.h1 {...fadeUp} transition={{ delay: 0.1 }} className="text-[32px] md:text-[48px] lg:text-[60px] font-black text-zlendo-grey-dark leading-[1.05] tracking-tight mb-6">
                                 Transform Your Floor Plans into{' '}
                                 <span className="text-zlendo-teal italic">Immersive Virtual Walkthroughs</span>
-                            {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h1>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h1>
                             <motion.p {...fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-8">
                                 Bring your designs to life with professional Virtual Walkthrough Services. Whether you have a 2D floor plan, CAD file, or 3D model, our visualization experts create realistic virtual walkthroughs that help clients experience the space before construction begins.
                             </motion.p>
@@ -181,7 +181,7 @@ export default function VirtualWalkthroughClient() {
             </section>
 
             {/* ═══ SHOWCASE SECTION ═══ */}
-            <section className="py-12 lg:py-16 bg-slate-50 relative overflow-hidden">
+            < section className="py-12 lg:py-16 bg-slate-50 relative overflow-hidden" >
                 <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-zlendo-teal/[0.03] blur-[100px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
                 <div className="container-custom px-6 lg:px-12 relative z-10">
                     <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -211,7 +211,7 @@ export default function VirtualWalkthroughClient() {
                             <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-6">
                                 Turn Your Floor Plan into a{' '}
                                 <span className="text-zlendo-teal italic">Realistic Virtual Experience</span>
-                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-lg md:text-xl text-zlendo-grey-medium font-medium leading-relaxed mb-6">
                                 Traditional floor plans often make it difficult for clients to understand space, flow, and design intent. Virtual walkthroughs bridge this gap by transforming technical drawings into immersive visual experiences.
                             </p>
@@ -228,16 +228,16 @@ export default function VirtualWalkthroughClient() {
                         </motion.div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* ═══ OUR SERVICES ═══ */}
-            <section className="py-12 lg:py-16 bg-white">
+            < section className="py-12 lg:py-16 bg-white" >
                 <div className="container-custom px-6 lg:px-12">
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Our Virtual Walkthrough{' '}
                             <span className="text-zlendo-teal italic">Services</span>
-                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto mb-10">
                         {services.map((item, i) => (
@@ -258,17 +258,17 @@ export default function VirtualWalkthroughClient() {
                         </Link>
                     </motion.div>
                 </div>
-            </section>
+            </section >
 
             {/* ═══ WHY CHOOSE SECTION ═══ */}
-            <section className="py-12 lg:py-16 bg-zlendo-mint/20 relative overflow-hidden">
+            < section className="py-12 lg:py-16 bg-zlendo-mint/20 relative overflow-hidden" >
                 <div className="absolute inset-0 bg-[radial-gradient(#29b0a1_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03]" />
                 <div className="container-custom px-6 lg:px-12 relative z-10">
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Why Choose Zlendo Realty for{' '}
                             <span className="text-zlendo-teal italic">Virtual Walkthroughs?</span>
-                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto mb-10">
                         {benefits.map((item, i) => (
@@ -284,16 +284,16 @@ export default function VirtualWalkthroughClient() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* ═══ PROCESS SECTION ═══ */}
-            <section className="py-12 lg:py-16 bg-[#F8FBFA]">
+            < section className="py-12 lg:py-16 bg-[#F8FBFA]" >
                 <div className="container-custom px-6 lg:px-12">
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Our Simple{' '}
                             <span className="text-zlendo-teal italic">Process</span>
-                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
                         {steps.map((step, i) => (
@@ -317,16 +317,16 @@ export default function VirtualWalkthroughClient() {
                         </Link>
                     </motion.div>
                 </div>
-            </section>
+            </section >
 
             {/* ═══ INDUSTRIES SECTION ═══ */}
-            <section className="py-12 lg:py-16 bg-white">
+            < section className="py-12 lg:py-16 bg-white" >
                 <div className="container-custom px-6 lg:px-12">
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Industries We{' '}
                             <span className="text-zlendo-teal italic">Serve</span>
-                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                         {industries.map((item, i) => (
@@ -344,16 +344,16 @@ export default function VirtualWalkthroughClient() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* ═══ BENEFITS LIST SECTION ═══ */}
-            <section className="py-12 lg:py-16 bg-slate-50">
+            < section className="py-12 lg:py-16 bg-slate-50" >
                 <div className="container-custom px-6 lg:px-12">
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight mb-4">
                             Benefits of{' '}
                             <span className="text-zlendo-teal italic">Virtual Walkthroughs</span>
-                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
                         {benefitsList.map((item, i) => (
@@ -378,16 +378,16 @@ export default function VirtualWalkthroughClient() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* ═══ FAQ SECTION ═══ */}
-            <section className="py-12 lg:py-16 bg-white">
+            < section className="py-12 lg:py-16 bg-white" >
                 <div className="container-custom px-6 lg:px-12">
                     <motion.div {...fadeUp} className="text-center mb-10">
                         <h2 className="text-[24px] md:text-[36px] lg:text-[44px] font-black text-zlendo-grey-dark leading-tight tracking-tight">
                             Frequently Asked{' '}
                             <span className="text-zlendo-teal italic">Questions</span>
-                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     </motion.div>
                     <div className="max-w-3xl mx-auto space-y-4">
                         {faqs.map((faq, i) => (
@@ -407,17 +407,17 @@ export default function VirtualWalkthroughClient() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* ═══ FINAL CTA SECTION ═══ */}
-            <section className="py-16 lg:py-20 bg-zlendo-grey-dark relative overflow-hidden rounded-[80px_80px_0_0]">
+            < section className="py-16 lg:py-20 bg-zlendo-grey-dark relative overflow-hidden rounded-[80px_80px_0_0]" >
                 <div className="absolute inset-0 bg-zlendo-teal/5 blur-[100px] pointer-events-none" />
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-zlendo-teal/[0.08] blur-[120px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
                 <div className="container-custom px-6 lg:px-12 relative z-10 text-center space-y-10">
                     <motion.h2 {...fadeUp} className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight tracking-tight max-w-4xl mx-auto">
                         Ready to Convert Your Floor Plan into a{' '}
                         <span className="text-zlendo-teal italic">Virtual Walkthrough?</span>
-                    {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h2>
+                        {isIndiaSite && <span className="sr-only"> (India)</span>}</motion.h2>
                     <motion.p {...fadeUp} transition={{ delay: 0.1 }} className="text-xl text-white/60 font-medium max-w-2xl mx-auto">
                         Get started in 3 easy steps: Submit your floor plan, receive a project estimate, and get your custom virtual walkthrough.
                     </motion.p>
@@ -440,7 +440,7 @@ export default function VirtualWalkthroughClient() {
                         </Link>
                     </motion.div>
                 </div>
-            </section>
-        </div>
+            </section >
+        </div >
     );
 }

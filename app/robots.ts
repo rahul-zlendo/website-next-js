@@ -1,6 +1,23 @@
 import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
+  // Check if we are in a staging / preview / development environment
+  const env = process.env.NEXT_PUBLIC_ENV || 'prod';
+
+  const isStaging = env === 'dev';
+
+  if (isStaging) {
+    return {
+      rules: {
+        userAgent: '*',
+        disallow: '/',
+      },
+      sitemap: [],
+      host: 'https://zlendorealty.com',
+    };
+  }
+
+  // Production rules
   return {
     rules: [
       {

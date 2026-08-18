@@ -67,7 +67,7 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                         className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.05] mb-6"
                     >
                         {data.title}
-                    {country === 'in' && <span className="sr-only"> (India)</span>}</motion.h1>
+                        {country === 'in' && <span className="sr-only"> (India)</span>}</motion.h1>
 
                     {/* Subtitle */}
                     <motion.p
@@ -112,7 +112,7 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                         <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4">
                             Performance & Capability Index
                             <span className="sr-only"> - Zlendo vs {data.competitorName} {isIndia ? '(India)' : ''}</span>
-                        {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
+                            {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
                         <p className="text-lg text-slate-500 font-semibold max-w-2xl mx-auto">
                             How Zlendo Realty stacks up against {data.competitorName} across key operational benchmarks.
                         </p>
@@ -202,7 +202,7 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                     <div className="text-center mb-16">
                         <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4">
                             The Zlendo Realty Edge
-                        {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
+                            {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
                         <p className="text-lg text-slate-500 font-semibold max-w-2xl mx-auto">
                             Four foundational pillars that make Zlendo Realty the most advanced Design-to-Sales engine on the market.
                         </p>
@@ -242,7 +242,7 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                     <div className="text-center mb-16">
                         <h2 className="text-3xl sm:text-4xl font-black text-slate-900 mb-4">
                             Feature Comparison Matrix
-                        {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
+                            {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
                         <p className="text-lg text-slate-500 font-semibold max-w-2xl mx-auto">
                             A granular feature-by-feature evaluation showing where the differences lie.
                         </p>
@@ -365,7 +365,7 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                             <div>
                                 <h2 className="text-3xl md:text-4xl font-black font-nunito tracking-tight mb-4">
                                     Ready to design the future?
-                                {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
+                                    {country === 'in' && <span className="sr-only"> (India)</span>}</h2>
                                 <p className="text-lg text-slate-300 font-semibold leading-relaxed max-w-xl">
                                     Skip the complexity of {data.competitorName} and join over 12,000 designers building on Zlendo Realty. Get started for free today.
                                 </p>
@@ -380,7 +380,7 @@ export default function ComparisonClient({ competitor }: ComparisonClientProps) 
                                     <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                                 </a>
                                 <div className="text-xs font-bold text-slate-400">No credit card required</div>
-                                <a href={getPath('/compare')} className="mt-2 text-xs font-bold text-slate-400 hover:text-white transition-colors underline underline-offset-4">
+                                <a href={'/compare'} className="mt-2 text-xs font-bold text-slate-400 hover:text-white transition-colors underline underline-offset-4">
                                     See all comparisons →
                                 </a>
                             </div>
