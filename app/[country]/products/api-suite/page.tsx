@@ -56,34 +56,34 @@ export default async function APISuitePage({ params }: Props) {
     const cms: any = await getClient(preview).fetch(apiSuitePageQuery).catch(() => null);
 
     const defaultFaqs = [
-        { q: "Is this tool free to use?", a: "Yes! You can start for free and design your first project without any credit card. Premium textures and high-res renders are available in paid plans." },
-        { q: "Do I need to install any software?", a: "No, Zlendo Realty runs entirely in your browser. It works smoothly on Chrome, Firefox, and Safari on both Windows and Mac." },
-        { q: "Can I import my own CAD files?", a: "Absolutely. We support DXF, DWG, JPG, PNG, and PDF formats for seamless import." },
-        { q: "How accurately are the costs estimated?", a: "Our cost engine is updated weekly with local market rates for materials and labor, ensuring 95%+ accuracy for your zip code." }
+        { q: "What kind of projects can I build with the API?", a: "You can build custom prop-tech apps, automate floor plan conversions, or embed our 3D viewer directly into your real estate marketplace." },
+        { q: "Is there a free tier for developers?", a: "Yes, our developer sandbox is completely free to test API endpoints before moving to a production environment." },
+        { q: "How do webhooks work with the engine?", a: "Webhooks allow your application to receive instant JSON payloads when a render completes or a 2D floor plan finishes converting." },
+        { q: "Can I white-label the 3D viewer?", a: "Absolutely. Our enterprise tier allows you to strip all Zlendo Realty branding and inject your own custom UI on top of our canvas." }
     ];
 
     const defaultSteps = [
-        { 
-            title: 'Get API Key', 
-            desc: 'Sign up and generate your secure API credentials.', 
+        {
+            title: 'Get API Key',
+            desc: 'Sign up and generate your secure API credentials.',
             image: '/assets/api-suite/api-key.webp',
             alt: 'Secure API key generation for Zlendo Realty enterprise suite'
         },
-        { 
-            title: 'Read Docs', 
-            desc: 'Explore our interactive API documentation.', 
+        {
+            title: 'Read Docs',
+            desc: 'Explore our interactive API documentation.',
             image: '/assets/api-suite/read-docs.webp',
             alt: 'Interactive API documentation for developers integrating 3D engine'
         },
-        { 
-            title: 'Connect', 
-            desc: 'Use our SDKs to connect your app to Zlendo Realty.', 
+        {
+            title: 'Connect',
+            desc: 'Use our SDKs to connect your app to Zlendo Realty.',
             image: '/assets/api-suite/connect.webp',
             alt: 'Connecting developer application to Zlendo Realty cloud API'
         },
-        { 
-            title: 'Go Live', 
-            desc: 'Launch your powered-up application to the world.', 
+        {
+            title: 'Go Live',
+            desc: 'Launch your powered-up application to the world.',
             image: '/assets/api-suite/go-live.webp',
             alt: 'Launching enterprise prop-tech application with Zlendo Realty API'
         }
