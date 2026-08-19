@@ -45,24 +45,21 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className={`group border rounded-[24px] overflow-hidden transition-all duration-300 ${
-                  activeIndex === index 
-                    ? 'border-zlendo-teal bg-zlendo-teal/[0.02] shadow-xl shadow-zlendo-teal/5' 
+                className={`group border rounded-[24px] overflow-hidden transition-all duration-300 ${activeIndex === index
+                    ? 'border-zlendo-teal bg-zlendo-teal/[0.02] shadow-xl shadow-zlendo-teal/5'
                     : 'border-black/[0.05] bg-white hover:border-black/10'
-                }`}
+                  }`}
               >
                 <button
                   onClick={() => setActiveIndex(activeIndex === index ? null : index)}
                   className="w-full px-6 py-5 flex items-center justify-between text-left"
                 >
-                  <span className={`text-base md:text-lg font-black transition-colors duration-300 ${
-                    activeIndex === index ? 'text-zlendo-teal' : 'text-zlendo-grey-dark'
-                  }`}>
+                  <h3 className={`m-0 p-0 text-base md:text-lg font-black transition-colors duration-300 ${activeIndex === index ? 'text-zlendo-teal' : 'text-zlendo-grey-dark'
+                    }`}>
                     {faq.question}
-                  </span>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    activeIndex === index ? 'bg-zlendo-teal text-white rotate-180' : 'bg-gray-50 text-gray-400 group-hover:bg-gray-100'
-                  }`}>
+                  </h3>
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${activeIndex === index ? 'bg-zlendo-teal text-white rotate-180' : 'bg-gray-50 text-gray-400 group-hover:bg-gray-100'
+                    }`}>
                     <ChevronDown className="w-5 h-5" />
                   </div>
                 </button>
