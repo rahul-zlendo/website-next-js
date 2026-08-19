@@ -20,8 +20,8 @@ export default function FaqAccordion({ faqs }: { faqs: FaqItem[] }) {
                         onClick={() => setActiveFaq(activeFaq === i ? null : i)}
                         className="w-full px-6 py-5 flex items-center justify-between text-left bg-transparent"
                     >
-                        <span className="text-lg font-bold text-zlendo-grey-dark">{faq.q}</span>
-                        <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${activeFaq === i ? 'rotate-180' : ''}`} />
+                        <h3 className="text-lg font-bold text-zlendo-grey-dark m-0">{faq.q}</h3>
+                        <ChevronDown className={`w-5 h-5 ml-4 flex-shrink-0 text-slate-400 transition-transform ${activeFaq === i ? 'rotate-180' : ''}`} />
                     </button>
                     <AnimatePresence>
                         {activeFaq === i && (
