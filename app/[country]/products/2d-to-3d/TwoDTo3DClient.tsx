@@ -186,7 +186,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
 
                                 <h2 className="text-3xl md:text-4xl font-black font-nunito text-zlendo-grey-dark mb-4 group-hover:text-zlendo-teal transition-colors">
                                     {cms?.uploadTitle || 'Upload your floor plan'}
-                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                                    {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                                 <p className="text-lg text-slate-500 font-medium mb-8 max-w-lg">
                                     {cms?.uploadSubtitle || 'Drag & drop your 2D sketch, image, or CAD file here to instantly generate a 3D model.'}
                                 </p>
@@ -295,7 +295,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-zlendo-grey-dark mb-6 leading-tight">
                             Instant Interiors. <br />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Drag. Drop. Done.</span>
-                        {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                         <p className="text-xl text-zlendo-grey-medium font-medium leading-relaxed max-w-2xl mx-auto">
                             Skip the modeling phase. Access thousands of ready-to-use 3D assets to create stunning, accurate spaces in minutes directly from your 2D plans.
                         </p>
@@ -361,8 +361,8 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                                     onClick={() => setActiveFaq(activeFaq === i ? null : i)}
                                     className="w-full px-6 py-5 flex items-center justify-between text-left bg-transparent"
                                 >
-                                    <span className="text-lg font-bold text-zlendo-grey-dark">{faq.q}</span>
-                                    <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform ${activeFaq === i ? 'rotate-180' : ''}`} />
+                                    <h3 className="m-0 p-0 text-lg font-bold text-zlendo-grey-dark">{faq.q}</h3>
+                                    <ChevronDown className={`w-5 h-5 ml-4 flex-shrink-0 text-slate-400 transition-transform ${activeFaq === i ? 'rotate-180' : ''}`} />
                                 </button>
                                 <AnimatePresence>
                                     {activeFaq === i && (

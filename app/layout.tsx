@@ -141,13 +141,12 @@ export default async function RootLayout({
         <link rel="image_src" href="https://zlendorealty.com/og-image.jpg" />
         {enableGTM === 'prod' && (
           <>
-            <Script
-              strategy="afterInteractive"
+            <script
+              async
               src="https://www.googletagmanager.com/gtag/js?id=G-9ZSCR4TS9W"
-            />
-            <Script
+            ></script>
+            <script
               id="gtag-init"
-              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                   window.dataLayer = window.dataLayer || [];
@@ -157,9 +156,8 @@ export default async function RootLayout({
                 `,
               }}
             />
-            <Script
+            <script
               id="gtm-script"
-              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -170,9 +168,8 @@ export default async function RootLayout({
               `,
               }}
             />
-            <Script
+            <script
               id="clarity-script"
-              strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
                 (function(c,l,a,r,i,t,y){

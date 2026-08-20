@@ -18,6 +18,7 @@ import {
   Quote
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import FAQ from '@/components/global/sections/FAQ';
 
 // Helper component for the Before/After Slider
 const BeforeAfterSlider = () => {
@@ -503,7 +504,34 @@ export default function TwoDToThreeDPage() {
           </div>
         </section>
 
-        {/* 9. FINAL CTA */}
+        {/* 9. FAQ SECTION */}
+        <FAQ data={{
+          title: "Frequently Asked Questions",
+          faqs: [
+            {
+              question: "What types of files can I upload for 2D to 3D conversion?",
+              answer: "You can upload PDFs, JPEGs, PNGs, and standard architectural sketches. Our AI automatically detects walls, doors, and rooms from these formats."
+            },
+            {
+              question: "How accurate is the 3D conversion?",
+              answer: "Our proprietary Vision AI provides highly accurate extrusions by mapping dimensions from your 2D plans. You can also manually adjust any walls or features post-conversion."
+            },
+            {
+              question: "Do I need design experience to use this?",
+              answer: "Not at all. The process is fully automated. You simply upload your plan, wait a few seconds, and receive an interactive 3D model."
+            },
+            {
+              question: "Can I customize the 3D model after conversion?",
+              answer: "Yes. Once the 3D layout is generated, you can change floor materials, paint walls, and populate rooms with thousands of pieces of furniture from our library."
+            },
+            {
+              question: "How quickly is the 3D model generated?",
+              answer: "Most standard floor plans are converted into 3D environments in under 60 seconds, drastically reducing the time compared to manual CAD modeling."
+            }
+          ]
+        }} />
+
+        {/* 10. FINAL CTA */}
         <section className="py-32 bg-[#111] text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,191,154,0.15)_0%,transparent_70%)]" />
           <div className="container-custom px-4 text-center relative z-10">
