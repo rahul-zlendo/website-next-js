@@ -81,6 +81,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/register', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
     { path: '/tutorials', priority: 0.7, changeFrequency: 'weekly' as const },
 
+    // Events pages (Locale-neutral)
+    { path: '/events', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
+    { path: '/events/on-demand', priority: 0.8, changeFrequency: 'weekly' as const, isGlobal: true },
+    { path: '/events/register', priority: 0.7, changeFrequency: 'monthly' as const, isGlobal: true },
+
     // Policy pages
     { path: '/privacy-policy', priority: 0.3, changeFrequency: 'monthly' as const },
     { path: '/terms-of-service', priority: 0.3, changeFrequency: 'monthly' as const },
@@ -101,21 +106,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // { path: '/help-center', priority: 0.7, changeFrequency: 'weekly' as const, isGlobal: true },
 
     // Compare pages
-    { path: '/compare', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/zlendo-realty-vs-foyr-neo', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/zlendo-realty-vs-roomsketcher', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/zlendo-realty-vs-coohom', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
+    { path: '/compare', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/zlendo-realty-vs-foyr-neo', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/zlendo-realty-vs-roomsketcher', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/zlendo-realty-vs-coohom', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
     // Added in 5bc6936 as hardcoded routes (not KNOWN_COMPARE_SLUGS entries, so
     // the [slug] route never advertised them). Both locales verified 200.
-    { path: '/compare/zlendo-realty-vs-planner5d', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/zlendo-realty-vs-sketchup', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/zlendo-realty-vs-maket', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/zlendo-realty-vs-snaptrude', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/best-foyr-neo-alternatives', priority: 0.8, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/best-roomsketcher-alternatives', priority: 0.8, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/best-ai-floor-plan-software', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/best-2d-to-3d-floor-plan-converter', priority: 0.9, changeFrequency: 'monthly' as const , isGlobal: true },
-    { path: '/compare/coohom-vs-maket-vs-snaptrude', priority: 0.8, changeFrequency: 'monthly' as const , isGlobal: true },
+    { path: '/compare/zlendo-realty-vs-planner5d', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/zlendo-realty-vs-sketchup', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/zlendo-realty-vs-maket', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/zlendo-realty-vs-snaptrude', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/best-foyr-neo-alternatives', priority: 0.8, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/best-roomsketcher-alternatives', priority: 0.8, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/best-ai-floor-plan-software', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/best-2d-to-3d-floor-plan-converter', priority: 0.9, changeFrequency: 'monthly' as const, isGlobal: true },
+    { path: '/compare/coohom-vs-maket-vs-snaptrude', priority: 0.8, changeFrequency: 'monthly' as const, isGlobal: true },
 
     // Guide pages
     { path: '/guides/vastu-design-software', priority: 0.9, changeFrequency: 'monthly' as const },
