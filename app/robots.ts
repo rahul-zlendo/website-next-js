@@ -1,8 +1,8 @@
 import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-// Determine environment (dev or prod)
-  const env = process.env.NEXT_PUBLIC_ENV || 'prod';
+  // Determine environment (dev or prod)
+  const env = process.env.NEXT_PUBLIC_ENV || 'dev';
 
   const isStaging = env === 'dev';
 
