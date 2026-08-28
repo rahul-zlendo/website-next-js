@@ -1,49 +1,182 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import axiosInstance from '../../../../lib/services/config/axiosConfig';
 import {
     User, Mail, Phone, Briefcase, ChevronLeft,
     CheckCircle2, ArrowRight, Sparkles, Building2,
-    CalendarDays, Video, CircleCheck, Info
+    CalendarDays, Video, Calendar, Info, ChevronDown
 } from 'lucide-react';
 
 const fadeUp = { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true } };
 
-export default function RegisterClient() {
+function RegisterFormContent() {
+    const searchParams = useSearchParams();
+    const eventParam = searchParams.get('event') || 'Exclusive PropTech Event';
+    const eventIdParam = searchParams.get('eventId') || '0';
+
     const [formState, setFormState] = useState({
+        eventName: eventParam,
+        eventId: parseInt(eventIdParam, 10) || 0,
         name: '',
         email: '',
         phone: '',
-        company: '',
-        jobTitle: '',
+        role: '',
     });
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [emailError, setEmailError] = useState(false);
 
+    // Update if search param changes after mount
+    useEffect(() => {
+        if (eventParam) {
+            setFormState(prev => ({ ...prev, eventName: eventParam }));
+        }
+    }, [eventParam]);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        console.log(formState);
+        if (!emailRegex.test(formState.email)) {
+            setEmailError(true);
+            return;
+        }
+        setIsSubmitting(true);
+
+        try {
+            await axiosInstance.post('/EventLead/CreateEventLead', {
+                event_Id: formState.eventId,
+                name: formState.name,
+                email: formState.email,
+                phoneNumber: formState.phone,
+                role: formState.role
+            });
+            setIsSubmitting(false);
+            setIsSubmitted(true);
+        } catch (error) {
+            console.error('Registration failed:', error);
+            setIsSubmitting(false);
+            // Optionally handle error
+        }
+    };
+
+    return (
+        <AnimatePresence mode="wait">
+            {isSubmitted ? (
+                <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
+                    <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <CheckCircle2 className="w-10 h-10 text-green-500" />
+                    </div>
+                    <h3 className="text-2xl font-black text-[#1a1a1a] mb-4">Registration Received!</h3>
+                    <p className="text-zlendo-grey-medium font-medium mb-8">We've sent a preliminary confirmation receipt to your email address.</p>
+                    <button onClick={() => setIsSubmitted(false)} className="text-orange-500 font-bold hover:text-orange-600 transition-colors">
+                        Submit another registration
+                    </button>
+                </motion.div>
+            ) : (
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    {/* Event Name */}
+                    <div className="space-y-1.5">
+                        <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Selected Event</label>
+                        <div className="relative">
+                            <Calendar className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-orange-400" />
+                            <input type="text" readOnly
+                                className="w-full bg-orange-50/50 border border-orange-100 rounded-2xl py-4 pl-12 pr-6 outline-none font-bold text-orange-600 select-none"
+                                value={formState.eventName}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Name */}
+                    <div className="space-y-1.5 pt-2">
+                        <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Full Name *</label>
+                        <div className="relative">
+                            <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30" />
+                            <input type="text" required placeholder="Your full name"
+                                className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-orange-500 transition-all font-medium text-[#1a1a1a]"
+                                value={formState.name} onChange={e => setFormState({ ...formState, name: e.target.value })}
+                            />
+                        </div>
+                    </div>
+                    {/* Email */}
+                    <div className="space-y-1.5">
+                        <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Work Email *</label>
+                        <div className="relative">
+                            <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30" />
+                            <input type="email" required placeholder="name@company.com"
+                                className={`w-full bg-white border rounded-2xl py-4 pl-12 pr-6 outline-none transition-all font-medium text-[#1a1a1a] ${emailError ? 'border-red-500' : 'border-[#eee] focus:border-orange-500'}`}
+                                value={formState.email}
+                                onChange={e => {
+                                    const v = e.target.value.toLowerCase();
+                                    setFormState({ ...formState, email: v });
+                                    setEmailError(false);
+                                }}
+                            />
+                        </div>
+                        {emailError && <p className="mt-1 text-[10px] font-bold text-red-500 ml-2">Please enter a valid email address</p>}
+                    </div>
+                    {/* Phone */}
+                    <div className="space-y-1.5">
+                        <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Phone Number *</label>
+                        <div className="relative">
+                            <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30" />
+                            <input type="tel" required placeholder="Mobile number" maxLength={15}
+                                className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-orange-500 transition-all font-medium text-[#1a1a1a]"
+                                value={formState.phone}
+                                onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/[^\d+\-() ]/g, '').slice(0, 15) })}
+                            />
+                        </div>
+                    </div>
+                    {/* Role */}
+                    <div className="space-y-1.5">
+                        <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Role *</label>
+                        <div className="relative">
+                            <Briefcase className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30 pointer-events-none" />
+                            <select required
+                                className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-orange-500 transition-all font-medium text-[#1a1a1a] appearance-none"
+                                value={formState.role} onChange={e => setFormState({ ...formState, role: e.target.value })}
+                            >
+                                <option value="" disabled>Select role</option>
+                                <option value="Student">Student</option>
+                                <option value="Faculty">Faculty</option>
+                                <option value="HOD">HOD</option>
+                                <option value="Principal / Director">Principal / Director</option>
+                                <option value="College Management">College Management</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30 pointer-events-none" />
+                        </div>
+                    </div>
+
+                    <div className="pt-4">
+                        <button type="submit" disabled={isSubmitting}
+                            className="w-full bg-orange-500 text-white rounded-2xl py-5 font-black text-xl shadow-xl shadow-orange-500/20 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-2xl hover:bg-orange-600"
+                        >
+                            {isSubmitting ? (
+                                <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            ) : (
+                                <>Complete Registration <ArrowRight className="w-6 h-6" /></>
+                            )}
+                        </button>
+                    </div>
+                </form>
+            )}
+        </AnimatePresence>
+    );
+}
+
+export default function RegisterClient() {
     const highlights = [
         { icon: CalendarDays, label: 'Exclusive Live Sessions' },
         { icon: Video, label: 'Event Recordings Sent' },
         { icon: Building2, label: 'Industry Insights' },
         { icon: Sparkles, label: 'Live Q&A with Experts' },
     ];
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(formState.email)) {
-            setEmailError(true);
-            return;
-        }
-        setIsSubmitting(true);
-        // Simulate API completion
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setIsSubmitted(true);
-        }, 1500);
-    };
 
     return (
         <div className="min-h-screen bg-white font-nunito">
@@ -105,98 +238,10 @@ export default function RegisterClient() {
                                     <p className="text-zlendo-grey-medium font-medium">Please enter exact details connecting to your Zoom account.</p>
                                 </div>
 
-                                <AnimatePresence mode="wait">
-                                    {isSubmitted ? (
-                                        <motion.div key="success" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-12">
-                                            <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                                                <CheckCircle2 className="w-10 h-10 text-green-500" />
-                                            </div>
-                                            <h3 className="text-2xl font-black text-[#1a1a1a] mb-4">Registration Received!</h3>
-                                            <p className="text-zlendo-grey-medium font-medium mb-8">We've sent a preliminary confirmation receipt to your email address.</p>
-                                            <button onClick={() => setIsSubmitted(false)} className="text-orange-500 font-bold hover:text-orange-600 transition-colors">
-                                                Submit another registration
-                                            </button>
-                                        </motion.div>
-                                    ) : (
-                                        <form onSubmit={handleSubmit} className="space-y-5">
-                                            {/* Name */}
-                                            <div className="space-y-1.5">
-                                                <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Full Name *</label>
-                                                <div className="relative">
-                                                    <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30" />
-                                                    <input type="text" required placeholder="Your full name"
-                                                        className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-orange-500 transition-all font-medium text-[#1a1a1a]"
-                                                        value={formState.name} onChange={e => setFormState({ ...formState, name: e.target.value })}
-                                                    />
-                                                </div>
-                                            </div>
-                                            {/* Email */}
-                                            <div className="space-y-1.5">
-                                                <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Work Email *</label>
-                                                <div className="relative">
-                                                    <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30" />
-                                                    <input type="email" required placeholder="name@company.com"
-                                                        className={`w-full bg-white border rounded-2xl py-4 pl-12 pr-6 outline-none transition-all font-medium text-[#1a1a1a] ${emailError ? 'border-red-500' : 'border-[#eee] focus:border-orange-500'}`}
-                                                        value={formState.email}
-                                                        onChange={e => {
-                                                            const v = e.target.value.toLowerCase();
-                                                            setFormState({ ...formState, email: v });
-                                                            setEmailError(false);
-                                                        }}
-                                                    />
-                                                </div>
-                                                {emailError && <p className="mt-1 text-[10px] font-bold text-red-500 ml-2">Please enter a valid email address</p>}
-                                            </div>
-                                            {/* Phone */}
-                                            <div className="space-y-1.5">
-                                                <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Phone Number *</label>
-                                                <div className="relative">
-                                                    <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30" />
-                                                    <input type="tel" required placeholder="Mobile number" maxLength={15}
-                                                        className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-orange-500 transition-all font-medium text-[#1a1a1a]"
-                                                        value={formState.phone}
-                                                        onChange={e => setFormState({ ...formState, phone: e.target.value.replace(/[^\d+\-() ]/g, '').slice(0, 15) })}
-                                                    />
-                                                </div>
-                                            </div>
-                                            {/* Company & Job */}
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                                <div className="space-y-1.5">
-                                                    <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Company *</label>
-                                                    <div className="relative">
-                                                        <Building2 className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30" />
-                                                        <input type="text" required placeholder="Organization"
-                                                            className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-orange-500 transition-all font-medium text-[#1a1a1a]"
-                                                            value={formState.company} onChange={e => setFormState({ ...formState, company: e.target.value })}
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="space-y-1.5">
-                                                    <label className="text-[11px] font-black uppercase tracking-widest text-[#1a1a1a]/40 ml-2">Job Title *</label>
-                                                    <div className="relative">
-                                                        <Briefcase className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30" />
-                                                        <input type="text" required placeholder="e.g. Architect"
-                                                            className="w-full bg-white border border-[#eee] rounded-2xl py-4 pl-12 pr-6 outline-none focus:border-orange-500 transition-all font-medium text-[#1a1a1a]"
-                                                            value={formState.jobTitle} onChange={e => setFormState({ ...formState, jobTitle: e.target.value })}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <Suspense fallback={<div className="h-96 flex items-center justify-center"><div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div></div>}>
+                                    <RegisterFormContent />
+                                </Suspense>
 
-                                            <div className="pt-4">
-                                                <button type="submit" disabled={isSubmitting}
-                                                    className="w-full bg-orange-500 text-white rounded-2xl py-5 font-black text-xl shadow-xl shadow-orange-500/20 transition-all flex items-center justify-center gap-3 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed hover:shadow-2xl hover:bg-orange-600"
-                                                >
-                                                    {isSubmitting ? (
-                                                        <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                                                    ) : (
-                                                        <>Complete Registration <ArrowRight className="w-6 h-6" /></>
-                                                    )}
-                                                </button>
-                                            </div>
-                                        </form>
-                                    )}
-                                </AnimatePresence>
                             </motion.div>
                         </div>
                     </div>
