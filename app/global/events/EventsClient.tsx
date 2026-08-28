@@ -5,41 +5,48 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import axiosInstance from '../../../lib/services/config/axiosConfig';
 
 const eventsData = [
     {
         id: 1,
         type: 'Webinar',
-        title: 'AI-Driven Floor Planning: Architecture Masterclass',
+        title: 'AI-Driven Floor Planning',
         date: 'October 15, 2026',
         time: '10:00 AM PDT / 1:00 PM EDT',
-        image: '/assets/global/floor-plan-discussion.webp',
-        link: '/events/register'
-    },
-    {
-        id: 2,
-        type: 'Event',
-        title: 'Global PropTech Summit - London',
-        date: 'November 2, 2026',
-        time: '9:00 AM GMT, 4 PM CEST',
-        image: '/assets/global/interior-design-consultation.webp',
-        link: '/events/register'
-    },
-    {
-        id: 3,
-        type: 'Webinar',
-        title: '2D to 3D Instantly: Best Practices to Peak Performance',
-        date: 'December 10, 2026',
-        time: '2:00 PM EST',
-        image: '/assets/2d-to-3d/presentation-walkthrough.webp',
+        image: '',
         link: '/events/register'
     }
 ];
 
 export default function EventsClient() {
     const [filter, setFilter] = useState<'All' | 'Events' | 'Webinars'>('All');
+    const [events, setEvents] = useState<any[]>(eventsData);
 
-    const filteredEvents = eventsData.filter(evt => {
+    React.useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const response = await axiosInstance.get('/api/v1/Event/GetAllEvents');
+                if (response.data && Array.isArray(response.data.data ? response.data.data : response.data)) {
+                    const fetchedEvents = (response.data.data ? response.data.data : response.data).map((evt: any) => ({
+                        id: evt.event_Id,
+                        type: evt.typeId === 1 ? 'Event' : 'Webinar', // naive mapping
+                        title: evt.event_Name,
+                        date: evt.event_Date,
+                        time: evt.event_Time,
+                        image: evt.image,
+                        link: '/events/register'
+                    }));
+                    setEvents(fetchedEvents);
+                }
+            } catch (error) {
+                console.error('Failed to fetch events:', error);
+            }
+        };
+        fetchEvents();
+    }, []);
+
+    const filteredEvents = events.filter(evt => {
         if (filter === 'All') return true;
         return evt.type === filter.slice(0, -1) || evt.type === filter; // basic plural check
     });
@@ -89,13 +96,21 @@ export default function EventsClient() {
                                     <div className="relative h-56 md:h-64 overflow-hidden bg-slate-900">
                                         {/* Fallback pattern if image is missing */}
                                         <div className="absolute inset-0 bg-gradient-to-tr from-zlendo-teal to-blue-600 opacity-20 group-hover:scale-105 transition-transform duration-700" />
-                                        <Image
-                                            src={evt.image}
-                                            alt={evt.title}
-                                            fill
-                                            className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
-                                            sizes="(max-width: 768px) 100vw, 33vw"
-                                        />
+                                        {evt.image && evt.image !== '/assets/global/default-event.webp' ? (
+                                            <Image
+                                                src={evt.image}
+                                                alt={evt.title}
+                                                fill
+                                                className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-700"
+                                                sizes="(max-width: 768px) 100vw, 33vw"
+                                            />
+                                        ) : (
+                                            <div className="absolute inset-0 flex items-center justify-center p-6 text-center">
+                                                <span className="text-3xl md:text-4xl font-black text-white/50 tracking-widest uppercase group-hover:scale-105 transition-transform duration-700 drop-shadow-md">
+                                                    {evt.type}
+                                                </span>
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="p-8 flex flex-col flex-grow">
@@ -113,7 +128,7 @@ export default function EventsClient() {
 
                                         <div className="mt-auto">
                                             <Link
-                                                href={evt.link}
+                                                href={`${evt.link}?event=${encodeURIComponent(evt.title)}&eventId=${evt.id}`}
                                                 className="inline-flex items-center gap-2 font-bold text-slate-600 hover:text-orange-500 transition-colors group/link text-lg"
                                             >
                                                 Register for the {evt.type}
