@@ -35,7 +35,7 @@ export default function RealEstateClient() {
                         <Link href="https://app.zlendorealty.com/signup" className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal text-white rounded-2xl font-black text-lg hover:scale-105 hover:bg-teal-400 transition-all shadow-[0_10px_30px_rgba(45,212,191,0.2)] flex items-center justify-center gap-2">
                             Get Started with Zlendo <ArrowRight className="w-5 h-5" />
                         </Link>
-                        <Link href="/contact" className="w-full sm:w-auto px-8 py-4 bg-white/5 text-white rounded-2xl font-black text-lg hover:bg-white/10 transition-all backdrop-blur-sm border border-white/10 flex items-center justify-center gap-2">
+                        <Link href="/business#demo-form" className="w-full sm:w-auto px-8 py-4 bg-white/5 text-white rounded-2xl font-black text-lg hover:bg-white/10 transition-all backdrop-blur-sm border border-white/10 flex items-center justify-center gap-2">
                             <CalendarCheck2 className="w-5 h-5" /> Request a Demo
                         </Link>
                     </motion.div>
@@ -193,6 +193,9 @@ export default function RealEstateClient() {
                             <div className="bg-blue-900/30 border border-blue-800 rounded-2xl p-6 mb-8 text-blue-200 font-medium">
                                 <strong>ROI Opportunity:</strong> Create more marketing visuals without the time and cost associated with traditional rendering workflows.
                             </div>
+                            <Link href="/products/realistic-renders" className="inline-flex items-center gap-2 text-blue-400 font-black hover:text-blue-300 transition-colors mt-auto">
+                                Explore Realistic Renders <ArrowRight className="w-5 h-5" />
+                            </Link>
                         </motion.div>
 
                         {/* 6 */}
@@ -213,6 +216,9 @@ export default function RealEstateClient() {
                             <div className="bg-cyan-900/30 border border-cyan-800 rounded-2xl p-6 mb-8 text-cyan-200 font-medium">
                                 <strong>ROI Opportunity:</strong> Extend property presentations beyond physical site visits and allow prospects to explore properties from anywhere.
                             </div>
+                            <Link href="/products/virtual-walkthrough" className="inline-flex items-center gap-2 text-cyan-400 font-black hover:text-cyan-300 transition-colors mt-auto">
+                                Explore Virtual Walkthrough <ArrowRight className="w-5 h-5" />
+                            </Link>
                         </motion.div>
                     </div>
                 </div>
@@ -264,7 +270,7 @@ export default function RealEstateClient() {
                                 Whether you need visualization for a single project or want to integrate AI-powered property experiences into your existing platform, we can work with your business model.
                             </p>
                             <div className="pt-6">
-                                <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-4 bg-teal-500 rounded-2xl font-black text-lg hover:bg-teal-400 transition-colors shadow-lg shadow-teal-950">
+                                <Link href="/partners" className="inline-flex items-center gap-2 px-8 py-4 bg-teal-500 rounded-2xl font-black text-lg hover:bg-teal-400 transition-colors shadow-lg shadow-teal-950">
                                     Become a Partner <ArrowRight className="w-5 h-5" />
                                 </Link>
                             </div>
@@ -333,7 +339,7 @@ export default function RealEstateClient() {
                         <Link href="https://app.zlendorealty.com/signup" className="px-10 py-5 bg-zlendo-teal text-white rounded-[24px] font-black text-lg hover:scale-105 hover:bg-teal-400 shadow-[0_10px_30px_rgba(45,212,191,0.2)] transition-all">
                             Start Visualizing Properties
                         </Link>
-                        <Link href="/contact" className="px-10 py-5 bg-white/10 text-white rounded-[24px] font-black text-lg hover:bg-white/20 transition-all backdrop-blur-sm border border-white/10">
+                        <Link href="/business#demo-form" className="px-10 py-5 bg-white/10 text-white rounded-[24px] font-black text-lg hover:bg-white/20 transition-all backdrop-blur-sm border border-white/10">
                             Request a Demo
                         </Link>
                     </motion.div>

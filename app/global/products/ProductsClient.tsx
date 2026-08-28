@@ -36,7 +36,7 @@ export default function ProductsClient() {
                         <Link href="https://app.zlendorealty.com/signup" className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal text-white rounded-2xl font-black text-lg hover:scale-105 hover:bg-teal-600 transition-all shadow-[0_10px_30px_rgba(45,212,191,0.3)] flex items-center justify-center gap-2">
                             Start Designing Free <ArrowRight className="w-5 h-5" />
                         </Link>
-                        <Link href="/contact" className="w-full sm:w-auto px-8 py-4 bg-white text-slate-800 rounded-2xl font-black text-lg hover:bg-slate-50 transition-all shadow-sm border border-slate-200 flex items-center justify-center gap-2">
+                        <Link href="/business#demo-form" className="w-full sm:w-auto px-8 py-4 bg-white text-slate-800 rounded-2xl font-black text-lg hover:bg-slate-50 transition-all shadow-sm border border-slate-200 flex items-center justify-center gap-2">
                             <CalendarCheck2 className="w-5 h-5" /> Request a Demo
                         </Link>
                     </motion.div>
@@ -313,7 +313,7 @@ export default function ProductsClient() {
                         <Link href="https://app.zlendorealty.com/signup" className="px-10 py-5 bg-zlendo-teal text-white rounded-2xl font-black text-xl hover:scale-105 hover:bg-teal-400 shadow-[0_10px_30px_rgba(45,212,191,0.2)] transition-all">
                             Start Designing Free
                         </Link>
-                        <Link href="/contact" className="px-10 py-5 bg-white/10 text-white rounded-2xl font-black text-xl hover:bg-white/20 transition-all backdrop-blur-sm border border-white/10">
+                        <Link href="/business#demo-form" className="px-10 py-5 bg-white/10 text-white rounded-2xl font-black text-xl hover:bg-white/20 transition-all backdrop-blur-sm border border-white/10">
                             Book a Demo
                         </Link>
                     </motion.div>
