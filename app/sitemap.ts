@@ -32,7 +32,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/partners', priority: 0.7, changeFrequency: 'monthly' as const },
     { path: '/about-us', priority: 0.7, changeFrequency: 'monthly' as const },
 
+    // Industries pages
+    { path: '/industries/real-estate', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
+
     // Product pages
+    { path: '/products', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
     { path: '/products/floor-planner', priority: 0.9, changeFrequency: 'weekly' as const },
     { path: '/products/cost-estimator', priority: 0.8, changeFrequency: 'weekly' as const },
     { path: '/products/interiors-exteriors', priority: 0.8, changeFrequency: 'weekly' as const },
