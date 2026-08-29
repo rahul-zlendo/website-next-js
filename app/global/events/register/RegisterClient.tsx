@@ -143,10 +143,16 @@ function RegisterFormContent() {
                             >
                                 <option value="" disabled>Select role</option>
                                 <option value="Student">Student</option>
-                                <option value="Faculty">Faculty</option>
-                                <option value="HOD">HOD</option>
-                                <option value="Principal / Director">Principal / Director</option>
                                 <option value="College Management">College Management</option>
+                                <option value="3D Visualization Studio">3D Visualization Studio</option>
+                                <option value="Government / Smart City">Government / Smart City</option>
+                                <option value="PropTech / Real Estate Technology">PropTech / Real Estate Technology</option>
+                                <option value="Property Management Company">Property Management Company</option>
+                                <option value="Interior Design Studio">Interior Design Studio</option>
+                                <option value="Architecture Firm">Architecture Firm</option>
+                                <option value="Commercial Real Estate Developer">Commercial Real Estate Developer</option>
+                                <option value="Residential Real Estate Developer">Residential Real Estate Developer</option>
+                                <option value="Construction Company">Construction Company</option>
                                 <option value="Other">Other</option>
                             </select>
                             <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-zlendo-grey-medium/30 pointer-events-none" />
