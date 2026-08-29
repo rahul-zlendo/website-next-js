@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
     PenTool, Cuboid, PaintBucket, Eye, Zap, Image as ImageIcon,
@@ -16,30 +17,40 @@ export default function ProductsClient() {
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal overflow-hidden border-t border-slate-100">
             {/* HERO SECTION */}
-            <section className="relative pt-15 pb-15 md:pt-24 md:pb-24 overflow-hidden bg-slate-50 border-b border-black/5">
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zlendo-teal/5 via-transparent to-transparent pointer-events-none" />
-                <div className="container-custom px-4 relative z-10 text-center max-w-5xl mx-auto">
-                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-zlendo-teal/20 bg-zlendo-teal/5 mb-8">
-                        <SparklesIcon className="w-4 h-4 text-zlendo-teal" />
-                        <span className="text-xs font-black tracking-widest text-zlendo-teal uppercase">AI Home Design &amp; Visualization Platform</span>
-                    </motion.div>
+            <section className="relative pt-8 pb-8 md:pt-16 md:pb-16 overflow-hidden bg-slate-50 border-b border-black/5">
+                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-zlendo-teal/10 via-transparent to-transparent pointer-events-none" />
+                <div className="container-custom px-4 relative z-10 max-w-7xl mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div className="text-center lg:text-left">
+                            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-zlendo-teal/20 bg-zlendo-teal/5 mb-8">
+                                <SparklesIcon className="w-4 h-4 text-zlendo-teal" />
+                                <span className="text-xs font-black tracking-widest text-zlendo-teal uppercase">AI Home Design &amp; Visualization</span>
+                            </motion.div>
 
-                    <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.6 }} className="text-5xl md:text-7xl font-black text-slate-900 leading-[1.1] tracking-tight mb-8">
-                        Design. Visualize.<br /> Experience. Sell.
-                    </motion.h1>
+                            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.6 }} className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.1] tracking-tight mb-8">
+                                Design. Visualize.<br /> Experience. Sell.
+                            </motion.h1>
 
-                    <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }} className="text-xl md:text-2xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto mb-10">
-                        Turn ideas, floor plans, and property concepts into immersive 3D experiences with AI-powered design and visualization tools.
-                    </motion.p>
+                            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }} className="text-xl text-slate-600 font-medium leading-relaxed mb-10 mx-auto lg:mx-0 max-w-xl">
+                                Turn ideas, floor plans, and property concepts into immersive 3D experiences with AI-powered design and visualization tools.
+                            </motion.p>
 
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="https://app.zlendorealty.com/signup" className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal text-white rounded-2xl font-black text-lg hover:scale-105 hover:bg-teal-600 transition-all shadow-[0_10px_30px_rgba(45,212,191,0.3)] flex items-center justify-center gap-2">
-                            Start Designing Free <ArrowRight className="w-5 h-5" />
-                        </Link>
-                        <Link href="/business#demo-form" className="w-full sm:w-auto px-8 py-4 bg-white text-slate-800 rounded-2xl font-black text-lg hover:bg-slate-50 transition-all shadow-sm border border-slate-200 flex items-center justify-center gap-2">
-                            <CalendarCheck2 className="w-5 h-5" /> Request a Demo
-                        </Link>
-                    </motion.div>
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                                <Link href="https://app.zlendorealty.com/signup" className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal text-white rounded-2xl font-black text-lg hover:scale-105 hover:bg-teal-600 transition-all shadow-[0_10px_30px_rgba(45,212,191,0.3)] flex items-center justify-center gap-2">
+                                    Start Designing Free <ArrowRight className="w-5 h-5" />
+                                </Link>
+                                <Link href="/business#demo-form" className="w-full sm:w-auto px-8 py-4 bg-white text-slate-800 rounded-2xl font-black text-lg hover:bg-slate-50 transition-all shadow-sm border border-slate-200 flex items-center justify-center gap-2">
+                                    <CalendarCheck2 className="w-5 h-5" /> Request a Demo
+                                </Link>
+                            </motion.div>
+                        </div>
+
+                        {/* Hero Image */}
+                        <motion.div initial={{ opacity: 0, x: 20, scale: 0.95 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="rounded-3xl overflow-hidden shadow-2xl border border-black/5 relative group w-full">
+                            <Image src="/assets/design-presentation/hero-dashboard.webp" alt="Zlendo AI Platform" width={1200} height={800} priority className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -79,144 +90,39 @@ export default function ProductsClient() {
                 </div>
             </section>
 
-            {/* SUITE SHOWCASE (Alternating Blocks) */}
+            {/* SUITE SHOWCASE (Cards Layout) */}
             <section className="py-16 lg:py-20 bg-[#111] text-white">
-                <div className="container-custom px-4 max-w-6xl mx-auto space-y-16 lg:space-y-24">
+                <div className="container-custom px-4 max-w-7xl mx-auto space-y-16">
                     <motion.div {...fadeUp} className="text-center">
-                        <span className="text-orange-500 font-black tracking-[0.2em] uppercase text-sm mb-4 block">Product Ecosystem</span>
-                        <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">Explore the Zlendo Realty AI Design Suite</h2>
+                        <span className="text-zlendo-teal font-black tracking-[0.2em] uppercase text-sm mb-4 block">Product Ecosystem</span>
+                        <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">Explore the AI Design Suite</h2>
                     </motion.div>
 
-                    {/* Block 1 */}
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <motion.div {...fadeUp} className="order-2 lg:order-1 space-y-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 text-orange-400 font-bold text-sm">
-                                <LayoutDashboard className="w-4 h-4" /> AI Floor Planner
-                            </div>
-                            <h3 className="text-4xl font-black leading-tight">Design &amp; Visualize in 3D</h3>
-                            <p className="text-slate-400 font-medium text-lg leading-relaxed">
-                                Create accurate floor plans online and move seamlessly between 2D layouts and 3D spaces. Start with a blank canvas or an existing sketch. Use intelligent wall snapping, automatic dimensioning, multi-story planning, and drag-and-drop elements to build your layout.
-                            </p>
-                            <div className="text-sm border-l-2 border-slate-700 pl-4 py-2 mt-4 text-slate-300 font-medium">
-                                <span className="text-white font-bold">Best for:</span> Homeowners, architects, interior designers, builders, and real estate professionals.
-                            </div>
-                            <Link href="/products/floor-planner" className="inline-flex items-center gap-2 text-orange-400 font-black hover:text-orange-300 hover:gap-3 transition-all pt-4">
-                                Explore AI Floor Planner <ArrowRight className="w-5 h-5" />
-                            </Link>
-                        </motion.div>
-                        <motion.div {...fadeUp} className="order-1 lg:order-2 h-72 lg:h-[400px] bg-gradient-to-tr from-orange-500/20 to-zinc-800 rounded-[40px] border border-white/5 relative overflow-hidden group shadow-2xl flex items-center justify-center">
-                            <span className="text-white/50 font-black text-2xl tracking-widest uppercase">Layout Intelligence</span>
-                        </motion.div>
-                    </div>
-
-                    {/* Block 2 */}
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <motion.div {...fadeUp} className="h-72 lg:h-[400px] bg-gradient-to-tl from-purple-500/20 to-zinc-800 rounded-[40px] border border-white/5 relative overflow-hidden group shadow-2xl flex items-center justify-center">
-                            <span className="text-white/50 font-black text-2xl tracking-widest uppercase">Geometric Conversion</span>
-                        </motion.div>
-                        <motion.div {...fadeUp} className="space-y-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 text-purple-400 font-bold text-sm">
-                                <Cuboid className="w-4 h-4" /> 2D to 3D Converter
-                            </div>
-                            <h3 className="text-4xl font-black leading-tight">Instant Floor Plan Conversion</h3>
-                            <p className="text-slate-400 font-medium text-lg leading-relaxed">
-                                Already have a floor plan? Turn it into a structured 3D environment without manually rebuilding the model. Upload a 2D plan and let AI recognize walls, rooms, structure, and spatial relationships — transforming a flat drawing into a presentation-ready 3D experience.
-                            </p>
-                            <div className="text-sm border-l-2 border-slate-700 pl-4 py-2 mt-4 text-slate-300 font-medium">
-                                <span className="text-white font-bold">Best for:</span> Architects, civil engineers, builders, designers, and property professionals.
-                            </div>
-                            <Link href="/products/2d-to-3d" className="inline-flex items-center gap-2 text-purple-400 font-black hover:text-purple-300 hover:gap-3 transition-all pt-4">
-                                Explore 2D to 3D Converter <ArrowRight className="w-5 h-5" />
-                            </Link>
-                        </motion.div>
-                    </div>
-
-                    {/* Block 3 */}
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <motion.div {...fadeUp} className="order-2 lg:order-1 space-y-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 text-pink-400 font-bold text-sm">
-                                <PaintBucket className="w-4 h-4" /> Smart Room Styler
-                            </div>
-                            <h3 className="text-4xl font-black leading-tight">AI-Driven Interior Styling</h3>
-                            <p className="text-slate-400 font-medium text-lg leading-relaxed">
-                                Transform empty or existing rooms into fully styled interiors with AI. Choose a design direction, experiment with furniture arrangements, change materials and finishes, simulate lighting, and explore different visual styles before committing to a design.
-                            </p>
-                            <div className="text-sm border-l-2 border-slate-700 pl-4 py-2 mt-4 text-slate-300 font-medium">
-                                <span className="text-white font-bold">Best for:</span> Interior designers, homeowners, furniture brands, and property professionals.
-                            </div>
-                            <Link href="/products/room-styler" className="inline-flex items-center gap-2 text-pink-400 font-black hover:text-pink-300 hover:gap-3 transition-all pt-4">
-                                Explore Smart Room Styler <ArrowRight className="w-5 h-5" />
-                            </Link>
-                        </motion.div>
-                        <motion.div {...fadeUp} className="order-1 lg:order-2 h-72 lg:h-[400px] bg-gradient-to-tr from-pink-500/20 to-zinc-800 rounded-[40px] border border-white/5 relative overflow-hidden group shadow-2xl flex items-center justify-center">
-                            <span className="text-white/50 font-black text-2xl tracking-widest uppercase">Interior Synthesis</span>
-                        </motion.div>
-                    </div>
-
-                    {/* Block 4 */}
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <motion.div {...fadeUp} className="h-72 lg:h-[400px] bg-gradient-to-tl from-emerald-500/20 to-zinc-800 rounded-[40px] border border-white/5 relative overflow-hidden group shadow-2xl flex items-center justify-center">
-                            <span className="text-white/50 font-black text-2xl tracking-widest uppercase">Environmental Design</span>
-                        </motion.div>
-                        <motion.div {...fadeUp} className="space-y-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 font-bold text-sm">
-                                <Building className="w-4 h-4" /> Interiors &amp; Exteriors
-                            </div>
-                            <h3 className="text-4xl font-black leading-tight">Region-Aware Design Intelligence</h3>
-                            <p className="text-slate-400 font-medium text-lg leading-relaxed">
-                                Create cohesive interiors, architectural exteriors, facades, landscapes, and outdoor environments while taking regional materials, lighting, vegetation, and environmental conditions into consideration.
-                            </p>
-                            <div className="text-sm border-l-2 border-slate-700 pl-4 py-2 mt-4 text-slate-300 font-medium">
-                                <span className="text-white font-bold">Best for:</span> Architects, builders, developers, interior designers, and real estate marketers.
-                            </div>
-                            <Link href="/products/interiors-exteriors" className="inline-flex items-center gap-2 text-emerald-400 font-black hover:text-emerald-300 hover:gap-3 transition-all pt-4">
-                                Explore Interiors &amp; Exteriors <ArrowRight className="w-5 h-5" />
-                            </Link>
-                        </motion.div>
-                    </div>
-
-                    {/* Block 5 */}
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <motion.div {...fadeUp} className="order-2 lg:order-1 space-y-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 font-bold text-sm">
-                                <ImageIcon className="w-4 h-4" /> Realistic Renders
-                            </div>
-                            <h3 className="text-4xl font-black leading-tight">Photorealistic Lighting</h3>
-                            <p className="text-slate-400 font-medium text-lg leading-relaxed">
-                                Turn your designs into high-quality, photorealistic visuals without lengthy traditional rendering workflows. Upload a 3D model, sketch, or floor plan, choose a visual style, and generate realistic imagery in seconds instead of hours.
-                            </p>
-                            <div className="text-sm border-l-2 border-slate-700 pl-4 py-2 mt-4 text-slate-300 font-medium">
-                                <span className="text-white font-bold">Best for:</span> Architects, interior designers, developers, agencies, and real estate marketing teams.
-                            </div>
-                            <Link href="/products/realistic-renders" className="inline-flex items-center gap-2 text-cyan-400 font-black hover:text-cyan-300 hover:gap-3 transition-all pt-4">
-                                Explore Realistic Renders <ArrowRight className="w-5 h-5" />
-                            </Link>
-                        </motion.div>
-                        <motion.div {...fadeUp} className="order-1 lg:order-2 h-72 lg:h-[400px] bg-gradient-to-tr from-cyan-500/20 to-zinc-800 rounded-[40px] border border-white/5 relative overflow-hidden group shadow-2xl flex items-center justify-center">
-                            <span className="text-white/50 font-black text-2xl tracking-widest uppercase">Cloud Rendering GPU</span>
-                        </motion.div>
-                    </div>
-
-                    {/* Block 6 */}
-                    <div className="grid lg:grid-cols-2 gap-12 items-center">
-                        <motion.div {...fadeUp} className="h-72 lg:h-[400px] bg-gradient-to-tl from-indigo-500/20 to-zinc-800 rounded-[40px] border border-white/5 relative overflow-hidden group shadow-2xl flex items-center justify-center">
-                            <span className="text-white/50 font-black text-2xl tracking-widest uppercase">360° Immersion</span>
-                        </motion.div>
-                        <motion.div {...fadeUp} className="space-y-6">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 font-bold text-sm">
-                                <MonitorPlay className="w-4 h-4" /> Virtual Walkthrough
-                            </div>
-                            <h3 className="text-4xl font-black leading-tight">8K Ultra-Realistic Experiences</h3>
-                            <p className="text-slate-400 font-medium text-lg leading-relaxed">
-                                Let clients step inside a design before it is built. Create interactive 360° walkthroughs that allow viewers to explore spaces, understand proportions, evaluate materials and lighting, and experience the overall design from different perspectives.
-                            </p>
-                            <div className="text-sm border-l-2 border-slate-700 pl-4 py-2 mt-4 text-slate-300 font-medium">
-                                <span className="text-white font-bold">Best for:</span> Architects, interior designers, builders, developers, and real estate professionals.
-                            </div>
-                            <Link href="/products/virtual-walkthrough" className="inline-flex items-center gap-2 text-indigo-400 font-black hover:text-indigo-300 hover:gap-3 transition-all pt-4">
-                                Explore Virtual Walkthrough <ArrowRight className="w-5 h-5" />
-                            </Link>
-                        </motion.div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[
+                            { title: 'AI Floor Planner', desc: 'Accurate 2D & 3D space planning with intelligent wall snapping, and smart drag-and-drop elements.', icon: LayoutDashboard, img: '/assets/global/interior-design-consultation.webp', link: '/products/floor-planner', color: 'text-orange-400', bg: 'bg-orange-500/10' },
+                            { title: '2D to 3D Converter', desc: 'Upload a flat drawing and instantly turn it into a presentation-ready 3D experience.', icon: Cuboid, img: '/assets/2d-to-3d/after-render.webp', link: '/products/2d-to-3d', color: 'text-purple-400', bg: 'bg-purple-500/10' },
+                            { title: 'Smart Room Styler', desc: 'Instantly restyle rooms with AI precision, experiment with materials and layouts rapidly.', icon: PaintBucket, img: '/assets/use-case/modern-architecture-studio.jpg', link: '/products/room-styler', color: 'text-pink-400', bg: 'bg-pink-500/10' },
+                            { title: 'Interiors & Exteriors', desc: 'Robust region-aware design generation optimized for any lighting or environment condition.', icon: Building, img: '/assets/use-case/modern-indian-home-interior.webp', link: '/products/interiors-exteriors', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+                            { title: 'Realistic Renders', desc: 'Bypass heavy local rendering software. Photorealistic cloud visualization in seconds.', icon: ImageIcon, img: '/assets/design-presentation/hero-dashboard.webp', link: '/products/realistic-renders', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+                            { title: 'Virtual Walkthrough', desc: 'Deliver immersive 360° experiences bridging the gap before properties are even built.', icon: MonitorPlay, img: '/assets/global/interior-design-walkthrough-client.webp', link: '/products/virtual-walkthrough', color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
+                        ].map((prod, i) => (
+                            <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.1 }} className="bg-zinc-900 border border-white/10 rounded-[32px] overflow-hidden group hover:border-white/20 transition-all flex flex-col shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                                <div className="h-48 md:h-56 relative overflow-hidden bg-zinc-800">
+                                    <Image src={prod.img} alt={prod.title} fill className="object-cover opacity-70 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700" />
+                                </div>
+                                <div className="p-8 flex flex-col flex-grow">
+                                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${prod.bg} ${prod.color} font-bold text-sm w-fit mb-4`}>
+                                        <prod.icon className="w-4 h-4" /> {prod.title}
+                                    </div>
+                                    <h3 className="text-2xl font-black mb-3 group-hover:text-zlendo-teal transition-colors">{prod.title}</h3>
+                                    <p className="text-slate-400 font-medium leading-relaxed mb-6 flex-grow">{prod.desc}</p>
+                                    <Link href={prod.link} className={`inline-flex items-center gap-2 ${prod.color} border border-white/5 bg-zinc-800/50 py-3 rounded-2xl justify-center font-black hover:bg-zinc-800 transition-all mt-auto group/btn`}>
+                                        Explore <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
+                                    </Link>
+                                </div>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
@@ -241,17 +147,24 @@ export default function ProductsClient() {
                             { t: 'Real Estate Developers', d: 'Create compelling visual experiences that help buyers understand properties before they are built.' },
                             { t: 'Real Estate Professionals', d: 'Turn property plans into visual experiences that are easier for prospects to understand and remember.' }
                         ].map((a, i) => (
-                            <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.05 }} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-lg hover:border-slate-200 transition-all">
-                                <h3 className="text-xl font-black text-slate-800 mb-3">{a.t}</h3>
-                                <p className="text-slate-600 font-medium">{a.d}</p>
+                            <motion.div
+                                key={i}
+                                {...fadeUp}
+                                transition={{ delay: i * 0.05 }}
+                                whileHover={{ y: -5, scale: 1.02 }}
+                                className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-zlendo-teal/30 hover:bg-zlendo-teal/5 transition-all duration-300 relative overflow-hidden group"
+                            >
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50/50 rounded-bl-[100px] -z-10 group-hover:bg-zlendo-teal/10 transition-colors duration-500" />
+                                <h3 className="text-xl font-black text-slate-800 mb-3 group-hover:text-zlendo-teal transition-colors duration-300">{a.t}</h3>
+                                <p className="text-slate-600 font-medium group-hover:text-slate-700 transition-colors duration-300">{a.d}</p>
                             </motion.div>
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* TABLE / SUMMARY SECTION */}
-            <section className="py-16 lg:py-20 bg-white">
+            < section className="py-16 lg:py-20 bg-white" >
                 <div className="container-custom px-4 max-w-5xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-16">
                         <h2 className="text-3xl font-black text-slate-900 mb-4">One Platform. Six Powerful Ways to Visualize Property.</h2>
@@ -300,10 +213,10 @@ export default function ProductsClient() {
                         </table>
                     </motion.div>
                 </div>
-            </section>
+            </section >
 
             {/* CTA SECTION */}
-            <section className="py-16 lg:py-20 bg-gradient-to-br from-slate-900 to-[#111] text-center text-white border-y border-white/5">
+            < section className="py-16 lg:py-20 bg-gradient-to-br from-slate-900 to-[#111] text-center text-white border-y border-white/5" >
                 <div className="container-custom px-4 max-w-4xl mx-auto space-y-8">
                     <motion.h2 {...fadeUp} className="text-4xl md:text-5xl font-black tracking-tight leading-tight">Ready to Bring Your Next Property to Life?</motion.h2>
                     <motion.p {...fadeUp} className="text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
@@ -319,9 +232,9 @@ export default function ProductsClient() {
                     </motion.div>
                     <motion.p {...fadeUp} className="text-sm font-bold text-slate-500 pt-6">No credit card required. Explore the future of AI-powered property visualization.</motion.p>
                 </div>
-            </section>
+            </section >
 
-        </div>
+        </div >
     );
 }
 

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
     ArrowRight,
@@ -27,29 +28,37 @@ export default function ArchitectureClient() {
                 <div className="absolute inset-0 z-0 opacity-[0.03] bg-[linear-gradient(rgba(255,255,255,1)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,1)_1px,transparent_1px)] bg-[size:40px_40px] mix-blend-overlay" />
                 <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-slate-900 to-transparent z-10" />
 
-                <div className="container-custom px-4 relative z-20 mx-auto max-w-6xl text-left md:text-center">
-                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-2xl border border-teal-500/30 bg-teal-500/10 mb-6 backdrop-blur-md">
-                        <Box className="w-4 h-4 text-teal-400" />
-                        <span className="text-sm font-black tracking-[0.15em] text-teal-400 uppercase">AI-Powered Architectural Visualization</span>
-                    </motion.div>
+                <div className="container-custom px-4 relative z-20 mx-auto max-w-7xl">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div className="text-center lg:text-left">
+                            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7 }} className="inline-flex items-center gap-2 px-4 py-1.5 rounded-2xl border border-teal-500/30 bg-teal-500/10 mb-6 backdrop-blur-md">
+                                <Box className="w-4 h-4 text-teal-400" />
+                                <span className="text-sm font-black tracking-[0.15em] text-teal-400 uppercase">AI-Powered Architectural Visualization</span>
+                            </motion.div>
 
-                    <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }} className="text-4xl md:text-6xl lg:text-[72px] font-black text-white leading-[1.05] tracking-tight mb-6">
-                        Faster Design. <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">Smarter Visualization.</span>
-                    </motion.h1>
+                            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }} className="text-4xl md:text-6xl lg:text-[72px] font-black text-white leading-[1.05] tracking-tight mb-6">
+                                Faster Design. <br className="hidden md:block" />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">Smarter Visualization.</span>
+                            </motion.h1>
 
-                    <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="text-lg md:text-xl text-slate-400 font-medium leading-relaxed max-w-3xl md:mx-auto mb-8">
-                        Transform architectural drawings and concepts into realistic 3D visual experiences that help clients understand your vision before it is built.
-                    </motion.p>
+                            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="text-lg md:text-xl text-slate-400 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-8">
+                                Transform architectural drawings and concepts into realistic 3D visual experiences that help clients understand your vision before it is built.
+                            </motion.p>
 
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }} className="flex flex-col sm:flex-row items-center md:justify-center gap-4">
-                        <Link href="https://app.zlendorealty.com/signup" className="w-full sm:w-auto px-8 py-3.5 bg-teal-600 text-white rounded-2xl font-black text-lg hover:bg-teal-500 transition-colors flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(20,184,166,0.2)]">
-                            Explore AI for Architecture <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <Link href="/business#demo-form" className="w-full sm:w-auto px-8 py-3.5 bg-white/5 text-white rounded-2xl font-black text-lg hover:bg-white/10 transition-colors border border-white/10 backdrop-blur-sm flex items-center justify-center gap-3">
-                            Request a Demo
-                        </Link>
-                    </motion.div>
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.7 }} className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-4">
+                                <Link href="https://app.zlendorealty.com/signup" className="w-full sm:w-auto px-8 py-3.5 bg-teal-600 text-white rounded-2xl font-black text-lg hover:bg-teal-500 transition-colors flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(20,184,166,0.2)]">
+                                    Explore AI for Architecture <ArrowRight className="w-5 h-5 transition-transform" />
+                                </Link>
+                                <Link href="/business#demo-form" className="w-full sm:w-auto px-8 py-3.5 bg-white/5 text-white rounded-2xl font-black text-lg hover:bg-white/10 transition-colors border border-white/10 backdrop-blur-sm flex items-center justify-center gap-3">
+                                    Request a Demo
+                                </Link>
+                            </motion.div>
+                        </div>
+                        <motion.div initial={{ opacity: 0, x: 20, scale: 0.95 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="rounded-3xl overflow-hidden shadow-2xl border border-white/5 relative group w-full h-[350px] lg:h-[450px]">
+                            <Image src="/assets/global/luxury-blueprint.webp" alt="Zlendo Architecture Platform" fill priority className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -64,20 +73,18 @@ export default function ArchitectureClient() {
             </section>
 
             {/* INTRO SECTION */}
-            <section className="py-12 lg:py-16 bg-white relative">
+            <section className="py-12 lg:py-24 bg-white relative">
                 <div className="container-custom px-4 max-w-6xl mx-auto">
-                    <div className="grid lg:grid-cols-12 gap-8 items-start">
-                        <motion.div {...fadeRight} className="lg:col-span-5 sticky top-24">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                        <motion.div {...fadeRight} className="space-y-6">
                             <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1] mb-6">
                                 Turn Architectural Ideas Into <span className="text-teal-600">Experiences</span>
                             </h2>
-                            <div className="w-16 h-1.5 bg-teal-600 rounded-full mb-6" />
-                        </motion.div>
-                        <motion.div {...fadeUp} className="lg:col-span-7 space-y-6">
+                            <div className="w-16 h-1.5 bg-teal-600 rounded-full mb-8" />
                             <p className="text-[20px] text-slate-700 font-medium leading-relaxed">
                                 Architectural drawings communicate structure. Visualization communicates possibility.
                             </p>
-                            <div className="pl-6 border-l-4 border-teal-200 rounded-l-sm">
+                            <div className="pl-6 border-l-4 border-teal-200 rounded-l-sm mt-8">
                                 <p className="text-base text-slate-600 font-medium leading-relaxed mb-4">
                                     Clients want to understand how a building will look, how spaces will connect, how materials will appear, and what the finished project will feel like.
                                 </p>
@@ -88,6 +95,10 @@ export default function ArchitectureClient() {
                                     Instead of relying exclusively on complex visualization workflows, teams can use AI-powered tools to explore concepts, communicate designs, and present projects with greater clarity.
                                 </p>
                             </div>
+                        </motion.div>
+                        <motion.div {...fadeUp} className="relative h-[400px] lg:h-[500px] w-full rounded-[40px] overflow-hidden shadow-2xl border border-slate-100 group">
+                            <Image src="/assets/global/floor-plan-consultation.webp" fill alt="Architecture Team" className="object-cover group-hover:scale-110 transition-transform duration-1000" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
                         </motion.div>
                     </div>
                 </div>
@@ -105,7 +116,7 @@ export default function ArchitectureClient() {
 
                     <div className="flex flex-wrap justify-center items-stretch gap-6">
                         {/* FEATURE 1 */}
-                        <motion.div {...fadeUp} transition={{ delay: 0 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all shadow-sm hover:shadow-xl flex flex-col rounded-[24px]">
+                        <motion.div {...fadeUp} transition={{ delay: 0 }} whileHover={{ y: -8, scale: 1.02 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all duration-300 shadow-sm hover:shadow-2xl flex flex-col rounded-[24px]">
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <LayoutDashboard className="w-5 h-5" />
                             </div>
@@ -129,7 +140,7 @@ export default function ArchitectureClient() {
                         </motion.div>
 
                         {/* FEATURE 2 */}
-                        <motion.div {...fadeUp} transition={{ delay: 0.1 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all shadow-sm hover:shadow-xl flex flex-col rounded-[24px]">
+                        <motion.div {...fadeUp} transition={{ delay: 0.1 }} whileHover={{ y: -8, scale: 1.02 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all duration-300 shadow-sm hover:shadow-2xl flex flex-col rounded-[24px]">
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <Component className="w-5 h-5" />
                             </div>
@@ -150,7 +161,7 @@ export default function ArchitectureClient() {
                         </motion.div>
 
                         {/* FEATURE 3 */}
-                        <motion.div {...fadeUp} transition={{ delay: 0.2 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all shadow-sm hover:shadow-xl flex flex-col rounded-[24px]">
+                        <motion.div {...fadeUp} transition={{ delay: 0.2 }} whileHover={{ y: -8, scale: 1.02 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all duration-300 shadow-sm hover:shadow-2xl flex flex-col rounded-[24px]">
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <Building2 className="w-5 h-5" />
                             </div>
@@ -171,7 +182,7 @@ export default function ArchitectureClient() {
                         </motion.div>
 
                         {/* FEATURE 4 */}
-                        <motion.div {...fadeUp} transition={{ delay: 0 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all shadow-sm hover:shadow-xl flex flex-col rounded-[24px]">
+                        <motion.div {...fadeUp} transition={{ delay: 0 }} whileHover={{ y: -8, scale: 1.02 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all duration-300 shadow-sm hover:shadow-2xl flex flex-col rounded-[24px]">
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <ImageIcon className="w-5 h-5" />
                             </div>
@@ -186,7 +197,7 @@ export default function ArchitectureClient() {
                         </motion.div>
 
                         {/* FEATURE 5 */}
-                        <motion.div {...fadeUp} transition={{ delay: 0.1 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all shadow-sm hover:shadow-xl flex flex-col rounded-[24px]">
+                        <motion.div {...fadeUp} transition={{ delay: 0.1 }} whileHover={{ y: -8, scale: 1.02 }} className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white group p-6 md:p-8 border border-slate-200 hover:border-teal-300 transition-all duration-300 shadow-sm hover:shadow-2xl flex flex-col rounded-[24px]">
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <Video className="w-5 h-5" />
                             </div>
@@ -205,7 +216,10 @@ export default function ArchitectureClient() {
             </section>
 
             {/* PARTNERSHIP */}
-            <section className="py-12 lg:py-20 bg-slate-900 relative overflow-hidden text-white rounded-[32px] mx-4 md:mx-8 mb-6 border border-slate-800 shadow-xl">
+            <section className="py-12 lg:py-20 bg-slate-900 relative overflow-hidden text-white rounded-[32px] mx-4 md:mx-8 mb-6 border border-slate-800 shadow-xl group">
+                <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none">
+                    <Image src="/assets/global/interior-design-walkthrough-client.webp" fill alt="Partnership Architecture Background" className="object-cover group-hover:scale-105 transition-transform duration-1000" />
+                </div>
                 <div className="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
                     <div className="absolute w-[600px] h-[600px] border border-teal-300 rounded-full -top-[300px] -right-[150px]" />
                     <div className="absolute w-[800px] h-[800px] border border-emerald-300 rounded-full -top-[400px] -right-[200px]" />

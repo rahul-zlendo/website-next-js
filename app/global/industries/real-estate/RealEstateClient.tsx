@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
     ArrowRight, CalendarCheck2, Building2, LayoutDashboard, Component, Sparkles, Building,
@@ -60,7 +61,7 @@ export default function RealEstateClient() {
                             </div>
                         </motion.div>
 
-                        <motion.div {...fadeUp} transition={{ delay: 0.1, duration: 0.5 }} className="bg-white rounded-[40px] p-8 md:p-12 text-lg text-slate-700 font-medium leading-relaxed space-y-6 shadow-xl shadow-slate-200/50 relative border border-slate-100">
+                        <motion.div {...fadeUp} transition={{ delay: 0.1, duration: 0.5 }} className="bg-white rounded-[40px] p-8 md:p-12 text-lg text-slate-700 font-medium leading-relaxed space-y-6 shadow-xl shadow-slate-200/50 relative border border-slate-100 group">
                             <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-zlendo-teal to-blue-500 rounded-full opacity-20 blur-3xl pointer-events-none"></div>
                             <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-tr from-orange-400 to-pink-500 rounded-full opacity-10 blur-3xl pointer-events-none"></div>
                             <p className="relative z-10">
@@ -170,6 +171,9 @@ export default function RealEstateClient() {
                                     <li className="flex gap-2 items-start"><CheckCircle2 className="w-5 h-5 text-orange-500 shrink-0" /> Improve development presentations</li>
                                 </ul>
                             </div>
+                            <div className="bg-orange-900/30 border border-orange-800 rounded-2xl p-6 mb-8 text-orange-200 font-medium">
+                                <strong>ROI Opportunity:</strong> Help buyers visualize the complete property faster, reduce presentation costs, and showcase multiple material, finish, and design options from a single space.
+                            </div>
                             <Link href="/products/interiors-exteriors" className="inline-flex items-center gap-2 text-orange-400 font-black hover:text-orange-300 transition-colors mt-auto">
                                 Explore Interiors &amp; Exteriors <ArrowRight className="w-5 h-5" />
                             </Link>
@@ -236,6 +240,7 @@ export default function RealEstateClient() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
+                            { title: 'Increase sales conversion', desc: 'Turn compelling property visuals into more qualified leads and faster sales.', icon: TrendingUp },
                             { title: 'Faster visualization', desc: 'Create property visuals without lengthy manual workflows.', icon: TrendingUp },
                             { title: 'Better buyer understanding', desc: 'Help prospects understand spaces before visiting.', icon: Users },
                             { title: 'Scalable marketing', desc: 'Create visual assets across multiple properties and projects.', icon: LayoutDashboard },
@@ -275,9 +280,12 @@ export default function RealEstateClient() {
                                 </Link>
                             </div>
                         </motion.div>
-                        <motion.div {...fadeUp} className="bg-teal-950/50 border border-teal-800 rounded-[32px] p-8 md:p-12">
-                            <h3 className="text-2xl font-black mb-6 text-teal-100">Partnership Opportunities</h3>
-                            <ul className="space-y-4 text-teal-300 font-medium text-lg">
+                        <motion.div {...fadeUp} className="bg-teal-950/50 border border-teal-800 rounded-[32px] p-8 md:p-12 relative overflow-hidden group shadow-2xl">
+                            <div className="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none">
+                                <Image src="/assets/use-case/modern-architecture-studio.webp" fill alt="Partnership Background" className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                            </div>
+                            <h3 className="text-2xl font-black mb-6 text-teal-100 relative z-10">Partnership Opportunities</h3>
+                            <ul className="space-y-4 text-teal-300 font-medium text-lg relative z-10">
                                 <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-teal-500" /> Real estate companies</li>
                                 <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-teal-500" /> Property developers</li>
                                 <li className="flex items-center gap-3"><CheckCircle2 className="w-5 h-5 text-teal-500" /> Real estate platforms</li>
@@ -314,8 +322,8 @@ export default function RealEstateClient() {
                             'Reduced dependency on fragmented tools',
                             'Easier collaboration between teams'
                         ].map((txt, i) => (
-                            <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100 font-bold text-slate-700 text-sm">
-                                <CheckCircle2 className="w-4 h-4 text-zlendo-teal shrink-0" /> {txt}
+                            <div key={i} className="flex items-center gap-4 p-5 rounded-2xl bg-white border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.03)] font-black text-slate-800 text-base sm:text-lg hover:-translate-y-1 hover:border-zlendo-teal/30 hover:shadow-[0_15px_40px_rgba(45,212,191,0.1)] transition-all cursor-default">
+                                <CheckCircle2 className="w-6 h-6 text-zlendo-teal shrink-0" /> {txt}
                             </div>
                         ))}
                     </motion.div>
