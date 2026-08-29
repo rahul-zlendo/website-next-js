@@ -52,20 +52,20 @@ export default function OnDemandClient() {
     const filteredLectures = onDemandLectures.filter(l => filter === 'All' || l.category === filter);
 
     return (
-        <div className="min-h-screen bg-[#F6F7F9] font-nunito pt-[80px]">
+        <div className="min-h-screen bg-[#F6F7F9] font-nunito">
 
             {/* HERO SECTION */}
-            <section className="relative py-24 bg-zlendo-grey-dark text-white border-y-[6px] border-orange-500 overflow-hidden">
+            <section className="relative py-24 bg-zlendo-grey-dark text-white border-y-[6px] border-zlendo-teal overflow-hidden">
                 {/* Abstract Background Layer */}
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.05)_0%,transparent_70%)]" />
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-500/20 rounded-full blur-[120px] pointer-events-none" />
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-zlendo-teal/20 rounded-full blur-[120px] pointer-events-none" />
 
                 <div className="container-custom px-4 relative z-10 text-center max-w-4xl mx-auto">
-                    <Link href="/events" className="inline-flex items-center gap-2 text-orange-400 font-bold hover:text-orange-300 transition-colors mb-8 text-sm uppercase tracking-widest border border-orange-500/30 bg-orange-500/10 px-4 py-2 rounded-full">
+                    <Link href="/events" className="inline-flex items-center gap-2 text-teal-300 font-bold hover:text-white transition-colors mb-8 text-sm uppercase tracking-widest border border-zlendo-teal/50 bg-zlendo-teal/20 px-4 py-2 rounded-full">
                         <ChevronLeft className="w-4 h-4" /> Back to Upcoming Events
                     </Link>
                     <h1 className="text-4xl md:text-5xl lg:text-7xl font-black mb-6 tracking-tight text-white drop-shadow-md">
-                        On-Demand <span className="text-orange-400">Webinars</span>
+                        On-Demand <span className="text-zlendo-teal">Webinars</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-slate-300 font-medium leading-relaxed drop-shadow-sm max-w-2xl mx-auto">
                         Catch up on all the masterclasses, product Deep Dives, and live workflows you might have missed.
@@ -83,8 +83,8 @@ export default function OnDemandClient() {
                                 key={cat}
                                 onClick={() => setFilter(cat)}
                                 className={`px-6 py-2.5 rounded-full font-bold text-sm md:text-base border transition-all ${filter === cat
-                                        ? 'bg-slate-900 border-slate-900 text-white shadow-lg scale-105'
-                                        : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300 hover:bg-slate-50'
+                                    ? 'bg-slate-900 border-slate-900 text-white shadow-lg scale-105'
+                                    : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300 hover:bg-slate-50'
                                     }`}
                             >
                                 {cat}
@@ -111,7 +111,7 @@ export default function OnDemandClient() {
                                         sizes="(max-width: 768px) 100vw, 33vw"
                                     />
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 shadow-2xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-orange-500 group-hover:border-transparent">
+                                        <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 shadow-2xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-zlendo-teal group-hover:border-transparent">
                                             <PlayCircle className="w-8 h-8 text-white fill-white/10" />
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@ export default function OnDemandClient() {
 
                                 <div className="p-8 flex flex-col flex-grow">
                                     <div className="flex items-center justify-between mb-4">
-                                        <span className="text-xs font-black uppercase tracking-wider text-orange-500 bg-orange-50 px-3 py-1 rounded-md">
+                                        <span className="text-xs font-black uppercase tracking-wider text-zlendo-teal bg-zlendo-teal/10 px-3 py-1 rounded-md">
                                             {item.category}
                                         </span>
                                         <span className="text-sm font-bold text-slate-400 flex items-center gap-1.5">
@@ -137,7 +137,7 @@ export default function OnDemandClient() {
                                     <div className="mt-auto">
                                         <Link
                                             href={item.link}
-                                            className="inline-flex w-full justify-center items-center gap-2 bg-slate-50 border border-slate-200 text-slate-800 font-bold px-6 py-4 rounded-xl hover:bg-slate-900 hover:text-white transition-all group/btn"
+                                            className="inline-flex w-full justify-center items-center gap-2 bg-slate-50 border border-slate-200 text-slate-800 font-bold px-6 py-4 rounded-xl hover:bg-zlendo-teal hover:border-zlendo-teal hover:text-white transition-all group/btn"
                                         >
                                             Watch Recording <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1" />
                                         </Link>

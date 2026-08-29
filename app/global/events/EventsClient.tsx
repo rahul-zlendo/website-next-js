@@ -58,7 +58,7 @@ export default function EventsClient() {
             <section className="bg-white py-10 md:py-16 text-center border-b border-black/5">
                 <div className="container-custom px-4">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-zlendo-grey-dark tracking-tight mb-8">
-                        Live and Upcoming <span className="text-orange-500">Events/Webinars</span>
+                        Live and Upcoming <span className="text-zlendo-teal">Events/Webinars</span>
                     </h1>
 
                     <div className="flex flex-wrap items-center justify-center gap-3 mx-auto mt-4">
@@ -67,7 +67,7 @@ export default function EventsClient() {
                                 key={tab}
                                 onClick={() => setFilter(tab as any)}
                                 className={`px-8 py-2.5 md:px-12 md:py-3.5 rounded-full text-sm md:text-base font-black transition-all border ${filter === tab
-                                    ? 'bg-orange-500 border-orange-500 text-white shadow-[0_8px_20px_rgba(249,115,22,0.3)] scale-105'
+                                    ? 'bg-zlendo-teal border-zlendo-teal text-white shadow-[0_8px_20px_rgba(26,188,156,0.3)] scale-105'
                                     : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-800'
                                     }`}
                             >
@@ -129,10 +129,10 @@ export default function EventsClient() {
                                         <div className="mt-auto">
                                             <Link
                                                 href={`${evt.link}?event=${encodeURIComponent(evt.title)}&eventId=${evt.id}`}
-                                                className="inline-flex items-center gap-2 font-bold text-slate-600 hover:text-orange-500 transition-colors group/link text-lg"
+                                                className="inline-flex items-center gap-2 font-bold text-slate-600 hover:text-zlendo-teal transition-colors group/link text-lg"
                                             >
                                                 Register for the {evt.type}
-                                                <ArrowRight className="w-5 h-5 text-orange-400 group-hover/link:translate-x-1 transition-transform" />
+                                                <ArrowRight className="w-5 h-5 text-zlendo-teal group-hover/link:translate-x-1 transition-transform" />
                                             </Link>
                                         </div>
                                     </div>
@@ -168,7 +168,7 @@ export default function EventsClient() {
                     </p>
                     <Link
                         href="/events/on-demand"
-                        className="inline-block px-10 py-5 bg-orange-500 text-white font-black text-xl rounded-full hover:bg-orange-600 hover:scale-105 shadow-xl transition-all duration-300"
+                        className="inline-block px-10 py-5 bg-zlendo-teal text-white font-black text-xl rounded-full hover:bg-teal-600 hover:scale-105 shadow-xl transition-all duration-300"
                     >
                         Browse On-Demand Webinars
                     </Link>
