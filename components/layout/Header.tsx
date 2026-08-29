@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper } from 'lucide-react';
+import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper, GraduationCap, Presentation, Award } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../common/Logo';
 import { SIGNUP_URL, LOGIN_URL, DASHBOARD_URL } from '@/lib/constants/urls';
@@ -96,6 +96,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
     const resourceLinks = [
         { label: 'Design Library', desc: 'Inspiration gallery', icon: Library, path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', desc: 'Built-in layouts for homes, rooms, and interiors.', icon: LayoutTemplate, path: getPath('/viewalltemplates') },
+        { label: 'Webinars', desc: 'Live PropTech learning', icon: Video, path: getPath('/events') },
         { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: getPath('/tutorials') },
         { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: 'https://helpcenter.zlendorealty.com', openInNewTab: true },
         { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: '/blog' },
@@ -131,6 +132,13 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         { label: 'Affiliate & Partner Program', desc: 'Collaborate and grow together', icon: Share2, path: getPath('/partners') },
         { label: 'Zlendo Realty API Suite', desc: 'Grow your Business with Us', icon: Share2, path: getPath('/products/api-suite') },
 
+    ];
+
+    const collegeLinks = [
+        { label: 'College Partnerships', desc: 'Partner with Zlendo Realty', icon: GraduationCap, path: getPath('#') },
+        { label: 'Workshops', desc: 'Hands-on PropTech training', icon: Presentation, path: getPath('#') },
+        { label: 'Certifications', desc: 'Student skill recognition', icon: Award, path: getPath('#') },
+        { label: 'Webinars Recordings', desc: 'Watch previous sessions', icon: Video, path: getPath('/events/on-demand') },
     ];
 
     const toggleMode = () => {
@@ -374,7 +382,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute top-full left-0 mt-4 w-[640px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-8 grid grid-cols-2 gap-6 overflow-hidden"
+                                        className="absolute top-full left-0 mt-4 w-[640px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 grid grid-cols-2 gap-5 overflow-hidden"
                                     >
                                         <div className="absolute inset-0 bg-gradient-to-br from-zlendo-teal/[0.03] to-transparent pointer-events-none" />
                                         {resourceLinks.map((item) => {
@@ -391,7 +399,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                                     </div>
                                                 </>
                                             );
-                                            const className = "flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/[0.03] transition-all group/item relative z-10";
+                                            const className = "flex gap-4 p-3 rounded-2xl hover:bg-zlendo-teal/[0.03] transition-all group/item relative z-10";
 
                                             if (isExternal) {
                                                 return (
@@ -475,6 +483,44 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                 </AnimatePresence>
                             </div>
                         )}
+
+                        {/* For Colleges Dropdown */}
+                        <div className="relative group">
+                            <button
+                                onClick={() => setActiveDropdown(activeDropdown === 'colleges' ? null : 'colleges')}
+                                className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'colleges' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
+                            >
+                                For Colleges <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'colleges' ? 'rotate-180' : ''}`} />
+                            </button>
+                            <AnimatePresence>
+                                {activeDropdown === 'colleges' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        className="absolute top-full left-0 mt-4 w-[340px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 flex flex-col gap-2"
+                                    >
+                                        {collegeLinks.map((item) => (
+                                            <Link
+                                                key={item.label}
+                                                href={item.path}
+                                                prefetch={true}
+                                                onClick={toggleMode}
+                                                className="flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/5 transition-all group/item"
+                                            >
+                                                <div className="w-10 h-10 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
+                                                    <item.icon className="w-4 h-4" />
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
+                                                    <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
 
                     </div>
                 </div>
@@ -857,6 +903,38 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                         </div>
                                     </>
                                 )}
+
+                                {/* For Colleges Mobile Menu */}
+                                <div>
+                                    <button
+                                        onClick={() => setActiveDropdown(activeDropdown === 'colleges' ? null : 'colleges')}
+                                        className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
+                                    >
+                                        For Colleges
+                                        <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'colleges' ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    <AnimatePresence>
+                                        {activeDropdown === 'colleges' && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10 mb-4"
+                                            >
+                                                {collegeLinks.map(link => (
+                                                    <Link
+                                                        key={link.label}
+                                                        href={link.path}
+                                                        onClick={() => setIsMobileMenuOpen(false)}
+                                                        className="block text-base font-medium text-zlendo-grey-medium hover:text-zlendo-teal"
+                                                    >
+                                                        {link.label}
+                                                    </Link>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
 
                                 <div className="h-px bg-black/5 my-6" />
 
