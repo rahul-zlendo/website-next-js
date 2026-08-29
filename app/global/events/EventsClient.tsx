@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axiosInstance from '../../../lib/services/config/axiosConfig';
+import { REACT_APP_BLOB_KEY } from '../../../lib/config/env';
 
 const eventsData = [
     {
@@ -26,17 +27,40 @@ export default function EventsClient() {
     React.useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await axiosInstance.get('/api/v1/Event/GetAllEvents');
+                const response = await axiosInstance.get('/Event/GetAllEvents');
                 if (response.data && Array.isArray(response.data.data ? response.data.data : response.data)) {
-                    const fetchedEvents = (response.data.data ? response.data.data : response.data).map((evt: any) => ({
-                        id: evt.event_Id,
-                        type: evt.typeId === 1 ? 'Event' : 'Webinar', // naive mapping
-                        title: evt.event_Name,
-                        date: evt.event_Date,
-                        time: evt.event_Time,
-                        image: evt.image,
-                        link: '/events/register'
-                    }));
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0); // normalize time to start of day
+
+                    const fetchedEvents = (response.data.data ? response.data.data : response.data)
+                        .map((evt: any) => {
+                            let parsedDate = new Date(evt.event_Date);
+                            if (isNaN(parsedDate.getTime()) && typeof evt.event_Date === 'string') {
+                                const datePart = evt.event_Date.split(' ')[0];
+                                const parts = datePart.split('-');
+                                if (parts.length === 3) {
+                                    // Convert DD-MM-YYYY to YYYY-MM-DD
+                                    parsedDate = new Date(`${parts[2]}-${parts[1]}-${parts[0]}T00:00:00`);
+                                }
+                            }
+                            return { ...evt, parsedDate };
+                        })
+                        .filter((evt: any) => {
+                            if (!evt.event_Date) return false;
+                            const d = new Date(evt.parsedDate);
+                            d.setHours(0, 0, 0, 0);
+                            return d.getTime() >= today.getTime();
+                        })
+                        .sort((a: any, b: any) => a.parsedDate.getTime() - b.parsedDate.getTime())
+                        .map((evt: any) => ({
+                            id: evt.event_Id,
+                            type: evt.typeId === 1 ? 'Event' : 'Webinar', // naive mapping
+                            title: evt.event_Name,
+                            date: evt.event_Date,
+                            time: evt.event_Time,
+                            image: evt.image ? `${evt.image}?${REACT_APP_BLOB_KEY}` : evt.image,
+                            link: '/events/register'
+                        }));
                     setEvents(fetchedEvents);
                 }
             } catch (error) {
