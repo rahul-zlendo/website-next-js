@@ -19,298 +19,298 @@ export function middleware(request: NextRequest) {
   // ──────────────────────────────────────────────────────────
   // 1.4. Specific Help Center URL Redirects
   // ──────────────────────────────────────────────────────────
-  if (pathname === '/tag/dashboard' || pathname === '/help-center/tag/dashboard') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-dashboard-first-time-user-tour/#1-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/tag/dashboard' || pathname === '/help-center/tag/dashboard') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-dashboard-first-time-user-tour/#1-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/project-cost-estimation' || pathname === '/help-center/category/project-cost-estimation') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-cost-estimator/#0-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/category/project-cost-estimation' || pathname === '/help-center/category/project-cost-estimation') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-cost-estimator/#0-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/zlendo-realty-ai' || pathname === '/help-center/tag/zlendo-realty-ai') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/ai-tools'),
-      301
-    );
-  }
+  // if (pathname === '/tag/zlendo-realty-ai' || pathname === '/help-center/tag/zlendo-realty-ai') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/ai-tools'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/3d-editing-viewing' || pathname === '/help-center/category/3d-editing-viewing') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/3d-view-visualization/#2-toc-title'),
-      301
-    );
-  }
-  if (pathname === '/category/general' || pathname === '/help-center/category/general') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/getting-started/'),
-      301
-    );
-  }
+  // if (pathname === '/category/3d-editing-viewing' || pathname === '/help-center/category/3d-editing-viewing') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/3d-view-visualization/#2-toc-title'),
+  //     301
+  //   );
+  // }
+  // if (pathname === '/category/general' || pathname === '/help-center/category/general') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/getting-started/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/find-projects' || pathname === '/help-center/category/find-projects') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/project-actions/#0-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/category/find-projects' || pathname === '/help-center/category/find-projects') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/project-actions/#0-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/editor' || pathname === '/help-center/category/editor') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/project-workspace'),
-      301
-    );
-  }
+  // if (pathname === '/category/editor' || pathname === '/help-center/category/editor') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/project-workspace'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/account' || pathname === '/help-center/category/account') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/creating-a-zlendorealty-account'),
-      301
-    );
-  }
+  // if (pathname === '/category/account' || pathname === '/help-center/category/account') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/creating-a-zlendorealty-account'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/project-workspace-settings' || pathname === '/help-center/category/project-workspace-settings') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/project-workspace/#19-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/category/project-workspace-settings' || pathname === '/help-center/category/project-workspace-settings') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/project-workspace/#19-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/share-projects' || pathname === '/help-center/tag/share-projects') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/project-actions/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/share-projects' || pathname === '/help-center/tag/share-projects') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/project-actions/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/community' || pathname === '/help-center/category/community') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/'),
-      301
-    );
-  }
+  // if (pathname === '/category/community' || pathname === '/help-center/category/community') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/create-templates' || pathname === '/help-center/category/create-templates') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/'),
-      301
-    );
-  }
+  // if (pathname === '/category/create-templates' || pathname === '/help-center/category/create-templates') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/share-designs' || pathname === '/help-center/category/share-designs') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/#0-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/category/share-designs' || pathname === '/help-center/category/share-designs') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/#0-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/export-plan' || pathname === '/help-center/tag/export-plan') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/export-plan-tool/#0-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/tag/export-plan' || pathname === '/help-center/tag/export-plan') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/export-plan-tool/#0-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/create-template' || pathname === '/help-center/tag/create-template') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/create-template' || pathname === '/help-center/tag/create-template') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/community-posts' || pathname === '/help-center/tag/community-posts') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/community-posts' || pathname === '/help-center/tag/community-posts') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/create-project-templates/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/payment-billing' || pathname === '/help-center/category/payment-billing') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/payment-billing/'),
-      301
-    );
-  }
+  // if (pathname === '/category/payment-billing' || pathname === '/help-center/category/payment-billing') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/payment-billing/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/billing-payments' || pathname === '/help-center/tag/billing-payments') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/payment-billing/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/billing-payments' || pathname === '/help-center/tag/billing-payments') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/payment-billing/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/password' || pathname === '/help-center/tag/password') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/resetting-your-password/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/password' || pathname === '/help-center/tag/password') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/resetting-your-password/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/about-zlendo-realty' || pathname === '/help-center/tag/about-zlendo-realty') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/getting-started/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/about-zlendo-realty' || pathname === '/help-center/tag/about-zlendo-realty') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/getting-started/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/navigation' || pathname === '/help-center/tag/navigation') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-workspace-keyboard-shortcuts-cheat-sheet-navigation-tools/#1-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/tag/navigation' || pathname === '/help-center/tag/navigation') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-workspace-keyboard-shortcuts-cheat-sheet-navigation-tools/#1-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/2d-floor-plan-editing' || pathname === '/help-center/tag/2d-floor-plan-editing') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/2d-floor-planner/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/2d-floor-plan-editing' || pathname === '/help-center/tag/2d-floor-plan-editing') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/2d-floor-planner/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/3d-viewing' || pathname === '/help-center/tag/3d-viewing') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs-category/3d-editing-viewing/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/3d-viewing' || pathname === '/help-center/tag/3d-viewing') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs-category/3d-editing-viewing/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/projects' || pathname === '/help-center/category/projects') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/dashboard-projects/'),
-      301
-    );
-  }
+  // if (pathname === '/category/projects' || pathname === '/help-center/category/projects') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/dashboard-projects/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/zlendo-ai' || pathname === '/help-center/tag/zlendo-ai') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/ai-tools/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/zlendo-ai' || pathname === '/help-center/tag/zlendo-ai') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/ai-tools/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/password-change' || pathname === '/help-center/category/password-change') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/resetting-your-password/'),
-      301
-    );
-  }
+  // if (pathname === '/category/password-change' || pathname === '/help-center/category/password-change') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/resetting-your-password/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/signing-in' || pathname === '/help-center/category/signing-in') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/signing-in/'),
-      301
-    );
-  }
+  // if (pathname === '/category/signing-in' || pathname === '/help-center/category/signing-in') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/signing-in/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/360-walkthrough-panorama' || pathname === '/help-center/category/360-walkthrough-panorama') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/3d-view-visualization/'),
-      301
-    );
-  }
+  // if (pathname === '/category/360-walkthrough-panorama' || pathname === '/help-center/category/360-walkthrough-panorama') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/3d-view-visualization/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/projects' || pathname === '/help-center/tag/projects') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/dashboard-projects/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/projects' || pathname === '/help-center/tag/projects') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/dashboard-projects/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/workspace-navigation' || pathname === '/help-center/category/workspace-navigation') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-workspace-keyboard-shortcuts-cheat-sheet-navigation-tools/#1-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/category/workspace-navigation' || pathname === '/help-center/category/workspace-navigation') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-workspace-keyboard-shortcuts-cheat-sheet-navigation-tools/#1-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/manage-projects' || pathname === '/help-center/category/manage-projects') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/project-actions/#1-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/category/manage-projects' || pathname === '/help-center/category/manage-projects') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/project-actions/#1-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/render' || pathname === '/help-center/category/render') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/render-tool/'),
-      301
-    );
-  }
+  // if (pathname === '/category/render' || pathname === '/help-center/category/render') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/render-tool/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/2d-drawing-editing' || pathname === '/help-center/category/2d-drawing-editing') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/2d-floor-planner/'),
-      301
-    );
-  }
+  // if (pathname === '/category/2d-drawing-editing' || pathname === '/help-center/category/2d-drawing-editing') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/2d-floor-planner/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/vastu' || pathname === '/help-center/category/vastu') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/vastu-tool/'),
-      301
-    );
-  }
+  // if (pathname === '/category/vastu' || pathname === '/help-center/category/vastu') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/vastu-tool/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/interior-design' || pathname === '/help-center/category/interior-design') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/2d-floor-planner/'),
-      301
-    );
-  }
+  // if (pathname === '/category/interior-design' || pathname === '/help-center/category/interior-design') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/2d-floor-planner/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/ai-inspiration' || pathname === '/help-center/category/ai-inspiration') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/ai-tools/#1-toc-title'),
-      301
-    );
-  }
+  // if (pathname === '/category/ai-inspiration' || pathname === '/help-center/category/ai-inspiration') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/ai-tools/#1-toc-title'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/getting-started' || pathname === '/help-center/category/getting-started') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/getting-started/'),
-      301
-    );
-  }
+  // if (pathname === '/category/getting-started' || pathname === '/help-center/category/getting-started') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/getting-started/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/category/real-world-preview' || pathname === '/help-center/category/real-world-preview') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/3d-view-visualization/'),
-      301
-    );
-  }
+  // if (pathname === '/category/real-world-preview' || pathname === '/help-center/category/real-world-preview') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/3d-view-visualization/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/project-estimation' || pathname === '/help-center/tag/project-estimation') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-cost-estimator/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/project-estimation' || pathname === '/help-center/tag/project-estimation') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/zlendorealty-cost-estimator/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/creating-new-projects' || pathname === '/help-center/tag/creating-new-projects') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/project-actions/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/creating-new-projects' || pathname === '/help-center/tag/creating-new-projects') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/project-actions/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname === '/tag/vastu-report' || pathname === '/help-center/tag/vastu-report') {
-    return NextResponse.redirect(
-      new URL('https://helpcenter.zlendorealty.com/docs/vastu-tool/'),
-      301
-    );
-  }
+  // if (pathname === '/tag/vastu-report' || pathname === '/help-center/tag/vastu-report') {
+  //   return NextResponse.redirect(
+  //     new URL('https://helpcenter.zlendorealty.com/docs/vastu-tool/'),
+  //     301
+  //   );
+  // }
 
-  if (pathname.includes('/wp-admin') || pathname.includes('/wp-content') || pathname.includes('/wp-login') || pathname.includes('wp-admin/install.php')) {
-    return NextResponse.redirect(
-      new URL('https://zlendorealty.com'),
-      301
-    );
-  }
+  // if (pathname.includes('/wp-admin') || pathname.includes('/wp-content') || pathname.includes('/wp-login') || pathname.includes('wp-admin/install.php')) {
+  //   return NextResponse.redirect(
+  //     new URL('https://zlendorealty.com'),
+  //     301
+  //   );
+  // }
 
   // ──────────────────────────────────────────────────────────
   // 1.5. Redirect Help Center to subdomain
@@ -320,23 +320,23 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/in/help-center') ||
     pathname.startsWith('/global/help-center');
 
-  if (isHelpCenter) {
-    const searchParams = request.nextUrl.search;
-    const cleanPath = pathname
-      .replace('/in/help-center', '')
-      .replace('/global/help-center', '')
-      .replace('/help-center', '');
+  // if (isHelpCenter) {
+  //   const searchParams = request.nextUrl.search;
+  //   const cleanPath = pathname
+  //     .replace('/in/help-center', '')
+  //     .replace('/global/help-center', '')
+  //     .replace('/help-center', '');
 
-    return NextResponse.redirect(
-      new URL(`https://helpcenter.zlendorealty.com`),
-      301
-    );
+  //   return NextResponse.redirect(
+  //     new URL(`https://helpcenter.zlendorealty.com`),
+  //     301
+  //   );
 
-    // return NextResponse.redirect(
-    //   new URL(`https://helpcenter.zlendorealty.com${cleanPath}${searchParams}`),
-    //   301
-    // );
-  }
+  //   // return NextResponse.redirect(
+  //   //   new URL(`https://helpcenter.zlendorealty.com${cleanPath}${searchParams}`),
+  //   //   301
+  //   // );
+  // }
 
   // ──────────────────────────────────────────────────────────
   // 1.6. Blog — served locally from Sanity (migrated off WordPress).
