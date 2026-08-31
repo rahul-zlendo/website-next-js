@@ -164,6 +164,13 @@ export default defineConfig([
                     .schemaType('tutorialsPage')
                     .documentId('singleton-tutorialsPage')
                 ),
+              S.listItem()
+                .title('Page: On-Demand Webinars')
+                .child(
+                  S.document()
+                    .schemaType('onDemandPage')
+                    .documentId('singleton-onDemandPage')
+                ),
               S.divider(),
               S.listItem()
                 .title('Product: VR Studio')

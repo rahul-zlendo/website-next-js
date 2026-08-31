@@ -1294,3 +1294,21 @@ export const blogPostBySlugQuery = groq`
     body
   }
 `;
+
+export const onDemandPageQuery = groq`
+  *[_type == "onDemandPage" || _id == "singleton-onDemandPage"][0] {
+    seoTitle,
+    seoDescription,
+    heroTitlePrefix,
+    heroTitleHighlight,
+    heroDesc,
+    lectures[]{
+      videoId,
+      title,
+      category,
+      duration,
+      date,
+      link
+    }
+  }
+`;
