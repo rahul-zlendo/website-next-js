@@ -91,6 +91,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/events/on-demand', priority: 0.8, changeFrequency: 'weekly' as const, isGlobal: true },
     { path: '/events/register', priority: 0.7, changeFrequency: 'monthly' as const, isGlobal: true },
 
+    // College learning pages
+    { path: '/colleges/partnerships', priority: 0.9, changeFrequency: 'monthly' as const },
+    { path: '/colleges/workshops', priority: 0.8, changeFrequency: 'monthly' as const },
+    { path: '/colleges/certifications', priority: 0.8, changeFrequency: 'monthly' as const },
+
     // Policy pages
     { path: '/privacy-policy', priority: 0.3, changeFrequency: 'monthly' as const },
     { path: '/terms-of-service', priority: 0.3, changeFrequency: 'monthly' as const },

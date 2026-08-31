@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper, GraduationCap, Presentation, Award } from 'lucide-react';
+import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper, GraduationCap, Presentation, Award, Trophy } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../common/Logo';
 import { SIGNUP_URL, LOGIN_URL, DASHBOARD_URL } from '@/lib/constants/urls';
@@ -135,10 +135,11 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
     ];
 
     const collegeLinks = [
-        { label: 'College Partnerships', desc: 'Partner with Zlendo Realty', icon: GraduationCap, path: getPath('#') },
-        { label: 'Workshops', desc: 'Hands-on PropTech training', icon: Presentation, path: getPath('#') },
-        { label: 'Certifications', desc: 'Student skill recognition', icon: Award, path: getPath('#') },
-        { label: 'Webinars Recordings', desc: 'Watch previous sessions', icon: Video, path: getPath('/events/on-demand') },
+        { label: 'College Partnerships', desc: 'Build an industry-ready AEC program', icon: GraduationCap, path: getPath('/colleges/partnerships') },
+        { label: 'Workshops', desc: 'Hands-on PropTech training', icon: Presentation, path: getPath('/colleges/workshops') },
+        { label: 'Design Battle', desc: 'Create, compete, and showcase your skills', icon: Trophy, path: '/design-battle' },
+        { label: 'Certifications', desc: 'Structured AEC skill credentials', icon: Award, path: getPath('/colleges/certifications') },
+        // { label: 'Webinars Recordings', desc: 'Watch previous sessions', icon: Video, path: getPath('/events/on-demand') },
     ];
 
     const toggleMode = () => {
