@@ -23,13 +23,14 @@ import contactPage from './contactPage';
 import interiorDesignPage from './interiorDesignPage';
 import vastuOptimizationPage from './vastuOptimizationPage';
 import newHomeBuildingPage from './newHomeBuildingPage';
+import onDemandPage from './onDemandPage';
 
 // Blog / News content model (WordPress migration → Sanity)
 import author from './author';
 import category from './category';
 import post from './post';
 
-export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, interiorDesignPage, vastuOptimizationPage, newHomeBuildingPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage, commercialSpacesPage, builderAndPromoterPage, nriRemotePlanningPage, developerSolutionsPage, vrStudioPage, apiSuitePage, partnersPage, contactPage, author, category, post];
+export const schemaTypes = [homePage, siteSettings, floorPlannerPage, twoDTo3DPage, homeRemodelingPage, roomStylerPage, vastuPage, interiorsExteriorsPage, interiorDesignPage, vastuOptimizationPage, newHomeBuildingPage, onDemandPage, costEstimatorPage, realisticRendersPage, virtualWalkthroughPage, businessPage, viewAllTemplatesPage, tutorialsPage, commercialSpacesPage, builderAndPromoterPage, nriRemotePlanningPage, developerSolutionsPage, vrStudioPage, apiSuitePage, partnersPage, contactPage, author, category, post];
 
 
 

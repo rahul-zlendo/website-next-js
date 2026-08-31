@@ -6,50 +6,33 @@ import Link from 'next/link';
 import { PlayCircle, Clock, ArrowRight, ChevronLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const onDemandLectures = [
-    {
-        id: 1,
-        title: 'The Future of AI in Architecture & Civil Engineering',
-        category: 'Architecture',
-        duration: '45 mins',
-        date: 'August 12, 2026',
-        image: '/assets/global/interior-design-consultation.webp',
-        link: '#'
-    },
-    {
-        id: 2,
-        title: 'Mastering the 2D to 3D Conversion Engine',
-        category: 'Workflow',
-        duration: '60 mins',
-        date: 'July 28, 2026',
-        image: '/assets/2d-to-3d/after-render.webp',
-        link: '#'
-    },
-    {
-        id: 3,
-        title: 'Vastu Optimization Using Zlendo AI',
-        category: 'AI Planning',
-        duration: '35 mins',
-        date: 'July 15, 2026',
-        image: '/assets/use-case/modern-architecture-studio.jpg',
-        link: '#'
-    },
-    {
-        id: 4,
-        title: 'Client Presentations That Win Tenders',
-        category: 'Business',
-        duration: '50 mins',
-        date: 'June 30, 2026',
-        image: '/assets/design-presentation/hero-dashboard.webp',
-        link: '#'
-    },
-];
+interface OnDemandLecture {
+    videoId: string;
+    title: string;
+    category: string;
+    duration: string;
+    date: string;
+    link?: string;
+}
 
-export default function OnDemandClient() {
+interface OnDemandClientProps {
+    data?: {
+        seoTitle?: string;
+        seoDescription?: string;
+        heroTitlePrefix?: string;
+        heroTitleHighlight?: string;
+        heroDesc?: string;
+        lectures?: OnDemandLecture[];
+    };
+}
+
+export default function OnDemandClient({ data }: OnDemandClientProps) {
     const [filter, setFilter] = useState('All');
     const categories = ['All', 'Architecture', 'Workflow', 'AI Planning', 'Business'];
 
-    const filteredLectures = onDemandLectures.filter(l => filter === 'All' || l.category === filter);
+    const lecturesList = data?.lectures || [];
+
+    const filteredLectures = lecturesList.filter(l => filter === 'All' || l.category === filter);
 
     return (
         <div className="min-h-screen bg-[#F6F7F9] font-nunito">
@@ -65,10 +48,10 @@ export default function OnDemandClient() {
                         <ChevronLeft className="w-4 h-4" /> Back to Upcoming Events
                     </Link>
                     <h1 className="text-4xl md:text-5xl lg:text-7xl font-black mb-6 tracking-tight text-white drop-shadow-md">
-                        On-Demand <span className="text-zlendo-teal">Webinars</span>
+                        {data?.heroTitlePrefix || 'On-Demand'} <span className="text-zlendo-teal">{data?.heroTitleHighlight || 'Webinars'}</span>
                     </h1>
                     <p className="text-xl md:text-2xl text-slate-300 font-medium leading-relaxed drop-shadow-sm max-w-2xl mx-auto">
-                        Catch up on all the masterclasses, product Deep Dives, and live workflows you might have missed.
+                        {data?.heroDesc || 'Catch up on all the masterclasses, product Deep Dives, and live workflows you might have missed.'}
                     </p>
                 </div>
             </section>
@@ -98,24 +81,24 @@ export default function OnDemandClient() {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.1 }}
-                                key={item.id}
+                                key={item.videoId || index}
                                 className="bg-white rounded-3xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.06)] border border-slate-100 group flex flex-col"
                             >
                                 {/* 16:9 Video Thumbnail aspect ratio */}
-                                <div className="relative aspect-video bg-slate-900 overflow-hidden cursor-pointer flex-shrink-0">
-                                    <Image
-                                        src={item.image}
-                                        alt={item.title}
-                                        fill
-                                        className="object-cover opacity-80 group-hover:scale-105 group-hover:opacity-60 transition-all duration-700"
-                                        sizes="(max-width: 768px) 100vw, 33vw"
-                                    />
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 shadow-2xl group-hover:scale-110 transition-transform duration-300 group-hover:bg-zlendo-teal group-hover:border-transparent">
-                                            <PlayCircle className="w-8 h-8 text-white fill-white/10" />
-                                        </div>
-                                    </div>
-                                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10">
+                                <div className="relative aspect-video bg-slate-900 overflow-hidden flex-shrink-0">
+                                    {item.videoId && (
+                                        <iframe
+                                            width="100%"
+                                            height="100%"
+                                            src={`https://www.youtube.com/embed/${item.videoId}`}
+                                            title={item.title}
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                            className="absolute top-0 left-0 w-full h-full"
+                                        />
+                                    )}
+                                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 pointer-events-none">
                                         {item.duration}
                                     </div>
                                 </div>
@@ -134,14 +117,14 @@ export default function OnDemandClient() {
                                         {item.title}
                                     </h3>
 
-                                    <div className="mt-auto">
+                                    {/* <div className="mt-auto">
                                         <Link
-                                            href={item.link}
+                                            href={item.link || '#'}
                                             className="inline-flex w-full justify-center items-center gap-2 bg-slate-50 border border-slate-200 text-slate-800 font-bold px-6 py-4 rounded-xl hover:bg-zlendo-teal hover:border-zlendo-teal hover:text-white transition-all group/btn"
                                         >
                                             Watch Recording <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1" />
                                         </Link>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </motion.div>
                         ))}
