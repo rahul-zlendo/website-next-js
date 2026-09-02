@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { PlayCircle, Clock, ArrowRight, ChevronLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -27,6 +28,8 @@ interface OnDemandClientProps {
 }
 
 export default function OnDemandClient({ data }: OnDemandClientProps) {
+    const pathname = usePathname();
+    const isIndia = pathname?.startsWith('/in');
     const [filter, setFilter] = useState('All');
     const categories = ['All', 'Architecture', 'Workflow', 'AI Planning', 'Business'];
 
@@ -44,7 +47,7 @@ export default function OnDemandClient({ data }: OnDemandClientProps) {
                 <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-zlendo-teal/20 rounded-full blur-[120px] pointer-events-none" />
 
                 <div className="container-custom px-4 relative z-10 text-center max-w-4xl mx-auto">
-                    <Link href="/events" className="inline-flex items-center gap-2 text-teal-300 font-bold hover:text-white transition-colors mb-8 text-sm uppercase tracking-widest border border-zlendo-teal/50 bg-zlendo-teal/20 px-4 py-2 rounded-full">
+                    <Link href={isIndia ? "/in/events" : "/events"} className="inline-flex items-center gap-2 text-teal-300 font-bold hover:text-white transition-colors mb-8 text-sm uppercase tracking-widest border border-zlendo-teal/50 bg-zlendo-teal/20 px-4 py-2 rounded-full">
                         <ChevronLeft className="w-4 h-4" /> Back to Upcoming Events
                     </Link>
                     <h1 className="text-4xl md:text-5xl lg:text-7xl font-black mb-6 tracking-tight text-white drop-shadow-md">

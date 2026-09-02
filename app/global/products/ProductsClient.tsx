@@ -47,7 +47,7 @@ export default function ProductsClient() {
 
                         {/* Hero Image */}
                         <motion.div initial={{ opacity: 0, x: 20, scale: 0.95 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="rounded-3xl overflow-hidden shadow-2xl border border-black/5 relative group w-full">
-                            <Image src="/assets/design-presentation/hero-dashboard.webp" alt="Zlendo AI Platform" width={1200} height={800} priority className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700" />
+                            <Image src="/assets/global/floor-plan-consultation.webp" alt="Zlendo AI Floor Planner Drafting tool" width={1200} height={800} priority className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700" />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                         </motion.div>
                     </div>
@@ -100,8 +100,8 @@ export default function ProductsClient() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[
-                            { title: 'AI Floor Planner', desc: 'Accurate 2D & 3D space planning with intelligent wall snapping, and smart drag-and-drop elements.', icon: LayoutDashboard, img: '/assets/global/interior-design-consultation.webp', link: '/products/floor-planner', color: 'text-orange-400', bg: 'bg-orange-500/10' },
-                            { title: '2D to 3D Converter', desc: 'Upload a flat drawing and instantly turn it into a presentation-ready 3D experience.', icon: Cuboid, img: '/assets/2d-to-3d/after-render.webp', link: '/products/2d-to-3d', color: 'text-purple-400', bg: 'bg-purple-500/10' },
+                            { title: 'AI Floor Planner', desc: 'Accurate 2D & 3D space planning with intelligent wall snapping, and smart drag-and-drop elements.', icon: LayoutDashboard, img: '/assets/global/floor-plan-discussion.webp', link: '/products/floor-planner', color: 'text-orange-400', bg: 'bg-orange-500/10' },
+                            { title: '2D to 3D Converter', desc: 'Upload a flat drawing and instantly turn it into a presentation-ready 3D experience.', icon: Cuboid, img: '/assets/Home-Page/2d-to-3d-convertor.webp', link: '/products/2d-to-3d', color: 'text-purple-400', bg: 'bg-purple-500/10' },
                             { title: 'Smart Room Styler', desc: 'Instantly restyle rooms with AI precision, experiment with materials and layouts rapidly.', icon: PaintBucket, img: '/assets/use-case/modern-architecture-studio.jpg', link: '/products/room-styler', color: 'text-pink-400', bg: 'bg-pink-500/10' },
                             { title: 'Interiors & Exteriors', desc: 'Robust region-aware design generation optimized for any lighting or environment condition.', icon: Building, img: '/assets/use-case/modern-indian-home-interior.webp', link: '/products/interiors-exteriors', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
                             { title: 'Realistic Renders', desc: 'Bypass heavy local rendering software. Photorealistic cloud visualization in seconds.', icon: ImageIcon, img: '/assets/design-presentation/hero-dashboard.webp', link: '/products/realistic-renders', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },

@@ -35,6 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Industries pages
     { path: '/industries/real-estate', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
     { path: '/industries/architecture', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
+    { path: '/industries/interior-designer', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
 
     // Product pages
     { path: '/products', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
