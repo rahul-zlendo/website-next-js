@@ -2,7 +2,7 @@
 
 import React, { useState, Suspense, useEffect } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import axiosInstance from '../../../../lib/services/config/axiosConfig';
 import {
@@ -177,6 +177,9 @@ function RegisterFormContent() {
 }
 
 export default function RegisterClient() {
+    const pathname = usePathname();
+    const isIndia = pathname?.startsWith('/in');
+
     const highlights = [
         { icon: CalendarDays, label: 'Exclusive Live Sessions' },
         { icon: Video, label: 'Event Recordings Sent' },
@@ -190,7 +193,7 @@ export default function RegisterClient() {
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-zlendo-teal/[0.04] blur-[120px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
                 <div className="container mx-auto px-6 lg:px-20 relative z-10">
 
-                    <Link href="/events" className="inline-flex items-center gap-2 text-slate-500 font-bold hover:text-slate-900 transition-colors mb-10 text-sm">
+                    <Link href={isIndia ? "/in/events" : "/events"} className="inline-flex items-center gap-2 text-slate-500 font-bold hover:text-slate-900 transition-colors mb-10 text-sm">
                         <ChevronLeft className="w-4 h-4" /> Back to Upcoming Events
                     </Link>
 

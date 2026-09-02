@@ -155,6 +155,9 @@ export default function ArchitectureClient() {
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Explore spaces from multiple perspectives</li>
                                 </ul>
                             </div>
+                            <div className="bg-teal-50 p-4 rounded-xl border border-teal-100 mb-6">
+                                <p className="text-xs font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Repurpose existing drawings faster and reduce time spent recreating plans for 3D visualization.</p>
+                            </div>
                             <Link href="/products/2d-to-3d" className="inline-flex items-center gap-2 text-teal-600 font-black hover:text-teal-500 transition-colors mt-auto">
                                 Explore 2D to 3D <ArrowRight className="w-5 h-5" />
                             </Link>
@@ -175,6 +178,9 @@ export default function ArchitectureClient() {
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Visualize landscaping</li>
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Communicate the complete architectural vision</li>
                                 </ul>
+                            </div>
+                            <div className="bg-teal-50 p-4 rounded-xl border border-teal-100 mb-6">
+                                <p className="text-xs font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Explore more design options faster and reduce the time and cost of creating multiple visualization concepts.</p>
                             </div>
                             <Link href="/products/interiors-exteriors" className="inline-flex items-center gap-2 text-teal-600 font-black hover:text-teal-500 transition-colors mt-auto">
                                 Explore Interiors &amp; Exteriors <ArrowRight className="w-5 h-5" />
@@ -262,22 +268,33 @@ export default function ArchitectureClient() {
 
             {/* SERVICE REQUEST */}
             <section className="py-12 lg:py-16 bg-white">
-                <div className="container-custom px-4 max-w-4xl mx-auto text-center border border-slate-100 rounded-[32px] py-12 px-6 shadow-sm">
-                    <motion.div {...fadeUp}>
-                        <div className="w-16 h-16 bg-teal-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <Workflow className="w-8 h-8 text-teal-600" />
-                        </div>
-                        <h2 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6">Keep Your Design Workflow Moving</h2>
-                        <p className="text-lg text-slate-600 font-medium leading-relaxed mb-4">
-                            Design revisions shouldn't become visualization bottlenecks.
-                        </p>
-                        <p className="text-base text-slate-500 font-medium leading-relaxed mb-8 max-w-2xl mx-auto">
-                            Zlendo Realty helps architectural teams move continuously from concept to presentation by reducing repetitive visualization tasks and connecting planning, styling, rendering, and walkthrough workflows.
-                        </p>
-                        <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-3.5 bg-slate-900 text-white rounded-2xl font-black text-base hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20">
-                            Request Architecture Solutions <ArrowRight className="w-4 h-4" />
-                        </Link>
-                    </motion.div>
+                <div className="container-custom px-4 max-w-6xl mx-auto">
+                    <div className="bg-white border border-slate-100 rounded-[32px] overflow-hidden shadow-xl shadow-slate-200/40 flex flex-col lg:flex-row">
+                        <motion.div {...fadeUp} className="w-full lg:w-1/2 relative min-h-[300px] lg:min-h-[400px]">
+                            <Image src="/assets/use-case/modern-architecture-studio.webp" alt="Architecture team collaborating" fill className="object-cover" />
+                        </motion.div>
+
+                        <motion.div {...fadeUp} className="w-full lg:w-1/2 p-8 md:p-12 text-left flex flex-col justify-center">
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 border border-teal-100 text-teal-600 font-bold text-xs uppercase tracking-widest mb-6 w-fit">
+                                <Workflow className="w-3 h-3" /> Professional Workflow
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6">Keep Your Design Workflow Moving</h2>
+                            <p className="text-lg text-slate-600 font-medium leading-relaxed mb-4">
+                                Design revisions shouldn't become visualization bottlenecks.
+                            </p>
+                            <p className="text-base text-slate-500 font-medium leading-relaxed mb-8">
+                                Zlendo Realty helps architectural teams move continuously from concept to presentation by reducing repetitive visualization tasks and connecting planning, styling, rendering, and walkthrough workflows.
+                            </p>
+                            <div className="flex flex-col sm:flex-row items-center justify-start gap-4">
+                                <Link href="/business#demo-form" className="inline-flex justify-center items-center gap-2 px-6 py-3.5 bg-slate-900 text-white rounded-2xl font-black text-base hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20 w-full sm:w-auto">
+                                    Request Solutions <ArrowRight className="w-4 h-4" />
+                                </Link>
+                                <Link href="/contact" className="inline-flex justify-center items-center gap-2 px-6 py-3.5 bg-white text-slate-900 border border-slate-200 rounded-2xl font-black text-base hover:bg-slate-50 transition-colors w-full sm:w-auto">
+                                    Hire a professional <ArrowRight className="w-4 h-4" />
+                                </Link>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 

@@ -16,30 +16,45 @@ export default function RealEstateClient() {
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal overflow-hidden border-t border-slate-100">
             {/* HERO SECTION */}
-            <section className="relative pt-15 pb-15 md:pt-24 md:pb-24 overflow-hidden bg-slate-900 border-b border-black/5">
+            <section className="relative pt-10 pb-10 md:pt-14 md:pb-14 overflow-hidden bg-slate-900 border-b border-black/5">
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zlendo-teal/20 via-transparent to-transparent pointer-events-none" />
-                <div className="container-custom px-4 relative z-10 text-center max-w-5xl mx-auto">
-                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-zlendo-teal/30 bg-zlendo-teal/10 mb-8 backdrop-blur-md">
-                        <Building2 className="w-4 h-4 text-teal-400" />
-                        <span className="text-xs font-black tracking-widest text-teal-400 uppercase">AI-Powered Property Visualization</span>
-                    </motion.div>
+                <div className="container-custom px-4 relative z-10 max-w-7xl mx-auto">
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                        <div className="text-center lg:text-left">
+                            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }} className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-zlendo-teal/30 bg-zlendo-teal/10 mb-8 backdrop-blur-md">
+                                <Building2 className="w-4 h-4 text-teal-400" />
+                                <span className="text-xs font-black tracking-widest text-teal-400 uppercase">AI-Powered Property Visualization</span>
+                            </motion.div>
 
-                    <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.6 }} className="text-5xl md:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8">
-                        Designed for Real Estate.
-                    </motion.h1>
+                            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.6 }} className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-8">
+                                Designed for Real Estate.
+                            </motion.h1>
 
-                    <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }} className="text-xl md:text-2xl text-slate-300 font-medium leading-relaxed max-w-3xl mx-auto mb-10">
-                        Turn floor plans, properties, and concepts into immersive 3D experiences that help buyers understand, engage with, and confidently choose properties.
-                    </motion.p>
+                            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }} className="text-xl text-slate-300 font-medium leading-relaxed max-w-2xl mx-auto lg:mx-0 mb-10">
+                                Turn floor plans, properties, and concepts into immersive 3D experiences that help buyers understand, engage with, and confidently choose properties.
+                            </motion.p>
 
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }} className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="https://app.zlendorealty.com/signup" className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal text-white rounded-2xl font-black text-lg hover:scale-105 hover:bg-teal-400 transition-all shadow-[0_10px_30px_rgba(45,212,191,0.2)] flex items-center justify-center gap-2">
-                            Get Started with Zlendo <ArrowRight className="w-5 h-5" />
-                        </Link>
-                        <Link href="/business#demo-form" className="w-full sm:w-auto px-8 py-4 bg-white/5 text-white rounded-2xl font-black text-lg hover:bg-white/10 transition-all backdrop-blur-sm border border-white/10 flex items-center justify-center gap-2">
-                            <CalendarCheck2 className="w-5 h-5" /> Request a Demo
-                        </Link>
-                    </motion.div>
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.6 }} className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                                <Link href="https://app.zlendorealty.com/signup" className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal text-white rounded-2xl font-black text-lg hover:scale-105 hover:bg-teal-400 transition-all shadow-[0_10px_30px_rgba(45,212,191,0.2)] flex items-center justify-center gap-2">
+                                    Get Started with Zlendo <ArrowRight className="w-5 h-5" />
+                                </Link>
+                                <Link href="/business#demo-form" className="w-full sm:w-auto px-8 py-4 bg-white/5 text-white rounded-2xl font-black text-lg hover:bg-white/10 transition-all backdrop-blur-sm border border-white/10 flex items-center justify-center gap-2">
+                                    <CalendarCheck2 className="w-5 h-5" /> Request a Demo
+                                </Link>
+                            </motion.div>
+                        </div>
+
+                        <motion.div initial={{ opacity: 0, x: 20, scale: 0.95 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ delay: 0.4, duration: 0.8 }} className="rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/10 relative group w-full h-[350px] lg:h-[450px]">
+                            <Image src="/assets/global/villa-night.webp" alt="Real Estate Property Visualization" fill priority className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent pointer-events-none" />
+                            <div className="absolute bottom-6 left-6 text-left">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold text-xs uppercase tracking-widest mb-2">
+                                    <Sparkles className="w-3 h-3" /> Photorealistic Rendering
+                                </div>
+                                <h3 className="text-xl font-black text-white">Luxury Villa Exterior</h3>
+                            </div>
+                        </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -61,18 +76,28 @@ export default function RealEstateClient() {
                             </div>
                         </motion.div>
 
-                        <motion.div {...fadeUp} transition={{ delay: 0.1, duration: 0.5 }} className="bg-white rounded-[40px] p-8 md:p-12 text-lg text-slate-700 font-medium leading-relaxed space-y-6 shadow-xl shadow-slate-200/50 relative border border-slate-100 group">
-                            <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-zlendo-teal to-blue-500 rounded-full opacity-20 blur-3xl pointer-events-none"></div>
-                            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-tr from-orange-400 to-pink-500 rounded-full opacity-10 blur-3xl pointer-events-none"></div>
-                            <p className="relative z-10">
-                                Real estate buyers don't always see what you see. A 2D floor plan may make sense to a professional, but many buyers struggle to understand room dimensions, layouts, furniture placement, finishes, and how a property will actually feel.
-                            </p>
-                            <p className="relative z-10">
-                                This becomes even more challenging when marketing properties that are under construction or not yet furnished. <strong className="text-slate-900 border-b-2 border-zlendo-teal/30 pb-0.5">Zlendo Realty bridges that visualization gap.</strong>
-                            </p>
-                            <p className="relative z-10">
-                                Our AI-powered property visualization platform transforms floor plans and property concepts into interactive, realistic experiences that help customers understand the space before they visit or before the property is built. Whether you're marketing a single property or hundreds of units, Zlendo Realty helps your team create compelling visual experiences faster.
-                            </p>
+                        <motion.div {...fadeUp} transition={{ delay: 0.1, duration: 0.5 }} className="relative h-full flex flex-col justify-center">
+                            <div className="rounded-[32px] overflow-hidden shadow-2xl relative mb-8 group h-[300px] border border-slate-100">
+                                <Image src="/assets/global/interior-design-walkthrough-client.webp" alt="Real Estate Client Walkthrough" fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent flex items-end p-6">
+                                    <div className="text-white">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/30 backdrop-blur-md border border-white/10 font-bold text-xs uppercase tracking-widest mb-2">
+                                            <Headset className="w-3 h-3" /> Immersive Experience
+                                        </div>
+                                        <h3 className="text-lg font-black">Digital Property Walkthroughs</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-white rounded-[32px] p-8 md:p-10 text-lg text-slate-700 font-medium leading-relaxed space-y-6 shadow-xl shadow-slate-200/50 relative border border-slate-100 group">
+                                <div className="absolute -top-8 -right-8 w-32 h-32 bg-gradient-to-br from-zlendo-teal to-blue-500 rounded-full opacity-10 blur-3xl pointer-events-none"></div>
+                                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-tr from-orange-400 to-pink-500 rounded-full opacity-5 blur-3xl pointer-events-none"></div>
+                                <p className="relative z-10">
+                                    Real estate buyers don't always see what you see. A 2D floor plan may make sense to a professional, but many buyers struggle to understand room dimensions, layouts, furniture placement, finishes, and how a property will actually feel.
+                                </p>
+                                <p className="relative z-10">
+                                    This becomes even more challenging when marketing properties that are under construction or not yet furnished. <strong className="text-slate-900 border-b-2 border-zlendo-teal/30 pb-0.5">Zlendo Realty bridges that visualization gap.</strong>
+                                </p>
+                            </div>
                         </motion.div>
                     </div>
                 </div>

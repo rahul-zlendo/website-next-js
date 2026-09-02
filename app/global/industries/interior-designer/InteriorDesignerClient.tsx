@@ -278,7 +278,7 @@ export default function InteriorDesignerClient() {
                             <p className="text-base text-slate-500 font-medium leading-relaxed">
                                 Zlendo Realty's Design Library gives interior designers quick access to a wide range of products and design elements that can be added to projects using an easy drag-and-drop workflow. Select, position, and visualize products faster without creating every element from scratch.
                             </p>
-                            <Link href="/products/room-styler" className="inline-flex items-center gap-2 mt-4 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-lg hover:shadow-xl hover:-translate-y-1 transition-all">
+                            <Link href="https://app.zlendorealty.com/design-library" className="inline-flex items-center gap-2 mt-4 px-8 py-4 bg-slate-900 text-white rounded-2xl font-black text-lg hover:shadow-xl hover:-translate-y-1 transition-all">
                                 Explore the Design Library <ArrowRight className="w-5 h-5" />
                             </Link>
                         </motion.div>
@@ -325,11 +325,16 @@ export default function InteriorDesignerClient() {
                             { name: 'Interior', icon: Box },
                             { name: 'Electronics', icon: Monitor }
                         ].map((cat, idx) => (
-                            <motion.div key={idx} {...fadeUp} transition={{ delay: idx * 0.05 }} whileHover={{ y: -5, scale: 1.05 }} className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center justify-center text-center hover:border-zlendo-teal/30 hover:shadow-lg transition-all group cursor-default">
-                                <div className="w-12 h-12 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center mb-4 group-hover:bg-zlendo-teal/10 group-hover:text-zlendo-teal transition-colors">
-                                    <cat.icon className="w-6 h-6" />
-                                </div>
-                                <span className="font-bold text-slate-700 text-sm group-hover:text-slate-900 transition-colors">{cat.name}</span>
+                            <motion.div key={idx} {...fadeUp} transition={{ delay: idx * 0.05 }} whileHover={{ y: -5, scale: 1.05 }} className="h-full">
+                                <Link
+                                    href="https://app.zlendorealty.com/design-library"
+                                    className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm flex flex-col items-center justify-center text-center hover:border-zlendo-teal/30 hover:shadow-lg transition-all group cursor-pointer h-full w-full"
+                                >
+                                    <div className="w-12 h-12 bg-slate-50 text-slate-400 rounded-xl flex items-center justify-center mb-4 group-hover:bg-zlendo-teal/10 group-hover:text-zlendo-teal transition-colors">
+                                        <cat.icon className="w-6 h-6" />
+                                    </div>
+                                    <span className="font-bold text-slate-700 text-sm group-hover:text-slate-900 transition-colors">{cat.name}</span>
+                                </Link>
                             </motion.div>
                         ))}
                     </div>

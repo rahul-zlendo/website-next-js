@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axiosInstance from '../../../lib/services/config/axiosConfig';
@@ -21,6 +22,17 @@ const eventsData = [
 ];
 
 export default function EventsClient() {
+    const pathname = usePathname();
+    const isIndia = pathname?.startsWith('/in');
+
+    const getLocalRoute = (route: string) => {
+        if (!route) route = '/events/register';
+        if (isIndia && !route.startsWith('/in')) {
+            return `/in${route}`;
+        }
+        return route;
+    };
+
     const [filter, setFilter] = useState<'All' | 'Events' | 'Webinars'>('All');
     const [events, setEvents] = useState<any[]>(eventsData);
 
@@ -152,7 +164,7 @@ export default function EventsClient() {
 
                                         <div className="mt-auto">
                                             <Link
-                                                href={`${evt.link}?event=${encodeURIComponent(evt.title)}&eventId=${evt.id}`}
+                                                href={`${getLocalRoute(evt.link)}?event=${encodeURIComponent(evt.title)}&eventId=${evt.id}`}
                                                 className="inline-flex items-center gap-2 font-bold text-slate-600 hover:text-zlendo-teal transition-colors group/link text-lg"
                                             >
                                                 Register for the {evt.type}
@@ -191,7 +203,7 @@ export default function EventsClient() {
                         Watch Zlendo Realty recorded webinars for in-depth discussions of current architectural workflows, AI-assisted planning issues and best practices.
                     </p>
                     <Link
-                        href="/events/on-demand"
+                        href={getLocalRoute("/events/on-demand")}
                         className="inline-block px-10 py-5 bg-zlendo-teal text-white font-black text-xl rounded-full hover:bg-teal-600 hover:scale-105 shadow-xl transition-all duration-300"
                     >
                         Browse On-Demand Webinars
