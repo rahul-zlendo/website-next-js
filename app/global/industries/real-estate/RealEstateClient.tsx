@@ -74,6 +74,15 @@ export default function RealEstateClient() {
                                     From property planning to buyer presentation, visualize every property before your customer steps inside.
                                 </span>
                             </div>
+
+                            <div className="p-6 bg-white border border-slate-200 rounded-2xl relative overflow-hidden group/cta shadow-sm">
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-bl-full -z-10 group-hover/cta:scale-150 transition-transform duration-500" />
+                                <h4 className="text-lg font-black text-slate-900 mb-1">Ready to Visualize More Properties?</h4>
+                                <p className="text-sm text-slate-600 font-medium mb-4">Explore our plans and choose the right tools for your real estate workflow.</p>
+                                <Link href="/plans" className="inline-flex items-center gap-2 text-zlendo-teal font-black hover:text-teal-700 transition-colors">
+                                    Subscribe Now <ArrowRight className="w-4 h-4" />
+                                </Link>
+                            </div>
                         </motion.div>
 
                         <motion.div {...fadeUp} transition={{ delay: 0.1, duration: 0.5 }} className="relative h-full flex flex-col justify-center">

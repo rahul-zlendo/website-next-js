@@ -36,6 +36,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/industries/real-estate', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
     { path: '/industries/architecture', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
     { path: '/industries/interior-designer', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
+    { path: '/industries/builders-and-contractors', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
+    { path: '/industries/real-estate-professionals', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
+
+    // Solutions pages
+    { path: '/solutions/ai-home-design-for-homeowners', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },
 
     // Product pages
     { path: '/products', priority: 0.9, changeFrequency: 'weekly' as const, isGlobal: true },

@@ -124,6 +124,15 @@ export default function ProductsClient() {
                             </motion.div>
                         ))}
                     </div>
+
+                    <motion.div {...fadeUp} className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <Link href="/contact" className="w-full sm:w-auto px-8 py-4 bg-teal-500 text-white rounded-xl font-black text-lg hover:bg-teal-400 transition-colors shadow-[0_10px_30px_rgba(45,212,191,0.2)] flex items-center justify-center gap-2">
+                            Enrol in Training <ArrowRight className="w-5 h-5" />
+                        </Link>
+                        <Link href="/partners" className="w-full sm:w-auto px-8 py-4 bg-zinc-800 border border-zinc-700 text-white rounded-xl font-black text-lg hover:bg-zinc-700 transition-colors shadow-sm flex items-center justify-center gap-2">
+                            Become a Certified Professional
+                        </Link>
+                    </motion.div>
                 </div>
             </section>
 
@@ -140,31 +149,43 @@ export default function ProductsClient() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
-                            { t: 'Homeowners', d: 'Explore layouts, furniture, materials, colors, and design possibilities before making expensive decisions.' },
-                            { t: 'Architects', d: 'Move faster from drawings to 3D visualization, presentation assets, and immersive client experiences.' },
-                            { t: 'Interior Designers', d: 'Generate and compare multiple design concepts without rebuilding every scene manually.' },
-                            { t: 'Builders & Contractors', d: 'Help clients understand proposed spaces before construction and reduce ambiguity.' },
-                            { t: 'Real Estate Developers', d: 'Create compelling visual experiences that help buyers understand properties before they are built.' },
-                            { t: 'Real Estate Professionals', d: 'Turn property plans into visual experiences that are easier for prospects to understand and remember.' }
+                            { t: 'Homeowners', d: 'Explore layouts, furniture, materials, colors, and design possibilities before making expensive decisions.', linkText: 'Explore Home Design', linkUrl: '/solutions/ai-home-design-for-homeowners' },
+                            { t: 'Architects', d: 'Move faster from drawings to 3D visualization, presentation assets, and immersive client experiences.', linkText: 'Explore Architect Solutions', linkUrl: '/industries/architecture' },
+                            { t: 'Interior Designers', d: 'Generate and compare multiple design concepts without rebuilding every scene manually.', linkText: 'Explore Design Solutions', linkUrl: '/industries/interior-designer' },
+                            { t: 'Builders & Contractors', d: 'Help clients understand proposed spaces before construction and reduce ambiguity.', linkText: 'Explore Contractor Solutions', linkUrl: '/industries/builders-and-contractors' },
+                            { t: 'Real Estate Developers', d: 'Create compelling visual experiences that help buyers understand properties before they are built.', linkText: 'Explore Developer Solutions', linkUrl: '/industries/real-estate' },
+                            { t: 'Real Estate Professionals', d: 'Turn property plans into visual experiences that are easier for prospects to understand and remember.', linkText: 'Explore Real Estate Solutions', linkUrl: '/industries/real-estate-professionals' }
                         ].map((a, i) => (
                             <motion.div
                                 key={i}
                                 {...fadeUp}
                                 transition={{ delay: i * 0.05 }}
                                 whileHover={{ y: -5, scale: 1.02 }}
-                                className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-zlendo-teal/30 hover:bg-zlendo-teal/5 transition-all duration-300 relative overflow-hidden group"
+                                className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-zlendo-teal/30 hover:bg-zlendo-teal/5 transition-all duration-300 relative overflow-hidden group flex flex-col h-full"
                             >
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50/50 rounded-bl-[100px] -z-10 group-hover:bg-zlendo-teal/10 transition-colors duration-500" />
                                 <h3 className="text-xl font-black text-slate-800 mb-3 group-hover:text-zlendo-teal transition-colors duration-300">{a.t}</h3>
-                                <p className="text-slate-600 font-medium group-hover:text-slate-700 transition-colors duration-300">{a.d}</p>
+                                <p className="text-slate-600 font-medium mb-6 group-hover:text-slate-700 transition-colors duration-300 flex-grow">{a.d}</p>
+                                <Link href={a.linkUrl} className="inline-flex items-center gap-2 text-teal-600 font-black hover:text-teal-700 mt-auto transition-colors">
+                                    {a.linkText} <ArrowRight className="w-4 h-4" />
+                                </Link>
                             </motion.div>
                         ))}
                     </div>
+
+                    <motion.div {...fadeUp} className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <Link href="/contact" className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white rounded-xl font-black text-lg hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/10 flex items-center justify-center gap-2">
+                            Hire a Designer <ArrowRight className="w-5 h-5" />
+                        </Link>
+                        <Link href="/partners" className="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 rounded-xl font-black text-lg hover:bg-slate-50 border border-slate-200 transition-colors shadow-sm flex items-center justify-center gap-2">
+                            Become a Partner
+                        </Link>
+                    </motion.div>
                 </div>
-            </section >
+            </section>
 
             {/* TABLE / SUMMARY SECTION */}
-            < section className="py-16 lg:py-20 bg-white" >
+            <section className="py-16 lg:py-20 bg-white">
                 <div className="container-custom px-4 max-w-5xl mx-auto">
                     <motion.div {...fadeUp} className="text-center mb-16">
                         <h2 className="text-3xl font-black text-slate-900 mb-4">One Platform. Six Powerful Ways to Visualize Property.</h2>
@@ -212,8 +233,14 @@ export default function ProductsClient() {
                             </tbody>
                         </table>
                     </motion.div>
+
+                    <motion.div {...fadeUp} className="mt-12 flex justify-center">
+                        <Link href="/plans" className="px-10 py-5 bg-slate-900 text-white rounded-xl font-black text-lg hover:bg-slate-800 transition-colors shadow-xl flex items-center justify-center gap-2">
+                            View Price and Plans <ArrowRight className="w-5 h-5" />
+                        </Link>
+                    </motion.div>
                 </div>
-            </section >
+            </section>
 
             {/* CTA SECTION */}
             < section className="py-16 lg:py-20 bg-gradient-to-br from-slate-900 to-[#111] text-center text-white border-y border-white/5" >
