@@ -36,7 +36,7 @@ export default function ArchitectureClient() {
                                 <span className="text-sm font-black tracking-[0.15em] text-teal-400 uppercase">AI-Powered Architectural Visualization</span>
                             </motion.div>
 
-                            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }} className="text-4xl md:text-6xl lg:text-[72px] font-black text-white leading-[1.05] tracking-tight mb-6">
+                            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }} className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
                                 Faster Design. <br className="hidden md:block" />
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">Smarter Visualization.</span>
                             </motion.h1>
@@ -91,9 +91,17 @@ export default function ArchitectureClient() {
                                 <p className="text-base text-slate-600 font-medium leading-relaxed mb-4">
                                     <strong className="text-slate-900">Zlendo Realty helps architecture teams move from drawings to visual experiences faster.</strong>
                                 </p>
-                                <p className="text-base text-slate-600 font-medium leading-relaxed">
+                                <p className="text-base text-slate-600 font-medium leading-relaxed mb-6">
                                     Instead of relying exclusively on complex visualization workflows, teams can use AI-powered tools to explore concepts, communicate designs, and present projects with greater clarity.
                                 </p>
+                                <div className="p-6 bg-slate-50 border border-slate-100 rounded-2xl relative overflow-hidden group">
+                                    <div className="absolute top-0 right-0 w-24 h-24 bg-teal-500/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500" />
+                                    <h4 className="text-lg font-black text-slate-900 mb-1">Ready to turn your designs into experiences?</h4>
+                                    <p className="text-slate-600 font-medium mb-4">Explore our plans and choose the right plans for your workflow.</p>
+                                    <Link href="/plans" className="inline-flex items-center gap-2 text-teal-600 font-black hover:text-teal-800 transition-colors">
+                                        Subscribe Now <ArrowRight className="w-4 h-4" />
+                                    </Link>
+                                </div>
                             </div>
                         </motion.div>
                         <motion.div {...fadeUp} className="relative h-[400px] lg:h-[500px] w-full rounded-[40px] overflow-hidden shadow-2xl border border-slate-100 group">
@@ -120,11 +128,11 @@ export default function ArchitectureClient() {
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <LayoutDashboard className="w-5 h-5" />
                             </div>
-                            <h3 className="text-xl font-black text-slate-900 mb-3">AI Floor Planner</h3>
-                            <p className="text-slate-600 font-medium mb-4 text-sm">Create and refine floor plans in 2D and 3D.</p>
+                            <h3 className="text-2xl font-black text-slate-900 mb-3">AI Floor Planner</h3>
+                            <p className="text-slate-600 font-medium mb-4 text-base">Create and refine floor plans in 2D and 3D.</p>
                             <div className="space-y-3 mb-6 flex-grow">
-                                <strong className="text-xs tracking-wider uppercase text-slate-800">Helps architects:</strong>
-                                <ul className="space-y-1.5 text-slate-600 font-medium text-sm">
+                                <strong className="text-sm tracking-wider uppercase text-slate-800">Helps architects:</strong>
+                                <ul className="space-y-1.5 text-slate-600 font-medium text-base">
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Explore layouts</li>
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Communicate spatial relationships</li>
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Present concepts clearly</li>
@@ -132,7 +140,7 @@ export default function ArchitectureClient() {
                                 </ul>
                             </div>
                             <div className="bg-teal-50 p-4 rounded-xl border border-teal-100 mb-6">
-                                <p className="text-xs font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Spend less time preparing repetitive visualization assets and more time on design decisions.</p>
+                                <p className="text-sm font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Spend less time preparing repetitive visualization assets and more time on design decisions.</p>
                             </div>
                             <Link href="/products/floor-planner" className="inline-flex items-center gap-2 text-teal-600 font-black hover:text-teal-500 transition-colors mt-auto">
                                 Explore Floor Planner <ArrowRight className="w-5 h-5" />
@@ -144,11 +152,11 @@ export default function ArchitectureClient() {
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <Component className="w-5 h-5" />
                             </div>
-                            <h3 className="text-xl font-black text-slate-900 mb-3">2D to 3D Converter</h3>
-                            <p className="text-slate-600 font-medium mb-4 text-sm">Transform existing drawings into 3D environments.</p>
+                            <h3 className="text-2xl font-black text-slate-900 mb-3">2D to 3D Converter</h3>
+                            <p className="text-slate-600 font-medium mb-4 text-base">Transform existing drawings into 3D environments.</p>
                             <div className="space-y-3 mb-6 flex-grow">
-                                <strong className="text-xs tracking-wider uppercase text-slate-800">Helps architects:</strong>
-                                <ul className="space-y-1.5 text-slate-600 font-medium text-sm">
+                                <strong className="text-sm tracking-wider uppercase text-slate-800">Helps architects:</strong>
+                                <ul className="space-y-1.5 text-slate-600 font-medium text-base">
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Reuse existing plans</li>
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Quickly visualize projects</li>
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Create client-ready experiences</li>
@@ -156,7 +164,7 @@ export default function ArchitectureClient() {
                                 </ul>
                             </div>
                             <div className="bg-teal-50 p-4 rounded-xl border border-teal-100 mb-6">
-                                <p className="text-xs font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Repurpose existing drawings faster and reduce time spent recreating plans for 3D visualization.</p>
+                                <p className="text-sm font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Repurpose existing drawings faster and reduce time spent recreating plans for 3D visualization.</p>
                             </div>
                             <Link href="/products/2d-to-3d" className="inline-flex items-center gap-2 text-teal-600 font-black hover:text-teal-500 transition-colors mt-auto">
                                 Explore 2D to 3D <ArrowRight className="w-5 h-5" />
@@ -168,11 +176,11 @@ export default function ArchitectureClient() {
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <Building2 className="w-5 h-5" />
                             </div>
-                            <h3 className="text-xl font-black text-slate-900 mb-3">Interiors & Exteriors</h3>
-                            <p className="text-slate-600 font-medium mb-4 text-sm">Visualize architectural elements from interior spaces to facades and outdoor environments.</p>
+                            <h3 className="text-2xl font-black text-slate-900 mb-3">Interiors & Exteriors</h3>
+                            <p className="text-slate-600 font-medium mb-4 text-base">Visualize architectural elements from interior spaces to facades and outdoor environments.</p>
                             <div className="space-y-3 mb-6 flex-grow">
-                                <strong className="text-xs tracking-wider uppercase text-slate-800">Helps architects:</strong>
-                                <ul className="space-y-1.5 text-slate-600 font-medium text-sm">
+                                <strong className="text-sm tracking-wider uppercase text-slate-800">Helps architects:</strong>
+                                <ul className="space-y-1.5 text-slate-600 font-medium text-base">
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Explore material choices</li>
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Present exterior concepts</li>
                                     <li className="flex gap-2 items-start"><span className="text-teal-500 font-black">/</span> Visualize landscaping</li>
@@ -180,7 +188,7 @@ export default function ArchitectureClient() {
                                 </ul>
                             </div>
                             <div className="bg-teal-50 p-4 rounded-xl border border-teal-100 mb-6">
-                                <p className="text-xs font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Explore more design options faster and reduce the time and cost of creating multiple visualization concepts.</p>
+                                <p className="text-sm font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Explore more design options faster and reduce the time and cost of creating multiple visualization concepts.</p>
                             </div>
                             <Link href="/products/interiors-exteriors" className="inline-flex items-center gap-2 text-teal-600 font-black hover:text-teal-500 transition-colors mt-auto">
                                 Explore Interiors &amp; Exteriors <ArrowRight className="w-5 h-5" />
@@ -192,10 +200,10 @@ export default function ArchitectureClient() {
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <ImageIcon className="w-5 h-5" />
                             </div>
-                            <h3 className="text-xl font-black text-slate-900 mb-3">Realistic Renders</h3>
-                            <p className="text-slate-600 font-medium mb-8 flex-grow text-sm">Generate realistic visual representations of architectural concepts.</p>
+                            <h3 className="text-2xl font-black text-slate-900 mb-3">Realistic Renders</h3>
+                            <p className="text-slate-600 font-medium mb-8 flex-grow text-base">Generate realistic visual representations of architectural concepts.</p>
                             <div className="bg-teal-50 p-4 rounded-xl border border-teal-100 mt-auto mb-6">
-                                <p className="text-xs font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Produce more design iterations and presentation visuals without repeating traditional rendering workflows for every variation.</p>
+                                <p className="text-sm font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Produce more design iterations and presentation visuals without repeating traditional rendering workflows for every variation.</p>
                             </div>
                             <Link href="/products/realistic-renders" className="inline-flex items-center gap-2 text-teal-600 font-black hover:text-teal-500 transition-colors">
                                 Explore Realistic Renders <ArrowRight className="w-5 h-5" />
@@ -207,10 +215,10 @@ export default function ArchitectureClient() {
                             <div className="w-12 h-12 bg-slate-100 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shrink-0 group-hover:bg-teal-600 group-hover:text-white transition-colors">
                                 <Video className="w-5 h-5" />
                             </div>
-                            <h3 className="text-xl font-black text-slate-900 mb-3">Virtual Walkthrough</h3>
-                            <p className="text-slate-600 font-medium mb-8 max-w-lg flex-grow text-sm">Allow clients to experience architectural spaces interactively.</p>
+                            <h3 className="text-2xl font-black text-slate-900 mb-3">Virtual Walkthrough</h3>
+                            <p className="text-slate-600 font-medium mb-8 max-w-lg flex-grow text-base">Allow clients to experience architectural spaces interactively.</p>
                             <div className="bg-teal-50 p-4 rounded-xl border border-teal-100 mt-auto mb-6">
-                                <p className="text-xs font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Improve client understanding and reduce communication gaps during design reviews.</p>
+                                <p className="text-sm font-bold text-slate-800"><span className="text-teal-600">ROI:</span> Improve client understanding and reduce communication gaps during design reviews.</p>
                             </div>
                             <Link href="/products/virtual-walkthrough" className="inline-flex items-center gap-2 text-teal-600 font-black hover:text-teal-500 transition-colors">
                                 Explore Virtual Walkthrough <ArrowRight className="w-5 h-5" />
@@ -218,6 +226,15 @@ export default function ArchitectureClient() {
                         </motion.div>
 
                     </div>
+
+                    <motion.div {...fadeUp} className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <Link href="/contact" className="w-full sm:w-auto px-8 py-4 bg-teal-600 text-white rounded-xl font-black text-lg hover:bg-teal-500 transition-colors shadow-lg shadow-teal-900/20 flex items-center justify-center gap-2">
+                            Enrol in Training <ArrowRight className="w-5 h-5" />
+                        </Link>
+                        <Link href="/partners" className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-900 rounded-xl font-black text-lg hover:bg-slate-50 transition-colors shadow-sm flex items-center justify-center gap-2">
+                            Become a Certified Professional
+                        </Link>
+                    </motion.div>
                 </div>
             </section>
 

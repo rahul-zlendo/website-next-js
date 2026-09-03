@@ -50,7 +50,7 @@ export default function InteriorDesignerClient() {
                                 <span className="text-sm font-black tracking-[0.1em] text-zlendo-teal uppercase">AI Interior Visualization</span>
                             </motion.div>
 
-                            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }} className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] tracking-tight mb-8">
+                            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1, duration: 0.7 }} className="text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 leading-[1.1] tracking-tight mb-8">
                                 Interior Design Visualization That Brings Concepts to Life
                             </motion.h1>
 
