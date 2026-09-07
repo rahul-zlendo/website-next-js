@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper, GraduationCap, Presentation, Award, Trophy } from 'lucide-react';
+import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper, GraduationCap, Presentation, Award, Trophy, MonitorPlay } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../common/Logo';
 import { SIGNUP_URL, LOGIN_URL, DASHBOARD_URL } from '@/lib/constants/urls';
@@ -97,6 +97,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         { label: 'Design Library', desc: 'Inspiration gallery', icon: Library, path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', desc: 'Built-in layouts for homes, rooms, and interiors.', icon: LayoutTemplate, path: getPath('/viewalltemplates') },
         { label: 'Webinars', desc: 'Live PropTech learning', icon: Video, path: getPath('/events') },
+        { label: 'Webinar Recordings', desc: 'Watch on-demand sessions', icon: MonitorPlay, path: getPath('/events/on-demand') },
         { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: getPath('/tutorials') },
         { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: 'https://helpcenter.zlendorealty.com', openInNewTab: true },
         { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: '/blog' },

@@ -102,7 +102,7 @@ export default function ArchitecturePage() {
             <ArchitectureClient />
 
             <section className="bg-white border-t border-slate-100">
-                <FAQ data={{ title: "FAQs", faqs: faqData }} />
+                <FAQ data={{ title: "Frequently Asked Questions", faqs: faqData }} />
             </section>
         </main>
     );

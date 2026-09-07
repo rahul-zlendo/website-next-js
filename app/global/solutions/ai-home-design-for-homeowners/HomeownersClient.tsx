@@ -319,7 +319,7 @@ export default function HomeownersClient() {
                             <div className="bg-white rounded-[40px] p-8 md:p-12 shadow-xl border border-slate-100 flex flex-col justify-center relative overflow-hidden">
                                 <div className="absolute -top-24 -right-24 w-64 h-64 bg-teal-50 rounded-full blur-[40px] pointer-events-none" />
                                 <h3 className="text-2xl font-black text-slate-900 mb-8 pb-4 border-b border-slate-100 relative z-10">Zlendo Realty for Homeowners can help you:</h3>
-                                <div className="grid md:grid-cols-2 gap-4 relative z-10">
+                                <div className="grid md:grid-cols-2 gap-x-6 gap-y-1 relative z-10">
                                     {[
                                         "Create smarter floor plans",
                                         "Convert 2D layouts into 3D designs",
@@ -329,7 +329,7 @@ export default function HomeownersClient() {
                                         "Generate realistic visualizations",
                                         "Experience virtual walkthroughs"
                                     ].map((item, idx) => (
-                                        <div key={idx} className="flex items-start gap-4 p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
+                                        <div key={idx} className="flex items-start gap-4 py-2.5 px-3 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
                                             <div className="w-8 h-8 rounded-full bg-teal-50 text-teal-500 flex items-center justify-center shrink-0 group-hover:bg-teal-500 group-hover:text-white transition-colors">
                                                 <CheckCircle2 className="w-5 h-5" />
                                             </div>

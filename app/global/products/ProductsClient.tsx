@@ -126,10 +126,10 @@ export default function ProductsClient() {
                     </div>
 
                     <motion.div {...fadeUp} className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="/contact" className="w-full sm:w-auto px-8 py-4 bg-teal-500 text-white rounded-xl font-black text-lg hover:bg-teal-400 transition-colors shadow-[0_10px_30px_rgba(45,212,191,0.2)] flex items-center justify-center gap-2">
+                        <Link href="/in/register?type=training" className="w-full sm:w-auto px-8 py-4 bg-teal-500 text-white rounded-xl font-black text-lg hover:bg-teal-400 transition-colors shadow-[0_10px_30px_rgba(45,212,191,0.2)] flex items-center justify-center gap-2">
                             Enrol in Training <ArrowRight className="w-5 h-5" />
                         </Link>
-                        <Link href="/partners" className="w-full sm:w-auto px-8 py-4 bg-zinc-800 border border-zinc-700 text-white rounded-xl font-black text-lg hover:bg-zinc-700 transition-colors shadow-sm flex items-center justify-center gap-2">
+                        <Link href="/colleges/certifications" className="w-full sm:w-auto px-8 py-4 bg-zinc-800 border border-zinc-700 text-white rounded-xl font-black text-lg hover:bg-zinc-700 transition-colors shadow-sm flex items-center justify-center gap-2">
                             Become a Certified Professional
                         </Link>
                     </motion.div>
@@ -201,32 +201,62 @@ export default function ProductsClient() {
                             </thead>
                             <tbody className="divide-y divide-slate-100 text-slate-600 font-medium">
                                 <tr className="hover:bg-slate-50 transition-colors">
-                                    <td className="px-6 py-4 font-bold text-slate-800">AI Floor Planner</td>
+                                    <td className="px-6 py-4 font-bold text-slate-800">
+                                        <Link href="/products/ai-floor-planner" className="hover:text-teal-600 transition-colors relative group inline-block">
+                                            AI Floor Planner
+                                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-500 transition-all group-hover:w-full"></span>
+                                        </Link>
+                                    </td>
                                     <td className="px-6 py-4">Create and edit 2D &amp; 3D floor plans</td>
                                     <td className="px-6 py-4">Planning &amp; spatial design</td>
                                 </tr>
                                 <tr className="hover:bg-slate-50 transition-colors">
-                                    <td className="px-6 py-4 font-bold text-slate-800">2D to 3D Converter</td>
+                                    <td className="px-6 py-4 font-bold text-slate-800">
+                                        <Link href="/products/2d-to-3d-converter" className="hover:text-teal-600 transition-colors relative group inline-block">
+                                            2D to 3D Converter
+                                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-500 transition-all group-hover:w-full"></span>
+                                        </Link>
+                                    </td>
                                     <td className="px-6 py-4">Transform existing plans into 3D</td>
                                     <td className="px-6 py-4">Fast visualization</td>
                                 </tr>
                                 <tr className="hover:bg-slate-50 transition-colors">
-                                    <td className="px-6 py-4 font-bold text-slate-800">Smart Room Styler</td>
+                                    <td className="px-6 py-4 font-bold text-slate-800">
+                                        <Link href="/products/smart-room-styler" className="hover:text-teal-600 transition-colors relative group inline-block">
+                                            Smart Room Styler
+                                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-500 transition-all group-hover:w-full"></span>
+                                        </Link>
+                                    </td>
                                     <td className="px-6 py-4">AI-powered interior styling</td>
                                     <td className="px-6 py-4">Interior concepts</td>
                                 </tr>
                                 <tr className="hover:bg-slate-50 transition-colors">
-                                    <td className="px-6 py-4 font-bold text-slate-800">Interiors &amp; Exteriors</td>
+                                    <td className="px-6 py-4 font-bold text-slate-800">
+                                        <Link href="/products/interiors-exteriors" className="hover:text-teal-600 transition-colors relative group inline-block">
+                                            Interiors &amp; Exteriors
+                                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-500 transition-all group-hover:w-full"></span>
+                                        </Link>
+                                    </td>
                                     <td className="px-6 py-4">Design complete properties</td>
                                     <td className="px-6 py-4">Architecture &amp; landscaping</td>
                                 </tr>
                                 <tr className="hover:bg-slate-50 transition-colors">
-                                    <td className="px-6 py-4 font-bold text-slate-800">Realistic Renders</td>
+                                    <td className="px-6 py-4 font-bold text-slate-800">
+                                        <Link href="/products/realistic-renders" className="hover:text-teal-600 transition-colors relative group inline-block">
+                                            Realistic Renders
+                                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-500 transition-all group-hover:w-full"></span>
+                                        </Link>
+                                    </td>
                                     <td className="px-6 py-4">Generate photorealistic visuals</td>
                                     <td className="px-6 py-4">Presentations &amp; marketing</td>
                                 </tr>
                                 <tr className="hover:bg-slate-50 transition-colors">
-                                    <td className="px-6 py-4 font-bold text-slate-800">Virtual Walkthrough</td>
+                                    <td className="px-6 py-4 font-bold text-slate-800">
+                                        <Link href="/products/virtual-walkthrough" className="hover:text-teal-600 transition-colors relative group inline-block">
+                                            Virtual Walkthrough
+                                            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-500 transition-all group-hover:w-full"></span>
+                                        </Link>
+                                    </td>
                                     <td className="px-6 py-4">Create immersive 360° experiences</td>
                                     <td className="px-6 py-4">Client experience &amp; sales</td>
                                 </tr>
