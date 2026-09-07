@@ -164,7 +164,7 @@ export default function TutorialsClient({ cms }: { cms: any }) {
                                 <div className="bg-white rounded-[24px] border border-slate-200 overflow-hidden shadow-xl shadow-slate-200/40">
                                     <div className="p-5 border-b border-slate-100 bg-slate-50">
                                         <h2 className="font-black text-slate-900 text-lg leading-snug">
-                                            {playlistTitle}
+                                            Zlendo Realty Tutorials
                                         </h2>
                                         <p className="text-sm text-slate-500 font-bold mt-1">
                                             {activeIndex + 1} / {playlistVideos.length} modules
