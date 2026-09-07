@@ -228,10 +228,10 @@ export default function ArchitectureClient() {
                     </div>
 
                     <motion.div {...fadeUp} className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="/contact" className="w-full sm:w-auto px-8 py-4 bg-teal-600 text-white rounded-xl font-black text-lg hover:bg-teal-500 transition-colors shadow-lg shadow-teal-900/20 flex items-center justify-center gap-2">
+                        <Link href="/in/register?type=training" className="w-full sm:w-auto px-8 py-4 bg-teal-600 text-white rounded-xl font-black text-lg hover:bg-teal-500 transition-colors shadow-lg shadow-teal-900/20 flex items-center justify-center gap-2">
                             Enrol in Training <ArrowRight className="w-5 h-5" />
                         </Link>
-                        <Link href="/partners" className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-900 rounded-xl font-black text-lg hover:bg-slate-50 transition-colors shadow-sm flex items-center justify-center gap-2">
+                        <Link href="/colleges/certifications" className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 text-slate-900 rounded-xl font-black text-lg hover:bg-slate-50 transition-colors shadow-sm flex items-center justify-center gap-2">
                             Become a Certified Professional
                         </Link>
                     </motion.div>
