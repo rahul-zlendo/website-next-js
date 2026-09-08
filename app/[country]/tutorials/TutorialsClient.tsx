@@ -33,14 +33,14 @@ export default function TutorialsClient({ cms }: { cms: any }) {
         { videoId: 'wEtK0Kh7T14', title: "Transform Plain Walls into Stunning Feature Walls! | Complete Tutorial", duration: "4:14", views: 167, customThumbnail: '/assets/tutorials/wall-customization-thumbnail.png' },
         { videoId: 'IgmtY6aUngw', title: "How to Create & Customize Staircases | Straight, L & U Staircase Tutorial", duration: "1:43", views: 234, customThumbnail: '/assets/tutorials/staircase-thumbnail.png' },
         { videoId: 'qKyIxNNMOjk', title: "Multiple Floors & Basement Tutorial | Create Multi-Storey Buildings Step-by-Step", duration: "2:47", views: 289, customThumbnail: '/assets/tutorials/multiple-floor-thumbnail.png' },
-        { videoId: 'h-waaJmdNdI', title: "Redesign Any Room with AI in Seconds! | AI Inspiration Complete Guide", duration: "1:29", views: 432, customThumbnail: '/assets/tutorials/ai-inspiration-thumbnail.png' },
+        { videoId: 'RdBxWJtX4-M', title: "Redesign Any Room with AI in Seconds! | AI Inspiration Complete Guide", duration: "1:29", views: 432, customThumbnail: '/assets/tutorials/ai-inspiration-thumbnail.png' },
         { videoId: '-LHxMptWzRU', title: "Using The Vaastu feature in Zlendo Realty | Complete Tutorial", duration: "1:30", views: 156, customThumbnail: '/assets/tutorials/vastu-thumbnail.png' },
-        { videoId: 'EgzImgoCdpY', title: "Design a Perfect Compound Wall & Entrance in Minutes! | Complete Tutorial", duration: "5:22", views: 134, customThumbnail: '/assets/tutorials/compound-wall-thumbnail.png' },
+        { videoId: 'EgzImgoCdpY', title: "Design a Compound Wall & Main Entrance Steps in Minutes | Complete Tutorial | Zlendo Realty", duration: "5:22", views: 134, customThumbnail: '/assets/tutorials/compound-wall-thumbnail.png' },
         { videoId: 'I0Oh4O87w9A', title: "Basement, Plot Area & Setback Tutorial | Create Site Boundaries Step-by-Step", duration: "2:03", views: 112, customThumbnail: '/assets/tutorials/basement-plto-area-thumbnail.png' },
         { videoId: '3dLFR6ddI4k', title: "Know Your Project Cost Before You Build! & Share Your Designs with the Community!", duration: "2:13", views: 190, customThumbnail: '/assets/tutorials/cost-estimation-thumbnail.png' },
         { videoId: 'J1uSywQuNyc', title: "Create Stunning 4K Renders in Minutes! | Complete Rendering Tutorial", duration: "8:24", views: 378, customThumbnail: '/assets/tutorials/render-image-thumbnail.png' },
         { videoId: 'N17BBHGLNdg', title: "Create Stunning 4K Walkthrough Videos Without Any Editing!", duration: "5:40", views: 345, customThumbnail: '/assets/tutorials/video-render-tutorial-thumbnail.png' },
-        { videoId: '7DvTU6_V-to', title: "3D Walkthrough Mode Tutorial | Complete Walkthrough, Camera, Lighting & HDR Settings", duration: "4:29", views: 401, customThumbnail: '/assets/tutorials/3d-walk-mode-thumbnail-1.png' },
+        { videoId: '0cQB0Jfblww', title: "3D Walkthrough Mode Tutorial | Complete Walkthrough, Camera, Lighting & HDR Settings", duration: "4:29", views: 401, customThumbnail: '/assets/tutorials/3d-walk-mode-thumbnail-1.png' },
         { videoId: 'nc8VSLzl850', title: "Export Professional Floor Plans Like an Expert! | Complete Tutorial", duration: "4:01", views: 145, customThumbnail: '/assets/tutorials/export-plans-thumbnail.png' },
     ];
 
