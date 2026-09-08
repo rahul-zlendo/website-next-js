@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import {
     ArrowRight, Pickaxe, HardHat, Hammer, FileText, CheckCircle2,
-    Eye, Shapes, Compass, Shuffle, MonitorPlay, Users, Building, PenTool, BarChart3
+    Eye, Shapes, Compass, Shuffle, MonitorPlay, Users, Building, PenTool, BarChart3, AlertTriangle
 } from 'lucide-react';
 
 const fadeUp = { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true }, transition: { duration: 0.5 } };
@@ -141,6 +141,11 @@ export default function BuildersClient() {
                                 title: "Marketing Needs Project Visuals First",
                                 desc: "Builders often need to showcase projects while they are still under construction. Create realistic renders and virtual walkthroughs that can be used to present and promote future spaces before completion.",
                                 icon: BarChart3
+                            },
+                            {
+                                title: "Construction Mistakes Can Be Costly",
+                                desc: "Small misunderstandings in layouts, materials, finishes, or design details can lead to costly rework and project delays. Use clear visualizations to identify potential issues early and help teams make informed decisions before construction begins.",
+                                icon: AlertTriangle
                             }
                         ].map((item, idx) => (
                             <motion.div key={idx} {...fadeUp} transition={{ delay: idx * 0.05 }} className="bg-slate-50 border border-slate-100 rounded-3xl p-8 hover:border-zlendo-teal/30 hover:bg-white hover:shadow-xl hover:shadow-zlendo-teal/5 transition-all text-left">
