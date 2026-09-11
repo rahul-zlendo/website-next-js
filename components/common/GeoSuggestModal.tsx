@@ -51,6 +51,12 @@ export default function GeoSuggestModal() {
   }, []);
 
   useEffect(() => {
+    // Let the homepage explain the product first; its location ribbon remains available.
+    if (pathname === '/' || pathname === '/global') {
+      setShow(false);
+      return;
+    }
+
     const geo = getCookie('zl_geo');
     const choice = getCookie('zl_country_choice');
     const modalShown = getCookie('zl_geo_modal_shown');

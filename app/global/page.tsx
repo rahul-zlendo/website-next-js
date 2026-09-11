@@ -73,15 +73,6 @@ const GlobalHomePage = async () => {
         secondaryCtaSubtext: "See a real project, start to finish."
       },
       {
-        _type: 'globalLogoStrip',
-        title: 'Industry Leaders & Recognition',
-        logos: [
-          { name: 'Capterra', link: 'https://www.capterra.in/software/1085377/Zlendo-Realty' },
-          { name: 'Product Hunt', link: 'https://www.producthunt.com/products/zlendo-realty/reviews' },
-          { name: 'Wallpaper*' }
-        ]
-      },
-      {
         _type: 'globalOutcomes',
         outcomes: [
           { value: '3x', label: 'More projects closed per month' },
@@ -239,9 +230,8 @@ const GlobalHomePage = async () => {
     return (
       <main className="min-h-screen">
         <InteractiveGlobalHero />
-        {fallbackSections.length > 1 && <SectionRenderer sections={[fallbackSections[1]]} />}
         <AdvancedFeatures />
-        {fallbackSections.length > 3 && <SectionRenderer sections={[fallbackSections[3]]} />}
+        {fallbackSections.length > 2 && <SectionRenderer sections={[fallbackSections[2]]} />}
         <RecentBlogPosts />
         <GlobalRedesignBlocks />
       </main>
@@ -253,7 +243,6 @@ const GlobalHomePage = async () => {
   return (
     <main className="min-h-screen">
       <InteractiveGlobalHero />
-      {sections.length > 1 && <SectionRenderer sections={[sections[1]]} />}
       <AdvancedFeatures />
       {sections.length > 3 && <SectionRenderer sections={[sections[3]]} />}
       <RecentBlogPosts />
