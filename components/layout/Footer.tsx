@@ -169,10 +169,10 @@ const Footer = ({
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Services</h4>
                         <ul className="space-y-3.5 text-[15px]">
                             <li><Link href={getPath('/services/floor-plan-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Floor Plan Design</Link></li>
-                            <li><Link href={getPath('/services/2d-to-3d')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">2D to 3D Services</Link></li>
-                            <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design Services</Link></li>
+                            <li><Link href={getPath('/services/2d-to-3d')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">2D to 3D</Link></li>
+                            <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design</Link></li>
                             <li><Link href={getPath('/services/virtual-walkthrough')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Virtual Walkthrough</Link></li>
-                            {isIndiaSite && <li><Link href={getPath('/services/vastu-consultation')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Vastu Consultation Services</Link></li>}
+                            {isIndiaSite && <li><Link href={getPath('/services/vastu-consultation')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Vastu Consultation</Link></li>}
 
                         </ul>
                     </div>

@@ -410,6 +410,7 @@ export function middleware(request: NextRequest) {
     || '';
   const ipIsIndia = ipCountry.toUpperCase() === 'IN';
   const manualChoice = request.cookies.get('zl_country_choice')?.value; // 'in' | 'global' | undefined
+  const lastVisited = request.cookies.get('zl_last_visited')?.value;
 
   // B. Root path: REWRITE (200, never a redirect) to /global by default, or to
   // /in only when the user has explicitly chosen India. Global-default keeps `/`
@@ -418,13 +419,15 @@ export function middleware(request: NextRequest) {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-pathname', '/');
 
-    const target = manualChoice === 'in' ? '/in' : '/global';
+    const effectiveChoice = manualChoice || lastVisited;
+    const target = effectiveChoice === 'in' ? '/in' : '';
     const response = NextResponse.rewrite(new URL(target, request.url), {
       request: {
         headers: requestHeaders,
       },
     });
     setGeoHeaders(response, ipIsIndia);
+    setLastVisitedCookie(response, target === '/in' ? 'in' : 'global');
     return response;
   }
 
@@ -446,6 +449,7 @@ export function middleware(request: NextRequest) {
       },
     });
     setGeoHeaders(response, ipIsIndia);
+    setLastVisitedCookie(response, 'in');
     return response;
   }
 
@@ -499,7 +503,16 @@ export function middleware(request: NextRequest) {
   }
 
   // F. For all other paths (e.g., /partners, /about), 
-  // REWRITE to /global/[path] to serve global content at clean URLs.
+  // If the user's active region is India, redirect them to the /in path instead of treating it as a global route.
+  const effectiveChoice = manualChoice || lastVisited;
+  if (effectiveChoice === 'in') {
+    const url = request.nextUrl.clone();
+    // Redirect to the explicit India path so they maintain their territory
+    url.pathname = `/in${pathname}`;
+    return NextResponse.redirect(url, 302);
+  }
+
+  // Otherwise, REWRITE to /global/[path] to serve global content at clean URLs.
   const url = request.nextUrl.clone();
   url.pathname = `/global${pathname}`;
 
@@ -513,7 +526,22 @@ export function middleware(request: NextRequest) {
     },
   });
   setGeoHeaders(response, ipIsIndia);
+  setLastVisitedCookie(response, 'global');
   return response;
+}
+
+// ──────────────────────────────────────────────────────────
+// Helper: keep track of the last visited region to route returning visitors
+// ──────────────────────────────────────────────────────────
+function setLastVisitedCookie(response: NextResponse, region: 'in' | 'global') {
+  const domainStr = process.env.NODE_ENV === 'development' ? undefined : '.zlendorealty.com';
+  response.cookies.set('zl_last_visited', region, {
+    path: '/',
+    maxAge: 31536000, // 1 year
+    httpOnly: false,
+    sameSite: 'lax',
+    domain: domainStr,
+  });
 }
 
 // ──────────────────────────────────────────────────────────

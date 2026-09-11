@@ -123,8 +123,8 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         { label: 'Smart Wizard', desc: '5 AI plans from your requirements', icon: WandSparkles, path: getPath('/services/smart-wizard') },
         { label: 'Floor Plan Design', desc: 'Professional floor planning', icon: Layout, path: getPath('/services/floor-plan-design') },
         { label: '2D to 3D Conversion', desc: 'Transform your plans to 3D', icon: Box, path: getPath('/services/2d-to-3d') },
-        { label: 'Interior Design Services', desc: 'Professional interior planning', icon: Sparkles, path: getPath('/services/interior-design') },
-        { label: 'Virtual Walkthrough Services', desc: 'Immersive 3D experiences', icon: Video, path: getPath('/services/virtual-walkthrough') },
+        { label: 'Interior Design', desc: 'Professional interior planning', icon: Sparkles, path: getPath('/services/interior-design') },
+        { label: 'Virtual Walkthrough', desc: 'Immersive 3D experiences', icon: Video, path: getPath('/services/virtual-walkthrough') },
         ...(isIndiaSite ? [{ label: 'Vastu Consultation', desc: 'Expert Vastu guidance', icon: Ruler, path: getPath('/services/vastu-consultation') }] : []),
 
     ];
