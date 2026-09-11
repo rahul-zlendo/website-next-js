@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper, GraduationCap, Presentation, Award, Trophy, MonitorPlay } from 'lucide-react';
+import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper, GraduationCap, Presentation, Award, Trophy, MonitorPlay, WandSparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../common/Logo';
 import { SIGNUP_URL, LOGIN_URL, DASHBOARD_URL } from '@/lib/constants/urls';
@@ -120,6 +120,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
     ];
 
     const serviceLinks = [
+        { label: 'Smart Wizard', desc: '5 AI plans from your requirements', icon: WandSparkles, path: getPath('/services/smart-wizard') },
         { label: 'Floor Plan Design', desc: 'Professional floor planning', icon: Layout, path: getPath('/services/floor-plan-design') },
         { label: '2D to 3D Conversion', desc: 'Transform your plans to 3D', icon: Box, path: getPath('/services/2d-to-3d') },
         { label: 'Interior Design Services', desc: 'Professional interior planning', icon: Sparkles, path: getPath('/services/interior-design') },
