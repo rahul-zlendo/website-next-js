@@ -534,13 +534,11 @@ export function middleware(request: NextRequest) {
 // Helper: keep track of the last visited region to route returning visitors
 // ──────────────────────────────────────────────────────────
 function setLastVisitedCookie(response: NextResponse, region: 'in' | 'global') {
-  const domainStr = process.env.NODE_ENV === 'development' ? undefined : '.zlendorealty.com';
   response.cookies.set('zl_last_visited', region, {
     path: '/',
     maxAge: 31536000, // 1 year
     httpOnly: false,
     sameSite: 'lax',
-    domain: domainStr,
   });
 }
 
