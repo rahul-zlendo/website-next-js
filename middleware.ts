@@ -540,6 +540,7 @@ export function middleware(request: NextRequest) {
 function setLastVisitedCookie(response: NextResponse, region: 'in' | 'global') {
   response.cookies.set('zl_last_visited', region, {
     path: '/',
+    domain: '.zlendorealty.com',
     maxAge: 31536000, // 1 year
     httpOnly: false,
     sameSite: 'lax',
