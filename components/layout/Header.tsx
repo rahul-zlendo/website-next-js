@@ -63,7 +63,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
 
     // Determine mode based on path - check for enterprise in path (handles /in/enterprise, /us/enterprise etc)
     const isBusinessMode = pathname?.includes('/business');
-    const isIndiaSite = pathname === '/in' || pathname?.startsWith('/in/');
+    const isIndiaSite = pathname === '/in' || pathname?.startsWith('/in/') || (pathname?.includes('/blog') && typeof window !== 'undefined' && Cookies.get('zl_last_visited') === 'in');
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {

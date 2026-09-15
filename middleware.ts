@@ -427,7 +427,11 @@ export function middleware(request: NextRequest) {
       },
     });
     setGeoHeaders(response, ipIsIndia);
-    setLastVisitedCookie(response, target === '/in' ? 'in' : 'global');
+
+    const referer = request.headers.get('referer') || '';
+    if (target === '/in' || (!pathname.includes('/blog') && !referer.includes('/blog'))) {
+      setLastVisitedCookie(request, response, target === '/in' ? 'in' : 'global');
+    }
     return response;
   }
 
@@ -449,7 +453,7 @@ export function middleware(request: NextRequest) {
       },
     });
     setGeoHeaders(response, ipIsIndia);
-    setLastVisitedCookie(response, 'in');
+    setLastVisitedCookie(request, response, 'in');
     return response;
   }
 
@@ -530,21 +534,30 @@ export function middleware(request: NextRequest) {
     },
   });
   setGeoHeaders(response, ipIsIndia);
-  setLastVisitedCookie(response, 'global');
+  const referer = request.headers.get('referer') || '';
+  if (!pathname.includes('/blog') && !referer.includes('/blog')) {
+    setLastVisitedCookie(request, response, 'global');
+  }
   return response;
 }
 
 // ──────────────────────────────────────────────────────────
 // Helper: keep track of the last visited region to route returning visitors
 // ──────────────────────────────────────────────────────────
-function setLastVisitedCookie(response: NextResponse, region: 'in' | 'global') {
-  response.cookies.set('zl_last_visited', region, {
+function setLastVisitedCookie(request: NextRequest, response: NextResponse, region: 'in' | 'global') {
+  const isLocalhost = request.nextUrl.hostname === 'localhost';
+  const cookieOptions: any = {
     path: '/',
-    domain: '.zlendorealty.com',
     maxAge: 31536000, // 1 year
     httpOnly: false,
     sameSite: 'lax',
-  });
+  };
+
+  if (!isLocalhost) {
+    cookieOptions.domain = '.zlendorealty.com';
+  }
+
+  response.cookies.set('zl_last_visited', region, cookieOptions);
 }
 
 // ──────────────────────────────────────────────────────────
