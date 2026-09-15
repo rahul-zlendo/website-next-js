@@ -236,11 +236,19 @@ function PlanPreview({ suggestion }: { suggestion: Suggestion }) {
     ['col-span-2', '', 'row-span-2', '', '', 'col-span-2'],
   ];
   const pattern = patterns[suggestion.layout] ?? patterns[0];
+  const openingPatterns = [
+    { doors: ['left-[35%] top-[34%]', 'left-[61%] top-[66%]'], windows: ['left-[20%] top-[6px] w-[22%]', 'right-[6px] top-[24%] h-[25%]', 'bottom-[6px] left-[55%] w-[22%]'] },
+    { doors: ['left-[57%] top-[34%]', 'left-[57%] top-[66%]'], windows: ['left-[18%] top-[6px] w-[25%]', 'right-[6px] top-[17%] h-[24%]', 'bottom-[6px] left-[62%] w-[20%]'] },
+    { doors: ['left-[34%] top-[33%]', 'left-[34%] top-[67%]'], windows: ['left-[48%] top-[6px] w-[24%]', 'left-[6px] top-[18%] h-[22%]', 'bottom-[6px] right-[14%] w-[22%]'] },
+    { doors: ['left-[32%] top-[34%]', 'left-[66%] top-[66%]'], windows: ['left-[12%] top-[6px] w-[20%]', 'right-[6px] top-[50%] h-[24%]', 'bottom-[6px] left-[42%] w-[24%]'] },
+    { doors: ['left-[56%] top-[34%]', 'left-[32%] top-[66%]'], windows: ['left-[14%] top-[6px] w-[24%]', 'right-[6px] top-[18%] h-[25%]', 'bottom-[6px] right-[16%] w-[22%]'] },
+  ];
+  const openings = openingPatterns[suggestion.layout] ?? openingPatterns[0];
 
   return (
     <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-[#f8f7f2] p-5">
       <div className="absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 text-[9px] font-black uppercase tracking-[0.22em] text-slate-400">Setback</div>
-      <div className="grid h-full grid-cols-3 grid-rows-3 gap-1.5 rounded-lg border-2 border-slate-700 bg-white p-1.5 shadow-[0_8px_24px_rgba(15,23,42,0.08)]">
+      <div className="relative grid h-full grid-cols-3 grid-rows-3 gap-1.5 rounded-lg border-2 border-slate-700 bg-white p-1.5 shadow-[0_8px_24px_rgba(15,23,42,0.08)]">
         {suggestion.rooms.slice(0, 6).map((room, index) => (
           <div
             key={`${room}-${index}`}
@@ -250,6 +258,16 @@ function PlanPreview({ suggestion }: { suggestion: Suggestion }) {
             {room}
           </div>
         ))}
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          {openings.doors.map((position, index) => (
+            <span key={`door-${position}`} className={`absolute ${position} h-4 w-4 -translate-x-1/2 -translate-y-1/2 border-b-2 border-l-2 border-slate-700 bg-white/90 ${index % 2 ? '-rotate-90' : ''}`}>
+              <span className="absolute bottom-0 left-0 h-4 w-4 rounded-bl-full border-b border-l border-dashed border-slate-400" />
+            </span>
+          ))}
+          {openings.windows.map((position) => (
+            <span key={`window-${position}`} className={`absolute ${position} block border-2 border-sky-500 bg-sky-100 shadow-[0_0_0_1px_white] ${position.includes('h-') ? 'w-[3px]' : 'h-[3px]'}`} />
+          ))}
+        </div>
       </div>
       <div className="absolute bottom-1.5 right-3 flex items-center gap-1 text-[9px] font-black uppercase tracking-wider text-slate-400">
         <Compass className="h-3 w-3" /> N
