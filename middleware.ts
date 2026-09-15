@@ -509,7 +509,11 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     // Redirect to the explicit India path so they maintain their territory
     url.pathname = `/in${pathname}`;
-    return NextResponse.redirect(url, 302);
+    const redirectResponse = NextResponse.redirect(url, 302);
+    // Prevent caching for cookie-based geographical redirects
+    redirectResponse.headers.set('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    redirectResponse.headers.set('Vary', 'Cookie');
+    return redirectResponse;
   }
 
   // Otherwise, REWRITE to /global/[path] to serve global content at clean URLs.
