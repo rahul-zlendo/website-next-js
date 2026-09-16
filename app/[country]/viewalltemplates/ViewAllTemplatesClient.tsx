@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronDown, Eye, Heart } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronDown, Eye, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
@@ -31,6 +31,8 @@ interface Template {
 }
 
 type FilterType = 'all' | 'fullhouse' | string;
+
+const TEMPLATES_PER_PAGE = 12;
 
 // Helper function to normalize Google image URLs
 const normalizeGoogleImageUrl = (url: string): string => {
@@ -81,7 +83,9 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
     const [selectedFilter, setSelectedFilter] = useState<FilterType>('all');
     const [selectedRoomStyle, setSelectedRoomStyle] = useState<number | null>(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const gridRef = useRef<HTMLDivElement>(null);
     const { activeRoomStyles } = useAppSelector((state) => state.roomStyle);
 
     useEffect(() => {
@@ -154,6 +158,22 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
         return filtered;
     }, [activeTemplates, selectedFilter, selectedRoomStyle]);
 
+    const totalPages = Math.ceil(filteredTemplates.length / TEMPLATES_PER_PAGE);
+    const paginatedTemplates = useMemo(() => {
+        const startIndex = (currentPage - 1) * TEMPLATES_PER_PAGE;
+        return filteredTemplates.slice(startIndex, startIndex + TEMPLATES_PER_PAGE);
+    }, [currentPage, filteredTemplates]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [selectedFilter, selectedRoomStyle]);
+
+    useEffect(() => {
+        if (totalPages > 0 && currentPage > totalPages) {
+            setCurrentPage(totalPages);
+        }
+    }, [currentPage, totalPages]);
+
     const isValidUrl = (url: string): boolean => {
         if (!url || typeof url !== 'string') return false;
         try {
@@ -203,9 +223,9 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
     };
 
     useEffect(() => {
-        if (filteredTemplates.length === 0) return;
+        if (paginatedTemplates.length === 0) return;
 
-        filteredTemplates.forEach((template) => {
+        paginatedTemplates.forEach((template) => {
             if (template.thumbnail_Url && isValidUrl(template.thumbnail_Url)) {
 
                 const normalizedTemplate = {
@@ -223,7 +243,33 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
             }
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filteredTemplates]);
+    }, [paginatedTemplates]);
+
+    const handlePageChange = (page: number) => {
+        if (page < 1 || page > totalPages || page === currentPage) return;
+
+        setCurrentPage(page);
+        requestAnimationFrame(() => {
+            gridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    };
+
+    const getPageNumbers = (): (number | 'ellipsis')[] => {
+        if (totalPages <= 7) {
+            return Array.from({ length: totalPages }, (_, index) => index + 1);
+        }
+
+        const pages: (number | 'ellipsis')[] = [1];
+        if (currentPage > 3) pages.push('ellipsis');
+
+        const start = Math.max(2, currentPage - 1);
+        const end = Math.min(totalPages - 1, currentPage + 1);
+        for (let page = start; page <= end; page += 1) pages.push(page);
+
+        if (currentPage < totalPages - 2) pages.push('ellipsis');
+        pages.push(totalPages);
+        return pages;
+    };
 
     const handleTemplateClick = (templateId: number) => {
         const encryptedId = encryptProjectId(templateId);
@@ -375,22 +421,27 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
 
                 {/* Templates Grid */}
                 {!isLoading && !error && filteredTemplates.length > 0 && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-                    >
-                        {filteredTemplates.map((template) => {
+                    <div ref={gridRef} className="scroll-mt-28">
+                        <AnimatePresence mode="wait" initial={false}>
+                            <motion.div
+                                key={`${selectedFilter}-${selectedRoomStyle ?? 'all'}-${currentPage}`}
+                                initial={{ opacity: 0, scale: 0.985 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.985 }}
+                                transition={{ duration: 0.22, ease: 'easeOut' }}
+                                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                            >
+                        {paginatedTemplates.map((template, index) => {
                             const processedImageUrl = imageUrls[template.template_Id] || template.thumbnail_Url || undefined;
                             const isLoadingImage = loadingImageUrls.has(template.template_Id);
 
                             return (
                                 <motion.div
                                     key={template.template_Id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    whileHover={{ y: -6 }}
+                                    initial={{ opacity: 0, scale: 0.96 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.28, delay: Math.min(index * 0.035, 0.25), ease: 'easeOut' }}
+                                    whileHover={{ y: -4, scale: 1.01 }}
                                     className="group relative rounded-2xl overflow-visible cursor-pointer shadow-lg hover:shadow-xl transition-all bg-white"
                                     onClick={() => handleTemplateClick(template.template_Id)}
                                 >
@@ -506,7 +557,60 @@ export default function ViewAllTemplatesClient({ cms }: { cms: any }) {
                                 </motion.div>
                             );
                         })}
-                    </motion.div>
+                            </motion.div>
+                        </AnimatePresence>
+
+                        {totalPages > 1 && (
+                            <nav className="mt-12 flex flex-col items-center gap-4" aria-label="Template pagination">
+                                <p className="text-sm font-bold text-zlendo-grey-medium/70" aria-live="polite">
+                                    Showing {(currentPage - 1) * TEMPLATES_PER_PAGE + 1}–{Math.min(currentPage * TEMPLATES_PER_PAGE, filteredTemplates.length)} of {filteredTemplates.length} templates
+                                </p>
+                                <div className="flex flex-wrap items-center justify-center gap-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => handlePageChange(currentPage - 1)}
+                                        disabled={currentPage === 1}
+                                        className="inline-flex h-10 items-center gap-2 rounded-full border border-gray-200 bg-white px-4 text-sm font-black text-zlendo-grey-dark transition-all hover:border-zlendo-teal hover:text-zlendo-teal disabled:cursor-not-allowed disabled:opacity-35"
+                                        aria-label="Go to previous page"
+                                    >
+                                        <ArrowLeft className="h-4 w-4" />
+                                        <span className="hidden sm:inline">Previous</span>
+                                    </button>
+
+                                    {getPageNumbers().map((page, index) => page === 'ellipsis' ? (
+                                        <span key={`ellipsis-${index}`} className="flex h-10 w-8 items-center justify-center text-zlendo-grey-medium" aria-hidden="true">
+                                            …
+                                        </span>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            key={page}
+                                            onClick={() => handlePageChange(page)}
+                                            className={`h-10 min-w-10 rounded-full px-3 text-sm font-black transition-all ${currentPage === page
+                                                ? 'bg-zlendo-teal text-white shadow-lg shadow-zlendo-teal/25'
+                                                : 'border border-gray-200 bg-white text-zlendo-grey-dark hover:border-zlendo-teal hover:text-zlendo-teal'
+                                                }`}
+                                            aria-label={`Go to page ${page}`}
+                                            aria-current={currentPage === page ? 'page' : undefined}
+                                        >
+                                            {page}
+                                        </button>
+                                    ))}
+
+                                    <button
+                                        type="button"
+                                        onClick={() => handlePageChange(currentPage + 1)}
+                                        disabled={currentPage === totalPages}
+                                        className="inline-flex h-10 items-center gap-2 rounded-full border border-gray-200 bg-white px-4 text-sm font-black text-zlendo-grey-dark transition-all hover:border-zlendo-teal hover:text-zlendo-teal disabled:cursor-not-allowed disabled:opacity-35"
+                                        aria-label="Go to next page"
+                                    >
+                                        <span className="hidden sm:inline">Next</span>
+                                        <ArrowRight className="h-4 w-4" />
+                                    </button>
+                                </div>
+                            </nav>
+                        )}
+                    </div>
                 )}
 
                 {/* Empty State */}

@@ -1556,17 +1556,11 @@ function TemplateDetailContent() {
                             className="relative max-w-[95vw] max-h-[95vh] w-full h-full flex items-center justify-center"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <AnimatePresence mode="wait">
-                                <motion.img
-                                    key={selectedThumbnailIndex}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.3 }}
-                                    src={templateData.mainImage}
-                                    alt={templateData.title ? `Fullscreen view of ${templateData.title}` : "Fullscreen template view"}
-                                    className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
-                                    onError={(e) => {
+                            <motion.img
+                                src={templateData.mainImage}
+                                alt={templateData.title ? `Fullscreen view of ${templateData.title}` : "Fullscreen template view"}
+                                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                                onError={(e) => {
                                         const target = e.currentTarget;
                                         console.error(`[TemplateDetailPage] Failed to load fullscreen image:`, {
                                             imageUrl: templateData.mainImage,
@@ -1592,9 +1586,8 @@ function TemplateDetailContent() {
                                         }
 
                                         target.src = 'data:image/svg+xml,%3Csvg width="800" height="600"%3E%3Crect fill="%23f1f5f9" width="800" height="600"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%2394a3b8" font-family="Arial" font-size="16"%3EImage not available%3C/text%3E%3C/svg%3E';
-                                    }}
-                                />
-                            </AnimatePresence>
+                                }}
+                            />
                         </motion.div>
 
                         {/* Thumbnail Navigation in Fullscreen */}
