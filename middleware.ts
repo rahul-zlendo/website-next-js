@@ -419,7 +419,7 @@ export function middleware(request: NextRequest) {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set('x-pathname', '/');
 
-    const effectiveChoice = manualChoice || lastVisited;
+    const effectiveChoice = manualChoice;
     const target = effectiveChoice === 'in' ? '/in' : '';
     const response = NextResponse.rewrite(new URL(target, request.url), {
       request: {
@@ -508,7 +508,7 @@ export function middleware(request: NextRequest) {
 
   // F. For all other paths (e.g., /partners, /about), 
   // If the user's active region is India, redirect them to the /in path instead of treating it as a global route.
-  const effectiveChoice = manualChoice || lastVisited;
+  const effectiveChoice = manualChoice;
   if (effectiveChoice === 'in') {
     const url = request.nextUrl.clone();
     // Redirect to the explicit India path so they maintain their territory
