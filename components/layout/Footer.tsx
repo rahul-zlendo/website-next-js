@@ -52,6 +52,7 @@ const Footer = ({
     const productLinks = [
         { label: 'AI Floor Planner', path: getPath('/products/floor-planner') },
         { label: '2D to 3D Converter', path: getPath('/products/2d-to-3d') },
+        { label: 'Smart Wizard', path: getPath('/products/smart-wizard') },
         { label: 'Smart Room Styler', path: getPath('/products/room-styler') },
         { label: 'Interiors & Exteriors', path: getPath('/products/interiors-exteriors') },
         ...(isIndiaSite ? [
@@ -60,6 +61,7 @@ const Footer = ({
         ] : []),
         { label: 'Realistic Renders', path: getPath('/products/realistic-renders') },
         { label: 'Virtual Walkthrough', path: getPath('/products/virtual-walkthrough') },
+        { label: isIndiaSite ? 'See all Products →' : 'See all Solutions →', path: getPath('/products'), highlight: true },
     ];
 
     const useCaseLinks = [
@@ -154,9 +156,9 @@ const Footer = ({
                             {isIndiaSite ? 'Products' : 'Solutions'}
                         </h4>
                         <ul className="space-y-3.5 text-[15px]">
-                            {productLinks.map((link, i) => (
+                            {productLinks.map((link: any, i) => (
                                 <li key={i}>
-                                    <Link href={link.path} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">
+                                    <Link href={link.path} className={link.highlight ? "font-semibold text-zlendo-teal hover:text-zlendo-teal-dark transition-colors whitespace-nowrap" : "text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap"}>
                                         {link.label}
                                     </Link>
                                 </li>
@@ -169,10 +171,10 @@ const Footer = ({
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">Services</h4>
                         <ul className="space-y-3.5 text-[15px]">
                             <li><Link href={getPath('/services/floor-plan-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Floor Plan Design</Link></li>
-                            <li><Link href={getPath('/services/2d-to-3d')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">2D to 3D Services</Link></li>
-                            <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design Services</Link></li>
+                            <li><Link href={getPath('/services/2d-to-3d')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">2D to 3D</Link></li>
+                            <li><Link href={getPath('/services/interior-design')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Interior Design</Link></li>
                             <li><Link href={getPath('/services/virtual-walkthrough')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Virtual Walkthrough</Link></li>
-                            {isIndiaSite && <li><Link href={getPath('/services/vastu-consultation')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Vastu Consultation Services</Link></li>}
+                            {isIndiaSite && <li><Link href={getPath('/services/vastu-consultation')} className="text-[#666666] hover:text-zlendo-teal transition-colors whitespace-nowrap">Vastu Consultation</Link></li>}
 
                         </ul>
                     </div>

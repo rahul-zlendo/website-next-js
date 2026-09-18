@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import JsonLd from '@/components/common/JsonLd';
 import SmartWizardClient from '@/components/products/SmartWizardClient';
 
-const url = 'https://zlendorealty.com/services/smart-wizard';
+const url = 'https://zlendorealty.com/products/smart-wizard';
 
 export const metadata: Metadata = {
   title: 'AI Smart Wizard – Generate Home Plan Ideas | Zlendo Realty',
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     canonical: url,
     languages: {
       en: url,
-      'en-IN': 'https://zlendorealty.com/in/services/smart-wizard',
+      'en-IN': 'https://zlendorealty.com/in/products/smart-wizard',
       'x-default': url,
     },
   },

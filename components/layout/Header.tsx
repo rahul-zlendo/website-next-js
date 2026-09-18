@@ -63,7 +63,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
 
     // Determine mode based on path - check for enterprise in path (handles /in/enterprise, /us/enterprise etc)
     const isBusinessMode = pathname?.includes('/business');
-    const isIndiaSite = pathname === '/in' || pathname?.startsWith('/in/');
+    const isIndiaSite = pathname === '/in' || pathname?.startsWith('/in/') || (pathname?.includes('/blog') && typeof window !== 'undefined' && Cookies.get('zl_last_visited') === 'in');
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -78,6 +78,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
     const productLinks = [
         { label: 'AI Floor Planner', desc: 'Design & Visualize in 3D', icon: PenTool, path: getPath('/products/floor-planner') },
         { label: '2D to 3D Converter', desc: 'Instant floor plan conversion', icon: Box, path: getPath('/products/2d-to-3d') },
+        { label: 'Smart Wizard', desc: '5 AI plans from your requirements', icon: WandSparkles, path: getPath('/products/smart-wizard') },
         { label: 'Smart Room Styler', desc: 'AI-driven interior styling', icon: Sparkles, path: getPath('/products/room-styler') },
         { label: 'Interiors & Exteriors', desc: 'Region-aware design intelligence', icon: Layout, path: getPath('/products/interiors-exteriors') },
         ...(isIndiaSite ? [
@@ -86,6 +87,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         ] : []),
         { label: 'Realistic Renders', desc: 'Photorealistic lighting visualization', icon: Cpu, path: getPath('/products/realistic-renders') },
         { label: 'Virtual Walkthrough', desc: '8K Ultra-realistic experiences', icon: Video, path: getPath('/products/virtual-walkthrough') },
+        { label: isIndiaSite ? 'See all Products' : 'See all Solutions', desc: 'Explore all our offerings', icon: ArrowRight, path: getPath('/products') },
     ];
 
     const solutionsLinks = [
@@ -120,11 +122,10 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
     ];
 
     const serviceLinks = [
-        { label: 'Smart Wizard', desc: '5 AI plans from your requirements', icon: WandSparkles, path: getPath('/services/smart-wizard') },
         { label: 'Floor Plan Design', desc: 'Professional floor planning', icon: Layout, path: getPath('/services/floor-plan-design') },
         { label: '2D to 3D Conversion', desc: 'Transform your plans to 3D', icon: Box, path: getPath('/services/2d-to-3d') },
-        { label: 'Interior Design Services', desc: 'Professional interior planning', icon: Sparkles, path: getPath('/services/interior-design') },
-        { label: 'Virtual Walkthrough Services', desc: 'Immersive 3D experiences', icon: Video, path: getPath('/services/virtual-walkthrough') },
+        { label: 'Interior Design', desc: 'Professional interior planning', icon: Sparkles, path: getPath('/services/interior-design') },
+        { label: 'Virtual Walkthrough', desc: 'Immersive 3D experiences', icon: Video, path: getPath('/services/virtual-walkthrough') },
         ...(isIndiaSite ? [{ label: 'Vastu Consultation', desc: 'Expert Vastu guidance', icon: Ruler, path: getPath('/services/vastu-consultation') }] : []),
 
     ];
@@ -235,7 +236,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                                 href={item.path}
                                                 prefetch={true}
                                                 onClick={toggleMode}
-                                                className="flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/[0.03] transition-all group/item"
+                                                className="flex gap-4 p-2 rounded-2xl hover:bg-zlendo-teal/[0.03] transition-all group/item"
                                             >
                                                 <div className="w-12 h-12 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal group-hover/item:scale-110 transition-transform">
                                                     <item.icon className="w-5 h-5" />
