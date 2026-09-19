@@ -1235,17 +1235,17 @@ export const POSTS_PER_PAGE = 12;
 
 /** All blog slugs — for generateStaticParams. */
 export const blogPostSlugsQuery = groq`
-  *[_type == "post" && section == "blog" && defined(slug.current)].slug.current
+  *[_type == "post" && section == "blog" && !(_id in path("drafts.**")) && defined(slug.current)].slug.current
 `;
 
 /** Total blog post count — for pagination. */
 export const blogPostsCountQuery = groq`
-  count(*[_type == "post" && section == "blog"])
+  count(*[_type == "post" && section == "blog" && !(_id in path("drafts.**"))])
 `;
 
 /** One page of blog posts (params: $start, $end), newest first. */
 export const blogPostsPageQuery = groq`
-  *[_type == "post" && section == "blog"] | order(publishedAt desc) [$start...$end]{
+  *[_type == "post" && section == "blog" && !(_id in path("drafts.**"))] | order(publishedAt desc) [$start...$end]{
     "slug": slug.current,
     title,
     excerpt,
@@ -1258,7 +1258,7 @@ export const blogPostsPageQuery = groq`
 
 /** All blog posts with slug + dates only — for the sitemap (no pagination). */
 export const blogPostsSitemapQuery = groq`
-  *[_type == "post" && section == "blog" && defined(slug.current)]{
+  *[_type == "post" && section == "blog" && !(_id in path("drafts.**")) && defined(slug.current)]{
     "slug": slug.current,
     publishedAt,
     updatedAt
@@ -1267,7 +1267,7 @@ export const blogPostsSitemapQuery = groq`
 
 /** All blog posts with slug/title/excerpt — for the AI-facing llms.txt, newest first. */
 export const blogPostsLlmsQuery = groq`
-  *[_type == "post" && section == "blog" && defined(slug.current)] | order(publishedAt desc){
+  *[_type == "post" && section == "blog" && !(_id in path("drafts.**")) && defined(slug.current)] | order(publishedAt desc){
     "slug": slug.current,
     title,
     excerpt

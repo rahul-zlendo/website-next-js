@@ -4,7 +4,7 @@ import { imageUrl } from '@/lib/sanity/image';
 import { groq } from 'next-sanity';
 
 const recentBlogPostsQuery = groq`
-  *[_type == "post" && section == "blog"] | order(publishedAt desc) [0...3]{
+  *[_type == "post" && section == "blog" && !(_id in path("drafts.**"))] | order(publishedAt desc) [0...3]{
     "slug": slug.current,
     title,
     excerpt,
