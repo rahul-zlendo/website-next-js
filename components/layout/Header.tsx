@@ -87,7 +87,9 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         ] : []),
         { label: 'Realistic Renders', desc: 'Photorealistic lighting visualization', icon: Cpu, path: getPath('/products/realistic-renders') },
         { label: 'Virtual Walkthrough', desc: '8K Ultra-realistic experiences', icon: Video, path: getPath('/products/virtual-walkthrough') },
-        { label: isIndiaSite ? 'See all Products' : 'See all Solutions', desc: 'Explore all our offerings', icon: ArrowRight, path: getPath('/products') },
+        ...(!isIndiaSite ? [
+            { label: 'See all Solutions', desc: 'Explore all our offerings', icon: ArrowRight, path: getPath('/products') }
+        ] : []),
     ];
 
     const solutionsLinks = [

@@ -61,7 +61,9 @@ const Footer = ({
         ] : []),
         { label: 'Realistic Renders', path: getPath('/products/realistic-renders') },
         { label: 'Virtual Walkthrough', path: getPath('/products/virtual-walkthrough') },
-        { label: isIndiaSite ? 'See all Products →' : 'See all Solutions →', path: getPath('/products'), highlight: true },
+        ...(!isIndiaSite ? [
+            { label: 'See all Solutions →', path: getPath('/products'), highlight: true }
+        ] : []),
     ];
 
     const useCaseLinks = [
