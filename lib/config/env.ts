@@ -14,7 +14,7 @@
 export const enableGTM = 'prod';
 
 // Determine environment (dev or prod)
-const env = process.env.NEXT_PUBLIC_ENV || 'prod';
+const env = process.env.NEXT_PUBLIC_ENV || 'dev';
 const isDev = env === 'dev';
 
 if (isDev) {
