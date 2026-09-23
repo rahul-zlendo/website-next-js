@@ -16,6 +16,19 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Legacy pricing URLs are still discovered by crawlers and external links.
+  // Consolidate them onto the canonical plans routes instead of returning 404.
+  if (pathname === '/pricing' || pathname === '/global/pricing') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/plans';
+    return NextResponse.redirect(url, 301);
+  }
+  if (pathname === '/in/pricing') {
+    const url = request.nextUrl.clone();
+    url.pathname = '/in/plans';
+    return NextResponse.redirect(url, 301);
+  }
+
   // ──────────────────────────────────────────────────────────
   // 1.4. Specific Help Center URL Redirects
   // ──────────────────────────────────────────────────────────

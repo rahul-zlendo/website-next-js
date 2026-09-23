@@ -9,6 +9,7 @@ import InteractiveGlobalHero from '@/components/global/sections/InteractiveGloba
 import { notFound } from 'next/navigation';
 import { SIGNUP_URL } from '@/lib/config/env';
 import RecentBlogPosts from '@/components/common/RecentBlogPosts';
+import PropTechOverview from '@/components/common/PropTechOverview';
 
 export const metadata: Metadata = {
   title: 'Zlendo Realty | AI Home Design Software',
@@ -232,6 +233,7 @@ const GlobalHomePage = async () => {
         <InteractiveGlobalHero />
         <AdvancedFeatures />
         {fallbackSections.length > 2 && <SectionRenderer sections={[fallbackSections[2]]} />}
+        <PropTechOverview />
         <RecentBlogPosts />
         <GlobalRedesignBlocks />
       </main>
@@ -245,6 +247,7 @@ const GlobalHomePage = async () => {
       <InteractiveGlobalHero />
       <AdvancedFeatures />
       {sections.length > 3 && <SectionRenderer sections={[sections[3]]} />}
+      <PropTechOverview />
       <RecentBlogPosts />
       <GlobalRedesignBlocks />
     </main>

@@ -61,7 +61,8 @@ export default async function Page({ params }: Props) {
         "@type": "Service",
         "name": "Zlendo Realty Vastu Optimization",
         "provider": {
-            "@type": "LocalBusiness",
+            "@type": "Organization",
+            "@id": "https://zlendorealty.com/#organization",
             "name": "Zlendo Realty",
             "url": "https://zlendorealty.com"
         },

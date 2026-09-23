@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { readClient } from '@/lib/sanity/client';
 import { imageUrl } from '@/lib/sanity/image';
 import { groq } from 'next-sanity';
+import { sanitizeBlogDescription } from '@/lib/sanity/sanitizeContent';
 
 const recentBlogPostsQuery = groq`
   *[_type == "post" && section == "blog" && !(_id in path("drafts.**"))] | order(publishedAt desc) [0...3]{
@@ -21,7 +22,7 @@ export async function GET() {
     const shaped = posts.map((post: any) => ({
       slug: post.slug,
       title: post.title,
-      excerpt: post.excerpt || '',
+      excerpt: sanitizeBlogDescription(post.excerpt),
       publishedAt: post.publishedAt,
       imageUrl: imageUrl(post.mainImage, 600, 400, 'crop'),
       imageAlt: post.mainImage?.alt || post.title,
