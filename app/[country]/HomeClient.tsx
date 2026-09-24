@@ -20,6 +20,7 @@ import { urlFor } from '@/lib/sanity/image';
 import FaqAccordion from './components/FaqAccordion';
 import { detectUserRegion } from '@/lib/store/slices/enterpriseSlice';
 import RecentBlogPosts from '@/components/common/RecentBlogPosts';
+import PropTechOverview from '@/components/common/PropTechOverview';
 
 interface HomeClientProps {
     cms: any;
@@ -763,6 +764,7 @@ export default function HomeClient({
                 })()}
 
                 {/* RECENT BLOG POSTS */}
+                <PropTechOverview />
                 <RecentBlogPosts />
 
                 {/* FINAL CTA */}

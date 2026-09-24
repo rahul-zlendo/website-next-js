@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 import './globals.css';
 import { Providers } from './providers';
-import { generateOrganizationSchema, generateWebSiteSchema, generateSoftwareApplicationSchema, generateLocalBusinessSchema, getStructuredDataScript, generatePlansSchema } from '@/lib/utils/structuredData';
+import { generateOrganizationSchema, generateWebSiteSchema, generateSoftwareApplicationSchema, generatePlansSchema } from '@/lib/utils/structuredData';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -104,7 +104,6 @@ export default async function RootLayout({
   const organizationSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
   const softwareAppSchema = generateSoftwareApplicationSchema(isGlobal);
-  const localBusinessSchema = generateLocalBusinessSchema();
 
   // Dynamically attach specific JSON-LD schemas based on pathname
   let plansSchema: any = null;
@@ -127,10 +126,6 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: getStructuredDataScript(localBusinessSchema) }}
         />
         {plansSchema && (
           <script

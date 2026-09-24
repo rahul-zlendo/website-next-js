@@ -8,6 +8,7 @@ import { blogPostBySlugQuery, blogPostSlugsQuery } from '@/lib/sanity/queries';
 import { BlogBreadcrumb, BlogPostBody } from '@/components/blog';
 import JsonLd from '@/components/common/JsonLd';
 import { generateArticleSchema, generateBreadcrumbSchema } from '@/lib/utils/structuredData';
+import { sanitizeBlogDescription } from '@/lib/sanity/sanitizeContent';
 
 export const revalidate = 600; // 10 min ISR
 export const dynamicParams = true;
@@ -47,7 +48,7 @@ export async function generateMetadata({
 
   const url = `${BASE_URL}/blog/${post.slug}`;
   const title = post.seoTitle || post.title;
-  const description = post.seoDescription || post.excerpt || '';
+  const description = sanitizeBlogDescription(post.seoDescription || post.excerpt);
   const ogImg = imageUrl(post.mainImage, 1200, 630, 'crop') || `${BASE_URL}/og-image.jpg`;
 
   return {
@@ -88,10 +89,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const html = portableToHtml(post.body);
   const heroImg = imageUrl(post.mainImage, 1600);
   const ogImg = imageUrl(post.mainImage, 1200, 630, 'crop') || `${BASE_URL}/og-image.jpg`;
+  const description = sanitizeBlogDescription(post.seoDescription || post.excerpt);
 
   const articleSchema = generateArticleSchema({
     title: post.title,
-    description: post.seoDescription || post.excerpt || '',
+    description,
     url,
     image: ogImg,
     datePublished: post.publishedAt,

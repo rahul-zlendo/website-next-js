@@ -4,6 +4,7 @@ import { ArrowRight, Calendar } from 'lucide-react';
 import { readClient } from '@/lib/sanity/client';
 import { imageUrl } from '@/lib/sanity/image';
 import { blogPostsPageQuery, blogPostsCountQuery, POSTS_PER_PAGE } from '@/lib/sanity/queries';
+import { sanitizeBlogDescription } from '@/lib/sanity/sanitizeContent';
 import { BlogHero, Pagination } from '@/components/blog';
 
 export const revalidate = 600; // 10 min ISR
@@ -76,6 +77,7 @@ export default async function BlogIndexPage({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post) => {
             const img = imageUrl(post.mainImage, 800, 450, 'crop');
+            const excerpt = sanitizeBlogDescription(post.excerpt);
             return (
               <Link
                 key={post.slug}
@@ -112,9 +114,9 @@ export default async function BlogIndexPage({
                   <h2 className="text-lg font-black font-nunito text-zlendo-grey-dark leading-snug mb-3 group-hover:text-zlendo-teal transition-colors duration-300 line-clamp-2">
                     {post.title}
                   </h2>
-                  {post.excerpt && (
+                  {excerpt && (
                     <p className="text-sm font-medium text-zlendo-grey-medium line-clamp-3 mb-4 flex-1">
-                      {post.excerpt}
+                      {excerpt}
                     </p>
                   )}
                   <span className="flex items-center gap-2 text-sm font-black text-zlendo-teal group-hover:gap-3 transition-all duration-300 mt-auto">

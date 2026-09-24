@@ -1,5 +1,6 @@
 import { readClient } from '@/lib/sanity/client';
 import { blogPostsLlmsQuery } from '@/lib/sanity/queries';
+import { sanitizeBlogDescription } from '@/lib/sanity/sanitizeContent';
 
 /**
  * Dynamic llms.txt (https://llmstxt.org) — a plain-text map of the site for
@@ -99,7 +100,7 @@ export async function GET() {
   parts.push('In-depth guides on home design, floor planning, Vastu, interiors, construction cost, and materials — many written for the Indian market.');
   parts.push('');
   for (const post of posts) {
-    parts.push(line(post.title, `${BASE}/blog/${post.slug}`, post.excerpt || ''));
+    parts.push(line(post.title, `${BASE}/blog/${post.slug}`, sanitizeBlogDescription(post.excerpt)));
   }
   parts.push('');
 
