@@ -30,41 +30,47 @@ export default function KidsRoomLayoutsClient() {
         {
             title: 'Sleeping Zone',
             desc: 'Create a comfortable sleeping area with single beds, bunk beds, kids beds or other furniture that fits your room.',
-            icon: Bed
+            icon: Bed,
+            cta: 'Plan Sleeping Area'
         },
         {
             title: 'Study Zone',
             desc: 'Add a dedicated desk and chair to create a comfortable space for homework, reading and creative activities.',
-            icon: BookOpen
+            icon: BookOpen,
+            cta: 'Design Study Zone'
         },
         {
             title: 'Play Zone',
             desc: 'Keep an open area for toys, games and activities so children have room to move and play.',
-            icon: Gamepad2
+            icon: Gamepad2,
+            cta: 'Create Play Space'
         },
         {
             title: 'Storage Zone',
             desc: 'Plan wardrobes, shelves, cabinets, toy storage and other solutions to keep the room organized.',
-            icon: Package
+            icon: Package,
+            cta: 'Organize Storage'
         },
         {
             title: 'Creative Zone',
             desc: 'Personalize the room with colors, décor, artwork, rugs and accessories that reflect your child\'s personality.',
-            icon: Paintbrush
+            icon: Paintbrush,
+            cta: 'Customize Décor'
         },
         {
             title: 'Relaxation Zone',
             desc: 'Design a cozy corner with soft seating or bean bags where your child can relax, read, and unwind.',
-            icon: Sofa
+            icon: Sofa,
+            cta: 'Design Relaxing Corner'
         }
     ];
 
     const spaces = [
-        { title: 'Small Kids Room Layouts', desc: 'Make the most of limited floor space with smart furniture placement, vertical storage and multifunctional furniture.', icon: Maximize2 },
-        { title: 'Shared Kids Room Layouts', desc: 'Design comfortable spaces for two children with bunk beds, separate study areas, shared storage and clearly defined personal zones.', icon: Users },
-        { title: 'Bedroom with Study Area', desc: 'Combine sleeping and studying without making the room feel crowded. Position the desk, bed and storage to maintain a practical flow.', icon: Briefcase },
-        { title: 'Kids Room with Play Area', desc: 'Create an open central area for toys and activities while keeping furniture around the edges of the room.', icon: Gamepad2 },
-        { title: 'Kids Room with Smart Storage', desc: 'Use wardrobes, shelves, cabinets and storage furniture to reduce clutter while keeping everyday items easy to access.', icon: Layers },
+        { title: 'Small Kids Room Layouts', desc: 'Make the most of limited floor space with smart furniture placement, vertical storage and multifunctional furniture.', icon: Maximize2, image: '/assets/global/kids-room-spaces/small-kids-room.jpg' },
+        { title: 'Shared Kids Room Layouts', desc: 'Design comfortable spaces for two children with bunk beds, separate study areas, shared storage and clearly defined personal zones.', icon: Users, image: '/assets/global/kids-room-spaces/shared-kids-room.jpg' },
+        { title: 'Bedroom with Study Area', desc: 'Combine sleeping and studying without making the room feel crowded. Position the desk, bed and storage to maintain a practical flow.', icon: Briefcase, image: '/assets/global/kids-room-spaces/study-area-room.jpg' },
+        { title: 'Kids Room with Play Area', desc: 'Create an open central area for toys and activities while keeping furniture around the edges of the room.', icon: Gamepad2, image: '/assets/global/kids-room-spaces/play-area-room.jpg' },
+        { title: 'Kids Room with Smart Storage', desc: 'Use wardrobes, shelves, cabinets and storage furniture to reduce clutter while keeping everyday items easy to access.', icon: Layers, image: '/assets/global/kids-room-spaces/smart-storage-room.jpg' },
     ];
 
     const faqs = [
@@ -89,7 +95,7 @@ export default function KidsRoomLayoutsClient() {
                         <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-teal-200 backdrop-blur">
                             <Sparkles className="h-4 w-4" /> Kids Room Layouts
                         </div>
-                        <h1 className="max-w-3xl text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl">
+                        <h1 className="max-w-3xl text-[28px] md:text-[42px] lg:text-[52px] font-black leading-[1.08] tracking-tight md:tracking-tighter">
                             Design a Kids Room <br /><span className="text-teal-300">They’ll Love to Grow Into</span>
                         </h1>
                         <p className="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-slate-300 lg:text-xl">
@@ -119,13 +125,18 @@ export default function KidsRoomLayoutsClient() {
             <section className="px-4 py-12 lg:py-16">
                 <div className="container-custom mx-auto max-w-5xl text-center">
                     <p className="text-xs font-black uppercase tracking-[0.2em] text-zlendo-teal">Plan with Zlendo Realty</p>
-                    <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-5xl">Create a Kids Room That Works for Everyday Life</h2>
+                    <h2 className="mt-4 text-3xl md:text-[48px] font-black leading-tight tracking-tighter">Create a Kids Room That Works for Everyday Life</h2>
                     <p className="mt-6 text-lg font-medium leading-relaxed text-slate-600">
                         A great kids room is more than a bed and a few colorful accessories. It needs space for sleeping, studying, playing, storing toys and growing with your child. Zlendo Realty helps you plan every part of the room in one place. Start with your room dimensions, arrange the layout, add furniture and storage, and experiment with different design ideas until everything feels right.
                     </p>
                     <p className="mt-4 text-lg font-medium leading-relaxed text-slate-600 font-semibold text-slate-800">
                         From a compact bedroom to a shared sibling room, create a layout that makes better use of every inch.
                     </p>
+                    <div className="mt-10 text-center">
+                        <Link href={SIGNUP_URL} className="inline-flex items-center gap-2 rounded-2xl bg-slate-900 px-8 py-4 font-black text-white hover:bg-slate-800 transition shadow-xl shadow-slate-900/10 hover:-translate-y-0.5">
+                            Start Designing Free <ArrowRight className="h-5 w-5" />
+                        </Link>
+                    </div>
                 </div>
             </section>
 
@@ -133,17 +144,24 @@ export default function KidsRoomLayoutsClient() {
             <section className="bg-white px-4 py-12 lg:py-16 border-y border-slate-200">
                 <div className="container-custom mx-auto max-w-7xl">
                     <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h2 className="text-3xl font-black tracking-tight sm:text-5xl">Plan Every Zone of Your Kids Room</h2>
+                        <h2 className="text-3xl md:text-[48px] font-black leading-tight tracking-tighter">Plan Every Zone of Your Kids Room</h2>
                         <p className="mt-5 text-lg font-medium text-slate-600">A well-planned children\'s bedroom should make it easy to move, play, study and stay organized.</p>
                     </div>
                     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {zones.map((zone, index) => (
-                            <div key={index} className="group rounded-[28px] border border-slate-200 bg-slate-50 p-8 transition hover:-translate-y-1 hover:border-zlendo-teal hover:shadow-[0_20px_55px_rgba(15,23,42,.08)]">
-                                <div className="flex w-14 h-14 items-center justify-center rounded-2xl bg-white text-zlendo-teal shadow-sm group-hover:bg-zlendo-teal group-hover:text-white transition">
-                                    <zone.icon className="h-7 w-7" />
+                            <div key={index} className="group rounded-[28px] border border-slate-200 bg-slate-50 p-8 flex flex-col justify-between transition hover:-translate-y-1 hover:border-zlendo-teal hover:shadow-[0_20px_55px_rgba(15,23,42,.08)]">
+                                <div>
+                                    <div className="flex w-14 h-14 items-center justify-center rounded-2xl bg-white text-zlendo-teal shadow-sm group-hover:bg-zlendo-teal group-hover:text-white transition">
+                                        <zone.icon className="h-7 w-7" />
+                                    </div>
+                                    <h3 className="mt-6 text-xl md:text-2xl font-black text-slate-900">{zone.title}</h3>
+                                    <p className="mt-4 font-medium leading-relaxed text-slate-600">{zone.desc}</p>
                                 </div>
-                                <h3 className="mt-6 text-2xl font-black sm:text-3xl text-slate-900">{zone.title}</h3>
-                                <p className="mt-4 font-medium leading-relaxed text-slate-600">{zone.desc}</p>
+                                <div className="mt-8">
+                                    <Link href={SIGNUP_URL} className="inline-flex items-center gap-2 text-sm font-black text-zlendo-teal hover:text-teal-700">
+                                        {zone.cta} <ArrowRight className="h-4 w-4" />
+                                    </Link>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -155,7 +173,7 @@ export default function KidsRoomLayoutsClient() {
                 <div className="container-custom mx-auto max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16 items-center">
                         <div className="w-full lg:w-1/2">
-                            <h2 className="text-3xl font-black tracking-tight sm:text-5xl text-slate-900 mb-6">Design Kids Room Layouts for Every Space</h2>
+                            <h2 className="text-3xl md:text-[48px] font-black leading-tight tracking-tighter text-slate-900 mb-6">Design Kids Room Layouts for Every Space</h2>
                             <div className="space-y-4">
                                 {spaces.map((space, idx) => (
                                     <button
@@ -173,10 +191,15 @@ export default function KidsRoomLayoutsClient() {
                                     </button>
                                 ))}
                             </div>
+                            <div className="mt-10">
+                                <Link href={SIGNUP_URL} className="inline-flex items-center gap-2 rounded-2xl bg-zlendo-teal px-8 py-4 font-black text-white hover:bg-teal-500 transition shadow-md hover:shadow-lg hover:-translate-y-0.5">
+                                    Create My Kids Room Layout <ArrowRight className="h-5 w-5" />
+                                </Link>
+                            </div>
                         </div>
                         <div className="w-full lg:w-1/2">
                             <div className="aspect-square w-full rounded-[32px] overflow-hidden bg-slate-200 shadow-2xl relative border-8 border-white">
-                                <img src="/assets/floor-planner/2d-sketch.webp" alt="Kids room layout design" className="w-full h-full object-cover" />
+                                <img src={spaces[activeTab].image} alt={spaces[activeTab].title} className="w-full h-full object-cover transition-opacity duration-300" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -187,8 +210,8 @@ export default function KidsRoomLayoutsClient() {
             {/* Visualize Before Building Section */}
             <section className="px-4 py-12 lg:py-16 bg-[#0d1917] text-white overflow-hidden relative">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-zlendo-teal/20 rounded-full blur-[120px] pointer-events-none"></div>
-                <div className="container-custom mx-auto max-w-4xl text-center relative z-10">
-                    <h2 className="text-3xl font-black tracking-tight sm:text-5xl">Visualize Your Kids Room Before You Build It</h2>
+                <div className="container-custom mx-auto max-w-5xl text-center relative z-10">
+                    <h2 className="text-3xl md:text-[48px] font-black leading-tight tracking-tighter">Visualize Your Kids Room Before You Build It</h2>
                     <p className="mt-6 text-xl font-medium leading-relaxed text-slate-300">
                         Wondering whether the bed will fit beside the wardrobe? Not sure where the study desk should go? Want to compare two different layouts?
                     </p>
@@ -207,21 +230,32 @@ export default function KidsRoomLayoutsClient() {
             {/* Experts Section */}
             <section className="px-4 py-12 lg:py-16 border-y border-slate-200 bg-white">
                 <div className="container-custom mx-auto max-w-7xl">
-                    <div className="bg-slate-50 rounded-[40px] p-10 lg:p-20 border border-slate-200 text-center shadow-xl shadow-slate-200/50">
-                        <div className="mx-auto w-16 h-16 bg-white rounded-full flex items-center justify-center text-zlendo-teal shadow-md mb-6"><Users className="w-8 h-8" /></div>
-                        <h2 className="text-3xl font-black tracking-tight sm:text-5xl text-slate-900">Let Our Experts Design Your Kids Room</h2>
-                        <p className="mt-6 text-lg max-w-3xl mx-auto font-medium text-slate-600">
-                            From smart furniture placement to study, play, and storage zones, the Zlendo Realty Team helps you create a kids room layout that works for your family.
-                        </p>
-                        <p className="mt-2 text-lg text-slate-900 font-bold max-w-3xl mx-auto">Talk to our experts and hire a professional designer to bring your kids room vision to life.</p>
+                    <div className="bg-slate-50 rounded-[40px] p-10 lg:p-20 border border-slate-200 shadow-xl shadow-slate-200/50">
+                        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+                            <div className="text-center lg:text-left">
+                                <div className="mx-auto lg:mx-0 w-16 h-16 bg-white rounded-full flex items-center justify-center text-zlendo-teal shadow-md mb-6">
+                                    <Users className="w-8 h-8" />
+                                </div>
+                                <h2 className="text-3xl md:text-[48px] font-black leading-tight tracking-tighter text-slate-900">Let Our Experts Design Your Kids Room</h2>
+                                <p className="mt-6 text-lg font-medium text-slate-600">
+                                    From smart furniture placement to study, play, and storage zones, the Zlendo Realty Team helps you create a kids room layout that works for your family.
+                                </p>
+                                <p className="mt-2 text-lg text-slate-900 font-bold">Talk to our experts and hire a professional designer to bring your kids room vision to life.</p>
 
-                        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                            <Link href="/business#demo-form" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-8 py-4 font-black text-white transition hover:bg-slate-800">
-                                <PhoneCall className="w-5 h-5" /> Talk to an Expert
-                            </Link>
-                            <Link href="/contact" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-2xl border-2 border-slate-900 bg-transparent px-8 py-4 font-black text-slate-900 transition hover:bg-slate-50">
-                                <UserCheck className="w-5 h-5" /> Hire a Designer
-                            </Link>
+                                <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                                    <Link href="/business#demo-form" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-2xl bg-slate-900 px-8 py-4 font-black text-white transition hover:bg-slate-800">
+                                        <PhoneCall className="w-5 h-5" /> Talk to an Expert
+                                    </Link>
+                                    <Link href="/contact" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-2xl border-2 border-slate-900 bg-transparent px-8 py-4 font-black text-slate-900 transition hover:bg-slate-50">
+                                        <UserCheck className="w-5 h-5" /> Hire a Designer
+                                    </Link>
+                                </div>
+                            </div>
+                            <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[450px]">
+                                <div className="absolute inset-0 rounded-[32px] overflow-hidden border border-slate-200 shadow-lg">
+                                    <img src="/assets/global/floor-plan-discussion.webp" alt="Room Design Consultation" className="w-full h-full object-cover" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -231,7 +265,7 @@ export default function KidsRoomLayoutsClient() {
             <section className="px-4 py-12 lg:py-16 bg-[#f7f8f6]">
                 <div className="container-custom mx-auto max-w-3xl">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-black tracking-tight sm:text-5xl">Frequently Asked Questions</h2>
+                        <h2 className="text-3xl md:text-[48px] font-black leading-tight tracking-tighter">Frequently Asked Questions</h2>
                     </div>
                     <div className="space-y-4">
                         {faqs.map((faq, index) => (

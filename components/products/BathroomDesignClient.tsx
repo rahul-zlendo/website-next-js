@@ -62,11 +62,11 @@ export default function BathroomDesignClient() {
     ];
 
     const useCases = [
-        { title: 'Morning Routine', desc: 'Plan practical access between the vanity, mirror, shower, and storage.', icon: Sun },
-        { title: 'Family Bathroom', desc: 'Create enough functionality and storage for everyone in the household.', icon: Users },
-        { title: 'Master Bathroom', desc: 'Design a more spacious and relaxing environment with premium fixtures and finishes.', icon: BedDouble },
-        { title: 'Guest Bathroom', desc: 'Create a compact, stylish, and welcoming space.', icon: Bed },
-        { title: 'Accessible Bathroom', desc: 'Plan layouts with comfort, movement, and accessibility requirements in mind.', icon: Accessibility }
+        { title: 'Morning Routine', desc: 'Plan practical access between the vanity, mirror, shower, and storage.', icon: Sun, image: '/assets/global/bathroom-usecases/morning-routine.jpg' },
+        { title: 'Family Bathroom', desc: 'Create enough functionality and storage for everyone in the household.', icon: Users, image: '/assets/global/bathroom-usecases/family-bathroom.jpg' },
+        { title: 'Master Bathroom', desc: 'Design a more spacious and relaxing environment with premium fixtures and finishes.', icon: BedDouble, image: '/assets/global/bathroom-usecases/master-bathroom.jpg' },
+        { title: 'Guest Bathroom', desc: 'Create a compact, stylish, and welcoming space.', icon: Bed, image: '/assets/global/bathroom-usecases/guest-bathroom.png' },
+        { title: 'Accessible Bathroom', desc: 'Plan layouts with comfort, movement, and accessibility requirements in mind.', icon: Accessibility, image: '/assets/global/bathroom-usecases/accessible-bathroom.jpg' }
     ];
 
     const benefits = [
@@ -100,14 +100,11 @@ export default function BathroomDesignClient() {
                         <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-teal-200 backdrop-blur">
                             <Droplet className="h-4 w-4" /> Bathroom Design Tool
                         </div>
-                        <h1 className="max-w-3xl text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl">
+                        <h1 className="max-w-3xl text-[28px] md:text-[42px] lg:text-[52px] font-black leading-[1.08] tracking-tight md:tracking-tighter">
                             Turn Your Bathroom Space <br /><span className="text-teal-300">Into a Design You’ll Love</span>
                         </h1>
                         <p className="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-slate-300 lg:text-xl">
-                            Plan every detail. Visualize the transformation. A great bathroom starts with the right use of space. With Zlendo Realty's Bathroom Design Tool, you can plan your bathroom layout, position essential fixtures, explore materials and finishes, and visualize the complete space in 3D before construction or renovation.
-                        </p>
-                        <p className="mt-4 max-w-2xl text-lg font-medium leading-relaxed text-slate-400">
-                            Whether you're creating a new bathroom, upgrading a master bathroom, or transforming an old bathroom, Zlendo Realty helps you see what is possible before you start the work.
+                            Plan every detail and visualize the transformation in 3D. Whether you're upgrading a master bath or renovating an old space, Zlendo Realty's Design Tool helps you arrange fixtures and explore materials before construction begins.
                         </p>
                         <div className="mt-8 flex flex-col sm:flex-row gap-4">
                             <Link href={SIGNUP_URL} className="flex items-center justify-center gap-2 rounded-2xl bg-zlendo-teal px-7 py-4 font-black text-white transition hover:bg-teal-500">
@@ -121,7 +118,7 @@ export default function BathroomDesignClient() {
 
                     <div className="relative aspect-[4/3] w-full lg:aspect-auto lg:h-[500px]">
                         <div className="absolute inset-0 rounded-[32px] overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,.4)]">
-                            <img src="/assets/global/interior-design-walkthrough.webp" alt="Bathroom Design" className="w-full h-full object-cover" />
+                            <img src="/assets/global/modern-bathroom-design.jpg" alt="Bathroom Design" className="w-full h-full object-cover" />
                             <div className="absolute inset-0 bg-black/10 mix-blend-overlay"></div>
                         </div>
                     </div>
@@ -131,8 +128,8 @@ export default function BathroomDesignClient() {
             {/* Transform Space Section */}
             <section className="bg-white px-4 py-12 lg:py-16 border-y border-slate-200">
                 <div className="container-custom mx-auto max-w-7xl">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
-                        <h2 className="text-3xl font-black tracking-tight sm:text-5xl text-slate-900">Turn Your Space into a Beautiful, Functional Bathroom</h2>
+                    <div className="text-center mx-auto mb-16">
+                        <h2 className="text-3xl md:text-[48px] font-black leading-tight tracking-tighter text-slate-900">Turn Your Space into a Beautiful, Functional Bathroom</h2>
                     </div>
                     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {steps.map((step, index) => (
@@ -141,7 +138,7 @@ export default function BathroomDesignClient() {
                                     <div className="flex w-14 h-14 items-center justify-center rounded-2xl bg-white text-zlendo-teal shadow-sm group-hover:bg-zlendo-teal group-hover:text-white transition">
                                         <step.icon className="h-7 w-7" />
                                     </div>
-                                    <h3 className="mt-6 text-2xl font-black sm:text-3xl text-slate-900">{step.title}</h3>
+                                    <h3 className="mt-6 text-xl md:text-2xl font-black text-slate-900">{step.title}</h3>
                                     <p className="mt-4 font-medium leading-relaxed text-slate-600">{step.desc}</p>
                                 </div>
                                 <div className="mt-8">
@@ -160,7 +157,7 @@ export default function BathroomDesignClient() {
                 <div className="container-custom mx-auto max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16 items-center">
                         <div className="w-full lg:w-1/2">
-                            <h2 className="text-3xl font-black tracking-tight sm:text-5xl text-slate-900 mb-6">Create a Bathroom Around the Way You Live</h2>
+                            <h2 className="text-3xl md:text-[48px] font-black leading-tight tracking-tighter text-slate-900 mb-6">Create a Bathroom Around the Way You Live</h2>
                             <p className="mt-4 mb-8 text-lg font-medium text-slate-600">Your bathroom should work for your everyday routine—not just look good.</p>
                             <div className="space-y-4">
                                 {useCases.map((useCase, idx) => (
@@ -187,7 +184,7 @@ export default function BathroomDesignClient() {
                         </div>
                         <div className="w-full lg:w-1/2">
                             <div className="aspect-square w-full rounded-[32px] overflow-hidden bg-slate-200 shadow-2xl relative border-8 border-white">
-                                <img src="/assets/floor-planner/2d-sketch.webp" alt="Bathroom layout design" className="w-full h-full object-cover" />
+                                <img src={useCases[activeTab].image} alt={useCases[activeTab].title} className="w-full h-full object-cover transition-opacity duration-300" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -198,15 +195,15 @@ export default function BathroomDesignClient() {
             {/* Benefits Section */}
             <section className="px-4 py-12 lg:py-16 bg-white border-y border-slate-200">
                 <div className="container-custom mx-auto max-w-7xl">
-                    <div className="text-center max-w-3xl mx-auto mb-16">
+                    <div className="text-center mx-auto mb-16">
                         <p className="text-xs font-black uppercase tracking-[0.2em] text-zlendo-teal">Discover the Advantages</p>
-                        <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-5xl text-slate-900">Why Use Zlendo Realty for Bathroom Design?</h2>
+                        <h2 className="mt-4 text-3xl md:text-[48px] font-black leading-tight tracking-tighter text-slate-900">Why Use Zlendo Realty for Bathroom Design?</h2>
                     </div>
                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {benefits.map((item, index) => (
                             <div key={item.title} className="rounded-[28px] border border-slate-200 bg-slate-50 p-7 hover:border-slate-300 transition">
                                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-zlendo-teal shadow-sm"><item.icon className="h-6 w-6" /></div>
-                                <h3 className="mt-6 text-2xl font-black sm:text-3xl text-slate-900">{item.title}</h3>
+                                <h3 className="mt-6 text-xl md:text-2xl font-black text-slate-900">{item.title}</h3>
                                 <p className="mt-3 font-medium leading-relaxed text-slate-600">{item.desc}</p>
                             </div>
                         ))}
@@ -221,20 +218,32 @@ export default function BathroomDesignClient() {
 
             {/* Experts Section */}
             <section className="px-4 py-12 lg:py-16 bg-[#0d1917] text-white overflow-hidden relative">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-zlendo-teal/20 rounded-full blur-[120px] pointer-events-none"></div>
-                <div className="container-custom mx-auto max-w-5xl text-center relative z-10">
-                    <div className="mx-auto w-16 h-16 bg-white/10 backdrop-blur rounded-full flex items-center justify-center text-teal-300 shadow-md mb-6"><HeartHandshake className="w-8 h-8" /></div>
-                    <h2 className="text-3xl font-black tracking-tight sm:text-5xl">Need Help With Your Bathroom Design?</h2>
-                    <p className="mt-6 text-xl font-medium leading-relaxed text-slate-300 max-w-3xl mx-auto">
-                        From floor plan to 3D design and renovation, our professional team can help you create a bathroom that fits your space, style, and needs.
-                    </p>
-                    <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Link href="/business#demo-form" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-2xl bg-zlendo-teal px-8 py-4 font-black text-white transition hover:bg-teal-500">
-                            <PhoneCall className="w-5 h-5" /> Talk to Our Bathroom Design Team
-                        </Link>
-                        <Link href="/contact" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-transparent px-8 py-4 font-black text-white transition hover:bg-white/10">
-                            <UserCheck className="w-5 h-5" /> Plan My Bathroom Renovation
-                        </Link>
+                <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-zlendo-teal/20 rounded-full blur-[120px] pointer-events-none"></div>
+                <div className="container-custom mx-auto max-w-7xl relative z-10">
+                    <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+                        <div className="text-center lg:text-left">
+                            <div className="mx-auto lg:mx-0 mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-teal-300 shadow-md backdrop-blur">
+                                <HeartHandshake className="h-8 w-8" />
+                            </div>
+                            <h2 className="text-3xl md:text-[48px] font-black leading-tight tracking-tighter">Need Help With Your Bathroom Design?</h2>
+                            <p className="mt-6 text-xl font-medium leading-relaxed text-slate-300">
+                                From floor plan to 3D design and renovation, our professional team can help you create a bathroom that fits your space, style, and needs.
+                            </p>
+                            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                                <Link href="/business#demo-form" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-2xl bg-zlendo-teal px-8 py-4 font-black text-white transition hover:bg-teal-500">
+                                    <PhoneCall className="w-5 h-5" /> Talk to Our Team
+                                </Link>
+                                <Link href="/contact" className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-transparent px-8 py-4 font-black text-white transition hover:bg-white/10">
+                                    <UserCheck className="w-5 h-5" /> Plan Renovation
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:h-[450px]">
+                            <div className="absolute inset-0 rounded-[32px] overflow-hidden border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,.4)]">
+                                <img src="/assets/global/floor-plan-consultation.webp" alt="Bathroom Design Consultation" className="w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-black/10 mix-blend-overlay"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -243,7 +252,7 @@ export default function BathroomDesignClient() {
             <section className="px-4 py-12 lg:py-16 bg-[#f7f8f6]">
                 <div className="container-custom mx-auto max-w-3xl">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-black tracking-tight sm:text-5xl">Frequently Asked Questions</h2>
+                        <h2 className="text-3xl md:text-[48px] font-black leading-tight tracking-tighter">Frequently Asked Questions</h2>
                     </div>
                     <div className="space-y-4">
                         {faqs.map((faq, index) => (
