@@ -116,7 +116,7 @@ export default function RecentBlogPosts() {
                                     <img
                                         src={post.imageUrl}
                                         alt={post.imageAlt}
-                                        className="w-full h-full group-hover:scale-105 transition-transform duration-700"
+                                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                                         loading="lazy"
                                     />
                                 ) : (

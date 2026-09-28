@@ -98,7 +98,7 @@ export default function ProductsClient() {
                         <h2 className="text-4xl md:text-5xl font-black text-white leading-tight">Explore the AI Design Suite</h2>
                     </motion.div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-8">
                         {[
                             { title: 'AI Floor Planner', desc: 'Accurate 2D & 3D space planning with intelligent wall snapping, and smart drag-and-drop elements.', icon: LayoutDashboard, img: '/assets/global/floor-plan-discussion.webp', link: '/products/floor-planner', color: 'text-orange-400', bg: 'bg-orange-500/10' },
                             { title: '2D to 3D Converter', desc: 'Upload a flat drawing and instantly turn it into a presentation-ready 3D experience.', icon: Cuboid, img: '/assets/Home-Page/2d-to-3d-convertor.webp', link: '/products/2d-to-3d', color: 'text-purple-400', bg: 'bg-purple-500/10' },
@@ -106,8 +106,15 @@ export default function ProductsClient() {
                             { title: 'Interiors & Exteriors', desc: 'Robust region-aware design generation optimized for any lighting or environment condition.', icon: Building, img: '/assets/use-case/modern-indian-home-interior.webp', link: '/products/interiors-exteriors', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
                             { title: 'Realistic Renders', desc: 'Bypass heavy local rendering software. Photorealistic cloud visualization in seconds.', icon: ImageIcon, img: '/assets/design-presentation/hero-dashboard.webp', link: '/products/realistic-renders', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
                             { title: 'Virtual Walkthrough', desc: 'Deliver immersive 360° experiences bridging the gap before properties are even built.', icon: MonitorPlay, img: '/assets/global/interior-design-walkthrough-client.webp', link: '/products/virtual-walkthrough', color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
+                            { title: 'Bathroom Design Tool', desc: 'Create spa-like sanctuaries with accurate plumbing planning, material selection, and realistic lighting.', icon: PenTool, img: '/assets/global/modern-bathroom-design.jpg', link: '/products/bathroom-design-tool', color: 'text-blue-400', bg: 'bg-blue-500/10' },
+                            { title: 'Kids Room Layouts', desc: 'Design adaptable, fun, and functional children’s spaces with intelligent zoning and safe furniture choices.', icon: Zap, img: '/assets/global/kids-bedroom-design.jpg', link: '/products/kids-room-layouts', color: 'text-yellow-400', bg: 'bg-yellow-500/10' },
                         ].map((prod, i) => (
-                            <motion.div key={i} {...fadeUp} transition={{ delay: i * 0.1 }} className="bg-zinc-900 border border-white/10 rounded-[32px] overflow-hidden group hover:border-white/20 transition-all flex flex-col shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+                            <motion.div
+                                key={i}
+                                {...fadeUp}
+                                transition={{ delay: i * 0.1 }}
+                                className={`col-span-1 md:col-span-2 lg:col-span-2 ${i === 6 ? 'lg:col-start-2' : ''} ${i === 7 ? 'lg:col-start-4' : ''} bg-zinc-900 border border-white/10 rounded-[32px] overflow-hidden group hover:border-white/20 transition-all flex flex-col shadow-[0_10px_30px_rgba(0,0,0,0.5)]`}
+                            >
                                 <div className="h-48 md:h-56 relative overflow-hidden bg-zinc-800">
                                     <Image src={prod.img} alt={prod.title} fill className="object-cover opacity-70 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700" />
                                 </div>

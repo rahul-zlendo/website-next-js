@@ -427,6 +427,18 @@ export default function AdvancedFeatures() {
                         </div>
                     </motion.div>
                 </div>
+
+                {/* Explore Features CTA */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="mt-16 flex justify-center"
+                >
+                    <a href="/products" className="inline-flex items-center gap-2 px-8 py-4 border-2 border-[#111] text-[#111] bg-white rounded-xl font-black text-lg hover:bg-[#111] hover:text-white transition-all shadow-sm flex items-center justify-center group">
+                        Explore All Features <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                </motion.div>
             </div>
         </section>
     );
