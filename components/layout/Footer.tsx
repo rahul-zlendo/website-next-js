@@ -62,7 +62,7 @@ const Footer = ({
         { label: 'Realistic Renders', path: getPath('/products/realistic-renders') },
         { label: 'Virtual Walkthrough', path: getPath('/products/virtual-walkthrough') },
         ...(!isIndiaSite ? [
-            { label: 'See all Solutions →', path: getPath('/products'), highlight: true }
+            { label: 'See all Products →', path: getPath('/products'), highlight: true }
         ] : []),
     ];
 
@@ -155,7 +155,7 @@ const Footer = ({
                     {/* Products */}
                     <div className="lg:w-[14%]">
                         <h4 className="text-[18px] font-semibold text-zlendo-grey-dark mb-7">
-                            {isIndiaSite ? 'Products' : 'Solutions'}
+                            {'Products'}
                         </h4>
                         <ul className="space-y-3.5 text-[15px]">
                             {productLinks.map((link: any, i) => (
