@@ -11,7 +11,7 @@ export const metadata: Metadata = {
         'vastu analysis request',
         'real estate training',
     ],
-    alternates: localeAlternates('/register', 'in'),
+    alternates: localeAlternates('/register', 'global'),
 };
 
 export default function RegisterLayout({

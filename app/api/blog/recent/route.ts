@@ -24,7 +24,7 @@ export async function GET() {
       title: post.title,
       excerpt: sanitizeBlogDescription(post.excerpt),
       publishedAt: post.publishedAt,
-      imageUrl: imageUrl(post.mainImage, 600, 400, 'crop'),
+      imageUrl: imageUrl(post.mainImage, 800),
       imageAlt: post.mainImage?.alt || post.title,
     }));
     return NextResponse.json({ posts: shaped });

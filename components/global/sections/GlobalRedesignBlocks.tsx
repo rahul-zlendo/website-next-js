@@ -416,10 +416,10 @@ const HighContrastCTA = () => {
                 </h2>
                 <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-6">
                     <a href={SIGNUP_URL} className="w-full sm:w-auto px-10 py-5 bg-zlendo-teal text-white font-black text-xl rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_40px_rgba(0,191,154,0.3)] hover:scale-105">
-                        Start your free trial
+                        Start Your Free Trial
                     </a>
                     <a href="/business#demo-form" className="w-full sm:w-auto px-10 py-5 bg-white/10 backdrop-blur-md text-white border border-white/20 font-black text-xl rounded-full hover:bg-white/20 transition-all duration-300">
-                        Book a demo
+                        Book a Demo
                     </a>
                 </div>
             </div>

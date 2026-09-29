@@ -108,7 +108,7 @@ export default function InteractiveGlobalHero() {
                         </p>
                         <div className={styles.actions}>
                             <a href={SIGNUP_URL} className={styles.primary}>
-                                Start designing free{' '}
+                                Start Designing for Free{' '}
                                 <ArrowRight size={18} aria-hidden="true" />
                             </a>
                             <button
@@ -117,7 +117,7 @@ export default function InteractiveGlobalHero() {
                                 className={styles.secondary}
                             >
                                 <CirclePlay size={20} aria-hidden="true" />{' '}
-                                Watch demo
+                                Watch Demo
                             </button>
                         </div>
                         <p className={styles.support}>
