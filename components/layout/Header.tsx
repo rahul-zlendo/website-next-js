@@ -88,7 +88,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
         { label: 'Realistic Renders', desc: 'Photorealistic lighting visualization', icon: Cpu, path: getPath('/products/realistic-renders') },
         { label: 'Virtual Walkthrough', desc: '8K Ultra-realistic experiences', icon: Video, path: getPath('/products/virtual-walkthrough') },
         ...(!isIndiaSite ? [
-            { label: 'See all Solutions', desc: 'Explore all our offerings', icon: ArrowRight, path: getPath('/products') }
+            { label: 'See all Products', desc: 'Explore all our offerings', icon: ArrowRight, path: getPath('/products') }
         ] : []),
     ];
 
@@ -220,7 +220,7 @@ const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
                                 onClick={() => setActiveDropdown(activeDropdown === 'products' ? null : 'products')}
                                 className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'products' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
                             >
-                                {isIndiaSite ? 'Products' : 'Solutions'} <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
+                                {'Products'} <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
                             </button>
 
                             <AnimatePresence>
