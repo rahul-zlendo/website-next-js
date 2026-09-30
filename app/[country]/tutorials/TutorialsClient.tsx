@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, ArrowLeft, Clock } from 'lucide-react';
+import { Play, ArrowLeft, Clock, ArrowRight } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
@@ -12,6 +12,7 @@ interface PlaylistVideo {
     duration: string;
     views: number;
     customThumbnail?: string;
+    description?: string;
 }
 
 export default function TutorialsClient({ cms }: { cms: any }) {
@@ -20,30 +21,29 @@ export default function TutorialsClient({ cms }: { cms: any }) {
     const pathname = usePathname();
     const isIndiaSite = pathname?.startsWith('/in');
 
-    // Default Playlist Data with new provided videos
     const defaultVideos: PlaylistVideo[] = [
-        { videoId: 'PIO09xkPPVk', title: "How to Login & Create Projects | Complete Dashboard Walkthrough", duration: "2:54", views: 154, customThumbnail: '/assets/tutorials/login-to-dashboard-thimbnail.png' },
-        { videoId: 'oXqyg98QfA4', title: "Getting Started Tutorial | Create Your First Project, Explore the Complete Interface", duration: "4:40", views: 243, customThumbnail: '/assets/tutorials/start-from-scratch-thumbnail.png' },
-        { videoId: 'j7W91eWQHC4', title: "Template-Based Project | Complete Tutorial | Create & Customize Projects in Minutes", duration: "1:22", views: 189, customThumbnail: '/assets/tutorials/project-teamplates-thumbnail.png' },
-        { videoId: 'Gwhh654mlR4', title: "Smart Wizard + AI Inspiration Tutorial | Generate & Furnish Homes with AI | Zlendo Realty", duration: "3:45", views: 0, customThumbnail: '/assets/tutorials/smart-wizard-ai-inspiration-thumbnail.png' },
-        { videoId: '-zs128gfZAQ', title: "Turn Any 2D Floor Plan into 3D in Minutes! | Complete Import Guide", duration: "7:04", views: 320, customThumbnail: '/assets/tutorials/2d-upload-thumbnail.png' },
-        { videoId: 'UhX8KTyhCZ4', title: "Placement of Assets Tutorial | Place, Move & Customize 3D Furniture and Models | Zlendo Realty", duration: "2:16", views: 210, customThumbnail: '/assets/tutorials/3d-model-editor-thumbnail.jpg' },
-        { videoId: 'u1sEdZqZNZ8', title: "Master Wall Editing in Minutes! | Complete Wall Editor Guide", duration: "4:18", views: 145, customThumbnail: '/assets/tutorials/wall-editor-and-wall-properties-thumbnail.png' },
-        { videoId: 'XxU6clslj5I', title: "Doors & Windows Tutorial | Place, Edit & Customize Doors, Windows & Openings", duration: "3:33", views: 178, customThumbnail: '/assets/tutorials/doors_windows_tutorial-thumbnail.png' },
-        { videoId: 'WigNfsSR_iw', title: "Floor Editor Tutorial | Apply Wood, Tiles, Marble & Custom Paving Patterns", duration: "2:01", views: 198, customThumbnail: '/assets/tutorials/floor-editor-thumbnail.png' },
-        { videoId: 'wEtK0Kh7T14', title: "Transform Plain Walls into Stunning Feature Walls! | Complete Tutorial", duration: "4:14", views: 167, customThumbnail: '/assets/tutorials/wall-customization-thumbnail.png' },
-        { videoId: '-Tc_64ymuk4', title: "How to Create & Customize Staircases | Straight, L & U Staircase Tutorial", duration: "1:43", views: 234, customThumbnail: '/assets/tutorials/staircase-thumbnail.png' },
-        { videoId: 'qKyIxNNMOjk', title: "Multiple Floors & Basement Tutorial | Create Multi-Storey Buildings Step-by-Step", duration: "2:47", views: 289, customThumbnail: '/assets/tutorials/multiple-floor-thumbnail.png' },
-        { videoId: 'RdBxWJtX4-M', title: "Redesign Any Room with AI in Seconds! | AI Inspiration Complete Guide", duration: "1:29", views: 432, customThumbnail: '/assets/tutorials/ai-inspiration-thumbnail.png' },
-        { videoId: '-LHxMptWzRU', title: "Using The Vaastu feature in Zlendo Realty | Complete Tutorial", duration: "1:30", views: 156, customThumbnail: '/assets/tutorials/vastu-thumbnail.png' },
-        { videoId: 'EgzImgoCdpY', title: "Design a Compound Wall & Main Entrance Steps in Minutes | Complete Tutorial | Zlendo Realty", duration: "5:22", views: 134, customThumbnail: '/assets/tutorials/compound-wall-thumbnail.png' },
-        { videoId: 'I0Oh4O87w9A', title: "Basement, Plot Area & Setback Tutorial | Create Site Boundaries Step-by-Step", duration: "2:03", views: 112, customThumbnail: '/assets/tutorials/basement-plto-area-thumbnail.png' },
-        { videoId: 'Tp4yQkGuLc4', title: "Know Your Project Cost Before You Build! | Complete Cost Estimation Guide | Zlendo Realty", duration: "1:27", views: 190, customThumbnail: '/assets/tutorials/cost-estimation-thumbnail.png' },
-        { videoId: '3dLFR6ddI4k', title: "Share Your Designs with the Community! | Complete Publishing Guide | Zlendo Realty", duration: "2:13", views: 190, customThumbnail: '/assets/tutorials/community-post-thumbnail.png' },
-        { videoId: 'J1uSywQuNyc', title: "Create Stunning 4K Renders in Minutes! | Complete Rendering Tutorial", duration: "8:24", views: 378, customThumbnail: '/assets/tutorials/render-image-thumbnail.png' },
-        { videoId: 'N17BBHGLNdg', title: "Create Stunning 4K Walkthrough Videos Without Any Editing!", duration: "5:40", views: 345, customThumbnail: '/assets/tutorials/video-render-tutorial-thumbnail.png' },
-        { videoId: '0cQB0Jfblww', title: "3D Walkthrough Mode Tutorial | Complete Walkthrough, Camera, Lighting & HDR Settings", duration: "4:29", views: 401, customThumbnail: '/assets/tutorials/3d-walk-mode-thumbnail-1.png' },
-        { videoId: 'nc8VSLzl850', title: "Export Professional Floor Plans Like an Expert! | Complete Tutorial", duration: "4:01", views: 145, customThumbnail: '/assets/tutorials/export-plans-thumbnail.png' },
+        { videoId: 'PIO09xkPPVk', title: "How to Login & Create Projects | Complete Dashboard Walkthrough", duration: "2:54", views: 154, customThumbnail: '/assets/tutorials/login-to-dashboard-thimbnail.png', description: "Learn how to easily access your account, navigate the central dashboard, and set up your very first design project." },
+        { videoId: 'oXqyg98QfA4', title: "Getting Started Tutorial | Create Your First Project, Explore the Complete Interface", duration: "4:40", views: 243, customThumbnail: '/assets/tutorials/start-from-scratch-thumbnail.png', description: "Familiarize yourself with the core design tools, UI layout, and essential settings to kick off your project from scratch." },
+        { videoId: 'j7W91eWQHC4', title: "Template-Based Project | Complete Tutorial | Create & Customize Projects in Minutes", duration: "1:22", views: 189, customThumbnail: '/assets/tutorials/project-teamplates-thumbnail.png', description: "Save hours of work by utilizing pre-built templates. Discover how to rapidly customize existing layouts for your specific needs." },
+        { videoId: 'Gwhh654mlR4', title: "Smart Wizard + AI Inspiration Tutorial | Generate & Furnish Homes with AI | Zlendo Realty", duration: "3:45", views: 0, customThumbnail: '/assets/tutorials/smart-wizard-ai-inspiration-thumbnail.png', description: "Harness the power of AI to instantly generate entire home layouts and automatically furnish interior rooms using the Smart Wizard." },
+        { videoId: '-zs128gfZAQ', title: "Turn Any 2D Floor Plan into 3D in Minutes! | Complete Import Guide", duration: "7:04", views: 320, customThumbnail: '/assets/tutorials/2d-upload-thumbnail.png', description: "Watch our step-by-step guide on importing flat 2D drawings and letting the system automatically convert them into interactive 3D environments." },
+        { videoId: 'UhX8KTyhCZ4', title: "Placement of Assets Tutorial | Place, Move & Customize 3D Furniture and Models | Zlendo Realty", duration: "2:16", views: 210, customThumbnail: '/assets/tutorials/3d-model-editor-thumbnail.jpg', description: "Master the 3D model editor object controls. Learn to accurately place, rotate, scale, and customize furniture within your spaces." },
+        { videoId: 'u1sEdZqZNZ8', title: "Master Wall Editing in Minutes! | Complete Wall Editor Guide", duration: "4:18", views: 145, customThumbnail: '/assets/tutorials/wall-editor-and-wall-properties-thumbnail.png', description: "Take total structural control. This tutorial covers wall properties, thickness, custom heights, and advanced splitting techniques." },
+        { videoId: 'XxU6clslj5I', title: "Doors & Windows Tutorial | Place, Edit & Customize Doors, Windows & Openings", duration: "3:33", views: 178, customThumbnail: '/assets/tutorials/doors_windows_tutorial-thumbnail.png', description: "Learn how to intelligently snap doors, windows, and custom openings into your walls while adjusting dimensions and frame styles." },
+        { videoId: 'WigNfsSR_iw', title: "Floor Editor Tutorial | Apply Wood, Tiles, Marble & Custom Paving Patterns", duration: "2:01", views: 198, customThumbnail: '/assets/tutorials/floor-editor-thumbnail.png', description: "Elevate your interiors. Discover how to customize floor zoning, apply detailed textures like marble, and modify tiling patterns." },
+        { videoId: 'wEtK0Kh7T14', title: "Transform Plain Walls into Stunning Feature Walls! | Complete Tutorial", duration: "4:14", views: 167, customThumbnail: '/assets/tutorials/wall-customization-thumbnail.png', description: "Go beyond basic paint. Learn how to design elegant feature walls using custom paneling, unique wallpaper textures, and materiality." },
+        { videoId: '-Tc_64ymuk4', title: "How to Create & Customize Staircases | Straight, L & U Staircase Tutorial", duration: "1:43", views: 234, customThumbnail: '/assets/tutorials/staircase-thumbnail.png', description: "Connect multiple levels seamlessly. Explore the staircase generator to construct custom Straight, L-shaped, and U-shaped stairs." },
+        { videoId: 'qKyIxNNMOjk', title: "Multiple Floors & Basement Tutorial | Create Multi-Storey Buildings Step-by-Step", duration: "2:47", views: 289, customThumbnail: '/assets/tutorials/multiple-floor-thumbnail.png', description: "Expand your designs vertically! Learn the correct workflow for adding multiple storeys and designing foundational basement levels." },
+        { videoId: 'RdBxWJtX4-M', title: "Redesign Any Room with AI in Seconds! | AI Inspiration Complete Guide", duration: "1:29", views: 432, customThumbnail: '/assets/tutorials/ai-inspiration-thumbnail.png', description: "Stuck on styling? Use the AI Inspiration tool to rapidly swap out aesthetics, colors, and interior design themes in seconds." },
+        { videoId: '-LHxMptWzRU', title: "Using The Vaastu feature in Zlendo Realty | Complete Tutorial", duration: "1:30", views: 156, customThumbnail: '/assets/tutorials/vastu-thumbnail.png', description: "Ensure ultimate harmony in your plans. Watch how to run automated Vastu checks and optimize room placements according to traditional principles." },
+        { videoId: 'EgzImgoCdpY', title: "Design a Compound Wall & Main Entrance Steps in Minutes | Complete Tutorial | Zlendo Realty", duration: "5:22", views: 134, customThumbnail: '/assets/tutorials/compound-wall-thumbnail.png', description: "Finalize the exterior structure. We show you exactly how to draft beautiful compound perimeter walls and construct grand entrance steps." },
+        { videoId: 'I0Oh4O87w9A', title: "Basement, Plot Area & Setback Tutorial | Create Site Boundaries Step-by-Step", duration: "2:03", views: 112, customThumbnail: '/assets/tutorials/basement-plto-area-thumbnail.png', description: "Establish your fundamental property lines. Learn to properly define plot areas, implement accurate setbacks, and lay out site boundaries." },
+        { videoId: 'Tp4yQkGuLc4', title: "Know Your Project Cost Before You Build! | Complete Cost Estimation Guide | Zlendo Realty", duration: "1:27", views: 190, customThumbnail: '/assets/tutorials/cost-estimation-thumbnail.png', description: "Never guess your budget again. Discover how to automatically extract BOQs and dynamic cost estimations directly from your 3D model." },
+        { videoId: '3dLFR6ddI4k', title: "Share Your Designs with the Community! | Complete Publishing Guide | Zlendo Realty", duration: "2:13", views: 190, customThumbnail: '/assets/tutorials/community-post-thumbnail.png', description: "Showcase your portfolio! Learn the best practices for publishing your completed design projects directly into the Zlendo community gallery." },
+        { videoId: 'J1uSywQuNyc', title: "Create Stunning 4K Renders in Minutes! | Complete Rendering Tutorial", duration: "8:24", views: 378, customThumbnail: '/assets/tutorials/render-image-thumbnail.png', description: "Transform raw models into photorealistic masterpieces. This deep dive covers everything about setting up and processing stunning 4K images." },
+        { videoId: 'N17BBHGLNdg', title: "Create Stunning 4K Walkthrough Videos Without Any Editing!", duration: "5:40", views: 345, customThumbnail: '/assets/tutorials/video-render-tutorial-thumbnail.png', description: "Produce cinematic architectural presentations. Learn how to set keyframes and render buttery smooth 4K video walkthroughs effortlessly." },
+        { videoId: '0cQB0Jfblww', title: "3D Walkthrough Mode Tutorial | Complete Walkthrough, Camera, Lighting & HDR Settings", duration: "4:29", views: 401, customThumbnail: '/assets/tutorials/3d-walk-mode-thumbnail-1.png', description: "Fine-tune the immersive experience. Adjust HDR environments, configure atmospheric lighting, and master in-engine camera controls." },
+        { videoId: 'nc8VSLzl850', title: "Export Professional Floor Plans Like an Expert! | Complete Tutorial", duration: "4:01", views: 145, customThumbnail: '/assets/tutorials/export-plans-thumbnail.png', description: "Prepare your work for construction teams. Learn how to format, annotate, and export crisp, professional-grade 2D floor plan documents." },
     ];
 
     const playlistVideos = cms?.videos || defaultVideos;
@@ -151,12 +151,30 @@ export default function TutorialsClient({ cms }: { cms: any }) {
                                     />
                                 </motion.div>
 
-                                <div className="mt-6">
+                                <div className="mt-6 bg-white p-6 rounded-3xl border border-black/5 shadow-sm">
                                     <h1 className="text-2xl md:text-3xl font-black text-slate-900 leading-tight">
                                         {activeVideo.title}
                                     </h1>
-                                    <div className="flex items-center gap-4 mt-3 text-sm text-slate-500 font-medium">
+                                    <p className="text-slate-600 text-base font-medium mt-3 leading-relaxed">
+                                        {activeVideo.description || "Master Zlendo Realty's intelligent AI design tools with this step-by-step tutorial."}
+                                    </p>
+                                    <div className="flex items-center gap-4 mt-4 mb-6 pb-6 border-b border-black/5 text-sm text-slate-500 font-bold">
                                         <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> {activeVideo.duration}</span>
+                                    </div>
+
+                                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 bg-slate-50 p-6 rounded-2xl border border-black/5">
+                                        <div className="max-w-xl">
+                                            <h3 className="font-black text-slate-900 text-lg mb-1.5">Put this into practice today</h3>
+                                            <p className="text-slate-600 font-medium text-sm leading-relaxed">
+                                                Open the studio and try these latest tools on your own project for free!
+                                            </p>
+                                        </div>
+                                        <a
+                                            href="https://app.zlendorealty.com/signup"
+                                            className="shrink-0 w-full md:w-auto px-8 py-3.5 bg-zlendo-teal text-white rounded-xl font-black text-sm hover:scale-105 hover:bg-teal-600 transition-all shadow-lg shadow-zlendo-teal/20 flex items-center justify-center gap-2 group"
+                                        >
+                                            Start For Free <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        </a>
                                     </div>
                                 </div>
                             </div>

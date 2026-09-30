@@ -252,7 +252,7 @@ const RegistrationContent = () => {
     return (
         <div className="min-h-screen bg-white flex flex-col lg:flex-row font-outfit">
             {/* Left Side: Content */}
-            <div className="lg:w-1/2 bg-[#f8fbfa] p-8 lg:p-20 flex flex-col justify-between relative overflow-hidden">
+            <div className="lg:w-1/2 bg-[#f8fbfa] p-8 lg:p-20 flex flex-col items-center justify-center relative overflow-hidden">
                 {/* Grid Pattern Background */}
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(#1A1A1A 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
@@ -260,7 +260,7 @@ const RegistrationContent = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="relative z-10"
+                    className="relative z-10 flex justify-center"
                 >
 
                     <div className="max-w-xl">
