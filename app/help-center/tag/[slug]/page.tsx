@@ -5,6 +5,7 @@ import { getHcPostsByTag, getHcTagBySlug, getAllHcTagSlugs } from '@/lib/wordpre
 import { generateHcTagMetadata, generateBreadcrumbJsonLd } from '@/lib/wordpress/hc-seo';
 import { HcCard } from '@/components/helpcenter';
 import { Pagination, BlogHero, BlogBreadcrumb } from '@/components/blog';
+import JsonLd from '@/components/common/JsonLd';
 
 interface TagPageProps {
     params: Promise<{ slug: string }>;
@@ -95,10 +96,7 @@ export default async function HcTagPage({ params, searchParams }: TagPageProps) 
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
+            <JsonLd schema={breadcrumbJsonLd} />
 
             <BlogHero
                 title={`Tag: ${tag.name}`}

@@ -23,6 +23,7 @@ export interface Offer {
   createdOn: string;
   updatedBy: string | null;
   updatedOn: string | null;
+  symbol: string;
 }
 
 export const getAllOffersService = async (): Promise<Offer[]> => {

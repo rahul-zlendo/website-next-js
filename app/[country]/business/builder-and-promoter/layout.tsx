@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
-    title: 'Builder & Promoter Solutions | Zlendo Realty',
+    title: 'Builder & Promoter Solutions',
     description:
         'Close deals faster with visual confidence. Empower buyers to visualize their future home instantly using Zlendo Realty AI Floor Plan & Interior Design Software.',
     keywords: [
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
         'property sales software India',
     ],
     openGraph: {
-        title: 'Builder & Promoter Solutions | Zlendo Realty',
+        title: 'Builder & Promoter Solutions',
         description: 'Empower buyers with 3D visualization. Showcase under-construction projects and close deals faster.',
         url: 'https://zlendorealty.com/in/business/builder-and-promoter',
         siteName: 'Zlendo Realty',
@@ -37,16 +38,10 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Builder & Promoter Solutions | Zlendo Realty',
+        title: 'Builder & Promoter Solutions',
         description: 'Close deals faster with immersive 3D property visualization.',
     },
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/business/builder-and-promoter',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/business/builder-and-promoter',
-            'x-default': 'https://zlendorealty.com/in/business/builder-and-promoter',
-        },
-    },
+    alternates: indiaOnlyAlternates('/business/builder-and-promoter'),
 };
 
 export default function BuilderAndPromoterLayout({
@@ -56,3 +51,4 @@ export default function BuilderAndPromoterLayout({
 }) {
     return <>{children}</>;
 }
+

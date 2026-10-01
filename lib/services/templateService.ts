@@ -29,6 +29,7 @@ export interface Template {
   isCustomer?: boolean; // Optional field
   viewCount?: number; // Optional template view count
   likeCount?: number; // Optional template like count
+  isCommunity?: boolean; // Flag to identify community templates
 }
 
 export interface TemplateComment {
@@ -51,16 +52,18 @@ export interface TemplateCommentsResponse {
   totalCommentLikes: number;
 }
 
-export const getAllTemplatesService = async (): Promise<Template[]> => {
+export const getAllTemplatesService = async (regionId?: number): Promise<Template[]> => {
   try {
+    // const params = regionId ? { RegionId: regionId } : {};
+    const params = { RegionId: 0 };
     // Fetch both endpoints in parallel
     const [allTemplatesResponse, communityTemplatesResponse] = await Promise.all([
-      axiosInstance.get(ENDPOINTS_TEMPLATE.GET_ALL),
-      axiosInstance.get(ENDPOINTS_TEMPLATE.GET_COMMUNITY).catch(() => ({ data: [] })) // Fallback to empty array if fails
+      axiosInstance.get(ENDPOINTS_TEMPLATE.GET_ALL, { params }),
+      axiosInstance.get(ENDPOINTS_TEMPLATE.GET_COMMUNITY, { params }).catch(() => ({ data: [] })) // Fallback to empty array if fails
     ]);
 
-    const allTemplates: Template[] = allTemplatesResponse.data;
-    const communityTemplates: Template[] = communityTemplatesResponse.data;
+    const allTemplates: Template[] = allTemplatesResponse.data.templateList;
+    const communityTemplates: Template[] = communityTemplatesResponse.data.templateList;
 
     // Create a map of community templates by template_Id for quick lookup
     const communityMap = new Map<number, Template>();
@@ -77,9 +80,13 @@ export const getAllTemplatesService = async (): Promise<Template[]> => {
           userId: communityData.userId,
           userName: communityData.userName,
           profileUrl: communityData.profileUrl,
+          isCommunity: true,
         };
       }
-      return template;
+      return {
+        ...template,
+        isCommunity: false,
+      };
     });
 
     return mergedTemplates;
@@ -115,9 +122,9 @@ export const likeTemplateService = async (
 
 export const addCommentService = async (templateId: number, userId: number, text: string, parentCommentId: number | null = null): Promise<unknown> => {
   try {
-    const payload = { 
-      templateId, 
-      userId, 
+    const payload = {
+      templateId,
+      userId,
       parentCommentId: parentCommentId ?? null,
       text
     };

@@ -11,9 +11,15 @@
  * - NEXT_PUBLIC_BACKEND_URL
  */
 
+export const enableGTM = 'prod';
+
 // Determine environment (dev or prod)
-const env = process.env.NEXT_PUBLIC_ENV || 'prod';
+const env = process.env.NEXT_PUBLIC_ENV || 'dev';
 const isDev = env === 'dev';
+
+if (isDev) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
 
 // Frontend URLs - Using production URL for both dev and prod 
 // const FRONTEND_URL_DEV = 'http://localhost:3000'
@@ -21,8 +27,8 @@ const FRONTEND_URL_DEV = 'https://stagingapp.zlendorealty.com';
 const FRONTEND_URL_PROD = 'https://app.zlendorealty.com';
 
 // Backend URLs - Using production API for both dev and prod
-const BACKEND_URL_DEV = 'https://prodapi.zlendorealty.com';
-//const BACKEND_URL_DEV = 'https://216.48.182.24:4051';
+const BACKEND_URL_DEV = 'https://api.zlendorealty.com';
+// const BACKEND_URL_DEV = 'https://216.48.182.24:4051';
 const BACKEND_URL_PROD = 'https://prodapi.zlendorealty.com';
 
 // Blob URL
@@ -61,11 +67,15 @@ export const designLibrary = `${FRONTEND_URL}/design-library`
 export const PROJECT_DETAILS_URL = `${FRONTEND_URL}/project-details`;
 
 // Default API tokens for unauthenticated requests
+// export const DEFAULT_API_TOKEN_DEV = 'zrsk_dev_41fbb72c9a0e5f1c8d2a9b6d4e8f3c2';
 export const DEFAULT_API_TOKEN_DEV = 'zrsk_beta_8a1d4c7e6f2b9a5d3c1e0f8b6a4d';
 export const DEFAULT_API_TOKEN_PROD = 'zrsk_beta_8a1d4c7e6f2b9a5d3c1e0f8b6a4d';
 
 // Use environment variable if provided, otherwise fallback to hardcoded defaults
 export const DEFAULT_API_TOKEN = process.env.NEXT_PUBLIC_ZREALTY_SERVICE_API_KEY || (isDev ? DEFAULT_API_TOKEN_DEV : DEFAULT_API_TOKEN_PROD);
+
+// HubSpot Configuration
+export const HUBSPOT_ACCESS_TOKEN = process.env.HUBSPOT_ACCESS_TOKEN || '';
 
 // Export environment info
 export const IS_DEV = isDev;

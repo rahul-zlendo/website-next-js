@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
-    title: 'Commercial Space Design Software | Zlendo Realty',
+    title: 'Commercial Space Design Software',
     description:
         'Design professional commercial spaces with AI-powered tools. Office layouts, retail spaces, and commercial building plans with 3D visualization.',
     keywords: [
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
         'architectural software for commercial projects',
     ],
     openGraph: {
-        title: 'Commercial Space Design | Zlendo Realty',
+        title: 'Commercial Space Design',
         description: 'AI-powered commercial space planning. Office layouts, retail spaces, and building plans in 3D.',
         url: 'https://zlendorealty.com/in/business/commercial-spaces',
         siteName: 'Zlendo Realty',
@@ -35,16 +36,10 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Commercial Space Design | Zlendo Realty',
+        title: 'Commercial Space Design',
         description: 'Professional commercial space planning with 3D visualization.',
     },
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/business/commercial-spaces',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/business/commercial-spaces',
-            'x-default': 'https://zlendorealty.com/in/business/commercial-spaces',
-        },
-    },
+    alternates: indiaOnlyAlternates('/business/commercial-spaces'),
 };
 
 export default function CommercialSpacesLayout({
@@ -54,3 +49,4 @@ export default function CommercialSpacesLayout({
 }) {
     return <>{children}</>;
 }
+

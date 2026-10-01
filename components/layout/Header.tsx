@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle } from 'lucide-react';
+import { Menu, X, ChevronDown, Box, Sparkles, Calculator, Ruler, Layout, Cpu, Video, Library, LayoutTemplate, BookOpen, Share2, Briefcase, User, ArrowRight, PenTool, CheckCircle, Phone, Newspaper, GraduationCap, Presentation, Award, Trophy, MonitorPlay, WandSparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Logo from '../common/Logo';
 import { SIGNUP_URL, LOGIN_URL, DASHBOARD_URL } from '@/lib/constants/urls';
@@ -16,9 +16,10 @@ import { BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
 
 interface HeaderProps {
     transparent?: boolean;
+    logoUrl?: string;
 }
 
-const Header = ({ transparent = false }: HeaderProps) => {
+const Header = ({ transparent = false, logoUrl }: HeaderProps) => {
     const { getPath } = useCountry();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -62,6 +63,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
 
     // Determine mode based on path - check for enterprise in path (handles /in/enterprise, /us/enterprise etc)
     const isBusinessMode = pathname?.includes('/business');
+    const isIndiaSite = pathname === '/in' || pathname?.startsWith('/in/') || (pathname?.includes('/blog') && typeof window !== 'undefined' && Cookies.get('zl_last_visited') === 'in');
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -76,20 +78,34 @@ const Header = ({ transparent = false }: HeaderProps) => {
     const productLinks = [
         { label: 'AI Floor Planner', desc: 'Design & Visualize in 3D', icon: PenTool, path: getPath('/products/floor-planner') },
         { label: '2D to 3D Converter', desc: 'Instant floor plan conversion', icon: Box, path: getPath('/products/2d-to-3d') },
+        { label: 'Smart Wizard', desc: '5 AI plans from your requirements', icon: WandSparkles, path: getPath('/products/smart-wizard') },
         { label: 'Smart Room Styler', desc: 'AI-driven interior styling', icon: Sparkles, path: getPath('/products/room-styler') },
         { label: 'Interiors & Exteriors', desc: 'Region-aware design intelligence', icon: Layout, path: getPath('/products/interiors-exteriors') },
-        { label: 'Smart Cost Estimator', desc: 'Precise project budgeting', icon: Calculator, path: getPath('/products/cost-estimator') },
-        { label: 'Vastu Optimizer', desc: 'Ancient wisdom, modern tech', icon: Ruler, path: getPath('/products/vastu') },
+        ...(isIndiaSite ? [
+            { label: 'Smart Cost Estimator', desc: 'Precise project budgeting', icon: Calculator, path: getPath('/products/cost-estimator') },
+            { label: 'Vastu Optimizer', desc: 'Ancient wisdom, modern tech', icon: Ruler, path: getPath('/products/vastu') },
+        ] : []),
         { label: 'Realistic Renders', desc: 'Photorealistic lighting visualization', icon: Cpu, path: getPath('/products/realistic-renders') },
         { label: 'Virtual Walkthrough', desc: '8K Ultra-realistic experiences', icon: Video, path: getPath('/products/virtual-walkthrough') },
+        ...(!isIndiaSite ? [
+            { label: 'See all Products', desc: 'Explore all our offerings', icon: ArrowRight, path: getPath('/products') }
+        ] : []),
     ];
+
+    const solutionsLinks = [
+        { label: 'Design Presentation', desc: 'Present clearly. Get approval faster.', icon: LayoutTemplate, path: getPath('/solutions/design-presentation') },
+    ];
+
 
     const resourceLinks = [
         { label: 'Design Library', desc: 'Inspiration gallery', icon: Library, path: designLibrary, openInNewTab: true },
         { label: 'Pre-built Templates', desc: 'Built-in layouts for homes, rooms, and interiors.', icon: LayoutTemplate, path: getPath('/viewalltemplates') },
+        { label: 'Webinars', desc: 'Live PropTech learning', icon: Video, path: getPath('/events') },
+        { label: 'Webinar Recordings', desc: 'Watch on-demand sessions', icon: MonitorPlay, path: getPath('/events/on-demand') },
         { label: 'Tutorials', desc: 'Learn the platform', icon: BookOpen, path: getPath('/tutorials') },
         { label: 'Help Center', desc: 'Find answers & support', icon: CheckCircle, path: 'https://helpcenter.zlendorealty.com', openInNewTab: true },
-        { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: 'https://zlendorealty.com/blog', openInNewTab: false },
+        { label: 'Blog', desc: 'Insights & Updates', icon: PenTool, path: '/blog' },
+        { label: 'News', desc: 'Industry Trends & Updates', icon: Newspaper, path: 'https://news.zlendorealty.com/', openInNewTab: true },
         ...(isBusinessMode ? [{ label: 'Partnership', desc: 'Affiliate & Partners', icon: Share2, path: getPath('/partners') }] : []),
     ];
 
@@ -107,11 +123,28 @@ const Header = ({ transparent = false }: HeaderProps) => {
         { label: 'New Home Building', desc: 'From plot to perfection', icon: User, path: getPath('/use-case/new-home-building') },
     ];
 
+    const serviceLinks = [
+        { label: 'Floor Plan Design', desc: 'Professional floor planning', icon: Layout, path: getPath('/services/floor-plan-design') },
+        { label: '2D to 3D Conversion', desc: 'Transform your plans to 3D', icon: Box, path: getPath('/services/2d-to-3d') },
+        { label: 'Interior Design', desc: 'Professional interior planning', icon: Sparkles, path: getPath('/services/interior-design') },
+        { label: 'Virtual Walkthrough', desc: 'Immersive 3D experiences', icon: Video, path: getPath('/services/virtual-walkthrough') },
+        ...(isIndiaSite ? [{ label: 'Vastu Consultation', desc: 'Expert Vastu guidance', icon: Ruler, path: getPath('/services/vastu-consultation') }] : []),
+
+    ];
+
     const businessMenuLinks = [
         { label: 'Business Free Trial', desc: 'Try enterprise features', icon: CheckCircle, path: getPath('/business') + '#demo-form' },
         { label: 'Affiliate & Partner Program', desc: 'Collaborate and grow together', icon: Share2, path: getPath('/partners') },
         { label: 'Zlendo Realty API Suite', desc: 'Grow your Business with Us', icon: Share2, path: getPath('/products/api-suite') },
 
+    ];
+
+    const collegeLinks = [
+        { label: 'College Partnerships', desc: 'Build an industry-ready AEC program', icon: GraduationCap, path: getPath('/colleges/partnerships') },
+        { label: 'Workshops', desc: 'Hands-on PropTech training', icon: Presentation, path: getPath('/colleges/workshops') },
+        { label: 'Design Battle', desc: 'Create, compete, and showcase your skills', icon: Trophy, path: '/design-battle' },
+        { label: 'Certifications', desc: 'Structured AEC skill credentials', icon: Award, path: getPath('/colleges/certifications') },
+        // { label: 'Webinars Recordings', desc: 'Watch previous sessions', icon: Video, path: getPath('/events/on-demand') },
     ];
 
     const toggleMode = () => {
@@ -177,7 +210,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
         >
             <div className="container-custom h-20 flex items-center justify-between px-6 lg:px-12">
                 <div className="flex items-center gap-10">
-                    <Logo className="h-14" onClick={toggleMode} />
+                    <Logo className="h-14" onClick={toggleMode} imageUrl={logoUrl} />
 
                     {/* Desktop Navigation */}
                     <div className="hidden lg:flex items-center gap-6">
@@ -187,7 +220,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                 onClick={() => setActiveDropdown(activeDropdown === 'products' ? null : 'products')}
                                 className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'products' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
                             >
-                                Products <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
+                                {'Products'} <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
                             </button>
 
                             <AnimatePresence>
@@ -205,7 +238,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                                 href={item.path}
                                                 prefetch={true}
                                                 onClick={toggleMode}
-                                                className="flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/[0.03] transition-all group/item"
+                                                className="flex gap-4 p-2 rounded-2xl hover:bg-zlendo-teal/[0.03] transition-all group/item"
                                             >
                                                 <div className="w-12 h-12 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal group-hover/item:scale-110 transition-transform">
                                                     <item.icon className="w-5 h-5" />
@@ -221,23 +254,64 @@ const Header = ({ transparent = false }: HeaderProps) => {
                             </AnimatePresence>
                         </div>
 
-                        {/* Use Cases Dropdown (Dynamic) */}
+                        {/* Solutions Dropdown */}
+                        {false && (
+                            <div className="relative group">
+                                <button
+                                    onClick={() => setActiveDropdown(activeDropdown === 'solutions' ? null : 'solutions')}
+                                    className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'solutions' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
+                                >
+                                    Solutions <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
+                                </button>
+
+                                <AnimatePresence>
+                                    {activeDropdown === 'solutions' && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            className="absolute top-full left-0 mt-4 w-[340px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 flex flex-col gap-2"
+                                        >
+                                            {solutionsLinks.map((item) => (
+                                                <Link
+                                                    key={item.label}
+                                                    href={item.path}
+                                                    prefetch={true}
+                                                    onClick={toggleMode}
+                                                    className="flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/5 transition-all group/item"
+                                                >
+                                                    <div className="w-10 h-10 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
+                                                        <item.icon className="w-4 h-4" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
+                                                        <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
+                                                    </div>
+                                                </Link>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        )}
+
+                        {/* Services Dropdown*/}
                         <div className="relative group">
                             <button
-                                onClick={() => setActiveDropdown(activeDropdown === 'use-cases' ? null : 'use-cases')}
-                                className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'use-cases' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
+                                onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
+                                className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'services' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
                             >
-                                Use Cases <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'use-cases' ? 'rotate-180' : ''}`} />
+                                Services <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'services' ? 'rotate-180' : ''}`} />
                             </button>
                             <AnimatePresence>
-                                {activeDropdown === 'use-cases' && (
+                                {activeDropdown === 'services' && (
                                     <motion.div
                                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                         className="absolute top-full left-0 mt-4 w-[340px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 flex flex-col gap-2"
                                     >
-                                        {(isBusinessMode ? businessUseCases : individualUseCases).map((item) => (
+                                        {serviceLinks.map((item) => (
                                             <Link
                                                 key={item.label}
                                                 href={item.path}
@@ -245,12 +319,12 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                                 onClick={toggleMode}
                                                 className="flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/5 transition-all group/item"
                                             >
-                                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isBusinessMode ? 'bg-zlendo-orange/10 text-zlendo-orange' : 'bg-zlendo-teal/10 text-zlendo-teal'}`}>
+                                                <div className="w-10 h-10 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
                                                     <item.icon className="w-4 h-4" />
                                                 </div>
                                                 <div>
                                                     <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
-                                                    <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
+                                                    <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
                                                 </div>
                                             </Link>
                                         ))}
@@ -258,6 +332,47 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                 )}
                             </AnimatePresence>
                         </div>
+
+                        {/* Use Cases Dropdown (Commented for future use)
+                        {isIndiaSite && (
+                            <div className="relative group">
+                                <button
+                                    onClick={() => setActiveDropdown(activeDropdown === 'use-cases' ? null : 'use-cases')}
+                                    className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'use-cases' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
+                                >
+                                    Use Cases <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'use-cases' ? 'rotate-180' : ''}`} />
+                                </button>
+                                <AnimatePresence>
+                                    {activeDropdown === 'use-cases' && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                            className="absolute top-full left-0 mt-4 w-[340px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 flex flex-col gap-2"
+                                        >
+                                            {(isBusinessMode ? businessUseCases : individualUseCases).map((item) => (
+                                                <Link
+                                                    key={item.label}
+                                                    href={item.path}
+                                                    prefetch={true}
+                                                    onClick={toggleMode}
+                                                    className="flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/5 transition-all group/item"
+                                                >
+                                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isBusinessMode ? 'bg-zlendo-orange/10 text-zlendo-orange' : 'bg-zlendo-teal/10 text-zlendo-teal'}`}>
+                                                        <item.icon className="w-4 h-4" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
+                                                        <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
+                                                    </div>
+                                                </Link>
+                                            ))}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        )}
+                        */}
 
                         {/* Resources Dropdown */}
                         <div className="relative group">
@@ -273,23 +388,24 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                                        className="absolute top-full left-0 mt-4 w-[340px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 flex flex-col gap-2"
+                                        className="absolute top-full left-0 mt-4 w-[640px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 grid grid-cols-2 gap-5 overflow-hidden"
                                     >
+                                        <div className="absolute inset-0 bg-gradient-to-br from-zlendo-teal/[0.03] to-transparent pointer-events-none" />
                                         {resourceLinks.map((item) => {
                                             const isExternal = item.path.startsWith('http');
                                             const shouldOpenInNewTab = item.openInNewTab !== undefined ? item.openInNewTab : isExternal;
                                             const content = (
                                                 <>
-                                                    <div className="w-10 h-10 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
-                                                        <item.icon className="w-4 h-4" />
+                                                    <div className="w-12 h-12 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal group-hover/item:scale-110 transition-transform">
+                                                        <item.icon className="w-5 h-5" />
                                                     </div>
                                                     <div>
                                                         <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
-                                                        <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
+                                                        <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
                                                     </div>
                                                 </>
                                             );
-                                            const className = "flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/5 transition-all group/item";
+                                            const className = "flex gap-4 p-3 rounded-2xl hover:bg-zlendo-teal/[0.03] transition-all group/item relative z-10";
 
                                             if (isExternal) {
                                                 return (
@@ -341,7 +457,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                     onClick={() => setActiveDropdown(activeDropdown === 'business' ? null : 'business')}
                                     className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'business' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
                                 >
-                                    Partnership <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
+                                    {isIndiaSite ? 'Partnership' : 'Enterprise'} <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
                                 </button>
                                 <AnimatePresence>
                                     {activeDropdown === 'business' && (
@@ -364,7 +480,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                                     </div>
                                                     <div>
                                                         <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
-                                                        <p className="text-[10px] text-zlendo-grey-medium font-semibold opacity-60">{item.desc}</p>
+                                                        <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
                                                     </div>
                                                 </Link>
                                             ))}
@@ -373,6 +489,44 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                 </AnimatePresence>
                             </div>
                         )}
+
+                        {/* For Colleges Dropdown */}
+                        <div className="relative group">
+                            <button
+                                onClick={() => setActiveDropdown(activeDropdown === 'colleges' ? null : 'colleges')}
+                                className={`flex items-center gap-1.5 text-[15px] font-semibold transition-all hover:text-zlendo-teal ${activeDropdown === 'colleges' ? 'text-zlendo-teal' : 'text-[#333333]'}`}
+                            >
+                                For Colleges <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === 'colleges' ? 'rotate-180' : ''}`} />
+                            </button>
+                            <AnimatePresence>
+                                {activeDropdown === 'colleges' && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                        className="absolute top-full left-0 mt-4 w-[340px] bg-white rounded-[32px] shadow-2xl border border-black/[0.03] p-6 flex flex-col gap-2"
+                                    >
+                                        {collegeLinks.map((item) => (
+                                            <Link
+                                                key={item.label}
+                                                href={item.path}
+                                                prefetch={true}
+                                                onClick={toggleMode}
+                                                className="flex gap-4 p-4 rounded-2xl hover:bg-zlendo-teal/5 transition-all group/item"
+                                            >
+                                                <div className="w-10 h-10 rounded-xl bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
+                                                    <item.icon className="w-4 h-4" />
+                                                </div>
+                                                <div>
+                                                    <h4 className="text-[16px] font-bold text-zlendo-grey-dark">{item.label}</h4>
+                                                    <p className="text-xs text-zlendo-grey-medium font-semibold opacity-60 line-clamp-1">{item.desc}</p>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
 
                     </div>
                 </div>
@@ -397,7 +551,23 @@ const Header = ({ transparent = false }: HeaderProps) => {
                         </Link>
                     )}
 
-                    <div className="h-8 w-px bg-black/[0.05] hidden md:block" />
+                    {false && (
+                        <>
+                            <div className="h-8 w-px bg-black/[0.05] hidden md:block" />
+
+                            <a
+                                href="tel:+918047135989"
+                                className="hidden xl:flex items-center gap-2 text-[15px] font-bold text-zlendo-grey-dark hover:text-zlendo-teal transition-all"
+                            >
+                                <div className="w-8 h-8 rounded-full bg-zlendo-teal/10 flex items-center justify-center text-zlendo-teal">
+                                    <Phone className="w-4 h-4" />
+                                </div>
+                                +91 8047135989
+                            </a>
+
+                            <div className="h-8 w-px bg-black/[0.05] hidden xl:block" />
+                        </>
+                    )}
 
                     {/* Login and Start for free buttons */}
                     <div className="hidden md:flex items-center gap-4">
@@ -500,9 +670,16 @@ const Header = ({ transparent = false }: HeaderProps) => {
                         exit={{ opacity: 0, height: 0 }}
                         className="lg:hidden border-t border-black/5 bg-white shadow-2xl overflow-hidden"
                     >
-                        <div className="p-6 space-y-6 h-full overflow-y-auto">
+                        <div className="p-6 space-y-6 h-full overflow-y-auto pb-32">
                             <div className="space-y-4">
-                                <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-zlendo-grey-medium/40">Menu</h4>
+                                <div className="flex items-center justify-between">
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-zlendo-grey-medium/40">Menu</h4>
+                                    {isIndiaSite && (
+                                        <a href="tel:+918047135989" className="flex items-center gap-2 text-xs font-bold text-zlendo-teal">
+                                            <Phone className="w-3 h-3" /> Call Us
+                                        </a>
+                                    )}
+                                </div>
 
                                 {/* Products Mobile Dropdown */}
                                 <div>
@@ -510,7 +687,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                         onClick={() => setActiveDropdown(activeDropdown === 'products' ? null : 'products')}
                                         className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
                                     >
-                                        Products
+                                        {isIndiaSite ? 'Products' : 'Solutions'}
                                         <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'products' ? 'rotate-180' : ''}`} />
                                     </button>
                                     <AnimatePresence>
@@ -537,24 +714,60 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                     </AnimatePresence>
                                 </div>
 
-                                {/* Use Cases Mobile Dropdown */}
+
+                                {/* Solutions Mobile Dropdown */}
+                                {false && (
+                                    < div >
+                                        <button
+                                            onClick={() => setActiveDropdown(activeDropdown === 'solutions' ? null : 'solutions')}
+                                            className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
+                                        >
+                                            Solutions
+                                            <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'solutions' ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        <AnimatePresence>
+                                            {activeDropdown === 'solutions' && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10"
+                                                >
+                                                    {solutionsLinks.map(link => (
+                                                        <Link
+                                                            key={link.label}
+                                                            href={link.path}
+                                                            prefetch={true}
+                                                            onClick={() => setIsMobileMenuOpen(false)}
+                                                            className="block text-base font-medium text-zlendo-grey-medium hover:text-zlendo-teal"
+                                                        >
+                                                            {link.label}
+                                                        </Link>
+                                                    ))}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                )}
+
+                                {/* Services Mobile Dropdown */}
                                 <div>
                                     <button
-                                        onClick={() => setActiveDropdown(activeDropdown === 'use-cases' ? null : 'use-cases')}
+                                        onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
                                         className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
                                     >
-                                        Use Cases
-                                        <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'use-cases' ? 'rotate-180' : ''}`} />
+                                        Services
+                                        <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'services' ? 'rotate-180' : ''}`} />
                                     </button>
                                     <AnimatePresence>
-                                        {activeDropdown === 'use-cases' && (
+                                        {activeDropdown === 'services' && (
                                             <motion.div
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: 'auto', opacity: 1 }}
                                                 exit={{ height: 0, opacity: 0 }}
                                                 className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10"
                                             >
-                                                {(isBusinessMode ? businessUseCases : individualUseCases).map(link => (
+                                                {serviceLinks.map(link => (
                                                     <Link
                                                         key={link.label}
                                                         href={link.path}
@@ -568,6 +781,41 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                         )}
                                     </AnimatePresence>
                                 </div>
+
+                                {/* Use Cases Mobile Dropdown (Commented for future use)
+                                {isIndiaSite && (
+                                    <div>
+                                        <button
+                                            onClick={() => setActiveDropdown(activeDropdown === 'use-cases' ? null : 'use-cases')}
+                                            className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
+                                        >
+                                            Use Cases
+                                            <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'use-cases' ? 'rotate-180' : ''}`} />
+                                        </button>
+                                        <AnimatePresence>
+                                            {activeDropdown === 'use-cases' && (
+                                                <motion.div
+                                                    initial={{ height: 0, opacity: 0 }}
+                                                    animate={{ height: 'auto', opacity: 1 }}
+                                                    exit={{ height: 0, opacity: 0 }}
+                                                    className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10"
+                                                >
+                                                    {(isBusinessMode ? businessUseCases : individualUseCases).map(link => (
+                                                        <Link
+                                                            key={link.label}
+                                                            href={link.path}
+                                                            onClick={() => setIsMobileMenuOpen(false)}
+                                                            className="block text-base font-medium text-zlendo-grey-medium hover:text-zlendo-teal"
+                                                        >
+                                                            {link.label}
+                                                        </Link>
+                                                    ))}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                )}
+                                */}
 
                                 {/* Resources Mobile Dropdown */}
                                 <div>
@@ -634,7 +882,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                                 onClick={() => setActiveDropdown(activeDropdown === 'business' ? null : 'business')}
                                                 className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
                                             >
-                                                Partnership
+                                                {isIndiaSite ? 'Partnership' : 'Enterprise'}
                                                 <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'business' ? 'rotate-180' : ''}`} />
                                             </button>
                                             <AnimatePresence>
@@ -661,6 +909,38 @@ const Header = ({ transparent = false }: HeaderProps) => {
                                         </div>
                                     </>
                                 )}
+
+                                {/* For Colleges Mobile Menu */}
+                                <div>
+                                    <button
+                                        onClick={() => setActiveDropdown(activeDropdown === 'colleges' ? null : 'colleges')}
+                                        className="flex items-center justify-between w-full text-lg font-bold font-nunito text-zlendo-grey-dark mb-3"
+                                    >
+                                        For Colleges
+                                        <ChevronDown className={`w-4 h-4 transition-transform ${activeDropdown === 'colleges' ? 'rotate-180' : ''}`} />
+                                    </button>
+                                    <AnimatePresence>
+                                        {activeDropdown === 'colleges' && (
+                                            <motion.div
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: 'auto', opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                className="overflow-hidden space-y-4 pl-4 border-l-2 border-zlendo-teal/10 mb-4"
+                                            >
+                                                {collegeLinks.map(link => (
+                                                    <Link
+                                                        key={link.label}
+                                                        href={link.path}
+                                                        onClick={() => setIsMobileMenuOpen(false)}
+                                                        className="block text-base font-medium text-zlendo-grey-medium hover:text-zlendo-teal"
+                                                    >
+                                                        {link.label}
+                                                    </Link>
+                                                ))}
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
 
                                 <div className="h-px bg-black/5 my-6" />
 
@@ -735,7 +1015,7 @@ const Header = ({ transparent = false }: HeaderProps) => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </nav >
     );
 };
 

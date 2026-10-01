@@ -23,7 +23,21 @@ interface DesignInspirationItem {
     originalUrl?: string;
 }
 
-export default function DesignTemplateGallery() {
+interface DesignTemplateGalleryProps {
+    title?: string;
+    titleHighlight?: string;
+    subtitle?: string;
+    buttonLabel?: string;
+    noDataText?: string;
+}
+
+export default function DesignTemplateGallery({
+    title = "A wide range of home design",
+    titleHighlight = "ideas available!",
+    subtitle = "Looking for inspiration for your pooja room, balcony, or open-plan living area? Explore ready-made design templates for living rooms, bedrooms, kitchens, bathrooms, and more — thoughtfully designed for Indian homes and lifestyles.",
+    buttonLabel = "View all templates",
+    noDataText = "No designs available for this category."
+}: DesignTemplateGalleryProps) {
     const { getPath } = useCountry();
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -193,15 +207,14 @@ export default function DesignTemplateGallery() {
         <section className="container-custom mt-16 mb-16 md:mt-24 md:mb-24 px-4 text-center">
             <div className="max-w-4xl mx-auto mb-6 md:mb-10">
                 <h2 className="text-3xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-3 md:mb-4 leading-tight">
-                    A wide range of home design <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-emerald-600">ideas available!</span>
+                    {title} <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-emerald-600">{titleHighlight}</span>
                 </h2>
                 <p className="text-base md:text-lg text-zlendo-grey-medium font-bold opacity-70 mb-6 leading-relaxed max-w-3xl mx-auto">
-                    Looking for inspiration for your pooja room, balcony, or open-plan living area?
-                    Explore ready-made design templates for living rooms, bedrooms, kitchens, bathrooms, and more — thoughtfully designed for Indian homes and lifestyles.
+                    {subtitle}
                 </p>
                 <Link href={getPath('/viewalltemplates')} className="px-10 py-4 bg-zlendo-grey-dark text-white rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 hover:bg-black transition-all shadow-xl flex items-center gap-2 mx-auto inline-flex">
-                    View all templates <ArrowRight className="w-4 h-4" />
+                    {buttonLabel} <ArrowRight className="w-4 h-4" />
                 </Link>
             </div>
 
@@ -237,7 +250,7 @@ export default function DesignTemplateGallery() {
                             >
                                 <div className="text-center">
                                     <p className="text-base font-bold text-zlendo-grey-medium opacity-50">
-                                        No designs available for this category.
+                                        {noDataText}
                                     </p>
                                 </div>
                             </motion.div>

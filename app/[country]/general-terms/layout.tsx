@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -28,13 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty Services – General Terms & Conditions',
                 description: 'Read the General Terms and Conditions for using Zlendo Realty services. Understand user responsibilities, platform usage rules, and governing conditions.',
             },
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/general-terms',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/general-terms',
-                    'x-default': 'https://zlendorealty.com/in/general-terms',
-                },
-            },
+            alternates: localeAlternates('/general-terms', 'in'),
         };
     }
 
@@ -49,7 +44,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         'service level agreement',
         'virtual realty walkthroughs',
     ],
-        title: 'General Terms | Zlendo Realty',
+        title: 'General Terms',
     };
 }
 
@@ -57,3 +52,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

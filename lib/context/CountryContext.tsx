@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-export type CountryCode = 'in';
+export type CountryCode = 'in' | 'global';
 
 interface CountryPaths {
     enterpriseDemo: string;
@@ -22,7 +22,7 @@ interface CountryContextType {
 }
 
 const COUNTRY_COOKIE_NAME = 'zl_country_pref';
-const SUPPORTED_COUNTRIES: CountryCode[] = ['in'];
+const SUPPORTED_COUNTRIES: CountryCode[] = ['in', 'global'];
 
 const CountryContext = createContext<CountryContextType | undefined>(undefined);
 
@@ -34,12 +34,26 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
     const pathname = usePathname();
     const router = useRouter();
 
-    // Update country state when path changes
+    // Update country state when path changes.
+    // NOTE: We intentionally do NOT write to localStorage here.
+    // localStorage is only updated on explicit user action (setCountry)
+    // to prevent path-based navigation from creating stale geo preferences
+    // that persist across VPN/network changes.
     useEffect(() => {
-        const pathCountry = pathname?.split('/')[1] as CountryCode;
+        // The bare root `/` is ambiguous: middleware may rewrite it to /in
+        // content (for a user who chose India) while the browser URL stays `/`.
+        // Deriving country from the URL here would wrongly flip an India root to
+        // 'global' and make getPath() emit global links on an India page — so on
+        // `/` we trust the layout-provided initialCountry instead of overriding.
+        if (pathname === '/') return;
+
+        const pathParts = pathname?.split('/') || [];
+        const pathCountry = pathParts[1] as CountryCode;
         if (pathCountry && SUPPORTED_COUNTRIES.includes(pathCountry)) {
             setCountryState(pathCountry);
-            localStorage.setItem(COUNTRY_COOKIE_NAME, pathCountry);
+        } else if (pathParts.length > 0) {
+            // If no country prefix, it's global
+            setCountryState('global');
         }
     }, [pathname]);
 
@@ -47,29 +61,52 @@ export const CountryProvider: React.FC<{ children: React.ReactNode; initialCount
         if (SUPPORTED_COUNTRIES.includes(code)) {
             setCountryState(code);
             localStorage.setItem(COUNTRY_COOKIE_NAME, code);
+            // Authoritative manual choice the middleware reads (edge-visible, so
+            // it decides what the bare root `/` serves and survives reloads).
+            document.cookie = `zl_country_choice=${code}; path=/; max-age=31536000; samesite=lax`;
 
             // Redirect to the same path but with the new country code
-            const currentPathWithoutCountry = pathname?.replace(/^\/[a-z]{2}/, '') || '';
-            router.push(`/${code}${currentPathWithoutCountry}`);
+            const currentPathWithoutCountry = pathname?.replace(/^\/in/, '') || '';
+            const newPath = code === 'global' ? (currentPathWithoutCountry || '/') : `/${code}${currentPathWithoutCountry}`;
+            router.push(newPath);
         }
     };
 
     const getPath = (path: string) => {
+        // If it's an absolute URL, return it as is
+        if (path.startsWith('http://') || path.startsWith('https://')) {
+            return path;
+        }
+        
         const cleanPath = path.startsWith('/') ? path : `/${path}`;
+
+        // Global country doesn't use prefixes
+        if (country === 'global') {
+            return cleanPath;
+        }
+
+        // Prevent duplicate country prefix if already present (e.g., /in/...)
+        if (cleanPath.startsWith(`/${country}/`) || cleanPath === `/${country}`) {
+            return cleanPath;
+        }
+
         // Homepage uses the region-specific URL
         if (cleanPath === '/') return `/${country}`;
         return `/${country}${cleanPath}`;
     };
 
     // Pre-built paths for commonly used routes
-    const paths = useMemo<CountryPaths>(() => ({
-        enterpriseDemo: `/${country}/business#demo-form`,
-        enterprise: `/${country}/business`,
-        plans: `/${country}/plans`,
-        contact: `/${country}/contact`,
-        helpCenter: `/${country}/help-center`,
-        partners: `/${country}/partners`,
-    }), [country]);
+    const paths = useMemo<CountryPaths>(() => {
+        const prefix = country === 'global' ? '' : `/${country}`;
+        return {
+            enterpriseDemo: `${prefix}/business#demo-form`,
+            enterprise: `${prefix}/business`,
+            plans: `${prefix}/plans`,
+            contact: `${prefix}/contact`,
+            helpCenter: 'https://helpcenter.zlendorealty.com',
+            partners: `${prefix}/partners`,
+        };
+    }, [country]);
 
     return (
         <CountryContext.Provider value={{ country, setCountry, getPath, paths }}>

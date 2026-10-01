@@ -8,6 +8,7 @@ import { CountryProvider } from '@/lib/context/CountryContext';
 export default function NotFound() {
   return (
     <CountryProvider initialCountry="in">
+      <title>404 Page Not Found</title>
       <div className="min-h-screen flex flex-col bg-white">
         <Header />
         <main className="flex-grow flex items-center justify-center py-20">

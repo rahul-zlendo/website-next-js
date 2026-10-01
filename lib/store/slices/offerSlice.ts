@@ -32,12 +32,13 @@ const isOfferValid = (offer: Offer): boolean => {
   }
 };
 
-export const getAllOffers = createAsyncThunk(
+export const getAllOffers = createAsyncThunk<any, void, { state: any }>(
   "offers/getAllOffers",
-  async (_, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
       const response = await offerService.getAllOffersService();
-      return response;
+      const countryId = getState().enterprise.detectedCountryId;
+      return { offers: response, countryId };
     } catch (e: unknown) {
       const errorData = (e instanceof Error ? e.message : null) || "Failed to load offers";
       return rejectWithValue(errorData);
@@ -57,12 +58,25 @@ const offerSlice = createSlice({
       })
       .addCase(getAllOffers.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.offers = action.payload;
+        const { offers, countryId } = action.payload;
+        state.offers = offers;
 
-        // Filter for active offers where isActive === true
-        const activeOffers = action.payload.filter(
+        // Filter for active offers
+        let activeOffers = offers.filter(
           (offer: Offer) => offer.isActive === true
         );
+        console.log(countryId, "countryId");
+
+        // If we have a detected countryId, further filter offers for that country
+        // If we have a detected countryId, further filter offers for that country
+        if (countryId && countryId !== null) {
+          activeOffers = activeOffers.filter(
+            (offer: Offer) => offer.countryId === countryId
+          );
+        } else {
+          // If no countryId is available, we don't show any offers
+          activeOffers = [];
+        }
 
         if (activeOffers.length === 0) {
           state.activeOffer = null;
@@ -72,6 +86,7 @@ const offerSlice = createSlice({
 
         // First, try to find an offer that is both active AND within date range
         const validOffer = activeOffers.find((offer: Offer) => isOfferValid(offer));
+        console.log(validOffer, "validOffer");
 
         // If no offer is within date range, use the first active offer anyway
         const selectedOffer = validOffer || activeOffers[0];

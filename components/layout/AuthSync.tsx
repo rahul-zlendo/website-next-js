@@ -15,7 +15,7 @@ const AuthSync = () => {
         // Remove leading/trailing quotes and whitespace
         let cleaned = token.trim();
         // Remove surrounding quotes if present
-        if ((cleaned.startsWith('"') && cleaned.endsWith('"')) || 
+        if ((cleaned.startsWith('"') && cleaned.endsWith('"')) ||
             (cleaned.startsWith("'") && cleaned.endsWith("'"))) {
             cleaned = cleaned.slice(1, -1);
         }
@@ -34,14 +34,18 @@ const AuthSync = () => {
 
                 if (accessToken) {
                     try {
+                        // Use the latest token from Cookies in case it was refreshed during the API call
+                        const currentToken = Cookies.get('accessToken') || accessToken;
+
                         // Call API to verify token and get user details
-                        const userData = await getUserDetailsByTokenService(accessToken);
-                        console.log(userData,"userData",accessToken);
+                        const userData = await getUserDetailsByTokenService(currentToken);
+                        console.log(userData, currentToken, "userData", accessToken);
+
                         if (userData) {
                             // Set authenticated state with user data from API
                             dispatch(setAuth({
                                 user: userData,
-                                accessToken,
+                                accessToken: currentToken,
                                 isAuthenticated: true
                             }));
                         } else {

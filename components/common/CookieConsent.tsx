@@ -5,7 +5,15 @@ import { useCountry } from '@/lib/context/CountryContext';
 import Link from 'next/link';
 import { X } from 'lucide-react';
 
-const CookieConsent = () => {
+const CookieConsent = ({ 
+    text = 'We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.',
+    acceptLabel = 'Accept All',
+    declineLabel = 'Decline'
+}: { 
+    text?: string, 
+    acceptLabel?: string, 
+    declineLabel?: string 
+}) => {
     const [isVisible, setIsVisible] = useState(false);
     const [height, setHeight] = useState(0);
     const bannerRef = useRef<HTMLDivElement>(null);
@@ -57,8 +65,7 @@ const CookieConsent = () => {
                 <div className="container mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 pr-8 md:pr-0">
                     <div className="flex-1 text-left">
                         <p className="text-gray-600 text-xs md:text-sm leading-relaxed">
-                            We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic.
-                            By clicking "Accept All", you consent to our use of cookies.
+                            {text}
                             Read our <Link href={getPath('/cookie-policy')} className="text-zlendo-teal font-bold hover:underline">Cookie Policy</Link> to learn more.
                         </p>
                     </div>
@@ -68,13 +75,13 @@ const CookieConsent = () => {
                             onClick={handleDecline}
                             className="flex-1 px-4 py-2.5 rounded-full border border-gray-300 text-gray-700 font-bold hover:bg-gray-50 transition-colors text-xs md:text-sm whitespace-nowrap"
                         >
-                            Decline
+                            {declineLabel}
                         </button>
                         <button
                             onClick={handleAccept}
                             className="flex-1 px-4 py-2.5 rounded-full bg-zlendo-teal text-white font-bold hover:bg-zlendo-teal-dark transition-colors shadow-lg hover:shadow-xl text-xs md:text-sm whitespace-nowrap"
                         >
-                            Accept All
+                            {acceptLabel}
                         </button>
                     </div>
 
