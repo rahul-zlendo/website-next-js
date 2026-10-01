@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { PlayCircle, Clock, ArrowRight, ChevronLeft } from 'lucide-react';
+import { Play, Clock, ArrowRight, ChevronLeft, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useAppSelector } from '@/lib/store/hooks';
+import { SIGNUP_URL } from '@/lib/constants/urls';
 
 interface OnDemandLecture {
     videoId: string;
@@ -32,6 +34,18 @@ export default function OnDemandClient({ data }: OnDemandClientProps) {
     const isIndia = pathname?.startsWith('/in');
     const [filter, setFilter] = useState('All');
     const categories = ['All', 'Architecture', 'Workflow', 'AI Planning', 'Business'];
+
+    const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+    const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+
+    const handlePlayVideo = (videoId: string | undefined) => {
+        if (!videoId) return;
+        if (isAuthenticated && user) {
+            setPlayingVideo(videoId);
+        } else {
+            window.location.href = SIGNUP_URL;
+        }
+    };
 
     const lecturesList = data?.lectures || [];
 
@@ -88,22 +102,42 @@ export default function OnDemandClient({ data }: OnDemandClientProps) {
                                 className="bg-white rounded-3xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.06)] border border-slate-100 group flex flex-col"
                             >
                                 {/* 16:9 Video Thumbnail aspect ratio */}
-                                <div className="relative aspect-video bg-slate-900 overflow-hidden flex-shrink-0">
-                                    {item.videoId && (
+                                <div
+                                    className={`relative aspect-video bg-slate-900 overflow-hidden flex-shrink-0 group/video ${!playingVideo ? 'cursor-pointer' : ''}`}
+                                    onClick={() => !playingVideo && handlePlayVideo(item.videoId)}
+                                >
+                                    {playingVideo === item.videoId ? (
                                         <iframe
                                             width="100%"
                                             height="100%"
-                                            src={`https://www.youtube.com/embed/${item.videoId}`}
+                                            src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1`}
                                             title={item.title}
                                             frameBorder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowFullScreen
                                             className="absolute top-0 left-0 w-full h-full"
                                         />
+                                    ) : (
+                                        <>
+                                            <div className="absolute inset-0 bg-slate-900">
+                                                {item.videoId && (
+                                                    <img
+                                                        src={`https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`}
+                                                        alt={item.title}
+                                                        className="w-full h-full object-cover opacity-60 group-hover/video:scale-105 transition-transform duration-500"
+                                                    />
+                                                )}
+                                            </div>
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                <div className="w-16 h-16 bg-zlendo-teal rounded-full flex items-center justify-center shadow-lg transform group-hover/video:scale-110 transition-transform">
+                                                    <Play className="w-8 h-8 text-white fill-white ml-1" />
+                                                </div>
+                                            </div>
+                                            <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 pointer-events-none">
+                                                {item.duration}
+                                            </div>
+                                        </>
                                     )}
-                                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 pointer-events-none">
-                                        {item.duration}
-                                    </div>
                                 </div>
 
                                 <div className="p-8 flex flex-col flex-grow">
