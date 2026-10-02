@@ -116,6 +116,11 @@ export default async function RootLayout({
     <html lang="en" className={`${outfit.variable} ${nunito.variable}`}>
       <head>
         <script
+          src="https://ahr.toolzbuy.com/_analytics/analytics.js"
+          data-key="nt+UZhGgKHmvtsHfiePGjA"
+          async
+        />
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
