@@ -64,7 +64,6 @@ const routes = [
   { path: '/business/builder-and-promoter', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
   { path: '/business/nri-remote-planning', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
   { path: '/business/developer-solutions', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
-  { path: '/business/real-estate-brokers', priority: 0.7, changeFrequency: 'monthly' as const, isIndiaOnly: true },
 
   // Service pages
   { path: '/services/floor-plan-design', priority: 0.8, changeFrequency: 'weekly' as const },

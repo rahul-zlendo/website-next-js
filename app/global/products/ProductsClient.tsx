@@ -209,7 +209,7 @@ export default function ProductsClient() {
                             <tbody className="divide-y divide-slate-100 text-slate-600 font-medium">
                                 <tr className="hover:bg-slate-50 transition-colors">
                                     <td className="px-6 py-4 font-bold text-slate-800">
-                                        <Link href="/products/ai-floor-planner" className="hover:text-teal-600 transition-colors relative group inline-block">
+                                        <Link href="/products/floor-planner" className="hover:text-teal-600 transition-colors relative group inline-block">
                                             AI Floor Planner
                                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-500 transition-all group-hover:w-full"></span>
                                         </Link>
@@ -219,7 +219,7 @@ export default function ProductsClient() {
                                 </tr>
                                 <tr className="hover:bg-slate-50 transition-colors">
                                     <td className="px-6 py-4 font-bold text-slate-800">
-                                        <Link href="/products/2d-to-3d-converter" className="hover:text-teal-600 transition-colors relative group inline-block">
+                                        <Link href="/products/2d-to-3d" className="hover:text-teal-600 transition-colors relative group inline-block">
                                             2D to 3D Converter
                                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-500 transition-all group-hover:w-full"></span>
                                         </Link>
@@ -229,7 +229,7 @@ export default function ProductsClient() {
                                 </tr>
                                 <tr className="hover:bg-slate-50 transition-colors">
                                     <td className="px-6 py-4 font-bold text-slate-800">
-                                        <Link href="/products/smart-room-styler" className="hover:text-teal-600 transition-colors relative group inline-block">
+                                        <Link href="/products/room-styler" className="hover:text-teal-600 transition-colors relative group inline-block">
                                             Smart Room Styler
                                             <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-teal-500 transition-all group-hover:w-full"></span>
                                         </Link>

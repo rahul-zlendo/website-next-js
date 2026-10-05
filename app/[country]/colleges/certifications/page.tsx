@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: CertificationsPageRouteProps)
     if (country !== 'in') return {};
 
     return {
-        title: 'AEC Student Certification Courses - Zlendo Portal',
+        title: 'AEC Student Certification Courses | Zlendo Realty',
         description,
         keywords: [
             'AEC student certification India',

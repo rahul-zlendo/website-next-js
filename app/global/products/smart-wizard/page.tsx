@@ -5,7 +5,7 @@ import SmartWizardClient from '@/components/products/SmartWizardClient';
 const url = 'https://zlendorealty.com/products/smart-wizard';
 
 export const metadata: Metadata = {
-  title: 'AI Smart Wizard – Generate Home Plan Ideas | Zlendo Realty',
+  title: 'AI Floor Plan Generator for Home Layouts | Zlendo Realty',
   description: 'Enter your plot size, setbacks, built-up area, rooms and priorities. Get five ranked AI home-plan suggestions and continue designing in 2D and 3D.',
   alternates: {
     canonical: url,

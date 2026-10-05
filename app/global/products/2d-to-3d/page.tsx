@@ -109,7 +109,7 @@ export default function TwoDToThreeDPage() {
     "applicationSubCategory": "3D Home Design Software",
     "operatingSystem": "Web",
     "url": "https://zlendorealty.com/products/2d-to-3d",
-    "description": "AI-powered 2D to 3D conversion software that transforms floor plans, sketches, PDFs, and architectural drawings into immersive 3D home designs, walkthroughs, and realistic visualizations instantly.",
+    "description": "AI-assisted floor-plan conversion software that turns supported images and PDFs into editable 3D home views for review and refinement.",
     "image": "https://zlendorealty.com/favicon.ico",
     "softwareVersion": "1.0",
     "offers": {
@@ -182,7 +182,7 @@ export default function TwoDToThreeDPage() {
                 Present in <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-400">3D Reality.</span>
               </h1>
               <p className="text-xl md:text-2xl text-white/80 font-medium max-w-2xl mx-auto drop-shadow-xl">
-                From flat sketch to immersive client presentation in under 60 seconds.
+                Turn a supported floor plan into an editable 3D home view for your client presentation.
               </p>
               <div className="pt-8">
                 <a
@@ -518,7 +518,7 @@ export default function TwoDToThreeDPage() {
             },
             {
               question: "Do I need design experience to use this?",
-              answer: "Not at all. The process is fully automated. You simply upload your plan, wait a few seconds, and receive an interactive 3D model."
+              answer: "Upload a supported floor plan and review the generated 3D model. You can refine walls and dimensions after conversion; have a qualified professional review plans before construction."
             },
             {
               question: "Can I customize the 3D model after conversion?",
@@ -526,7 +526,7 @@ export default function TwoDToThreeDPage() {
             },
             {
               question: "How quickly is the 3D model generated?",
-              answer: "Most standard floor plans are converted into 3D environments in under 60 seconds, drastically reducing the time compared to manual CAD modeling."
+              answer: "Processing time depends on the size, clarity and complexity of your floor plan. Review the generated model and allow time to refine dimensions and details."
             }
           ]
         }} />

@@ -6,6 +6,7 @@ import { onDemandPageQuery } from '@/lib/sanity/queries';
 export async function generateMetadata(): Promise<Metadata> {
     const data = await client.fetch(onDemandPageQuery) || {};
     return {
+        alternates: { canonical: 'https://zlendorealty.com/events/on-demand' },
         title: data.seoTitle || 'On-Demand Webinars & Recorded Events | Zlendo Realty',
         description: data.seoDescription || 'Access our archives of recorded webinars, masterclasses, and past events to level up your architectural workflows.',
     };

@@ -6,6 +6,7 @@ const ogTitle = "AI Property Visualization Tools for Real Estate Professionals |
 const ogDescription = "Transform property plans and empty spaces into immersive 3D visuals, virtual staging, realistic renders, and walkthroughs that help real estate professionals market properties better.";
 
 export const metadata: Metadata = {
+    alternates: { canonical: 'https://zlendorealty.com/industries/real-estate-professionals' },
     title: "AI Property Visualization for Real Estate Professionals | Zlendo Realty",
     description: "Create engaging property listings with AI-powered 3D floor plans, virtual staging, realistic renders, and walkthroughs for real estate professionals.",
     keywords: [
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
         siteName: 'Zlendo Realty',
         images: [
             {
-                url: 'https://zlendorealty.com/assets/og-real-estate-professionals.jpg',
+                url: 'https://zlendorealty.com/og-image.jpg',
                 width: 1200,
                 height: 630,
             },

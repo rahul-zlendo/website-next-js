@@ -22,11 +22,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const path = isGlobal ? '/products/interiors-exteriors' : '/in/products/interiors-exteriors';
 
     let title = cms?.seoTitle || 'Interiors & Exteriors - Indian Homes. Indian Lifestyles.';
-  if (country === 'in') {
-        if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-        else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-        else title += ' Online';
-    }
     return createPageMetadata({
         title: title,
         description: cms?.seoDescription || 'Experience interior and exterior design intelligence that respects your culture, climate, and religious preferences across India.',

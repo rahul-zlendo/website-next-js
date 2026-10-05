@@ -25,6 +25,21 @@ const nextConfig: NextConfig = {
     ];
   },
 
+  // Resolve retired product slugs before middleware rewrites or locale redirects.
+  async redirects() {
+    const productAliases = [
+      ['ai-floor-planner', 'floor-planner'],
+      ['2d-to-3d-converter', '2d-to-3d'],
+      ['smart-room-styler', 'room-styler'],
+    ];
+
+    return productAliases.flatMap(([alias, destination]) => [
+      { source: `/products/${alias}`, destination: `/products/${destination}`, permanent: true },
+      { source: `/global/products/${alias}`, destination: `/products/${destination}`, permanent: true },
+      { source: `/in/products/${alias}`, destination: `/in/products/${destination}`, permanent: true },
+    ]);
+  },
+
   // Redirects for old blog posts
   // async redirects() {
   //   const newsRedirects = [

@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: PartnershipPageProps): Promis
     if (country !== 'in') return {};
 
     return {
-        title: 'AEC College Academic Partnership Program - Zlendo Portal',
+        title: 'AEC College Academic Partnership Program | Zlendo Realty',
         description,
         keywords: [
             'AEC college partnership India',

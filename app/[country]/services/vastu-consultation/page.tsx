@@ -15,11 +15,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const cleanPath = isGlobal ? '/services/vastu-consultation' : '/in/services/vastu-consultation';
 
     let title = 'Vastu Consultation Services | Expert Home & Office Vastu Guidance';
-  if (country === 'in') {
-      if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-      else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-      else title += ' Online';
-  }
   return createPageMetadata({
     title,
         description: 'Get expert Vastu consultation services for homes, apartments, villas, offices, and commercial spaces. Upload your floor plan and receive personalized Vastu recommendations online.',

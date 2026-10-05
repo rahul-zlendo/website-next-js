@@ -24,11 +24,6 @@ export async function generateMetadata(
   const path = isGlobal ? '/products/cost-estimator' : '/in/products/cost-estimator';
 
   let title = data?.seoTitle || `Smart Construction Cost Estimator ${country}`;
-  if (country === 'in') {
-    if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-    else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-    else title += ' Online';
-  }
   return createPageMetadata({
     title: title,
     description: data?.seoDescription || 'Estimate residential construction costs accurately with AI-driven insights.',

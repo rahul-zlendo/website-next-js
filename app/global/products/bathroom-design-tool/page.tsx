@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import JsonLd from '@/components/common/JsonLd';
 import BathroomDesignClient from '@/components/products/BathroomDesignClient';
 
-const url = 'https://zlendorealty.com/products/bathroom-design-tool/';
+const url = 'https://zlendorealty.com/products/bathroom-design-tool';
 
 export const metadata: Metadata = {
     title: 'Bathroom Design Tool & 3D Visualization | Zlendo Realty',

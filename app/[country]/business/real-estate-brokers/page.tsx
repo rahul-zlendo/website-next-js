@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+import { permanentRedirect } from 'next/navigation';
 
 // Permanent redirect: /business/real-estate-brokers → /business/builder-and-promoter
 export default async function RealEstateBrokersRedirect({
@@ -7,5 +7,5 @@ export default async function RealEstateBrokersRedirect({
     params: Promise<{ country: string }>;
 }) {
     const { country } = await params;
-    redirect(`/${country}/business/builder-and-promoter`);
+    permanentRedirect(`/${country}/business/builder-and-promoter`);
 }

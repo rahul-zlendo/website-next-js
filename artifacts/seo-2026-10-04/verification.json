@@ -1,0 +1,1780 @@
+{
+  "checkedAt": "2026-10-04T14:52:48.392Z",
+  "origin": "http://localhost:3100",
+  "results": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Zlendo Realty | Free 3D Home Design &amp; Floor Planning Software",
+      "canonicals": [
+        "https://zlendorealty.com"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in",
+        "en": "https://zlendorealty.com",
+        "x-default": "https://zlendorealty.com"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in",
+      "status": 200,
+      "title": "AI Home &amp; Office Design Software for Builders, Architects and Proptech",
+      "canonicals": [
+        "https://zlendorealty.com/in"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in",
+        "en": "https://zlendorealty.com",
+        "x-default": "https://zlendorealty.com"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/smart-wizard",
+      "status": 200,
+      "title": "AI Floor Plan Generator for Home Layouts | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/smart-wizard"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/smart-wizard",
+        "en-IN": "https://zlendorealty.com/in/products/smart-wizard",
+        "x-default": "https://zlendorealty.com/products/smart-wizard"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/smart-wizard",
+      "status": 200,
+      "title": "AI Floor Plan Generator for Home Layouts | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/smart-wizard"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/smart-wizard",
+        "en-IN": "https://zlendorealty.com/in/products/smart-wizard",
+        "x-default": "https://zlendorealty.com/products/smart-wizard"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/floor-planner",
+      "status": 200,
+      "title": "Floor Planner Online – AI 2D &amp; 3D Floor Plan Maker | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/floor-planner"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/floor-planner",
+        "en-IN": "https://zlendorealty.com/in/products/floor-planner",
+        "x-default": "https://zlendorealty.com/products/floor-planner"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/floor-planner",
+      "status": 200,
+      "title": "AI Floor Planner – Create 2D &amp; 3D Floor Plans Online | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/floor-planner"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/floor-planner",
+        "en-IN": "https://zlendorealty.com/in/products/floor-planner",
+        "x-default": "https://zlendorealty.com/products/floor-planner"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/2d-to-3d",
+      "status": 200,
+      "title": "2D to 3D Floor Plan Converter | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/2d-to-3d"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/2d-to-3d",
+        "en-IN": "https://zlendorealty.com/in/products/2d-to-3d",
+        "x-default": "https://zlendorealty.com/products/2d-to-3d"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/2d-to-3d",
+      "status": 200,
+      "title": "2D to 3D House Plan Converter",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/2d-to-3d"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/2d-to-3d",
+        "en-IN": "https://zlendorealty.com/in/products/2d-to-3d",
+        "x-default": "https://zlendorealty.com/products/2d-to-3d"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/room-styler",
+      "status": 200,
+      "title": "Smart Room Styler - AI-driven Interior Design | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/room-styler"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/room-styler",
+        "en-IN": "https://zlendorealty.com/in/products/room-styler",
+        "x-default": "https://zlendorealty.com/products/room-styler"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/room-styler",
+      "status": 200,
+      "title": "Smart Room Styler - AI-driven Interior Design",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/room-styler"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/room-styler",
+        "en-IN": "https://zlendorealty.com/in/products/room-styler",
+        "x-default": "https://zlendorealty.com/products/room-styler"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products",
+      "status": 200,
+      "title": "AI Property Design &amp; Visualization Platform | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products",
+        "x-default": "https://zlendorealty.com/products"
+      },
+      "errors": []
+    },
+    {
+      "route": "/solutions/ai-home-design-for-homeowners",
+      "status": 200,
+      "title": "AI Home Design &amp; Planning for Homeowners | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/solutions/ai-home-design-for-homeowners"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/solutions/ai-home-design-for-homeowners",
+        "x-default": "https://zlendorealty.com/solutions/ai-home-design-for-homeowners"
+      },
+      "errors": []
+    },
+    {
+      "route": "/business",
+      "status": 200,
+      "title": "Zlendo Realty for Business — Enterprise Design Workflow Platform",
+      "canonicals": [
+        "https://zlendorealty.com/business"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/business",
+        "en-IN": "https://zlendorealty.com/in/business",
+        "x-default": "https://zlendorealty.com/business"
+      },
+      "errors": []
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "title": "Contact Zlendo Realty | Get Expert Guidance &amp; Support",
+      "canonicals": [
+        "https://zlendorealty.com/contact"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/contact",
+        "en-IN": "https://zlendorealty.com/in/contact",
+        "x-default": "https://zlendorealty.com/contact"
+      },
+      "errors": []
+    },
+    {
+      "route": "/plans",
+      "status": 200,
+      "title": "Subscription Plans | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/plans"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/plans",
+        "en-IN": "https://zlendorealty.com/in/plans",
+        "x-default": "https://zlendorealty.com/plans"
+      },
+      "errors": []
+    },
+    {
+      "route": "/partners",
+      "status": 200,
+      "title": "Partner with Zlendo Realty | Global Affiliate &amp; Agency Programs",
+      "canonicals": [
+        "https://zlendorealty.com/partners"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/partners",
+        "en-IN": "https://zlendorealty.com/in/partners",
+        "x-default": "https://zlendorealty.com/partners"
+      },
+      "errors": []
+    },
+    {
+      "route": "/about-us",
+      "status": 200,
+      "title": "About Us | Building the Future of Real Estate Design | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/about-us"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/about-us",
+        "en-IN": "https://zlendorealty.com/in/about-us",
+        "x-default": "https://zlendorealty.com/about-us"
+      },
+      "errors": []
+    },
+    {
+      "route": "/industries/real-estate",
+      "status": 200,
+      "title": "AI Real Estate Visualization &amp; 3D Property Design | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/industries/real-estate"
+      ],
+      "alternates": {},
+      "errors": []
+    },
+    {
+      "route": "/industries/architecture",
+      "status": 200,
+      "title": "AI Architectural Visualization &amp; 3D Rendering Software | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/industries/architecture"
+      ],
+      "alternates": {},
+      "errors": []
+    },
+    {
+      "route": "/industries/interior-designer",
+      "status": 200,
+      "title": "AI Interior Design &amp; Visualization Software | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/industries/interior-designer"
+      ],
+      "alternates": {},
+      "errors": []
+    },
+    {
+      "route": "/industries/builders-and-contractors",
+      "status": 200,
+      "title": "AI Visualization for Builders &amp; Contractors | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/industries/builders-and-contractors"
+      ],
+      "alternates": {},
+      "errors": []
+    },
+    {
+      "route": "/industries/real-estate-professionals",
+      "status": 200,
+      "title": "AI Property Visualization for Real Estate Professionals | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/industries/real-estate-professionals"
+      ],
+      "alternates": {},
+      "errors": []
+    },
+    {
+      "route": "/products/kids-room-layouts",
+      "status": 200,
+      "title": "Kids Room Layouts &amp; Design Ideas | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/kids-room-layouts"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/kids-room-layouts",
+        "x-default": "https://zlendorealty.com/products/kids-room-layouts"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/bathroom-design-tool",
+      "status": 200,
+      "title": "Bathroom Design Tool &amp; 3D Visualization | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/bathroom-design-tool"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/bathroom-design-tool",
+        "x-default": "https://zlendorealty.com/products/bathroom-design-tool"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/cost-estimator",
+      "status": 200,
+      "title": "AI Cost Estimator &amp; Live BOQ Generation | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/cost-estimator"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/cost-estimator",
+        "en-IN": "https://zlendorealty.com/in/products/cost-estimator",
+        "x-default": "https://zlendorealty.com/products/cost-estimator"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/interiors-exteriors",
+      "status": 200,
+      "title": "Interior &amp; Exterior Design Software | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/interiors-exteriors"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/interiors-exteriors",
+        "en-IN": "https://zlendorealty.com/in/products/interiors-exteriors",
+        "x-default": "https://zlendorealty.com/products/interiors-exteriors"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/virtual-walkthrough",
+      "status": 200,
+      "title": "3D Virtual Walkthrough for Homes | Immersive VR Tours | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/virtual-walkthrough"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/virtual-walkthrough",
+        "en-IN": "https://zlendorealty.com/in/products/virtual-walkthrough",
+        "x-default": "https://zlendorealty.com/products/virtual-walkthrough"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/realistic-renders",
+      "status": 200,
+      "title": "Photorealistic 3D Renders &amp; Visualization | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/realistic-renders"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/realistic-renders",
+        "en-IN": "https://zlendorealty.com/in/products/realistic-renders",
+        "x-default": "https://zlendorealty.com/products/realistic-renders"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/vastu",
+      "status": 200,
+      "title": "Vastu Shastra Optimizer | AI-powered Spatial Harmony - Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/products/vastu"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/vastu",
+        "en-IN": "https://zlendorealty.com/in/products/vastu",
+        "x-default": "https://zlendorealty.com/products/vastu"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/api-suite",
+      "status": 200,
+      "title": "Enterprise Design API Suite | Zlendo Global",
+      "canonicals": [
+        "https://zlendorealty.com/products/api-suite"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/api-suite",
+        "en-IN": "https://zlendorealty.com/in/products/api-suite",
+        "x-default": "https://zlendorealty.com/products/api-suite"
+      },
+      "errors": []
+    },
+    {
+      "route": "/viewalltemplates",
+      "status": 200,
+      "title": "Modern Home Design Templates &amp; Ideas | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/viewalltemplates"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/viewalltemplates",
+        "en-IN": "https://zlendorealty.com/in/viewalltemplates",
+        "x-default": "https://zlendorealty.com/viewalltemplates"
+      },
+      "errors": []
+    },
+    {
+      "route": "/services/floor-plan-design",
+      "status": 200,
+      "title": "Floor Plan Design Services for Homeowners | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/services/floor-plan-design"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/floor-plan-design",
+        "en-IN": "https://zlendorealty.com/in/services/floor-plan-design",
+        "x-default": "https://zlendorealty.com/services/floor-plan-design"
+      },
+      "errors": []
+    },
+    {
+      "route": "/services/floor-plan-design/consultation",
+      "status": 200,
+      "title": "Book Floor Plan Consultation | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/services/floor-plan-design/consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/floor-plan-design/consultation",
+        "en-IN": "https://zlendorealty.com/in/services/floor-plan-design/consultation",
+        "x-default": "https://zlendorealty.com/services/floor-plan-design/consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/services/interior-design",
+      "status": 200,
+      "title": "Professional Interior Design Services for Homes &amp; Offices | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/services/interior-design"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/interior-design",
+        "en-IN": "https://zlendorealty.com/in/services/interior-design",
+        "x-default": "https://zlendorealty.com/services/interior-design"
+      },
+      "errors": []
+    },
+    {
+      "route": "/services/interior-design/consultation",
+      "status": 200,
+      "title": "Book Interior Design Consultation | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/services/interior-design/consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/interior-design/consultation",
+        "en-IN": "https://zlendorealty.com/in/services/interior-design/consultation",
+        "x-default": "https://zlendorealty.com/services/interior-design/consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/services/2d-to-3d",
+      "status": 200,
+      "title": "2D to 3D Conversion Services | House &amp; Office 3D Design | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/services/2d-to-3d"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/2d-to-3d",
+        "en-IN": "https://zlendorealty.com/in/services/2d-to-3d",
+        "x-default": "https://zlendorealty.com/services/2d-to-3d"
+      },
+      "errors": []
+    },
+    {
+      "route": "/services/2d-to-3d/consultation",
+      "status": 200,
+      "title": "Request Free 2D to 3D Consultation | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/services/2d-to-3d/consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/2d-to-3d/consultation",
+        "en-IN": "https://zlendorealty.com/in/services/2d-to-3d/consultation",
+        "x-default": "https://zlendorealty.com/services/2d-to-3d/consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/services/virtual-walkthrough",
+      "status": 200,
+      "title": "Virtual Walkthrough Services | Floor Plan to Virtual Tour | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/services/virtual-walkthrough"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/virtual-walkthrough",
+        "en-IN": "https://zlendorealty.com/in/services/virtual-walkthrough",
+        "x-default": "https://zlendorealty.com/services/virtual-walkthrough"
+      },
+      "errors": []
+    },
+    {
+      "route": "/services/virtual-walkthrough/consultation",
+      "status": 200,
+      "title": "Request a Virtual Walkthrough Consultation | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/services/virtual-walkthrough/consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/virtual-walkthrough/consultation",
+        "en-IN": "https://zlendorealty.com/in/services/virtual-walkthrough/consultation",
+        "x-default": "https://zlendorealty.com/services/virtual-walkthrough/consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/register",
+      "status": 200,
+      "title": "Register &amp; Partner with Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/register"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/register",
+        "en-IN": "https://zlendorealty.com/in/register",
+        "x-default": "https://zlendorealty.com/register"
+      },
+      "errors": []
+    },
+    {
+      "route": "/tutorials",
+      "status": 200,
+      "title": "Video Tutorials &amp; Learning Center | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/tutorials"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/tutorials",
+        "en-IN": "https://zlendorealty.com/in/tutorials",
+        "x-default": "https://zlendorealty.com/tutorials"
+      },
+      "errors": []
+    },
+    {
+      "route": "/events",
+      "status": 200,
+      "title": "Live and Upcoming Events &amp; Webinars | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/events"
+      ],
+      "alternates": {},
+      "errors": []
+    },
+    {
+      "route": "/events/on-demand",
+      "status": 200,
+      "title": "On-Demand Webinars &amp; Recorded Events | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/events/on-demand"
+      ],
+      "alternates": {},
+      "errors": []
+    },
+    {
+      "route": "/events/register",
+      "status": 200,
+      "title": "Event Registration | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/events/register"
+      ],
+      "alternates": {},
+      "errors": []
+    },
+    {
+      "route": "/colleges/partnerships",
+      "status": 200,
+      "title": "AEC College Academic Partnership Program | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/colleges/partnerships"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/colleges/partnerships",
+        "en-IN": "https://zlendorealty.com/in/colleges/partnerships"
+      },
+      "errors": []
+    },
+    {
+      "route": "/colleges/workshops",
+      "status": 200,
+      "title": "Future of AEC Day: College Spatial AI &amp; PropTech Workshop | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/colleges/workshops"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/colleges/workshops",
+        "en-IN": "https://zlendorealty.com/in/colleges/workshops"
+      },
+      "errors": []
+    },
+    {
+      "route": "/colleges/certifications",
+      "status": 200,
+      "title": "AEC Student Certification Courses | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/colleges/certifications"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/colleges/certifications",
+        "en-IN": "https://zlendorealty.com/in/colleges/certifications"
+      },
+      "errors": []
+    },
+    {
+      "route": "/privacy-policy",
+      "status": 200,
+      "title": "Privacy Policy | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/privacy-policy"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/privacy-policy",
+        "en-IN": "https://zlendorealty.com/in/privacy-policy",
+        "x-default": "https://zlendorealty.com/privacy-policy"
+      },
+      "errors": []
+    },
+    {
+      "route": "/terms-of-service",
+      "status": 200,
+      "title": "Terms of Service | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/terms-of-service"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/terms-of-service",
+        "en-IN": "https://zlendorealty.com/in/terms-of-service",
+        "x-default": "https://zlendorealty.com/terms-of-service"
+      },
+      "errors": []
+    },
+    {
+      "route": "/cookie-policy",
+      "status": 200,
+      "title": "Cookie Policy | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/cookie-policy"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/cookie-policy",
+        "en-IN": "https://zlendorealty.com/in/cookie-policy",
+        "x-default": "https://zlendorealty.com/cookie-policy"
+      },
+      "errors": []
+    },
+    {
+      "route": "/general-terms",
+      "status": 200,
+      "title": "General Terms | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/general-terms"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/general-terms",
+        "en-IN": "https://zlendorealty.com/in/general-terms",
+        "x-default": "https://zlendorealty.com/general-terms"
+      },
+      "errors": []
+    },
+    {
+      "route": "/nda-vendors",
+      "status": 200,
+      "title": "NDA for Vendors | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/nda-vendors"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/nda-vendors",
+        "en-IN": "https://zlendorealty.com/in/nda-vendors",
+        "x-default": "https://zlendorealty.com/nda-vendors"
+      },
+      "errors": []
+    },
+    {
+      "route": "/refund-policy",
+      "status": 200,
+      "title": "Refund &amp; Cancellation Policy | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/refund-policy"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/refund-policy",
+        "en-IN": "https://zlendorealty.com/in/refund-policy",
+        "x-default": "https://zlendorealty.com/refund-policy"
+      },
+      "errors": []
+    },
+    {
+      "route": "/sla",
+      "status": 200,
+      "title": "Service Level Agreement | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/sla"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/sla",
+        "en-IN": "https://zlendorealty.com/in/sla",
+        "x-default": "https://zlendorealty.com/sla"
+      },
+      "errors": []
+    },
+    {
+      "route": "/community-guidelines",
+      "status": 200,
+      "title": "Community Guidelines | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/community-guidelines"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/community-guidelines",
+        "en-IN": "https://zlendorealty.com/in/community-guidelines",
+        "x-default": "https://zlendorealty.com/community-guidelines"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare",
+      "status": 200,
+      "title": "Compare Zlendo Realty vs Coohom, Foyr Neo, Maket &amp; More (2026)",
+      "canonicals": [
+        "https://zlendorealty.com/compare"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare",
+        "en-IN": "https://zlendorealty.com/in/compare",
+        "x-default": "https://zlendorealty.com/compare"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/zlendo-realty-vs-foyr-neo",
+      "status": 200,
+      "title": "Zlendo Realty vs Foyr Neo (2025): Best Interior Design Software for India?",
+      "canonicals": [
+        "https://zlendorealty.com/compare/zlendo-realty-vs-foyr-neo"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/zlendo-realty-vs-foyr-neo",
+        "en-IN": "https://zlendorealty.com/in/compare/zlendo-realty-vs-foyr-neo",
+        "x-default": "https://zlendorealty.com/compare/zlendo-realty-vs-foyr-neo"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/zlendo-realty-vs-roomsketcher",
+      "status": 200,
+      "title": "Zlendo Realty vs RoomSketcher (2025): Best Floor Plan Software for India?",
+      "canonicals": [
+        "https://zlendorealty.com/compare/zlendo-realty-vs-roomsketcher"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/zlendo-realty-vs-roomsketcher",
+        "en-IN": "https://zlendorealty.com/in/compare/zlendo-realty-vs-roomsketcher",
+        "x-default": "https://zlendorealty.com/compare/zlendo-realty-vs-roomsketcher"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/zlendo-realty-vs-coohom",
+      "status": 200,
+      "title": "Zlendo Realty vs. Coohom: Professional 3D Design Comparison",
+      "canonicals": [
+        "https://zlendorealty.com/compare/zlendo-realty-vs-coohom"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/zlendo-realty-vs-coohom",
+        "en-IN": "https://zlendorealty.com/in/compare/zlendo-realty-vs-coohom",
+        "x-default": "https://zlendorealty.com/compare/zlendo-realty-vs-coohom"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/zlendo-realty-vs-planner5d",
+      "status": 200,
+      "title": "Zlendo Realty vs. Planner 5D: Professional Design Made Simple",
+      "canonicals": [
+        "https://zlendorealty.com/compare/zlendo-realty-vs-planner5d"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/zlendo-realty-vs-planner5d",
+        "en-IN": "https://zlendorealty.com/in/compare/zlendo-realty-vs-planner5d",
+        "x-default": "https://zlendorealty.com/compare/zlendo-realty-vs-planner5d"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/zlendo-realty-vs-sketchup",
+      "status": 200,
+      "title": "Zlendo Realty vs. SketchUp: Fast AI-Driven Spatial Design",
+      "canonicals": [
+        "https://zlendorealty.com/compare/zlendo-realty-vs-sketchup"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/zlendo-realty-vs-sketchup",
+        "en-IN": "https://zlendorealty.com/in/compare/zlendo-realty-vs-sketchup",
+        "x-default": "https://zlendorealty.com/compare/zlendo-realty-vs-sketchup"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/zlendo-realty-vs-maket",
+      "status": 200,
+      "title": "Zlendo Realty vs Maket (2026): AI Floor Plan Generator Comparison",
+      "canonicals": [
+        "https://zlendorealty.com/compare/zlendo-realty-vs-maket"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/zlendo-realty-vs-maket",
+        "en-IN": "https://zlendorealty.com/in/compare/zlendo-realty-vs-maket",
+        "x-default": "https://zlendorealty.com/compare/zlendo-realty-vs-maket"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/zlendo-realty-vs-snaptrude",
+      "status": 200,
+      "title": "Zlendo Realty vs Snaptrude (2026): Which Design Tool Is Right for You?",
+      "canonicals": [
+        "https://zlendorealty.com/compare/zlendo-realty-vs-snaptrude"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/zlendo-realty-vs-snaptrude",
+        "en-IN": "https://zlendorealty.com/in/compare/zlendo-realty-vs-snaptrude",
+        "x-default": "https://zlendorealty.com/compare/zlendo-realty-vs-snaptrude"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/best-foyr-neo-alternatives",
+      "status": 200,
+      "title": "5 Best Foyr Neo Alternatives for Indian Designers (2025)",
+      "canonicals": [
+        "https://zlendorealty.com/compare/best-foyr-neo-alternatives"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/best-foyr-neo-alternatives",
+        "en-IN": "https://zlendorealty.com/in/compare/best-foyr-neo-alternatives",
+        "x-default": "https://zlendorealty.com/compare/best-foyr-neo-alternatives"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/best-roomsketcher-alternatives",
+      "status": 200,
+      "title": "5 Best RoomSketcher Alternatives for India (2025)",
+      "canonicals": [
+        "https://zlendorealty.com/compare/best-roomsketcher-alternatives"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/best-roomsketcher-alternatives",
+        "en-IN": "https://zlendorealty.com/in/compare/best-roomsketcher-alternatives",
+        "x-default": "https://zlendorealty.com/compare/best-roomsketcher-alternatives"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/best-ai-floor-plan-software",
+      "status": 200,
+      "title": "Best AI Floor Plan Software in 2026 (Ranked &amp; Compared)",
+      "canonicals": [
+        "https://zlendorealty.com/compare/best-ai-floor-plan-software"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/best-ai-floor-plan-software",
+        "en-IN": "https://zlendorealty.com/in/compare/best-ai-floor-plan-software",
+        "x-default": "https://zlendorealty.com/compare/best-ai-floor-plan-software"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/best-2d-to-3d-floor-plan-converter",
+      "status": 200,
+      "title": "Best Software to Convert 2D Floor Plans to 3D in 2026 (Ranked)",
+      "canonicals": [
+        "https://zlendorealty.com/compare/best-2d-to-3d-floor-plan-converter"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/best-2d-to-3d-floor-plan-converter",
+        "en-IN": "https://zlendorealty.com/in/compare/best-2d-to-3d-floor-plan-converter",
+        "x-default": "https://zlendorealty.com/compare/best-2d-to-3d-floor-plan-converter"
+      },
+      "errors": []
+    },
+    {
+      "route": "/compare/coohom-vs-maket-vs-snaptrude",
+      "status": 200,
+      "title": "Coohom vs Maket vs Snaptrude (2026): Full Comparison + Best Alternative",
+      "canonicals": [
+        "https://zlendorealty.com/compare/coohom-vs-maket-vs-snaptrude"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/compare/coohom-vs-maket-vs-snaptrude",
+        "en-IN": "https://zlendorealty.com/in/compare/coohom-vs-maket-vs-snaptrude",
+        "x-default": "https://zlendorealty.com/compare/coohom-vs-maket-vs-snaptrude"
+      },
+      "errors": []
+    },
+    {
+      "route": "/guides/vastu-design-software",
+      "status": 200,
+      "title": "Vastu Design Software: Complete Guide 2025 | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/guides/vastu-design-software"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/guides/vastu-design-software",
+        "en-IN": "https://zlendorealty.com/in/guides/vastu-design-software",
+        "x-default": "https://zlendorealty.com/guides/vastu-design-software"
+      },
+      "errors": []
+    },
+    {
+      "route": "/guides/how-to-create-floor-plan-online",
+      "status": 200,
+      "title": "How to Create a Floor Plan Online: Step-by-Step Guide 2025",
+      "canonicals": [
+        "https://zlendorealty.com/guides/how-to-create-floor-plan-online"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/guides/how-to-create-floor-plan-online",
+        "en-IN": "https://zlendorealty.com/in/guides/how-to-create-floor-plan-online",
+        "x-default": "https://zlendorealty.com/guides/how-to-create-floor-plan-online"
+      },
+      "errors": []
+    },
+    {
+      "route": "/guides/9d-visualization",
+      "status": 200,
+      "title": "What Is 9D Visualization? Zlendo Realty&#x27;s Complete Explainer",
+      "canonicals": [
+        "https://zlendorealty.com/guides/9d-visualization"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/guides/9d-visualization",
+        "en-IN": "https://zlendorealty.com/in/guides/9d-visualization",
+        "x-default": "https://zlendorealty.com/guides/9d-visualization"
+      },
+      "errors": []
+    },
+    {
+      "route": "/design-battle",
+      "status": 200,
+      "title": "Zlendo Realty Design Battle | PropTech Competition for Architecture Students &amp; Colleges",
+      "canonicals": [
+        "https://zlendorealty.com/design-battle"
+      ],
+      "alternates": {},
+      "errors": []
+    },
+    {
+      "route": "/in/individuals",
+      "status": 200,
+      "title": "3D Home Visualization for Individuals | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/individuals"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/individuals",
+        "x-default": "https://zlendorealty.com/in/individuals"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/business",
+      "status": 200,
+      "title": "Zlendo Realty for Business - Enterprise Solutions",
+      "canonicals": [
+        "https://zlendorealty.com/in/business"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/business",
+        "en-IN": "https://zlendorealty.com/in/business",
+        "x-default": "https://zlendorealty.com/business"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/contact",
+      "status": 200,
+      "title": "Contact Zlendo Realty | Get Expert Guidance &amp; Support - India",
+      "canonicals": [
+        "https://zlendorealty.com/in/contact"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/contact",
+        "en-IN": "https://zlendorealty.com/in/contact",
+        "x-default": "https://zlendorealty.com/contact"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/plans",
+      "status": 200,
+      "title": "Subscription Plans | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/plans"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/plans",
+        "en-IN": "https://zlendorealty.com/in/plans",
+        "x-default": "https://zlendorealty.com/plans"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/partners",
+      "status": 200,
+      "title": "Partner with Zlendo Realty - Affiliate &amp; Agent Programs",
+      "canonicals": [
+        "https://zlendorealty.com/in/partners"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/partners",
+        "en-IN": "https://zlendorealty.com/in/partners",
+        "x-default": "https://zlendorealty.com/partners"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/about-us",
+      "status": 200,
+      "title": "About Us | Building the Future of Real Estate Design | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/about-us"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/about-us",
+        "en-IN": "https://zlendorealty.com/in/about-us",
+        "x-default": "https://zlendorealty.com/about-us"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/cost-estimator",
+      "status": 200,
+      "title": "Smart Cost Estimator | Engineering-Grade Accuracy | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/cost-estimator"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/cost-estimator",
+        "en-IN": "https://zlendorealty.com/in/products/cost-estimator",
+        "x-default": "https://zlendorealty.com/products/cost-estimator"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/interiors-exteriors",
+      "status": 200,
+      "title": "Indian Homes. Indian Lifestyles. Designed Smarter. | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/interiors-exteriors"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/interiors-exteriors",
+        "en-IN": "https://zlendorealty.com/in/products/interiors-exteriors",
+        "x-default": "https://zlendorealty.com/products/interiors-exteriors"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/virtual-walkthrough",
+      "status": 200,
+      "title": "3D Virtual Walkthrough for Homes | Immersive VR Tours | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/virtual-walkthrough"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/virtual-walkthrough",
+        "en-IN": "https://zlendorealty.com/in/products/virtual-walkthrough",
+        "x-default": "https://zlendorealty.com/products/virtual-walkthrough"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/realistic-renders",
+      "status": 200,
+      "title": "Photorealistic 3D Renders | 8K Interior Visualization | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/realistic-renders"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/realistic-renders",
+        "en-IN": "https://zlendorealty.com/in/products/realistic-renders",
+        "x-default": "https://zlendorealty.com/products/realistic-renders"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/vastu",
+      "status": 200,
+      "title": "Vastu Optimizer - Align Your Home with Ancient Wisdom | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/vastu"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/vastu",
+        "en-IN": "https://zlendorealty.com/in/products/vastu",
+        "x-default": "https://zlendorealty.com/products/vastu"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/vr-studio",
+      "status": 200,
+      "title": "8K VR Studio - Immersive Home Experiences",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/vr-studio"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/vr-studio",
+        "en-IN": "https://zlendorealty.com/in/products/vr-studio",
+        "x-default": "https://zlendorealty.com/products/vr-studio"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/products/api-suite",
+      "status": 200,
+      "title": "Zlendo Realty API Suite - Enterprise Prop-Tech Solutions",
+      "canonicals": [
+        "https://zlendorealty.com/in/products/api-suite"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/products/api-suite",
+        "en-IN": "https://zlendorealty.com/in/products/api-suite",
+        "x-default": "https://zlendorealty.com/products/api-suite"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/viewalltemplates",
+      "status": 200,
+      "title": "Zlendo Realty | Professionally Designed Home Plan Templates",
+      "canonicals": [
+        "https://zlendorealty.com/in/viewalltemplates"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/viewalltemplates",
+        "en-IN": "https://zlendorealty.com/in/viewalltemplates",
+        "x-default": "https://zlendorealty.com/viewalltemplates"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/use-cases",
+      "status": 200,
+      "title": "Industry Solutions for Indian Construction | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/use-cases"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/use-cases",
+        "x-default": "https://zlendorealty.com/in/use-cases"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/use-case/home-remodeling",
+      "status": 200,
+      "title": "Home Remodeling and Renovation Services",
+      "canonicals": [
+        "https://zlendorealty.com/in/use-case/home-remodeling"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/use-case/home-remodeling",
+        "x-default": "https://zlendorealty.com/in/use-case/home-remodeling"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/use-case/interior-design",
+      "status": 200,
+      "title": "Interior Design Use Cases",
+      "canonicals": [
+        "https://zlendorealty.com/in/use-case/interior-design"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/use-case/interior-design",
+        "x-default": "https://zlendorealty.com/in/use-case/interior-design"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/use-case/vastu-optimization",
+      "status": 200,
+      "title": "Vastu House Plan Design &amp; Vastu Solutions",
+      "canonicals": [
+        "https://zlendorealty.com/in/use-case/vastu-optimization"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/use-case/vastu-optimization",
+        "x-default": "https://zlendorealty.com/in/use-case/vastu-optimization"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/use-case/new-home-building",
+      "status": 200,
+      "title": "Custom Home Plans &amp; Modern House Elevation",
+      "canonicals": [
+        "https://zlendorealty.com/in/use-case/new-home-building"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/use-case/new-home-building",
+        "x-default": "https://zlendorealty.com/in/use-case/new-home-building"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/business/commercial-spaces",
+      "status": 200,
+      "title": "Commercial Space Design Software | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/business/commercial-spaces"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/business/commercial-spaces",
+        "x-default": "https://zlendorealty.com/in/business/commercial-spaces"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/business/builder-and-promoter",
+      "status": 200,
+      "title": "Builder &amp; Promoter Solutions | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/business/builder-and-promoter"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/business/builder-and-promoter",
+        "x-default": "https://zlendorealty.com/in/business/builder-and-promoter"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/business/nri-remote-planning",
+      "status": 200,
+      "title": "Design and Build Services &amp; Remote Home Planning | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/business/nri-remote-planning"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/business/nri-remote-planning",
+        "x-default": "https://zlendorealty.com/in/business/nri-remote-planning"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/business/developer-solutions",
+      "status": 200,
+      "title": "Developer Design Solutions | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/business/developer-solutions"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/business/developer-solutions",
+        "x-default": "https://zlendorealty.com/in/business/developer-solutions"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/floor-plan-design",
+      "status": 200,
+      "title": "Floor Plan Design Services for Homeowners | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/floor-plan-design"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/floor-plan-design",
+        "en-IN": "https://zlendorealty.com/in/services/floor-plan-design",
+        "x-default": "https://zlendorealty.com/services/floor-plan-design"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/floor-plan-design/consultation",
+      "status": 200,
+      "title": "Book Floor Plan Consultation | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/floor-plan-design/consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/floor-plan-design/consultation",
+        "en-IN": "https://zlendorealty.com/in/services/floor-plan-design/consultation",
+        "x-default": "https://zlendorealty.com/services/floor-plan-design/consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/interior-design",
+      "status": 200,
+      "title": "Professional Interior Design Services for Homes &amp; Offices | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/interior-design"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/interior-design",
+        "en-IN": "https://zlendorealty.com/in/services/interior-design",
+        "x-default": "https://zlendorealty.com/services/interior-design"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/interior-design/consultation",
+      "status": 200,
+      "title": "Book Interior Design Consultation | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/interior-design/consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/interior-design/consultation",
+        "en-IN": "https://zlendorealty.com/in/services/interior-design/consultation",
+        "x-default": "https://zlendorealty.com/services/interior-design/consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/2d-to-3d",
+      "status": 200,
+      "title": "2D to 3D Conversion Services | House &amp; Office 3D Design | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/2d-to-3d"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/2d-to-3d",
+        "en-IN": "https://zlendorealty.com/in/services/2d-to-3d",
+        "x-default": "https://zlendorealty.com/services/2d-to-3d"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/2d-to-3d/consultation",
+      "status": 200,
+      "title": "Request Free 2D to 3D Consultation | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/2d-to-3d/consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/2d-to-3d/consultation",
+        "en-IN": "https://zlendorealty.com/in/services/2d-to-3d/consultation",
+        "x-default": "https://zlendorealty.com/services/2d-to-3d/consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/vastu-consultation",
+      "status": 200,
+      "title": "Vastu Consultation Services | Expert Home &amp; Office Vastu Guidance",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/vastu-consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/vastu-consultation",
+        "en-IN": "https://zlendorealty.com/in/services/vastu-consultation",
+        "x-default": "https://zlendorealty.com/services/vastu-consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/vastu-consultation/consultation",
+      "status": 200,
+      "title": "Book Vastu Consultation | Expert Guidance | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/vastu-consultation/consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/vastu-consultation/consultation",
+        "en-IN": "https://zlendorealty.com/in/services/vastu-consultation/consultation",
+        "x-default": "https://zlendorealty.com/services/vastu-consultation/consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/virtual-walkthrough",
+      "status": 200,
+      "title": "Virtual Walkthrough Services | Floor Plan to Virtual Tour | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/virtual-walkthrough"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/virtual-walkthrough",
+        "en-IN": "https://zlendorealty.com/in/services/virtual-walkthrough",
+        "x-default": "https://zlendorealty.com/services/virtual-walkthrough"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/services/virtual-walkthrough/consultation",
+      "status": 200,
+      "title": "Request a Virtual Walkthrough Consultation | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/services/virtual-walkthrough/consultation"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/services/virtual-walkthrough/consultation",
+        "en-IN": "https://zlendorealty.com/in/services/virtual-walkthrough/consultation",
+        "x-default": "https://zlendorealty.com/services/virtual-walkthrough/consultation"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/vastu-campaign",
+      "status": 200,
+      "title": "AI-Powered Vastu Compliance | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/vastu-campaign"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/vastu-campaign",
+        "en-IN": "https://zlendorealty.com/in/vastu-campaign",
+        "x-default": "https://zlendorealty.com/vastu-campaign"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/register",
+      "status": 200,
+      "title": "Register &amp; Partner with Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/register"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/register",
+        "en-IN": "https://zlendorealty.com/in/register",
+        "x-default": "https://zlendorealty.com/register"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/tutorials",
+      "status": 200,
+      "title": "Video Tutorials &amp; Learning Center | Zlendo Realty - India",
+      "canonicals": [
+        "https://zlendorealty.com/in/tutorials"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/tutorials",
+        "en-IN": "https://zlendorealty.com/in/tutorials",
+        "x-default": "https://zlendorealty.com/tutorials"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/colleges/partnerships",
+      "status": 200,
+      "title": "AEC College Academic Partnership Program | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/colleges/partnerships"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/colleges/partnerships",
+        "en-IN": "https://zlendorealty.com/in/colleges/partnerships"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/colleges/workshops",
+      "status": 200,
+      "title": "Future of AEC Day: College Spatial AI &amp; PropTech Workshop | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/colleges/workshops"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/colleges/workshops",
+        "en-IN": "https://zlendorealty.com/in/colleges/workshops"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/colleges/certifications",
+      "status": 200,
+      "title": "AEC Student Certification Courses | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/colleges/certifications"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/colleges/certifications",
+        "en-IN": "https://zlendorealty.com/in/colleges/certifications"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/privacy-policy",
+      "status": 200,
+      "title": "Privacy Policy",
+      "canonicals": [
+        "https://zlendorealty.com/in/privacy-policy"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/privacy-policy",
+        "en-IN": "https://zlendorealty.com/in/privacy-policy",
+        "x-default": "https://zlendorealty.com/privacy-policy"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/terms-of-service",
+      "status": 200,
+      "title": "Zlendo Realty Terms of Service | Rules &amp; User Agreement",
+      "canonicals": [
+        "https://zlendorealty.com/in/terms-of-service"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/terms-of-service",
+        "en-IN": "https://zlendorealty.com/in/terms-of-service",
+        "x-default": "https://zlendorealty.com/terms-of-service"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/cookie-policy",
+      "status": 200,
+      "title": "Cookie Policy",
+      "canonicals": [
+        "https://zlendorealty.com/in/cookie-policy"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/cookie-policy",
+        "en-IN": "https://zlendorealty.com/in/cookie-policy",
+        "x-default": "https://zlendorealty.com/cookie-policy"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/dpa",
+      "status": 200,
+      "title": "Data Processing Agreement (DPA)",
+      "canonicals": [
+        "https://zlendorealty.com/in/dpa"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/dpa",
+        "x-default": "https://zlendorealty.com/in/dpa"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/general-terms",
+      "status": 200,
+      "title": "Zlendo Realty Services – General Terms &amp; Conditions",
+      "canonicals": [
+        "https://zlendorealty.com/in/general-terms"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/general-terms",
+        "en-IN": "https://zlendorealty.com/in/general-terms",
+        "x-default": "https://zlendorealty.com/general-terms"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/nda-customers",
+      "status": 200,
+      "title": "NDA for Customers Confidentiality Agreement",
+      "canonicals": [
+        "https://zlendorealty.com/in/nda-customers"
+      ],
+      "alternates": {
+        "en-IN": "https://zlendorealty.com/in/nda-customers",
+        "x-default": "https://zlendorealty.com/in/nda-customers"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/nda-vendors",
+      "status": 200,
+      "title": "Zlendo Technologies Vendor Non-Disclosure Agreement (NDA)",
+      "canonicals": [
+        "https://zlendorealty.com/in/nda-vendors"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/nda-vendors",
+        "en-IN": "https://zlendorealty.com/in/nda-vendors",
+        "x-default": "https://zlendorealty.com/nda-vendors"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/refund-policy",
+      "status": 200,
+      "title": "Zlendo Realty Refund &amp; Cancellation Policy",
+      "canonicals": [
+        "https://zlendorealty.com/in/refund-policy"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/refund-policy",
+        "en-IN": "https://zlendorealty.com/in/refund-policy",
+        "x-default": "https://zlendorealty.com/refund-policy"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/sla",
+      "status": 200,
+      "title": "Zlendo Realty SLA | Service Level Agreement &amp; Performance Standards",
+      "canonicals": [
+        "https://zlendorealty.com/in/sla"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/sla",
+        "en-IN": "https://zlendorealty.com/in/sla",
+        "x-default": "https://zlendorealty.com/sla"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/community-guidelines",
+      "status": 200,
+      "title": "Zlendo Realty Community Guidelines | User Conduct &amp; Platform Rules",
+      "canonicals": [
+        "https://zlendorealty.com/in/community-guidelines"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/community-guidelines",
+        "en-IN": "https://zlendorealty.com/in/community-guidelines",
+        "x-default": "https://zlendorealty.com/community-guidelines"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/guides/vastu-design-software",
+      "status": 200,
+      "title": "Vastu Design Software: Complete Guide 2025 | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/guides/vastu-design-software"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/guides/vastu-design-software",
+        "en-IN": "https://zlendorealty.com/in/guides/vastu-design-software",
+        "x-default": "https://zlendorealty.com/guides/vastu-design-software"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/guides/how-to-create-floor-plan-online",
+      "status": 200,
+      "title": "How to Create a Floor Plan Online: Step-by-Step Guide 2025",
+      "canonicals": [
+        "https://zlendorealty.com/in/guides/how-to-create-floor-plan-online"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/guides/how-to-create-floor-plan-online",
+        "en-IN": "https://zlendorealty.com/in/guides/how-to-create-floor-plan-online",
+        "x-default": "https://zlendorealty.com/guides/how-to-create-floor-plan-online"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/guides/9d-visualization",
+      "status": 200,
+      "title": "What Is 9D Visualization? Zlendo Realty&#x27;s Complete Explainer",
+      "canonicals": [
+        "https://zlendorealty.com/in/guides/9d-visualization"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/guides/9d-visualization",
+        "en-IN": "https://zlendorealty.com/in/guides/9d-visualization",
+        "x-default": "https://zlendorealty.com/guides/9d-visualization"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/for/interior-designers",
+      "status": 200,
+      "title": "Interior Design Software for Indian Designers | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/for/interior-designers"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/for/interior-designers",
+        "en-IN": "https://zlendorealty.com/in/for/interior-designers",
+        "x-default": "https://zlendorealty.com/for/interior-designers"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/for/architects",
+      "status": 200,
+      "title": "Architecture Software for Indian Architects | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/for/architects"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/for/architects",
+        "en-IN": "https://zlendorealty.com/in/for/architects",
+        "x-default": "https://zlendorealty.com/for/architects"
+      },
+      "errors": []
+    },
+    {
+      "route": "/in/for/vastu-consultants",
+      "status": 200,
+      "title": "Vastu Consultant Software | AI Vastu Analysis | Zlendo Realty",
+      "canonicals": [
+        "https://zlendorealty.com/in/for/vastu-consultants"
+      ],
+      "alternates": {
+        "en": "https://zlendorealty.com/for/vastu-consultants",
+        "en-IN": "https://zlendorealty.com/in/for/vastu-consultants",
+        "x-default": "https://zlendorealty.com/for/vastu-consultants"
+      },
+      "errors": []
+    },
+    {
+      "route": "/products/ai-floor-planner",
+      "status": 308,
+      "location": "/products/floor-planner?seo_check=1",
+      "errors": []
+    },
+    {
+      "route": "/global/products/ai-floor-planner",
+      "status": 308,
+      "location": "/products/floor-planner?seo_check=1",
+      "errors": []
+    },
+    {
+      "route": "/in/products/ai-floor-planner",
+      "status": 308,
+      "location": "/in/products/floor-planner?seo_check=1",
+      "errors": []
+    },
+    {
+      "route": "/products/2d-to-3d-converter",
+      "status": 308,
+      "location": "/products/2d-to-3d?seo_check=1",
+      "errors": []
+    },
+    {
+      "route": "/global/products/2d-to-3d-converter",
+      "status": 308,
+      "location": "/products/2d-to-3d?seo_check=1",
+      "errors": []
+    },
+    {
+      "route": "/in/products/2d-to-3d-converter",
+      "status": 308,
+      "location": "/in/products/2d-to-3d?seo_check=1",
+      "errors": []
+    },
+    {
+      "route": "/products/smart-room-styler",
+      "status": 308,
+      "location": "/products/room-styler?seo_check=1",
+      "errors": []
+    },
+    {
+      "route": "/global/products/smart-room-styler",
+      "status": 308,
+      "location": "/products/room-styler?seo_check=1",
+      "errors": []
+    },
+    {
+      "route": "/in/products/smart-room-styler",
+      "status": 308,
+      "location": "/in/products/room-styler?seo_check=1",
+      "errors": []
+    }
+  ]
+}

@@ -27,11 +27,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     let title = cmsSeo?.seoTitle || "8K VR Studio - Immersive Home Experiences";
     const description = cmsSeo?.seoDescription || "Step inside your design with hyper-realistic VR. Compatible with Meta Quest, Apple Vision Pro, and web browsers.";
 
-    if (country === 'in') {
-        if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-        else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-        else title += ' Online';
-    }
     return createPageMetadata({
         title,
         description,

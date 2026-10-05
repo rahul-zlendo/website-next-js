@@ -15,11 +15,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const cleanPath = isGlobal ? '/services/virtual-walkthrough' : '/in/services/virtual-walkthrough';
 
     let title = 'Virtual Walkthrough Services | Floor Plan to Virtual Tour | Zlendo Realty';
-  if (country === 'in') {
-      if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-      else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-      else title += ' Online';
-  }
   return createPageMetadata({
     title,
         description: 'Transform your floor plans, CAD drawings, and 3D models into immersive virtual walkthroughs with Zlendo Realty. Professional visualization services for architects, builders, developers, and interior designers.',

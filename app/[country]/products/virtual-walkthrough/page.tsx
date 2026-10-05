@@ -22,11 +22,6 @@ export async function generateMetadata(
   const path = isGlobal ? '/products/virtual-walkthrough' : `/${countryCode}/products/virtual-walkthrough`;
 
   let title = data?.seoTitle || `3D Virtual Walkthrough for Homes | Immersive VR Tours`;
-  if (countryCode === 'in') {
-    if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-    else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-    else title += ' Online';
-  }
 
   return createPageMetadata({
     title: title,

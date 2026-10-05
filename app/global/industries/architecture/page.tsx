@@ -6,6 +6,7 @@ const ogTitle = "AI Architectural Visualization for Modern Design Teams";
 const ogDescription = "Turn architectural drawings and concepts into realistic 3D visual experiences with AI-powered planning, rendering, and virtual walkthroughs.";
 
 export const metadata: Metadata = {
+    alternates: { canonical: 'https://zlendorealty.com/industries/architecture' },
     title: "AI Architectural Visualization & 3D Rendering Software | Zlendo Realty",
     description: "Create AI-powered architectural visualizations, 3D floor plans, photorealistic renders, interiors, exteriors, and virtual walkthroughs with Zlendo Realty.",
     keywords: [
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
         siteName: 'Zlendo Realty',
         images: [
             {
-                url: 'https://zlendorealty.com/assets/og-architecture.jpg',
+                url: 'https://zlendorealty.com/og-image.jpg',
                 width: 1200,
                 height: 630,
             },

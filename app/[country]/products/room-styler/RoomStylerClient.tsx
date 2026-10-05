@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { urlFor } from '@/lib/sanity/image';
+import { correctLegacyProductCopy } from '@/lib/seo/product-copy';
 
 const ScandinavianImg = '/assets/room-styler/scandinavian.webp';
 const UploadRoomImg = '/assets/2d-to-3d/upload-floorplan.webp';
@@ -41,7 +42,7 @@ export default function RoomStylerClient({
         icon: Sparkles,
         gradient: cms?.heroGradient || 'from-purple-500 to-pink-400',
         heroImage: urlFor(cms?.heroImage).url() || ScandinavianImg,
-        heroSubtitle: cms?.heroSubtitle || 'AI-Powered Interior Styling',
+        heroSubtitle: correctLegacyProductCopy(cms?.heroSubtitle) || 'AI-Powered Interior Styling',
     };
 
     return (

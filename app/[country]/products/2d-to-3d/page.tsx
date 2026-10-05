@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { createPageMetadata } from '@/lib/seo/metadata';
+import { correctLegacyProductCopy } from '@/lib/seo/product-copy';
 import { draftMode } from 'next/headers';
 import { getClient } from '@/lib/sanity/client';
 import { twoDTo3DPageQuery } from '@/lib/sanity/queries';
@@ -25,14 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         cmsSeo = await getClient(false).fetch(twoDTo3DPageQuery);
     } catch { /* fallback */ }
 
-    let title = cmsSeo?.seoTitle || "2D to 3D Converter - Instant Architectural Visualization";
-    const description = cmsSeo?.seoDescription || "Instantly convert 2D floor plans into interactive 3D models. Best online 3D home design software for architects, builders, and individuals. Start free today!";
+    const title = cmsSeo?.seoTitle || '2D to 3D Floor Plan Converter | Zlendo Realty';
+    const description = correctLegacyProductCopy(cmsSeo?.seoDescription) || 'Turn a supported 2D floor plan into a 3D home view. Explore upload formats, editable layouts, example results and conversion limits with Zlendo Realty.';
 
-    if (country === 'in') {
-        if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-        else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-        else title += ' Online';
-    }
     return createPageMetadata({
         title,
         description,
@@ -95,7 +91,7 @@ export default async function TwoDToThreeDPage({ params }: Props) {
         },
         {
             title: 'AI Processing',
-            desc: 'Advanced algorithms convert lines and shapes into 3D walls, doors, and windows in seconds.',
+            desc: 'AI converts lines and shapes into 3D walls, doors, and windows. Processing time depends on the plan and its complexity.',
             image: '/assets/Home-Page/2d-to-3d-convertor.webp',
             alt: 'AI-powered automatic floor plan to 3D model conversion'
         },
@@ -114,9 +110,9 @@ export default async function TwoDToThreeDPage({ params }: Props) {
     ];
 
     const defaultFeatures = [
-        { title: 'AI Wall Detection', desc: 'Automatically identifies walls, windows, and doors with 99% accuracy.' },
+        { title: 'AI Wall Detection', desc: 'Identifies walls, windows, and doors. Review and refine the result before using your design.' },
         { title: 'Real-Time Editing', desc: 'Modify the generated 3D model instantly in your browser.' },
-        { title: 'DWG/PDF Import', desc: 'Support for professional CAD formats and hand-drawn sketches.' },
+        { title: 'Image/PDF Import', desc: 'Upload supported JPG, PNG, or PDF floor plans.' },
         { title: 'Cloud Rendering', desc: 'High-speed cloud rendering for photorealistic outputs.' }
     ];
 
@@ -130,7 +126,7 @@ export default async function TwoDToThreeDPage({ params }: Props) {
         : defaultSteps;
 
     const resolvedFeatures = cms?.features?.length
-        ? cms.features.map((f: { title: string; desc: string }) => ({ title: f.title, desc: f.desc }))
+        ? cms.features.map((f: { title: string; desc: string }) => ({ title: correctLegacyProductCopy(f.title), desc: correctLegacyProductCopy(f.desc) }))
         : defaultFeatures;
 
     const faqSchema = {

@@ -6,6 +6,7 @@ const ogTitle = "AI Interior Design Visualization | Zlendo Realty";
 const ogDescription = "Turn interior design ideas into realistic rooms with AI-powered styling, 3D visualization, photorealistic renders, and immersive walkthroughs.";
 
 export const metadata: Metadata = {
+    alternates: { canonical: 'https://zlendorealty.com/industries/interior-designer' },
     title: "AI Interior Design & Visualization Software | Zlendo Realty",
     description: "Create, style, render, and present interior concepts with AI. Visualize rooms, furniture, materials, lighting, and 3D spaces with Zlendo Realty.",
     keywords: [
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
         siteName: 'Zlendo Realty',
         images: [
             {
-                url: 'https://zlendorealty.com/assets/og-interior-designer.jpg',
+                url: 'https://zlendorealty.com/og-image.jpg',
                 width: 1200,
                 height: 630,
             },

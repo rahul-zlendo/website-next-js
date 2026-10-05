@@ -51,8 +51,8 @@ export function createPageMetadata({
     const canonicalUrl = `${BASE_URL}${path.startsWith('/') ? path : `/${path}`}`;
     const image = ogImage || defaultOgImage;
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    const isIndia = cleanPath.startsWith('/in');
-    const segment = isIndia ? cleanPath.replace(/^\/in/, '') : cleanPath;
+    const isIndia = cleanPath === '/in' || cleanPath.startsWith('/in/');
+    const segment = isIndia ? cleanPath.replace(/^\/in(?=\/|$)/, '') : cleanPath;
 
     // Ensure segment starts with / unless it's empty
     const normalizedSegment = segment === '/' ? '' : segment;
@@ -60,27 +60,13 @@ export function createPageMetadata({
     const globalUrl = `${BASE_URL}${normalizedSegment}`;
     const indiaUrl = `${BASE_URL}/in${normalizedSegment}`;
 
-    let finalDesc = description;
-    if (isIndia) {
-        if (!finalDesc.toLowerCase().includes('india')) {
-            finalDesc += ' - India region.';
-        } else {
-            finalDesc += ' (Regional)';
-        }
-    }
-
-    let finalKeywords = keywords ? [...keywords] : undefined;
-    if (isIndia && finalKeywords) {
-        finalKeywords = finalKeywords.map(k => k.toLowerCase().includes('india') || k.toLowerCase().includes(' in ') ? k : `${k} in india`);
-    }
-
     return {
         title,
-        description: finalDesc,
-        ...(finalKeywords && { keywords: finalKeywords }),
+        description,
+        ...(keywords && { keywords }),
         openGraph: {
             title: ogTitle || title,
-            description: ogDescription || finalDesc,
+            description: ogDescription || description,
             url: canonicalUrl,
             siteName: SITE_NAME,
             images: [image],
@@ -90,7 +76,7 @@ export function createPageMetadata({
         twitter: {
             card: 'summary_large_image',
             title: ogTitle || title,
-            description: ogDescription || finalDesc,
+            description: ogDescription || description,
             images: [image.url],
         },
         alternates: {
