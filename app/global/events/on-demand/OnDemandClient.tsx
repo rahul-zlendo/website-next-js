@@ -4,10 +4,10 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Play, Clock, ArrowRight, ChevronLeft, Lock } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Play, Clock, ArrowRight, ChevronLeft, Lock, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAppSelector } from '@/lib/store/hooks';
-import { SIGNUP_URL } from '@/lib/constants/urls';
+import { SIGNUP_URL, LOGIN_URL } from '@/lib/constants/urls';
 
 interface OnDemandLecture {
     videoId: string;
@@ -37,13 +37,14 @@ export default function OnDemandClient({ data }: OnDemandClientProps) {
 
     const { user, isAuthenticated } = useAppSelector((state) => state.auth);
     const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+    const [showAuthPrompt, setShowAuthPrompt] = useState(false);
 
     const handlePlayVideo = (videoId: string | undefined) => {
         if (!videoId) return;
         if (isAuthenticated && user) {
             setPlayingVideo(videoId);
         } else {
-            window.location.href = SIGNUP_URL;
+            setShowAuthPrompt(true);
         }
     };
 
@@ -101,43 +102,27 @@ export default function OnDemandClient({ data }: OnDemandClientProps) {
                                 key={item.videoId || index}
                                 className="bg-white rounded-3xl overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.06)] border border-slate-100 group flex flex-col"
                             >
-                                {/* 16:9 Video Thumbnail aspect ratio */}
                                 <div
-                                    className={`relative aspect-video bg-slate-900 overflow-hidden flex-shrink-0 group/video ${!playingVideo ? 'cursor-pointer' : ''}`}
-                                    onClick={() => !playingVideo && handlePlayVideo(item.videoId)}
+                                    className="relative aspect-video bg-slate-900 overflow-hidden flex-shrink-0 group/video cursor-pointer"
+                                    onClick={() => handlePlayVideo(item.videoId)}
                                 >
-                                    {playingVideo === item.videoId ? (
-                                        <iframe
-                                            width="100%"
-                                            height="100%"
-                                            src={`https://www.youtube.com/embed/${item.videoId}?autoplay=1`}
-                                            title={item.title}
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                            className="absolute top-0 left-0 w-full h-full"
-                                        />
-                                    ) : (
-                                        <>
-                                            <div className="absolute inset-0 bg-slate-900">
-                                                {item.videoId && (
-                                                    <img
-                                                        src={`https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`}
-                                                        alt={item.title}
-                                                        className="w-full h-full object-cover opacity-60 group-hover/video:scale-105 transition-transform duration-500"
-                                                    />
-                                                )}
-                                            </div>
-                                            <div className="absolute inset-0 flex items-center justify-center">
-                                                <div className="w-16 h-16 bg-zlendo-teal rounded-full flex items-center justify-center shadow-lg transform group-hover/video:scale-110 transition-transform">
-                                                    <Play className="w-8 h-8 text-white fill-white ml-1" />
-                                                </div>
-                                            </div>
-                                            <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 pointer-events-none">
-                                                {item.duration}
-                                            </div>
-                                        </>
-                                    )}
+                                    <div className="absolute inset-0 bg-slate-900">
+                                        {item.videoId && (
+                                            <img
+                                                src={`https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`}
+                                                alt={item.title}
+                                                className="w-full h-full object-cover opacity-60 group-hover/video:scale-105 transition-transform duration-500"
+                                            />
+                                        )}
+                                    </div>
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="w-16 h-16 bg-zlendo-teal rounded-full flex items-center justify-center shadow-lg transform group-hover/video:scale-110 transition-transform">
+                                            <Play className="w-8 h-8 text-white fill-white ml-1" />
+                                        </div>
+                                    </div>
+                                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-lg border border-white/10 pointer-events-none">
+                                        {item.duration}
+                                    </div>
                                 </div>
 
                                 <div className="p-8 flex flex-col flex-grow">
@@ -174,6 +159,92 @@ export default function OnDemandClient({ data }: OnDemandClientProps) {
                     )}
                 </div>
             </section>
+
+            {/* Auth Prompt Modal */}
+            <AnimatePresence>
+                {showAuthPrompt && (
+                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 bg-black/60 backdrop-blur-sm cursor-pointer"
+                            onClick={() => setShowAuthPrompt(false)}
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            className="relative w-full max-w-sm bg-white rounded-[32px] overflow-hidden shadow-2xl z-10 p-8 text-center border border-slate-100"
+                        >
+                            <div className="w-16 h-16 bg-zlendo-teal/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                                <Lock className="w-8 h-8 text-zlendo-teal" />
+                            </div>
+                            <h3 className="text-2xl font-black text-slate-900 mb-3">Authentication Required</h3>
+                            <p className="text-slate-600 font-medium mb-8 leading-relaxed text-sm">
+                                To watch our exclusive on-demand webinar videos, you need to log in or create a free Zlendo Realty account.
+                            </p>
+                            <div className="flex flex-col gap-3">
+                                <Link
+                                    href={SIGNUP_URL}
+                                    className="w-full bg-zlendo-teal text-white font-black py-4 rounded-xl hover:bg-teal-600 transition-colors shadow-lg shadow-zlendo-teal/20"
+                                >
+                                    Create Free Account
+                                </Link>
+                                <Link
+                                    href={LOGIN_URL}
+                                    className="w-full bg-slate-50 text-slate-800 font-black py-4 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors"
+                                >
+                                    Log In
+                                </Link>
+                                <button
+                                    onClick={() => setShowAuthPrompt(false)}
+                                    className="text-slate-400 font-bold text-sm mt-3 hover:text-slate-700 transition-colors"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* Video Popup Modal */}
+            <AnimatePresence>
+                {playingVideo && (
+                    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="absolute inset-0 bg-black/90 backdrop-blur-sm cursor-pointer"
+                            onClick={() => setPlayingVideo(null)}
+                        />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            className="relative w-full max-w-6xl aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl z-10"
+                        >
+                            <button
+                                onClick={() => setPlayingVideo(null)}
+                                className="absolute top-4 right-4 z-20 w-10 h-10 bg-black/50 hover:bg-zlendo-teal text-white rounded-full flex items-center justify-center transition-colors backdrop-blur-md"
+                            >
+                                <X className="w-6 h-6" />
+                            </button>
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                src={`https://www.youtube.com/embed/${playingVideo}?autoplay=1`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className="absolute inset-0 w-full h-full"
+                            />
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
