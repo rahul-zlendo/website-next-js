@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: WorkshopsPageProps): Promise<
     if (country !== 'in') return {};
 
     return {
-        title: 'Future of AEC Day: College Spatial AI & PropTech Workshop - Zlendo Portal',
+        title: 'Future of AEC Day: College Spatial AI & PropTech Workshop | Zlendo Realty',
         description,
         keywords: [
             'Future of AEC Day',

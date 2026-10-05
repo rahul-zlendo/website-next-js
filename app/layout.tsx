@@ -95,15 +95,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const headersList = await headers();
-  const host = headersList.get('host') || '';
   const pathname = headersList.get('x-pathname') || '';
 
-  // Global if host is zlendorealty.com (without .in)
-  const isGlobal = host.includes('zlendorealty.com') && !host.includes('.in');
+  const isGlobal = !(pathname === '/in' || pathname.startsWith('/in/'));
 
   const organizationSchema = generateOrganizationSchema();
   const webSiteSchema = generateWebSiteSchema();
-  const softwareAppSchema = generateSoftwareApplicationSchema(isGlobal);
+  // Describe the application on its overview pages, not every article or policy.
+  const softwareAppSchema = pathname === '/' || pathname === '/in'
+    ? generateSoftwareApplicationSchema(isGlobal)
+    : null;
 
   // Dynamically attach specific JSON-LD schemas based on pathname
   let plansSchema: any = null;
@@ -128,10 +129,12 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
-        />
+        {softwareAppSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+          />
+        )}
         {plansSchema && (
           <script
             type="application/ld+json"

@@ -24,12 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const isGlobal = country === 'global';
     const path = isGlobal ? '/products/room-styler' : '/in/products/room-styler';
 
-    let title = cms?.seoTitle || 'Smart Room Styler - AI-driven Interior Design';
-  if (country === 'in') {
-        if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-        else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-        else title += ' Online';
-    }
+    const title = cms?.seoTitle || 'AI Interior & Home Design Tool | Zlendo Realty';
     return createPageMetadata({
         title: title,
         description: cms?.seoDescription || 'AI-driven interior design at your fingertips. Visualize different styles, furniture layouts, and color palettes instantly.',

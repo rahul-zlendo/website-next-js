@@ -28,11 +28,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const isGlobal = country === 'global';
     const path = isGlobal ? '/products/api-suite' : '/in/products/api-suite';
 
-    if (country === 'in') {
-        if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-        else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-        else title += ' Online';
-    }
     return createPageMetadata({
         title,
         description,

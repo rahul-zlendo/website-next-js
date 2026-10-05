@@ -106,7 +106,7 @@ const ProductFeatureDetail: React.FC<ProductFeatureDetailProps> = ({ data }) => 
                 <div className="absolute bottom-8 left-8 right-8 p-6 bg-white/90 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Auto-Generation</span>
-                    <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-widest">99.8% Accuracy</span>
+                    <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-widest">Editable Results</span>
                   </div>
                   <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
                     <motion.div 

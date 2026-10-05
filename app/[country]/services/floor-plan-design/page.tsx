@@ -15,11 +15,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const cleanPath = isGlobal ? '/services/floor-plan-design' : '/in/services/floor-plan-design';
 
     let title = 'Floor Plan Design Services for Homeowners | Zlendo Realty';
-  if (country === 'in') {
-      if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-      else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-      else title += ' Online';
-  }
   return createPageMetadata({
     title,
         description: 'Get customized 2D & 3D floor plan design services for your dream home. Zlendo Realty helps homeowners create smart, Vastu-friendly house layouts with expert guidance.',

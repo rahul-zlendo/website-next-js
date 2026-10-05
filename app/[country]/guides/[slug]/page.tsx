@@ -28,11 +28,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cms = await getClient(false).fetch(articlePageQuery, { slug }).catch(() => null);
   const defaults = getArticleDefaults(slug);
   let title = cms?.seoTitle ?? defaults.seoTitle;
-  if (country === 'in') {
-    if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-    else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-    else title += ' Online';
-  }
   const description = cms?.seoDescription ?? defaults.seoDescription;
   const path = country === 'global' ? `/guides/${slug}` : `/${country}/guides/${slug}`;
   return createPageMetadata({

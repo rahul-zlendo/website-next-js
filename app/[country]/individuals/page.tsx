@@ -135,8 +135,8 @@ export default function IndividualsPage() {
                                         <CheckCircle2 className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <div className="text-[10px] font-black uppercase text-zlendo-grey-medium opacity-40">Accuracy</div>
-                                        <div className="text-sm font-black text-zlendo-grey-dark">99.8% Precise</div>
+                                        <div className="text-[10px] font-black uppercase text-zlendo-grey-medium opacity-40">Design Workflow</div>
+                                        <div className="text-sm font-black text-zlendo-grey-dark">Review & Refine</div>
                                     </div>
                                 </div>
                             </div>

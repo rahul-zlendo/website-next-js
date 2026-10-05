@@ -6,6 +6,7 @@ const ogTitle = "AI Visualization Solutions for Builders & Contractors";
 const ogDescription = "Turn building plans into realistic 3D visuals, renders, and walkthroughs that improve client communication, approvals, presentations, sales, and marketing.";
 
 export const metadata: Metadata = {
+    alternates: { canonical: 'https://zlendorealty.com/industries/builders-and-contractors' },
     title: "AI Visualization for Builders & Contractors | Zlendo Realty",
     description: "Help clients visualize projects before they're built with AI-powered 3D floor plans, realistic renders, interior and exterior visualization, and virtual walkthroughs.",
     keywords: [
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
         siteName: 'Zlendo Realty',
         images: [
             {
-                url: 'https://zlendorealty.com/assets/og-builders.jpg',
+                url: 'https://zlendorealty.com/og-image.jpg',
                 width: 1200,
                 height: 630,
             },

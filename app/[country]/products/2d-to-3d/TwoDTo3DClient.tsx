@@ -1,4 +1,5 @@
 'use client';
+import { correctLegacyProductCopy } from '@/lib/seo/product-copy';
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -55,7 +56,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                                 <span dangerouslySetInnerHTML={{ __html: cms?.heroTitle || 'Instant 2D to 3D Conversion' }} />
                             </h1>
                             <p className="text-xl text-zlendo-grey-medium font-medium mb-10 leading-relaxed max-w-lg">
-                                {cms?.heroDesc || 'Turn flat sketches into living spaces in seconds. Upload any floor plan image or PDF and watch our AI instantly construct a fully interactive 3D model.'}
+                                {correctLegacyProductCopy(cms?.heroDesc) || 'Turn a supported floor plan image or PDF into an editable 3D home view. Review the conversion and refine dimensions and details before using the design.'}
                             </p>
 
                             <div className="flex flex-col sm:flex-row gap-4 mb-10">
@@ -164,10 +165,8 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                                     {/* Orbiting File Types */}
                                     {[
                                         { label: 'JPG', angle: 0, color: 'bg-blue-100 text-blue-600' },
-                                        { label: 'PDF', angle: 72, color: 'bg-red-100 text-red-600' },
-                                        { label: 'DWG', angle: 144, color: 'bg-yellow-101 text-yellow-700' },
-                                        { label: 'PNG', angle: 216, color: 'bg-green-100 text-green-600' },
-                                        { label: 'DXF', angle: 288, color: 'bg-purple-100 text-purple-600' }
+                                        { label: 'PDF', angle: 120, color: 'bg-red-100 text-red-600' },
+                                        { label: 'PNG', angle: 240, color: 'bg-green-100 text-green-600' }
                                     ].map((file) => (
                                         <motion.div
                                             key={file.label}

@@ -12,11 +12,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const cleanPath = isGlobal ? '/services/virtual-walkthrough/consultation' : '/in/services/virtual-walkthrough/consultation';
 
     let title = 'Request a Virtual Walkthrough Consultation | Zlendo Realty';
-  if (country === 'in') {
-      if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-      else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-      else title += ' Online';
-  }
   return createPageMetadata({
     title,
         description: 'Get a free consultation for your Virtual Walkthrough project. Share your floor plans, CAD drawings, or 3D models and receive expert guidance, project estimates, and customized visualization solutions.',

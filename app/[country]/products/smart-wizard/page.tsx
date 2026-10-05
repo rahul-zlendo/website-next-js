@@ -10,7 +10,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { country } = await params;
   return createPageMetadata({
-    title: 'AI Smart Wizard – Generate 5 Home Plan Ideas | Zlendo Realty',
+    title: 'AI Floor Plan Generator for Home Layouts | Zlendo Realty',
     description: 'Enter plot size, setbacks, built-up area, parking and room needs. Compare five ranked AI planning suggestions and continue in editable 2D and 3D.',
     path: `/${country}/products/smart-wizard`,
   });

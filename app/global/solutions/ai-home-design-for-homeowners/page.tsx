@@ -7,6 +7,13 @@ const ogDescription = "From floor planning to 3D visualization, interiors, Vastu
 
 export const metadata: Metadata = {
     title: "AI Home Design & Planning for Homeowners | Zlendo Realty",
+    alternates: {
+        canonical: 'https://zlendorealty.com/solutions/ai-home-design-for-homeowners',
+        languages: {
+            en: 'https://zlendorealty.com/solutions/ai-home-design-for-homeowners',
+            'x-default': 'https://zlendorealty.com/solutions/ai-home-design-for-homeowners',
+        },
+    },
     description: "Plan, design, and visualize your dream home with Zlendo Realty's AI-powered tools for floor plans, 3D design, interiors, Vastu, cost estimation, and virtual walkthroughs.",
     keywords: [
         "AI home design",
@@ -37,7 +44,7 @@ export const metadata: Metadata = {
         siteName: 'Zlendo Realty',
         images: [
             {
-                url: 'https://zlendorealty.com/assets/og-homeowners.jpg',
+                url: 'https://zlendorealty.com/og-image.jpg',
                 width: 1200,
                 height: 630,
             },

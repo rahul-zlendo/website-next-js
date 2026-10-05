@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import JsonLd from '@/components/common/JsonLd';
 import KidsRoomLayoutsClient from '@/components/products/KidsRoomLayoutsClient';
 
-const url = 'https://zlendorealty.com/products/kids-room-layouts/';
+const url = 'https://zlendorealty.com/products/kids-room-layouts';
 
 export const metadata: Metadata = {
     title: 'Kids Room Layouts & Design Ideas | Zlendo Realty',

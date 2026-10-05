@@ -15,11 +15,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const cleanPath = isGlobal ? '/services/2d-to-3d' : '/in/services/2d-to-3d';
 
     let title = '2D to 3D Conversion Services | House & Office 3D Design | Zlendo Realty';
-  if (country === 'in') {
-      if (title.endsWith(' | Zlendo Realty')) title = title.replace(' | Zlendo Realty', ' - Zlendo Portal');
-      else if (title.endsWith(')')) title = title.replace(')', ' Guide)');
-      else title += ' Online';
-  }
   return createPageMetadata({
     title,
         description: 'Transform your 2D house & office plans into stunning 3D designs. Get realistic 3D visualization, interior rendering, and professional design conversion services for residential and commercial spaces.',

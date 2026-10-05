@@ -7,6 +7,10 @@ const ogDescription = "From 2D floor plans to 3D designs, photorealistic renders
 
 export const metadata: Metadata = {
     title: ogTitle,
+    alternates: {
+        canonical: 'https://zlendorealty.com/products',
+        languages: { en: 'https://zlendorealty.com/products', 'x-default': 'https://zlendorealty.com/products' },
+    },
     description: "Design, visualize, style, render, and experience properties with Zlendo Realty's AI-powered platform. Create 3D floor plans, realistic renders, and virtual walkthroughs.",
     keywords: [
         "AI property design and visualization", "AI property design", "AI property visualization",
@@ -24,7 +28,7 @@ export const metadata: Metadata = {
         siteName: 'Zlendo Realty',
         images: [
             {
-                url: 'https://zlendorealty.com/assets/og-image.jpg',
+                url: 'https://zlendorealty.com/og-image.jpg',
                 width: 1200,
                 height: 630,
             },
