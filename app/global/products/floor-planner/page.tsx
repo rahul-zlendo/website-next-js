@@ -8,11 +8,11 @@ import { Metadata } from 'next';
 import { SIGNUP_URL } from '@/lib/config/env';
 
 export const metadata: Metadata = {
-  title: 'Floor Planner Online – AI 2D & 3D Floor Plan Maker | Zlendo Realty',
-  description: "Create accurate 2D and 3D floor plans online with Zlendo Realty’s AI floor planner. Design, visualize, customize and export house plans in minutes.",
+  title: 'AI Floor Plan Design Software – 2D & 3D Plans Online',
+  description: "AI floor plan design software for accurate 2D and 3D floor plans online. Design, visualize, customize and export house plans in minutes with Zlendo Realty.",
   openGraph: {
-    title: 'Floor Planner Online – AI 2D & 3D Floor Plan Maker | Zlendo Realty',
-    description: "Create accurate 2D and 3D floor plans online with Zlendo Realty’s AI floor planner. Design, visualize, customize and export house plans in minutes.",
+    title: 'AI Floor Plan Design Software – 2D & 3D Plans Online',
+    description: "AI floor plan design software for accurate 2D and 3D floor plans online. Design, visualize, customize and export house plans in minutes with Zlendo Realty.",
     url: 'https://zlendorealty.com/products/floor-planner',
     siteName: 'Zlendo Realty',
     locale: 'en_US',
@@ -105,20 +105,20 @@ const GlobalFloorPlannerPage = async () => {
               {
                 _key: 'c1',
                 _type: 'span',
-                text: "AI Floor Planner "
+                text: "AI Floor Plan Design Software "
               },
               {
                 _key: 'c2',
                 _type: 'span',
                 marks: ['strong'],
-                text: "Design 2D & 3D Floor Plans"
+                text: "for 2D & 3D Plans Online"
               }
             ],
             markDefs: [],
             style: 'normal'
           }
         ],
-        subheading: "Create accurate floor plans online with our AI-powered floor planner. Design, customize, and visualize your space in 2D and 3D—all in one place.",
+        subheading: "Create accurate floor plans online with AI floor plan design software built for homes. Design, customize, and visualize your space in 2D and 3D—all in one place.",
         image: "/assets/floor-planner/3d-sketch.webp",
         ctaText: "Start Designing Free",
         ctaLink: SIGNUP_URL,

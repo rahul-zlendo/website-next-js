@@ -94,17 +94,17 @@ export default function InteractiveGlobalHero() {
                 <div className={styles.heroInner}>
                     <div className={styles.copy}>
                         <p className={styles.eyebrow}>
-                            AI HOME DESIGN SOFTWARE
+                            AI &amp; 3D HOME DESIGN SOFTWARE
                         </p>
                         <h1 id="home-hero-title">
-                            Your floor plan.
+                            AI &amp; 3D Home Design Software.
                             <br />
-                            <span>Your home in 3D.</span>
+                            <span>Your floor plan, your home in 3D.</span>
                         </h1>
                         <p className={styles.description}>
-                            Create your layout, style your interiors, and share
-                            realistic renders and walkthroughs — all in one
-                            place.
+                            Virtual home design online: create your layout, style
+                            your interiors, and share realistic renders and
+                            walkthroughs — all in one place.
                         </p>
                         <div className={styles.actions}>
                             <a href={SIGNUP_URL} className={styles.primary}>

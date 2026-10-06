@@ -5,8 +5,8 @@ import SmartWizardClient from '@/components/products/SmartWizardClient';
 const url = 'https://zlendorealty.com/products/smart-wizard';
 
 export const metadata: Metadata = {
-  title: 'AI Floor Plan Generator for Home Layouts | Zlendo Realty',
-  description: 'Enter your plot size, setbacks, built-up area, rooms and priorities. Get five ranked AI home-plan suggestions and continue designing in 2D and 3D.',
+  title: 'AI Floor Plan Generator – 5 Plans from Your Plot Size',
+  description: 'Free AI floor plan generator: enter your plot size, setbacks, rooms and priorities and get five ranked floor plans you can edit in 2D and 3D.',
   alternates: {
     canonical: url,
     languages: {
@@ -16,8 +16,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'AI Smart Wizard – Five Home Plan Ideas From One Brief',
-    description: 'Turn plot constraints and room needs into five ranked planning directions with Zlendo Realty.',
+    title: 'AI Floor Plan Generator – 5 Plans from Your Plot Size',
+    description: 'Use the Zlendo Realty AI floor plan generator to turn plot size and room needs into five ranked floor plans.',
     url,
     siteName: 'Zlendo Realty',
     type: 'website',

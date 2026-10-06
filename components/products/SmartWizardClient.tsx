@@ -315,13 +315,13 @@ export default function SmartWizardClient() {
         <div className="container-custom relative mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
           <div>
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-teal-200 backdrop-blur">
-              <WandSparkles className="h-4 w-4" /> New · Smart Wizard
+              <WandSparkles className="h-4 w-4" /> Smart Wizard · AI Floor Plan Generator
             </div>
             <h1 className="max-w-3xl text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl">
-              Your requirements in. <span className="text-teal-300">Five smart plans out.</span>
+              AI Floor Plan Generator. <span className="text-teal-300">5 plans from your plot size.</span>
             </h1>
             <p className="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-slate-300 lg:text-xl">
-              Tell us about your plot, setbacks, rooms and priorities. Smart Wizard turns the brief into five ranked home-planning directions you can compare and continue in Zlendo.
+              Tell our AI floor plan generator about your plot, setbacks, rooms and priorities. Smart Wizard turns the brief into five ranked floor plans you can compare and continue editing in 2D and 3D.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-sm font-bold text-slate-300">
               {['Plot-aware', 'Five alternatives', 'Editable in 2D & 3D'].map((item) => (
