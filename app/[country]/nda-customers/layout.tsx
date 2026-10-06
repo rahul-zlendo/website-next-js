@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -9,23 +10,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (country === 'in') {
         return {
-            title: 'NDA for Customers | Zlendo Realty Confidentiality Agreement',
+            title: 'NDA for Customers Confidentiality Agreement',
             description: 'Review the Non-Disclosure Agreement (NDA) for Zlendo Realty customers. Learn how we protect your confidential information and property designs.',
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/nda-customers',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/nda-customers',
-                    'x-default': 'https://zlendorealty.com/in/nda-customers',
-                },
-            },
+            alternates: indiaOnlyAlternates('/nda-customers'),
         };
     }
 
     return {
-        title: 'NDA for Customers | Zlendo Realty',
+        title: 'NDA for Customers',
     };
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return <>{children}</>;
 }
+

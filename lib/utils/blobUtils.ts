@@ -11,7 +11,10 @@ export const BLOB_SAS_TOKEN = process.env.NEXT_PUBLIC_BLOB_SAS_TOKEN || 'sv=2024
 /**
  * IndexedDB cache for blob URLs
  */
-const DB_NAME = 'BlobCache';
+// Bump the database name when the cached blob format changes. BlobCache v1
+// contains Azure responses stored as application/octet-stream, which browsers
+// cannot reliably decode when used through a blob: image URL.
+const DB_NAME = 'BlobCacheV2';
 const STORE_NAME = 'urls';
 const CACHE_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -59,32 +62,18 @@ async function getCachedUrl(url: string): Promise<string | null> {
       request.onsuccess = async () => {
         const result = request.result;
         if (result && Date.now() - result.timestamp < CACHE_EXPIRY_MS) {
-          // Validate that the blob URL is still alive (blob URLs are session-scoped)
-          if (result.blobUrl && result.blobUrl.startsWith('blob:')) {
-            try {
-              const testResponse = await fetch(result.blobUrl);
-              if (testResponse.ok) {
-                resolve(result.blobUrl);
-              } else {
-                // Stale blob URL — delete from cache and signal re-fetch
-                try {
-                  const db2 = await initDB();
-                  const tx = db2.transaction(STORE_NAME, 'readwrite');
-                  tx.objectStore(STORE_NAME).delete(url);
-                } catch (_) { /* ignore cleanup errors */ }
-                resolve(null);
-              }
-            } catch (_) {
-              // fetch threw (e.g. network error or revoked blob) — treat as stale
-              try {
-                const db2 = await initDB();
-                const tx = db2.transaction(STORE_NAME, 'readwrite');
-                tx.objectStore(STORE_NAME).delete(url);
-              } catch (_) { /* ignore cleanup errors */ }
-              resolve(null);
-            }
+          if (result.blob instanceof Blob && result.blob.type.startsWith('image/')) {
+            // New format: create a fresh session-scoped blob URL from the cached Blob
+            resolve(URL.createObjectURL(result.blob));
           } else {
-            resolve(result.blobUrl);
+            // Legacy format (stored string blobUrl) which causes browser console ERR_FILE_NOT_FOUND when tested.
+            // Consider it invalid and clean it up.
+            try {
+              const db2 = await initDB();
+              const tx = db2.transaction(STORE_NAME, 'readwrite');
+              tx.objectStore(STORE_NAME).delete(url);
+            } catch (_) { /* ignore cleanup errors */ }
+            resolve(null);
           }
         } else {
           resolve(null);
@@ -93,7 +82,7 @@ async function getCachedUrl(url: string): Promise<string | null> {
       request.onerror = () => resolve(null);
     });
   } catch (error) {
-    console.error('Error getting cached URL:', error);
+    // console.error('Error getting cached URL:', error);
     return null;
   }
 }
@@ -101,15 +90,50 @@ async function getCachedUrl(url: string): Promise<string | null> {
 /**
  * Cache blob URL in IndexedDB
  */
-async function cacheUrl(url: string, blobUrl: string): Promise<void> {
+async function cacheUrl(url: string, blob: Blob): Promise<void> {
   try {
     const db = await initDB();
     const transaction = db.transaction(STORE_NAME, 'readwrite');
     const store = transaction.objectStore(STORE_NAME);
-    store.put({ url, blobUrl, timestamp: Date.now() });
+    store.put({ url, blob, timestamp: Date.now() });
   } catch (error) {
-    console.error('Error caching URL:', error);
+    // console.error('Error caching URL:', error);
   }
+}
+
+/**
+ * Construct full URL from relative path
+ */
+export function constructFullBlobUrl(relativeUrl: string): string {
+    if (!relativeUrl) return '';
+    
+    // If it's already an absolute URL or local path, return it as is
+    if (relativeUrl.startsWith('http://') || relativeUrl.startsWith('https://') || relativeUrl.startsWith('/assets/') || relativeUrl.startsWith('/')) {
+        return relativeUrl;
+    }
+    
+    // Otherwise, prepend the Azure blob base URL
+    const cleanBaseUrl = BLOB_BASE_URL.endsWith('/') ? BLOB_BASE_URL.slice(0, -1) : BLOB_BASE_URL;
+    const cleanRelativeUrl = relativeUrl.startsWith('/') ? relativeUrl : `/${relativeUrl}`;
+    
+    return `${cleanBaseUrl}${cleanRelativeUrl}`;
+}
+
+/**
+ * Azure returns some image blobs as application/octet-stream. Once that
+ * response is converted to a blob: URL, browsers use the blob MIME type and
+ * may refuse to decode otherwise-valid image bytes. Infer the correct type
+ * from the source path when storage metadata is missing.
+ */
+function inferImageMimeType(url: string): string {
+  const pathname = url.split('?')[0].toLowerCase();
+  if (pathname.endsWith('.webp')) return 'image/webp';
+  if (pathname.endsWith('.png')) return 'image/png';
+  if (pathname.endsWith('.jpg') || pathname.endsWith('.jpeg')) return 'image/jpeg';
+  if (pathname.endsWith('.avif')) return 'image/avif';
+  if (pathname.endsWith('.gif')) return 'image/gif';
+  if (pathname.endsWith('.svg')) return 'image/svg+xml';
+  return 'application/octet-stream';
 }
 
 /**
@@ -151,17 +175,25 @@ export async function fetchBlobUrl(relativeUrl: any): Promise<string> {
       throw new Error(`Failed to fetch blob: ${response.statusText}`);
     }
 
-    const blob = await response.blob();
+    const responseType = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase();
+    const inferredType = inferImageMimeType(fullUrl);
+    const imageType = responseType?.startsWith('image/') ? responseType : inferredType;
+    const buffer = await response.arrayBuffer();
+    const blob = new Blob([buffer], { type: imageType });
+
+    if (!blob.type.startsWith('image/')) {
+      throw new Error(`Unsupported image content type: ${responseType || 'missing'}`);
+    }
     const blobUrl = URL.createObjectURL(blob);
 
     // Cache the result (client-side only)
     if (typeof window !== 'undefined') {
-      await cacheUrl(fullUrl, blobUrl);
+      await cacheUrl(fullUrl, blob);
     }
 
     return blobUrl;
   } catch (error) {
-    console.error('Error fetching blob URL:', error);
+    // console.error('Error fetching blob URL:', error);
     return fullUrl; // Fallback to original URL
   }
 }
@@ -197,6 +229,6 @@ export async function clearExpiredCache(): Promise<void> {
       }
     };
   } catch (error) {
-    console.error('Error clearing expired cache:', error);
+    // console.error('Error clearing expired cache:', error);
   }
 }

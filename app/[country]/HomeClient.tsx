@@ -1,55 +1,34 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Zap, ShieldCheck, Sparkles, Eye, Ruler, Calculator, Box, Image, Video, Palette, Compass, Layers, Calendar, ChevronDown } from 'lucide-react';
+import {
+    ArrowRight, Zap, ShieldCheck, Sparkles, Eye, Ruler, Calculator,
+    Box, Image, Video, Palette, Compass, Layers, Calendar,
+    CheckCircle2, Building2, HardHat, PenTool, Users, Star
+} from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCountry } from '@/lib/context/CountryContext';
-import { designLibrary, SIGNUP_URL } from '@/lib/constants/urls';
+import { SIGNUP_URL } from '@/lib/constants/urls';
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks';
 import { getAllTemplates } from '@/lib/store/slices/templateSlice';
-import { fetchBlobUrl, BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
+import { BLOB_BASE_URL, BLOB_SAS_TOKEN } from '@/lib/utils/blobUtils';
 import { addTemplateViewService } from '@/lib/services/templateService';
 import { encryptProjectId } from '@/lib/utils/encryptionUtils';
+import { urlFor } from '@/lib/sanity/image';
+import FaqAccordion from './components/FaqAccordion';
+import { detectUserRegion } from '@/lib/store/slices/enterpriseSlice';
+import RecentBlogPosts from '@/components/common/RecentBlogPosts';
+import PropTechOverview from '@/components/common/PropTechOverview';
 
-// Feature images - using high-quality Unsplash placeholders
-const Conv2dTo3dImg = 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200';
-const AiRoomInspirationImg = 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=1200';
-const ExportToolkitImg = 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200';
-
-const features = [
-    {
-        section: 'Plan & Design',
-        tabs: ['2D to 3D Converter', 'AI Room Inspiration', 'Zlendo Realty AR/VR/MR Studio'],
-        title: '2D to 3D Converter',
-        description: 'Zlendo Realty converts simple floor plans into structured, walkable 3D environments without manual modeling.',
-        howItWorks: ['Upload Plan', 'Interpret Layout', 'Generate 3D Model', 'Ready for Exploration'],
-        cta: 'Experience the Converter',
-        img: Conv2dTo3dImg,
-        reverse: false
-    },
-    {
-        section: 'Visualize',
-        tabs: ['AI Room Inspiration', 'Immersive Design Preview', 'Zlendo Realty AR/VR/MR Studio'],
-        title: 'AI Room Inspiration',
-        description: 'Inspiration is generated based on actual room context, not generic templates.',
-        howItWorks: ['Understand Room Context', 'Generate Relevant Inspirations', 'Preview in Context', 'Apply Selectively'],
-        cta: 'Start Designing with AI',
-        img: AiRoomInspirationImg,
-        reverse: true
-    },
-    {
-        section: 'Share',
-        tabs: ['3D Export Toolkit', 'Immersive Design Preview', 'Zlendo Realty AR/VR/MR Studio'],
-        title: '3D Export Toolkit',
-        description: 'Design outputs are prepared for communication and downstream use.',
-        howItWorks: ['Select Design Version', 'Choose Export Format', 'Export or Share', 'Reuse Across Workflows'],
-        cta: 'Try It Now',
-        img: ExportToolkitImg,
-        reverse: false
-    }
-];
+interface HomeClientProps {
+    cms: any;
+    resolvedFaqs: any[];
+    resolvedFeatures: any[];
+    resolvedComparisonRows: any[];
+    resolvedIntelligence: any[];
+}
 
 interface DesignInspirationItem {
     title: string;
@@ -62,393 +41,160 @@ interface DesignInspirationItem {
     originalUrl?: string;
 }
 
-export default function HomeClient() {
+export default function HomeClient({
+    cms,
+    resolvedFaqs,
+    resolvedFeatures,
+    resolvedComparisonRows,
+    resolvedIntelligence
+}: HomeClientProps) {
     const { getPath, paths } = useCountry();
     const router = useRouter();
-
-    const handleTemplateClick = (templateId: number) => {
-        // Navigate immediately for instant feedback
-        const encryptedId = encryptProjectId(templateId);
-        router.push(getPath(`/template-detail?templateId=${encryptedId}`));
-
-        // Fire analytics in background (non-blocking)
-        addTemplateViewService(templateId, "Template", "View").catch((error) => {
-            console.error("Error adding template view:", error);
-        });
-    };
     const dispatch = useAppDispatch();
     const { activeTemplates } = useAppSelector((state) => state.template);
+
     const [activeDesignFilter, setActiveDesignFilter] = useState("All Spaces");
-    const [imageUrls, setImageUrls] = useState<Record<number, string>>({});
-    const [multipleImageUrls, setMultipleImageUrls] = useState<Record<number, string[]>>({});
-    const [loadingImageUrls, setLoadingImageUrls] = useState<Set<number>>(new Set());
-    const [mounted, setMounted] = useState(false); // Prevent hydration mismatch
+    const [mounted, setMounted] = useState(false);
+    const [activeAudienceTab, setActiveAudienceTab] = useState(0);
 
-    const [activeFaq, setActiveFaq] = useState<number | null>(null);
+    // Resolve labels from CMS or defaults
+    const heroBadge = cms?.heroBadgeText ?? 'Create with Confidence';
+    const heroTitle = cms?.heroTitle ?? 'Design Smarter.';
+    const heroHighlight = cms?.heroTitleHighlight ?? 'Build Faster.';
+    const heroAfter = cms?.heroTitleAfter ?? 'Deliver Better.';
+    const heroSubtitleText = cms?.heroSubtitle ?? 'Powerful Civil Plan & Interior Design Software for Professionals and Individuals. Zlendo Realty helps you create accurate 2D plans, stunning 3D designs, and complete interior layouts—all from one easy-to-use platform.';
+    const heroPrimaryLabel = cms?.heroPrimaryCtaLabel ?? 'Design Home for Free';
+    const heroSecondaryLabel = cms?.heroSecondaryCtaLabel ?? 'Schedule Your Business Demo';
+    const heroPrimaryLink = cms?.heroPrimaryCtaLink ?? SIGNUP_URL;
+    const heroSecondaryLink = cms?.heroSecondaryCtaLink ?? paths.enterpriseDemo;
 
-    // Ensure client-side only rendering
+    const intelligenceBadge = cms?.intelligenceBadgeText ?? 'Proprietary 9D Framework';
+    const intelligenceTitle = cms?.intelligenceSectionTitle ?? 'The Intelligence';
+    const intelligenceHighlight = cms?.intelligenceSectionTitleHighlight ?? 'behind';
+    const intelligenceAfter = cms?.intelligenceSectionTitleAfter ?? 'your dream home.';
+    const intelligenceSubtitle = cms?.intelligenceSectionSubtitle ?? 'Swipe to explore how our 9D engine guarantees total peace of mind.';
+
+    const howToTitle = cms?.howToSectionTitle ?? 'How to design a home online for free';
+    const howToSubtitle = cms?.howToSectionSubtitle ?? 'Design your 2BHK, pooja room, or bungalow easily with Zlendo Realty. Get Vastu-friendly plans & realistic 3D views!';
+
+    const comparisonBadge = cms?.comparisonBadgeText ?? 'Peace of Mind';
+    const comparisonTitle = cms?.comparisonTitle ?? 'Your Dream Design';
+    const comparisonHighlight = cms?.comparisonTitleHighlight ?? 'made Easy';
+    const comparisonSubtitle = cms?.comparisonSubtitle ?? 'Why 12,000+ modern homeowners chose Zlendo Realty over traditional guesswork.';
+    const comparisonOldWayLabel = cms?.comparisonOldWayLabel ?? 'Old Way';
+    const comparisonNewWayLabel = cms?.comparisonNewWayLabel ?? 'Zlendo Realty Way';
+    const dimensionSuffix = cms?.dimensionSuffix ?? 'Dimension';
+
+    const ctaTitle = cms?.ctaTitle ?? 'Start designing your house with Zlendo Realty';
+    const ctaSubtitle = cms?.ctaSubtitle ?? 'Draw a floor plan and create a 3D home design in 10 min.';
+    const ctaButtonLabel = cms?.ctaButtonLabel ?? 'Get Started For Free';
+    const ctaImageUrl = urlFor(cms?.ctaImageUrl).url() || '/assets/Home-Page/cta-home.webp';
+    const ctaLink = cms?.ctaButtonLink ?? SIGNUP_URL;
+
+    const faqTitle = cms?.faqSectionTitle ?? 'Frequently Asked Questions';
+
+    const iconMap: any = {
+        Ruler, Box, Eye, Image, Video, Calculator, Palette, Sparkles, Compass, Layers, Zap
+    };
+
     useEffect(() => {
         setMounted(true);
-    }, []);
+        const fetchInitialData = async () => {
+            try {
+                // 1. Detect user region first
+                const regionId = await dispatch(detectUserRegion()).unwrap();
+                // 2. Load templates filtered by region
+                dispatch(getAllTemplates(regionId || undefined));
+            } catch (error) {
+                // console.error("Error loading initial data:", error);
+                // Fallback to load all templates if region detection fails
+                dispatch(getAllTemplates());
+            }
+        };
 
-    useEffect(() => {
-        dispatch(getAllTemplates());
+        fetchInitialData();
     }, [dispatch]);
 
-    // Helper function to construct full blob URL with SAS token.
-    // Uses BLOB_BASE_URL and BLOB_SAS_TOKEN imported from blobUtils — these have
-    // hardcoded fallback values that work in dev even when env vars are not set.
+    const handleTemplateClick = (templateId: number) => {
+        const encryptedId = encryptProjectId(templateId);
+        router.push(getPath(`/template-detail?templateId=${encryptedId}`));
+        addTemplateViewService(templateId, "Template", "View").catch(console.error);
+    };
+
     const constructFullBlobUrl = (relativeUrl: string): string => {
         if (!relativeUrl) return '';
-        // Already a full URL — append SAS if it's a blob storage URL without one
-        if (relativeUrl.startsWith('http') || relativeUrl.startsWith('blob:')) {
+        if (relativeUrl.startsWith('http') || relativeUrl.startsWith('blob:') || relativeUrl.startsWith('/')) {
             if (relativeUrl.includes('blob.core.windows.net') && !relativeUrl.includes('sig=') && BLOB_SAS_TOKEN) {
-                return relativeUrl.includes('?')
-                    ? `${relativeUrl}&${BLOB_SAS_TOKEN}`
-                    : `${relativeUrl}?${BLOB_SAS_TOKEN}`;
+                return relativeUrl.includes('?') ? `${relativeUrl}&${BLOB_SAS_TOKEN}` : `${relativeUrl}?${BLOB_SAS_TOKEN}`;
             }
             return relativeUrl;
         }
-        // Relative path — build full URL with SAS token
         const fullUrl = `${BLOB_BASE_URL}${relativeUrl}`;
-        return BLOB_SAS_TOKEN
-            ? (fullUrl.includes('?') ? `${fullUrl}&${BLOB_SAS_TOKEN}` : `${fullUrl}?${BLOB_SAS_TOKEN}`)
-            : fullUrl;
+        return BLOB_SAS_TOKEN ? (fullUrl.includes('?') ? `${fullUrl}&${BLOB_SAS_TOKEN}` : `${fullUrl}?${BLOB_SAS_TOKEN}`) : fullUrl;
     };
 
-    // Load multiple thumbnails for a template
-    const loadMultipleThumbnails = async (templateId: number, thumbnailUrls: string[]) => {
-        if (multipleImageUrls[templateId] || loadingImageUrls.has(templateId) || !thumbnailUrls || thumbnailUrls.length === 0) {
-            return;
-        }
-
-        setLoadingImageUrls((prev) => new Set(prev).add(templateId));
-
-        try {
-            const loadPromises = thumbnailUrls.map(async (url) => {
-                try {
-                    const blobUrl = await fetchBlobUrl(url);
-                    // Return blob URL if successful, otherwise return full Azure URL with SAS token
-                    return (blobUrl && blobUrl.startsWith('blob:')) ? blobUrl : constructFullBlobUrl(url);
-                } catch (error) {
-                    console.error(`Failed to load thumbnail for template ${templateId}:`, error);
-                    // Always return full blob URL, never relative URL
-                    return constructFullBlobUrl(url);
-                }
-            });
-
-            const loadedUrls = await Promise.all(loadPromises);
-            setMultipleImageUrls((prev) => ({
-                ...prev,
-                [templateId]: loadedUrls,
-            }));
-        } catch (error) {
-            console.error(`Failed to load multiple images for template ${templateId}:`, error);
-        } finally {
-            setLoadingImageUrls((prev) => {
-                const newSet = new Set(prev);
-                newSet.delete(templateId);
-                return newSet;
-            });
-        }
-    };
-
-    // Load images for templates when activeTemplates changes
-    useEffect(() => {
-        activeTemplates.forEach((template) => {
-            // Load main thumbnail
-            if (template.thumbnail_Url && !imageUrls[template.template_Id] && !loadingImageUrls.has(template.template_Id)) {
-                loadTemplateImage(template.template_Id, template.thumbnail_Url);
-            }
-            // Load multiple thumbnails
-            if (template.multiple_ThumbnailUrls && template.multiple_ThumbnailUrls.length > 0 && !multipleImageUrls[template.template_Id]) {
-                loadMultipleThumbnails(template.template_Id, template.multiple_ThumbnailUrls);
-            }
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeTemplates]);
-
-    // Load template images
-    const loadTemplateImage = async (templateId: number, thumbnailUrl: string) => {
-        if (imageUrls[templateId] || loadingImageUrls.has(templateId) || !thumbnailUrl) {
-            return;
-        }
-
-        setLoadingImageUrls((prev) => new Set(prev).add(templateId));
-
-        try {
-            const blobUrl = await fetchBlobUrl(thumbnailUrl);
-            const urlToUse = (blobUrl && blobUrl.startsWith('blob:')) ? blobUrl : constructFullBlobUrl(thumbnailUrl);
-
-            setImageUrls((prev) => ({
-                ...prev,
-                [templateId]: urlToUse,
-            }));
-        } catch (error) {
-            console.error(`Failed to load image for template ${templateId}:`, error);
-            // Even on error, set the full blob URL as fallback
-            setImageUrls((prev) => ({
-                ...prev,
-                [templateId]: constructFullBlobUrl(thumbnailUrl),
-            }));
-        } finally {
-            setLoadingImageUrls((prev) => {
-                const newSet = new Set(prev);
-                newSet.delete(templateId);
-                return newSet;
-            });
-        }
-    };
-
-    // Transform templates into designInspirationData structure
     const designInspirationData = useMemo(() => {
         if (!activeTemplates || activeTemplates.length === 0) {
+            // SEO Fallback: Provide Googlebot & first paint with actual imagery before JS fetch
             return {
-                "All Spaces": [] as DesignInspirationItem[],
-                "Full House": [] as DesignInspirationItem[],
+                "All Spaces": [
+                    { title: "Modern Living Room Experience", count: "120+ Designs", img: "/assets/home/living-room-3d.webp", colSpan: "md:col-span-2", rowSpan: "md:row-span-2", isLarge: true, templateId: 0 },
+                    { title: "Cozy Master Bedroom", count: "75+ Designs", img: "/assets/home/bedroom-cozy.webp", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: 0 },
+                    { title: "Modular Kitchen Layout", count: "90+ Designs", img: "/assets/home/modern-kitchen.webp", colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: 0 },
+                    { title: "Luxury Office & Lounge", count: "50+ Designs", img: "/assets/home/modern-lounge.webp", colSpan: "md:col-span-2", rowSpan: "md:row-span-1", isLarge: true, templateId: 0 }
+                ],
+                "Full House": []
             };
         }
 
-        const getTemplatesByRoomType = (roomTypeName: string | null) => {
-            return activeTemplates.filter(t => t.room_TypeName === roomTypeName);
-        };
-
-        const getFullHouseTemplates = () => {
-            return activeTemplates.filter(t => t.template_TypeName === "Full House");
-        };
-
         const createGridItems = (templates: typeof activeTemplates): DesignInspirationItem[] => {
             if (templates.length === 0) return [];
-
-            const items: DesignInspirationItem[] = [];
-
-            const allImages: Array<{
-                img: string;
-                title: string;
-                templateId: number;
-                originalUrl?: string;
-            }> = [];
-
+            const fallbackImages = [
+                '/assets/home/living-room-3d.webp',
+                '/assets/home/bedroom-cozy.webp',
+                '/assets/home/modern-kitchen.webp',
+                '/assets/home/modern-lounge.webp',
+            ];
+            const allImages: any[] = [];
             templates.forEach((template: any) => {
-                const mainImg = imageUrls[template.template_Id] || template.thumbnail_Url || "";
-                if (mainImg) {
-                    allImages.push({
-                        img: mainImg,
-                        title: template.template_Name,
-                        templateId: template.template_Id,
-                        originalUrl: template.thumbnail_Url
-                    });
-                }
-
-                const multipleThumbs = multipleImageUrls[template.template_Id] || [];
-                const originalMultipleThumbs = template.multiple_ThumbnailUrls || [];
-
-                multipleThumbs.forEach((thumbUrl, idx) => {
-                    if (thumbUrl) {
-                        allImages.push({
-                            img: thumbUrl,
-                            title: template.template_Name,
-                            templateId: template.template_Id,
-                            originalUrl: originalMultipleThumbs[idx]
-                        });
-                    }
+                if (template.thumbnail_Url) allImages.push({ title: template.template_Name, templateId: template.template_Id, originalUrl: template.thumbnail_Url });
+                (template.multiple_ThumbnailUrls || []).forEach((thumbnailUrl: string) => {
+                    if (thumbnailUrl) allImages.push({ title: template.template_Name, templateId: template.template_Id, originalUrl: thumbnailUrl });
                 });
             });
 
-            if (allImages[0]) {
-                items.push({
-                    title: allImages[0].title,
-                    count: `${templates.length}+ Designs`,
-                    img: allImages[0].img,
-                    colSpan: "md:col-span-2",
-                    rowSpan: "md:row-span-2",
-                    isLarge: true,
-                    templateId: allImages[0].templateId,
-                    originalUrl: allImages[0].originalUrl
-                });
-            }
+            // The API returns thumbnail_Url as a relative blob path
+            // (e.g. "prod-templates/119/render.webp"). constructFullBlobUrl
+            // turns it into the full SAS-signed URL the private container
+            // requires. Use it directly — the fetchBlobUrl/blob: approach is
+            // unreliable here (blob: URLs fail to render), so we skip it.
+            const visibleImages = allImages.slice(0, 4).map((item, index) => ({
+                ...item,
+                img: constructFullBlobUrl(item.originalUrl) || fallbackImages[index],
+            }));
 
-            if (allImages[1]) {
-                items.push({
-                    title: allImages[1].title,
-                    count: `${templates.length}+ Designs`,
-                    img: allImages[1].img,
-                    colSpan: "md:col-span-1",
-                    rowSpan: "md:row-span-1",
-                    isLarge: false,
-                    templateId: allImages[1].templateId,
-                    originalUrl: allImages[1].originalUrl
-                });
-            }
-
-            if (allImages[2]) {
-                items.push({
-                    title: allImages[2].title,
-                    count: `${templates.length}+ Designs`,
-                    img: allImages[2].img,
-                    colSpan: "md:col-span-1",
-                    rowSpan: "md:row-span-1",
-                    isLarge: false,
-                    templateId: allImages[2].templateId,
-                    originalUrl: allImages[2].originalUrl
-                });
-            }
-
-            if (allImages[3]) {
-                items.push({
-                    title: allImages[3].title,
-                    count: `${templates.length}+ Designs`,
-                    img: allImages[3].img,
-                    colSpan: "md:col-span-2",
-                    rowSpan: "md:row-span-1",
-                    isLarge: true,
-                    templateId: allImages[3].templateId,
-                    originalUrl: allImages[3].originalUrl
-                });
-            }
-
+            const items: DesignInspirationItem[] = [];
+            if (visibleImages[0]) items.push({ title: visibleImages[0].title, count: `${templates.length}+ Designs`, img: visibleImages[0].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-2", isLarge: true, templateId: visibleImages[0].templateId, originalUrl: visibleImages[0].originalUrl });
+            if (visibleImages[1]) items.push({ title: visibleImages[1].title, count: `${templates.length}+ Designs`, img: visibleImages[1].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: visibleImages[1].templateId, originalUrl: visibleImages[1].originalUrl });
+            if (visibleImages[2]) items.push({ title: visibleImages[2].title, count: `${templates.length}+ Designs`, img: visibleImages[2].img, colSpan: "md:col-span-1", rowSpan: "md:row-span-1", isLarge: false, templateId: visibleImages[2].templateId, originalUrl: visibleImages[2].originalUrl });
+            if (visibleImages[3]) items.push({ title: visibleImages[3].title, count: `${templates.length}+ Designs`, img: visibleImages[3].img, colSpan: "md:col-span-2", rowSpan: "md:row-span-1", isLarge: true, templateId: visibleImages[3].templateId, originalUrl: visibleImages[3].originalUrl });
             return items;
         };
 
-        const uniqueRoomTypes = new Set<string>();
-        activeTemplates.forEach((template) => {
-            if (template.room_TypeName && template.room_TypeName.trim() !== '') {
-                uniqueRoomTypes.add(template.room_TypeName);
-            }
-        });
-        const sortedRoomTypes = Array.from(uniqueRoomTypes).sort();
-
-        const data: Record<string, DesignInspirationItem[]> = {
+        const uniqueRoomTypes = Array.from(new Set(activeTemplates.map(t => t.room_TypeName).filter(Boolean))).sort();
+        const data: any = {
             "All Spaces": createGridItems(activeTemplates),
-            "Full House": createGridItems(getFullHouseTemplates()),
+            "Full House": createGridItems(activeTemplates.filter(t => t.template_TypeName === "Full House")),
         };
-
-        sortedRoomTypes.forEach(roomType => {
-            data[roomType] = createGridItems(getTemplatesByRoomType(roomType));
-        });
-
+        uniqueRoomTypes.forEach(rt => { data[rt as string] = createGridItems(activeTemplates.filter(t => t.room_TypeName === rt)); });
         return data;
-    }, [activeTemplates, imageUrls, multipleImageUrls]);
-
-    const intelligenceDimensions = [
-        {
-            id: '1D',
-            title: 'Floor Plan Drafting',
-            shortDesc: 'Precision 2D Layouts',
-            longDesc: 'Create professional-grade floor plans with exact dimensions. Our intelligent drafting tool auto-corrects alignments and suggests standard room sizes.',
-            icon: Ruler,
-            color: 'text-blue-500',
-            bg: 'bg-blue-500',
-            benefit: 'Zero-Error Planning',
-            cta: 'Create Your Plan',
-            action: { type: 'route', value: getPath('/products/floor-planner') }
-        },
-        {
-            id: '2D',
-            title: 'Instant 3D Conversion',
-            shortDesc: 'One-Click Transformation',
-            longDesc: 'Watch your 2D sketch instantly rise into a 3D structural model. Walls, windows, and doors are automatically generated in seconds.',
-            icon: Box,
-            color: 'text-indigo-500',
-            bg: 'bg-indigo-500',
-            benefit: 'Instant Visualization',
-            cta: 'Start Convert to 3D',
-            action: { type: 'route', value: getPath('/products/2d-to-3d') }
-        },
-        {
-            id: '3D',
-            title: 'Interactive Walkthrough',
-            shortDesc: 'Immersive Exploration',
-            longDesc: 'Walk through your future home as if you were there. Open doors, inspect corners, and feel the space in first-person view.',
-            icon: Eye,
-            color: 'text-zlendo-teal',
-            bg: 'bg-zlendo-teal',
-            benefit: 'True-to-Life Experience',
-            cta: 'Experience It Live',
-            action: { type: 'route', value: getPath('/products/virtual-walkthrough') }
-        },
-        {
-            id: '4D',
-            title: 'Photorealistic Rendering',
-            shortDesc: '4K Visualization',
-            longDesc: 'Generate magazine-quality static renders with ray-traced lighting, shadows, and reflections to see the true beauty of your design.',
-            icon: Image,
-            color: 'text-purple-500',
-            bg: 'bg-purple-500',
-            benefit: 'Stunning Presentation',
-            cta: 'Start Render Realistic',
-            action: { type: 'route', value: getPath('/products/realistic-renders') }
-        },
-        {
-            id: '5D',
-            title: 'Cinematic Video',
-            shortDesc: 'Automated Tours',
-            longDesc: 'Create smooth, cinematic video tours of your property automatically. Perfect for presentations and social media sharing.',
-            icon: Video,
-            color: 'text-pink-500',
-            bg: 'bg-pink-500',
-            benefit: 'Engaging Storytelling',
-            cta: 'Build Video Tour',
-            action: { type: 'route', value: getPath('/products/realistic-renders') }
-        },
-        {
-            id: '6D',
-            title: 'Cost Engine',
-            shortDesc: 'Real-Time BOQ',
-            longDesc: 'Get an instant Bill of Quantities (BOQ) with local pricing. Know accurately how much cement, steel, and paint you need.',
-            icon: Calculator,
-            color: 'text-emerald-600',
-            bg: 'bg-emerald-600',
-            benefit: 'Budget Certainty',
-            cta: 'Check Project Cost',
-            action: { type: 'route', value: getPath('/products/cost-estimator') }
-        },
-        {
-            id: '7D',
-            title: 'Material Library',
-            shortDesc: 'Infinite Customization',
-            longDesc: 'Access thousands of real-world materials. Swap tiles, paints, and fabrics instantly to find the perfect combination.',
-            icon: Palette,
-            color: 'text-amber-500',
-            bg: 'bg-amber-500',
-            benefit: 'Design Freedom',
-            cta: 'Explore Materials',
-            action: { type: 'route', value: getPath(designLibrary) }
-        },
-        {
-            id: '8D',
-            title: 'AI Style Inspiration',
-            shortDesc: 'Generative Design',
-            longDesc: 'Stuck on ideas? Let our AI suggest themes like "Modern Minimalist" or "Traditional Warm" tailored to your room layout.',
-            icon: Sparkles,
-            color: 'text-rose-500',
-            bg: 'bg-rose-500',
-            benefit: 'Instant Creativity',
-            cta: 'Get AI Ideas',
-            action: { type: 'route', value: getPath('/products/floor-planner') }
-        },
-        {
-            id: '9D',
-            title: 'Vastu Recommendations',
-            shortDesc: 'Ancient Wisdom',
-            longDesc: 'Get instant AI-driven Vastu compliance scores. Detect energy imbalances and receive corrective suggestions for harmony.',
-            icon: Compass,
-            color: 'text-orange-500',
-            bg: 'bg-orange-500',
-            benefit: 'Energy Harmony',
-            cta: 'Run Vastu Check',
-            action: { type: 'route', value: getPath('/products/vastu') }
-        }
-    ];
-
-    // No longer returning null to enable SSR for better SEO and crawler visibility.
-    // Hydration mismatch warnings (if any) are preferred over blank snapshots.
-
+    }, [activeTemplates]);
 
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
             <main className="pt-8 md:pt-14">
-                {/* Hero */}
+
+                {/* HERO SECTION */}
                 <section className="container-custom text-center mb-10 md:mb-16 px-4 overflow-visible relative">
                     <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-zlendo-teal/10 blur-[120px] rounded-full -z-10" />
 
@@ -458,7 +204,7 @@ export default function HomeClient() {
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-3"
                     >
                         <Sparkles className="w-4 h-4 text-zlendo-teal" />
-                        <span className="text-xs font-black text-zlendo-teal uppercase tracking-[0.2em]">Create with Confidence</span>
+                        <span className="text-xs font-black text-zlendo-teal uppercase tracking-[0.2em]">{heroBadge}</span>
                     </motion.div>
 
                     <motion.h1
@@ -466,7 +212,7 @@ export default function HomeClient() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-[28px] md:text-[42px] lg:text-[56px] font-black font-nunito text-zlendo-grey-dark leading-[1.1] md:leading-[1.05] mb-3 md:mb-4 max-w-5xl mx-auto tracking-tight md:tracking-tighter"
                     >
-                        Design Smarter. <span className="text-zlendo-teal italic"> Build Faster.</span> Deliver Better.
+                        {heroTitle} <span className="text-zlendo-teal italic"> {heroHighlight}</span> {heroAfter}
                     </motion.h1>
 
                     <motion.p
@@ -475,8 +221,7 @@ export default function HomeClient() {
                         transition={{ delay: 0.1 }}
                         className="text-base md:text-lg text-zlendo-grey-medium font-bold max-w-3xl mx-auto mb-5 leading-relaxed opacity-90"
                     >
-                        Powerful Civil Plan & Interior Design Software for Professionals and Individuals.
-                        Zlendo Realty helps you create accurate 2D plans, stunning 3D designs, and complete interior layouts—all from one easy-to-use platform.
+                        {heroSubtitleText}
                     </motion.p>
 
                     <motion.div
@@ -486,22 +231,81 @@ export default function HomeClient() {
                         className="flex flex-col sm:flex-row items-center justify-center gap-4"
                     >
                         <a
-                            href={SIGNUP_URL}
+                            href={getPath(heroPrimaryLink)}
                             className="bg-zlendo-teal text-white px-8 py-3.5 rounded-[20px] font-black text-base hover:scale-105 transition-all shadow-2xl shadow-zlendo-teal/30 group flex items-center gap-2"
                         >
-                            Design Home for Free <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                            {heroPrimaryLabel} <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
                         </a>
                         <Link
-                            href={paths.enterpriseDemo || '#'}
+                            href={getPath(heroSecondaryLink) || '#'}
                             className="bg-white text-zlendo-grey-dark px-8 py-3.5 rounded-[20px] font-black text-base border border-black/10 hover:bg-gray-50 hover:scale-105 transition-all shadow-xl group flex items-center gap-2"
                         >
-                            Schedule Your Business Demo <Calendar className="w-6 h-6 text-zlendo-grey-medium group-hover:text-zlendo-teal transition-colors" />
+                            {heroSecondaryLabel} <Calendar className="w-6 h-6 text-zlendo-grey-medium group-hover:text-zlendo-teal transition-colors" />
                         </Link>
+                    </motion.div>
+
+                    {/* Rating Badges Light Mode */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="flex flex-col sm:flex-row items-stretch justify-center gap-4 sm:gap-6 pt-8 pb-2 max-w-2xl mx-auto"
+                    >
+                        <a
+                            href="https://www.capterra.in/software/1085377/Zlendo-Realty"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Read Zlendo Realty reviews on Capterra"
+                            className="flex-1 flex flex-col items-center justify-center gap-2.5 px-5 py-4 bg-white border border-black/[0.05] shadow-lg shadow-black/[0.02] rounded-[20px] group hover:border-[#00bf9a]/30 hover:shadow-xl hover:shadow-[#00bf9a]/10 transition-all duration-300"
+                        >
+                            {/* Top: Logo */}
+                            <div className="flex items-center opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                                <img
+                                    src="/assets/capterra-logo.webp"
+                                    alt="Capterra Official Logo"
+                                    className="h-[22px] sm:h-[26px] w-auto object-contain"
+                                />
+                            </div>
+
+                            {/* Bottom: Rating */}
+                            <div className="flex items-center gap-2 pt-1">
+                                <span className="text-[14px] sm:text-[15px] font-black text-zlendo-grey-dark leading-none whitespace-nowrap">Rated 5/5</span>
+                                <div className="flex gap-0.5">
+                                    {[1, 2, 3, 4, 5].map(i => (
+                                        <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00bf9a] fill-[#00bf9a]" />
+                                    ))}
+                                </div>
+                            </div>
+                        </a>
+
+                        <a
+                            href="https://www.producthunt.com/products/zlendo-realty/reviews"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Read Zlendo Realty reviews on Product Hunt"
+                            className="flex-1 flex flex-col items-center justify-center gap-2.5 px-5 py-4 bg-white border border-black/[0.05] shadow-lg shadow-black/[0.02] rounded-[20px] group hover:border-[#da552f]/30 hover:shadow-xl hover:shadow-[#da552f]/10 transition-all duration-300"
+                        >
+                            {/* Top: Logo */}
+                            <div className="flex items-center gap-2 opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                                <div className="w-5 h-5 sm:w-6 sm:h-6 bg-[#da552f] rounded-full flex items-center justify-center text-white font-bold text-[10px] sm:text-xs pt-0.5 shrink-0">P</div>
+                                <span className="text-[#da552f] font-bold text-[15px] sm:text-base tracking-tight leading-none whitespace-nowrap">Product Hunt</span>
+                            </div>
+
+                            {/* Bottom: Rating */}
+                            <div className="flex items-center gap-2 pt-1">
+                                <span className="text-[14px] sm:text-[15px] font-black text-zlendo-grey-dark leading-none whitespace-nowrap">Rated 4.8/5</span>
+                                <div className="flex gap-0.5">
+                                    {[1, 2, 3, 4, 5].map(i => (
+                                        <Star key={i} className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#da552f] fill-[#da552f]" />
+                                    ))}
+                                </div>
+                            </div>
+                        </a>
                     </motion.div>
                 </section>
 
-                {/* 9D Intelligence Focus Hub (Horizontal Scroll) */}
-                <section className="py-16 md:py-24 relative bg-white overflow-hidden border-b border-black/[0.03]">
+                {/* 9D INTELLIGENCE HUB */}
+                <section className="py-12 md:py-16 relative bg-white overflow-hidden border-b border-black/[0.03]">
                     <div className="container-custom px-4 relative z-10">
                         <div className="max-w-4xl mx-auto text-center mb-6 md:mb-8">
                             <motion.div
@@ -510,77 +314,61 @@ export default function HomeClient() {
                                 className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-3"
                             >
                                 <div className="w-2 h-2 rounded-full bg-zlendo-teal animate-pulse" />
-                                <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">Proprietary 9D Framework</span>
+                                <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">{intelligenceBadge}</span>
                             </motion.div>
                             <h2 className="text-3xl md:text-[48px] font-black font-nunito text-zlendo-grey-dark mb-3 md:mb-4 leading-[1] tracking-tighter">
-                                The <span className="text-zlendo-teal">Intelligence</span> behind <br />
-                                your dream home.
+                                {intelligenceTitle} <span className="text-zlendo-teal">{intelligenceHighlight}</span> <br /> {intelligenceAfter}
                             </h2>
                             <p className="text-base md:text-lg text-zlendo-grey-medium font-bold opacity-60 leading-relaxed max-w-2xl mx-auto">
-                                Swipe to explore how our 9D engine guarantees total peace of mind.
+                                {intelligenceSubtitle}
                             </p>
                         </div>
 
-                        {/* Horizontal Scroll Container */}
                         <div className="flex gap-6 overflow-x-auto pb-12 pt-4 px-4 -mx-4 md:px-0 md:mx-0 snap-x snap-mandatory scrollbar-hide">
-                            {intelligenceDimensions.map((dim, index) => (
-                                <motion.div
-                                    key={dim.id}
-                                    initial={{ opacity: 0, x: 50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                    viewport={{ once: true }}
-                                    className="min-w-[85vw] md:min-w-[400px] snap-center rounded-[32px] md:rounded-[40px] bg-white border border-black/[0.04] shadow-xl overflow-hidden relative group hover:-translate-y-2 transition-transform duration-500"
-                                >
-                                    {/* Gradient Header */}
-                                    <div className={`h-20 sm:h-40 bg-gradient-to-br ${dim.bg} relative overflow-hidden p-3 sm:p-8`}>
-                                        <div className="absolute top-0 right-0 w-16 h-16 sm:w-32 sm:h-32 bg-white/20 blur-[40px] rounded-full translate-x-1/2 -translate-y-1/2" />
-                                        <div className="relative z-10 flex justify-between items-start">
-                                            <div className="bg-white/20 backdrop-blur-md px-1.5 py-0.5 sm:px-4 sm:py-1.5 rounded-full text-white font-black text-[9px] sm:text-xs uppercase tracking-normal sm:tracking-widest border border-white/20">
-                                                {dim.id} Dimension
-                                            </div>
-                                            <div className="w-8 h-8 sm:w-12 sm:h-12 bg-white rounded-lg sm:rounded-2xl flex items-center justify-center shadow-lg text-zlendo-teal">
-                                                {(() => {
-                                                    const Icon = dim.icon;
-                                                    return <Icon className="w-4 h-4 sm:w-6 sm:h-6" />;
-                                                })()}
+                            {resolvedIntelligence.map((dim, index) => {
+                                const Icon = iconMap[dim.iconName] || Sparkles;
+                                return (
+                                    <motion.div
+                                        key={dim.id}
+                                        initial={{ opacity: 0, x: 50 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: index * 0.1 }}
+                                        viewport={{ once: true }}
+                                        className="min-w-[85vw] md:min-w-[400px] snap-center rounded-[32px] md:rounded-[40px] bg-white border border-black/[0.04] shadow-xl overflow-hidden relative group hover:-translate-y-2 transition-transform duration-500"
+                                    >
+                                        <div className={`h-20 sm:h-40 bg-gradient-to-br ${dim.bg} relative overflow-hidden p-3 sm:p-8`}>
+                                            <div className="absolute top-0 right-0 w-16 h-16 sm:w-32 sm:h-32 bg-white/20 blur-[40px] rounded-full translate-x-1/2 -translate-y-1/2" />
+                                            <div className="relative z-10 flex justify-between items-start">
+                                                <div className="bg-white/20 backdrop-blur-md px-1.5 py-0.5 sm:px-4 sm:py-1.5 rounded-full text-white font-black text-[9px] sm:text-xs uppercase tracking-normal sm:tracking-widest border border-white/20">
+                                                    {dim.id} {dimensionSuffix}
+                                                </div>
+                                                <div className="w-8 h-8 sm:w-12 sm:h-12 bg-white rounded-lg sm:rounded-2xl flex items-center justify-center shadow-lg text-zlendo-teal">
+                                                    <Icon className="w-4 h-4 sm:w-6 sm:h-6" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    {/* Content Body */}
-                                    <div className="p-8 relative">
-                                        {/* <div className={`absolute -top-14 left-8 text-[80px] font-black leading-none opacity-10 select-none ${dim.color}`}>
-                                            {dim.id}
-                                        </div> */}
-
-                                        <div className="relative z-10 mt-2">
-                                            <h3 className="text-2xl font-black font-nunito text-zlendo-grey-dark mb-2">{dim.title}</h3>
-                                            <div className="text-1xl font-bold text-zlendo-teal uppercase tracking-wider mb-4">{dim.benefit}</div>
-                                            <p className="text-zlendo-grey-medium font-medium leading-relaxed mb-8 min-h-[80px]">
-                                                {dim.longDesc}
-                                            </p>
-
-                                            {dim.action?.type === 'route' ? (
-                                                <Link href={dim.action.value} className="w-full py-4 rounded-xl border-2 border-dashed border-black/5 font-bold text-zlendo-grey-medium hover:border-zlendo-teal hover:text-zlendo-teal transition-colors flex items-center justify-center gap-2 group-hover:bg-zlendo-teal/5 text-center">
+                                        <div className="p-8 relative">
+                                            <div className="relative z-10 mt-2">
+                                                <h3 className="text-2xl font-black font-nunito text-zlendo-grey-dark mb-2">{dim.title}</h3>
+                                                <div className="text-1xl font-bold text-zlendo-teal uppercase tracking-wider mb-4">{dim.benefit}</div>
+                                                <p className="text-zlendo-grey-medium font-medium leading-relaxed mb-8 min-h-[80px]">
+                                                    {dim.longDesc}
+                                                </p>
+                                                <Link href={getPath(dim.link)} className="w-full py-4 rounded-xl border-2 border-dashed border-black/5 font-bold text-zlendo-grey-medium hover:border-zlendo-teal hover:text-zlendo-teal transition-colors flex items-center justify-center gap-2 group-hover:bg-zlendo-teal/5 text-center">
                                                     {dim.cta} <ArrowRight className="w-4 h-4 ml-2 inline" />
                                                 </Link>
-                                            ) : (
-                                                <button onClick={() => console.log('Open modal:', dim.action?.value)} className="w-full py-4 rounded-xl border-2 border-dashed border-black/5 font-bold text-zlendo-grey-medium hover:border-zlendo-teal hover:text-zlendo-teal transition-colors flex items-center justify-center gap-2 group-hover:bg-zlendo-teal/5 text-center">
-                                                    {dim.cta} <ArrowRight className="w-4 h-4 ml-2 inline" />
-                                                </button>
-                                            )}
+                                            </div>
                                         </div>
-                                    </div>
-                                </motion.div>
-                            ))}
-                            {/* Spacer for right padding scroll */}
+                                    </motion.div>
+                                );
+                            })}
                             <div className="min-w-[20px] md:hidden" />
                         </div>
                     </div>
                 </section>
 
-                {/* Design Inspiration Section (New) */}
+                {/* TEMPLATES / INSPIRATION */}
                 <section className="container-custom mt-16 mb-16 md:mt-24 md:mb-24 px-4 text-center">
                     <div className="max-w-4xl mx-auto mb-6 md:mb-10">
                         <h2 className="text-3xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-3 md:mb-4 leading-tight">
@@ -588,8 +376,7 @@ export default function HomeClient() {
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-emerald-600">ideas available!</span>
                         </h2>
                         <p className="text-base md:text-lg text-zlendo-grey-medium font-bold opacity-70 mb-6 leading-relaxed max-w-3xl mx-auto">
-                            Looking for inspiration for your pooja room, balcony, or open-plan living area?
-                            Explore ready-made design templates for living rooms, bedrooms, kitchens, bathrooms, and more — thoughtfully designed for Indian homes and lifestyles.
+                            Zlendo Realty provides thousands of ready-made design templates for living rooms, bedrooms, kitchens, and more — thoughtfully designed for modern Indian homes.
                         </p>
                         <Link href={getPath('/viewalltemplates')} className="px-10 py-4 bg-zlendo-grey-dark text-white rounded-full font-black text-sm uppercase tracking-widest hover:scale-105 hover:bg-black transition-all shadow-xl flex items-center gap-2 mx-auto inline-flex">
                             View all templates <ArrowRight className="w-4 h-4" />
@@ -597,153 +384,105 @@ export default function HomeClient() {
                     </div>
 
                     <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-6">
-                        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 flex-1">
-                            {Object.keys(designInspirationData).map((item) => (
-                                <button
-                                    key={item}
-                                    onClick={() => setActiveDesignFilter(item)}
-                                    className={`px-6 md:px-8 py-3 rounded-full border text-sm md:text-base font-bold transition-all duration-300 \${activeDesignFilter === item
-                    ? 'bg-zlendo-teal text-white border-zlendo-teal shadow-lg shadow-zlendo-teal/20 scale-105'
-                    : 'bg-white border-black/10 text-zlendo-grey-medium hover:border-black/30 hover:bg-gray-50'
-                    }`}
-                                >
-                                    {item}
-                                </button>
-                            ))}
-                        </div>
+                        {Object.keys(designInspirationData).map((item) => (
+                            <button
+                                key={item}
+                                onClick={() => setActiveDesignFilter(item)}
+                                className={`px-6 md:px-8 py-3 rounded-full border text-sm md:text-base font-bold transition-all duration-300 ${activeDesignFilter === item
+                                    ? 'bg-zlendo-teal text-white border-zlendo-teal shadow-lg shadow-zlendo-teal/20 scale-105'
+                                    : 'bg-white border-black/10 text-zlendo-grey-medium hover:border-black/30 hover:bg-gray-50'
+                                    }`}
+                            >
+                                {item}
+                            </button>
+                        ))}
                     </div>
 
-                    {/* Creative Bento Grid - Animated */}
                     <AnimatePresence mode="wait">
-                        {(() => {
-                            const currentData = designInspirationData[activeDesignFilter as keyof typeof designInspirationData] || [];
-
-                            if (!currentData || currentData.length === 0) {
-                                return (
-                                    <motion.div
-                                        key={activeDesignFilter}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -20 }}
-                                        transition={{ duration: 0.4 }}
-                                        className="flex items-center justify-center py-8"
-                                    >
-                                        <div className="text-center">
-                                            <p className="text-base font-bold text-zlendo-grey-medium opacity-50">
-                                                No designs available for this category.
-                                            </p>
-                                        </div>
-                                    </motion.div>
-                                );
-                            }
-
-                            return (
-                                <motion.div
-                                    key={activeDesignFilter}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -20 }}
-                                    transition={{ duration: 0.4 }}
-                                    className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-[300px_300px] gap-4 md:gap-6 h-auto text-left">
-                                    {currentData.map((item, index: number) => (
+                        <motion.div
+                            key={activeDesignFilter}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            className="w-full"
+                        >
+                            {designInspirationData[activeDesignFilter]?.length > 0 ? (
+                                <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-[300px_300px] gap-4 md:gap-6 h-auto text-left">
+                                    {designInspirationData[activeDesignFilter].map((item: any, idx: number) => (
                                         <div
-                                            key={index}
+                                            key={idx}
                                             onClick={() => item.templateId && handleTemplateClick(item.templateId)}
                                             className={`${item.colSpan} ${item.rowSpan} relative group rounded-[24px] md:rounded-[32px] overflow-hidden cursor-pointer shadow-lg block h-[260px] md:h-full`}
                                         >
-                                            {item.img ? (
-                                                <img
-                                                    src={item.img}
-                                                    alt={item.title}
-                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                                    onError={(e) => {
-                                                        const target = e.currentTarget;
-                                                        console.warn(`[HomePage] Failed to load design inspiration image:`, {
-                                                            img: item.img,
-                                                            originalUrl: item.originalUrl,
-                                                            templateId: item.templateId
-                                                        });
-
-                                                        // Fallback logic
-                                                        if (item.img?.startsWith('blob:') && item.originalUrl) {
-                                                            const directUrl = item.originalUrl.startsWith('http')
-                                                                ? item.originalUrl
-                                                                : `${BLOB_BASE_URL}${item.originalUrl}${item.originalUrl.includes('?') ? '&' : '?'}${BLOB_SAS_TOKEN}`;
-
-                                                            if (target.src !== directUrl) {
-                                                                console.log(`[HomePage] Falling back to direct URL for design inspiration image`);
-                                                                // Detach handler BEFORE changing src to prevent re-entry loop
-                                                                target.onerror = null;
-                                                                target.src = directUrl;
-                                                                return;
-                                                            }
+                                            <img
+                                                src={item.img}
+                                                alt={`${item.title} - Zlendo Realty 3D Design`}
+                                                width={1200}
+                                                height={800}
+                                                loading="lazy"
+                                                decoding="async"
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                                onError={(e) => {
+                                                    const target = e.currentTarget;
+                                                    if (item.img?.startsWith('blob:') && item.originalUrl) {
+                                                        const directUrl = item.originalUrl.startsWith('http')
+                                                            ? item.originalUrl
+                                                            : `${process.env.NEXT_PUBLIC_AZURE_BLOB_URL || 'https://zlendoappstorage.blob.core.windows.net/'}${item.originalUrl}${item.originalUrl.includes('?') ? '&' : '?'}${process.env.NEXT_PUBLIC_AZURE_SAS_TOKEN || ''}`;
+                                                        if (target.src !== directUrl) {
+                                                            target.onerror = null;
+                                                            target.src = directUrl;
+                                                            return;
                                                         }
-
-                                                        // Final fallback: inline SVG — no external request
-                                                        // (via.placeholder.com is unreachable and causes ERR_NAME_NOT_RESOLVED)
-                                                        target.onerror = null;
-                                                        target.src = `data:image/svg+xml,%3Csvg width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='600' height='400' fill='%23f1f5f9'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='18' fill='%2394a3b8'%3EImage unavailable%3C/text%3E%3C/svg%3E`;
-                                                    }}
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                                                    <span className="text-gray-400">Loading...</span>
-                                                </div>
-                                            )}
-                                            {/* Gradient Overlay */}
-                                            <div className={`absolute inset-0 transition-opacity duration-500 \${item.isLarge ? 'bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100' : 'bg-black/40 opacity-0 group-hover:opacity-100'}`} />
-
-                                            {/* Content Info */}
-                                            <div className={`absolute left-0 p-6 md:p-8 transition-all duration-500 \${item.isLarge ? 'bottom-0 translate-y-4 md:translate-y-8 group-hover:translate-y-0 opacity-100 md:opacity-0 group-hover:opacity-100' : 'bottom-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100'}`}>
+                                                    }
+                                                    target.onerror = null;
+                                                    target.src = '/assets/home/living-room-3d.webp';
+                                                }}
+                                            />
+                                            <div className={`absolute inset-0 transition-opacity duration-500 ${item.isLarge ? 'bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 md:opacity-0 group-hover:opacity-100' : 'bg-black/40 opacity-0 group-hover:opacity-100'}`} />
+                                            <div className={`absolute left-0 p-6 md:p-8 transition-all duration-500 ${item.isLarge ? 'bottom-0 translate-y-4 md:translate-y-8 group-hover:translate-y-0 opacity-100 md:opacity-0 group-hover:opacity-100' : 'bottom-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100'}`}>
                                                 {item.isLarge && <h3 className="text-white text-xl md:text-2xl font-black mb-2">{item.title}</h3>}
-                                                <span className={`inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-bold ring-1 ring-white/30 \${!item.isLarge ? 'mt-2' : ''}`}>
+                                                <span className="inline-flex items-center gap-2 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-bold ring-1 ring-white/30">
                                                     <Image className="w-3 h-3" /> {item.isLarge ? item.count : item.title}
                                                 </span>
                                             </div>
                                         </div>
                                     ))}
-                                </motion.div>
-                            );
-                        })()}
+                                </div>
+                            ) : (
+                                <div className="text-center py-20 bg-gray-50/50 rounded-[32px] border-2 border-dashed border-gray-100">
+                                    <p className="text-base font-bold text-zlendo-grey-medium opacity-50">
+                                        No designs available for this category.
+                                    </p>
+                                </div>
+                            )}
+                        </motion.div>
                     </AnimatePresence>
                 </section>
 
-                {/* How to design a home online for free */}
+                {/* HOW TO SECTION */}
                 <section className="container-custom mb-10 md:mb-16 px-4 text-center">
                     <div className="max-w-4xl mx-auto mb-6">
-                        <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-6">
-                            How to design a home online for free
-                        </h2>
-                        <p className="text-xl text-zlendo-grey-medium font-bold opacity-80 leading-relaxed">
-                            Design your 2BHK, pooja room, or bungalow easily with Zlendo Realty. Get Vastu-friendly plans & realistic 3D views!
-                        </p>
+                        <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark mb-6">{howToTitle}</h2>
+                        <p className="text-xl text-zlendo-grey-medium font-bold opacity-80 leading-relaxed">{howToSubtitle}</p>
                     </div>
                 </section>
 
-                {/* Feature Sections - Redesigned */}
-                {features.map((feature) => (
-                    <section key={feature.section} className="container-custom mb-16 md:mb-24 px-4">
+                {/* FEATURE SECTIONS */}
+                {resolvedFeatures.map((feature, idx) => (
+                    <section key={idx} className="container-custom mb-16 md:mb-24 px-4">
                         <motion.div
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-16 \${feature.reverse ? 'lg:flex-row-reverse' : ''}`}
+                            className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-16 ${feature.reverse ? 'lg:flex-row-reverse' : ''}`}
                         >
-                            {/* Text Visuals */}
                             <div className="flex-1 text-center lg:text-left">
                                 <span className="inline-block px-4 py-1.5 rounded-full bg-zlendo-teal/10 text-zlendo-teal font-black text-xs uppercase tracking-widest mb-3 border border-zlendo-teal/20">
                                     {feature.section}
                                 </span>
-                                <h3 className="text-2xl md:text-3xl font-black font-nunito text-zlendo-grey-dark mb-3 leading-tight">
-                                    {feature.title}
-                                </h3>
-                                <p className="text-base md:text-lg text-zlendo-grey-medium font-bold opacity-70 mb-5 leading-relaxed max-w-xl mx-auto lg:mx-0">
-                                    {feature.description}
-                                </p>
-
+                                <h3 className="text-2xl md:text-3xl font-black font-nunito text-zlendo-grey-dark mb-3 leading-tight">{feature.title}</h3>
+                                <p className="text-base md:text-lg text-zlendo-grey-medium font-bold opacity-70 mb-5 leading-relaxed max-w-xl mx-auto lg:mx-0">{feature.description}</p>
                                 <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5 text-left max-w-lg mx-auto lg:mx-0">
-                                    {feature.howItWorks.map((step) => (
+                                    {feature.howItWorks.map((step: string) => (
                                         <li key={step} className="flex items-center gap-3">
                                             <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center shrink-0">
                                                 <div className="w-2 h-2 rounded-full bg-zlendo-teal" />
@@ -752,41 +491,22 @@ export default function HomeClient() {
                                         </li>
                                     ))}
                                 </ul>
-
-                                <a
-                                    href={SIGNUP_URL}
-                                    className="inline-flex items-center gap-2 text-zlendo-teal font-black text-lg group hover:gap-4 transition-all"
-                                >
+                                <a href={getPath(feature.ctaLink || SIGNUP_URL)} className="inline-flex items-center gap-2 text-zlendo-teal font-black text-lg group hover:gap-4 transition-all">
                                     {feature.cta} <ArrowRight className="w-5 h-5" />
                                 </a>
                             </div>
-
-                            {/* Creative Stacked Image Visual */}
                             <div className="flex-1 w-full relative perspective-1000">
-                                {/* Back Layer Card (Decoration) */}
-                                <div className={`absolute top-0 w-full h-full bg-black/[0.03] rounded-[32px] border border-black/[0.05] -translate-x-4 -translate-y-4 md:-translate-x-8 md:-translate-y-8 z-0 transition-transform duration-700 \${feature.reverse ? 'translate-x-4 md:translate-x-8' : ''}`} />
-
-                                {/* Main Image Card */}
-                                <motion.div
-                                    whileHover={{ y: -10 }}
-                                    transition={{ type: "spring", stiffness: 300 }}
-                                    className="relative z-10 bg-white rounded-[32px] border border-black/[0.08] shadow-2xl overflow-hidden p-3"
-                                >
-                                    {/* Browser/App Header Dots */}
+                                <div className={`absolute top-0 w-full h-full bg-black/[0.03] rounded-[32px] border border-black/[0.05] -translate-x-4 -translate-y-4 md:-translate-x-8 md:-translate-y-8 z-0 transition-transform duration-700 ${feature.reverse ? 'translate-x-4 md:translate-x-8' : ''}`} />
+                                <motion.div whileHover={{ y: -10 }} className="relative z-10 bg-white rounded-[32px] border border-black/[0.08] shadow-2xl overflow-hidden p-3">
                                     <div className="absolute top-0 left-0 right-0 h-14 bg-white border-b border-black/[0.05] flex items-center px-6 gap-2 z-20">
                                         <div className="flex gap-2">
-                                            <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-                                            <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-                                            <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+                                            <div className="w-3 h-3 rounded-full bg-[#FF5F56]" /><div className="w-3 h-3 rounded-full bg-[#FFBD2E]" /><div className="w-3 h-3 rounded-full bg-[#27C93F]" />
                                         </div>
-                                        <div className="mx-auto w-1/3 h-2 rounded-full bg-gray-100" />
                                     </div>
-
-                                    {/* Image Content */}
                                     <div className="mt-12 rounded-2xl overflow-hidden bg-gray-50 aspect-[4/3] group relative">
                                         <img
-                                            src={feature.img}
-                                            alt={feature.title}
+                                            src={feature.imageUrl ? urlFor(feature.imageUrl).url() : constructFullBlobUrl(feature.img)}
+                                            alt={`${feature.title} - Zlendo Realty 3D Home Design Feature`}
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 transform-gpu"
                                         />
                                     </div>
@@ -796,202 +516,286 @@ export default function HomeClient() {
                     </section>
                 ))}
 
-                {/* Individual Comparison - Replaces "Wins" with "The Journey" */}
+                {/* COMPARISON SECTION */}
                 <section className="bg-white py-16 md:py-28 relative rounded-[60px] md:rounded-[100px_100px_0_0] overflow-hidden">
-                    {/* Creative Mesh Gradient Background */}
                     <div className="absolute top-0 inset-x-0 h-full bg-[#FAFFFD]" />
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-zlendo-teal/10 to-blue-200/20 blur-[130px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-rose-100 to-orange-100 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none" />
-
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-zlendo-teal/10 to-blue-200/20 blur-[130px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-rose-100 to-orange-100 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
                     <div className="container-custom relative z-10 px-4">
                         <div className="text-center mb-12 md:mb-16">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-6"
-                            >
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-6">
                                 <ShieldCheck className="w-4 h-4 text-zlendo-teal" />
-                                <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">Peace of Mind</span>
-                            </motion.div>
+                                <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">{comparisonBadge}</span>
+                            </div>
                             <h2 className="text-4xl md:text-6xl font-black font-nunito text-zlendo-grey-dark mb-8 tracking-tighter leading-[0.9]">
-                                Your Dream Design <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-500">made Easy</span>
+                                {comparisonTitle} <br />
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-500">{comparisonHighlight}</span>
                             </h2>
-                            <p className="text-xl md:text-2xl text-zlendo-grey-medium font-bold max-w-2xl mx-auto leading-relaxed opacity-80 text-center">
-                                Why 12,000+ modern homeowners chose Zlendo Realty over traditional guesswork.
-                            </p>
+                            <p className="text-xl md:text-2xl text-zlendo-grey-medium font-bold max-w-2xl mx-auto leading-relaxed opacity-80 text-center">{comparisonSubtitle}</p>
                         </div>
-
                         <div className="max-w-6xl mx-auto">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-                                {[
-                                    {
-                                        title: "Instant Transformation",
-                                        trad: "Staring at flat 2D plans",
-                                        zlendo: "Immersive 8K Walkthroughs",
-                                        img: "from-purple-500 to-pink-400",
-                                        icon: Layers
-                                    },
-                                    {
-                                        title: "Smart Customization",
-                                        trad: "Vague per-sqft estimates",
-                                        zlendo: "Real-time Material & Budget",
-                                        img: "from-blue-500 to-cyan-400",
-                                        icon: Palette
-                                    },
-                                    {
-                                        title: "Construction Clarity",
-                                        trad: "On-site guesswork & errors",
-                                        zlendo: "Precision Digital Twin",
-                                        img: "from-green-500 to-emerald-400",
-                                        icon: Box
-                                    },
-                                    {
-                                        title: "Unmatched Speed",
-                                        trad: "Weeks for a single render",
-                                        zlendo: "Full 3D Tour in 30 Seconds",
-                                        img: "from-orange-500 to-amber-400",
-                                        icon: Zap
-                                    }
-                                ].map((row, i) => (
-                                    <motion.div
-                                        key={i}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: i * 0.1 }}
-                                        className="group relative bg-white rounded-[40px] p-8 md:p-10 border border-black/[0.04] shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_60px_rgba(0,168,132,0.1)] transition-all duration-500 hover:-translate-y-2 overflow-hidden"
-                                    >
-                                        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br \${row.img} opacity-10 blur-[40px] rounded-full translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-700`} />
-
+                                {resolvedComparisonRows.map((row, i) => (
+                                    <div key={i} className="group relative bg-white rounded-[40px] p-8 md:p-10 border border-black/[0.04] shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_60px_rgba(0,168,132,0.1)] transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+                                        <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${row.img} opacity-10 blur-[40px] rounded-full translate-x-8 -translate-y-8 transition-transform duration-700`} />
                                         <div className="relative z-10 flex flex-col h-full justify-between gap-8">
                                             <div className="flex items-start justify-between">
                                                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${row.img} flex items-center justify-center text-white shadow-lg shrink-0`}>
-                                                    {(() => { const Icon = row.icon; return <Icon className="w-8 h-8" />; })()}
+                                                    {(() => {
+                                                        const RowIcon = iconMap[row.iconName] || Zap;
+                                                        return <RowIcon className="w-8 h-8" />;
+                                                    })()}
                                                 </div>
                                                 <h4 className="text-2xl font-black font-nunito text-zlendo-grey-dark ml-6 md:ml-0">{row.title}</h4>
                                             </div>
-
                                             <div className="space-y-4">
                                                 <div className="p-4 rounded-2xl bg-red-50 border border-red-100/50">
-                                                    <div className="text-[10px] font-black uppercase text-red-500 tracking-widest mb-1 opacity-70">Old Way</div>
+                                                    <div className="text-[10px] font-black uppercase text-red-500 tracking-widest mb-1 opacity-70">{comparisonOldWayLabel}</div>
                                                     <div className="text-lg font-bold text-red-900/60 line-through decoration-red-300 text-left">{row.trad}</div>
                                                 </div>
                                                 <div className="relative">
                                                     <div className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 bg-zlendo-teal rounded-full" />
                                                     <div className="pl-4 text-left">
-                                                        <div className="text-[10px] font-black uppercase text-zlendo-teal tracking-widest mb-1">Zlendo Realty Way</div>
+                                                        <div className="text-[10px] font-black uppercase text-zlendo-teal tracking-widest mb-1">{comparisonNewWayLabel}</div>
                                                         <div className="text-xl font-black text-zlendo-grey-dark">{row.zlendo}</div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </motion.div>
+                                    </div>
                                 ))}
                             </div>
                         </div>
                     </div>
                 </section>
 
-                {/* Final High Conversion CTA */}
-                <section className="bg-white pt-12 pb-8 md:pt-24 md:pb-24 px-4">
-                    <div className="container-custom max-w-6xl">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            className="bg-white border border-gray-100 rounded-[32px] md:rounded-[48px] p-3 md:p-16 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]"
-                        >
-                            <div className="flex-1 text-center md:text-left space-y-3 md:space-y-8">
-                                <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark leading-tight">
-                                    Start designing your house <br className="hidden md:block" />
-                                    with <span className="text-emerald-500">Zlendo Realty</span>
-                                </h2>
-                                <p className="text-xl font-bold text-zlendo-grey-medium max-w-lg mx-auto md:mx-0 opacity-70">
-                                    Draw a floor plan and create a 3D home design in 10 min.
-                                </p>
-                                <div className="flex justify-center md:justify-start">
-                                    <a
-                                        href={SIGNUP_URL}
-                                        className="bg-[#1AE16C] text-zlendo-grey-dark px-10 py-5 rounded-full font-black text-lg shadow-[0_10px_30px_rgba(26,225,108,0.3)] hover:scale-105 active:scale-95 transition-all inline-block"
+                {/* WHO IT'S FOR — AUDIENCE SEGMENTATION */}
+                {(() => {
+                    const audienceSegments = [
+                        {
+                            title: "Homeowners",
+                            icon: Users,
+                            gradient: "from-emerald-500 to-teal-600",
+                            lightGradient: "from-emerald-50 to-teal-50",
+                            accentColor: "text-emerald-600",
+                            features: [
+                                "Visualize your dream home in 3D before construction begins",
+                                "Vastu-compliant floor plans with instant scoring",
+                                "Realistic interior views for every room — bedroom, kitchen, pooja room",
+                                "Accurate cost estimation to plan your budget confidently"
+                            ]
+                        },
+                        {
+                            title: "Architects",
+                            icon: PenTool,
+                            gradient: "from-blue-500 to-indigo-600",
+                            lightGradient: "from-blue-50 to-indigo-50",
+                            accentColor: "text-blue-600",
+                            features: [
+                                "Convert DWG & 2D plans to client-ready 3D in minutes",
+                                "Render every elevation with accurate sun & shadow angles",
+                                "Share interactive browser walkthroughs — no client login needed",
+                                "Integrates seamlessly with your existing CAD workflow"
+                            ]
+                        },
+                        {
+                            title: "Interior Designers",
+                            icon: Palette,
+                            gradient: "from-purple-500 to-fuchsia-600",
+                            lightGradient: "from-purple-50 to-fuchsia-50",
+                            accentColor: "text-purple-600",
+                            features: [
+                                "Real-time material and texture switching in 3D preview",
+                                "Go from mood board to photorealistic render in one session",
+                                "10,000+ shoppable catalog items for modern Indian homes",
+                                "Shareable presentation links for instant client approvals"
+                            ]
+                        },
+                        {
+                            title: "Builders & Developers",
+                            icon: HardHat,
+                            gradient: "from-amber-500 to-orange-600",
+                            lightGradient: "from-amber-50 to-orange-50",
+                            accentColor: "text-amber-600",
+                            features: [
+                                "Showcase units with virtual walkthroughs before breaking ground",
+                                "Connect design changes to live cost impact instantly",
+                                "Win bids with interactive 3D presentations clients can explore",
+                                "Reduce revision disputes with clear visual documentation"
+                            ]
+                        },
+                        {
+                            title: "Promoters",
+                            icon: Building2,
+                            gradient: "from-rose-500 to-pink-600",
+                            lightGradient: "from-rose-50 to-pink-50",
+                            accentColor: "text-rose-600",
+                            features: [
+                                "Create compelling 3D visuals for real estate and resale marketing",
+                                "Showcase remodeling potential with dynamic before/after views",
+                                "Boost sales conversions with interactive property walkthroughs",
+                                "Enhance property listings with professional-grade renders instantly"
+                            ]
+                        }
+                    ];
+
+                    const active = audienceSegments[activeAudienceTab];
+                    const ActiveIcon = active.icon;
+
+                    return (
+                        <section className="py-16 md:py-24 bg-white relative overflow-hidden">
+                            {/* Background decorations */}
+                            <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-zlendo-teal/5 blur-[120px] rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+                            <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-100/30 blur-[100px] rounded-full translate-x-1/3 translate-y-1/3 pointer-events-none" />
+
+                            <div className="container-custom px-4 relative z-10">
+                                {/* Header */}
+                                <div className="text-center mb-10 md:mb-16">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zlendo-teal/5 border border-zlendo-teal/10 mb-6"
                                     >
-                                        Get Started For Free
+                                        <Users className="w-4 h-4 text-zlendo-teal" />
+                                        <span className="text-[10px] font-black text-zlendo-teal uppercase tracking-[0.3em]">Built For You</span>
+                                    </motion.div>
+                                    <h2 className="text-4xl md:text-6xl font-black font-nunito text-zlendo-grey-dark mb-6 tracking-tighter leading-[0.9]">
+                                        Built for every <br />
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-500">dreamer & creator</span>
+                                    </h2>
+                                    <p className="text-xl md:text-2xl text-zlendo-grey-medium font-bold max-w-2xl mx-auto leading-relaxed opacity-80">
+                                        Whether you&apos;re planning your first home or managing large-scale projects — Zlendo Realty fits your workflow.
+                                    </p>
+                                </div>
+
+                                {/* Tab Navigation */}
+                                <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-12 md:mb-16">
+                                    {audienceSegments.map((segment, idx) => {
+                                        const SegIcon = segment.icon;
+                                        return (
+                                            <button
+                                                key={idx}
+                                                onClick={() => setActiveAudienceTab(idx)}
+                                                className={`flex items-center gap-2.5 px-6 md:px-8 py-3.5 rounded-full border text-sm md:text-base font-black transition-all duration-300 ${activeAudienceTab === idx
+                                                    ? `bg-gradient-to-r ${segment.gradient} text-white border-transparent shadow-xl scale-105`
+                                                    : 'bg-white border-black/10 text-zlendo-grey-medium hover:border-black/20 hover:bg-gray-50'
+                                                    }`}
+                                            >
+                                                <SegIcon className="w-4 h-4" />
+                                                {segment.title}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Content Panel */}
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={activeAudienceTab}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -20 }}
+                                        transition={{ duration: 0.4 }}
+                                        className="max-w-6xl mx-auto"
+                                    >
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-[40px] md:rounded-[48px] overflow-hidden border border-black/[0.04] shadow-[0_20px_80px_rgba(0,0,0,0.06)]">
+                                            {/* Left — Gradient Hero Panel */}
+                                            <div className={`bg-gradient-to-br ${active.gradient} p-10 md:p-16 flex flex-col justify-center relative overflow-hidden min-h-[280px] md:min-h-[420px]`}>
+                                                {/* Abstract decorative shapes */}
+                                                <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2" />
+                                                <div className="absolute bottom-0 left-0 w-60 h-60 bg-black/10 rounded-full blur-[80px] -translate-x-1/3 translate-y-1/3" />
+                                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-white/10 rounded-full" />
+                                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] border border-white/5 rounded-full" />
+
+                                                <div className="relative z-10">
+                                                    <div className="w-16 h-16 md:w-20 md:h-20 bg-white/20 backdrop-blur-md rounded-3xl flex items-center justify-center mb-8 border border-white/20 shadow-xl">
+                                                        <ActiveIcon className="w-8 h-8 md:w-10 md:h-10 text-white" />
+                                                    </div>
+                                                    <h3 className="text-3xl md:text-5xl font-black text-white mb-4 leading-[1.1] tracking-tight">
+                                                        {active.title}
+                                                    </h3>
+                                                    <p className="text-base md:text-lg text-white/70 font-bold leading-relaxed max-w-sm">
+                                                        Tailored tools and workflows designed specifically for {active.title.toLowerCase()}.
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            {/* Right — Feature Checklist */}
+                                            <div className={`bg-gradient-to-br ${active.lightGradient} p-10 md:p-16 flex flex-col justify-center`}>
+                                                <div className="mb-8">
+                                                    <div className={`text-[11px] font-black uppercase tracking-[0.3em] ${active.accentColor} mb-2`}>Key Capabilities</div>
+                                                    <div className="w-12 h-1 bg-zlendo-teal rounded-full" />
+                                                </div>
+                                                <ul className="space-y-6">
+                                                    {active.features.map((feature, fIdx) => (
+                                                        <motion.li
+                                                            key={`${activeAudienceTab}-${fIdx}`}
+                                                            initial={{ opacity: 0, x: 30 }}
+                                                            animate={{ opacity: 1, x: 0 }}
+                                                            transition={{ delay: fIdx * 0.1, duration: 0.4 }}
+                                                            className="flex items-start gap-4 group"
+                                                        >
+                                                            <div className={`mt-0.5 w-7 h-7 rounded-xl bg-gradient-to-br ${active.gradient} flex items-center justify-center shrink-0 shadow-lg group-hover:scale-110 transition-transform`}>
+                                                                <CheckCircle2 className="w-4 h-4 text-white" />
+                                                            </div>
+                                                            <span className="text-base md:text-lg font-bold text-zlendo-grey-dark leading-relaxed group-hover:text-black transition-colors">
+                                                                {feature}
+                                                            </span>
+                                                        </motion.li>
+                                                    ))}
+                                                </ul>
+                                                <div className="mt-10">
+                                                    <a
+                                                        href={getPath(SIGNUP_URL)}
+                                                        className={`inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r ${active.gradient} text-white rounded-2xl font-black text-base shadow-xl hover:scale-105 transition-all group`}
+                                                    >
+                                                        Get Started as {active.title}
+                                                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+                        </section>
+                    );
+                })()}
+
+                {/* RECENT BLOG POSTS */}
+                <PropTechOverview />
+                <RecentBlogPosts />
+
+                {/* FINAL CTA */}
+                <section className="bg-white pt-12 pb-8 md:pt-18 md:pb-18 px-4">
+                    <div className="container-custom max-w-6xl">
+                        <div className="bg-white border border-gray-100 rounded-[32px] md:rounded-[48px] p-3 md:p-16 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]">
+                            <div className="flex-1 text-center md:text-left space-y-3 md:space-y-8">
+                                <h2 className="text-4xl md:text-5xl font-black font-nunito text-zlendo-grey-dark leading-tight">{ctaTitle}</h2>
+                                <p className="text-xl font-bold text-zlendo-grey-medium max-w-lg mx-auto md:mx-0 opacity-70">{ctaSubtitle}</p>
+                                <div className="flex justify-center md:justify-start">
+                                    <a href={getPath(ctaLink)} className="bg-[#1AE16C] text-zlendo-grey-dark px-10 py-5 rounded-full font-black text-lg shadow-[0_10px_30px_rgba(26,225,108,0.3)] hover:scale-105 transition-all inline-block">
+                                        {ctaButtonLabel}
                                     </a>
                                 </div>
                             </div>
-
                             <div className="flex-1 w-full max-w-md">
-                                <img
-                                    src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800"
-                                    alt="Zlendo Realty Designer Illustration"
-                                    className="w-full h-auto drop-shadow-2xl"
-                                />
+                                <img src={ctaImageUrl.startsWith('http') ? ctaImageUrl : constructFullBlobUrl(ctaImageUrl)} alt={ctaSubtitle || "Start designing your house with Zlendo Realty 3D Platform"} className="w-full h-auto drop-shadow-2xl" loading="lazy" />
                             </div>
-                        </motion.div>
-                    </div>
-                </section>
-
-                {/* FAQ Section */}
-                <section className="py-20 md:py-32 bg-white">
-                    <div className="container-custom px-6 max-w-3xl mx-auto">
-                        <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-12">Frequently Asked Questions</h2>
-                        <div className="space-y-4">
-                            {faqs.map((faq, i) => (
-                                <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors">
-                                    <button
-                                        onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                                        className="w-full px-6 py-5 flex items-center justify-between text-left bg-transparent"
-                                    >
-                                        <span className="text-lg font-bold text-zlendo-grey-dark">{faq.q}</span>
-                                        <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform \${activeFaq === i ? 'rotate-180' : ''}`} />
-                                    </button>
-                                    <AnimatePresence>
-                                        {activeFaq === i && (
-                                            <motion.div
-                                                initial={{ height: 0 }}
-                                                animate={{ height: 'auto' }}
-                                                exit={{ height: 0 }}
-                                                className="overflow-hidden bg-slate-50"
-                                            >
-                                                <p className="px-6 pb-6 pt-2 text-zlendo-grey-medium font-medium leading-relaxed">
-                                                    {faq.a}
-                                                </p>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </div>
-                            ))}
                         </div>
                     </div>
                 </section>
+
+                {/* FAQ SECTION */}
+                <section className="py-18 md:py-24 bg-white">
+                    <div className="container-custom px-6 max-w-3xl mx-auto">
+                        <h2 className="text-3xl md:text-5xl font-black text-center text-zlendo-grey-dark mb-12">{faqTitle}</h2>
+                        <FaqAccordion faqs={resolvedFaqs} />
+                    </div>
+                </section>
+
             </main>
-        </div >
+        </div>
     );
 }
-
-const faqs = [
-    {
-        q: "Who can use Zlendo Realty?",
-        a: "Zlendo Realty can be used by homeowners, architects, students, builders, and real estate professionals. It supports both beginners and experienced users involved in home planning and design."
-    },
-    {
-        q: "Is it beginner friendly?",
-        a: "Yes. The platform is designed to be easy to use and does not require any technical, architectural, or design background."
-    },
-    {
-        q: "Does it work on mobile?",
-        a: "Yes. Zlendo Realty works seamlessly across mobile phones, tablets, and desktop devices, allowing access anytime and anywhere."
-    },
-    {
-        q: "Is my data secure?",
-        a: "Yes. Your designs and project data remain private unless you choose to share them. Strong data security measures are maintained."
-    },
-    {
-        q: "Can it be used for professional work?",
-        a: "Yes. The platform is suitable for professional projects, client presentations, and real estate planning, and is widely used for architectural design services and project visualization."
-    },
-    {
-        q: "Is support available?",
-        a: "Yes. Dedicated customer support is available to assist users whenever help is needed."
-    }
-];

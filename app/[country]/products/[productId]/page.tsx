@@ -12,166 +12,18 @@ import {
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { useCountry } from '@/lib/context/CountryContext';
 // Images from public folder are referenced as /assets/... not @/public/assets/...
-const DashboardInterfaceImg = '/assets/2d-to-3d/dashboard-interface.png';
-const UploadFloorplanImg = '/assets/2d-to-3d/upload-floorplan.png';
+const DashboardInterfaceImg = '/assets/2d-to-3d/dashboard-interface.webp';
+const UploadFloorplanImg = '/assets/2d-to-3d/upload-floorplan.webp';
 
 // Extended Product Data to fit the new rich template
 const productData = {
-    '2d-to-3d': {
-        title: 'Instant 2D to 3D Conversion',
-        subtitle: 'The Best Free 2D Floor Planner & 3D Converter',
-        headerDesc: 'Turn flat sketches into living spaces in seconds. Upload any floor plan image or PDF and watch our AI instantly construct a fully interactive 3D model.',
-        icon: Box,
-        gradient: 'from-blue-500 to-cyan-400',
-        heroImage: 'https://images.unsplash.com/photo-1597589827317-4c6d6e0a90bd?auto=format&fit=crop&q=80&w=2400',
-        tagline: 'Instant 3D Visualization',
-        features: [
-            { title: 'AI Wall Detection', desc: 'Automatically identifies walls, windows, and doors with 99% accuracy.' },
-            { title: 'Real-Time Editing', desc: 'Modify the generated 3D model instantly in your browser.' },
-            { title: 'DWG/PDF Import', desc: 'Support for professional CAD formats and hand-drawn sketches.' },
-            { title: 'Cloud Rendering', desc: 'High-speed cloud rendering for photorealistic outputs.' }
-        ],
-        steps: [
-            {
-                title: 'Upload Floor Plan',
-                desc: 'Simply upload your 2D floor plan in JPG, PNG, or PDF format. Our AI recognizes the layout immediately.',
-                image: UploadFloorplanImg
-            },
-            {
-                title: 'AI Processing',
-                desc: 'Advanced algorithms convert lines and shapes into 3D walls, doors, and windows in seconds.',
-                image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'Furnish & Decorate',
-                desc: 'Drag and drop furniture from our massive 3D library to style the room to your taste.',
-                image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'Render & Export',
-                desc: 'Generate 4K renderings or export the model to other CAD software for further refinement.',
-                image: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800'
-            }
-        ]
-    },
-    'room-styler': {
-        title: 'Smart Room Styler',
-        subtitle: 'AI-driven interior design at your fingertips',
-        headerDesc: 'Visualize different styles, furniture layouts, and color palettes instantly. Let AI be your personal interior designer.',
-        icon: Sparkles,
-        gradient: 'from-purple-500 to-pink-400',
-        heroImage: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&q=80&w=2400',
-        tagline: 'AI-Powered Interior Styling',
-        features: [
-            { title: 'Style Transfer', desc: 'Apply "Modern", "Boho", or "Industrial" themes with one click.' },
-            { title: 'Furniture Catalog', desc: 'Access 10,000+ real-world furniture items to place in your room.' },
-            { title: 'Lighting Simulation', desc: 'See how your room looks at sunrise, sunset, or night.' },
-            { title: 'Material Swapping', desc: 'Instantly change flooring, wall paints, and textures.' }
-        ],
-        steps: [
-            {
-                title: 'Select Room',
-                desc: 'Choose an existing room model or upload a photo of your empty space.',
-                image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'Choose Style',
-                desc: 'Select from our curated list of interior design styles or create your own custom mood board.',
-                image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&q=80&w=2400'
-            },
-            {
-                title: 'AI Composition',
-                desc: 'Our AI engine arranges furniture and decor to match the selected style perfectly.',
-                image: 'https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'Finalize Look',
-                desc: 'Adjust individual items and generate a high-quality photorealistic image.',
-                image: 'https://images.unsplash.com/photo-1617103996702-96ff29b1c467?auto=format&fit=crop&q=80&w=800'
-            }
-        ]
-    },
-    'cost-estimator': {
-        title: 'Smart Cost Estimator',
-        subtitle: 'Know your budget before you build',
-        headerDesc: 'Get precise, location-based cost estimates for your construction or renovation project. Avoid surprises and stay on budget.',
-        icon: Calculator,
-        gradient: 'from-emerald-500 to-green-400',
-        heroImage: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=2400',
-        tagline: 'Engineering-Grade Accuracy',
-        features: [
-            { title: 'Dynamic BOQ', desc: 'Generate a detailed Bill of Quantities automatically.' },
-            { title: 'Local Pricing', desc: 'Material and labor rates calibrated to your specific city.' },
-            { title: 'Scenario Planning', desc: 'Compare costs for different finishes and materials instantly.' },
-            { title: 'Vendor Matching', desc: 'Connect with local suppliers who match your estimated budget.' }
-        ],
-        steps: [
-            {
-                title: 'Input Project Details',
-                desc: 'Enter the area size, location, and type of construction or renovation.',
-                image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'Select Finishes',
-                desc: 'Choose your preferred quality of materials (Economy, Premium, Luxury).',
-                image: 'https://images.unsplash.com/photo-1621293954908-05d45d35e23a?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'Calculate Cost',
-                desc: 'Our engine computes labor, material, and overhead costs in real-time.',
-                image: 'https://images.unsplash.com/photo-1554224154-260327c00c40?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'Download Report',
-                desc: 'Get a comprehensive PDF report to share with contractors or banks.',
-                image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800'
-            }
-        ]
-    },
-    'vastu': {
-        title: 'Vastu Optimizer',
-        subtitle: 'Align your home with ancient wisdom',
-        headerDesc: 'Combine modern design with Vastu Shastra principles. Our automated analysis ensures your home brings health, wealth, and melody.',
-        icon: Ruler,
-        gradient: 'from-amber-500 to-orange-400',
-        heroImage: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&q=80&w=2400',
-        tagline: 'Vastu-Compliant Design Logic',
-        features: [
-            { title: 'Energy Mapping', desc: 'Visual heatmap of Vastu zones in your floor plan.' },
-            { title: 'Remedy Suggestions', desc: 'Non-destructive fixes for existing Vastu defects.' },
-            { title: 'Directional Check', desc: 'Precise compass alignment using satellite data.' },
-            { title: 'Scorecard', desc: 'Get a Vastu compliance score for every room.' }
-        ],
-        steps: [
-            {
-                title: 'Upload Floor Plan',
-                desc: 'Upload your layout and orient it towards North.',
-                image: 'https://images.unsplash.com/photo-1600607687644-c7171b42498b?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'Analyze',
-                desc: 'AI scans the placement of rooms, doors, and furniture.',
-                image: 'https://images.unsplash.com/photo-1555529733-0e670560f7e1?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'View Issues',
-                desc: 'Identify problem areas affecting health or wealth.',
-                image: 'https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&q=80&w=800'
-            },
-            {
-                title: 'Apply Remedies',
-                desc: 'Implement suggested changes and improved layout.',
-                image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800'
-            }
-        ]
-    },
     'vr-studio': {
         title: '8K VR Studio',
         subtitle: 'Experience your future home today',
         headerDesc: 'Step inside your design with hyper-realistic VR. Compatible with Meta Quest, Apple Vision Pro, and web browsers.',
         icon: Video,
         gradient: 'from-indigo-500 to-violet-400',
-        heroImage: 'https://images.unsplash.com/photo-1622979135225-d2ba269fb1bd?auto=format&fit=crop&q=80&w=2400',
+        heroImage: '/assets/vr-studio/hero-vr.webp',
         tagline: 'Next-Gen Real Estate Visualization',
         features: [
             { title: 'Immersive Walkthrough', desc: 'Full 6DOF movement within your designed space.' },
@@ -180,10 +32,10 @@ const productData = {
             { title: 'Multi-User', desc: 'Invite clients to walk through the design with you.' }
         ],
         steps: [
-            { title: 'Import Model', desc: 'Load your 3D model into our VR engine.', image: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Configure Environment', desc: 'Set lighting, weather, and time of day.', image: 'https://images.unsplash.com/photo-1617347454431-f49d7ff8c367?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Generate Link', desc: 'Create a shareable web link for instant access.', image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Enter VR', desc: 'Put on your headset and step inside.', image: 'https://images.unsplash.com/photo-1626387200548-bf8ed410ebc3?auto=format&fit=crop&q=80&w=800' }
+            { title: 'Import Model', desc: 'Load your 3D model into our VR engine.', image: '/assets/vr-studio/import-model.webp' },
+            { title: 'Configure Environment', desc: 'Set lighting, weather, and time of day.', image: '/assets/vr-studio/configure-env.webp' },
+            { title: 'Generate Link', desc: 'Create a shareable web link for instant access.', image: '/assets/vr-studio/generate-link.webp' },
+            { title: 'Enter VR', desc: 'Put on your headset and step inside.', image: '/assets/vr-studio/enter-vr.webp' }
         ]
     },
     'api-suite': {
@@ -192,7 +44,7 @@ const productData = {
         headerDesc: 'Integrate our core 2D-to-3D, costing, and styling engines directly into your own applications.',
         icon: Cpu,
         gradient: 'from-slate-800 to-slate-600',
-        heroImage: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2400',
+        heroImage: '/assets/api-suite/hero-api.webp',
         tagline: 'Enterprise API Solutions',
         features: [
             { title: 'Restful API', desc: 'Easy to integrate endpoints with comprehensive documentation.' },
@@ -201,10 +53,10 @@ const productData = {
             { title: 'Webhooks', desc: 'Real-time event notifications for your app.' }
         ],
         steps: [
-            { title: 'Get API Key', desc: 'Sign up and generate your secure API credentials.', image: 'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Read Docs', desc: 'Explore our interactive API documentation.', image: 'https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Connect', desc: 'Use our SDKs to connect your app to Zlendo Realty.', image: 'https://images.unsplash.com/photo-1550439062-609e1531270e?auto=format&fit=crop&q=80&w=800' },
-            { title: 'Go Live', desc: 'Launch your powered-up application to the world.', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800' }
+            { title: 'Get API Key', desc: 'Sign up and generate your secure API credentials.', image: '/assets/api-suite/api-key.webp' },
+            { title: 'Read Docs', desc: 'Explore our interactive API documentation.', image: '/assets/api-suite/read-docs.webp' },
+            { title: 'Connect', desc: 'Use our SDKs to connect your app to Zlendo Realty.', image: '/assets/api-suite/connect.webp' },
+            { title: 'Go Live', desc: 'Launch your powered-up application to the world.', image: '/assets/api-suite/go-live.webp' }
         ]
     }
 };
@@ -217,7 +69,8 @@ const faqs = [
 ];
 
 export default function ProductPage() {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
+    const isIndiaSite = typeof country !== "undefined" ? country === "in" : false;
     const router = useRouter();
     const params = useParams();
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -234,26 +87,8 @@ export default function ProductPage() {
 
     if (!product) return null;
 
-    const faqSchema = {
-        "@context": "https://schema.org/",
-        "@type": "FAQPage",
-        "name": `${product.title} - Frequently Asked Questions`,
-        "mainEntity": faqs.map(faq => ({
-            "@type": "Question",
-            "name": faq.q,
-            "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.a
-            }
-        }))
-    };
-
     return (
         <div className="bg-white min-h-screen font-nunito pt-4">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
             {/* 1. HERO SECTION */}
             <section className="bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
                 <div className="container-custom px-6 py-12 lg:py-20">
@@ -306,7 +141,7 @@ export default function ProductPage() {
                                 <div className="h-4 w-px bg-slate-300" />
                                 <div className="flex items-center gap-1">
                                     <Star className="w-5 h-5 text-amber-500 fill-current" />
-                                    <span className="font-bold text-sm">4.9/5 Rating</span>
+                                    <span className="font-bold text-sm">5/5 Rating</span>
                                 </div>
                                 <div className="h-4 w-px bg-slate-300" />
                                 <div className="flex items-center gap-1">
@@ -411,7 +246,7 @@ export default function ProductPage() {
 
                                 <h2 className="text-3xl md:text-4xl font-black font-nunito text-zlendo-grey-dark mb-4 group-hover:text-zlendo-teal transition-colors">
                                     Upload your floor plan
-                                </h2>
+                                {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                                 <p className="text-lg text-slate-500 font-medium mb-8 max-w-lg">
                                     Drag & drop your 2D sketch, image, or CAD file here to instantly generate a 3D model.
                                 </p>
@@ -444,7 +279,7 @@ export default function ProductPage() {
                         <div className="order-1 lg:order-2">
                             <h2 className="text-4xl md:text-5xl font-black font-nunito mb-6">
                                 Master your design <br /> in minutes.
-                            </h2>
+                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-xl text-white/60 mb-10 leading-relaxed font-medium">
                                 Our intuitive interface makes complex tasks simple. Whether you are dragging walls or estimating costs, everything happens in real-time.
                             </p>
@@ -462,7 +297,7 @@ export default function ProductPage() {
             {/* 4. ZIG-ZAG STEPS */}
             <section className="py-12 lg:py-20 bg-white">
                 <div className="container-custom px-6 text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">How It Works</h2>
+                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">How It Works{isIndiaSite && <span className="sr-only"> Local</span>}</h2>
                     <p className="text-xl text-zlendo-grey-medium font-medium">Four simple steps to your dream result.</p>
                 </div>
 
@@ -520,7 +355,7 @@ export default function ProductPage() {
                 <div className="container-custom px-6">
                     <div className="flex justify-between items-end mb-8">
                         <div>
-                            <h2 className="text-3xl font-black text-zlendo-grey-dark mb-2">Popular Templates</h2>
+                            <h2 className="text-3xl font-black text-zlendo-grey-dark mb-2">Popular Templates{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-slate-500 font-medium">Get started quickly with pre-made designs</p>
                         </div>
                         <Link href={getPath('/template-detail')} className="text-zlendo-teal font-black hover:underline hidden md:block">View All</Link>
@@ -549,13 +384,13 @@ export default function ProductPage() {
             {/* 7. COMPARISON TABLE */}
             <section className="py-16 bg-slate-50">
                 <div className="container-custom px-6 max-w-5xl">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-10">Compare with others</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-10">Compare with others{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr>
                                     <th className="p-4 border-b-2 border-slate-200 w-1/3">Features</th>
-                                    <th className="p-4 border-b-2 border-zlendo-teal text-zlendo-teal font-black text-xl text-center shadow-[0_4px_0_0_rgba(13,148,136,0.1)] bg-white rounded-t-xl">Zlendo Realty</th>
+                                    <th className="p-4 border-b-2 border-zlendo-teal text-zlendo-teal font-black text-xl text-center shadow-[0_4px_0_0_rgba(13,148,136,0.1)] bg-white rounded-t-xl">Zlendo Realty{isIndiaSite && <span className="sr-only"> Local</span>}</th>
                                     <th className="p-4 border-b-2 border-slate-200 text-slate-400 font-bold text-center">Typical CAD</th>
                                     <th className="p-4 border-b-2 border-slate-200 text-slate-400 font-bold text-center">Agencies</th>
                                 </tr>
@@ -584,7 +419,7 @@ export default function ProductPage() {
             {/* 8. FAQ */}
             <section className="py-16 bg-white">
                 <div className="container-custom px-6 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">Frequently Asked Questions{isIndiaSite && <span className="sr-only"> Local</span>}</h2>
                     <div className="space-y-4">
                         {faqs.map((faq, i) => (
                             <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors">
@@ -620,7 +455,7 @@ export default function ProductPage() {
                 <div className="container-custom px-6 text-center">
                     <div className="bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-[3rem] p-12 lg:p-20 shadow-2xl relative overflow-hidden">
                         <div className="relative z-10 max-w-2xl mx-auto">
-                            <h2 className="text-4xl lg:text-5xl font-black font-nunito mb-6">Start designing for free</h2>
+                            <h2 className="text-4xl lg:text-5xl font-black font-nunito mb-6">Start designing for free{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
                             <p className="text-xl text-white/80 font-medium mb-10">
                                 Join over 4 million users who are already designing their dream homes with Zlendo Realty.
                             </p>

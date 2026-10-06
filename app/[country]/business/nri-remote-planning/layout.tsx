@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
-  title: 'Design and Build Services & Remote Home Planning | Zlendo Realty',
+  title: 'Design and Build Services & Remote Home Planning',
   description:
     'Experience seamless design and build services from anywhere in the world. Zlendo Realty empowers NRI home planning with 3D property visualization and global collaboration.',
   keywords: [
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     'zlendo realty',
   ],
   openGraph: {
-    title: 'Design and Build Services & Remote Home Planning | Zlendo Realty',
+    title: 'Design and Build Services & Remote Home Planning',
     description:
       'Bridge the distance with transparent design. Manage international and remote projects with absolute clarity, ensuring your NRI clients feel present at every step.',
     url: 'https://zlendorealty.com/in/business/nri-remote-planning',
@@ -36,16 +37,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NRI & Remote Home Planning Solutions | Zlendo Realty',
+    title: 'NRI & Remote Home Planning Solutions',
     description: 'Empower your NRI clients with 3D visualization and seamless remote collaboration for home design projects.',
   },
-  alternates: {
-    canonical: 'https://zlendorealty.com/in/business/nri-remote-planning',
-    languages: {
-      'en-IN': 'https://zlendorealty.com/in/business/nri-remote-planning',
-      'x-default': 'https://zlendorealty.com/in/business/nri-remote-planning',
-    },
-  },
+  alternates: indiaOnlyAlternates('/business/nri-remote-planning'),
 };
 
 export default function NRIRemotePlanningLayout({
@@ -55,3 +50,4 @@ export default function NRIRemotePlanningLayout({
 }) {
   return <>{children}</>;
 }
+

@@ -7,6 +7,7 @@ import { getHcPostBySlug, getAllHcPostSlugs, getHcPosts } from '@/lib/wordpress/
 import { generateHcPostMetadata, generateHcPostJsonLd, generateBreadcrumbJsonLd, absoluteUrl, stripHtml } from '@/lib/wordpress/hc-seo';
 import { BlogPostBody, BlogBreadcrumb } from '@/components/blog';
 import { HcCard } from '@/components/helpcenter';
+import JsonLd from '@/components/common/JsonLd';
 
 interface HcPostPageProps {
     params: Promise<{ slug: string }>;
@@ -51,7 +52,7 @@ export default async function HcPostPage({ params }: HcPostPageProps) {
     // JSON-LD Schemas
     const hcPostJsonLd = generateHcPostJsonLd(post);
     const breadcrumbJsonLd = generateBreadcrumbJsonLd([
-        { name: 'Home', url: 'https://zlendorealty.com/' },
+        { name: 'Home', url: 'https://zlendorealty.com' },
         { name: 'Help Center', url: '/help-center' },
         { name: stripHtml(post.title), url: `/help-center/${post.slug}` },
     ]);
@@ -62,14 +63,8 @@ export default async function HcPostPage({ params }: HcPostPageProps) {
     return (
         <>
             {/* JSON-LD */}
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(hcPostJsonLd) }}
-            />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
+            <JsonLd schema={hcPostJsonLd} />
+            <JsonLd schema={breadcrumbJsonLd} />
 
             <article className="container-custom px-6 lg:px-12 py-12 lg:py-20">
                 {/* Breadcrumb */}

@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -27,13 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty Support & Inquiries',
                 description: 'Have questions or need assistance? Get in touch with the Zlendo Realty team for support, product information, or general inquiries.',
             },
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/contact',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/contact',
-                    'x-default': 'https://zlendorealty.com/in/contact',
-                },
-            },
+            alternates: localeAlternates('/contact', 'in'),
         };
     }
 
@@ -47,7 +42,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         '3d home design',
         'floor design',
     ],
-        title: 'Contact Us | Zlendo Realty',
+        title: 'Contact Us',
     };
 }
 
@@ -55,3 +50,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

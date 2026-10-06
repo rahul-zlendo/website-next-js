@@ -1,0 +1,13 @@
+{
+  "name": "zlendo-wp-migration",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "description": "One-off importer: WordPress (blog./news.) -> Sanity. Isolated deps; does not affect the Next app.",
+  "dependencies": {
+    "@portabletext/block-tools": "^5.1.3",
+    "@portabletext/schema": "^2.2.0",
+    "@sanity/client": "^7.0.0",
+    "jsdom": "^26.0.0"
+  }
+}

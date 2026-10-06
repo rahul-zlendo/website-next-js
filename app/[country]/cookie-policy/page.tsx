@@ -1,38 +1,23 @@
+'use client';
+
 import Link from 'next/link';
 import { ChevronRight, Home, Cookie } from 'lucide-react';
-import { Metadata } from 'next';
 import PolicyContent from '@/components/policies/PolicyContent';
 import PolicySidebar from '@/components/policies/PolicySidebar';
+import { useCountry } from '@/lib/context/CountryContext';
 
-export const metadata: Metadata = {
-    title: 'Cookie Policy - Zlendo Realty',
-    description: 'Information about how we use cookies and similar technologies.',
-    openGraph: {
-        title: 'Cookie Policy - Zlendo Realty',
-        description: 'Information about how we use cookies and similar technologies.',
-    },
-};
-
-interface CookiePolicyPageProps {
-    params: Promise<{
-        country: string;
-    }>;
-}
-
-export default async function CookiePolicyPage(props: CookiePolicyPageProps) {
-    const params = await props.params;
-    const { country } = params;
-    const getPath = (path: string) => `/${country}${path}`;
+export default function CookiePolicyPage() {
+    const { getPath, country } = useCountry();
 
     // Cookie Policy content embedded directly in the page
     const policy = {
         id: 'cookie-policy',
         slug: 'cookie-policy',
-        title: 'Cookie Policy',
+        title: country === 'in' ? 'Platform Cookie Policy' : 'Cookie Policy',
         icon: Cookie,
         category: 'privacy' as const,
         description: 'Information about how we use cookies and similar technologies.',
-        lastUpdated: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
+        lastUpdated: 'January 2026',
         sections: [
             {
                 id: 'introduction',
