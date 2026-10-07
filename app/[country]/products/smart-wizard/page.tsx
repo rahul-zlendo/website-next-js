@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import JsonLd from '@/components/common/JsonLd';
 import SmartWizardClient from '@/components/products/SmartWizardClient';
+import SmartWizardSeoContent, { getSmartWizardFaqs } from '@/components/products/SmartWizardSeoContent';
 import { createPageMetadata } from '@/lib/seo/metadata';
 
 interface PageProps {
@@ -10,8 +11,8 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { country } = await params;
   return createPageMetadata({
-    title: 'AI Floor Plan Generator for Home Layouts | Zlendo Realty',
-    description: 'Enter plot size, setbacks, built-up area, parking and room needs. Compare five ranked AI planning suggestions and continue in editable 2D and 3D.',
+    title: 'AI Floor Plan Generator India – House Plans by Plot Size & Vastu',
+    description: 'Free AI floor plan generator for Indian plots: enter plot size, setbacks, rooms, pooja room and Vastu priority, and get five ranked house plans to edit in 2D and 3D.',
     path: `/${country}/products/smart-wizard`,
   });
 }
@@ -29,10 +30,23 @@ export default async function SmartWizardCountryPage({ params }: PageProps) {
     provider: { '@type': 'Organization', name: 'Zlendo Realty', url: 'https://zlendorealty.com' },
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: getSmartWizardFaqs('in').map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+
   return (
     <>
       <JsonLd schema={schema} />
-      <SmartWizardClient />
+      <JsonLd schema={faqSchema} />
+      <SmartWizardClient>
+        <SmartWizardSeoContent region={country === 'in' ? 'in' : 'global'} />
+      </SmartWizardClient>
     </>
   );
 }

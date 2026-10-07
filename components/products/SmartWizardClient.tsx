@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useMemo, useRef, useState } from 'react';
+import { FormEvent, ReactNode, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowLeft,
@@ -276,7 +276,7 @@ function PlanPreview({ suggestion }: { suggestion: Suggestion }) {
   );
 }
 
-export default function SmartWizardClient() {
+export default function SmartWizardClient({ children }: { children?: ReactNode }) {
   const [step, setStep] = useState(1);
   const [brief, setBrief] = useState<WizardBrief>(initialBrief);
   const [hasGenerated, setHasGenerated] = useState(false);
@@ -518,6 +518,8 @@ export default function SmartWizardClient() {
           </div>
         </div>
       </section>
+
+      {children}
 
       <section className="bg-[#0d1917] px-4 py-20 text-white">
         <div className="container-custom mx-auto max-w-5xl text-center">

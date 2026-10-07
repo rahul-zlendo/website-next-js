@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import JsonLd from '@/components/common/JsonLd';
 import SmartWizardClient from '@/components/products/SmartWizardClient';
+import SmartWizardSeoContent, { getSmartWizardFaqs } from '@/components/products/SmartWizardSeoContent';
 
 const url = 'https://zlendorealty.com/products/smart-wizard';
 
@@ -35,10 +36,23 @@ export default function SmartWizardPage() {
     provider: { '@type': 'Organization', name: 'Zlendo Realty', url: 'https://zlendorealty.com' },
   };
 
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: getSmartWizardFaqs('global').map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  };
+
   return (
     <>
       <JsonLd schema={schema} />
-      <SmartWizardClient />
+      <JsonLd schema={faqSchema} />
+      <SmartWizardClient>
+        <SmartWizardSeoContent region="global" />
+      </SmartWizardClient>
     </>
   );
 }
