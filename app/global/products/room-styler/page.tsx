@@ -9,8 +9,8 @@ import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 import { SIGNUP_URL } from '@/lib/config/env';
 
 export const metadata: Metadata = createPageMetadata({
-  title: 'Smart Room Styler - AI-driven Interior Design | Zlendo Realty',
-  description: 'AI-driven interior design at your fingertips. Visualize different styles, furniture layouts, and color palettes instantly.',
+  title: 'AI Interior Design – Restyle Any Room Instantly',
+  description: 'AI interior design and AI home design in one tool. Restyle any room instantly – try styles, furniture layouts and color palettes with Zlendo Realty.',
   path: '/products/room-styler',
 });
 
@@ -28,7 +28,7 @@ const GlobalRoomStylerPage = async () => {
     const fallbackSections = [
       {
         _type: 'globalProductHero',
-        badge: 'Smart Interior Design',
+        badge: 'Smart Room Styler · AI Interior Design',
         heading: [
           {
             _key: 'h1',
@@ -37,20 +37,20 @@ const GlobalRoomStylerPage = async () => {
               {
                 _key: 'c1',
                 _type: 'span',
-                text: "Style any room. "
+                text: "AI Interior Design. "
               },
               {
                 _key: 'c2',
                 _type: 'span',
                 marks: ['strong'],
-                text: "Instantly."
+                text: "Restyle any room instantly."
               }
             ],
             markDefs: [],
             style: 'normal'
           }
         ],
-        subheading: "Smart Room Styler automatically suggests furniture layouts, colors, lighting, and décor. Visualize beautiful interiors using realistic 3D design and explore endless interior ideas.",
+        subheading: "Smart Room Styler is AI home design for every room: it automatically suggests furniture layouts, colors, lighting, and décor. Visualize beautiful interiors using realistic 3D design and explore endless interior ideas.",
         image: "/assets/room-styler/scandinavian.webp",
         ctaText: "Start Styling Free",
         ctaLink: SIGNUP_URL,

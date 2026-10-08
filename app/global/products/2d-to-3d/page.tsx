@@ -178,11 +178,11 @@ export default function TwoDToThreeDPage() {
               className="space-y-8"
             >
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.1]">
-                Upload a 2D Plan. <br className="hidden md:block" />
-                Present in <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-400">3D Reality.</span>
+                2D to 3D Floor Plan Converter. <br className="hidden md:block" />
+                Upload &amp; View in <span className="text-transparent bg-clip-text bg-gradient-to-r from-zlendo-teal to-blue-400">3D.</span>
               </h1>
               <p className="text-xl md:text-2xl text-white/80 font-medium max-w-2xl mx-auto drop-shadow-xl">
-                Turn a supported floor plan into an editable 3D home view for your client presentation.
+                Our 2D to 3D converter turns a supported 2D floor plan into an editable 3D floor plan for your client presentation.
               </p>
               <div className="pt-8">
                 <a

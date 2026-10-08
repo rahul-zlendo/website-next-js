@@ -12,8 +12,8 @@ import RecentBlogPosts from '@/components/common/RecentBlogPosts';
 import PropTechOverview from '@/components/common/PropTechOverview';
 
 export const metadata: Metadata = {
-  title: 'Zlendo Realty | AI Home Design Software',
-  description: 'Turn floor plans into 3D models and renders in 60 seconds. Zlendo Realty is the AI design workflow built for architecture and interior design professionals.',
+  title: 'AI & 3D Home Design Software – Virtual Home Design Online',
+  description: 'Zlendo Realty is AI home design software and 3D home design software in one: turn floor plans into 3D models, renders and virtual home design walkthroughs online.',
   alternates: {
     canonical: 'https://zlendorealty.com',
     languages: {
