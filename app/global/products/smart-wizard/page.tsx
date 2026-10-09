@@ -6,8 +6,8 @@ import SmartWizardSeoContent, { getSmartWizardFaqs } from '@/components/products
 const url = 'https://zlendorealty.com/products/smart-wizard';
 
 export const metadata: Metadata = {
-  title: 'AI Floor Plan Generator – 5 Plans from Your Plot Size',
-  description: 'Free AI floor plan generator: enter your plot size, setbacks, rooms and priorities and get five ranked floor plans you can edit in 2D and 3D.',
+  title: 'Smart Wizard – Compare 5 Floor Plan Concepts',
+  description: 'Explore five predefined home layout concepts ranked by selected plot and room preferences. Compare schematic previews for free, then explore the Zlendo Realty design tools.',
   alternates: {
     canonical: url,
     languages: {
@@ -17,8 +17,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'AI Floor Plan Generator – 5 Plans from Your Plot Size',
-    description: 'Use the Zlendo Realty AI floor plan generator to turn plot size and room needs into five ranked floor plans.',
+    title: 'Smart Wizard – Compare 5 Floor Plan Concepts',
+    description: 'Compare five predefined layout concepts ranked by selected plot and room preferences, with schematic previews for early planning.',
     url,
     siteName: 'Zlendo Realty',
     type: 'website',
@@ -30,9 +30,9 @@ export default function SmartWizardPage() {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: 'Zlendo Realty Smart Wizard',
-    serviceType: 'AI-assisted home planning',
+    serviceType: 'Home layout concept comparison',
     url,
-    description: 'An AI-assisted home planning service that turns plot constraints, room requirements and design priorities into five ranked concepts.',
+    description: 'A home planning tool that ranks five predefined concepts using selected plot and room preferences.',
     provider: { '@type': 'Organization', name: 'Zlendo Realty', url: 'https://zlendorealty.com' },
   };
 

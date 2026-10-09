@@ -10,41 +10,41 @@ export function getSmartWizardFaqs(region: Region = 'global') {
       a: 'An AI floor plan generator turns a short brief – plot size, setbacks, room count and priorities – into ready-to-compare house layout concepts. Instead of starting from a blank page, you start from several planning directions and refine the one that fits best.',
     },
     {
-      q: 'Is the Zlendo Realty AI floor plan generator free?',
-      a: 'Yes. You can enter your brief and generate five ranked floor plan concepts on this page for free, without signing up. To continue editing a concept in the full 2D and 3D floor planner, create a free Zlendo Realty account.',
+      q: 'Is Smart Wizard free to try?',
+      a: 'You can compare five ranked layout concepts on this page without payment or signup. The button on a concept takes you to Zlendo Realty signup. Check the app’s current plan and trial terms before using its design tools.',
     },
     {
-      q: 'What information do I need to generate a floor plan?',
+      q: 'What information can I enter in Smart Wizard?',
       a: `Plot width and length (in feet or metres), built-up area, number of floors, plot facing, front/rear/side setbacks, and the rooms you need – bedrooms, bathrooms, living rooms and parking. You can also add a kids room, guest room, study, ${india ? 'pooja room, ' : ''}utility area or garden.`,
     },
     {
-      q: 'How many floor plans does it create?',
-      a: 'Smart Wizard creates five layout concepts – Courtyard Heart, Garden Edge, Private Wings, Compact Core and Flexible Duplex – and ranks them by how well each one fits your plot shape, number of floors, room list and chosen priority.',
+      q: 'How many floor plan concepts can I compare?',
+      a: 'Smart Wizard shows the same five predefined concepts – Courtyard Heart, Garden Edge, Private Wings, Compact Core and Flexible Duplex. Plot shape, floors, priority, pooja-room and garden preferences affect their ranking. Room labels are illustrative; scores do not validate a complete room schedule.',
     },
     {
       q: 'Can I generate a Vastu-friendly floor plan?',
-      a: 'Yes. Choose the Vastu-first priority and the generator ranks concepts using direction-aware room placement as an early planning guide. For full compliance checks, continue in Zlendo Realty’s Vastu tools and confirm with your architect.',
+      a: 'The Vastu-first preference changes the ranking of the five predefined concepts. The schematic previews do not change room placement based on compass direction and are not a Vastu compliance check. Verify a detailed plan with a qualified professional.',
     },
     {
       q: 'Can I edit the generated floor plan?',
-      a: 'Yes. Pick any concept and select “Continue with this concept” to open it in Zlendo Realty, where you can adjust rooms, walls, doors, windows and furniture and view the design in 3D.',
+      a: 'You can change your brief and compare the concepts again. The previews on this page are schematic and cannot be edited as measured floor plans. “Explore Zlendo Realty” opens signup; it does not transfer an editable drawing. Use the app’s design tools to create a detailed project separately.',
     },
     {
       q: 'Are the generated plans ready for construction?',
       a: `No. The concepts are early planning directions. Final dimensions, structure and ${india ? 'local approvals (for example CMDA, BBMP or your municipal authority)' : 'local building-code approvals'} should always be verified by a qualified architect or engineer before construction.`,
     },
     {
-      q: 'Who is the AI floor plan generator for?',
+      q: 'Who is Smart Wizard for?',
       a: 'Homeowners planning a new house, architects who want quick early options for clients, builders and developers testing layouts for a plot, and civil engineers who need a fast starting point before detailed drawings.',
     },
   ];
 }
 
 const steps = [
-  { title: 'Enter your plot', text: 'Add plot width and length, built-up area, number of floors, plot facing and the setback on all four sides. This defines the buildable envelope the AI floor plan generator works within.' },
+  { title: 'Enter your plot', text: 'Add plot width and length, built-up area, number of floors, facing and setbacks. The page calculates a usable footprint summary; concept previews are schematic and are not drawn to those dimensions.' },
   { title: 'List your rooms', text: 'Choose bedrooms, bathrooms, living rooms and parking, then add extras such as a kids room, guest room, study, pooja room, utility area or garden.' },
   { title: 'Pick a priority', text: 'Tell the generator what matters most: balanced living, open and airy spaces, more privacy, rental potential or a Vastu-first layout.' },
-  { title: 'Compare five ranked plans', text: 'Review five floor plan concepts side by side, each with a fit score, strengths and an honest trade-off – then continue the best one in 2D and 3D.' },
+  { title: 'Compare five ranked concepts', text: 'Review five predefined concepts with a preference score and planning trade-offs. Explore the Zlendo Realty app separately to create a detailed 2D and 3D project.' },
 ];
 
 const concepts = [
@@ -69,20 +69,21 @@ export default function SmartWizardSeoContent({ region = 'global' }: { region?: 
           <div className="mt-6 space-y-5 text-lg font-medium leading-relaxed text-slate-600">
             <p>
               An AI floor plan generator creates house layout options from a few simple inputs instead of asking you to draw every wall by hand.
-              Zlendo Realty’s Smart Wizard reads your plot size, setbacks, built-up area, number of floors and room list, then generates five
-              floor plan concepts and ranks them against your brief.
+              On this page, Zlendo Realty’s Smart Wizard compares five predefined concepts using selected plot and room preferences.
+              It uses a simple ranking system; it does not generate new measured drawings with an AI model. Previews are schematic,
+              and scores describe preferences rather than architectural feasibility.
             </p>
             <p>
               It is built for the very first – and most important – stage of home design: deciding which overall layout makes sense for the site.
-              Once you have a direction you like, you can continue it in Zlendo Realty’s{' '}
+              Use the concepts as inspiration when creating a separate detailed project in Zlendo Realty’s{' '}
               <Link href={`${base}/products/floor-planner`} className="font-bold text-zlendo-teal underline-offset-4 hover:underline">AI floor plan design software</Link>, convert it with the{' '}
               <Link href={`${base}/products/2d-to-3d`} className="font-bold text-zlendo-teal underline-offset-4 hover:underline">2D to 3D floor plan converter</Link>, and style the rooms with{' '}
               <Link href={`${base}/products/room-styler`} className="font-bold text-zlendo-teal underline-offset-4 hover:underline">AI interior design</Link>.
             </p>
             {india && (
               <p>
-                For Indian plots, the generator works in feet or metres, accounts for front, rear and side setbacks, supports pooja and utility rooms,
-                and offers a Vastu-first priority – so the options you compare already reflect how homes are planned in India.
+                For Indian plots, you can enter dimensions in feet or metres, record setbacks and room preferences, and select Vastu-first.
+                The footprint summary accounts for setbacks. The concept previews do not validate dimensions, local rules or Vastu compliance.
               </p>
             )}
           </div>
@@ -93,8 +94,8 @@ export default function SmartWizardSeoContent({ region = 'global' }: { region?: 
         <div className="container-custom mx-auto max-w-7xl">
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-xs font-black uppercase tracking-[0.2em] text-zlendo-teal">How it works</p>
-            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-5xl">How the AI floor plan generator works</h2>
-            <p className="mt-5 text-lg font-medium leading-relaxed text-slate-600">Four steps, about two minutes, no drawing skills needed.</p>
+            <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-5xl">How Smart Wizard compares floor plan concepts</h2>
+            <p className="mt-5 text-lg font-medium leading-relaxed text-slate-600">Enter a brief and compare schematic concepts without drawing.</p>
           </div>
           <ol className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
@@ -135,10 +136,10 @@ export default function SmartWizardSeoContent({ region = 'global' }: { region?: 
             <p className="text-xs font-black uppercase tracking-[0.2em] text-zlendo-teal">Who it’s for</p>
             <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-4xl">Built for homeowners and professionals</h2>
             <ul className="mt-6 space-y-4 font-medium leading-relaxed text-slate-600">
-              <li><strong className="text-slate-900">Homeowners</strong> – see realistic layout options for your plot before you meet an architect.</li>
+              <li><strong className="text-slate-900">Homeowners</strong> – compare early layout ideas before you meet an architect.</li>
               <li><strong className="text-slate-900">Architects</strong> – produce several early options for a client meeting in minutes, then develop the chosen one.</li>
-              <li><strong className="text-slate-900">Builders &amp; developers</strong> – test how many bedrooms, floors and parking spaces a plot can realistically hold.</li>
-              <li><strong className="text-slate-900">Civil engineers</strong> – start structural and services planning from a clear, plot-aware layout.</li>
+              <li><strong className="text-slate-900">Builders &amp; developers</strong> – discuss layout preferences before checking site capacity in a detailed plan.</li>
+              <li><strong className="text-slate-900">Civil engineers</strong> – use early concepts to start a discussion before detailed structural and services planning.</li>
             </ul>
           </div>
           <div>
@@ -150,11 +151,11 @@ export default function SmartWizardSeoContent({ region = 'global' }: { region?: 
                   <tr><th className="p-3"></th><th className="p-3">Smart Wizard</th><th className="p-3">Blank canvas</th></tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 font-medium text-slate-600">
-                  <tr><td className="p-3 font-bold text-slate-900">Time to first options</td><td className="p-3">About 2 minutes</td><td className="p-3">Hours to days</td></tr>
-                  <tr><td className="p-3 font-bold text-slate-900">Options to compare</td><td className="p-3">5 ranked concepts</td><td className="p-3">Usually 1</td></tr>
-                  <tr><td className="p-3 font-bold text-slate-900">Plot & setbacks</td><td className="p-3">Built into the brief</td><td className="p-3">Checked manually</td></tr>
-                  <tr><td className="p-3 font-bold text-slate-900">Skill needed</td><td className="p-3">None</td><td className="p-3">CAD / drafting</td></tr>
-                  <tr><td className="p-3 font-bold text-slate-900">Next step</td><td className="p-3">Edit in 2D &amp; 3D</td><td className="p-3">Redraw for 3D</td></tr>
+                  <tr><td className="p-3 font-bold text-slate-900">Starting point</td><td className="p-3">5 predefined concepts</td><td className="p-3">Your own drawing</td></tr>
+                  <tr><td className="p-3 font-bold text-slate-900">Preview</td><td className="p-3">Schematic room blocks</td><td className="p-3">A layout you draw</td></tr>
+                  <tr><td className="p-3 font-bold text-slate-900">Plot & setbacks</td><td className="p-3">Footprint summary</td><td className="p-3">Define in the drawing</td></tr>
+                  <tr><td className="p-3 font-bold text-slate-900">Drawing skills</td><td className="p-3">Not required to compare concepts</td><td className="p-3">Depends on the tool</td></tr>
+                  <tr><td className="p-3 font-bold text-slate-900">Next step</td><td className="p-3">Create a detailed project separately</td><td className="p-3">Develop your drawing</td></tr>
                 </tbody>
               </table>
             </div>

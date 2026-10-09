@@ -11,29 +11,30 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { country } = await params;
   return createPageMetadata({
-    title: 'AI Floor Plan Generator India – House Plans by Plot Size & Vastu',
-    description: 'Free AI floor plan generator for Indian plots: enter plot size, setbacks, rooms, pooja room and Vastu priority, and get five ranked house plans to edit in 2D and 3D.',
+    title: country === 'in' ? 'Smart Wizard India – Compare 5 Floor Plan Concepts' : 'Smart Wizard – Compare 5 Floor Plan Concepts',
+    description: 'Explore five predefined home layout concepts ranked by selected plot and room preferences. Compare schematic previews for free, then explore the Zlendo Realty design tools.',
     path: `/${country}/products/smart-wizard`,
   });
 }
 
 export default async function SmartWizardCountryPage({ params }: PageProps) {
   const { country } = await params;
+  const region = country === 'in' ? 'in' : 'global';
   const url = `https://zlendorealty.com/${country}/products/smart-wizard`;
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: 'Zlendo Realty Smart Wizard',
-    serviceType: 'AI-assisted home planning',
+    serviceType: 'Home layout concept comparison',
     url,
-    description: 'An AI-assisted home planning service for plot-aware residential concepts.',
+    description: 'A home planning tool that ranks five predefined concepts using selected plot and room preferences.',
     provider: { '@type': 'Organization', name: 'Zlendo Realty', url: 'https://zlendorealty.com' },
   };
 
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: getSmartWizardFaqs('in').map((f) => ({
+    mainEntity: getSmartWizardFaqs(region).map((f) => ({
       '@type': 'Question',
       name: f.q,
       acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -45,7 +46,7 @@ export default async function SmartWizardCountryPage({ params }: PageProps) {
       <JsonLd schema={schema} />
       <JsonLd schema={faqSchema} />
       <SmartWizardClient>
-        <SmartWizardSeoContent region={country === 'in' ? 'in' : 'global'} />
+        <SmartWizardSeoContent region={region} />
       </SmartWizardClient>
     </>
   );

@@ -88,7 +88,7 @@ const priorities: Array<{ value: Priority; title: string; description: string }>
   { value: 'open-space', title: 'Open & airy', description: 'Larger shared spaces, daylight and outdoor connection' },
   { value: 'privacy', title: 'More privacy', description: 'Stronger separation between family, guest and service zones' },
   { value: 'rental', title: 'Rental potential', description: 'Independent access and flexible future subdivision' },
-  { value: 'vastu', title: 'Vastu-first', description: 'Direction-aware room placement as an early planning guide' },
+  { value: 'vastu', title: 'Vastu-first', description: 'Prioritise selected concepts; detailed Vastu checks are separate' },
 ];
 
 const conceptTemplates = [
@@ -315,16 +315,16 @@ export default function SmartWizardClient({ children }: { children?: ReactNode }
         <div className="container-custom relative mx-auto grid max-w-7xl gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
           <div>
             <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-teal-200 backdrop-blur">
-              <WandSparkles className="h-4 w-4" /> Smart Wizard · AI Floor Plan Generator
+              <WandSparkles className="h-4 w-4" /> Smart Wizard · Floor Plan Concepts
             </div>
             <h1 className="max-w-3xl text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl">
-              AI Floor Plan Generator. <span className="text-teal-300">5 plans from your plot size.</span>
+              Explore floor plan ideas. <span className="text-teal-300">5 concepts to compare.</span>
             </h1>
             <p className="mt-7 max-w-2xl text-lg font-medium leading-relaxed text-slate-300 lg:text-xl">
-              Tell our AI floor plan generator about your plot, setbacks, rooms and priorities. Smart Wizard turns the brief into five ranked floor plans you can compare and continue editing in 2D and 3D.
+              Enter your plot and room preferences to compare five predefined layout concepts. Smart Wizard ranks schematic ideas for early planning; create a detailed drawing separately in Zlendo Realty.
             </p>
             <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3 text-sm font-bold text-slate-300">
-              {['Plot-aware', 'Five alternatives', 'Editable in 2D & 3D'].map((item) => (
+              {['Footprint summary', 'Five concepts', 'Schematic previews'].map((item) => (
                 <span key={item} className="flex items-center gap-2"><Check className="h-4 w-4 text-teal-300" /> {item}</span>
               ))}
             </div>
@@ -484,7 +484,7 @@ export default function SmartWizardClient({ children }: { children?: ReactNode }
                       </ul>
                       <p className="mt-5 rounded-xl bg-amber-50 px-3 py-2.5 text-xs font-bold leading-relaxed text-amber-900"><span className="font-black">Tradeoff:</span> {suggestion.tradeoff}</p>
                       <button type="button" onClick={() => continueWithConcept(suggestion)} className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-950 px-5 py-3.5 font-black text-white transition hover:bg-zlendo-teal">
-                        {selected === suggestion.name ? 'Opening Zlendo…' : 'Continue with this concept'} <ChevronRight className="h-5 w-5" />
+                        {selected === suggestion.name ? 'Opening signup…' : 'Explore Zlendo Realty'} <ChevronRight className="h-5 w-5" />
                       </button>
                     </div>
                   </div>
@@ -500,13 +500,13 @@ export default function SmartWizardClient({ children }: { children?: ReactNode }
           <div className="mx-auto max-w-3xl text-center">
             <p className="text-xs font-black uppercase tracking-[0.2em] text-zlendo-teal">From brief to buildable direction</p>
             <h2 className="mt-4 text-3xl font-black tracking-tight sm:text-5xl">A better place to start than a blank canvas</h2>
-            <p className="mt-5 text-lg font-medium leading-relaxed text-slate-600">Smart Wizard keeps the speed of generative AI while grounding every idea in the constraints that shape a real home.</p>
+            <p className="mt-5 text-lg font-medium leading-relaxed text-slate-600">Smart Wizard uses a simple preference ranking to compare five predefined concepts. Previews are schematic, not dimensioned or construction-ready plans.</p>
           </div>
           <div className="mt-14 grid gap-5 md:grid-cols-3">
             {[
               { icon: Maximize2, title: 'Understand the site', description: 'Plot dimensions, facing, built-up area and four-side setbacks define the usable envelope.' },
               { icon: Lightbulb, title: 'Compare real choices', description: 'Five concepts reveal different ways to balance daylight, privacy, efficiency and future flexibility.' },
-              { icon: Building2, title: 'Keep designing', description: 'Choose one direction and continue with editable rooms, walls, furniture and 3D visualization.' },
+              { icon: Building2, title: 'Keep designing', description: 'Explore the Zlendo Realty app to create a detailed project separately. Signup does not transfer an editable drawing from this page.' },
             ].map((item, index) => (
               <div key={item.title} className="rounded-[28px] border border-slate-200 bg-slate-50 p-7">
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-zlendo-teal shadow-sm"><item.icon className="h-6 w-6" /></div>
@@ -525,7 +525,7 @@ export default function SmartWizardClient({ children }: { children?: ReactNode }
         <div className="container-custom mx-auto max-w-5xl text-center">
           <div className="mx-auto flex w-fit items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-black uppercase tracking-[0.16em] text-teal-200"><ShieldCheck className="h-4 w-4" /> Designed for confident early decisions</div>
           <h2 className="mx-auto mt-6 max-w-3xl text-3xl font-black tracking-tight sm:text-5xl">Start with your plot. End with a home you can explore.</h2>
-          <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-relaxed text-slate-300">Generate five planning directions now, then take your favourite into Zlendo Realty’s full 2D and 3D design workspace.</p>
+          <p className="mx-auto mt-5 max-w-2xl text-lg font-medium leading-relaxed text-slate-300">Compare five planning directions, then explore the Zlendo Realty app to create a detailed 2D and 3D project separately.</p>
           <Link href="#wizard" className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-zlendo-teal px-7 py-4 font-black text-white transition hover:bg-teal-500">Try Smart Wizard <ArrowRight className="h-5 w-5" /></Link>
         </div>
       </section>

@@ -3,13 +3,31 @@ import { blogPostsSitemapQuery } from '@/lib/sanity/queries';
 import { API_BASE_URL, DEFAULT_API_TOKEN } from '@/lib/config/env';
 import { encryptProjectId } from '@/lib/utils/encryptionUtils';
 
-function parseSafeDate(dateString: string | undefined | null, fallback: Date): Date {
-  if (!dateString) return fallback;
+function parseSafeDate(dateString: string | undefined | null): Date | undefined {
+  if (!dateString) return undefined;
   const parsed = new Date(dateString);
-  return isNaN(parsed.getTime()) ? fallback : parsed;
+  return isNaN(parsed.getTime()) || parsed.getTime() > Date.now() ? undefined : parsed;
 }
 
 const BASE_URL = 'https://zlendorealty.com';
+
+type SitemapItem = { url: string; lastModified?: Date; changeFrequency: string; priority: number };
+
+// Significant code-rendered content changes. Update only affected pages when
+// their content changes; the dates become public with that code's deployment.
+const codeContentDates: Record<'global' | 'india', Record<string, string>> = {
+  global: { '': '2026-10-07', '/products/smart-wizard': '2026-10-09' },
+  india: { '': '2026-10-09', '/products/floor-planner': '2026-10-09', '/products/smart-wizard': '2026-10-09' },
+};
+
+// The same published singletons supply these marketing pages in both regions.
+// Never use draft edits or sitemap request time to signal a content change.
+const marketingDatesQuery = `[
+  {"path": "", "updatedAt": *[_type == "homePage" && _id == "singleton-homePage" && !(_id in path("drafts.**"))][0]._updatedAt},
+  {"path": "/products/floor-planner", "updatedAt": *[_type == "floorPlannerPage" && _id in ["floorPlannerPage", "singleton-floorPlannerPage"] && !(_id in path("drafts.**"))][0]._updatedAt},
+  {"path": "/products/2d-to-3d", "updatedAt": *[_type == "twoDTo3DPage" && !(_id in path("drafts.**"))][0]._updatedAt},
+  {"path": "/products/room-styler", "updatedAt": *[_type == "roomStylerPage" && !(_id in path("drafts.**"))][0]._updatedAt}
+]`;
 
 const routes = [
   // Core pages
@@ -131,9 +149,23 @@ const routes = [
 ];
 
 export async function getSitemapData(region: 'global' | 'india') {
-  const staticLastMod = new Date('2026-03-09T00:00:00Z');
-  const dynamicLastMod = new Date();
-  const urls: { url: string; lastModified: Date; changeFrequency: string; priority: number }[] = [];
+  const urls: SitemapItem[] = [];
+  const contentDates = new Map<string, Date>();
+  try {
+    const documents = await readClient.fetch<Array<{ path: string; updatedAt?: string }>>(marketingDatesQuery);
+    for (const document of documents) {
+      const date = parseSafeDate(document.updatedAt);
+      const current = contentDates.get(document.path);
+      if (date && (!current || date > current)) contentDates.set(document.path, date);
+    }
+  } catch (err) {
+    console.error('Sitemap: Failed to fetch published marketing dates', err);
+  }
+  for (const [path, value] of Object.entries(codeContentDates[region])) {
+    const date = parseSafeDate(value);
+    const current = contentDates.get(path);
+    if (date && (!current || date > current)) contentDates.set(path, date);
+  }
 
   // Generate static routes
   for (const route of routes as any[]) {
@@ -141,7 +173,7 @@ export async function getSitemapData(region: 'global' | 'india') {
       if (route.isIndiaOnly) continue; // Skip strict India-only pages for global
       urls.push({
         url: `${BASE_URL}${route.path}`,
-        lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
+        lastModified: contentDates.get(route.path),
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });
@@ -149,7 +181,7 @@ export async function getSitemapData(region: 'global' | 'india') {
       if (route.isGlobal) continue; // Skip strict Global-only pages for india
       urls.push({
         url: `${BASE_URL}/in${route.path}`,
-        lastModified: route.changeFrequency === 'daily' ? dynamicLastMod : staticLastMod,
+        lastModified: contentDates.get(route.path),
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });
@@ -173,7 +205,7 @@ export async function getSitemapData(region: 'global' | 'india') {
       for (const template of templates) {
         if (template && template.template_Id) {
           const encryptedId = encryptProjectId(template.template_Id);
-          const templateLastMod = parseSafeDate(template.updatedOn, dynamicLastMod);
+          const templateLastMod = parseSafeDate(template.updatedOn);
 
           if (region === 'global') {
             urls.push({
@@ -201,13 +233,11 @@ export async function getSitemapData(region: 'global' | 'india') {
   if (region === 'global') {
     urls.push({
       url: `${BASE_URL}/blog`,
-      lastModified: dynamicLastMod,
       changeFrequency: 'daily',
       priority: 0.8,
     });
     urls.push({
       url: `${BASE_URL}/design-battle`,
-      lastModified: dynamicLastMod,
       changeFrequency: 'weekly',
       priority: 0.8,
     });
@@ -216,10 +246,9 @@ export async function getSitemapData(region: 'global' | 'india') {
     try {
       const posts = await readClient.fetch<{ slug: string; publishedAt?: string; updatedAt?: string }[]>(blogPostsSitemapQuery);
       for (const post of posts) {
-        const bestDate = post.updatedAt || post.publishedAt;
         urls.push({
           url: `${BASE_URL}/blog/${post.slug}`,
-          lastModified: parseSafeDate(bestDate, dynamicLastMod),
+          lastModified: parseSafeDate(post.updatedAt) ?? parseSafeDate(post.publishedAt),
           changeFrequency: 'monthly',
           priority: 0.7,
         });
@@ -232,10 +261,10 @@ export async function getSitemapData(region: 'global' | 'india') {
   return urls;
 }
 
-export function generateSitemapXML(items: { url: string; lastModified: Date; changeFrequency: string; priority: number }[]) {
+export function generateSitemapXML(items: SitemapItem[]) {
   const urlEntries = items.map(item => `  <url>
     <loc>${item.url}</loc>
-    <lastmod>${item.lastModified.toISOString()}</lastmod>
+    ${item.lastModified ? `<lastmod>${item.lastModified.toISOString()}</lastmod>` : ''}
     <changefreq>${item.changeFrequency}</changefreq>
     <priority>${item.priority}</priority>
   </url>`).join('\n');
