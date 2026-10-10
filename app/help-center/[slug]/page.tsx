@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, User, Tag, ArrowLeft, Share2, Facebook, Twitter, Linkedin, HelpCircle } from 'lucide-react';
-import { getHcPostBySlug, getAllHcPostSlugs, getHcPosts } from '@/lib/wordpress/helpcenter';
+import { getHcPostBySlug, getHcPosts } from '@/lib/wordpress/helpcenter';
 import { generateHcPostMetadata, generateHcPostJsonLd, generateBreadcrumbJsonLd, absoluteUrl, stripHtml } from '@/lib/wordpress/hc-seo';
 import { BlogPostBody, BlogBreadcrumb } from '@/components/blog';
 import { HcCard } from '@/components/helpcenter';
@@ -13,13 +13,8 @@ interface HcPostPageProps {
     params: Promise<{ slug: string }>;
 }
 
-// Allow any slug to be rendered on-demand (ISR)
-export const dynamicParams = true;
+// The shared layout reads request headers; render on demand with cached CMS fetches.
 export const revalidate = 3600;
-
-export async function generateStaticParams() {
-    return [];
-}
 
 export async function generateMetadata({ params }: HcPostPageProps): Promise<Metadata> {
     const { slug } = await params;

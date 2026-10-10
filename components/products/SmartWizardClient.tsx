@@ -17,6 +17,7 @@ import {
   WandSparkles,
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
+import { convertSiteMeasurements } from '@/lib/products/smart-wizard-units';
 
 type Unit = 'ft' | 'm';
 type Priority = 'balanced' | 'open-space' | 'privacy' | 'rental' | 'vastu';
@@ -180,6 +181,7 @@ function NumberField({
   suffix,
   min = 0,
   max,
+  step = 1,
 }: {
   label: string;
   value: number;
@@ -187,6 +189,7 @@ function NumberField({
   suffix?: string;
   min?: number;
   max?: number;
+  step?: number | 'any';
 }) {
   return (
     <label className="block">
@@ -196,6 +199,7 @@ function NumberField({
           type="number"
           min={min}
           max={max}
+          step={step}
           value={value}
           onChange={(event) => onChange(Number(event.target.value))}
           className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 pr-14 font-bold text-slate-900 outline-none transition focus:border-zlendo-teal focus:ring-4 focus:ring-zlendo-teal/10"
@@ -342,24 +346,24 @@ export default function SmartWizardClient({ children }: { children?: ReactNode }
                   </div>
                   <div className="mb-6 flex w-fit rounded-xl bg-slate-100 p-1" role="group" aria-label="Measurement unit">
                     {(['ft', 'm'] as Unit[]).map((unit) => (
-                      <button key={unit} type="button" onClick={() => updateBrief('unit', unit)} className={`rounded-lg px-5 py-2 text-sm font-black transition ${brief.unit === unit ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
+                      <button key={unit} type="button" onClick={() => setBrief((current) => convertSiteMeasurements(current, unit))} className={`rounded-lg px-5 py-2 text-sm font-black transition ${brief.unit === unit ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500'}`}>
                         {unit === 'ft' ? 'Feet' : 'Metres'}
                       </button>
                     ))}
                   </div>
                   <div className="grid gap-5 sm:grid-cols-2">
-                    <NumberField label="Plot width" value={brief.width} onChange={(value) => updateBrief('width', value)} suffix={unitLabel} min={10} />
-                    <NumberField label="Plot length" value={brief.length} onChange={(value) => updateBrief('length', value)} suffix={unitLabel} min={10} />
-                    <NumberField label="Target built-up area" value={brief.builtUpArea} onChange={(value) => updateBrief('builtUpArea', value)} suffix={areaLabel} min={100} />
+                    <NumberField label="Plot width" value={brief.width} onChange={(value) => updateBrief('width', value)} suffix={unitLabel} min={brief.unit === 'ft' ? 10 : 3.048} step="any" />
+                    <NumberField label="Plot length" value={brief.length} onChange={(value) => updateBrief('length', value)} suffix={unitLabel} min={brief.unit === 'ft' ? 10 : 3.048} step="any" />
+                    <NumberField label="Target built-up area" value={brief.builtUpArea} onChange={(value) => updateBrief('builtUpArea', value)} suffix={areaLabel} min={brief.unit === 'ft' ? 100 : 9.290304} step="any" />
                     <NumberField label="Number of floors" value={brief.floors} onChange={(value) => updateBrief('floors', value)} min={1} max={5} />
                   </div>
                   <div className="mt-6">
                     <span className="mb-3 block text-sm font-extrabold text-slate-700">Setbacks</span>
                     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                      <NumberField label="Front" value={brief.setbackFront} onChange={(value) => updateBrief('setbackFront', value)} suffix={unitLabel} />
-                      <NumberField label="Rear" value={brief.setbackRear} onChange={(value) => updateBrief('setbackRear', value)} suffix={unitLabel} />
-                      <NumberField label="Left" value={brief.setbackLeft} onChange={(value) => updateBrief('setbackLeft', value)} suffix={unitLabel} />
-                      <NumberField label="Right" value={brief.setbackRight} onChange={(value) => updateBrief('setbackRight', value)} suffix={unitLabel} />
+                      <NumberField label="Front" value={brief.setbackFront} onChange={(value) => updateBrief('setbackFront', value)} suffix={unitLabel} step="any" />
+                      <NumberField label="Rear" value={brief.setbackRear} onChange={(value) => updateBrief('setbackRear', value)} suffix={unitLabel} step="any" />
+                      <NumberField label="Left" value={brief.setbackLeft} onChange={(value) => updateBrief('setbackLeft', value)} suffix={unitLabel} step="any" />
+                      <NumberField label="Right" value={brief.setbackRight} onChange={(value) => updateBrief('setbackRight', value)} suffix={unitLabel} step="any" />
                     </div>
                   </div>
                   <div className="mt-6 grid gap-3 rounded-2xl border border-teal-100 bg-teal-50 p-4 sm:grid-cols-3">

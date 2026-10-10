@@ -16,8 +16,8 @@ type SitemapItem = { url: string; lastModified?: Date; changeFrequency: string; 
 // Significant code-rendered content changes. Update only affected pages when
 // their content changes; the dates become public with that code's deployment.
 const codeContentDates: Record<'global' | 'india', Record<string, string>> = {
-  global: { '': '2026-10-07', '/products/smart-wizard': '2026-10-09' },
-  india: { '': '2026-10-09', '/products/floor-planner': '2026-10-09', '/products/smart-wizard': '2026-10-09' },
+  global: { '': '2026-10-07', '/products/smart-wizard': '2026-10-10' },
+  india: { '': '2026-10-09', '/products/floor-planner': '2026-10-09', '/products/smart-wizard': '2026-10-10' },
 };
 
 // The same published singletons supply these marketing pages in both regions.

@@ -12,6 +12,7 @@ function load(file) {
     if (name === 'next/link') return { __esModule: true, default: ({ children, ...props }) => React.createElement('a', props, children) };
     if (name === '@/lib/constants/urls') return { SIGNUP_URL: 'https://app.zlendorealty.com/register' };
     if (name === '@/lib/seo/metadata') return { createPageMetadata: (metadata) => metadata };
+    if (name === '@/lib/products/smart-wizard-units') return load('lib/products/smart-wizard-units.ts');
     if (name.startsWith('@/components/')) return load(`${name.slice(2)}.tsx`);
     return require(name);
   } };
@@ -24,6 +25,21 @@ function load(file) {
 }
 
 (async () => {
+  const { convertSiteMeasurements } = load('lib/products/smart-wizard-units.ts');
+  const feet = { unit: 'ft', width: 30, length: 40, builtUpArea: 1000, setbackFront: 6, setbackRear: 4, setbackLeft: 3, setbackRight: 3, floors: 2, bedrooms: 3, priority: 'balanced' };
+  const metres = convertSiteMeasurements(feet, 'm');
+  assert.equal(metres.width, 9.144);
+  assert.equal(metres.length, 12.192);
+  assert.equal(metres.builtUpArea, 92.90304);
+  assert.equal(metres.setbackFront, 1.8288);
+  const footprint = (metres.width - metres.setbackLeft - metres.setbackRight) * (metres.length - metres.setbackFront - metres.setbackRear);
+  assert.ok(Math.abs(footprint / 0.09290304 - 720) < 0.00001, 'Unit changes must preserve the 720 sq ft usable footprint');
+  assert.deepEqual({ ...convertSiteMeasurements(metres, 'ft') }, feet);
+  assert.equal(metres.floors, feet.floors);
+  assert.equal(metres.bedrooms, feet.bedrooms);
+  assert.equal(metres.priority, feet.priority);
+  assert.equal(convertSiteMeasurements(feet, 'ft'), feet);
+  console.log('Smart Wizard unit checks passed: the 30×40-foot site, setbacks, area and room preferences survive a metric round trip.');
   const countryPage = load('app/[country]/products/smart-wizard/page.tsx');
   const globalPage = load('app/global/products/smart-wizard/page.tsx');
   for (const country of ['in', 'us']) {

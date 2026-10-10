@@ -328,10 +328,21 @@ export function middleware(request: NextRequest) {
   // ──────────────────────────────────────────────────────────
   // 1.5. Redirect Help Center to subdomain
   // ──────────────────────────────────────────────────────────
-  const isHelpCenter = pathname === '/help-center' ||
-    pathname.startsWith('/help-center/') ||
-    pathname.startsWith('/in/help-center') ||
-    pathname.startsWith('/global/help-center');
+  // The Help Center reader lives at app/help-center, outside /global and /in.
+  // Route only this namespace directly; its reader decides whether a slug exists.
+  const helpCenterAlias = pathname.match(/^\/(?:in|global)(\/help-center(?:\/.*)?)$/);
+  if (helpCenterAlias) {
+    const url = request.nextUrl.clone();
+    url.pathname = helpCenterAlias[1];
+    return NextResponse.redirect(url, 301);
+  }
+  if (pathname === '/help-center' || pathname.startsWith('/help-center/')) {
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-pathname', pathname);
+    const response = NextResponse.next({ request: { headers: requestHeaders } });
+    setGeoHeaders(response, false);
+    return response;
+  }
 
   // if (isHelpCenter) {
   //   const searchParams = request.nextUrl.search;
