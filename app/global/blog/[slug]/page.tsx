@@ -86,7 +86,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) notFound();
 
   const url = `${BASE_URL}/blog/${post.slug}`;
-  const html = portableToHtml(post.body);
+  const html = portableToHtml(post.body, true);
   const heroImg = imageUrl(post.mainImage, 1600);
   const ogImg = imageUrl(post.mainImage, 1200, 630, 'crop') || `${BASE_URL}/og-image.jpg`;
   const description = sanitizeBlogDescription(post.seoDescription || post.excerpt);
