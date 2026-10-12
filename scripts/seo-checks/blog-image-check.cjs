@@ -8,6 +8,7 @@ function load(file) {
   const context = {exports:{},URL,Buffer,console,process:{env:{}},require:(name) => {
     if (name === 'server-only') return {};
     if (name === './image') return load('lib/sanity/image.ts');
+    if (name === '../seo/blog-urls') return load('lib/seo/blog-urls.ts');
     return require(name);
   }};
   vm.runInNewContext(ts.transpileModule(fs.readFileSync(file,'utf8'),{
@@ -16,7 +17,7 @@ function load(file) {
   cache.set(file,context.exports);
   return context.exports;
 }
-const {portableToHtml} = load('lib/sanity/portableToHtml.ts');
+const {portableToHtml, leadBlogImage} = load('lib/sanity/portableToHtml.ts');
 const image = {_type:'image',_key:'lead',asset:{_ref:'image-7b2c435f53c61d357f134489a8f9385cd172ba5f-802x400-png'},alt:'Balcony "dimensions"',caption:'A <measured> image'};
 const paragraph = {_type:'block',_key:'intro',style:'normal',markDefs:[],children:[{_type:'span',_key:'text',text:'The article still explains the dimensions.',marks:[]}]};
 const html = portableToHtml([image,paragraph,{...image,_key:'later'}],true);
@@ -38,4 +39,9 @@ assert.match(crop,/width="401" height="400"/);
 const missing = portableToHtml([{_type:'image',alt:'Missing asset'}]);
 assert.equal(missing,'');
 assert.equal(portableToHtml(null),'');
+assert.equal(leadBlogImage([paragraph,image]),null);
+assert.equal(leadBlogImage(null),null);
+assert.match(leadBlogImage([image]).srcSet,/320w, .*480w, .*640w, .*802w/);
+const table = '<table><tr><td>Original dimensions</td></tr></table>';
+assert.equal(portableToHtml([{ _type: 'htmlTable', htmlCode: table }]), `<div class="blog-table-wrap">${table}</div>`);
 console.log('Blog image checks passed: real asset dimensions, responsive capped sizes, lead-only priority, crop ratio, fallback, caption escaping and article text.');

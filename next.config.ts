@@ -3,6 +3,10 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  // Let blog middleware combine slash, locale and legacy-archive aliases.
+  // The fallback redirect below preserves slash behavior for all other routes.
+  skipTrailingSlashRedirect: true,
+
   // Exclude old src directory from build
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 
@@ -33,11 +37,15 @@ const nextConfig: NextConfig = {
       ['smart-room-styler', 'room-styler'],
     ];
 
-    return productAliases.flatMap(([alias, destination]) => [
+    return [...productAliases.flatMap(([alias, destination]) => [
       { source: `/products/${alias}`, destination: `/products/${destination}`, permanent: true },
       { source: `/global/products/${alias}`, destination: `/products/${destination}`, permanent: true },
       { source: `/in/products/${alias}`, destination: `/in/products/${destination}`, permanent: true },
-    ]);
+    ]), {
+      source: '/:path((?!blog(?:/|$)|in/blog(?:/|$)|global/blog(?:/|$)).+)/',
+      destination: '/:path',
+      permanent: true,
+    }];
   },
 
   // Redirects for old blog posts

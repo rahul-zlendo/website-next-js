@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock } from 'lucide-react';
+import { preconnect, preload } from 'react-dom';
 import { readClient } from '@/lib/sanity/client';
 import { imageUrl } from '@/lib/sanity/image';
-import { portableToHtml } from '@/lib/sanity/portableToHtml';
+import { leadBlogImage, portableToHtml } from '@/lib/sanity/portableToHtml';
 import { blogPostBySlugQuery, blogPostSlugsQuery } from '@/lib/sanity/queries';
 import { BlogBreadcrumb, BlogPostBody } from '@/components/blog';
 import JsonLd from '@/components/common/JsonLd';
@@ -84,6 +85,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const { slug } = await params;
   const post = await getPost(slug);
   if (!post) notFound();
+
+  const leadImage = leadBlogImage(post.body);
+  if (leadImage) {
+    preconnect('https://cdn.sanity.io');
+    preload(leadImage.src, { as: 'image', fetchPriority: 'high', imageSrcSet: leadImage.srcSet, imageSizes: leadImage.sizes });
+  }
 
   const url = `${BASE_URL}/blog/${post.slug}`;
   const html = portableToHtml(post.body, true);

@@ -4,7 +4,12 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { MessageCircle, ChevronUp } from 'lucide-react';
-import ChatWidget from './ChatWidget';
+import dynamic from 'next/dynamic';
+
+const ChatWidget = dynamic(() => import('./ChatWidget'), {
+    ssr: false,
+    loading: () => <div role="status" className="rounded-2xl bg-white p-6 shadow-xl">Opening chat…</div>,
+});
 
 function getCookie(name: string): string | null {
     if (typeof document === 'undefined') return null;
@@ -69,6 +74,9 @@ const ScrollToTop = () => {
 
         // Don't auto-open on mobile devices (width < 768px)
         const isMobile = window.innerWidth < 768;
+
+        // Blog reading stays uninterrupted; chat loads when the reader opens it.
+        if (/^\/(?:in\/|global\/)?blog(?:\/|$)/.test(pathname || '')) return;
 
         // Don't auto-open when the India welcome popup will show — one popup at a time
         if (isIndiaPopupEligible(pathname)) {

@@ -1,17 +1,20 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { cache } from 'react';
+import { notFound } from 'next/navigation';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { readClient } from '@/lib/sanity/client';
 import { imageUrl } from '@/lib/sanity/image';
 import { blogPostsPageQuery, blogPostsCountQuery, POSTS_PER_PAGE } from '@/lib/sanity/queries';
 import { sanitizeBlogDescription } from '@/lib/sanity/sanitizeContent';
 import { BlogHero, Pagination } from '@/components/blog';
+import { blogPagePath, parseBlogPage } from '@/lib/seo/blog-urls';
 
 export const revalidate = 600; // 10 min ISR
 
 const BASE_URL = 'https://zlendorealty.com';
 
-export const metadata: Metadata = {
+const blogMetadata: Metadata = {
   title: 'Blog | Zlendo Realty',
   description:
     'Home design, vastu, interiors, construction and AI design insights from the Zlendo Realty team.',
@@ -32,6 +35,34 @@ export const metadata: Metadata = {
   },
 };
 
+type BlogSearchParams = Promise<{ page?: string | string[] }>;
+const getPageData = cache((current: number) => {
+  const start = (current - 1) * POSTS_PER_PAGE;
+  const end = start + POSTS_PER_PAGE;
+  return readClient.fetch<{ total: number; posts: PostCard[] }>(
+    `{ "total": ${blogPostsCountQuery}, "posts": ${blogPostsPageQuery} }`, { start, end },
+  );
+});
+
+async function getPageNumber(searchParams: BlogSearchParams) {
+  const current = parseBlogPage((await searchParams).page);
+  if (current === null || current > Math.floor(Number.MAX_SAFE_INTEGER / POSTS_PER_PAGE)) notFound();
+  const { total, posts } = await getPageData(current);
+  const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
+  if (current > totalPages) notFound();
+  return { current, totalPages, posts };
+}
+
+export async function generateMetadata({ searchParams }: { searchParams: BlogSearchParams }): Promise<Metadata> {
+  const { current } = await getPageNumber(searchParams);
+  const url = `${BASE_URL}${blogPagePath(current)}`;
+  return {
+    ...blogMetadata,
+    alternates: { canonical: url, languages: { 'x-default': url, en: url } },
+    openGraph: { ...blogMetadata.openGraph, url },
+  };
+}
+
 interface PostCard {
   slug: string;
   title: string;
@@ -51,19 +82,9 @@ function formatDate(d?: string): string {
 export default async function BlogIndexPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: BlogSearchParams;
 }) {
-  const { page } = await searchParams;
-  const current = Math.max(1, parseInt(page || '1', 10) || 1);
-  const start = (current - 1) * POSTS_PER_PAGE;
-  const end = start + POSTS_PER_PAGE;
-
-  const client = readClient;
-  const [posts, total] = await Promise.all([
-    client.fetch<PostCard[]>(blogPostsPageQuery, { start, end }),
-    client.fetch<number>(blogPostsCountQuery),
-  ]);
-  const totalPages = Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
+  const { current, totalPages, posts } = await getPageNumber(searchParams);
 
   return (
     <div className="flex-1 w-full bg-white">

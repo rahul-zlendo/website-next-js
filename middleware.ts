@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { normalizeBlogUrl } from './lib/seo/blog-urls';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  const canonicalBlogUrl = normalizeBlogUrl(new URL(request.url));
+  if (canonicalBlogUrl) return NextResponse.redirect(canonicalBlogUrl, 308);
 
   // ──────────────────────────────────────────────────────────
   // 1. Skip static files, API routes, Next.js internals
@@ -376,11 +380,6 @@ export function middleware(request: NextRequest) {
   // WordPress URLs keep serving old content in parallel with these new ones
   // instead of 301ing into them. See scripts/migration/blog-production-cutover-plan.md.
   // ──────────────────────────────────────────────────────────
-  if (pathname.startsWith('/in/blog') || pathname.startsWith('/global/blog')) {
-    const url = request.nextUrl.clone();
-    url.pathname = pathname.replace('/in/blog', '/blog').replace('/global/blog', '/blog');
-    return NextResponse.redirect(url, 301);
-  }
   if (pathname === '/blog' || pathname.startsWith('/blog/')) {
     const url = request.nextUrl.clone();
     url.pathname = `/global${pathname}`;
