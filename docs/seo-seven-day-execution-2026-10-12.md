@@ -46,3 +46,7 @@ Technical owner: confirm production publishes the tested source, collapse upstre
 SEO owner: finish the eleven canonical inspections when Search Console browser access returns; decide the tutorial locale relationship; enrich the 199 missing-HTML dispositions with traffic, backlinks and original content; prioritize the 53 AI/product/support URLs. Restart applicable validation only after the relevant public checks pass. Existing validation was not restarted prematurely.
 
 Google references: [canonical consolidation](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls), [Core Web Vitals](https://developers.google.com/search/docs/appearance/core-web-vitals).
+
+## Source release status
+
+Implementation commit `cd80425` was merged with the newly published Smart Wizard changes and pushed to `origin/global_dev` as `8cefc04`. Local and remote branch hashes matched after push. The first public acceptance check after push still showed the previous behavior: `/blog/page/29/` and the regional article slash URL redirected only to their slashless equivalents, page 2 canonicalized to `/blog`, and page 9999 returned 200. Production publication is therefore unconfirmed; do not restart affected validation on this evidence. The temporary local test server was stopped and the mobile browser viewport restored.
