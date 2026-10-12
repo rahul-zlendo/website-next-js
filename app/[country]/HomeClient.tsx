@@ -224,6 +224,14 @@ export default function HomeClient({
                         {heroSubtitleText}
                     </motion.p>
 
+                    <p className="mx-auto mb-6 max-w-3xl text-sm font-medium text-zlendo-grey-medium">
+                        Still deciding on a layout?{' '}
+                        <Link href={getPath('/products/smart-wizard')} className="font-bold text-zlendo-teal underline underline-offset-4">
+                            Compare five home layout concepts with Smart Wizard
+                        </Link>{' '}
+                        before you start drawing.
+                    </p>
+
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}

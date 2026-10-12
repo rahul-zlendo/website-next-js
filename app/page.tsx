@@ -7,6 +7,8 @@ import GlobalLayout from './global/layout';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
+  title: 'AI & 3D Home Design Software – Virtual Home Design Online',
+  description: 'Zlendo Realty is AI home design software and 3D home design software in one: turn floor plans into 3D models, renders and virtual home design walkthroughs online.',
   alternates: {
     canonical: 'https://zlendorealty.com',
     languages: {

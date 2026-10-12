@@ -85,6 +85,14 @@ export default function FloorPlannerClient({
                             <span className="opacity-60 text-base md:text-lg">{heroSubtitlePath2}</span>
                         </p>
 
+                        <p className="mb-8 text-base font-medium text-zlendo-grey-medium">
+                            Need a starting layout?{' '}
+                            <Link href="/in/products/smart-wizard" className="font-bold text-zlendo-teal underline underline-offset-4">
+                                Compare five home layout concepts with Smart Wizard
+                            </Link>{' '}
+                            before drawing your floor plan.
+                        </p>
+
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
                             <a
                                 href={SIGNUP_URL}

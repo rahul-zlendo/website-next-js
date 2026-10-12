@@ -6,11 +6,52 @@ function escapeAttr(s: string): string {
   return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+// The CDN URL encodes the real source dimensions and any applied crop rectangle.
+// Unknown sources retain their existing markup rather than an invented ratio.
+function imageDimensions(src: string): { width: number; height: number } | null {
+  try {
+    const url = new URL(src);
+    if (url.hostname !== 'cdn.sanity.io') return null;
+    const match = url.pathname.match(/-(\d+)x(\d+)\.[a-z0-9]+$/i);
+    if (!match) return null;
+    let width = Number(match[1]);
+    let height = Number(match[2]);
+    const rect = url.searchParams.get('rect');
+    if (rect) {
+      const values = rect.split(',').map(Number);
+      if (values.length !== 4 || !values.every(Number.isFinite)) return null;
+      [, , width, height] = values;
+    }
+    if (width <= 0 || height <= 0) return null;
+    const renderedWidth = Math.min(width, 1200);
+    return { width: renderedWidth, height: Math.max(1, Math.round(height * renderedWidth / width)) };
+  } catch {
+    return null;
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function renderImage(value: any, priority = false): string {
+  const src = imageUrl(value, 1200);
+  if (!src) return '';
+  const alt = value?.alt ? escapeAttr(value.alt) : '';
+  const caption = value?.caption ? `<figcaption>${escapeAttr(value.caption)}</figcaption>` : '';
+  const dimensions = imageDimensions(src);
+  let responsive = '';
+  if (dimensions) {
+    const widths = [...new Set([320, 480, 640, 960, dimensions.width].filter(width => width <= dimensions.width))].sort((a, b) => a - b);
+    const srcset = widths.map(width => `${escapeAttr(imageUrl(value, width))} ${width}w`).join(', ');
+    responsive = ` width="${dimensions.width}" height="${dimensions.height}" srcset="${srcset}" sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 720px, 768px"`;
+  }
+  const loading = priority ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+  return `<figure><img src="${escapeAttr(src)}" alt="${alt}"${responsive} ${loading} style="max-width:100%;height:auto" />${caption}</figure>`;
+}
+
 /**
  * Convert a Sanity Portable Text body to an HTML string so it can be rendered
  * by the existing <BlogPostBody> prose component (same styling as Help Center).
  *
- * - `image` blocks resolve to the Sanity CDN (auto format, max 1200px wide).
+ * - `image` blocks reserve their measured space and offer responsive CDN sizes.
  * - `link` marks open external URLs in a new tab.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -81,11 +122,7 @@ const components: Partial<PortableTextHtmlComponents> = {
   types: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     image: ({ value }: { value: any }) => {
-      const src = imageUrl(value, 1200);
-      if (!src) return '';
-      const alt = value?.alt ? escapeAttr(value.alt) : '';
-      const caption = value?.caption ? `<figcaption>${escapeAttr(value.caption)}</figcaption>` : '';
-      return `<figure><img src="${src}" alt="${alt}" loading="lazy" />${caption}</figure>`;
+      return renderImage(value);
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     youtube: ({ value }: { value: any }) => {
@@ -161,7 +198,13 @@ const components: Partial<PortableTextHtmlComponents> = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function portableToHtml(blocks: any[] | null | undefined): string {
+export function portableToHtml(blocks: any[] | null | undefined, prioritizeLeadImage = false): string {
   if (!blocks || blocks.length === 0) return '';
-  return toHTML(blocks, { components });
+  return toHTML(blocks, { components: {
+    ...components,
+    types: {
+      ...components.types,
+      image: ({ value, index }) => renderImage(value, prioritizeLeadImage && index === 0),
+    },
+  } });
 }
