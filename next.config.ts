@@ -36,6 +36,7 @@ const nextConfig: NextConfig = {
       ['2d-to-3d-converter', '2d-to-3d'],
       ['smart-room-styler', 'room-styler'],
     ];
+    const productAliasPattern = productAliases.map(([alias]) => alias).join('|');
 
     return [...productAliases.flatMap(([alias, destination]) =>
       ['', '/global', '/in'].flatMap(prefix => ['', '/'].map(slash => ({
@@ -44,7 +45,9 @@ const nextConfig: NextConfig = {
         permanent: true,
       }))),
     ), {
-      source: '/:path((?!blog(?:/|$)|in/blog(?:/|$)|global/blog(?:/|$)).+)/',
+      // Keep explicit mappings disjoint from the generic slash rule: the CDN
+      // can evaluate that rule before the mappings even when local Next does not.
+      source: `/:path((?!(?:in/|global/)?(?:blog(?:/|$)|products/(?:${productAliasPattern})/?$)).+)/`,
       destination: '/:path',
       permanent: true,
     }];
