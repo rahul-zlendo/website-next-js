@@ -24,6 +24,19 @@ for (const value of ['', '0', '-1', '2x', '1.5', 'Infinity', '9007199254740992',
   assert.equal(parseBlogPage(value), null, String(value));
 }
 for (const cookie of ['', 'zl_country_choice=in', 'zl_country_choice=global']) {
+  const businessAlias = middleware(new NextRequest('https://zlendorealty.com/us/business/nri-remote-planning?utm_source=test', { headers: { cookie } }));
+  assert.equal(businessAlias.status, 301);
+  assert.equal(businessAlias.headers.get('location'), 'https://zlendorealty.com/business?utm_source=test');
+  for (const prefix of ['', '/in', '/global']) {
+    for (const slash of ['', '/']) {
+      const response = middleware(new NextRequest(`https://zlendorealty.com${prefix}/blog${slash}?page=&utm_source=test`, { headers: { cookie } }));
+      const destination = new URL(response.headers.get('x-middleware-rewrite'));
+      assert.equal(destination.pathname, '/global/blog');
+      assert.equal(destination.searchParams.get('page'), '0', 'Explicit empty pagination must reach the reader as invalid');
+      assert.equal(destination.searchParams.get('utm_source'), 'test');
+      assert.equal(response.headers.get('location'), null);
+    }
+  }
   for (const prefix of ['', '/in', '/global']) {
     for (const slash of ['', '/']) {
       for (const [path, expected] of [

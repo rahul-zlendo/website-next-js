@@ -37,11 +37,13 @@ const nextConfig: NextConfig = {
       ['smart-room-styler', 'room-styler'],
     ];
 
-    return [...productAliases.flatMap(([alias, destination]) => [
-      { source: `/products/${alias}`, destination: `/products/${destination}`, permanent: true },
-      { source: `/global/products/${alias}`, destination: `/products/${destination}`, permanent: true },
-      { source: `/in/products/${alias}`, destination: `/in/products/${destination}`, permanent: true },
-    ]), {
+    return [...productAliases.flatMap(([alias, destination]) =>
+      ['', '/global', '/in'].flatMap(prefix => ['', '/'].map(slash => ({
+        source: `${prefix}/products/${alias}${slash}`,
+        destination: `${prefix === '/in' ? '/in' : ''}/products/${destination}`,
+        permanent: true,
+      }))),
+    ), {
       source: '/:path((?!blog(?:/|$)|in/blog(?:/|$)|global/blog(?:/|$)).+)/',
       destination: '/:path',
       permanent: true,

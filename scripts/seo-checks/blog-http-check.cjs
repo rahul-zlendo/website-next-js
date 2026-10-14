@@ -13,12 +13,19 @@ async function trace(path) {
 }
 (async()=>{
  const results=[];
+ const failures=[];
  async function check(path,status,canonical,redirects=0){
   const result=await trace(path);results.push(result);
-  assert.equal(result.status,status,path);
-  assert.equal(result.hops.length-1,redirects,`${path}: redirect count`);
-  if(canonical)assert.equal(result.canonical,`https://zlendorealty.com${canonical}`,`${path}: canonical`);
-  if(status===404)assert.match(result.robots||'',/noindex/,`${path}: missing page must not be indexable`);
+  try {
+   assert.equal(result.status,status,path);
+   assert.equal(result.hops.length-1,redirects,`${path}: redirect count`);
+   if(canonical)assert.equal(result.canonical,`https://zlendorealty.com${canonical}`,`${path}: canonical`);
+   if(status===404)assert.match(result.robots||'',/noindex/,`${path}: missing page must not be indexable`);
+   const input = new URL(origin+path);
+   if(input.searchParams.has('utm_source'))assert.equal(new URL(result.hops.at(-1).url).searchParams.get('utm_source'),input.searchParams.get('utm_source'),`${path}: query preservation`);
+  } catch(error) {
+   failures.push({path,expectedStatus:status,expectedCanonical:canonical||null,expectedRedirects:redirects,message:error.message});
+  }
   return result;
  }
  const first=await check('/blog',200,'/blog');
@@ -37,7 +44,12 @@ async function trace(path) {
  for(const path of ['/blog/no-such-seo-post','/blog/daily-room-rent-in-bangalore-price-insights','/help-center/category/project-cost-estimation'])await check(path,404);
  await check('/help-center/tag/dashboard',200,'/help-center/tag/dashboard');
  await check('/plans/',200,'/plans',1);
- await check('/products/ai-floor-planner/',200,'/products/floor-planner',1);
+ await check('/us/business/nri-remote-planning?utm_source=test',200,'/business',1);
+ for(const [alias,destination] of [['ai-floor-planner','floor-planner'],['2d-to-3d-converter','2d-to-3d'],['smart-room-styler','room-styler']]) {
+  for(const prefix of ['','/global','/in'])for(const slash of ['','/']) {
+   await check(`${prefix}/products/${alias}${slash}?utm_source=test`,200,`${prefix==='/in'?'/in':''}/products/${destination}`,1);
+  }
+ }
  const almirah=await check('/blog/complete-guide-to-standard-almirah-size',200,'/blog/complete-guide-to-standard-almirah-size');
  assert.match(almirah.html,/<div class="blog-table-wrap">/);
  assert.match(almirah.html,/loading="eager" fetchpriority="high"/);
@@ -51,7 +63,10 @@ async function trace(path) {
    await check(url.pathname+url.search,200,canonical,url.pathname.endsWith('/')?1:0);
   }
  }
- const evidence={checkedAt:new Date().toISOString(),origin,passed:results.length,results:results.map(({html,...result})=>result)};
+ const evidence={checkedAt:new Date().toISOString(),origin,total:results.length,passed:results.length-failures.length,failures,results:results.map(({html,...result})=>result)};
  if(output)fs.writeFileSync(output,JSON.stringify(evidence,null,2));
- console.log(`Passed ${results.length} HTTP checks: distinct pagination, one-hop archives/aliases, invalid-page 404s, missing content, support reader, non-blog redirects and responsive article markup.`);
+ if(failures.length){
+  console.error(`Failed ${failures.length}/${results.length} HTTP checks: ${JSON.stringify(failures)}`);
+  process.exitCode=1;
+ } else console.log(`Passed ${results.length} HTTP checks: distinct pagination, one-hop archives/aliases, invalid-page 404s, missing content, support reader, non-blog redirects and responsive article markup.`);
 })().catch(error=>{console.error(error);process.exitCode=1;});
