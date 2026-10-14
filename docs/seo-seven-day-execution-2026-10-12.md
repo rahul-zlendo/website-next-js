@@ -50,3 +50,18 @@ Google references: [canonical consolidation](https://developers.google.com/searc
 ## Source release status
 
 Implementation commit `cd80425` was merged with the newly published Smart Wizard changes and pushed to `origin/global_dev` as `8cefc04`. Local and remote branch hashes matched after push. The first public acceptance check after push still showed the previous behavior: `/blog/page/29/` and the regional article slash URL redirected only to their slashless equivalents, page 2 canonicalized to `/blog`, and page 9999 returned 200. Production publication is therefore unconfirmed; do not restart affected validation on this evidence. The temporary local test server was stopped and the mobile browser viewport restored.
+
+
+## October 14 execution checkpoint — seven-day window day 2
+
+Refreshed Search Console scopes (data October 9): All known 413 indexed / 955 excluded; submitted 405 / 276; global sitemap 365 / 188; India sitemap 40 / 88; parent scope 405 / 276. Every displayed exclusion and existing validation state is retained in docs/seo-indexing-scorecard-2026-10-14.md. Exact matching of all 413 displayed indexed examples against today's 688 desired URLs yields 405 matches / 283 absent from the dated list; absence is not fresh non-indexing. No all-known subtraction or newly-indexed count is fabricated.
+
+Live sitemap/CMS reconciled: 688 URLs, 418 articles, 270 other pages. The earlier 417 CMS count is explained by the real October 12 AI home-design article; six additional template URLs explain 682→688. All 688 pass 200/self-canonical/indexable checks. Refreshed all 629 ledger URLs with zero reproduced 5xx/probe errors; 199 missing HTML pages still need individual value/backlink/replacement evidence.
+
+Completed the eleven outstanding canonical inspections and separately refreshed India tutorials; all 15 baseline examples now have saved individual results. Google still displays historical duplicate labels, with several N/A/ambiguous selections. Current aliases resolve in one 308 to their canonical. Shared tutorial content and Google's global selection require an owner locale decision. One request for the substantively restored Dashboard guide was accepted after live content/HTTP acceptance; it is queued, not confirmed indexed. No unchanged request/validation restart occurred.
+
+October 12 blog source remains pushed (cd80425 / merge 8cefc04) but fails public pagination/legacy/region/table/preload acceptance. Current repository/origin tip 37ff2c0 matches; public deployment ID remains dpl_8E5jbJgAarhHWJyqNpjt6c12mw3b. Vercel team-scoped lookup still returns 403. Working project access is needed to inspect/publish the real release; no source rewrite or guessed deployment was made.
+
+Mobile field report October 12: 81 URLs need improvement in the same representative group, LCP 2.7 s, INP 210 ms; LCP historical validation Failed and INP already Started. This agent did not start it, and no field pass is claimed. Reprofile production after publication; GTM/Clarity review remains dependent on actual configuration access. Weekly India Web comparison remains due October 15. Automation end/report/pause remains October 19.
+
+Dated screenshots, XML, complete indexed example sets, refreshed 629-URL and 688-desired-URL dispositions, checks and accepted-request proof: artifacts/seo-2026-10-14/. Daily scorecard records evidence, validation, release status and next actions. No application code changed; unrelated local files are preserved.
