@@ -5,10 +5,13 @@ const output=process.argv[3];
 async function trace(path) {
  const hops=[];let url=origin+path;
  for(let i=0;i<5;i++){
-  const response=await fetch(url,{redirect:'manual',signal:AbortSignal.timeout(20000)});const location=response.headers.get('location');hops.push({url,status:response.status,location});
+  const started=Date.now();
+  const response=await fetch(url,{redirect:'manual',signal:AbortSignal.timeout(20000)});const location=response.headers.get('location');
+  hops.push({url,status:response.status,location,checkedAt:new Date().toISOString(),durationMs:Date.now()-started,vercelId:response.headers.get('x-vercel-id'),cache:response.headers.get('x-vercel-cache'),matchedPath:response.headers.get('x-matched-path')});
   if(location&&response.status>=300&&response.status<400){await response.body?.cancel();url=new URL(location,url).href;continue;}
   const html=await response.text();
-  return {path,hops,status:response.status,canonical:html.match(/<link[^>]*rel="canonical"[^>]*href="([^"]+)"/)?.[1]||null,robots:html.match(/<meta[^>]*name="robots"[^>]*content="([^"]+)"/)?.[1]||null,articleLinks:[...new Set([...html.matchAll(/href="(\/blog\/[^"?#]+)"/g)].map(x=>x[1]))],html};
+  const serverError=response.status>=500?{title:html.match(/<title>([^<]*)<\/title>/)?.[1]||null,digests:[...new Set([...html.matchAll(/digest[^0-9]{1,12}(\d{5,})/g)].map(match=>match[1]))],body:html.slice(0,8192)}:undefined;
+  return {path,hops,status:response.status,canonical:html.match(/<link[^>]*rel="canonical"[^>]*href="([^"]+)"/)?.[1]||null,robots:html.match(/<meta[^>]*name="robots"[^>]*content="([^"]+)"/)?.[1]||null,articleLinks:[...new Set([...html.matchAll(/href="(\/blog\/[^"?#]+)"/g)].map(x=>x[1]))],serverError,html};
  }throw new Error(`${path}: redirect limit`);
 }
 (async()=>{
