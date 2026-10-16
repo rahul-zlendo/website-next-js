@@ -64,7 +64,7 @@ import CaseStudySection from '@/components/common/CaseStudySection';
 ```typescript
 // layout.tsx
 export const metadata: Metadata = {
-    title: 'Design and Build Services & Remote Home Planning | Zlendo Realty',
+    title: 'Design and Build Services & Remote Home Planning',
     description: 'Experience seamless design and build services from anywhere in the world. Zlendo Realty empowers NRI home planning with 3D property visualization and global collaboration.',
     keywords: [
         'design and build services',

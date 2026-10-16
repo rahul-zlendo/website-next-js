@@ -47,9 +47,12 @@ export interface CompareSubscriptionsResponse {
   [key: string]: any;
 }
 
-export const getAllSubscriptionsService = async (): Promise<Subscription[]> => {
+export const getAllSubscriptionsService = async (countryId?: number): Promise<Subscription[]> => {
   try {
-    const response = await axiosInstance.get('/SubscriptionMaster/GetSubscriptionPlansWithFeatures');
+    const url = countryId
+      ? `/SubscriptionMaster/GetSubscriptionPlansWithFeatures?CountryId=${countryId}&PlanTypeId=1`
+      : '/SubscriptionMaster/GetSubscriptionPlansWithFeatures?CountryId=1&PlanTypeId=1';
+    const response = await axiosInstance.get(url);
     return response.data;
   } catch (error) {
     console.error('Error fetching subscriptions:', error);

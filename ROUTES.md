@@ -132,7 +132,7 @@ import type { Metadata } from 'next';
 // ... imports
 
 export const metadata: Metadata = {
-  title: 'Page Title | Zlendo Realty',
+  title: 'Page Title',
   description: '...',
   // ... SEO metadata
 };

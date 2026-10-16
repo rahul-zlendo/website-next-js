@@ -11,9 +11,9 @@ const initialState = {
  
 export const getAllTemplates = createAsyncThunk(
   "/TemplateMaster/GetAllActiveTemplate",
-  async (_, { rejectWithValue }) => {
+  async (regionId: number | undefined, { rejectWithValue }) => {
     try {
-      const response = await templateService.getAllTemplatesService();
+      const response = await templateService.getAllTemplatesService(regionId);
       return response;
     } catch (e: unknown) {
       if (e instanceof Error) {

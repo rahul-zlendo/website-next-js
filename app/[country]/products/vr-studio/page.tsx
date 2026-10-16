@@ -1,0 +1,165 @@
+import { Metadata } from 'next';
+import { draftMode } from 'next/headers';
+import { getClient } from '@/lib/sanity/client';
+import { vrStudioPageQuery } from '@/lib/sanity/queries';
+import VRStudioClient from './VRStudioClient';
+import JsonLd from '@/components/common/JsonLd';
+import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
+import { createPageMetadata } from '@/lib/seo/metadata';
+
+export const revalidate = 60;
+
+interface Props {
+    params: Promise<{ country: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { country } = await params;
+    const isGlobal = country === 'global';
+    const path = isGlobal ? '/products/vr-studio' : '/in/products/vr-studio';
+    const { isEnabled: preview } = await draftMode();
+
+    let cmsSeo: any = null;
+    try {
+        cmsSeo = await getClient(preview).fetch(vrStudioPageQuery);
+    } catch { /* fallback */ }
+
+    let title = cmsSeo?.seoTitle || "8K VR Studio - Immersive Home Experiences";
+    const description = cmsSeo?.seoDescription || "Step inside your design with hyper-realistic VR. Compatible with Meta Quest, Apple Vision Pro, and web browsers.";
+
+    return createPageMetadata({
+        title,
+        description,
+        path,
+        ogImage: {
+            url: 'https://zlendorealty.com/assets/vr-studio/hero-vr.webp',
+            width: 1200,
+            height: 630,
+            alt: 'Zlendo Realty 8K VR Studio',
+            type: 'image/webp',
+        },
+    });
+}
+
+export default async function VRStudioPage({ params }: Props) {
+    const { country } = await params;
+    const isGlobal = country === 'global';
+    const cleanPath = isGlobal ? '/products/vr-studio' : '/in/products/vr-studio';
+    const fullUrl = `https://zlendorealty.com${cleanPath}`;
+    const { isEnabled: preview } = await draftMode();
+    const cms: any = await getClient(preview).fetch(vrStudioPageQuery).catch(() => null);
+
+    const defaultFaqs = [
+        { q: "What hardware headsets are compatible?", a: "We natively support the Meta Quest series and Apple Vision Pro. You can also view VR links on any modern web browser using desktop navigation." },
+        { q: "Is the VR environment rendered locally or in the cloud?", a: "To ensure maximum visual fidelity without requiring a powerful gaming PC, our 8K environments are rendered on our secure cloud architecture and streamed instantly." },
+        { q: "Can I swap materials while inside the VR headset?", a: "Yes! Our platform supports dynamic real-time texture and fixture swapping so you and your clients can experiment with different finishes natively in VR." },
+        { q: "Are multi-user sessions supported?", a: "Absolutely. You can invite your clients into the same virtual environment remotely and guide them through the space." }
+    ];
+
+    const defaultSteps = [
+        {
+            title: 'Import Model',
+            desc: 'Load your 3D model into our VR engine.',
+            image: '/assets/vr-studio/import-model.webp',
+            alt: 'Importing 3D architecture model into virtual reality engine'
+        },
+        {
+            title: 'Configure Environment',
+            desc: 'Set lighting, weather, and time of day.',
+            image: '/assets/vr-studio/configure-env.webp',
+            alt: 'Configuring realistic lighting and environment in VR studio'
+        },
+        {
+            title: 'Generate Link',
+            desc: 'Create a shareable web link for instant access.',
+            image: '/assets/vr-studio/generate-link.webp',
+            alt: 'Generating shareable 3D VR walkthrough link'
+        },
+        {
+            title: 'Enter VR',
+            desc: 'Put on your headset and step inside.',
+            image: '/assets/vr-studio/enter-vr.webp',
+            alt: 'Experiencing immersive 3D house tour in virtual reality'
+        }
+    ];
+
+    const defaultFeatures = [
+        { title: 'Immersive Walkthrough', desc: 'Full 6DOF movement within your designed space.' },
+        { title: 'Material Swapping', desc: 'Change floors and walls in real-time while in VR.' },
+        { title: 'Cloud Rendering', desc: 'Stream high-fidelity visuals without a powerful PC.' },
+        { title: 'Multi-User', desc: 'Invite clients to walk through the design with you.' }
+    ];
+
+    const resolvedFaqs = cms?.faqs?.length
+        ? cms.faqs.map((f: any) => ({ q: f.question, a: f.answer }))
+        : defaultFaqs;
+
+    const resolvedSteps = cms?.steps?.length ? cms.steps : defaultSteps;
+    const resolvedFeatures = cms?.features?.length ? cms.features : defaultFeatures;
+
+    const faqSchema = {
+        "@context": "https://schema.org/",
+        "@type": "FAQPage",
+        "name": "Zlendo Realty Products VR Studio - Frequently Asked Questions",
+        "mainEntity": resolvedFaqs.map((faq: any) => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    };
+
+    const softwareApplicationSchema = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Zlendo Realty 8K VR Studio",
+        "applicationCategory": "DesignApplication",
+        "applicationSubCategory": "Virtual Reality Visualization Software",
+        "operatingSystem": "Web",
+        "url": fullUrl,
+        "description": "8K virtual reality studio that lets users step inside their 3D home designs with full 6DOF movement, real-time material swapping, cloud rendering, and multi-user walkthroughs, compatible with Meta Quest, Apple Vision Pro, and web browsers.",
+        "image": "https://zlendorealty.com/favicon.ico",
+        "softwareVersion": "1.0",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free to start with premium high-res VR rendering on paid plans"
+        },
+        "aggregateRating": ZLENDO_AGGREGATE_RATING,
+        "creator": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Zlendo Realty",
+            "url": "https://zlendorealty.com"
+        },
+        "featureList": [
+            "Immersive 6DOF VR walkthroughs",
+            "Real-time material swapping",
+            "Cloud-streamed high-fidelity rendering",
+            "Multi-user shared VR sessions",
+            "Meta Quest and Apple Vision Pro support",
+            "Browser-based VR access"
+        ]
+    };
+
+    return (
+        <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
+            <JsonLd schema={faqSchema} />
+            <VRStudioClient
+                cms={cms}
+                resolvedFaqs={resolvedFaqs}
+                resolvedSteps={resolvedSteps}
+                resolvedFeatures={resolvedFeatures}
+            />
+        </>
+    );
+}
+

@@ -7,9 +7,13 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 interface ComparePlansProps {
     compareData: any[]; // The structured Array of main features with subFeatures and plans
     plansList: any[]; // The filtered list of plans to display (e.g., Free, Pro, Pro Plus)
+    billingCycle?: string;
+    isSubscriptionChecked?: boolean;
+    activeOffer?: any;
+    isGlobal?: boolean;
 }
 
-const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList }) => {
+const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, billingCycle = 'monthly', isSubscriptionChecked = false, activeOffer = null, isGlobal = false }) => {
     // Keep track of which main features are expanded
     // Expanding all by default
     const [expandedSections, setExpandedSections] = useState<Record<number, boolean>>(
@@ -66,21 +70,86 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList }) =
                         <div className="w-1/4 pt-4 uppercase text-xs font-black text-gray-400 tracking-wider flex items-end">
                             Feature List
                         </div>
-                        {plansList.map(plan => (
-                            <div key={plan.planId} className="w-1/4 text-center">
-                                <h3 className="text-lg font-black text-zlendo-grey-dark">{plan.planName}</h3>
-                                {plan.planName.toLowerCase() !== 'free' ? (
-                                    <div className="mt-1 flex flex-col items-center justify-center">
-                                        <span className="text-sm font-bold text-zlendo-teal">₹{plan.price} /Month</span>
-                                        {/* <span className="text-xs font-bold text-zlendo-teal">₹{plan.yearlyPrice} /Yearly</span> */}
-                                    </div>
-                                ) : (
-                                    <div className="mt-1 h-10 flex items-center justify-center">
-                                        {/* Spacer to align free with others */}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
+                        {plansList.map(plan => {
+                            const isFree = plan.planName?.toLowerCase() === 'free';
+                            const isYearly = billingCycle === 'yearly';
+                            
+                            let normalPrice = 0;
+                            let periodLabel = '';
+
+                            if (!isSubscriptionChecked) {
+                                if (!isYearly) {
+                                    normalPrice = Number(plan.price) || 0;
+                                    periodLabel = 'Month';
+                                } else {
+                                    normalPrice = Number(plan.yearPrice) || 0;
+                                    periodLabel = 'Year';
+                                }
+                            } else {
+                                if (!isYearly) {
+                                    normalPrice = Number(plan.monthPrice) || 0;
+                                    periodLabel = 'Monthly';
+                                } else {
+                                    normalPrice = Number(plan.yearlyPrice) || 0;
+                                    periodLabel = 'Yearly';
+                                }
+                            }
+                            
+                            let discountedPrice = normalPrice;
+                            let hasDiscount = false;
+                            let discountLabel = '';
+
+                            if (activeOffer && !isFree) {
+                                if (activeOffer.offerType === 'Percentage') {
+                                    discountedPrice = normalPrice * (1 - (activeOffer.discountValue / 100));
+                                    hasDiscount = true;
+                                    discountLabel = `${activeOffer.discountValue}% OFF`;
+                                } else if (activeOffer.offerType === 'Flat') {
+                                    const rawDiscountedPrice = normalPrice - activeOffer.discountValue;
+                                    if (rawDiscountedPrice >= 0) {
+                                        discountedPrice = rawDiscountedPrice;
+                                        hasDiscount = true;
+                                        const percentageOff = Math.round((activeOffer.discountValue / normalPrice) * 100);
+                                        discountLabel = `${percentageOff}% OFF`;
+                                    }
+                                }
+                                discountedPrice = Math.round(discountedPrice);
+                            }
+
+                            const displayPrice = discountedPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
+                            const originalPriceFormatted = normalPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
+                            // periodLabel set above
+
+                            return (
+                                <div key={plan.planId} className="w-1/4 text-center">
+                                    <h3 className="text-lg font-black text-zlendo-grey-dark">{plan.planName}</h3>
+                                    {isFree ? (
+                                        <div className="mt-1 h-16 flex flex-col items-center justify-center">
+                                            {/* No amount or subtitle for free plan */}
+                                        </div>
+                                    ) : (
+                                        <div className="mt-1 h-16 flex flex-col items-center justify-center">
+                                            {hasDiscount && (
+                                                <div className="flex items-center gap-1.5 mb-0.5">
+                                                    <span className="text-xs font-bold text-gray-400 line-through opacity-60">
+                                                        {plan.symbol || '₹'}{originalPriceFormatted}
+                                                    </span>
+                                                    <span className="px-1.5 py-0.5 bg-emerald-50 text-emerald-600 rounded-md text-[9px] font-black">
+                                                        {discountLabel}
+                                                    </span>
+                                                </div>
+                                            )}
+                                            <div className="flex items-baseline gap-1">
+                                                <span className="text-xl font-black text-zlendo-teal">
+                                                    {plan.symbol || '₹'}{displayPrice}
+                                                </span>
+                                                <span className="text-[10px] font-bold text-gray-400 opacity-60">/{periodLabel}</span>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
                     </div>
 
                     {/* Features Body */}

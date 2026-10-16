@@ -7,16 +7,16 @@ import PolicySidebar from '@/components/policies/PolicySidebar';
 import { ChevronRight, Home, RefreshCw } from 'lucide-react';
 
 export default function RefundPolicyPage() {
-    const { getPath } = useCountry();
+    const { getPath, country } = useCountry();
 
     const policy = {
         id: 'refund-policy',
         slug: 'refund-policy',
-        title: 'Refund & Cancellation Policy',
+        title: country === 'in' ? 'Platform Refund & Cancellation Policy' : 'Refund & Cancellation Policy',
         icon: RefreshCw,
         category: 'service' as const,
         description: 'No refund and no cancellation policy for zlendo realty',
-        lastUpdated: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
+        lastUpdated: 'January 2026',
         sections: [
             {
                 id: 'no-refund',

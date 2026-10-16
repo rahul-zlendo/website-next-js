@@ -8,8 +8,8 @@ import CookieConsent from '@/components/common/CookieConsent';
 
 export const metadata: Metadata = {
     title: {
-        default: 'Help Center | Zlendo Realty',
-        template: '%s | Zlendo Realty Help Center',
+        default: 'Help Center',
+        template: '%s Help Center',
     },
     description: 'Find guides, tutorials, and answers to your questions about Zlendo Realty tools and services.',
 };
@@ -35,3 +35,4 @@ export default function HelpCenterLayout({
         </CountryProvider>
     );
 }
+

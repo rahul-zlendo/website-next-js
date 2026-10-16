@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -30,13 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Realty Service Level Agreement (SLA)',
                 description: 'View the Zlendo Realty SLA, detailing service availability, support timelines, resolution objectives, maintenance responsibilities, and performance standards for our platform users.',
             },
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/sla',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/sla',
-                    'x-default': 'https://zlendorealty.com/in/sla',
-                },
-            },
+            alternates: localeAlternates('/sla', 'in'),
         };
     }
 
@@ -53,7 +48,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             'real estate software sla',
             'business sla solutions',
         ],
-        title: 'Service Level Agreement | Zlendo Realty',
+        title: 'Service Level Agreement',
     };
 }
 
@@ -61,3 +56,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

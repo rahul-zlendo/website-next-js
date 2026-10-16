@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
-  title: 'Custom Home Plans & Modern House Elevation | Zlendo Realty',
+  title: 'Custom Home Plans & Modern House Elevation',
   description:
     'Design your dream home with custom home plans and modern house elevation designs. See your new build in 3D before a single brick is laid.',
   keywords: [
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
     'home construction planning',
   ],
   openGraph: {
-    title: 'Custom Home Plans & Modern House Elevation | Zlendo Realty',
+    title: 'Custom Home Plans & Modern House Elevation',
     description:
       'Build your dream from the ground up. Visualize every detail of your new home construction to ensure a perfect build with Zlendo Realty.',
     url: 'https://zlendorealty.com/in/use-case/new-home-building',
@@ -35,16 +36,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Custom Home Plans & Modern House Elevation | Zlendo Realty',
+    title: 'Custom Home Plans & Modern House Elevation',
     description: 'Design your dream home with custom home plans and see your new build in 3D before construction begins.',
   },
-  alternates: {
-    canonical: 'https://zlendorealty.com/in/use-case/new-home-building',
-    languages: {
-      'en-IN': 'https://zlendorealty.com/in/use-case/new-home-building',
-      'x-default': 'https://zlendorealty.com/in/use-case/new-home-building',
-    },
-  },
+  alternates: indiaOnlyAlternates('/use-case/new-home-building'),
 };
 
 export default function NewHomeBuildingLayout({

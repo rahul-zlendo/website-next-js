@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
-    title: 'Home Remodeling & Renovation Services | Zlendo Realty',
+    title: 'Home Remodeling & Renovation Services',
     description:
         'Transform your existing home with AI-powered remodeling tools. Visualize renovations in 3D before you start. Interior and exterior redesign made easy.',
     keywords: [
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
         'ai space planning tool',
     ],
     openGraph: {
-        title: 'Home Remodeling & Renovation | Zlendo Realty',
+        title: 'Home Remodeling & Renovation',
         description: 'Visualize your renovation before you begin. AI-powered 3D remodeling tools for homeowners and professionals.',
         url: 'https://zlendorealty.com/in/use-case/home-remodeling',
         siteName: 'Zlendo Realty',
@@ -33,16 +34,10 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Home Remodeling & Renovation | Zlendo Realty',
+        title: 'Home Remodeling & Renovation',
         description: 'AI-powered renovation planning. Visualize changes in 3D before construction.',
     },
-    alternates: {
-        canonical: 'https://zlendorealty.com/in/use-case/home-remodeling',
-        languages: {
-            'en-IN': 'https://zlendorealty.com/in/use-case/home-remodeling',
-            'x-default': 'https://zlendorealty.com/in/use-case/home-remodeling',
-        },
-    },
+    alternates: indiaOnlyAlternates('/use-case/home-remodeling'),
 };
 
 export default function HomeRemodelingLayout({
