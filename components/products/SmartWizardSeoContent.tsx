@@ -163,7 +163,7 @@ export default function SmartWizardSeoContent({ region = 'global' }: { region?: 
         </div>
       </section>
 
-      <section className="bg-[#f7f8f6] px-4 py-20 lg:py-28">
+      {/* <section className="bg-[#f7f8f6] px-4 py-20 lg:py-28">
         <div className="container-custom mx-auto max-w-4xl">
           <p className="text-center text-xs font-black uppercase tracking-[0.2em] text-zlendo-teal">FAQ</p>
           <h2 className="mt-4 text-center text-3xl font-black tracking-tight sm:text-5xl">AI floor plan generator FAQs</h2>
@@ -176,7 +176,7 @@ export default function SmartWizardSeoContent({ region = 'global' }: { region?: 
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
