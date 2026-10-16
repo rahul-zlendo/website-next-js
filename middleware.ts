@@ -1,8 +1,24 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { normalizeBlogUrl } from './lib/seo/blog-urls';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Keep an explicitly empty page value invalid across the locale rewrite.
+  // Production can omit empty query values before the page reader sees them.
+  if (/^\/(?:in\/|global\/)?blog\/?$/.test(pathname)) {
+    const pageValues = new URL(request.url).searchParams.getAll('page');
+    if (pageValues.length === 1 && pageValues[0] === '') {
+      const invalidPage = new URL(request.url);
+      invalidPage.pathname = '/global/blog';
+      invalidPage.searchParams.set('page', '0');
+      return NextResponse.rewrite(invalidPage);
+    }
+  }
+
+  const canonicalBlogUrl = normalizeBlogUrl(new URL(request.url));
+  if (canonicalBlogUrl) return NextResponse.redirect(canonicalBlogUrl, 308);
 
   // ──────────────────────────────────────────────────────────
   // 1. Skip static files, API routes, Next.js internals
@@ -376,11 +392,6 @@ export function middleware(request: NextRequest) {
   // WordPress URLs keep serving old content in parallel with these new ones
   // instead of 301ing into them. See scripts/migration/blog-production-cutover-plan.md.
   // ──────────────────────────────────────────────────────────
-  if (pathname.startsWith('/in/blog') || pathname.startsWith('/global/blog')) {
-    const url = request.nextUrl.clone();
-    url.pathname = pathname.replace('/in/blog', '/blog').replace('/global/blog', '/blog');
-    return NextResponse.redirect(url, 301);
-  }
   if (pathname === '/blog' || pathname.startsWith('/blog/')) {
     const url = request.nextUrl.clone();
     url.pathname = `/global${pathname}`;
@@ -489,8 +500,9 @@ export function middleware(request: NextRequest) {
     // We only have a dedicated directory for 'in'. Others go to Global.
     if (country !== 'in') {
       const url = request.nextUrl.clone();
-      url.pathname = rest || '/';
-      return NextResponse.redirect(url, 307);
+      const retiredBusinessAlias = rest === '/business/nri-remote-planning';
+      url.pathname = retiredBusinessAlias ? '/business' : rest || '/';
+      return NextResponse.redirect(url, retiredBusinessAlias ? 301 : 307);
     }
   }
 

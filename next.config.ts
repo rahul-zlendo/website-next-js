@@ -3,6 +3,10 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  // Let blog middleware combine slash, locale and legacy-archive aliases.
+  // The fallback redirect below preserves slash behavior for all other routes.
+  skipTrailingSlashRedirect: true,
+
   // Exclude old src directory from build
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 
@@ -32,12 +36,21 @@ const nextConfig: NextConfig = {
       ['2d-to-3d-converter', '2d-to-3d'],
       ['smart-room-styler', 'room-styler'],
     ];
+    const productAliasPattern = productAliases.map(([alias]) => alias).join('|');
 
-    return productAliases.flatMap(([alias, destination]) => [
-      { source: `/products/${alias}`, destination: `/products/${destination}`, permanent: true },
-      { source: `/global/products/${alias}`, destination: `/products/${destination}`, permanent: true },
-      { source: `/in/products/${alias}`, destination: `/in/products/${destination}`, permanent: true },
-    ]);
+    return [...productAliases.flatMap(([alias, destination]) =>
+      ['', '/global', '/in'].flatMap(prefix => ['', '/'].map(slash => ({
+        source: `${prefix}/products/${alias}${slash}`,
+        destination: `${prefix === '/in' ? '/in' : ''}/products/${destination}`,
+        permanent: true,
+      }))),
+    ), {
+      // Keep explicit mappings disjoint from the generic slash rule: the CDN
+      // can evaluate that rule before the mappings even when local Next does not.
+      source: `/:path((?!(?:in/|global/)?(?:blog(?:/|$)|products/(?:${productAliasPattern})/?$)).+)/`,
+      destination: '/:path',
+      permanent: true,
+    }];
   },
 
   // Redirects for old blog posts

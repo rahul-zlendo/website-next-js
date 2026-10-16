@@ -6,7 +6,11 @@ const { NextRequest } = require('next/server');
 const source = ts.transpileModule(fs.readFileSync('middleware.ts', 'utf8'), {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
 }).outputText;
-const context = { exports: {}, require, Headers, URL };
+const blogContext = { exports: {}, URL };
+vm.runInNewContext(ts.transpileModule(fs.readFileSync('lib/seo/blog-urls.ts', 'utf8'), {
+  compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 },
+}).outputText, blogContext);
+const context = { exports: {}, require: name => name === './lib/seo/blog-urls' ? blogContext.exports : require(name), Headers, URL };
 vm.runInNewContext(source, context);
 const { middleware } = context.exports;
 

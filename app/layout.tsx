@@ -4,6 +4,7 @@ import Script from 'next/script';
 
 import './globals.css';
 import { Providers } from './providers';
+import BlogPerformanceProbe from '@/components/common/BlogPerformanceProbe';
 import { generateOrganizationSchema, generateWebSiteSchema, generateSoftwareApplicationSchema, generatePlansSchema } from '@/lib/utils/structuredData';
 
 const outfit = Outfit({
@@ -96,6 +97,15 @@ export default async function RootLayout({
 }>) {
   const headersList = await headers();
   const pathname = headersList.get('x-pathname') || '';
+  const isBlogPage = /^\/(?:in\/|global\/)?blog(?:\/|$)/.test(pathname);
+  const isLocalHost = /^(?:localhost|127\.0\.0\.1)(?::\d+)?$/.test(headersList.get('host') || '');
+  const clarityBootstrap = `
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xggelem96e");
+  `;
 
   const isGlobal = !(pathname === '/in' || pathname.startsWith('/in/'));
 
@@ -116,11 +126,16 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${nunito.variable}`}>
       <head>
-        <script
+        {isBlogPage ? <Script
+          id="toolzbuy-analytics"
+          strategy="lazyOnload"
+          src="https://ahr.toolzbuy.com/_analytics/analytics.js"
+          data-key="nt+UZhGgKHmvtsHfiePGjA"
+        /> : <script
           src="https://ahr.toolzbuy.com/_analytics/analytics.js"
           data-key="nt+UZhGgKHmvtsHfiePGjA"
           async
-        />
+        />}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
@@ -171,18 +186,14 @@ export default async function RootLayout({
               `,
               }}
             />
-            <script
+            {isBlogPage ? <Script
               id="clarity-script"
-              dangerouslySetInnerHTML={{
-                __html: `
-                (function(c,l,a,r,i,t,y){
-                    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-                })(window, document, "clarity", "script", "xggelem96e");
-              `,
-              }}
-            />
+              strategy="lazyOnload"
+              dangerouslySetInnerHTML={{ __html: clarityBootstrap }}
+            /> : <script
+              id="clarity-script"
+              dangerouslySetInnerHTML={{ __html: clarityBootstrap }}
+            />}
           </>
         )}
       </head>
@@ -198,6 +209,7 @@ export default async function RootLayout({
           </noscript>
         )}
         <Providers>{children}</Providers>
+        {isBlogPage && isLocalHost ? <BlogPerformanceProbe /> : null}
       </body>
     </html>
   );

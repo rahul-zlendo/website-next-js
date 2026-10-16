@@ -1,6 +1,7 @@
 import 'server-only';
 import { toHTML, type PortableTextHtmlComponents } from '@portabletext/to-html';
 import { imageUrl } from './image';
+import { normalizeBlogLink } from '../seo/blog-urls';
 
 function escapeAttr(s: string): string {
   return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -31,17 +32,31 @@ function imageDimensions(src: string): { width: number; height: number } | null 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function renderImage(value: any, priority = false): string {
+function imageAttributes(value: any) {
   const src = imageUrl(value, 1200);
-  if (!src) return '';
+  if (!src) return null;
+  const dimensions = imageDimensions(src);
+  const widths = dimensions ? [...new Set([320, 480, 640, 960, dimensions.width].filter(width => width <= dimensions.width))].sort((a, b) => a - b) : [];
+  return {
+    src, dimensions,
+    srcSet: widths.length ? widths.map(width => `${imageUrl(value, width)} ${width}w`).join(', ') : undefined,
+    sizes: widths.length ? '(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 720px, 768px' : undefined,
+  };
+}
+
+export function leadBlogImage(blocks: any[] | null | undefined) {
+  return blocks?.[0]?._type === 'image' ? imageAttributes(blocks[0]) : null;
+}
+
+function renderImage(value: any, priority = false): string {
+  const attributes = imageAttributes(value);
+  if (!attributes) return '';
+  const { src, dimensions, srcSet, sizes } = attributes;
   const alt = value?.alt ? escapeAttr(value.alt) : '';
   const caption = value?.caption ? `<figcaption>${escapeAttr(value.caption)}</figcaption>` : '';
-  const dimensions = imageDimensions(src);
   let responsive = '';
   if (dimensions) {
-    const widths = [...new Set([320, 480, 640, 960, dimensions.width].filter(width => width <= dimensions.width))].sort((a, b) => a - b);
-    const srcset = widths.map(width => `${escapeAttr(imageUrl(value, width))} ${width}w`).join(', ');
-    responsive = ` width="${dimensions.width}" height="${dimensions.height}" srcset="${srcset}" sizes="(max-width: 767px) calc(100vw - 48px), (max-width: 1023px) 720px, 768px"`;
+    responsive = ` width="${dimensions.width}" height="${dimensions.height}" srcset="${escapeAttr(srcSet!)}" sizes="${sizes}"`;
   }
   const loading = priority ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
   return `<figure><img src="${escapeAttr(src)}" alt="${alt}"${responsive} ${loading} style="max-width:100%;height:auto" />${caption}</figure>`;
@@ -79,6 +94,7 @@ function renderLink(href: string, text: string, extraClass = ''): string {
     }
   }
 
+  cleanHref = normalizeBlogLink(cleanHref);
   const isExternal = /^https?:\/\//.test(cleanHref) && !cleanHref.includes('zlendorealty.com');
   const attrs = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
   const cls = extraClass ? ` class="${extraClass}"` : '';
@@ -157,7 +173,7 @@ const components: Partial<PortableTextHtmlComponents> = {
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     htmlTable: ({ value }: { value: any }) => {
-      return value?.htmlCode ? `<div>${value.htmlCode}</div>` : '';
+      return value?.htmlCode ? `<div class="blog-table-wrap">${value.htmlCode}</div>` : '';
     },
     // Structured tables — @sanity/table blocks (authored in Studio) and the
     // tables produced by the WP importer share the same shape (rows[].cells[]).
