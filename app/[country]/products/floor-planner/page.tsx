@@ -142,7 +142,7 @@ export default async function Page({ params }: Props) {
         "operatingSystem": "Web",
         "url": fullUrl,
         "description": "AI-powered floor planning software that helps users create accurate 2D house plans, instantly convert them into immersive 3D designs, personalize layouts, and generate walkthrough-ready architectural visualizations.",
-        "image": "https://zlendorealty.com/favicon.ico",
+        "image": "https://zlendorealty.com/assets/floor-planner/og-image.webp",
         "softwareVersion": "1.0",
         "offers": {
             "@type": "Offer",

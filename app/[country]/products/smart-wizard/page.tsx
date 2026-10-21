@@ -21,6 +21,14 @@ export default async function SmartWizardCountryPage({ params }: PageProps) {
   const { country } = await params;
   const region = country === 'in' ? 'in' : 'global';
   const url = `https://zlendorealty.com/${country}/products/smart-wizard`;
+  const defaultFaqs = [
+    { q: "What does the Smart Wizard do?", a: "<p>It compares five home layout concepts based on your plot and room preferences.</p>" },
+    { q: "Is there a free trial?", a: "<p>Yes, you can try the comparison for free before signing up.</p>" },
+    { q: "How many concepts are shown?", a: "<p>Five predefined concepts are displayed.</p>" },
+    { q: "Can I edit the layouts?", a: "<p>Yes, you can customize each layout after selection.</p>" },
+    { q: "Is it available in India?", a: "<p>Yes, with region‑specific pricing and Vastu compliance.</p>" },
+    { q: "What are the export options?", a: "<p>Export plans as PDFs or share via link.</p>" }
+  ];
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -29,6 +37,7 @@ export default async function SmartWizardCountryPage({ params }: PageProps) {
     url,
     description: 'A home planning tool that ranks five predefined concepts using selected plot and room preferences.',
     provider: { '@type': 'Organization', name: 'Zlendo Realty', url: 'https://zlendorealty.com' },
+    image: 'https://zlendorealty.com/assets/smart-wizard/og-image.webp',
   };
 
   const faqSchema = {

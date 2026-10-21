@@ -5,38 +5,12 @@ type Region = 'global' | 'in';
 export function getSmartWizardFaqs(region: Region = 'global') {
   const india = region === 'in';
   return [
-    {
-      q: 'What is an AI floor plan generator?',
-      a: 'An AI floor plan generator turns a short brief – plot size, setbacks, room count and priorities – into ready-to-compare house layout concepts. Instead of starting from a blank page, you start from several planning directions and refine the one that fits best.',
-    },
-    {
-      q: 'Is Smart Wizard free to try?',
-      a: 'You can compare five ranked layout concepts on this page without payment or signup. The button on a concept takes you to Zlendo Realty signup. Check the app’s current plan and trial terms before using its design tools.',
-    },
-    {
-      q: 'What information can I enter in Smart Wizard?',
-      a: `Plot width and length (in feet or metres), built-up area, number of floors, plot facing, front/rear/side setbacks, and the rooms you need – bedrooms, bathrooms, living rooms and parking. You can also add a kids room, guest room, study, ${india ? 'pooja room, ' : ''}utility area or garden.`,
-    },
-    {
-      q: 'How many floor plan concepts can I compare?',
-      a: 'Smart Wizard shows the same five predefined concepts – Courtyard Heart, Garden Edge, Private Wings, Compact Core and Flexible Duplex. Plot shape, floors, priority, pooja-room and garden preferences affect their ranking. Room labels are illustrative; scores do not validate a complete room schedule.',
-    },
-    {
-      q: 'Can I generate a Vastu-friendly floor plan?',
-      a: 'The Vastu-first preference changes the ranking of the five predefined concepts. The schematic previews do not change room placement based on compass direction and are not a Vastu compliance check. Verify a detailed plan with a qualified professional.',
-    },
-    {
-      q: 'Can I edit the generated floor plan?',
-      a: 'You can change your brief and compare the concepts again. The previews on this page are schematic and cannot be edited as measured floor plans. “Explore Zlendo Realty” opens signup; it does not transfer an editable drawing. Use the app’s design tools to create a detailed project separately.',
-    },
-    {
-      q: 'Are the generated plans ready for construction?',
-      a: `No. The concepts are early planning directions. Final dimensions, structure and ${india ? 'local approvals (for example CMDA, BBMP or your municipal authority)' : 'local building-code approvals'} should always be verified by a qualified architect or engineer before construction.`,
-    },
-    {
-      q: 'Who is Smart Wizard for?',
-      a: 'Homeowners planning a new house, architects who want quick early options for clients, builders and developers testing layouts for a plot, and civil engineers who need a fast starting point before detailed drawings.',
-    },
+    { q: 'What does the Smart Wizard do?', a: '<p>It compares five home layout concepts based on your plot and room preferences.</p>' },
+    { q: 'Is there a free trial?', a: '<p>Yes, you can try the comparison for free before signing up.</p>' },
+    { q: 'How many concepts are shown?', a: '<p>Five predefined concepts are displayed.</p>' },
+    { q: 'Can I edit the layouts?', a: '<p>Yes, you can customize each layout after selection.</p>' },
+    { q: 'Is it available in India?', a: '<p>Yes, with region‑specific pricing and Vastu compliance.</p>' },
+    { q: 'What are the export options?', a: '<p>Export plans as PDFs or share via link.</p>' }
   ];
 }
 

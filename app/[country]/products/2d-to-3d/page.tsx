@@ -152,7 +152,7 @@ export default async function TwoDToThreeDPage({ params }: Props) {
         "operatingSystem": "Web",
         "url": fullUrl,
         "description": "AI-powered 2D to 3D conversion software that transforms floor plans, sketches, PDFs, and architectural drawings into immersive 3D home designs, walkthroughs, and realistic visualizations instantly.",
-        "image": "https://zlendorealty.com/favicon.ico",
+        "image": "https://zlendorealty.com/assets/2d-to-3d/og-image.webp",
         "softwareVersion": "1.0",
         "offers": {
             "@type": "Offer",
