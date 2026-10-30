@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 
 const BASE_URL = 'https://zlendorealty.com';
 const OG_IMAGE_URL = `${BASE_URL}/og-image.jpg`;
@@ -48,6 +48,18 @@ export function createPageMetadata({
     keywords?: string[];
     noIndex?: boolean;
 }): Metadata {
+    // Helper to truncate strings to a maximum length, adding ellipsis if needed
+    const truncate = (str: string, maxLength: number): string => {
+        if (str.length <= maxLength) return str;
+        return str.slice(0, maxLength - 3).trimEnd() + '...';
+    };
+    // Enforce SEO limits: title <= 60 chars, description <= 160 chars
+    const safeTitle = truncate(title, 60);
+    const safeDescription = truncate(description, 160);
+    const safeOgTitle = ogTitle ? truncate(ogTitle, 60) : undefined;
+    const safeOgDescription = ogDescription ? truncate(ogDescription, 160) : undefined;
+
+
     const canonicalUrl = `${BASE_URL}${path.startsWith('/') ? path : `/${path}`}`;
     const image = ogImage || defaultOgImage;
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
@@ -61,12 +73,12 @@ export function createPageMetadata({
     const indiaUrl = `${BASE_URL}/in${normalizedSegment}`;
 
     return {
-        title,
-        description,
+        title: safeTitle,
+        description: safeDescription,
         ...(keywords && { keywords }),
         openGraph: {
-            title: ogTitle || title,
-            description: ogDescription || description,
+            title: safeOgTitle || safeTitle,
+            description: safeOgDescription || safeDescription,
             url: canonicalUrl,
             siteName: SITE_NAME,
             images: [image],
@@ -75,8 +87,8 @@ export function createPageMetadata({
         },
         twitter: {
             card: 'summary_large_image',
-            title: ogTitle || title,
-            description: ogDescription || description,
+            title: safeOgTitle || safeTitle,
+            description: safeOgDescription || safeDescription,
             images: [image.url],
         },
         alternates: {
