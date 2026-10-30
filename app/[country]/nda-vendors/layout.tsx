@@ -1,5 +1,6 @@
 
 import { Metadata } from 'next';
+import { localeAlternates } from '@/lib/seo/metadata';
 
 interface Props {
     params: Promise<{ country: string }>;
@@ -11,16 +12,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (country === 'in') {
         return {
             keywords: [
-        'zlendo technologies nda',
-        'non-disclosure agreement',
-        'nda template',
-        'legal agreement',
-        'vendor partnerships',
-        'Business partnerships',
-        'collaboration agreements',
-        'nda for vendor partnerships',
-        'confidentiality agreement',
-    ],
+                'zlendo technologies nda',
+                'non-disclosure agreement',
+                'nda template',
+                'legal agreement',
+                'vendor partnerships',
+                'Business partnerships',
+                'collaboration agreements',
+                'nda for vendor partnerships',
+            ],
             title: {
                 absolute: 'Zlendo Technologies Vendor Non-Disclosure Agreement (NDA)',
             },
@@ -29,29 +29,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
                 title: 'Zlendo Technologies Vendor Non-Disclosure Agreement (NDA)',
                 description: 'Access the official NDA for vendors partnering with Zlendo Technologies. Learn about confidentiality requirements and terms governing vendor collaborations.',
             },
-            alternates: {
-                canonical: 'https://zlendorealty.com/in/nda-vendors',
-                languages: {
-                    'en-IN': 'https://zlendorealty.com/in/nda-vendors',
-                    'x-default': 'https://zlendorealty.com/in/nda-vendors',
-                },
-            },
+            alternates: localeAlternates('/nda-vendors', 'in'),
         };
     }
 
     return {
-            keywords: [
-        'zlendo technologies nda',
-        'non-disclosure agreement',
-        'nda template',
-        'legal agreement',
-        'vendor partnerships',
-        'Business partnerships',
-        'collaboration agreements',
-        'nda for vendor partnerships',
-        'confidentiality agreement',
-    ],
-        title: 'Vendor NDA | Zlendo Realty',
+        keywords: [
+            'zlendo technologies nda',
+            'non-disclosure agreement',
+            'nda template',
+            'legal agreement',
+            'vendor partnerships',
+            'Business partnerships',
+            'collaboration agreements',
+            'nda for vendor partnerships',
+        ],
+        title: 'Vendor NDA',
     };
 }
 
@@ -59,3 +52,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     return <>{children}</>;
 }
+

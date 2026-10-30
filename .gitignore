@@ -28,3 +28,10 @@ dist-ssr
 out/
 build/
 .vercel/
+
+# Sanity Studio
+.sanity/
+*/.sanity/
+studio/node_modules/
+sanity/node_modules/
+*.tsbuildinfo

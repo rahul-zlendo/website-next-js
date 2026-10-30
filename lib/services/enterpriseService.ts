@@ -3,6 +3,7 @@ import { ENDPOINTS } from "./endPoints/endPoint";
 
 const ENDPOINTS_BUSINESS_INFO = ENDPOINTS.BUSINESS_INFO;
 const ENDPOINTS_LIST_OF_VALUES = ENDPOINTS.LIST_OF_VALUES;
+const ENDPOINTS_LOCATION = ENDPOINTS.LOCATION;
 
 export interface CreateOrUpdateBusinessInfoPayload {
   Id: number;
@@ -27,11 +28,29 @@ export interface CreateOrUpdateBusinessInfoPayload {
 }
 
 export interface ListOfValue {
+  lov_Id?: number;
   lov_Key: string;
   description: string;
   lov_Value: number;
   lov_Name?: string;
   isActive?: boolean;
+}
+
+export interface Location {
+  location_Id: number;
+  location_TypeId: number;
+  location_Name: string;
+  parentLocation_Id: number;
+  isActive: boolean;
+  locationTypeValue?: string;
+}
+
+export interface Region {
+  regionId: number;
+  regionCode: string;
+  regionName: string;
+  countries: string[];
+  isActive: boolean;
 }
 
 export const createOrUpdateBusinessInfoService = async (
@@ -59,9 +78,31 @@ export const getAllListOfValuesService = async (): Promise<ListOfValue[]> => {
   }
 };
 
+export const getAllLocationsService = async (): Promise<Location[]> => {
+  try {
+    const response = await axiosInstance.get(ENDPOINTS_LOCATION.GET_ALL);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get locations:", error);
+    throw error;
+  }
+};
+
+export const getAllRegionsService = async (): Promise<Region[]> => {
+  try {
+    const response = await axiosInstance.get(ENDPOINTS.REGION.GET_ALL);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to get regions:", error);
+    throw error;
+  }
+};
+
 const enterpriseService = {
   createOrUpdateBusinessInfoService,
   getAllListOfValuesService,
+  getAllLocationsService,
+  getAllRegionsService,
 };
 
 export default enterpriseService;

@@ -1,23 +1,19 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { getHcPostsByTag, getHcTagBySlug, getAllHcTagSlugs } from '@/lib/wordpress/helpcenter';
+import { getHcPostsByTag, getHcTagBySlug } from '@/lib/wordpress/helpcenter';
 import { generateHcTagMetadata, generateBreadcrumbJsonLd } from '@/lib/wordpress/hc-seo';
 import { HcCard } from '@/components/helpcenter';
 import { Pagination, BlogHero, BlogBreadcrumb } from '@/components/blog';
+import JsonLd from '@/components/common/JsonLd';
 
 interface TagPageProps {
     params: Promise<{ slug: string }>;
     searchParams: Promise<{ page?: string }>;
 }
 
-// Allow any slug to be rendered on-demand (ISR)
-export const dynamicParams = true;
+// Pagination reads searchParams at request time; keep CMS fetch revalidation.
 export const revalidate = 3600;
-
-export async function generateStaticParams() {
-    return [];
-}
 
 export async function generateMetadata({ params, searchParams }: TagPageProps): Promise<Metadata> {
     const { slug } = await params;
@@ -95,10 +91,7 @@ export default async function HcTagPage({ params, searchParams }: TagPageProps) 
 
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
-            />
+            <JsonLd schema={breadcrumbJsonLd} />
 
             <BlogHero
                 title={`Tag: ${tag.name}`}

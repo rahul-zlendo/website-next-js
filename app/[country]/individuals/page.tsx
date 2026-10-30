@@ -1,14 +1,28 @@
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { ArrowRight, CheckCircle2, Palette, Layers, Box, Sparkles, Zap, ChevronDown, Phone } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import FaqAccordion from '../components/FaqAccordion';
+import JsonLd from '@/components/common/JsonLd';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
+
+export const metadata: Metadata = {
+    title: '3D Home Visualization for Individuals | Zlendo Realty',
+    description: 'Experience your future home in 8K immersive 3D visualization. Get precise budgets and eliminate construction guesswork with Zlendo Realty.',
+    alternates: indiaOnlyAlternates('/individuals'),
+};
 
 const COUNTRY = 'in';
 
 const services = [
-    'Interior Design', 'Architecture', 'Construction', 'Renovation',
-    'Vastu Consultation', 'Landscape Design', 'Electrical & Plumbing',
-    'Furniture & Decor'
+    { name: 'Interior Design', href: '/in/use-case/interior-design' },
+    { name: 'Architecture', href: '/in/products/floor-planner' },
+    { name: 'Construction', href: '/in/use-case/new-home-building' },
+    { name: 'Renovation', href: '/in/use-case/home-remodeling' },
+    { name: 'Vastu Consultation', href: '/in/use-case/vastu-optimization' },
+    { name: 'Landscape Design', href: '/in/products/interiors-exteriors' },
+    { name: 'Virtual Walkthrough', href: '/in/products/virtual-walkthrough' },
+    { name: 'Furniture & Decor', href: '/in/products/room-styler' }
 ];
 
 const steps = [
@@ -16,14 +30,14 @@ const steps = [
         tag: 'Instant Transformation',
         title: 'Convert 2D plans into immersive 8K walkthroughs.',
         desc: 'Stop imagining. Start experiencing. Turn flat blueprints into photorealistic, interactive 3D worlds in seconds. No technical skills required.',
-        img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200',
+        img: '/assets/individuals/transformation.webp',
         IconComponent: Layers,
     },
     {
         tag: 'Smart Customization',
         title: 'Pick materials & get precise budgets instantly.',
         desc: 'Experiment with premium finishes and specific materials. See real-time cost estimates to keep your dream home within budget.',
-        img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200',
+        img: '/assets/individuals/hero-individuals.webp',
         IconComponent: Palette,
         reverse: true,
     },
@@ -31,14 +45,14 @@ const steps = [
         tag: 'Construction Clarity',
         title: 'Eliminate construction guesswork forever.',
         desc: 'Walk through your design before a single brick is laid. Identify issues early and ensure every corner matches your vision perfectly.',
-        img: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=1200',
+        img: '/assets/individuals/clarity.webp',
         IconComponent: Box,
     },
     {
         tag: 'Unmatched Speed',
         title: 'Get 3D walkthroughs in just 30 seconds.',
         desc: 'Why wait weeks? Experience high-fidelity 3D tours in seconds. Complete your entire design review in under 10 minutes.',
-        img: 'https://images.unsplash.com/photo-1487958449913-d973b917c2c6?auto=format&fit=crop&q=80&w=1200',
+        img: '/assets/individuals/speed.webp',
         IconComponent: Zap,
         reverse: true,
     }
@@ -52,8 +66,22 @@ const faqs = [
 ];
 
 export default function IndividualsPage() {
+    const faqSchema = {
+        '@context': 'https://schema.org/',
+        '@type': 'FAQPage',
+        'mainEntity': faqs.map(faq => ({
+            '@type': 'Question',
+            'name': faq.q,
+            'acceptedAnswer': {
+                '@type': 'Answer',
+                'text': faq.a
+            }
+        }))
+    };
+
     return (
         <div className="bg-white font-nunito selection:bg-zlendo-teal/10">
+            <JsonLd schema={faqSchema} />
             <main className="pt-8 md:pt-12">
                 {/* Hero Section */}
                 <section className="container-custom px-4 mb-12 relative z-10">
@@ -95,7 +123,7 @@ export default function IndividualsPage() {
                         <div className="relative mt-8 lg:mt-0">
                             <div className="rounded-[32px] overflow-hidden shadow-2xl border border-black/5">
                                 <img
-                                    src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=1200"
+                                    src="/assets/individuals/hero-individuals.webp"
                                     alt="Zlendo Realty Platform Preview — 3D Home Visualization"
                                     className="w-full h-auto object-cover"
                                 />
@@ -107,8 +135,8 @@ export default function IndividualsPage() {
                                         <CheckCircle2 className="w-5 h-5" />
                                     </div>
                                     <div>
-                                        <div className="text-[10px] font-black uppercase text-zlendo-grey-medium opacity-40">Accuracy</div>
-                                        <div className="text-sm font-black text-zlendo-grey-dark">99.8% Precise</div>
+                                        <div className="text-[10px] font-black uppercase text-zlendo-grey-medium opacity-40">Design Workflow</div>
+                                        <div className="text-sm font-black text-zlendo-grey-dark">Review & Refine</div>
                                     </div>
                                 </div>
                             </div>
@@ -122,9 +150,9 @@ export default function IndividualsPage() {
                         <h2 className="text-2xl md:text-3xl font-black font-nunito text-zlendo-grey-dark mb-8 opacity-80">Everything you need to build better</h2>
                         <div className="flex flex-wrap justify-center gap-3 md:gap-6">
                             {services.map((service) => (
-                                <div key={service} className="px-5 py-2.5 bg-white rounded-full border border-black/[0.05] shadow-sm text-sm md:text-base font-bold text-zlendo-grey-dark hover:border-zlendo-teal/30 hover:text-zlendo-teal transition-colors cursor-default">
-                                    {service}
-                                </div>
+                                <Link key={service.name} href={service.href} className="px-5 py-2.5 bg-white rounded-full border border-black/[0.05] shadow-sm text-sm md:text-base font-bold text-zlendo-grey-dark hover:border-zlendo-teal/30 hover:text-zlendo-teal transition-colors">
+                                    {service.name}
+                                </Link>
                             ))}
                         </div>
                     </div>
@@ -157,7 +185,7 @@ export default function IndividualsPage() {
                                     {/* Image Side */}
                                     <div className={`${index % 2 !== 0 ? 'md:order-1' : ''} relative`}>
                                         <div className="aspect-[4/3] rounded-[32px] overflow-hidden shadow-lg border border-black/5 group">
-                                            <img src={step.img} alt={step.tag} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                                            <img src={step.img} alt={`${step.title} - Zlendo Realty 3D Platform`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                                         </div>
                                         {/* Center Dot */}
                                         <div className="absolute top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-white border-2 border-zlendo-teal shadow-lg z-20" style={{ [index % 2 === 0 ? 'left' : 'right']: '-32px', transform: 'translateX(32px) translateX(-50%)' }}>

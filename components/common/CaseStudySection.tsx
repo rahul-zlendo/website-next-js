@@ -20,6 +20,7 @@ interface CaseStudySectionProps {
             value: string;
         }>;
         image: string;
+        imageAlt?: string;
     };
     accentColorClass: string;
     bgAccentClass: string;
@@ -41,7 +42,7 @@ export default function CaseStudySection({ data, accentColorClass, bgAccentClass
                         <div className="relative rounded-[60px] overflow-hidden border border-black/5 shadow-2xl shadow-black/[0.05]">
                             <img
                                 src={data.image}
-                                alt={data.title}
+                                alt={data.imageAlt || data.title}
                                 className="w-full h-[500px] object-cover scale-105 group-hover:scale-100 transition-transform duration-1000"
                             />
                             <div className="absolute bottom-10 left-10 py-3 px-6 bg-white/90 backdrop-blur-md rounded-2xl flex items-center gap-3 border border-black/5 shadow-xl">
@@ -65,20 +66,31 @@ export default function CaseStudySection({ data, accentColorClass, bgAccentClass
                                 <span className={`text-sm font-black text-${accentColorClass} uppercase tracking-[0.3em]`}>{data.subtitle}</span>
                             </div>
                             <h2 className="text-5xl font-black font-nunito text-zlendo-grey-dark leading-tight tracking-tight">
-                                Addressing the <span className={`text-${accentColorClass} italic`}>Gap.</span>
+                                {(() => {
+                                    const words = data.challenge.title.split(' ');
+                                    if (words.length > 1) {
+                                        const lastWord = words.pop();
+                                        return (
+                                            <>
+                                                {words.join(' ')} <span className={`text-${accentColorClass} italic`}>{lastWord}</span>
+                                            </>
+                                        );
+                                    }
+                                    return data.challenge.title;
+                                })()}
                             </h2>
                         </div>
 
                         <div className="space-y-8">
                             <div className={`p-8 rounded-[40px] ${bgAccentClass} border border-${accentColorClass}/10`}>
-                                <h4 className="text-xs font-black uppercase tracking-widest text-zlendo-grey-medium mb-4">The Challenge</h4>
+                                <h3 className="text-xs font-black uppercase tracking-widest text-zlendo-grey-medium mb-4">The Challenge</h3>
                                 <p className="text-lg text-zlendo-grey-medium font-medium leading-relaxed">
                                     {data.challenge.description}
                                 </p>
                             </div>
 
                             <div className="p-8 rounded-[40px] bg-white border border-black/5 shadow-xl shadow-black/[0.02]">
-                                <h4 className={`text-xs font-black uppercase tracking-widest text-${accentColorClass} mb-4`}>The Solution</h4>
+                                <h3 className={`text-xs font-black uppercase tracking-widest text-${accentColorClass} mb-4`}>The Solution</h3>
                                 <p className="text-lg text-zlendo-grey-dark font-medium leading-relaxed">
                                     {data.solution.description}
                                 </p>

@@ -41,4 +41,10 @@ export const ENDPOINTS = {
     RESOURCE_DOWNLOAD_CREATE: "/Form/CreateResourceDownloadingForm",
     VASTU_CREATE: "/Form/CreateCampaignVastuForm",
   },
+  LOCATION: {
+    GET_ALL: "/Location/GetAllLocation",
+  },
+  REGION: {
+    GET_ALL: "/Region/GetAllRegions",
+  },
 };

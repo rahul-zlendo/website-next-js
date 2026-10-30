@@ -155,7 +155,7 @@ export default function UseCaseLayout({ data }: { data: UseCaseData }) {
                     <div className={`absolute inset-0 bg-${accentColorClass}/5 blur-[100px]`} />
                     <div className="container-custom relative z-10 text-center space-y-12">
                         <h2 className="text-5xl sm:text-7xl font-black font-nunito text-white leading-tight tracking-tight max-w-4xl mx-auto">
-                            Ready to <span className={`text-${accentColorClass} italic`}>Experience the Future?</span>
+                            Ready to <span className={`text-${accentColorClass} italic`}> Experience the Future?</span>
                         </h2>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center">
                             <a

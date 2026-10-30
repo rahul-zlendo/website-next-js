@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { indiaOnlyAlternates } from '@/lib/seo/metadata';
 
 export const metadata: Metadata = {
-  title: 'Interior Design Use Cases | Zlendo Realty',
+  title: 'Interior Design Use Cases',
   description:
     'Explore how Zlendo Realty helps homeowners and professionals visualize and optimize interior spaces through photorealistic 3D experiences.',
   keywords: [
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
     'virtual interior design',
   ],
   openGraph: {
-    title: 'Interior Design Use Cases | Zlendo Realty',
+    title: 'Interior Design Use Cases',
     description:
       'Transform spatial uncertainty into design confidence with Zlendo Realty. Real stories from first-time homebuyers to remote professionals.',
     url: 'https://zlendorealty.com/in/use-case/interior-design',
@@ -34,16 +35,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Interior Design Use Cases | Zlendo Realty',
+    title: 'Interior Design Use Cases',
     description: 'See how Zlendo Realty transforms interior design with 3D visualization and space planning.',
   },
-  alternates: {
-    canonical: 'https://zlendorealty.com/in/use-case/interior-design',
-    languages: {
-      'en-IN': 'https://zlendorealty.com/in/use-case/interior-design',
-      'x-default': 'https://zlendorealty.com/in/use-case/interior-design',
-    },
-  },
+  alternates: indiaOnlyAlternates('/use-case/interior-design'),
 };
 
 export default function InteriorDesignLayout({
