@@ -14,6 +14,10 @@ interface ProductHeroProps {
     ctaText?: string;
     ctaLink?: string;
     ctaSubtext?: string;
+    ctaInfoLink?: {
+      text: string;
+      href: string;
+    };
     secondaryCtaText?: string;
     secondaryCtaLink?: string;
     secondaryCtaSubtext?: string;
@@ -30,6 +34,7 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
     ctaText = 'Start for Free',
     ctaLink = '/register',
     ctaSubtext,
+    ctaInfoLink,
     secondaryCtaText = 'Watch Video',
     secondaryCtaLink,
     secondaryCtaSubtext,
@@ -180,6 +185,17 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
                   {ctaSubtext && (
                     <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest text-center">
                       {ctaSubtext}
+                      {ctaInfoLink && (
+                        <>
+                          {' · '}
+                          <Link
+                            href={ctaInfoLink.href}
+                            className="underline hover:text-white transition-colors"
+                          >
+                            {ctaInfoLink.text}
+                          </Link>
+                        </>
+                      )}
                     </span>
                   )}
                 </div>
@@ -212,12 +228,12 @@ const ProductHero: React.FC<ProductHeroProps> = ({ data }) => {
                 <div className="h-3 w-px bg-white/20" />
                 <div className="flex items-center gap-2">
                   <Star className="w-4 h-4 text-amber-400 fill-current" />
-                  <span className="font-black text-[10px] uppercase tracking-widest text-gray-300">5 / 5 Rating</span>
+                  <span className="font-black text-[10px] uppercase tracking-widest text-gray-300">Verified Reviews</span>
                 </div>
                 <div className="h-3 w-px bg-white/20" />
                 <div className="flex items-center gap-2">
                   <ThumbsUp className="w-4 h-4 text-blue-400" />
-                  <span className="font-black text-[10px] uppercase tracking-widest text-gray-300">Industry Leader</span>
+                  <span className="font-black text-[10px] uppercase tracking-widest text-gray-300">Architect Grade</span>
                 </div>
               </div>
             </motion.div>

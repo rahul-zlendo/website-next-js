@@ -11,6 +11,10 @@ interface CTAData {
   text?: string;
   subtext?: string;
   link?: string;
+  infoLink?: {
+    text: string;
+    href: string;
+  };
 }
 
 interface FinalCTAProps {
@@ -62,11 +66,21 @@ const FinalCTA: React.FC<FinalCTAProps> = ({ data }) => {
               viewport={{ once: true }}
               className="group"
             >
-              <Link href={primaryCta?.link || SIGNUP_URL} className="flex flex-col items-center justify-center h-full p-6 rounded-[40px] bg-zlendo-teal text-white hover:bg-[#008f72] transition-all transform hover:scale-[1.02] shadow-2xl shadow-zlendo-teal/20 text-center">
-                <Zap className="w-6 h-6 text-white mb-4 fill-current" />
-                <div className="text-xl font-black mb-2">{primaryCta?.text || 'Start your free trial'}</div>
-                <div className="text-[10px] font-black uppercase tracking-widest opacity-80">{primaryCta?.subtext || '14 days. No card.'}</div>
-              </Link>
+              <div className="flex flex-col items-center justify-center h-full p-6 rounded-[40px] bg-zlendo-teal text-white shadow-2xl shadow-zlendo-teal/20 text-center">
+                <Link href={primaryCta?.link || SIGNUP_URL} className="flex flex-col items-center justify-center w-full hover:opacity-90 transition-opacity">
+                  <Zap className="w-6 h-6 text-white mb-4 fill-current" />
+                  <div className="text-xl font-black mb-2">{primaryCta?.text || 'Start your free trial'}</div>
+                  <div className="text-[10px] font-black uppercase tracking-widest opacity-80">{primaryCta?.subtext || '14 days. No card.'}</div>
+                </Link>
+                {primaryCta?.infoLink && (
+                  <Link
+                    href={primaryCta.infoLink.href}
+                    className="mt-3 text-[10px] font-bold text-white/90 underline hover:text-white uppercase tracking-widest transition-colors"
+                  >
+                    {primaryCta.infoLink.text}
+                  </Link>
+                )}
+              </div>
             </motion.div>
 
             {/* Secondary */}

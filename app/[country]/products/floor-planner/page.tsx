@@ -6,7 +6,6 @@ import { getClient } from '@/lib/sanity/client';
 import { floorPlannerPageQuery } from '@/lib/sanity/queries';
 import FloorPlannerClient from './FloorPlannerClient';
 import JsonLd from '@/components/common/JsonLd';
-import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 import Head from 'next/head'
 
 const BASE_URL = 'https://zlendorealty.com';
@@ -37,10 +36,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         description: seoDesc,
         path: cleanPath,
         ogImage: {
-            url: 'https://zlendorealty.com/assets/floor-planner/3d-sketch.webp',
+            url: 'https://zlendorealty.com/assets/floor-planner/hero-floor-planner.webp',
             width: 1200,
-            height: 630,
-            alt: 'Zlendo Realty AI Floor Planner',
+            height: 816,
+            alt: 'Zlendo Realty AI Floor Planner – 2D and 3D Floor Plan Design',
             type: 'image/webp',
         },
     });
@@ -66,7 +65,15 @@ const defaultFaqs = [
     },
     {
         q: "Can I share this with architects or contractors?",
-        a: "Yes. You can save and share your architectural house plans and 3D layouts with architects, engineers, or contractors, supporting smooth coordination during civil and architectural design services."
+        a: "Yes. Completed plans can be saved and exported as scaled PDF documents, high-resolution PNG images, or 2D DXF CAD files for downstream editing in AutoCAD or Revit. Native DWG export is currently on our roadmap."
+    },
+    {
+        q: "What is included in the free trial, and what are the plan limits?",
+        a: "The 14-day free trial gives full drafting access to all 2D layout tools, intelligent wall snapping, and real-time 3D conversions without requiring a credit card. Free accounts can draft and test unlimited floor plans in real-time. Production 4K renders, scaled DXF CAD vector exports, and multi-user collaboration require an active paid subscription (starting from ₹499/month in India). Full tier details are available on our /in/plans page."
+    },
+    {
+        q: "Does selecting a Vastu-compliant template guarantee statutory building approval?",
+        a: "No. Vastu templates and directional suggestions provide spatial harmony and architectural planning baselines. Final structural safety, local municipal setbacks, and sanctioned building permits require sign-off by a licensed civil engineer or registered architect according to your local municipal development control regulations."
     },
     {
         q: "Can I save multiple design options?",
@@ -75,11 +82,11 @@ const defaultFaqs = [
 ];
 
 const defaultWorkflowSteps = [
-    { title: 'Imagine', desc: 'Concept', iconName: 'Sparkles' },
-    { title: 'Design', desc: 'Layout', iconName: 'PenTool' },
-    { title: 'Convert', desc: 'AI Processing', iconName: 'Zap' },
-    { title: 'Customize', desc: 'Personalize', iconName: 'Layers' },
-    { title: 'Experience', desc: 'Live Immersive', iconName: 'Home' },
+    { title: 'Imagine', desc: 'Define project scope & room requirements', iconName: 'Sparkles', instruction: 'Start from scratch or upload a sketch (JPG/PNG/PDF).', image: '/assets/floor-planner/2d-sketch.webp' },
+    { title: 'Design', desc: 'Draft walls with auto-dimensioning', iconName: 'PenTool', instruction: 'Use wall snapping and specify mm/ft dimensions precisely.', image: '/assets/floor-planner/drafting.webp' },
+    { title: 'Convert', desc: 'AI 2D-to-3D model generation (~2 mins)', iconName: 'Zap', instruction: 'Our engine lifts 2D geometry into structured 3D walls & openings.', image: '/assets/Home-Page/2d-to-3d-convertor.webp' },
+    { title: 'Customize', desc: 'Place doors, windows & Vastu elements', iconName: 'Layers', instruction: 'Drag-and-drop parametric fixtures, pooja units, and materials.', image: '/assets/Home-Page/ai-room-inspirtion.webp' },
+    { title: 'Experience & Save', desc: 'Interactive walkthrough & CAD export', iconName: 'Home', instruction: 'Save your project to the cloud and export as scaled PDF or DXF.', image: '/assets/Home-Page/3d-export-toolkit.webp' },
 ];
 
 const defaultDraftingFeatures = [
@@ -133,6 +140,8 @@ export default async function Page({ params }: Props) {
 
 
 
+    const isIndiaSite = country.toLowerCase() === 'in';
+
     const softwareApplicationSchema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
@@ -142,15 +151,14 @@ export default async function Page({ params }: Props) {
         "operatingSystem": "Web",
         "url": fullUrl,
         "description": "AI-powered floor planning software that helps users create accurate 2D house plans, instantly convert them into immersive 3D designs, personalize layouts, and generate walkthrough-ready architectural visualizations.",
-        "image": "https://zlendorealty.com/assets/floor-planner/og-image.webp",
+        "image": "https://zlendorealty.com/assets/floor-planner/hero-floor-planner.webp",
         "softwareVersion": "1.0",
         "offers": {
             "@type": "Offer",
             "price": "0",
-            "priceCurrency": "USD",
-            "description": "14-day free trial with full access and no credit card required"
+            "priceCurrency": isIndiaSite ? "INR" : "USD",
+            "description": "14-day free trial with full drafting access and no credit card required"
         },
-        "aggregateRating": ZLENDO_AGGREGATE_RATING,
         "creator": {
             "@type": "Organization",
             "name": "Zlendo Realty",
@@ -169,7 +177,7 @@ export default async function Page({ params }: Props) {
             "Virtual walkthroughs",
             "Auto-dimensioning",
             "Multi-story planning",
-            "CAD export support",
+            "Export to scaled PDF, PNG & DXF CAD formats",
             "Drag-and-drop furniture placement",
             "Architectural visualization"
         ]
