@@ -11,13 +11,14 @@ interface ProductFeatureDetailProps {
     bullets?: string[];
     statValue?: string;
     statLabel?: string;
+    statValueClassName?: string;
     image?: any;
     imageAtRight?: boolean;
   };
 }
 
 const ProductFeatureDetail: React.FC<ProductFeatureDetailProps> = ({ data }) => {
-  const { heading, bullets = [], statValue, statLabel, image, imageAtRight = true } = data;
+  const { heading, bullets = [], statValue, statLabel, statValueClassName, image, imageAtRight = true } = data;
 
   return (
     <section className="py-24 bg-gray-50 font-nunito overflow-hidden">
@@ -70,11 +71,11 @@ const ProductFeatureDetail: React.FC<ProductFeatureDetailProps> = ({ data }) => 
               >
                 <div className="absolute top-0 right-0 w-32 h-32 bg-zlendo-teal/5 blur-3xl rounded-full translate-x-12 -translate-y-12" />
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
-                  <div className="text-4xl md:text-5xl font-black text-zlendo-teal tracking-tighter">
+                  <div className={`font-black text-zlendo-teal tracking-tighter whitespace-nowrap shrink-0 ${statValueClassName || 'text-3xl md:text-4xl'}`}>
                     {statValue}
                   </div>
-                  <div className="h-px md:h-12 w-12 md:w-px bg-gray-100" />
-                  <div className="text-base md:text-lg font-black text-zlendo-grey-dark leading-tight uppercase tracking-widest opacity-60">
+                  <div className="h-px md:h-12 w-12 md:w-px bg-gray-100 shrink-0" />
+                  <div className="text-xs md:text-sm font-black text-zlendo-grey-dark leading-snug uppercase tracking-wider opacity-60">
                     {statLabel}
                   </div>
                 </div>

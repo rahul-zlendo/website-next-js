@@ -162,6 +162,7 @@ const GlobalFloorPlannerPage = async () => {
           "Drag & Drop structural elements directly into your workspace."
         ],
         statValue: "5–10 Min",
+        statValueClassName: "text-2xl sm:text-3xl md:text-3xl font-extrabold whitespace-nowrap",
         statLabel: "Typical draft time from sketch upload; under 2 min for 3D conversion",
         image: "/assets/floor-planner/3d-sketch.webp",
         imageAtRight: true
