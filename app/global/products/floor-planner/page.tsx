@@ -1,32 +1,23 @@
 import React from 'react';
 import { getClient } from '@/lib/sanity/client';
-import JsonLd from '@/components/common/JsonLd';
-import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 import SectionRenderer from '@/components/global/SectionRenderer';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/seo/metadata';
 import { SIGNUP_URL } from '@/lib/config/env';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: 'AI Floor Plan Design Software – 2D & 3D Plans Online',
   description: "AI floor plan design software for accurate 2D and 3D floor plans online. Design, visualize, customize and export house plans in minutes with Zlendo Realty.",
-  openGraph: {
-    title: 'AI Floor Plan Design Software – 2D & 3D Plans Online',
-    description: "AI floor plan design software for accurate 2D and 3D floor plans online. Design, visualize, customize and export house plans in minutes with Zlendo Realty.",
-    url: 'https://zlendorealty.com/products/floor-planner',
-    siteName: 'Zlendo Realty',
-    locale: 'en_US',
-    type: 'website',
+  path: '/products/floor-planner',
+  ogImage: {
+    url: 'https://zlendorealty.com/assets/floor-planner/hero-floor-planner.webp',
+    width: 1200,
+    height: 816,
+    alt: 'Zlendo Realty AI Floor Planner – 2D and 3D Floor Plan Design',
+    type: 'image/webp',
   },
-  alternates: {
-    canonical: 'https://zlendorealty.com/products/floor-planner',
-    languages: {
-      'en': 'https://zlendorealty.com/products/floor-planner',
-      'en-IN': 'https://zlendorealty.com/in/products/floor-planner',
-      'x-default': 'https://zlendorealty.com/products/floor-planner',
-    },
-  },
-};
+});
 
 async function getGlobalPage(slug: string) {
   const query = `*[_type == "globalPage" && slug.current == $slug][0]`;
@@ -42,7 +33,7 @@ const softwareApplicationSchema = {
   "operatingSystem": "Web",
   "url": "https://zlendorealty.com/products/floor-planner",
   "description": "AI-powered floor planning software that helps users create accurate 2D house plans, instantly convert them into immersive 3D designs, personalize layouts, and generate walkthrough-ready architectural visualizations.",
-  "image": "https://zlendorealty.com/favicon.ico",
+  "image": "https://zlendorealty.com/assets/floor-planner/hero-floor-planner.webp",
   "softwareVersion": "1.0",
   "offers": {
     "@type": "Offer",
@@ -50,7 +41,6 @@ const softwareApplicationSchema = {
     "priceCurrency": "USD",
     "description": "14-day free trial with full access and no credit card required"
   },
-  "aggregateRating": ZLENDO_AGGREGATE_RATING,
   "creator": {
     "@type": "Organization",
     "name": "Zlendo Realty",
@@ -69,7 +59,7 @@ const softwareApplicationSchema = {
     "Virtual walkthroughs",
     "Auto-dimensioning",
     "Multi-story planning",
-    "CAD export support",
+    "Export to high-res PDF, PNG & CAD formats",
     "Drag-and-drop furniture placement",
     "Architectural visualization"
   ]
@@ -122,7 +112,11 @@ const GlobalFloorPlannerPage = async () => {
         image: "/assets/floor-planner/3d-sketch.webp",
         ctaText: "Start Designing Free",
         ctaLink: SIGNUP_URL,
-        ctaSubtext: "14 days, full access. No credit card.",
+        ctaSubtext: "14-day trial with full access. No card needed.",
+        ctaInfoLink: {
+          text: "View Plans & Limits",
+          href: "/plans"
+        },
         secondaryCtaText: "Request Your Demo",
         secondaryCtaLink: "/business#demo-form",
         secondaryCtaSubtext: "Schedule a 1-on-1 platform tour."
@@ -141,7 +135,7 @@ const GlobalFloorPlannerPage = async () => {
           {
             number: "2",
             title: "AI Conversion",
-            description: "Our proprietary engine instantly lifts your 2D lines into a fully structured 3D environment without any manual modeling.",
+            description: "Our proprietary engine converts your 2D lines into a fully structured 3D model in under 2 minutes, with no manual 3D modeling needed.",
             image: "/assets/Home-Page/2d-to-3d-convertor.webp"
           },
           {
@@ -167,10 +161,24 @@ const GlobalFloorPlannerPage = async () => {
           "Multi-Story Support for complex residential building plans.",
           "Drag & Drop structural elements directly into your workspace."
         ],
-        statValue: "10 Minutes",
-        statLabel: "Average time to full 3D layout",
+        statValue: "5–10 Min",
+        statLabel: "Typical draft time from sketch upload; under 2 min for 3D conversion",
         image: "/assets/floor-planner/3d-sketch.webp",
         imageAtRight: true
+      },
+      {
+        _type: 'globalFeatureDetail',
+        heading: "Measured Project Example: *From 2D Blueprint to 3D Layout.*",
+        bullets: [
+          "Actual project: 2-storey 3BHK residential floor plan (2,450 sq.ft) with active dimensioning.",
+          "Wall snapping and auto-alignment between Ground and First floors maintain structural grid continuity.",
+          "Real-time parametric walls, openings, and furniture elements remain fully editable post-conversion.",
+          "Download scaled 2D layout drafts (PDF/DXF) or step directly into live 3D walkthroughs."
+        ],
+        statValue: "2,450 sq.ft",
+        statLabel: "Sample 2-storey 3BHK project draft modeled with auto-dimensioning",
+        image: "/assets/floor-planner/drafting.webp",
+        imageAtRight: false
       },
       {
         _type: 'globalFeatures',
@@ -193,8 +201,8 @@ const GlobalFloorPlannerPage = async () => {
             icon: "Eye"
           },
           {
-            title: "Seamless Export",
-            description: "Convert your finished plans to professional CAD formats.",
+            title: "Seamless Export & Sharing",
+            description: "Export high-resolution 2D floor plans as scaled PDF or PNG drawings, and export DXF CAD files for downstream drafting in AutoCAD. Direct DWG export is planned.",
             icon: "Download"
           }
         ]
@@ -229,48 +237,43 @@ const GlobalFloorPlannerPage = async () => {
           },
           {
             question: "Can I share my floor plan with an architect or contractor?",
-            answer: "Yes. Completed plans can be exported and shared with architects, contractors, clients, and other project stakeholders."
+            answer: "Yes. Completed plans can be exported as scaled PDF documents, high-resolution PNG images, or standard 2D DXF CAD files for downstream editing in applications like AutoCAD and Revit. Direct DWG export is on our roadmap."
           },
           {
-            question: "Is Zlendo Realty's floor planner free?",
-            answer: "Zlendo Realty currently offers a 14-day free trial with full access and no credit card requirement, according to the product page."
+            question: "What CAD and file formats are supported for import and export?",
+            answer: "For import, Zlendo Realty accepts DWG, DXF, PDF, and raster images (JPG, PNG). For export, you can download scaled PDFs, high-res images, and 2D DXF files for CAD interoperability. Native DWG export is in active development."
+          },
+          {
+            question: "What is included in the 14-day free trial, and what are the export restrictions?",
+            answer: "The 14-day free trial gives you full access to all drafting, intelligent wall snapping, multi-story design, and interactive 3D conversion tools without requiring a credit card. You can draft and preview unlimited floor plan designs in real-time. Exporting high-resolution CAD vector files (such as 2D DXF) and presentation PDFs requires an active trial or subscription plan. You can view full plan tiers and limits on our /plans page."
           }
         ]
       },
       {
         _type: 'globalFinalCTA',
         heading: "Design your custom home *today.*",
-        subheading: "Join 12,000+ modern homeowners who chose Zlendo Realty over traditional guesswork.",
+        subheading: "Join modern homeowners and design professionals who choose Zlendo Realty over guesswork.",
         primaryCta: {
           text: "Start Free Trial",
-          subtext: "14 days. Full access. No card.",
-          link: SIGNUP_URL
+          subtext: "14-day full access trial. No card needed.",
+          link: SIGNUP_URL,
+          infoLink: {
+            text: "View Plans & Limits",
+            href: "/plans"
+          }
         },
         secondaryCta: {
           text: "Book a Demo",
           subtext: "30 min with a product expert.",
           link: "/business#demo-form"
         },
-        frictionLine: "No credit card required  ·  Cancel anytime  ·  DWG compatible  ·  GDPR compliant"
+        frictionLine: "No credit card required  ·  Cancel anytime  ·  Import DWG & DXF  ·  GDPR compliant"
       }
     ];
-
-    const fallbackFaqSection: any = fallbackSections.find((s: any) => s._type === 'globalFAQ');
-    const faqSchema = fallbackFaqSection ? {
-      "@context": "https://schema.org/",
-      "@type": "FAQPage",
-      "name": "Zlendo Realty Floor Planner - Frequently Asked Questions",
-      "mainEntity": fallbackFaqSection.faqs.map((f: { question: string; answer: string }) => ({
-        "@type": "Question",
-        "name": f.question,
-        "acceptedAnswer": { "@type": "Answer", "text": f.answer }
-      }))
-    } : null;
 
     return (
       <>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
-        {faqSchema && <JsonLd schema={faqSchema} />}
         <main className="min-h-screen">
           <SectionRenderer sections={fallbackSections} />
           <SeoContent />
@@ -279,22 +282,9 @@ const GlobalFloorPlannerPage = async () => {
     );
   }
 
-  const cmsFaqSection: any = pageData.sections?.find((s: any) => s._type === 'globalFAQ');
-  const cmsFaqSchema = cmsFaqSection?.faqs?.length ? {
-    "@context": "https://schema.org/",
-    "@type": "FAQPage",
-    "name": "Zlendo Realty Floor Planner - Frequently Asked Questions",
-    "mainEntity": cmsFaqSection.faqs.map((f: { question: string; answer: string }) => ({
-      "@type": "Question",
-      "name": f.question,
-      "acceptedAnswer": { "@type": "Answer", "text": f.answer }
-    }))
-  } : null;
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
-      {cmsFaqSchema && <JsonLd schema={cmsFaqSchema} />}
       <main className="min-h-screen">
         <SectionRenderer sections={pageData.sections} />
         <SeoContent />

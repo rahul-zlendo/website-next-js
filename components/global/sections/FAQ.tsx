@@ -51,8 +51,12 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
                   }`}
               >
                 <button
+                  type="button"
+                  id={`faq-btn-${index}`}
+                  aria-expanded={activeIndex === index}
+                  aria-controls={`faq-answer-${index}`}
                   onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-zlendo-teal"
                 >
                   <h3 className={`m-0 p-0 text-base md:text-lg font-black transition-colors duration-300 ${activeIndex === index ? 'text-zlendo-teal' : 'text-zlendo-grey-dark'
                     }`}>
@@ -66,6 +70,9 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
                 <AnimatePresence>
                   {activeIndex === index && (
                     <motion.div
+                      id={`faq-answer-${index}`}
+                      role="region"
+                      aria-labelledby={`faq-btn-${index}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
