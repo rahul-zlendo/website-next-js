@@ -116,8 +116,15 @@ const ComparePlans: React.FC<ComparePlansProps> = ({ compareData, plansList, bil
                                 discountedPrice = Math.round(discountedPrice);
                             }
 
-                            const displayPrice = discountedPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
-                            const originalPriceFormatted = normalPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
+                            const isIndiaPlan = plan?.countryName === "India";
+                            const finalNormalPrice = isIndiaPlan ? Math.round(normalPrice) : normalPrice;
+                            const finalDiscountedPrice = isIndiaPlan ? Math.round(discountedPrice) : discountedPrice;
+                            const displayPrice = isIndiaPlan
+                                ? finalDiscountedPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN', { maximumFractionDigits: 0 })
+                                : finalDiscountedPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
+                            const originalPriceFormatted = isIndiaPlan
+                                ? finalNormalPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN', { maximumFractionDigits: 0 })
+                                : finalNormalPrice.toLocaleString(isGlobal ? 'en-US' : 'en-IN');
                             // periodLabel set above
 
                             return (

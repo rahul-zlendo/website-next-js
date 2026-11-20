@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import JsonLd from '@/components/common/JsonLd';
-import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 import {
   Clock,
   TrendingUp,
@@ -15,7 +15,9 @@ import {
   Hammer,
   Home,
   MousePointerClick,
-  Quote
+  Quote,
+  Star,
+  ExternalLink
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import FAQ from '@/components/global/sections/FAQ';
@@ -101,6 +103,43 @@ export default function TwoDToThreeDPage() {
   const { scrollYProgress } = useScroll();
   const heroY = useTransform(scrollYProgress, [0, 0.2], [0, 150]);
 
+  const pageFaqs = [
+    {
+      question: "What file formats can I upload for 2D to 3D conversion?",
+      answer: "You can upload architectural plans in PDF, PNG, and JPG formats. For vector CAD workflows, you can export your completed 3D designs into scaled 2D DXF and PDF files for AutoCAD and Revit downstream editing. Native DWG direct upload is planned on our roadmap."
+    },
+    {
+      question: "How long does the 2D to 3D conversion take?",
+      answer: "AI layout detection and 3D wall extrusion take approximately 30 to 90 seconds for standard residential floor plans (under 2 minutes total from upload to interactive model). Refining furniture, textures, and generating 4K client presentation renders typically takes 15 to 45 minutes."
+    },
+    {
+      question: "What is included in the free trial, and what are the plan limits?",
+      answer: "The 14-day free trial includes full 2D layout uploading, automated 3D wall and opening generation, standard interactive 3D walkthrough previews, and 1 active project with no credit card required. Production 4K photorealistic rendering, DXF vector CAD exports, and unlimited projects require an active Pro or Enterprise plan."
+    },
+    {
+      question: "Can I customize the 3D model after conversion?",
+      answer: "Yes. Once the 3D layout is generated, every wall, door, and window remains parametric and editable. You can adjust dimensions, change flooring and wall finishes, and furnish the interior using thousands of catalog assets."
+    },
+    {
+      question: "How accurate is the automated 3D conversion?",
+      answer: "Our Vision AI accurately reads wall thicknesses, room boundaries, and openings from clear architectural drawings. Because scanning depends on input drawing quality, all dimensions can be reviewed and edited in the browser before final client presentation."
+    }
+  ];
+
+  const faqSchema = {
+    "@context": "https://schema.org/",
+    "@type": "FAQPage",
+    "name": "Zlendo Realty 2D to 3D Converter - Frequently Asked Questions",
+    "mainEntity": pageFaqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
   const softwareApplicationSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -109,16 +148,15 @@ export default function TwoDToThreeDPage() {
     "applicationSubCategory": "3D Home Design Software",
     "operatingSystem": "Web",
     "url": "https://zlendorealty.com/products/2d-to-3d",
-    "description": "AI-assisted floor-plan conversion software that turns supported images and PDFs into editable 3D home views for review and refinement.",
-    "image": "https://zlendorealty.com/favicon.ico",
+    "description": "AI-assisted floor-plan conversion software that turns supported PDF and image blueprints into editable 3D home models for interactive review and photorealistic client presentation.",
+    "image": "https://zlendorealty.com/assets/2d-to-3d/after-render.webp",
     "softwareVersion": "1.0",
     "offers": {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD",
-      "description": "Free online 2D to 3D conversion tool"
+      "description": "14-day free trial with full drafting and 3D preview access. No credit card required."
     },
-    "aggregateRating": ZLENDO_AGGREGATE_RATING,
     "creator": {
       "@type": "Organization",
       "name": "Zlendo Realty",
@@ -132,13 +170,13 @@ export default function TwoDToThreeDPage() {
     "featureList": [
       "AI-powered 2D to 3D conversion",
       "Floor plan to 3D visualization",
-      "PDF and image upload support",
+      "PDF, PNG and JPG blueprint upload support",
       "Interactive 3D walkthroughs",
       "Smart room detection",
       "Automatic wall and door generation",
       "High-fidelity 3D rendering",
-      "Editable 3D layouts",
-      "Export-ready 3D models",
+      "Editable parametric 3D layouts",
+      "Export to scaled PDF and DXF CAD formats",
       "Realistic materials and lighting"
     ]
   };
@@ -156,6 +194,7 @@ export default function TwoDToThreeDPage() {
   return (
     <div className="min-h-screen bg-white text-[#111] font-nunito selection:bg-zlendo-teal/20 selection:text-zlendo-teal">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <main>
         {/* 1. HERO (Visual Impact First) */}
         <section className="relative h-screen min-h-[800px] flex items-center justify-center overflow-hidden bg-black">
@@ -255,15 +294,15 @@ export default function TwoDToThreeDPage() {
               <div className="order-2 lg:order-1 space-y-8">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-[#111] leading-[1.1] tracking-tight">
                   From Plan to Reality.<br />
-                  <span className="text-zlendo-teal">In Seconds.</span>
+                  <span className="text-zlendo-teal">AI Conversion in ~30–90 Seconds.</span>
                 </h2>
                 <p className="text-xl text-[#666] font-medium leading-relaxed">
-                  Turn uploaded layouts into client-ready 3D spaces instantly — with walls, rooms, structure, lighting, and depth automatically understood.
+                  Turn uploaded PDF, PNG, or JPG blueprints into client-ready 3D spaces in under 2 minutes — with walls, room boundaries, structural openings, and lighting automatically recognized.
                 </p>
                 <div className="flex flex-wrap gap-3 pt-2">
                   {[
                     "Auto wall detection",
-                    "Instant 3D generation",
+                    "30–90s 3D generation",
                     "Client-ready output"
                   ].map((badge) => (
                     <div key={badge} className="flex items-center gap-2 px-4 py-2 bg-white border border-black/5 rounded-full shadow-[0_2px_10px_rgba(0,0,0,0.02)] text-sm font-bold text-[#333]">
@@ -342,7 +381,10 @@ export default function TwoDToThreeDPage() {
           <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-zlendo-teal/10 rounded-full blur-[150px] pointer-events-none" />
 
           <div className="container-custom px-4 text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black mb-6">The Treditional way is bleeding your profit.</h2>
+            <h2 className="text-3xl md:text-5xl font-black mb-6">The Traditional way is bleeding your profit.</h2>
+            <p className="text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto">
+              Compare conventional manual modeling timelines against automated AI geometry reconstruction.
+            </p>
           </div>
 
           <div className="container-custom px-4 max-w-5xl mx-auto">
@@ -354,7 +396,7 @@ export default function TwoDToThreeDPage() {
 
               {/* Before */}
               <div className="bg-white/5 border border-white/10 p-12 md:rounded-l-[3rem] md:rounded-r-none rounded-[2.5rem]">
-                <h3 className="text-2xl font-bold text-slate-400 mb-8">Manual CAD + Rendering</h3>
+                <h3 className="text-2xl font-bold text-slate-400 mb-8">Manual CAD + Offline Rendering</h3>
                 <div className="space-y-6">
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
                     <span className="text-lg font-medium">Draw Floorplan</span>
@@ -370,7 +412,7 @@ export default function TwoDToThreeDPage() {
                   </div>
                   <div className="pt-4 text-left">
                     <div className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Time to Client Presentation</div>
-                    <div className="text-5xl font-black text-white opacity-50">3 Days</div>
+                    <div className="text-5xl font-black text-white opacity-50">~3 Days</div>
                   </div>
                 </div>
               </div>
@@ -381,20 +423,23 @@ export default function TwoDToThreeDPage() {
                 <h3 className="text-2xl font-black text-white mb-8">The Zlendo Realty Workflow</h3>
                 <div className="space-y-6 relative z-10">
                   <div className="flex items-center justify-between border-b border-black/10 pb-4">
-                    <span className="text-lg font-bold">Upload PDF</span>
-                    <span className="text-xl font-black text-[#013f33]">10 Sec</span>
+                    <span className="text-lg font-bold">Upload PDF / Image</span>
+                    <span className="text-xl font-black text-[#013f33]">15–30 Sec</span>
                   </div>
                   <div className="flex items-center justify-between border-b border-black/10 pb-4">
-                    <span className="text-lg font-bold">AI Extrusion</span>
-                    <span className="text-xl font-black text-[#013f33]">30 Sec</span>
+                    <span className="text-lg font-bold">AI 3D Wall Conversion</span>
+                    <span className="text-xl font-black text-[#013f33]">30–90 Sec</span>
                   </div>
                   <div className="flex items-center justify-between border-b border-black/10 pb-4">
-                    <span className="text-lg font-bold">Auto Photorealism</span>
-                    <span className="text-xl font-black text-[#013f33]">Instant</span>
+                    <span className="text-lg font-bold">Interactive 3D Walkthrough</span>
+                    <span className="text-xl font-black text-[#013f33]">Real-Time</span>
                   </div>
                   <div className="pt-4 text-left">
                     <div className="text-sm font-bold text-[#013f33] uppercase tracking-widest mb-1">Time to Client Presentation</div>
                     <div className="text-5xl font-black text-white drop-shadow-md">Under 60 Min</div>
+                    <div className="text-xs text-[#013f33] font-bold mt-2">
+                      * Includes ~2 min AI conversion plus interactive furniture placement & finish styling.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -468,38 +513,105 @@ export default function TwoDToThreeDPage() {
             </h3>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="p-10 rounded-[2.5rem] bg-[#FAFAFC] border border-black/5">
-                <div className="text-6xl font-black text-[#111] mb-4">60%</div>
-                <div className="text-xl font-bold text-[#111] mb-2">Faster Approvals</div>
-                <p className="text-[#666] font-medium">Clients say "yes" faster when they can virtually experience the space.</p>
+              <div className="p-10 rounded-[2.5rem] bg-[#FAFAFC] border border-black/5 flex flex-col justify-between text-left">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-teal-50 text-zlendo-teal flex items-center justify-center mb-6">
+                    <TrendingUp className="w-6 h-6" />
+                  </div>
+                  <div className="text-2xl font-black text-[#111] mb-3">Accelerated Approvals</div>
+                  <p className="text-[#666] font-medium leading-relaxed">
+                    Clients understand 3D spatial volumes faster than 2D technical blueprints, minimizing design iteration cycles and miscommunication.
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-black/5 text-xs font-bold text-slate-400">
+                  Interactive real-time 3D walkthroughs
+                </div>
               </div>
-              <div className="p-10 rounded-[2.5rem] bg-[#FAFAFC] border border-black/5">
-                <div className="text-6xl font-black text-[#111] mb-4">3x</div>
-                <div className="text-xl font-bold text-[#111] mb-2">Project Capacity</div>
-                <p className="text-[#666] font-medium">Automate rendering to free up your architects for high-value design work.</p>
+              <div className="p-10 rounded-[2.5rem] bg-[#FAFAFC] border border-black/5 flex flex-col justify-between text-left">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
+                    <Clock className="w-6 h-6" />
+                  </div>
+                  <div className="text-2xl font-black text-[#111] mb-3">Higher Project Velocity</div>
+                  <p className="text-[#666] font-medium leading-relaxed">
+                    Automating 2D wall lifting and room detection frees architectural design teams to focus on client consultation and high-value detailing.
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-black/5 text-xs font-bold text-slate-400">
+                  ~30–90 second AI model generation
+                </div>
               </div>
-              <div className="p-10 rounded-[2.5rem] bg-[#FAFAFC] border border-black/5">
-                <div className="text-6xl font-black text-[#111] mb-4">20%</div>
-                <div className="text-xl font-bold text-[#111] mb-2">Higher Bump in Fees</div>
-                <p className="text-[#666] font-medium">Premium presentations allow you to command premium prices effortlessly.</p>
+              <div className="p-10 rounded-[2.5rem] bg-[#FAFAFC] border border-black/5 flex flex-col justify-between text-left">
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mb-6">
+                    <Building2 className="w-6 h-6" />
+                  </div>
+                  <div className="text-2xl font-black text-[#111] mb-3">Premium Presentations</div>
+                  <p className="text-[#666] font-medium leading-relaxed">
+                    Deliver immersive 360° virtual tours and photorealistic rendering that elevate your firm's pitch competitiveness.
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-black/5 text-xs font-bold text-slate-400">
+                  Exportable to CAD & 4K renders
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 8. SOCIAL PROOF */}
+        {/* 8. SOCIAL PROOF & VERIFIED RATINGS */}
         <section className="py-24 bg-[#FAFAFC] border-t border-black/5">
           <div className="container-custom px-4 text-center max-w-4xl mx-auto">
-            <Quote className="w-16 h-16 text-zlendo-teal/30 mx-auto mb-8" />
-            <h2 className="text-2xl md:text-4xl font-black text-[#111] leading-snug mb-12">
-              "Zlendo Realty is the first tool that actually fits into a professional workflow. We win bids on the spot now."
+            <span className="text-xs font-black uppercase tracking-widest text-zlendo-teal mb-3 block">Independent Verification</span>
+            <h2 className="text-3xl md:text-4xl font-black text-[#111] mb-6">
+              Trusted for Fast Architectural Visualization
             </h2>
-            <div className="flex items-center justify-center gap-4">
-              <img src="/assets/2d-to-3d/testimonial-sarah.webp" alt="Sarah J" className="w-16 h-16 rounded-full grayscale opacity-80" loading="lazy" />
-              <div className="text-left">
-                <div className="font-black text-[#111] text-lg">Sarah Jenkins</div>
-                <div className="text-[#666] font-medium">Principal Architect, DesignStudio NY</div>
-              </div>
+            <p className="text-lg text-slate-600 font-medium mb-12 max-w-2xl mx-auto">
+              Read verified feedback from design professionals and home planners using Zlendo Realty software.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-stretch justify-center gap-6 max-w-xl mx-auto">
+              <a
+                href="https://www.capterra.com/p/10036307/Zlendo-Realty"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Read Zlendo Realty verified reviews on Capterra"
+                className="flex-1 flex flex-col items-center justify-center p-6 bg-white border border-black/5 rounded-3xl shadow-sm hover:shadow-md hover:border-zlendo-teal/30 transition-all group"
+              >
+                <img
+                  src="/assets/capterra-logo.webp"
+                  alt="Capterra Official Logo"
+                  className="h-6 w-auto object-contain mb-3 opacity-90 group-hover:opacity-100"
+                />
+                <div className="flex items-center gap-1.5 mb-1">
+                  <span className="text-lg font-black text-slate-900">5.0 / 5</span>
+                  <div className="flex gap-0.5">
+                    {[1, 2, 3, 4, 5].map(star => (
+                      <Star key={star} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                    ))}
+                  </div>
+                </div>
+                <span className="text-xs font-bold text-slate-400 group-hover:text-zlendo-teal transition-colors flex items-center gap-1">
+                  Verified Capterra Listing <ExternalLink className="w-3 h-3" />
+                </span>
+              </a>
+
+              <a
+                href="https://www.producthunt.com/products/zlendo-realty/reviews"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Read Zlendo Realty community reviews on Product Hunt"
+                className="flex-1 flex flex-col items-center justify-center p-6 bg-white border border-black/5 rounded-3xl shadow-sm hover:shadow-md hover:border-[#da552f]/30 transition-all group"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-6 h-6 bg-[#da552f] rounded-full flex items-center justify-center text-white font-bold text-xs">P</div>
+                  <span className="text-[#da552f] font-black text-lg tracking-tight">Product Hunt</span>
+                </div>
+                <div className="text-sm font-bold text-slate-700 mb-1">Community Reviews</div>
+                <span className="text-xs font-bold text-slate-400 group-hover:text-[#da552f] transition-colors flex items-center gap-1">
+                  View Launch Feedback <ExternalLink className="w-3 h-3" />
+                </span>
+              </a>
             </div>
           </div>
         </section>
@@ -507,28 +619,7 @@ export default function TwoDToThreeDPage() {
         {/* 9. FAQ SECTION */}
         <FAQ data={{
           title: "Frequently Asked Questions",
-          faqs: [
-            {
-              question: "What types of files can I upload for 2D to 3D conversion?",
-              answer: "You can upload PDFs, JPEGs, PNGs, and standard architectural sketches. Our AI automatically detects walls, doors, and rooms from these formats."
-            },
-            {
-              question: "How accurate is the 3D conversion?",
-              answer: "Our proprietary Vision AI provides highly accurate extrusions by mapping dimensions from your 2D plans. You can also manually adjust any walls or features post-conversion."
-            },
-            {
-              question: "Do I need design experience to use this?",
-              answer: "Upload a supported floor plan and review the generated 3D model. You can refine walls and dimensions after conversion; have a qualified professional review plans before construction."
-            },
-            {
-              question: "Can I customize the 3D model after conversion?",
-              answer: "Yes. Once the 3D layout is generated, you can change floor materials, paint walls, and populate rooms with thousands of pieces of furniture from our library."
-            },
-            {
-              question: "How quickly is the 3D model generated?",
-              answer: "Processing time depends on the size, clarity and complexity of your floor plan. Review the generated model and allow time to refine dimensions and details."
-            }
-          ]
+          faqs: pageFaqs
         }} />
 
         {/* 10. FINAL CTA */}
@@ -539,16 +630,24 @@ export default function TwoDToThreeDPage() {
               Design. Render.<br />Close Clients — in Minutes.
             </h2>
             <p className="text-xl text-slate-400 font-medium mb-12 max-w-xl mx-auto">
-              Join the fastest-growing professional design platform today.
+              Join architects, designers, and builders converting 2D plans to interactive 3D presentations today.
             </p>
-            <a
-              href={SIGNUP_URL}
-              className="inline-flex items-center gap-3 px-12 py-6 bg-zlendo-teal text-white font-black text-2xl rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_40px_rgba(0,191,154,0.3)] hover:scale-105"
-            >
-              Start Free Trial
-            </a>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href={SIGNUP_URL}
+                className="inline-flex items-center gap-3 px-12 py-6 bg-zlendo-teal text-white font-black text-2xl rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_40px_rgba(0,191,154,0.3)] hover:scale-105"
+              >
+                Start 14-Day Free Trial
+              </a>
+              <Link
+                href="/plans"
+                className="inline-flex items-center gap-2 px-8 py-6 bg-white/10 hover:bg-white/20 text-white font-bold text-lg rounded-full transition-all border border-white/10"
+              >
+                View Plans &amp; Limits <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
             <p className="mt-8 text-sm font-bold text-slate-500 uppercase tracking-widest">
-              No credit card required. Cancel anytime.
+              No credit card required. 14 days full drafting access.
             </p>
           </div>
         </section>
