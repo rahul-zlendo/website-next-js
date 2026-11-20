@@ -6,7 +6,7 @@
 // Get blob URL from environment or use default
 export const BLOB_BASE_URL = process.env.NEXT_PUBLIC_BLOB_URL || 'https://zrealtystoragedev.blob.core.windows.net/';
 // SAS token for authenticated access when public access is not permitted
-export const BLOB_SAS_TOKEN = process.env.NEXT_PUBLIC_BLOB_SAS_TOKEN || 'sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2026-11-18T20:34:53Z&st=2025-09-12T12:19:53Z&spr=https,http&sig=KNQs7rhe81AeQfnd%2BS4QMPWWo55VbNICTufFVYe5KhA%3D';
+export const BLOB_SAS_TOKEN = process.env.NEXT_PUBLIC_BLOB_SAS_TOKEN || 'sv=2026-02-06&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2027-11-30T14:05:23Z&st=2026-11-19T05:50:23Z&spr=https,http&sig=ARiJBTqrMEwNsqAZ%2BTWCUg6DWL%2FFwT88jHGtZAXxj4I%3D';
 
 /**
  * IndexedDB cache for blob URLs
@@ -105,18 +105,18 @@ async function cacheUrl(url: string, blob: Blob): Promise<void> {
  * Construct full URL from relative path
  */
 export function constructFullBlobUrl(relativeUrl: string): string {
-    if (!relativeUrl) return '';
-    
-    // If it's already an absolute URL or local path, return it as is
-    if (relativeUrl.startsWith('http://') || relativeUrl.startsWith('https://') || relativeUrl.startsWith('/assets/') || relativeUrl.startsWith('/')) {
-        return relativeUrl;
-    }
-    
-    // Otherwise, prepend the Azure blob base URL
-    const cleanBaseUrl = BLOB_BASE_URL.endsWith('/') ? BLOB_BASE_URL.slice(0, -1) : BLOB_BASE_URL;
-    const cleanRelativeUrl = relativeUrl.startsWith('/') ? relativeUrl : `/${relativeUrl}`;
-    
-    return `${cleanBaseUrl}${cleanRelativeUrl}`;
+  if (!relativeUrl) return '';
+
+  // If it's already an absolute URL or local path, return it as is
+  if (relativeUrl.startsWith('http://') || relativeUrl.startsWith('https://') || relativeUrl.startsWith('/assets/') || relativeUrl.startsWith('/')) {
+    return relativeUrl;
+  }
+
+  // Otherwise, prepend the Azure blob base URL
+  const cleanBaseUrl = BLOB_BASE_URL.endsWith('/') ? BLOB_BASE_URL.slice(0, -1) : BLOB_BASE_URL;
+  const cleanRelativeUrl = relativeUrl.startsWith('/') ? relativeUrl : `/${relativeUrl}`;
+
+  return `${cleanBaseUrl}${cleanRelativeUrl}`;
 }
 
 /**

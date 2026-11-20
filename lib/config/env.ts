@@ -33,7 +33,7 @@ const BACKEND_URL_PROD = 'https://prodapi.zlendorealty.com';
 
 // Blob URL
 export const REACT_APP_BLOB_URL = process.env.NEXT_PUBLIC_BLOB_URL || 'https://zrealtystoragedev.blob.core.windows.net/';
-export const REACT_APP_BLOB_KEY = "sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2026-11-18T20:34:53Z&st=2025-09-12T12:19:53Z&spr=https,http&sig=KNQs7rhe81AeQfnd%2BS4QMPWWo55VbNICTufFVYe5KhA%3D"
+export const REACT_APP_BLOB_KEY = "sv=2026-02-06&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2027-11-30T14:05:23Z&st=2026-11-19T05:50:23Z&spr=https,http&sig=ARiJBTqrMEwNsqAZ%2BTWCUg6DWL%2FFwT88jHGtZAXxj4I%3D";
 
 
 
