@@ -2,11 +2,13 @@
 import { correctLegacyProductCopy } from '@/lib/seo/product-copy';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Box, Sparkles,
     CheckCircle2, Play, Zap, Upload, Image as ImageIcon,
-    ChevronDown, ChevronRight, Star, ShieldCheck, ThumbsUp, X
+    ChevronDown, ChevronRight, Star, ShieldCheck, ThumbsUp, X,
+    ArrowRight, Info, AlertTriangle, Layers, FileText
 } from 'lucide-react';
 import { SIGNUP_URL } from '@/lib/constants/urls';
 import { constructFullBlobUrl } from '@/lib/utils/blobUtils';
@@ -138,10 +140,7 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         viewport={{ once: true }}
                         className="max-w-4xl mx-auto"
                     >
-                        <div
-                            className="group relative cursor-pointer"
-                        >
-                            <a href={cms?.uploadButtonLink || cms?.heroCtaLink || SIGNUP_URL} className="absolute inset-0 z-20" />
+                        <div className="group relative">
                             {/* Animated Glow Effect behind the box */}
                             <div className="absolute -inset-1 bg-gradient-to-r from-zlendo-teal via-blue-500 to-purple-500 rounded-[2.5rem] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-500" />
 
@@ -164,8 +163,8 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
 
                                     {/* Orbiting File Types */}
                                     {[
-                                        { label: 'JPG', angle: 0, color: 'bg-blue-100 text-blue-600' },
-                                        { label: 'PDF', angle: 120, color: 'bg-red-100 text-red-600' },
+                                        { label: 'PDF', angle: 0, color: 'bg-red-100 text-red-600' },
+                                        { label: 'JPG', angle: 120, color: 'bg-blue-100 text-blue-600' },
                                         { label: 'PNG', angle: 240, color: 'bg-green-100 text-green-600' }
                                     ].map((file) => (
                                         <motion.div
@@ -184,18 +183,31 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                                 </div>
 
                                 <h2 className="text-3xl md:text-4xl font-black font-nunito text-zlendo-grey-dark mb-4 group-hover:text-zlendo-teal transition-colors">
-                                    {cms?.uploadTitle || 'Upload your floor plan'}
-                                    {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
-                                <p className="text-lg text-slate-500 font-medium mb-8 max-w-lg">
-                                    {cms?.uploadSubtitle || 'Drag & drop your 2D sketch, image, or CAD file here to instantly generate a 3D model.'}
+                                    {cms?.uploadTitle || 'Upload Your Floor Plan'}
+                                </h2>
+                                <p className="text-lg text-slate-500 font-medium mb-6 max-w-lg">
+                                    {cms?.uploadSubtitle || 'Upload your 2D architectural blueprint or drawing in PDF, JPG, or PNG format to automatically generate an editable 3D model.'}
                                 </p>
 
-                                <button className="px-8 py-4 bg-zlendo-teal text-white rounded-xl font-bold text-lg shadow-lg shadow-zlendo-teal/20 group-hover:scale-105 transition-transform flex items-center gap-2">
-                                    <ImageIcon className="w-5 h-5" /> {cms?.uploadButtonLabel || 'Select File to Upload'}
-                                </button>
+                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-md mb-4">
+                                    <a
+                                        href={cms?.uploadButtonLink || cms?.heroCtaLink || SIGNUP_URL}
+                                        className="w-full sm:w-auto px-8 py-4 bg-zlendo-teal hover:bg-zlendo-teal-dark text-white rounded-xl font-bold text-lg shadow-lg shadow-zlendo-teal/20 hover:scale-105 transition-all flex items-center justify-center gap-2"
+                                    >
+                                        <Upload className="w-5 h-5" /> Select File to Upload
+                                    </a>
+                                </div>
 
-                                <div className="mt-8 flex items-center gap-2 text-sm font-bold text-slate-400">
-                                    <ShieldCheck className="w-4 h-4" /> Secure SSL Encryption
+                                <p className="text-xs text-slate-500 font-medium max-w-md mb-6 leading-relaxed">
+                                    Clicking launches your design studio. New users enjoy a 14-day full drafting trial (no card required) to upload and convert plans immediately.
+                                </p>
+
+                                <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-bold text-slate-500 pt-2 border-t border-slate-100 w-full">
+                                    <span className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" /> Supported: PDF, JPG, PNG</span>
+                                    <span className="text-slate-300">•</span>
+                                    <span className="flex items-center gap-1.5"><Info className="w-3.5 h-3.5 text-blue-500" /> Vector DXF CAD export available on Pro plans</span>
+                                    <span className="text-slate-300">•</span>
+                                    <span className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-zlendo-teal" /> Secure SSL Encryption</span>
                                 </div>
                             </div>
                         </div>
@@ -235,8 +247,8 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
             {/* 4. ZIG-ZAG STEPS */}
             <section className="py-12 lg:py-20 bg-white">
                 <div className="container-custom px-6 text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || 'How It Works'}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
-                    <p className="text-xl text-zlendo-grey-medium font-medium">{cms?.stepsSectionSubtitle || 'Four simple steps to your dream result.'}</p>
+                    <h2 className="text-4xl font-black text-zlendo-grey-dark mb-4">{cms?.stepsSectionTitle || 'How the 2D to 3D Workflow Operates'}</h2>
+                    <p className="text-xl text-zlendo-grey-medium font-medium">{cms?.stepsSectionSubtitle || 'Four streamlined steps from blueprint upload to interactive 3D model.'}</p>
                 </div>
 
                 <div className="container-custom px-6 space-y-24">
@@ -293,46 +305,61 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                         </div>
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-zlendo-grey-dark mb-6 leading-tight">
                             Instant Interiors. <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Drag. Drop. Done.</span>
-                            {isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">Drag. Drop. Furnish.</span>
+                        </h2>
                         <p className="text-xl text-zlendo-grey-medium font-medium leading-relaxed max-w-2xl mx-auto">
-                            Skip the modeling phase. Access thousands of ready-to-use 3D assets to create stunning, accurate spaces in minutes directly from your 2D plans.
+                            Skip manual 3D modeling. Populate your converted 2D plans with thousands of ready-to-use 3D assets tailored to modern and Indian residential spaces.
                         </p>
                     </div>
 
                     <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
                         {/* Feature 1 */}
-                        <div className="bg-slate-50 rounded-[2rem] p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow text-center">
-                            <div className="w-16 h-16 mx-auto bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
-                                <Box className="w-8 h-8 text-blue-600" />
+                        <div className="bg-slate-50 rounded-[2rem] p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow text-center flex flex-col justify-between">
+                            <div>
+                                <div className="w-16 h-16 mx-auto bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
+                                    <Box className="w-8 h-8 text-blue-600" />
+                                </div>
+                                <h3 className="text-xl font-black text-zlendo-grey-dark mb-3">10,000+ 3D Assets</h3>
+                                <p className="text-slate-500 font-medium text-sm leading-relaxed mb-4">
+                                    From sectional sofas and pooja mandirs to modular kitchen cabinets and sanitary fittings.
+                                </p>
                             </div>
-                            <h3 className="text-xl font-black text-zlendo-grey-dark mb-3">10,000+ Assets</h3>
-                            <p className="text-slate-500 font-medium text-sm leading-relaxed">
-                                From luxury sofas to standard bathroom fixtures. Everything you need to furnish a complete home.
-                            </p>
+                            <div className="pt-4 border-t border-slate-200/60 text-xs font-bold text-slate-400">
+                                Parametric materials & finishes
+                            </div>
                         </div>
 
                         {/* Feature 2 */}
-                        <div className="bg-zlendo-grey-dark rounded-[2rem] p-8 shadow-xl text-center relative overflow-hidden">
+                        <div className="bg-zlendo-grey-dark rounded-[2rem] p-8 shadow-xl text-center relative overflow-hidden flex flex-col justify-between">
                             <div className={`absolute inset-0 bg-gradient-to-br ${heroGradient} opacity-30`} />
-                            <div className="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center mb-6 relative z-10">
-                                <Sparkles className="w-8 h-8 text-white" />
+                            <div className="relative z-10">
+                                <div className="w-16 h-16 mx-auto bg-white/10 rounded-2xl flex items-center justify-center mb-6">
+                                    <Sparkles className="w-8 h-8 text-white" />
+                                </div>
+                                <h3 className="text-xl font-black text-white mb-3">One-Click Space Styling</h3>
+                                <p className="text-white/70 font-medium text-sm leading-relaxed mb-4">
+                                    Drag and drop elements directly into your converted rooms. Adjust dimensions and finishes on the fly.
+                                </p>
                             </div>
-                            <h3 className="text-xl font-black text-white mb-3 relative z-10">One-Click Styling</h3>
-                            <p className="text-white/70 font-medium text-sm leading-relaxed relative z-10">
-                                Drag and drop elements directly into your converted floorplan. Zero complex 3D modeling required.
-                            </p>
+                            <div className="relative z-10 pt-4 border-t border-white/10 text-xs font-bold text-teal-300">
+                                Real-time WebGL rendering
+                            </div>
                         </div>
 
                         {/* Feature 3 */}
-                        <div className="bg-slate-50 rounded-[2rem] p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow text-center">
-                            <div className="w-16 h-16 mx-auto bg-cyan-100 rounded-2xl flex items-center justify-center mb-6">
-                                <CheckCircle2 className="w-8 h-8 text-cyan-600" />
+                        <div className="bg-slate-50 rounded-[2rem] p-8 shadow-sm border border-slate-100 hover:shadow-xl transition-shadow text-center flex flex-col justify-between">
+                            <div>
+                                <div className="w-16 h-16 mx-auto bg-cyan-100 rounded-2xl flex items-center justify-center mb-6">
+                                    <CheckCircle2 className="w-8 h-8 text-cyan-600" />
+                                </div>
+                                <h3 className="text-xl font-black text-zlendo-grey-dark mb-3">Indicative Cost Estimates</h3>
+                                <p className="text-slate-500 font-medium text-sm leading-relaxed mb-4">
+                                    Placed fixtures generate indicative material and furniture budgets based on regional standard market schedules.
+                                </p>
                             </div>
-                            <h3 className="text-xl font-black text-zlendo-grey-dark mb-3">Instant Budgets</h3>
-                            <p className="text-slate-500 font-medium text-sm leading-relaxed">
-                                Standard items map directly to real-world costs—generating accurate budget estimates automatically.
-                            </p>
+                            <div className="pt-4 border-t border-slate-200/60 text-[11px] font-bold text-slate-400 leading-tight">
+                                Indicative baseline; excludes civil masonry & structural labor
+                            </div>
                         </div>
                     </div>
 
@@ -349,29 +376,133 @@ export default function TwoDTo3DClient({ cms, resolvedFaqs, resolvedSteps, resol
                 </div>
             </section>
 
+            {/* 5.6. CONVERSION QUALITY & INDIA WORKED EXAMPLE */}
+            <section className="py-20 bg-slate-50 border-b border-slate-200">
+                <div className="container-custom px-6">
+                    <div className="max-w-4xl mx-auto text-center mb-16">
+                        <span className="text-xs font-black uppercase tracking-widest text-zlendo-teal mb-3 block">Conversion Quality & Verification</span>
+                        <h2 className="text-3xl md:text-5xl font-black text-zlendo-grey-dark mb-4">
+                            What Is Automated — And What You Verify
+                        </h2>
+                        <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">
+                            Our Vision AI detects wall centerlines and structural openings automatically. You maintain full parametric control to inspect, refine, and sanction dimensions.
+                        </p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto items-stretch mb-12">
+                        {/* Worked Example Box */}
+                        <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-md flex flex-col justify-between">
+                            <div>
+                                <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
+                                        <span className="text-xs font-black uppercase tracking-wider text-slate-700">Indian 3BHK Apartment Case Study</span>
+                                    </div>
+                                    <span className="text-xs font-mono text-slate-400 bg-slate-100 px-2.5 py-1 rounded-md">1,580 sq.ft (146.8 m²)</span>
+                                </div>
+                                <div className="relative rounded-2xl overflow-hidden aspect-video bg-slate-900 border border-slate-100 mb-6">
+                                    <img
+                                        src="/assets/2d-to-3d/after-render.webp"
+                                        alt="Converted 3BHK Indian Apartment 3D Model"
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute bottom-3 left-3 bg-black/70 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Vastu-aligned Pooja &amp; Kitchen layout
+                                    </div>
+                                </div>
+                                <h3 className="text-xl font-black text-zlendo-grey-dark mb-3">
+                                    From 2D Blueprint to Navigable 3D Interior
+                                </h3>
+                                <p className="text-slate-600 text-sm leading-relaxed mb-4">
+                                    Input drawing scanned in 22 seconds; walls, doors, and fenestrations generated automatically. The architect fine-tuned bathroom duct chases and balcony parapet heights in under 8 minutes.
+                                </p>
+                            </div>
+                            <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-100 text-center text-xs font-mono">
+                                <div className="bg-slate-50 p-2 rounded-lg">
+                                    <span className="text-slate-400 block text-[10px] uppercase">Scan Time</span>
+                                    <span className="font-bold text-slate-800">22 Sec</span>
+                                </div>
+                                <div className="bg-slate-50 p-2 rounded-lg">
+                                    <span className="text-slate-400 block text-[10px] uppercase">Wall Extrusion</span>
+                                    <span className="font-bold text-slate-800">48 Sec</span>
+                                </div>
+                                <div className="bg-slate-50 p-2 rounded-lg">
+                                    <span className="text-slate-400 block text-[10px] uppercase">Export Ready</span>
+                                    <span className="font-bold text-slate-800">DXF &amp; PDF</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Checklist & Transparency Matrix */}
+                        <div className="bg-white rounded-3xl p-8 border border-slate-200/80 shadow-md flex flex-col justify-between">
+                            <div>
+                                <h3 className="text-xl font-black text-zlendo-grey-dark mb-6 flex items-center gap-2">
+                                    <Layers className="w-5 h-5 text-zlendo-teal" /> Automation vs. Architect Verification
+                                </h3>
+                                <div className="space-y-4">
+                                    <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-sm">
+                                        <div className="font-bold text-emerald-900 flex items-center gap-2 mb-1">
+                                            <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Automated by AI Engine
+                                        </div>
+                                        <ul className="list-disc list-inside text-xs text-emerald-800 space-y-1">
+                                            <li>Wall centerline detection and corner intersection snapping</li>
+                                            <li>Door swings, window openings, and wall cutouts</li>
+                                            <li>Floor slab creation and automatic ceiling height extrusion (default 3.0m)</li>
+                                        </ul>
+                                    </div>
+
+                                    <div className="p-4 rounded-2xl bg-amber-50/60 border border-amber-100 text-sm">
+                                        <div className="font-bold text-amber-900 flex items-center gap-2 mb-1">
+                                            <AlertTriangle className="w-4 h-4 text-amber-600" /> User Inspection &amp; Refinement
+                                        </div>
+                                        <ul className="list-disc list-inside text-xs text-amber-800 space-y-1">
+                                            <li>Verify masonry wall thickness (e.g. 9" exterior vs 4.5" partition brickwork)</li>
+                                            <li>Confirm door clear-widths and lintel level heights</li>
+                                            <li>Check structural column locations against engineer RCC drawings</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500 leading-relaxed italic">
+                                * Advisory: 3D generated models are intended for spatial planning, design iteration, and client walkthroughs. Final structural sanction and municipal building permits require certification from a registered civil engineer.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* 6. FAQ */}
             <section className="py-16 bg-slate-50">
                 <div className="container-custom px-6 max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || 'Frequently Asked Questions'}{isIndiaSite && <span className="sr-only"> (India)</span>}</h2>
+                    <h2 className="text-3xl font-black text-center text-zlendo-grey-dark mb-8">{cms?.faqTitle || 'Frequently Asked Questions'}</h2>
                     <div className="space-y-4">
                         {resolvedFaqs.map((faq, i) => (
-                            <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors">
+                            <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors bg-white shadow-sm">
                                 <button
+                                    type="button"
+                                    id={`faq-toggle-${i}`}
+                                    aria-expanded={activeFaq === i}
+                                    aria-controls={`faq-content-${i}`}
                                     onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                                    className="w-full px-6 py-5 flex items-center justify-between text-left bg-transparent"
+                                    className="w-full px-6 py-5 flex items-center justify-between text-left bg-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-zlendo-teal"
                                 >
                                     <h3 className="m-0 p-0 text-lg font-bold text-zlendo-grey-dark">{faq.q}</h3>
-                                    <ChevronDown className={`w-5 h-5 ml-4 flex-shrink-0 text-slate-400 transition-transform ${activeFaq === i ? 'rotate-180' : ''}`} />
+                                    <ChevronDown className={`w-5 h-5 ml-4 flex-shrink-0 text-slate-400 transition-transform ${activeFaq === i ? 'rotate-180 text-zlendo-teal' : ''}`} />
                                 </button>
                                 <AnimatePresence>
                                     {activeFaq === i && (
                                         <motion.div
-                                            initial={{ height: 0 }}
-                                            animate={{ height: 'auto' }}
-                                            exit={{ height: 0 }}
-                                            className="overflow-hidden bg-slate-50"
+                                            id={`faq-content-${i}`}
+                                            role="region"
+                                            aria-labelledby={`faq-toggle-${i}`}
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                                            className="overflow-hidden bg-slate-50/70 border-t border-slate-100"
                                         >
-                                            <p className="px-6 pb-6 pt-2 text-slate-600 font-medium leading-relaxed">
+                                            <p className="px-6 pb-6 pt-3 text-slate-600 font-medium leading-relaxed text-sm md:text-base">
                                                 {faq.a}
                                             </p>
                                         </motion.div>

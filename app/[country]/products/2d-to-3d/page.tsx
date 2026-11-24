@@ -6,7 +6,6 @@ import { getClient } from '@/lib/sanity/client';
 import { twoDTo3DPageQuery } from '@/lib/sanity/queries';
 import TwoDTo3DClient from './TwoDTo3DClient';
 import JsonLd from '@/components/common/JsonLd';
-import { ZLENDO_AGGREGATE_RATING } from '@/lib/utils/structuredData';
 
 // Revalidate every 60 seconds (Incremental Static Regeneration)
 export const revalidate = 60;
@@ -36,8 +35,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         ogImage: {
             url: 'https://zlendorealty.com/assets/2d-to-3d/after-render.webp',
             width: 1200,
-            height: 630,
-            alt: 'Zlendo Realty 2D to 3D Converter',
+            height: 800,
+            alt: 'Zlendo Realty 2D to 3D Floor Plan Converter Before & After Render',
             type: 'image/webp',
         },
     });
@@ -57,27 +56,27 @@ export default async function TwoDToThreeDPage({ params }: Props) {
     const defaultFaqs = [
         {
             q: "What does the 2D to 3D converter do?",
-            a: "The 2D to 3D converter automatically transforms 2D house plan designs into realistic 3D house designs, helping users clearly visualize layout, structure, and spatial flow through accurate 3D architectural visualization."
+            a: "The 2D to 3D converter automatically transforms 2D house plan designs, sketches, and architectural blueprints into realistic 3D home designs. Users can visualize room volumes, circulation flow, and structural layout through real-time 3D walkthroughs."
         },
         {
-            q: "What file formats are supported?",
-            a: "You can upload JPG, PNG, scanned drawings, and PDF floor plans. These files can be converted into editable layouts using our online home plan services and 3D design services in India."
+            q: "What file formats are supported for upload?",
+            a: "You can upload architectural floor plans in PDF, JPG, and PNG formats. Clean black-and-white line drawings yield the highest detection accuracy. Direct DWG file upload is currently on our product roadmap."
         },
         {
-            q: "Do I need to redraw the plan?",
-            a: "No. Simply upload your existing house plan or drawing. The system converts it automatically, saving time and effort during the home plan design process."
+            q: "How accurate is the automated 3D conversion?",
+            a: "Our Vision AI recognizes wall outlines, openings, and room boundaries with high fidelity. Because real-world scans can vary in line quality and resolution, we recommend reviewing wall positions, doors, and room dimensions in our browser editor before using the layout for construction or client presentations."
         },
         {
-            q: "How accurate is the conversion?",
-            a: "The converted model closely follows your original house plan layout and room proportions. You can manually refine dimensions and details to finalize precise residential building plans."
+            q: "What export formats are supported, and what are the plan limits?",
+            a: "Free trial accounts include interactive WebGL 3D walkthrough previews and 1 active project draft. Paid plans allow exporting scaled 2D layout PDFs, high-resolution PNG renders, 4K presentation images, and 2D DXF vector CAD files compatible with AutoCAD and Revit."
         },
         {
-            q: "Can I edit the 3D model after conversion?",
-            a: "Yes. The converted design remains fully editable. You can customize layouts, walls, and interiors to create a truly custom 3D house design."
+            q: "What is included in the free trial?",
+            a: "We offer a 14-day free trial with full drafting access, automated 2D-to-3D wall generation, and interactive 3D walkthroughs without requiring a credit card. Paid subscriptions for CAD export and 4K rendering start at ₹499/month for India users (detailed on /in/plans)."
         },
         {
-            q: "Who typically uses this feature?",
-            a: "This feature is widely used by homeowners, architects, builders, and real estate professionals for planning, presentation, and professional architectural design services."
+            q: "How do Instant Budgets and cost estimates work in India?",
+            a: "Instant Budgets provide indicative cost ranges based on standard regional material rates (CPWD and market benchmarks in metro India). These estimates reflect editable room area and fixture quantities, but exclude site-specific structural masonry, civil labor, local taxes, and custom joinery. A qualified contractor should always verify final project estimates."
         }
     ];
 
@@ -85,35 +84,35 @@ export default async function TwoDToThreeDPage({ params }: Props) {
     const defaultSteps = [
         {
             title: 'Upload Floor Plan',
-            desc: 'Simply upload your 2D floor plan in JPG, PNG, or PDF format. Our AI recognizes the layout immediately.',
+            desc: 'Upload your 2D floor plan in PDF, JPG, or PNG format. Our Vision AI scans wall geometry and structural openings in ~15–30 seconds.',
             image: '/assets/2d-to-3d/upload-floorplan.webp',
             alt: 'Upload 2D floor plan sketch for AI 3D conversion'
         },
         {
-            title: 'AI Processing',
-            desc: 'AI converts lines and shapes into 3D walls, doors, and windows. Processing time depends on the plan and its complexity.',
+            title: 'AI 3D Wall Generation',
+            desc: 'AI extrudes lines into 3D walls, doors, and windows in ~30–90 seconds. You can review and refine parametric dimensions directly in the browser.',
             image: '/assets/Home-Page/2d-to-3d-convertor.webp',
             alt: 'AI-powered automatic floor plan to 3D model conversion'
         },
         {
             title: 'Furnish & Decorate',
-            desc: 'Drag and drop furniture from our massive 3D library to style the room to your taste.',
+            desc: 'Drag and drop furniture and fixtures from our library of 10,000+ assets tailored to modern and Indian residential layouts.',
             image: '/assets/2d-to-3d/furnish.webp',
             alt: 'Customizing 3D interior design with furniture and materials'
         },
         {
-            title: 'Render & Export',
-            desc: 'Generate 4K renderings or export the model to other CAD software for further refinement.',
+            title: 'Export Scaled CAD & 4K Renders',
+            desc: 'Export client-ready deliverables: scaled PDF prints, 2D DXF CAD files for AutoCAD/Revit, or photorealistic 4K renders on Pro plans.',
             image: '/assets/Home-Page/3d-export-toolkit.webp',
-            alt: 'Exporting high-quality 3D renders for real estate presentation'
+            alt: 'Exporting high-quality 3D renders and CAD files for real estate presentation'
         }
     ];
 
     const defaultFeatures = [
-        { title: 'AI Wall Detection', desc: 'Identifies walls, windows, and doors. Review and refine the result before using your design.' },
-        { title: 'Real-Time Editing', desc: 'Modify the generated 3D model instantly in your browser.' },
-        { title: 'Image/PDF Import', desc: 'Upload supported JPG, PNG, or PDF floor plans.' },
-        { title: 'Cloud Rendering', desc: 'High-speed cloud rendering for photorealistic outputs.' }
+        { title: 'AI Wall Detection', desc: 'Identifies walls, windows, and doors from PDF, JPG, and PNG uploads. Review and adjust geometry before finalizing.' },
+        { title: 'Real-Time 3D Editing', desc: 'Modify walls, adjust room heights, and customize floor finishes instantly in your browser.' },
+        { title: 'CAD & PDF Export', desc: 'Export completed models to scaled 2D DXF vector CAD and high-resolution PDF documents.' },
+        { title: 'Photorealistic Cloud Rendering', desc: 'High-speed cloud rendering produces 4K presentation images and 360° virtual tours.' }
     ];
 
     // Merge CMS values over static defaults
@@ -151,16 +150,15 @@ export default async function TwoDToThreeDPage({ params }: Props) {
         "applicationSubCategory": "3D Home Design Software",
         "operatingSystem": "Web",
         "url": fullUrl,
-        "description": "AI-powered 2D to 3D conversion software that transforms floor plans, sketches, PDFs, and architectural drawings into immersive 3D home designs, walkthroughs, and realistic visualizations instantly.",
-        "image": "https://zlendorealty.com/assets/2d-to-3d/og-image.webp",
+        "description": "AI-powered 2D to 3D conversion software that transforms floor plans, sketches, PDFs, and architectural drawings into immersive 3D home designs, walkthroughs, and realistic visualizations.",
+        "image": "https://zlendorealty.com/assets/2d-to-3d/after-render.webp",
         "softwareVersion": "1.0",
         "offers": {
             "@type": "Offer",
             "price": "0",
-            "priceCurrency": "USD",
-            "description": "Free online 2D to 3D conversion tool"
+            "priceCurrency": isGlobal ? "USD" : "INR",
+            "description": "14-day free trial with full drafting access and 3D preview. Paid CAD export and 4K rendering plans start at ₹499/mo (details on /in/plans)."
         },
-        "aggregateRating": ZLENDO_AGGREGATE_RATING,
         "creator": {
             "@type": "Organization",
             "name": "Zlendo Realty",
@@ -174,13 +172,13 @@ export default async function TwoDToThreeDPage({ params }: Props) {
         "featureList": [
             "AI-powered 2D to 3D conversion",
             "Floor plan to 3D visualization",
-            "PDF and image upload support",
+            "PDF, JPG and PNG upload support",
             "Interactive 3D walkthroughs",
             "Smart room detection",
             "Automatic wall and door generation",
             "High-fidelity 3D rendering",
             "Editable 3D layouts",
-            "Export-ready 3D models",
+            "Export to scaled PDF and DXF CAD formats",
             "Realistic materials and lighting"
         ]
     };
